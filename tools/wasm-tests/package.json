@@ -1,0 +1,16 @@
+{
+  "name": "glsmac-wasm-tests",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.16"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs"
+  },
+  "devDependencies": {
+    "pngjs": "7.0.0",
+    "webgl-node": "1.6.1"
+  }
+}

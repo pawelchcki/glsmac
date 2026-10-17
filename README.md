@@ -125,6 +125,9 @@ Requirements may go up slightly as more features are added to game. But I'll try
 
 ### Build instructions
 
+For the browser port's local WASM/WebGL2 test setup, see
+[Browser-free WASM canvas tests](tools/wasm-tests/README.md).
+
 Supported platforms:
 
 - GNU/Linux with GCC compiler
