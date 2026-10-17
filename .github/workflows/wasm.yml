@@ -1,0 +1,80 @@
+name: WebAssembly
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+          cache: npm
+          cache-dependency-path: tools/wasm-tests/package-lock.json
+      - name: Install Emscripten
+        run: |
+          git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install 4.0.22
+          "$RUNNER_TEMP/emsdk/emsdk" activate 4.0.22
+      - name: Build full application
+        run: |
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
+          cmake --build build/wasm -j2
+          emcmake cmake -S . -B build/wasm-release -DCMAKE_BUILD_TYPE=Release -DFETCHCONTENT_SOURCE_DIR_YAML_CPP="$PWD/build/wasm/_deps/yaml_cpp-src"
+          cmake --build build/wasm-release -j2
+      - name: Test WASM graphics, platform code, and threads
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libgles2 libgl1-mesa-dri
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          npm --prefix tools/wasm-tests ci
+          npm --prefix tools/wasm-tests test
+          npm --prefix tools/wasm-tests run test:gse
+          python3 -m unittest discover -s tools -p test_wasm_assets.py
+      - name: Test browser startup
+        run: |
+          cd tools/wasm-tests
+          npx playwright install --with-deps chromium
+          npm run test:assets
+          npm run test:installer
+          npm run test:pages
+          npm run test:app
+          WASM_APP_DIR="$GITHUB_WORKSPACE/build/wasm-release/bin" npm run test:app
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wasm-rendering
+          path: tools/wasm-tests/build/artifacts
+      - name: Upload Pages site
+        if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build/wasm-release/bin
+
+  pages:
+    if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
+    needs: wasm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Publish WASM application
+        id: deployment
+        uses: actions/deploy-pages@v4

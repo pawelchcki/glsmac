@@ -1,6 +1,10 @@
 #define SDL_MAIN_HANDLED 1
 #include <SDL.h>
 
+#ifdef __EMSCRIPTEN__
+#include <limits>
+#endif
+
 #include "SDL2.h"
 
 #include "util/FS.h"
@@ -33,7 +37,18 @@ types::Sound* SDL2::LoadSoundImpl( const std::string& filename ) {
 
 		/* Load the WAV */
 		// the specs, length and buffer of our wav are filled
+#ifdef __EMSCRIPTEN__
+		// Read through the asset bridge so streamed WAV files are present before
+		// SDL decodes them. SDL's filename API bypasses util::FS entirely.
+		std::vector< unsigned char > file;
+		util::FS::ReadFile( file, filename );
+		if ( file.empty() || file.size() > static_cast< size_t >( std::numeric_limits< int >::max() ) ) {
+			return nullptr;
+		}
+		ret = SDL_LoadWAV_RW( SDL_RWFromConstMem( file.data(), static_cast< int >( file.size() ) ), 1, &wav_spec, &wav_buffer, &wav_length );
+#else
 		ret = SDL_LoadWAV( filename.c_str(), &wav_spec, &wav_buffer, &wav_length );
+#endif
 		if ( !ret ) {
 			return nullptr;
 		}

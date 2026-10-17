@@ -8,6 +8,7 @@ SET( SRC ${SRC}
 	${PWD}/Math.cpp
 	${PWD}/Perlin.cpp
 	${PWD}/FS.cpp
+	${PWD}/BrowserAssets.cpp
 	${PWD}/UUID.cpp
 	${PWD}/ConfigManager.cpp
 	${PWD}/String.cpp

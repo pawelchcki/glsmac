@@ -1,4 +1,6 @@
-IF ( WIN32 )
+IF ( EMSCRIPTEN )
+	SET( SRC ${SRC} ${PWD}/Browser.cpp PARENT_SCOPE )
+ELSEIF ( WIN32 )
 	SET( SRC ${SRC} ${PWD}/Windows.cpp PARENT_SCOPE )
 ELSE ()
 	SET( SRC ${SRC} ${PWD}/Posix.cpp PARENT_SCOPE )

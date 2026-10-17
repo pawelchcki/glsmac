@@ -339,12 +339,16 @@ void MemoryWatcher::Free( void* ptr, const std::string& file, const size_t line 
 	m_allocated_memory.erase( it );
 }
 
-SDL_GLContext MemoryWatcher::SDLGLCreateContext( SDL_Window* window, const std::string& file, const size_t line ) {
+void MemoryWatcher::RegisterGLThread( const std::string& file, const size_t line ) {
 	std::lock_guard guard( *m_mutex );
 	const std::string source = file + ":" + std::to_string( line );
 
 	ASSERT( !m_gl_thread_id, "gl thread already exists @" + source );
 	m_gl_thread_id = std::hash< std::thread::id >()( std::this_thread::get_id() );
+}
+
+SDL_GLContext MemoryWatcher::SDLGLCreateContext( SDL_Window* window, const std::string& file, const size_t line ) {
+	RegisterGLThread( file, line );
 	return SDL_GL_CreateContext_real( window );
 }
 
@@ -664,7 +668,8 @@ void MemoryWatcher::GLTexImage2D( GLenum target, GLint level, GLint internalform
 			internalbpp = 1;
 			break;
 		}
-		case GL_DEPTH_COMPONENT: {
+		case GL_DEPTH_COMPONENT:
+		case GL_DEPTH_COMPONENT32F: {
 			internalbpp = 1;
 			break;
 		}
@@ -1046,7 +1051,11 @@ void MemoryWatcher::GLDrawElements( GLenum mode, GLsizei count, GLenum type, con
 
 	CheckGLThread( source );
 
+#ifdef __EMSCRIPTEN__
+	ASSERT( mode == GL_TRIANGLES, "glDrawElements unknown mode " + std::to_string( mode ) + " @" + source );
+#else
 	ASSERT( mode == GL_QUADS || mode == GL_TRIANGLES, "glDrawElements unknown mode " + std::to_string( mode ) + " @" + source );
+#endif
 	ASSERT( type == GL_UNSIGNED_INT, "glDrawElements unknown type " + std::to_string( type ) + " @" + source );
 	ASSERT( indices == nullptr, "glDrawElements indices non-null @" + source );
 	ASSERT( m_opengl.current_vertex_buffer, "glDrawElements vertex buffer not bound @" + source );
@@ -1070,7 +1079,11 @@ void MemoryWatcher::GLDrawElementsInstanced( GLenum mode, GLsizei count, GLenum 
 
 	CheckGLThread( source );
 
+#ifdef __EMSCRIPTEN__
+	ASSERT( mode == GL_TRIANGLES, "glDrawElementsInstanced unknown mode " + std::to_string( mode ) + " @" + source );
+#else
 	ASSERT( mode == GL_QUADS || mode == GL_TRIANGLES, "glDrawElementsInstanced unknown mode " + std::to_string( mode ) + " @" + source );
+#endif
 	ASSERT( type == GL_UNSIGNED_INT, "glDrawElementsInstanced unknown type " + std::to_string( type ) + " @" + source );
 	ASSERT( indices == nullptr, "glDrawElementsInstanced indices non-null @" + source );
 	ASSERT( m_opengl.current_vertex_buffer, "glDrawElementsInstanced vertex buffer not bound @" + source );

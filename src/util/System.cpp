@@ -1,6 +1,6 @@
 #if defined( DEBUG ) || defined( FASTDEBUG )
 
-#ifdef __linux__
+#if defined( __linux__ ) && !defined( __EMSCRIPTEN__ )
 
 #include <unistd.h>
 #include <sys/ptrace.h>
@@ -16,7 +16,7 @@ namespace util {
 
 // from https://stackoverflow.com/questions/3596781/how-to-detect-if-the-current-process-is-being-run-by-gdb
 bool System::AreWeUnderGDB() {
-#ifdef __linux__
+#if defined( __linux__ ) && !defined( __EMSCRIPTEN__ )
 	int pid = fork();
 	int status;
 	int res;
@@ -63,7 +63,7 @@ bool System::AreWeUnderGDB() {
 }
 
 bool System::IsGDBAvailable() {
-#ifdef __linux__
+#if defined( __linux__ ) && !defined( __EMSCRIPTEN__ )
 	return ( !system( "which gdb > /dev/null 2>&1" ) );
 #else
 	util::LogHelper::Println( "WARNING: gdb check skipped due to unsupported platform" );

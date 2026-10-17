@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GL/glew.h>
+#include "graphics/opengl/GL.h"
 #include <unordered_set>
 #include <map>
 #include <vector>

@@ -6,6 +6,10 @@
 
 #include "FS.h"
 
+#ifdef __EMSCRIPTEN_PTHREADS__
+#include "BrowserAssets.h"
+#endif
+
 #include "util/LogHelper.h"
 
 #if defined( DEBUG ) || defined( FASTDEBUG )
@@ -342,13 +346,16 @@ std::vector< std::string > FS::ListDirectory( const std::string& directory, cons
 void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path, const char path_separator ) {
 
 	//Log( "Reading file: " + path );
+#ifdef __EMSCRIPTEN_PTHREADS__
+	BrowserAssets::EnsureFile( NormalizePath( path, path_separator ) );
+#endif
 	if ( std::filesystem::is_regular_file( NormalizePath( path, path_separator ) ) ) {
 		std::ifstream in( NormalizePath( path, path_separator ), std::ios_base::binary );
 		in.seekg( 0, std::ios::end );
 		const auto sz = in.tellg();
 		in.seekg( 0, std::ios::beg );
 		buffer.resize( sz );
-		in.read( (char*)&buffer[ 0 ], sz );
+		in.read( (char*)buffer.data(), sz );
 		in.close();
 		return;
 	}
@@ -367,6 +374,9 @@ void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path
 const std::string FS::ReadTextFile( const std::string& path, const char path_separator ) {
 
 	//Log( "Reading file: " + path );
+#ifdef __EMSCRIPTEN_PTHREADS__
+	BrowserAssets::EnsureFile( NormalizePath( path, path_separator ) );
+#endif
 	if ( std::filesystem::is_regular_file( NormalizePath( path, path_separator ) ) ) {
 		std::stringstream data;
 		std::ifstream in( NormalizePath( path, path_separator ), std::ios_base::binary );
@@ -391,11 +401,21 @@ const void FS::WriteFile( const std::string& path, const std::string& data, cons
 }
 
 const std::string FS::GetEmbedPath( const std::string& path ) {
+#ifdef __EMSCRIPTEN__
+	if ( path.empty() ) {
+		return "";
+	}
+	// The browser's virtual filesystem is rooted at /. Embedded registry keys
+	// are relative to that root and must not depend on which parent directories
+	// happen to exist (for example, the separately embedded GSE test directory).
+	return std::filesystem::absolute( path ).lexically_normal().relative_path().generic_string();
+#else
 	std::string result = std::filesystem::weakly_canonical( path ).string();
 	if ( PATH_SEPARATOR != '/' ) { // embedded paths always use /
 		std::replace( result.begin(), result.end(), PATH_SEPARATOR, '/' );
 	}
 	return result;
+#endif
 }
 
 }

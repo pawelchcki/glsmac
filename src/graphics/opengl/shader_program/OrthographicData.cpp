@@ -1,6 +1,5 @@
 #include "OrthographicData.h"
 
-#include "graphics/opengl/OpenGL.h"
 #include "types/mesh/Data.h"
 
 namespace graphics {
@@ -9,13 +8,13 @@ namespace shader_program {
 
 void OrthographicData::AddShaders() {
 	AddShader(
-		GL_VERTEX_SHADER, "#version 330 \n\
+		GL_VERTEX_SHADER, std::string( GLSL_HEADER ) + "\
 \
 in vec3 aCoord; \
 in uint aData; \
 uniform mat4 uWorld; \
-uniform mat4 uInstances[" + std::to_string( OpenGL::MAX_INSTANCES ) + "]; \
-out float data; \
+uniform mat4 uInstances[" + std::to_string( MAX_SHADER_INSTANCES ) + "]; \
+flat out uint data; \
 \
 void main(void) { \
 	gl_Position = uWorld * uInstances[ gl_InstanceID ] * vec4( aCoord, 1.0 ); \
@@ -25,13 +24,13 @@ void main(void) { \
 "
 	);
 	AddShader(
-		GL_FRAGMENT_SHADER, "#version 330 \n\
+		GL_FRAGMENT_SHADER, std::string( GLSL_HEADER ) + "\
 \
-in float data; \
+flat in uint data; \
 out uint FragColor; \
 \
 void main(void) { \
-	FragColor = uint( data ); \
+	FragColor = data; \
 } \
 \
 "
@@ -53,7 +52,7 @@ void OrthographicData::EnableAttributes() const {
 	glVertexAttribPointer( attributes.coord, types::mesh::Data::VERTEX_COORD_SIZE, GL_FLOAT, GL_FALSE, vasz, (const GLvoid*)vaofs );
 	vaofs += types::mesh::Data::VERTEX_COORD_SIZE * tsz;
 	glEnableVertexAttribArray( attributes.data );
-	glVertexAttribPointer( attributes.data, types::mesh::Data::VERTEX_DATA_SIZE, GL_FLOAT, GL_FALSE, vasz, (const GLvoid*)vaofs );
+	glVertexAttribIPointer( attributes.data, types::mesh::Data::VERTEX_DATA_SIZE, GL_UNSIGNED_INT, vasz, (const GLvoid*)vaofs );
 };
 
 void OrthographicData::DisableAttributes() const {

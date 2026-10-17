@@ -51,18 +51,37 @@ npm --prefix tools/wasm-tests test
 ```
 
 This compiles `canvas.cpp` to `build/canvas.cjs` plus `build/canvas.wasm`, then
-runs three rendering cases: the default canvas, a resized canvas, and a
+runs rendering cases for the default canvas, a resized canvas, and a
 texture-backed framebuffer. Each case compiles GLSL ES 3.00 shaders, uploads a
 texture and vertex buffer, binds a VAO, draws an instanced triangle, and reads
 RGBA pixels back into WASM memory. Node checks every pixel against the expected
 four colored quadrants. Compilation errors, GL errors, and pixel mismatches
 produce a nonzero exit status.
 
-The tests save `canvas.png`, `resized-canvas.png`, and `framebuffer.png` under
+The suite also compiles the game's actual `ShaderProgram`, `Orthographic`, and
+`OrthographicData` sources. It renders the same quadrants through the game
+shader on the canvas and a framebuffer, checks translated row-major matrix
+uploads and instancing, and verifies that integer picking preserves the full
+32-bit value `0xf1234567`. Both framebuffer cases exercise the browser depth
+texture format. A tiny logger stub keeps these tests independent of the engine.
+
+The tests save canvas, resized canvas, framebuffer, and game shader images under
 `build/artifacts/`, including on pixel mismatch. Blue/white are the top quadrants;
 red/green are the bottom quadrants. The test output identifies the actual renderer.
 On Linux the runner sets `EGL_PLATFORM=surfaceless` and
 `LIBGL_ALWAYS_SOFTWARE=1`, and removes display environment variables.
+
+The suite also compiles the application's UUID implementation, asynchronous
+network request queue, and browser network backend into `build/platform.cjs`.
+It checks 1,024 generated UUIDs for version, variant, format, and uniqueness.
+Network tests verify that browser hosting and joining return explicit TCP
+unavailability errors after an iteration, leave the connection mode offline,
+consume responses once, support cancellation, and allow offline disconnection.
+These tests use the real platform sources without constructing a game engine.
+
+The thread regression compiles the production `Thread` implementation with WASM
+pthreads. It verifies callbacks on the SDL-owning MAIN worker, module thread
+affinity, reverse shutdown order, and successful joins and process exit.
 
 ## Extending the port
 
@@ -71,9 +90,8 @@ Add portable C++ sources to `build.mjs` and exercise their exports from
 the canvas, the WebGL constructors, and a minimal `#canvas` selector. Rendering
 still goes through the normal Emscripten GL implementation.
 
-This validates the WASM/graphics test path, not the full GLSMAC game. The game
-still needs a browser build, SDL/main-loop integration, GLSL 330 to GLSL ES 300
-changes, resource loading, and platform work for threads, audio, and networking.
-EGL-backed tests do not cover browser event handling, DOM behavior, or every
-browser's WebGL validation rules. Linux was verified locally; macOS and Windows
-support in the underlying runtime has not been verified here.
+For the full application build, browser launcher, complete GSE suite, and
+Chromium startup tests, see [GLSMAC in a browser](../../web/README.md).
+EGL-backed tests alone do not cover browser event handling, DOM behavior, or
+every browser's WebGL validation rules. Linux was verified locally; macOS and
+Windows support in the underlying runtime has not been verified here.

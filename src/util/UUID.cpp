@@ -5,13 +5,18 @@
 #ifdef _WIN32
 #include <random>
 #include <sstream>
+#elif defined( __EMSCRIPTEN__ )
+#include <array>
+#include <iomanip>
+#include <random>
+#include <sstream>
 #endif
 
 namespace util {
 
 static common::Mutex* s_mutex = nullptr;
 
-#ifndef _WIN32// TODO: make ossp-uuid buildable on windows
+#if !defined( _WIN32 ) && !defined( __EMSCRIPTEN__ ) // TODO: make ossp-uuid buildable on windows
 
 struct uuid_state_t {
 	uuid_state_t() {
@@ -27,7 +32,7 @@ struct uuid_state_t {
 };
 static uuid_state_t s_uuid_state;
 
-#else
+#elif defined( _WIN32 )
 
 static std::random_device rd;
 static std::mt19937 gen( rd() );
@@ -46,7 +51,7 @@ const std::string UUID::Generate( unsigned int mode ) {
 
 	std::lock_guard guard( *s_mutex );
 
-#ifndef _WIN32// TODO: make ossp-uuid buildable on windows
+#if !defined( _WIN32 ) && !defined( __EMSCRIPTEN__ ) // TODO: make ossp-uuid buildable on windows
 	uuid_rc_t rc;
 	if ( ( rc = uuid_make( s_uuid_state.ctx, mode ) ) != UUID_RC_OK ) {
 		THROW( "failed to generate UUID (error code: " + std::to_string( rc ) + " )" );
@@ -58,6 +63,25 @@ const std::string UUID::Generate( unsigned int mode ) {
 	std::string result( str );
 	free( str );
 	return result;
+#elif defined( __EMSCRIPTEN__ )
+	ASSERT( mode == UUID_MAKE_V4, "only UUID v4 is supported in the browser" );
+	// Emscripten's random_device obtains entropy from the JavaScript host.
+	std::random_device random;
+	std::array< unsigned char, 16 > bytes;
+	for ( auto& byte : bytes ) {
+		byte = static_cast< unsigned char >( random() );
+	}
+	bytes[ 6 ] = ( bytes[ 6 ] & 0x0f ) | 0x40;
+	bytes[ 8 ] = ( bytes[ 8 ] & 0x3f ) | 0x80;
+	std::stringstream result;
+	result << std::hex << std::setfill( '0' );
+	for ( size_t i = 0 ; i < bytes.size() ; i++ ) {
+		if ( i == 4 || i == 6 || i == 8 || i == 10 ) {
+			result << '-';
+		}
+		result << std::setw( 2 ) << static_cast< unsigned int >( bytes[ i ] );
+	}
+	return result.str();
 #else
 	// this algorithm is bad, used here only until ossp-uuid build is fixed
 	std::stringstream ss;

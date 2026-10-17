@@ -71,7 +71,7 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 #define VSYNC true
-#if defined( DEBUG ) || defined( FASTDEBUG )
+#if defined( __EMSCRIPTEN__ ) || defined( DEBUG ) || defined( FASTDEBUG )
 #define START_FULLSCREEN false
 #else
 #define START_FULLSCREEN true
@@ -154,15 +154,19 @@ int main( const int argc, char* const argv[] ) {
 		util::LogHelper::Println( "WARNING: gdb check skipped due to unsupported platform" );
 #endif
 	}
+#ifdef DEBUG
 	if ( config.HasDebugFlag( config::Config::DF_MEMORYDEBUG ) ) {
 		memory_watcher.EnableMemoryDebug();
 	}
 	if ( config.HasDebugFlag( config::Config::DF_QUIET ) ) {
 		memory_watcher.EnableQuiet();
 	}
+#endif
 
 	gc::GC::DebugInit();
+#ifdef DEBUG
 	memory_watcher.Init();
+#endif
 
 #endif
 

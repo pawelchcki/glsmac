@@ -3,6 +3,10 @@
 #include <cstring>
 #include <cmath>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
+
 #include "Thread.h"
 #include "common/Module.h"
 
@@ -85,6 +89,25 @@ void Thread::Run() {
 
 	Log( "Thread started, entering main loop" );
 
+#ifdef __EMSCRIPTEN__
+	if ( m_thread_name == "MAIN" ) {
+		// SDL sends browser events back to the thread that initialized it. Yield
+		// between frames so those events and audio callbacks can be delivered.
+		// The main loop keeps this pthread alive after its C++ entry point returns;
+		// Engine::Run remains on the separate PROXY_TO_PTHREAD application thread.
+		emscripten_set_main_loop_arg( []( void* const arg ) {
+			auto* thread = static_cast< Thread* >( arg );
+			thread->IterateModules();
+			if ( thread->m_command == COMMAND_STOP ) {
+				thread->Log( "Received STOP command" );
+				thread->StopModules();
+				emscripten_cancel_main_loop();
+			}
+		}, this, 0, false );
+		return;
+	}
+#endif
+
 //	try {
 
 	while ( m_state == STATE_ACTIVE ) {
@@ -95,15 +118,7 @@ void Thread::Run() {
 		//auto mstart = start;
 #endif
 
-		for ( modules_t::iterator it = m_modules.begin() ; it < m_modules.end() ; ++it ) {
-			//Log( "Iterating [" + (*it)->GetName() + "]" );
-			( *it )->Iterate();
-#ifdef DEBUG
-			/*auto mfinish = std::chrono::high_resolution_clock::now();
-			modulensdiff[ it - m_modules.begin() ] = std::chrono::duration_cast< std::chrono::nanoseconds >( mfinish - mstart ).count();
-			mstart = mfinish;*/
-#endif
-		}
+		IterateModules();
 
 		auto finish = std::chrono::high_resolution_clock::now();
 
@@ -151,16 +166,7 @@ void Thread::Run() {
 		}
 	}
 
-	Log( "Stopping thread" );
-
-	m_state = STATE_STOPPING;
-	for ( modules_t::iterator it = m_modules.end() - 1 ; it >= m_modules.begin() ; --it ) {
-		( *it )->Stop();
-	}
-
-	Log( "Thread stopped" );
-
-	m_state = STATE_INACTIVE;
+	StopModules();
 
 /*	} catch ( runtime_error &e ) {
 
@@ -173,6 +179,22 @@ void Thread::Run() {
 
 		throw e;
 	}*/
+}
+
+void Thread::IterateModules() {
+	for ( auto* module : m_modules ) {
+		module->Iterate();
+	}
+}
+
+void Thread::StopModules() {
+	Log( "Stopping thread" );
+	m_state = STATE_STOPPING;
+	for ( auto it = m_modules.rbegin(); it != m_modules.rend(); ++it ) {
+		( *it )->Stop();
+	}
+	Log( "Thread stopped" );
+	m_state = STATE_INACTIVE;
 }
 
 const std::string& Thread::GetThreadName() const {

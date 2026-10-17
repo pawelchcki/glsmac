@@ -44,7 +44,13 @@ const types::Vec2< size_t > Config::ParseSize( const std::string& value ) {
 };
 
 Config::Config( const std::string& path )
-	: m_smac_path( "" )
+	: m_smac_path(
+#ifdef __EMSCRIPTEN__
+		"/smac"
+#else
+		""
+#endif
+	)
 	, m_data_path( "GLSMAC_data" )
 	, m_prefix( DEFAULT_GLSMAC_PREFIX + util::FS::PATH_SEPARATOR ) {
 

@@ -17,7 +17,7 @@ namespace opengl {
 
 OpenGL::OpenGL( const std::string title, const unsigned short window_width, const unsigned short window_height, const bool vsync, const bool fullscreen ) {
 	m_window = NULL;
-	m_gl_context = NULL;
+	m_gl_context = 0;
 
 	m_options.title = title;
 	m_options.viewport_width = m_window_size.x = m_last_window_size.x = window_width;
@@ -55,6 +55,14 @@ void OpenGL::Start() {
 
 	SDL_SetHint( SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0" );
 
+#ifdef __EMSCRIPTEN__
+	// SDL chooses the browser context when creating the window, so request
+	// GLES3 (WebGL2) before SDL_CreateWindow rather than after it.
+	SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES );
+	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 0 );
+#endif
+
 	m_window = SDL_CreateWindow(
 		m_options.title.c_str(),
 		SDL_WINDOWPOS_CENTERED,
@@ -87,6 +95,28 @@ void OpenGL::Start() {
 	SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, 1 );
 	SDL_GL_SetSwapInterval( (char)m_options.vsync );
 
+#ifdef __EMSCRIPTEN__
+	// SDL2's EGL backend bypasses the Emscripten context TLS required by
+	// proxied GL uploads. Use the public HTML5 lifecycle on the render pthread.
+	EmscriptenWebGLContextAttributes attributes;
+	emscripten_webgl_init_context_attributes( &attributes );
+	attributes.majorVersion = 2;
+	attributes.alpha = false;
+	attributes.depth = true;
+	attributes.stencil = false;
+	attributes.antialias = false;
+	attributes.premultipliedAlpha = false;
+	attributes.explicitSwapControl = true;
+	attributes.proxyContextToMainThread = EMSCRIPTEN_WEBGL_CONTEXT_PROXY_ALWAYS;
+	attributes.renderViaOffscreenBackBuffer = true;
+	m_gl_context = emscripten_webgl_create_context( "#canvas", &attributes );
+	if ( m_gl_context <= 0 || emscripten_webgl_make_context_current( m_gl_context ) != EMSCRIPTEN_RESULT_SUCCESS ) {
+		THROW( "Could not create or activate WebGL2 context" );
+	}
+#ifdef DEBUG
+	debug::g_memory_watcher->RegisterGLThread( __FILE__, __LINE__ );
+#endif
+#else
 	m_gl_context = SDL_GL_CreateContext( m_window );
 	if ( !m_gl_context ) {
 		THROW( (std::string)"Could not create OpenGL context: " + SDL_GetError() );
@@ -98,6 +128,7 @@ void OpenGL::Start() {
 	if ( res != GLEW_OK ) {
 		THROW( "Unable to initialize OpenGL!" );
 	}
+#endif
 
 	{ // print some OpenGL info
 		auto* renderer = (const char*)glGetString( GL_RENDERER );
@@ -143,7 +174,11 @@ void OpenGL::Start() {
 
 	glViewport( 0, 0, m_viewport_size.x, m_viewport_size.y );
 	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+#ifdef __EMSCRIPTEN__
+	glClearDepthf( 1.0f );
+#else
 	glClearDepth( 1.0f );
+#endif
 
 	glEnable( GL_BLEND );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -153,7 +188,9 @@ void OpenGL::Start() {
 	glDepthFunc( GL_LEQUAL );
 
 	glCullFace( GL_FRONT );
+#ifndef __EMSCRIPTEN__
 	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST );
+#endif
 
 
 	// generate 'empty' texture (transparent 1x1)
@@ -204,7 +241,11 @@ void OpenGL::Stop() {
 	}
 	m_textures.clear();
 
+#ifdef __EMSCRIPTEN__
+	emscripten_webgl_destroy_context( m_gl_context );
+#else
 	SDL_GL_DeleteContext( m_gl_context );
+#endif
 
 	Log( "Destroying window" );
 	SDL_DestroyWindow( m_window );
@@ -235,7 +276,13 @@ void OpenGL::Iterate() {
 
 	ProcessPendingUnloads();
 
+#ifdef __EMSCRIPTEN__
+	if ( emscripten_webgl_commit_frame() != EMSCRIPTEN_RESULT_SUCCESS ) {
+		THROW( "Could not present WebGL2 frame" );
+	}
+#else
 	SDL_GL_SwapWindow( m_window );
+#endif
 
 	DEBUG_STAT_INC( frames_rendered );
 }
@@ -409,7 +456,9 @@ void OpenGL::LoadTexture( types::texture::Texture* texture, const bool smoothen 
 */
 					if ( use_mipmaps ) {
 						glGenerateMipmap( GL_TEXTURE_2D );
+#ifndef __EMSCRIPTEN__
 						glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.5f );
+#endif
 					}
 
 					if ( smoothen ) {

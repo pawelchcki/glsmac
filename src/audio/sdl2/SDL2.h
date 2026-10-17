@@ -1,6 +1,9 @@
 #pragma once
 
 #include <unordered_map>
+#ifdef __EMSCRIPTEN__
+#include <mutex>
+#endif
 
 #define SDL_MAIN_HANDLED 1
 #include <SDL_audio.h>
@@ -42,7 +45,13 @@ protected:
 private:
 	bool m_is_sound_enabled = false;
 
+#ifdef __EMSCRIPTEN__
+	// The browser audio callback must be able to skip a busy mixer rather
+	// than block the browser thread while a worker updates sound actors.
+	std::mutex m_actors_mutex;
+#else
 	common::Mutex m_actors_mutex;
+#endif
 	std::unordered_map< scene::actor::Sound*, sdl2::Sound* > m_actors = {};
 
 	size_t m_buffer_length = 0;

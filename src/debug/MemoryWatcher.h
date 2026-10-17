@@ -6,7 +6,7 @@
 #include <vector>
 #include "common/Mutex.h"
 #include <SDL2/SDL_video.h>
-#include <GL/glew.h>
+#include "graphics/opengl/GL.h"
 #include <thread>
 
 namespace debug {
@@ -26,6 +26,7 @@ public:
 	void Free( void* ptr, const std::string& file, const size_t line );
 
 	// opengl stuff
+	void RegisterGLThread( const std::string& file, const size_t line );
 	SDL_GLContext SDLGLCreateContext( SDL_Window* window, const std::string& file, const size_t line );
 	void GLGenBuffers( GLsizei n, GLuint* buffers, const std::string& file, const size_t line );
 	void GLBindBuffer( GLenum target, GLuint buffer, const std::string& file, const size_t line );

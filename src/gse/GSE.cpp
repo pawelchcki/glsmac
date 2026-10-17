@@ -30,7 +30,10 @@ GSE::GSE()
 }
 
 GSE::~GSE() {
-	{
+	// The space remains registered with the collector until it is deleted.
+	// Protect its root containers and include data throughout teardown, just
+	// as during script execution, so collection cannot traverse freed entries.
+	m_gc_space->Accumulate( this, [ this ]() {
 		Finish();
 		for ( auto& it : m_include_cache ) {
 			it.second.Cleanup( this );
@@ -43,7 +46,7 @@ GSE::~GSE() {
 		m_async = nullptr;
 		m_modules.clear();
 		m_root_objects.clear();
-	}
+	}, nullptr, true );
 	delete m_gc_space;
 }
 
@@ -56,10 +59,10 @@ void GSE::Iterate() {
 }
 
 void GSE::Finish() {
-	{
+	m_gc_space->Accumulate( this, [ this ]() {
 		ExecutionPointer ep;
 		m_async->ProcessAndExit( ep );
-	}
+	}, nullptr, true );
 }
 
 parser::Parser* GSE::CreateParser( const std::string& filename, const std::string& source, const size_t initial_line_num ) {

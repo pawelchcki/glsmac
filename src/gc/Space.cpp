@@ -9,7 +9,7 @@
 #include "util/FinallyGuard.h"
 #include "graphics/Graphics.h"
 
-#if defined( DEBUG ) || defined( FASTDEBUG )
+#ifdef DEBUG
 
 #include "debug/MemoryWatcher.h"
 
@@ -210,7 +210,7 @@ const bool Space::Collect() {
 #if defined( DEBUG ) || defined( FASTDEBUG )
 							GC_LOG( "Destroying unreachable object: " + util::String::ToHexString( (unsigned long long)object ) /* TODO + "[ " + object->ToString() + " ]"*/ );
 #endif
-#if defined( DEBUG ) || defined( FASTDEBUG )
+#ifdef DEBUG
 							debug::g_memory_watcher->MaybeDelete( object );
 #endif
 							removed_objects.insert( object );

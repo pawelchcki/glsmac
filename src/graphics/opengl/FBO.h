@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include <GL/glew.h>
+#include "graphics/opengl/GL.h"
 
 #include "common/Common.h"
 #include "types/Vec2.h"

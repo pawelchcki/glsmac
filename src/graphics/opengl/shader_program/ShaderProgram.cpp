@@ -1,4 +1,5 @@
-#include <GL/glew.h>
+#include "graphics/opengl/GL.h"
+#include <vector>
 
 #include "ShaderProgram.h"
 
@@ -20,7 +21,13 @@ void ShaderProgram::Start() {
 	GLint success = 0;
 
 	glGetProgramiv( m_gl_shader_program, GL_LINK_STATUS, &success );
-	ASSERT( success, "Shader program linking failed!" );
+	if ( !success ) {
+		GLint length = 0;
+		glGetProgramiv( m_gl_shader_program, GL_INFO_LOG_LENGTH, &length );
+		std::vector< GLchar > log( length + 1 );
+		glGetProgramInfoLog( m_gl_shader_program, log.size(), nullptr, log.data() );
+		THROW( std::string( "Shader program linking failed: " ) + log.data() );
+	}
 
 	glValidateProgram( m_gl_shader_program );
 	glGetProgramiv( m_gl_shader_program, GL_VALIDATE_STATUS, &success );
@@ -56,21 +63,17 @@ void ShaderProgram::AddShader( GLenum type, const std::string data ) {
 	GLint success;
 	glGetShaderiv( gl_shader, GL_COMPILE_STATUS, &success );
 
-#ifdef DEBUG
 	if ( !success ) {
-		GLint info_log_length;
-		glGetShaderiv( gl_shader, GL_INFO_LOG_LENGTH, &info_log_length );
-		GLchar* str_info_log = (GLchar*)malloc( info_log_length + 1 );
-		glGetShaderInfoLog( gl_shader, info_log_length, NULL, str_info_log );
-
-		THROW( "Error compiling shader! shader data: '" + data + "' ; shader error: '" + str_info_log + "'" );
-
-		free( str_info_log );
-
+		GLint length = 0;
+		glGetShaderiv( gl_shader, GL_INFO_LOG_LENGTH, &length );
+		std::vector< GLchar > log( length + 1 );
+		glGetShaderInfoLog( gl_shader, log.size(), nullptr, log.data() );
+		glDeleteShader( gl_shader );
+		THROW( "Error compiling shader! shader data: '" + data + "' ; shader error: '" + log.data() + "'" );
 	}
-#endif
 
 	glAttachShader( m_gl_shader_program, gl_shader );
+	glDeleteShader( gl_shader );
 
 }
 

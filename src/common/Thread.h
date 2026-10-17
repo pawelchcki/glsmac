@@ -40,6 +40,8 @@ protected:
 	const std::string m_thread_name = "";
 
 	void Run();
+	void IterateModules();
+	void StopModules();
 	std::thread* m_thread = nullptr;
 
 	std::atomic< thread_state_t > m_state = STATE_INACTIVE;

@@ -9,7 +9,11 @@
 
 #include <SDL.h>
 
-#include <GL/glew.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten/html5_webgl.h>
+#endif
+
+#include "graphics/opengl/GL.h"
 
 #include "graphics/Graphics.h"
 
@@ -36,7 +40,7 @@ CLASS( OpenGL, Graphics )
 	// includes extra instances from map instancing
 	// limited by opengl uniform array size, maximum is around 256 so don't exceed it
 	// rendering will be split to multiple draw calls if number of instances is larger
-	static constexpr size_t MAX_INSTANCES = 224;
+	static constexpr size_t MAX_INSTANCES = MAX_SHADER_INSTANCES;
 
 	static constexpr float VIEWPORT_MULTIPLIER = 1.0f; // larger size for internal viewport // TODO
 
@@ -95,7 +99,11 @@ protected:
 	types::Vec2< unsigned short > m_last_window_size;
 	types::Vec2< unsigned short > m_viewport_size;
 	SDL_Window* m_window;
+#ifdef __EMSCRIPTEN__
+	EMSCRIPTEN_WEBGL_CONTEXT_HANDLE m_gl_context;
+#else
 	SDL_GLContext m_gl_context;
+#endif
 	std::vector< shader_program::ShaderProgram* > m_shader_programs;
 
 	std::vector< routine::Routine* > m_routines;

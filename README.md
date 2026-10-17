@@ -127,6 +127,8 @@ Requirements may go up slightly as more features are added to game. But I'll try
 
 For the browser port's local WASM/WebGL2 test setup, see
 [Browser-free WASM canvas tests](tools/wasm-tests/README.md).
+For the full Emscripten build and browser launcher, see
+[GLSMAC in a browser](web/README.md).
 
 Supported platforms:
 

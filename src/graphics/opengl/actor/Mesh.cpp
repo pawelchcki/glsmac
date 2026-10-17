@@ -195,7 +195,7 @@ void Mesh::PrepareDataMesh() {
 				}
 				m_opengl->WithBindTexture(
 					m_data.depth_texture, [ &w, &h ]() {
-						glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, w, h, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+						glTexImage2D( GL_TEXTURE_2D, 0, DEPTH_TEXTURE_FORMAT, w, h, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
 					}
 				);
 				glFramebufferTexture2D( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_data.depth_texture, 0 );
@@ -242,10 +242,12 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 		}
 		PrepareDataMesh();
 		m_opengl->WithBindFramebufferBegin( GL_DRAW_FRAMEBUFFER, m_data.fbo );
-		glDrawBuffer( GL_COLOR_ATTACHMENT0 );
+		DrawBuffer( GL_COLOR_ATTACHMENT0 );
 
-		// reset framebuffer to clean state
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		// Integer picking attachments require an unsigned clear operation.
+		const GLuint clear_data[4] = {};
+		glClearBufferuiv( GL_COLOR, 0, clear_data );
+		glClear( GL_DEPTH_BUFFER_BIT );
 
 		vbo = m_data.vbo;
 		ibo = m_data.ibo;
@@ -348,10 +350,10 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 
 										ASSERT( camera || capture_request, "neither camera nor capture request set" );
 
-										glUniformMatrix4fv(
+										UploadMatrix4(
 											shader_program->GetType() == shader_program::ShaderProgram::TYPE_ORTHO_DATA
 												? sp_data->uniforms.world
-												: sp->uniforms.world, 1, GL_TRUE, (const GLfloat*)(
+												: sp->uniforms.world, 1, (const GLfloat*)(
 												capture_request
 													? &( capture_request->camera->GetMatrix() )
 													: &( camera->GetMatrix() )
@@ -367,10 +369,10 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 										else {
 											matrix = m_actor->GetWorldMatrix();
 										}
-										glUniformMatrix4fv(
+										UploadMatrix4(
 											shader_program->GetType() == shader_program::ShaderProgram::TYPE_ORTHO_DATA
 												? sp_data->uniforms.instances
-												: sp->uniforms.instances, 1, GL_TRUE, (const GLfloat*)( &matrix )
+												: sp->uniforms.instances, 1, (const GLfloat*)( &matrix )
 										);
 										glDrawElements( GL_TRIANGLES, ibo_size, GL_UNSIGNED_INT, (void*)( 0 ) );
 									}
@@ -388,10 +390,10 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 										GLsizei c;
 										for ( auto i = 0 ; i < sz ; i += OpenGL::MAX_INSTANCES ) {
 											c = std::min< size_t >( OpenGL::MAX_INSTANCES, sz - i );
-											glUniformMatrix4fv(
+											UploadMatrix4(
 												shader_program->GetType() == shader_program::ShaderProgram::TYPE_ORTHO_DATA
 													? sp_data->uniforms.instances
-													: sp->uniforms.instances, c, GL_TRUE, (const GLfloat*)( matrices.data() + i )
+													: sp->uniforms.instances, c, (const GLfloat*)( matrices.data() + i )
 											);
 											glDrawElementsInstanced( GL_TRIANGLES, ibo_size, GL_UNSIGNED_INT, (void*)( 0 ), c );
 										}
@@ -420,7 +422,7 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 
 	if ( shader_program->GetType() == shader_program::ShaderProgram::TYPE_ORTHO_DATA ) {
 
-		glDrawBuffer( GL_NONE );
+		DrawBuffer( GL_NONE );
 		m_opengl->WithBindFramebufferEnd( GL_DRAW_FRAMEBUFFER );
 
 		m_opengl->WithBindFramebuffer(
@@ -460,8 +462,7 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 types::mesh::data_t Mesh::GetDataAt( const size_t x, const size_t y ) {
 	ASSERT( m_data.is_allocated, "mesh data not allocated" );
 
-	types::mesh::data_t data = 0;
-	glReadPixels( x, y, 1, 1, GL_RED_INTEGER, GL_UNSIGNED_INT, &data );
+	const types::mesh::data_t data = ReadUnsignedPixel( x, y );
 	ASSERT( !glGetError(), "Error reading data pixel" );
 
 	return data;

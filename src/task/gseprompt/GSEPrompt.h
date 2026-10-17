@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _WIN32
+#include <sys/select.h>
+#endif
+
 #include "common/Task.h"
 #include "gc/Object.h"
 

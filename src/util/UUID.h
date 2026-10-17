@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef _WIN32 // TODO: make ossp-uuid buildable on windows
+#if !defined( _WIN32 ) && !defined( __EMSCRIPTEN__ ) // TODO: make ossp-uuid buildable on windows
 #include <uuid.h>
 #else
 #define UUID_MAKE_V4 0

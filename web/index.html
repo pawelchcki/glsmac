@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLSMAC</title>
+<style>
+  body { margin: 0; background: #131b22; color: #e1e9ed; font: 16px system-ui, sans-serif; }
+  main { max-width: 1024px; margin: auto; padding: 20px; }
+  button, input, select { font: inherit; margin: 8px 0; }
+  input[type=url] { width: min(100%, 750px); }
+  button { padding: 8px 20px; cursor: pointer; }
+  canvas { display: block; max-width: 100%; background: black; margin: auto; }
+  #status { min-height: 1.5em; }
+  pre { white-space: pre-wrap; max-height: 240px; overflow: auto; font-size: 12px; }
+</style>
+<main>
+  <h1>GLSMAC</h1>
+  <section id="setup">
+    <p>Load Alpha Centauri / Alien Crossfire from a GOG installer, a local folder or an asset host.
+      Assets are saved in this browser for your next visit.</p>
+    <label>Asset source <select id="asset-source" disabled>
+      <option value="installer" selected>GOG installer EXE</option>
+      <option value="local">Local game folder</option>
+      <option value="remote">Stream from a host</option>
+      <option value="cached">Saved in this browser</option>
+      <option value="none">Start setup without assets</option>
+    </select></label>
+    <div data-source="installer">
+      <label>GOG installer <input id="installer" type="file" accept=".exe,.bin" multiple disabled></label>
+      <p>Select your Alpha Centauri installer EXE and any companion BIN files.
+        It is unpacked on your device and saved in this browser, without uploading it.
+        Unpacking can take a few minutes.</p>
+    </div>
+    <div data-source="local" hidden>
+      <label>Game folder <input id="assets" type="file" webkitdirectory multiple disabled></label>
+      <p>Files stay on your device. The folder is saved once; only files the game uses enter game memory.</p>
+    </div>
+    <div data-source="remote" hidden>
+      <label>Asset manifest URL<br><input id="asset-url" type="url" disabled></label>
+      <p>Files download when needed and are saved locally. Cached files can be reused offline.</p>
+    </div>
+    <div data-source="cached" hidden>
+      <label>Saved source <select id="cached-assets"></select></label>
+      <button id="clear-assets" type="button" disabled>Remove saved assets</button>
+    </div>
+    <p id="storage-status"></p>
+    <button id="start" disabled>Start GLSMAC</button>
+  </section>
+  <p id="status" role="status">Loading WebAssembly…</p>
+  <canvas id="canvas" width="1024" height="768" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
+  <details><summary>Application log</summary><pre id="log"></pre></details>
+  <p><a href="GLSMAC-source.tar.gz">Source code</a> · <a href="LICENSE">License</a></p>
+</main>
+<script src="isolation.js"></script>
+<script src="config.js"></script>
+<script src="asset-store.js"></script>
+<script src="installer-import.js"></script>
+<script src="bootstrap.js"></script>
+</html>

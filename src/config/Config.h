@@ -123,7 +123,9 @@ private:
 	const types::Vec2< size_t > ParseSize( const std::string& value );
 
 	const std::string DEFAULT_GLSMAC_PREFIX =
-#ifdef _WIN32
+#ifdef __EMSCRIPTEN__
+		"/persist/glsmac"
+#elif defined( _WIN32 )
 		GetEnv( "APPDATA" ) + "/GLSMAC"
 #else
 		GetEnv( "HOME" ) + "/.local/share/glsmac"

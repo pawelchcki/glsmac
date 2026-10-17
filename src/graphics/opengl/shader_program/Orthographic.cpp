@@ -1,6 +1,6 @@
 #include "Orthographic.h"
 
-#include "graphics/opengl/OpenGL.h"
+#include "graphics/Graphics.h"
 #include "scene/actor/Actor.h"
 #include "types/mesh/Render.h"
 
@@ -10,7 +10,7 @@ namespace shader_program {
 
 void Orthographic::AddShaders() {
 	AddShader(
-		GL_VERTEX_SHADER, "#version 330 \n\
+		GL_VERTEX_SHADER, std::string( GLSL_HEADER ) + "\
 \
 in vec3 aCoord; \
 in vec2 aTexCoord; \
@@ -18,7 +18,7 @@ in vec4 aTintColor; \
 in vec3 aNormal; \
 uniform vec2 uPosition; \
 uniform mat4 uWorld; \
-uniform mat4 uInstances[" + std::to_string( OpenGL::MAX_INSTANCES ) + "]; \
+uniform mat4 uInstances[" + std::to_string( MAX_SHADER_INSTANCES ) + "]; \
 uniform uint uFlags; \
 out vec2 texpos; \
 out vec4 tintcolor; \
@@ -46,15 +46,15 @@ void main(void) { \
 "
 	);
 	AddShader(
-		GL_FRAGMENT_SHADER, "#version 330 \n\
+		GL_FRAGMENT_SHADER, std::string( GLSL_HEADER ) + "\
 \
 in vec2 texpos; \
 in vec4 tintcolor; \
 in vec3 fragpos; \
 in vec3 normal; \
 uniform sampler2D uTexture; \
-uniform vec3 uLightPos[" + std::to_string( OpenGL::MAX_WORLD_LIGHTS ) + "]; \
-uniform vec4 uLightColor[" + std::to_string( OpenGL::MAX_WORLD_LIGHTS ) + "]; \
+uniform vec3 uLightPos[" + std::to_string( Graphics::MAX_WORLD_LIGHTS ) + "]; \
+uniform vec4 uLightColor[" + std::to_string( Graphics::MAX_WORLD_LIGHTS ) + "]; \
 uniform uint uFlags; \
 uniform vec4 uTintColor; \
 uniform vec3 uAreaLimitsMin; \
@@ -77,15 +77,15 @@ void main(void) { \
 	vec3 ambient = vec3( 0.0, 0.0, 0.0 ); \
 	vec3 diffuse = vec3( 0.0, 0.0, 0.0 ); \
 	" + S_For(
-			"i", 0, OpenGL::MAX_WORLD_LIGHTS, " \
+			"i", 0, Graphics::MAX_WORLD_LIGHTS, " \
 		ambient += uLightColor[ i ].rgb * ( 1.0 - uLightColor[ i ].a ); \
 		vec3 lightdir = normalize( uLightPos[ i ] ); \
 		float diff = max( dot(normal, lightdir), 0.0 ); \
 		diffuse += diff * uLightColor[ i ].rgb * uLightColor[ i ].a; \
 	"
 		) + " \
-	ambient /= " + std::to_string( OpenGL::MAX_WORLD_LIGHTS ) + "; \
-	diffuse /= " + std::to_string( OpenGL::MAX_WORLD_LIGHTS ) + "; \
+	ambient /= " + std::to_string( static_cast< float >( Graphics::MAX_WORLD_LIGHTS ) ) + "; \
+	diffuse /= " + std::to_string( static_cast< float >( Graphics::MAX_WORLD_LIGHTS ) ) + "; \
 	vec4 tex = texture( uTexture, texpos.xy ); \
 	float gamma = 1.1 ; /* TODO: pass via uniform */ \
 	float contrast = 0.1; /* TODO: pass via uniform */ \

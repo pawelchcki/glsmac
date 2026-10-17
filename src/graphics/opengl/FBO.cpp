@@ -147,7 +147,7 @@ void FBO::Resize( size_t width, size_t height ) {
 
 				m_opengl->WithBindTexture(
 					m_textures.depth, [ this ]() {
-						glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_width, m_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
+						glTexImage2D( GL_TEXTURE_2D, 0, DEPTH_TEXTURE_FORMAT, m_width, m_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL );
 					}
 				);
 				glFramebufferTexture2D( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_textures.depth, 0 );
@@ -164,7 +164,7 @@ void FBO::WriteBegin() {
 	ASSERT( m_height > 0, "fbo height is zero" );
 
 	m_opengl->WithBindFramebufferBegin( GL_DRAW_FRAMEBUFFER, m_fbo );
-	glDrawBuffer( GL_COLOR_ATTACHMENT0 );
+	DrawBuffer( GL_COLOR_ATTACHMENT0 );
 
 	// start with clean state
 	// TODO: partial redraws?
@@ -189,7 +189,7 @@ void FBO::WriteEnd() {
 	// restore default
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-	glDrawBuffer( GL_NONE );
+	DrawBuffer( GL_NONE );
 	m_opengl->WithBindFramebufferEnd( GL_DRAW_FRAMEBUFFER );
 
 	m_is_enabled = false;

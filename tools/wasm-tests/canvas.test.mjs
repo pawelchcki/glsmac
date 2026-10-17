@@ -74,4 +74,19 @@ test('WASM renders to a WebGL2 canvas without a browser', async (t) => {
       check_pixels(pixels, width, height);
     });
   }
+
+  for (const [name, offscreen] of [['game-shaders-canvas', 0], ['game-shaders-framebuffer', 1]]) {
+    await t.test(name, () => {
+      host.resize(64, 48);
+      assert.equal(module._RenderGameShaders(offscreen), 0, 'Game rendering succeeded');
+      const pixels = module.HEAPU8.slice(module._GetGamePixels(),
+        module._GetGamePixels() + 64 * 48 * 4);
+      save_frame(pixels, 64, 48, name);
+      check_pixels(pixels, 64, 48);
+    });
+  }
+
+  await t.test('game integer picking preserves all 32 bits', () => {
+    assert.equal(module._CheckGamePicking(), 0, 'Picking shader and readback succeeded');
+  });
 });

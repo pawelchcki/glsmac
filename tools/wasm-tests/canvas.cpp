@@ -19,6 +19,7 @@ struct Resources {
 		if ( context <= 0 ) {
 			return;
 		}
+		glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 		glDeleteFramebuffers( 1, &framebuffer );
 		glDeleteTextures( 1, &target );
 		glDeleteTextures( 1, &texture );

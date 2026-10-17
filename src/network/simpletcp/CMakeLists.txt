@@ -1,5 +1,5 @@
-SET( SRC ${SRC}
-
-	${PWD}/SimpleTCP.cpp
-
-	PARENT_SCOPE )
+IF ( EMSCRIPTEN )
+	SET( SRC ${SRC} ${PWD}/Browser.cpp PARENT_SCOPE )
+ELSE ()
+	SET( SRC ${SRC} ${PWD}/SimpleTCP.cpp PARENT_SCOPE )
+ENDIF ()
