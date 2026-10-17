@@ -6,14 +6,16 @@
     "node": ">=22.16"
   },
   "scripts": {
-    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node asset-bridge-build.mjs",
-    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs platform.test.mjs thread-runtime.test.mjs",
+    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node asset-bridge-build.mjs && node texture-upload-build.mjs",
+    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs texture-upload.test.mjs platform.test.mjs thread-runtime.test.mjs",
     "test:app": "node --test app.test.mjs",
     "test:gse": "node gse.test.mjs",
     "test:assets": "node --test assets.test.mjs asset-bridge.test.mjs",
     "test:game": "node --test game-assets.test.mjs",
+    "test:quickstart": "node --test --test-name-pattern=Quick game-assets.test.mjs",
     "test:installer": "node --test installer.test.mjs",
-    "test:pages": "node --test pages.test.mjs"
+    "test:pages": "node --test pages.test.mjs",
+    "test:textures": "node texture-upload-build.mjs && node --test texture-upload.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

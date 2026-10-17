@@ -27,9 +27,9 @@ jobs:
         run: |
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
           emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
-          cmake --build build/wasm -j2
+          cmake --build build/wasm -j4
           emcmake cmake -S . -B build/wasm-release -DCMAKE_BUILD_TYPE=Release -DFETCHCONTENT_SOURCE_DIR_YAML_CPP="$PWD/build/wasm/_deps/yaml_cpp-src"
-          cmake --build build/wasm-release -j2
+          cmake --build build/wasm-release -j4
       - name: Test WASM graphics, platform code, and threads
         run: |
           sudo apt-get update -qq

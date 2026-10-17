@@ -83,6 +83,13 @@ The thread regression compiles the production `Thread` implementation with WASM
 pthreads. It verifies callbacks on the SDL-owning MAIN worker, module thread
 affinity, reverse shutdown order, and successful joins and process exit.
 
+The production `TextureUpload` helper is compiled separately and checked with
+real GL pixel readback. Small fixtures force a 32-pixel GPU limit, preserve
+quadrants and odd-size RGBA edges, update dirty rectangles across sample
+boundaries, retain unaffected pixels, regenerate valid mipmaps, and cross the
+1 MiB upload-strip boundary. Identity uploads and a one-pixel limit are covered
+too. Run just these checks with `npm run test:textures` in this directory.
+
 ## Extending the port
 
 Add portable C++ sources to `build.mjs` and exercise their exports from

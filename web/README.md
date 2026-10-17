@@ -76,6 +76,8 @@ hosting requests return a clear error. The UI runs at browser animation cadence.
 
 ## GitHub Pages
 
+Open the live website at [pawelchcki.github.io/glsmac](https://pawelchcki.github.io/glsmac/).
+
 The included WebAssembly workflow builds and tests both application variants,
 then publishes only the Release website to Pages for pushes to `in_webbrowser`
 or the repository's default branch. Enable **GitHub Actions** as the publishing
@@ -139,7 +141,8 @@ python3 -m unittest discover -s tools -p test_wasm_assets.py
 ```
 
 The focused tests exercise production shaders, matrix uploads, integer picking,
-UUIDs, networking responses, and thread callbacks in actual WASM. `test:gse`
+GPU texture-size limits and dirty updates, UUIDs, networking responses, and
+thread callbacks in actual WASM. `test:gse`
 runs the full application's scripting suite in Node. `test:app` starts the
 compiled application in headless Chromium and checks that its setup UI draws
 without browser errors, keyboard input opens the console, real WebAudio callbacks
@@ -156,7 +159,18 @@ SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run t
 ```
 
 It defaults to the Release build and skips when `SMAC_ASSETS_DIR` is unset.
-These checks do not verify a complete single-player game.
+It also imports a real local folder and checks Quick Start terrain rendering
+above the HUD without browser or graphics errors. The terrain check detects
+the oversized-atlas failure that left sprites visible on a black playfield.
+Run only that game check with:
+
+```sh
+SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:quickstart
+```
+
+Set `WASM_SITE_URL` to run the local-folder and Quick Start checks against an
+already published site. The streaming test requires the local asset server and
+skips with that variable set. These checks do not verify a complete single-player game.
 
 To verify browser-only unpacking with a GOG installer, including a cached
 restart without selecting the EXE again:

@@ -9,6 +9,7 @@ import { PNG } from 'pngjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
+const site = process.env.WASM_SITE_URL;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const optionalGameTest = {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
@@ -79,7 +80,7 @@ async function menuScreenshot(page, filename) {
 
 async function gamePage(t, artifactPrefix) {
   mkdirSync(artifacts, { recursive: true });
-  const address = await serveAssets(t);
+  const address = site || await serveAssets(t);
   const browser = await chromium.launch({
     executablePath: process.env.WASM_BROWSER_EXECUTABLE || undefined,
     headless: true,
@@ -116,7 +117,10 @@ async function gamePage(t, artifactPrefix) {
   return { page, address, errors, graphicsErrors, assetRequests, logs };
 }
 
-test('original game assets stream into the main menu and restart from browser storage', optionalGameTest, async (t) => {
+test('original game assets stream into the main menu and restart from browser storage', {
+  ...optionalGameTest,
+  skip: optionalGameTest.skip || (site && 'The hosted streaming fixture requires the local asset server'),
+}, async (t) => {
   const { page, address, errors, graphicsErrors, assetRequests, logs } = await gamePage(t, 'game-assets');
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
@@ -220,4 +224,64 @@ test('a real local game folder persists completely and restarts without another 
   logs.push(await page.locator('#log').textContent());
   assert.doesNotMatch(logs.join('\n'), /FATAL ERROR|Aborted\(|shader.*(?:failed|error)/i);
   t.diagnostic(`Persisted ${saved.count} original files (${(saved.bytes / 1024 / 1024).toFixed(1)} MiB); restarted without file selection or hosted assets.`);
+});
+
+test('Quick Start renders terrain within the browser GPU limit', optionalGameTest, async (t) => {
+  const { page, address, errors, graphicsErrors, assetRequests, logs } = await gamePage(t, 'game-quickstart');
+  await page.goto(address);
+  await page.waitForFunction(() => document.body.dataset.state === 'ready');
+  await page.locator('#asset-source').selectOption('local');
+  await page.locator('#assets').setInputFiles(assets);
+  await startGame(page);
+  await menuScreenshot(page, 'game-quickstart-menu.png');
+  const canvas = page.locator('#canvas');
+  const menuPixels = PNG.sync.read(await canvas.screenshot()).data;
+  const box = await canvas.boundingBox();
+  // These are canvas coordinates of the real scripted Quick Start button;
+  // account for the launcher's CSS scaling when the viewport is narrower.
+  await page.mouse.click(box.x + box.width * 820 / 1024, box.y + box.height * 382 / 768);
+  await page.waitForFunction(() => document.body.dataset.state === 'failed' || (
+    [...Module.assetStore.loaded].some((path) => /(?:^|\/)units\.pcx$/i.test(path))
+    && Module.assetStore.pending.size === 0
+  ), null, { timeout: 120000 });
+
+  let terrainPixels = 0;
+  let requiredPixels = 0;
+  let changedPixels = 0;
+  let requiredChanges = 0;
+  for (let attempt = 0; attempt < 40; ++attempt) {
+    const png = PNG.sync.read(await canvas.screenshot({
+      path: fileURLToPath(new URL('game-quickstart-map.png', artifacts)),
+    }));
+    // The upper playfield excludes the bottom HUD. The broken oversized atlas
+    // showed isolated sprites on black; those cannot satisfy this area check.
+    const rows = Math.min(500, png.height);
+    terrainPixels = 0;
+    changedPixels = 0;
+    requiredPixels = png.width * rows / 5;
+    requiredChanges = png.width * png.height / 4;
+    for (let offset = 0; offset < png.data.length; offset += 4) {
+      if (png.data.readUInt32LE(offset) !== menuPixels.readUInt32LE(offset)) ++changedPixels;
+    }
+    for (let y = 0; y < rows; ++y) for (let x = 0; x < png.width; ++x) {
+      const offset = (y * png.width + x) * 4;
+      if (png.data[offset] + png.data[offset + 1] + png.data[offset + 2] > 12) ++terrainPixels;
+    }
+    if ((terrainPixels > requiredPixels && changedPixels > requiredChanges) || errors.length || graphicsErrors.length) break;
+    await page.waitForTimeout(250);
+  }
+  logs.push(await page.locator('#log').textContent());
+  assert.deepEqual(errors, [], 'Quick Start produced no browser runtime errors');
+  assert.deepEqual(graphicsErrors, [], 'Terrain upload and drawing produced no WebGL or shader errors');
+  assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
+  assert.ok(terrainPixels > requiredPixels,
+    `Terrain must fill the playfield rather than leaving only sprites on black (${terrainPixels} visible pixels)`);
+  assert.ok(changedPixels > requiredChanges, 'The game frame replaced the main menu');
+  assert.deepEqual(assetRequests, [], 'The game reads its original resources from the saved local installation');
+  assert.doesNotMatch(logs.join('\n'), /FATAL ERROR|Aborted\(|shader.*(?:failed|error)/i);
+  const maximum = await page.evaluate(() => {
+    const gl = document.querySelector('#canvas').getContext('webgl2');
+    return gl.getParameter(gl.MAX_TEXTURE_SIZE);
+  });
+  t.diagnostic(`Quick Start rendered ${terrainPixels} nonblack playfield pixels, replacing ${changedPixels} menu pixels, with MAX_TEXTURE_SIZE=${maximum}.`);
 });

@@ -12,6 +12,10 @@
 #include "types/texture/Texture.h"
 #include "gc/GC.h"
 
+#ifdef __EMSCRIPTEN__
+#include "texture/TextureUpload.h"
+#endif
+
 namespace graphics {
 namespace opengl {
 
@@ -386,6 +390,20 @@ void OpenGL::LoadTexture( types::texture::Texture* texture, const bool smoothen 
 
 	const auto tw = texture->GetWidth();
 	const auto th = texture->GetHeight();
+#ifdef __EMSCRIPTEN__
+	if ( !m_max_texture_size ) {
+		GLint maximum = 0;
+		glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maximum );
+		if ( maximum <= 0 ) {
+			THROW( "Could not determine the browser texture size limit" );
+		}
+		m_max_texture_size = static_cast< size_t >( maximum );
+	}
+	const auto upload_size = tw && th
+		? TextureUpload::GetSize( tw, th, m_max_texture_size )
+		: TextureUpload::Size{ tw, th };
+	const bool reduced = upload_size.width != tw || upload_size.height != th;
+#endif
 
 	if ( it == m_textures.end() ) {
 
@@ -427,12 +445,22 @@ void OpenGL::LoadTexture( types::texture::Texture* texture, const bool smoothen 
 		//Log( "Loading texture '" + texture->m_name + "'" );
 
 		WithBindTexture(
-			t.obj, [ &need_full_update, &texture, &smoothen, &tw, &th ]() {
+			t.obj, [ &need_full_update, &texture, &smoothen, &tw, &th
+#ifdef __EMSCRIPTEN__
+				, &upload_size, &reduced
+#endif
+			]() {
 
 				if ( need_full_update ) {
 					ASSERT( !glGetError(), "Texture parameter error" );
 					glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
+#ifdef __EMSCRIPTEN__
+					if ( reduced ) {
+						TextureUpload::Image( texture->GetBitmap(), tw, th, upload_size );
+					}
+					else
+#endif
 					glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
@@ -583,6 +611,12 @@ void OpenGL::LoadTexture( types::texture::Texture* texture, const bool smoothen 
 						const size_t h = area.bottom - area.top;
 
 						if ( w > 0 && h > 0 ) {
+#ifdef __EMSCRIPTEN__
+							if ( reduced ) {
+								TextureUpload::Region( texture->GetBitmap(), tw, th, upload_size, area.left, area.top, area.right, area.bottom );
+								continue;
+							}
+#endif
 							auto* bitmap = texture->CopyBitmap(
 								area.left,
 								area.top,
@@ -605,6 +639,11 @@ void OpenGL::LoadTexture( types::texture::Texture* texture, const bool smoothen 
 							free( bitmap );
 						}
 					}
+#ifdef __EMSCRIPTEN__
+					if ( reduced && texture->HasFlag( types::texture::TF_MIPMAPS ) ) {
+						glGenerateMipmap( GL_TEXTURE_2D );
+					}
+#endif
 				}
 				texture->ClearUpdatedAreas();
 
