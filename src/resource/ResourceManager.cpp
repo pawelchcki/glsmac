@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 #include <algorithm>
+#include <cctype>
+#include <map>
 
 #include "util/FS.h"
 
@@ -418,6 +420,42 @@ const std::string& ResourceManager::GetCustomPath( const std::string& path ) {
 	const auto& result = TryGetCustomPath( path );
 	if ( result.empty() ) {
 		THROW( "could not resolve resource (path does not exist or is not a file: " + path + ")" );
+	}
+	return result;
+}
+
+std::vector< std::pair< std::string, std::string > > ResourceManager::GetMapFiles() const {
+	// Inspect directory entries only: browser assets remain lazy until selected.
+	std::vector< std::string > roots = { m_smac_path, m_data_path };
+	for ( const auto& path : g_engine->GetConfig()->GetModPaths() ) {
+		roots.push_back( path );
+	}
+	std::map< std::string, std::pair< std::string, std::string > > files;
+	for ( const auto& root : roots ) {
+		if ( root.empty() ) {
+			continue;
+		}
+		const auto directory = util::FS::GetExistingCaseSensitivePath( root, "maps" );
+		if ( directory.empty() || !util::FS::DirectoryExists( directory ) ) {
+			continue;
+		}
+		for ( const auto& path : util::FS::ListDirectory( directory, true ) ) {
+			if ( !util::FS::IsFile( path ) ) {
+				continue;
+			}
+			const auto name = util::FS::GetBaseName( path );
+			auto key = name;
+			std::transform( key.begin(), key.end(), key.begin(), []( const unsigned char c ) { return std::tolower( c ); } );
+			const auto extension = util::FS::GetExtension( key );
+			if ( extension == ".mp" || extension == ".gsm" ) {
+				files[ key ] = { name, util::FS::GetAbsolutePath( path ) };
+			}
+		}
+	}
+	std::vector< std::pair< std::string, std::string > > result;
+	result.reserve( files.size() );
+	for ( const auto& entry : files ) {
+		result.push_back( entry.second );
 	}
 	return result;
 }

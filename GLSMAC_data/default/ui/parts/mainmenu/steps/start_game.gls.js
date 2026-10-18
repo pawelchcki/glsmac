@@ -19,7 +19,7 @@ return (i) => {
 				i.steps.select_difficulty_level(i);
 			}],
 			['Load Map File', () => {
-				i.steps.notimpl(i);
+				i.steps.select_map_file(i);
 			}],
 		]
 	});

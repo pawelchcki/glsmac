@@ -14,6 +14,7 @@
     "test:game": "node --test game-assets.test.mjs",
     "test:quickstart": "node --test --test-name-pattern=Quick game-assets.test.mjs",
     "test:planet": "node --test --test-name-pattern=Planet game-assets.test.mjs",
+    "test:setup": "node --test --test-name-pattern=\"Credits|Planet\" game-assets.test.mjs",
     "test:installer": "node --test installer.test.mjs",
     "test:pages": "node --test pages.test.mjs",
     "test:textures": "node texture-upload-build.mjs && node --test texture-upload.test.mjs",

@@ -98,8 +98,19 @@ and rejection of malformed headers or truncated grids. Run it separately with
 `npm run test:gse` suite additionally exercises real `Tile`/`Tiles` serialization:
 imported center heights and coast classifications survive updates and save/load,
 corner edits resume normal height calculation, and older GSM records remain
-readable. Script tests cover both Planet menu paths and resetting Quick Start
-to random generation after a Planet selection.
+readable. Script tests cover both Planet menu paths, installed-map selection,
+faction selection and cancellation, Credits, and resetting Quick Start to random
+generation after a Planet selection.
+
+The optional `npm run test:setup` browser checks use a legally obtained original
+installation supplied through `SMAC_ASSETS_DIR`. They exercise both Planet maps
+through faction selection, then Credits and an installed-map flow including
+map/faction cancellation and Current Rules. The tests require real terrain,
+check the selected map's dimensions, reject browser/graphics errors, and verify
+that catalogs and canceled setup do not download map contents. FastDebug startup
+logs also confirm the selected faction and difficulty. See the
+[browser validation instructions](../../web/README.md#validation) for commands
+and published-site testing. Original assets remain outside the checkout.
 
 ## Extending the port
 

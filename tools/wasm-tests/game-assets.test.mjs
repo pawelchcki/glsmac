@@ -144,9 +144,13 @@ async function gamePage(t, artifactPrefix) {
 }
 
 async function clickMenuEntry(page, count, index) {
-  const box = await page.locator('#canvas').boundingBox();
   const y = 732 - 70 * (count - 1 - index);
-  await page.mouse.click(box.x + box.width * 820 / 1024, box.y + box.height * y / 768);
+  await clickCanvas(page, 820, y);
+}
+
+async function clickCanvas(page, x, y) {
+  const box = await page.locator('#canvas').boundingBox();
+  await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
 function changedPixels(before, after) {
@@ -173,6 +177,65 @@ async function changeMenu(page, count, index, filename) {
   }
   assert.ok(changed >= 30000, 'The menu changed after the selected entry was clicked');
   await menuScreenshot(page, filename);
+}
+
+async function popupScreenshot(page, filename, width, height, errors, graphicsErrors) {
+  let previous;
+  let stableFrames = 0;
+  let bordersVisible = false;
+  // Popups use an opaque two-pixel green border. Check its top and bottom
+  // edges, so an unchanged sliding menu cannot satisfy the stability check.
+  for (let attempt = 0; attempt < 60 && (stableFrames < 2 || !bordersVisible); ++attempt) {
+    assert.deepEqual(errors, [], 'No browser runtime errors while opening the popup');
+    assert.deepEqual(graphicsErrors, [], 'No WebGL or shader errors while opening the popup');
+    const png = PNG.sync.read(await page.locator('#canvas').screenshot({
+      path: fileURLToPath(new URL(filename, artifacts)),
+    }));
+    stableFrames = previous?.equals(png.data) ? stableFrames + 1 : 0;
+    previous = png.data;
+    const left = (1024 - width) / 2;
+    const top = (768 - height) / 2;
+    const hasBorder = (edge) => {
+      for (let dy = -3; dy <= 3; ++dy) {
+        let matching = 0;
+        let samples = 0;
+        for (let x = left + 8; x < left + width - 8; x += 2) {
+          const offset = (Math.floor((edge + dy) * png.height / 768) * png.width
+            + Math.floor(x * png.width / 1024)) * 4;
+          const [red, green, blue] = png.data.subarray(offset, offset + 3);
+          if (Math.abs(red - 73) < 5 && Math.abs(green - 108) < 5 && Math.abs(blue - 61) < 5) ++matching;
+          ++samples;
+        }
+        if (matching > samples * 0.8) return true;
+      }
+      return false;
+    };
+    bordersVisible = hasBorder(top) && hasBorder(top + height - 1);
+    if (stableFrames < 2 || !bordersVisible) await page.waitForTimeout(100);
+  }
+  assert.ok(bordersVisible, `The ${width}x${height} popup is visible`);
+  assert.ok(stableFrames >= 2, 'The popup finished rendering');
+}
+
+async function chooseFaction(page, prefix, index, errors, graphicsErrors) {
+  await popupScreenshot(page, `${prefix}-faction.png`, 480, 340, errors, graphicsErrors);
+  // The first row is Random, followed by the configured faction order.
+  // The choice is made through the production SDL/choicelist input path.
+  await clickCanvas(page, 512, 286 + index * 24);
+  await clickCanvas(page, 390, 538); // Start
+}
+
+async function chooseGameAssets(page, address) {
+  await page.goto(address);
+  await page.waitForFunction(() => document.body.dataset.state === 'ready');
+  if (site) {
+    await page.locator('#asset-source').selectOption('local');
+    await page.locator('#assets').setInputFiles(assets);
+  } else {
+    await page.locator('#asset-source').selectOption('remote');
+    await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
+  }
+  await startGame(page);
 }
 
 async function terrainScreenshot(page, filename, menuPixels, errors, graphicsErrors) {
@@ -349,26 +412,17 @@ test('Quick Start renders terrain within the browser GPU limit', optionalGameTes
   t.diagnostic(`Quick Start rendered ${terrainPixels} nonblack playfield pixels, replacing ${changedPixels} menu pixels, with MAX_TEXTURE_SIZE=${maximum}.`);
 });
 
-for (const { label, index, dimension, preferred, fallback, prefix } of [
+for (const { label, index, dimension, preferred, fallback, prefix, factionIndex, faction } of [
   { label: 'The Map of Planet', index: 2, dimension: 80,
-    preferred: 'maps/xplanet.mp', fallback: 'maps/planet.mp', prefix: 'game-planet' },
+    preferred: 'maps/xplanet.mp', fallback: 'maps/planet.mp', prefix: 'game-planet', factionIndex: 1, faction: 'GAIANS' },
   { label: 'Huge Map of Planet', index: 3, dimension: 128,
-    preferred: 'maps/xplanetx.mp', fallback: 'maps/planetx.mp', prefix: 'game-huge-planet' },
+    preferred: 'maps/xplanetx.mp', fallback: 'maps/planetx.mp', prefix: 'game-huge-planet', factionIndex: 0, faction: 'RANDOM' },
 ]) {
-  test(`${label} loads the original map through difficulty and standard rules`, {
+  test(`${label} loads the original map through difficulty, standard rules and faction selection`, {
     ...optionalGameTest, timeout: 300000,
   }, async (t) => {
     const { page, address, errors, graphicsErrors, assetRequests, logs } = await gamePage(t, prefix);
-    await page.goto(address);
-    await page.waitForFunction(() => document.body.dataset.state === 'ready');
-    if (site) {
-      await page.locator('#asset-source').selectOption('local');
-      await page.locator('#assets').setInputFiles(assets);
-    } else {
-      await page.locator('#asset-source').selectOption('remote');
-      await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
-    }
-    await startGame(page);
+    await chooseGameAssets(page, address);
     await menuScreenshot(page, `${prefix}-menu.png`);
     const menuPixels = PNG.sync.read(await page.locator('#canvas').screenshot()).data;
     assert.deepEqual(await page.evaluate(() => [...Module.assetStore.loaded].filter((path) => /\.mp$/i.test(path))), []);
@@ -377,6 +431,7 @@ for (const { label, index, dimension, preferred, fallback, prefix } of [
     await changeMenu(page, 5, index, `${prefix}-difficulty.png`);
     await changeMenu(page, 6, 0, `${prefix}-rules.png`); // Citizen
     await clickMenuEntry(page, 3, 0); // Play with Standard Rules
+    await chooseFaction(page, prefix, factionIndex, errors, graphicsErrors);
     const pixels = await terrainScreenshot(page, `${prefix}-map.png`, menuPixels, errors, graphicsErrors);
 
     const loadedMap = await page.evaluate(({ preferred, fallback }) => {
@@ -398,6 +453,8 @@ for (const { label, index, dimension, preferred, fallback, prefix } of [
       assert.match(logs.join('\n'), new RegExp(`Loading ${dimension * dimension / 2} tiles`),
         'The debug backend initialized the original map dimensions');
       assert.doesNotMatch(logs.join('\n'), /Generating map of size/, 'Built-in maps bypass random generation');
+      assert.match(logs.join('\n'), new RegExp(`Single-player setup: faction=${faction}, difficulty=Citizen`),
+        'The backend received the selected faction and difficulty');
     }
     if (site) assert.deepEqual(assetRequests, [], 'The public game never uploads or requests hosted original resources');
     else assert.equal(assetRequests.filter((url) => /\.mp$/i.test(new URL(url).pathname)).length, 1,
@@ -405,3 +462,74 @@ for (const { label, index, dimension, preferred, fallback, prefix } of [
     t.diagnostic(`${label}: ${loadedMap.loaded[0]}, original ${dimension}x${dimension}, ${pixels.terrainPixels} terrain pixels and ${pixels.changedPixels} changed menu pixels.`);
   });
 }
+
+test('Credits and installed-map selection return to usable menus and start the selected map', {
+  ...optionalGameTest, timeout: 360000,
+}, async (t) => {
+  const prefix = 'game-setup';
+  const { page, address, errors, graphicsErrors, assetRequests, logs } = await gamePage(t, prefix);
+  await chooseGameAssets(page, address);
+  await menuScreenshot(page, `${prefix}-menu.png`);
+  const menuPixels = PNG.sync.read(await page.locator('#canvas').screenshot()).data;
+
+  await clickMenuEntry(page, 7, 5); // View Credits
+  await popupScreenshot(page, `${prefix}-credits.png`, 620, 350, errors, graphicsErrors);
+  await page.keyboard.press('Escape');
+  await menuScreenshot(page, `${prefix}-after-credits.png`);
+  await changeMenu(page, 7, 0, `${prefix}-new-game.png`);
+
+  await clickMenuEntry(page, 5, 4); // Load Map File
+  await popupScreenshot(page, `${prefix}-map-list.png`, 620, 400, errors, graphicsErrors);
+  const maps = await page.evaluate(() => Module.assetStore.current.files
+    .filter((file) => /^maps\/[^/]+\.(?:mp|gsm)$/i.test(file.path))
+    .map((file) => file.path)
+    .sort((a, b) => a.toLowerCase() < b.toLowerCase() ? -1 : a.toLowerCase() > b.toLowerCase() ? 1 : 0));
+  const targetIndex = maps.findIndex((path) => path.toLowerCase() === 'maps/planet.mp');
+  assert.ok(targetIndex >= 0, 'The original installation includes the base Planet map');
+  assert.deepEqual(await page.evaluate(() => [...Module.assetStore.loaded].filter((path) => /\.(?:mp|gsm)$/i.test(path))), [],
+    'Listing installed maps uses metadata without reading map contents');
+  assert.equal(assetRequests.filter((url) => /\.(?:mp|gsm)$/i.test(new URL(url).pathname)).length, 0);
+
+  await page.keyboard.press('Escape');
+  await menuScreenshot(page, `${prefix}-after-map-cancel.png`);
+  await clickMenuEntry(page, 5, 4);
+  await popupScreenshot(page, `${prefix}-map-list-reopened.png`, 620, 400, errors, graphicsErrors);
+  // The catalog is case-insensitively sorted and starts on its first entry.
+  for (let index = 0; index < targetIndex; ++index) await page.keyboard.press('ArrowDown');
+  await clickCanvas(page, 320, 568); // Load Map
+  await menuScreenshot(page, `${prefix}-difficulty.png`);
+  await changeMenu(page, 6, 0, `${prefix}-rules.png`); // Citizen
+  await clickMenuEntry(page, 3, 1); // Play with Current Rules
+  await popupScreenshot(page, `${prefix}-faction-cancel.png`, 480, 340, errors, graphicsErrors);
+  await page.keyboard.press('Escape');
+  await menuScreenshot(page, `${prefix}-after-faction-cancel.png`);
+  assert.deepEqual(await page.evaluate(() => [...Module.assetStore.loaded]
+    .filter((path) => /\.(?:mp|gsm)$/i.test(path) || /(?:^|\/)units\.pcx$/i.test(path))), [],
+  'Canceling faction selection did not read the map or prematurely start a game');
+  await clickMenuEntry(page, 3, 1); // Current Rules, again
+  await chooseFaction(page, prefix, 3, errors, graphicsErrors); // UNIVERSITY
+  const pixels = await terrainScreenshot(page, `${prefix}-map.png`, menuPixels, errors, graphicsErrors);
+
+  const selected = await page.evaluate((path) => {
+    const bytes = Module.FS.readFile(`/smac/${path}`);
+    const header = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    return {
+      loaded: [...Module.assetStore.loaded].filter((entry) => /\.(?:mp|gsm)$/i.test(entry)),
+      width: header.getUint32(15, true), height: header.getUint32(19, true),
+    };
+  }, maps[targetIndex]);
+  assert.deepEqual(selected.loaded, [maps[targetIndex]], 'Only the map chosen in the catalog was loaded');
+  assert.equal(selected.width, 80);
+  assert.equal(selected.height, 80);
+  logs.push(await page.locator('#log').textContent());
+  assert.doesNotMatch(logs.join('\n'), /FATAL ERROR|Aborted\(|shader.*(?:failed|error)/i);
+  if (logs.join('\n').includes('Loading map from')) {
+    assert.match(logs.join('\n'), /Loading 3200 tiles/);
+    assert.match(logs.join('\n'), /Single-player setup: faction=UNIVERSITY, difficulty=Citizen/);
+    assert.doesNotMatch(logs.join('\n'), /Generating map of size/);
+  }
+  if (site) assert.deepEqual(assetRequests, [], 'The public game reads only the local installation');
+  else assert.equal(assetRequests.filter((url) => /\.(?:mp|gsm)$/i.test(new URL(url).pathname)).length, 1,
+    'Listing and canceling downloaded no maps; starting downloaded just the selected map');
+  t.diagnostic(`Credits dismissed; map/faction cancel returned to setup; selected ${maps[targetIndex]} rendered ${pixels.terrainPixels} terrain pixels as UNIVERSITY.`);
+});

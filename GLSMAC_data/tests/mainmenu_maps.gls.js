@@ -5,7 +5,7 @@ const main_menu = #include('../default/ui/parts/mainmenu/steps/main');
 
 // Capture the real menu callbacks without constructing a graphical UI.
 const create_menu = () => {
-	const state = { menu: null, randomized: 0, sizes: 0, notimpl: 0, started: 0, initialized: 0, deinitialized: 0 };
+	const state = { menu: null, randomized: 0, sizes: 0, files: 0, notimpl: 0, started: 0, factions: 0, initialized: 0, deinitialized: 0 };
 	const i = {
 		settings: {
 			local: { game_mode: 'multi' },
@@ -25,6 +25,8 @@ const create_menu = () => {
 		steps: {
 			select_difficulty_level: select_difficulty,
 			select_rules: select_rules,
+			select_faction: (current) => { state.factions = state.factions + 1; },
+			select_map_file: (current) => { state.files = state.files + 1; },
 			select_mapsize: (current) => { state.sizes = state.sizes + 1; },
 			notimpl: (current) => { state.notimpl = state.notimpl + 1; },
 		},
@@ -58,11 +60,12 @@ for (choice of [[2, 'The Map of Planet', 'planet'], [3, 'Huge Map of Planet', 'h
 	test.assert(menu.state.started == 0);
 	const standard_rules = menu.state.menu.entries[0][1];
 	standard_rules();
-	test.assert(menu.state.started == 1);
+	test.assert(menu.state.started == 0);
+	test.assert(menu.state.factions == 1);
 	test.assert(menu.state.randomized == 0);
 }
 
-// Existing random, custom, and manual-file entries keep their original routes.
+// Random and custom retain their routes; Load Map File opens the map picker.
 const random_menu = create_menu();
 const choose_random = random_menu.state.menu.entries[0][1];
 choose_random();
@@ -81,7 +84,9 @@ test.assert(custom_menu.state.sizes == 1);
 const file_menu = create_menu();
 const choose_file = file_menu.state.menu.entries[4][1];
 choose_file();
-test.assert(file_menu.state.notimpl == 1);
+test.assert(file_menu.state.files == 1);
+test.assert(file_menu.state.notimpl == 0);
+test.assert(file_menu.i.settings.global.map.filename == 'previous-map.GSM');
 test.assert(file_menu.state.randomized == 0);
 test.assert(file_menu.state.sizes == 0);
 

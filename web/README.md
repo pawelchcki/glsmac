@@ -40,10 +40,20 @@ launcher can remove a saved source to reclaim space.
 
 To play the original Planet map, choose **Start Game → The Map of Planet** or
 **Huge Map of Planet**, then a difficulty and **Play with Standard Rules**.
+Choose a faction or **Random**, then press **Start**. Canceling faction selection
+returns to the rules menu without starting a game.
 These choices load the original 80×80 or 128×128 `.MP` terrain from your
 installation instead of generating a random map. Alien Crossfire maps are
 preferred when available; the base game's Planet maps are supported too.
-Quick Start continues to generate a random map.
+Quick Start continues to generate a random map with a random faction.
+
+**Start Game → Load Map File** lists `.MP` and `.GSM` files from the installation's
+`maps` directory. Select a map, press **Load Map**, then choose the difficulty,
+rules, and faction. Listing maps uses the asset manifest; hosted map contents
+download only when the game starts. To use custom maps, include them under
+`maps` before importing a local installation, or add them to a hosted source
+and regenerate its manifest. **View Credits** opens the project and original-game
+credits; **OK** or Escape returns to the main menu.
 
 Without assets, the game opens its path setup screen. The embedded GLSMAC
 scripts and fallback font are included in the executable; original game assets
@@ -176,8 +186,9 @@ Run only that game check with:
 SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:quickstart
 ```
 
-The Planet checks click both original-map menu choices, select a difficulty and
-standard rules, and require rendered terrain with no browser or graphics errors.
+The Planet checks click both original-map menu choices, select a difficulty,
+standard rules, and an explicit or random faction, and require rendered terrain
+with no browser or graphics errors.
 They verify that only the selected `.MP` enters game memory and check the
 original map dimensions. Run them separately with:
 
@@ -185,7 +196,21 @@ original map dimensions. Run them separately with:
 SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:planet
 ```
 
-Set `WASM_SITE_URL` to run the local-folder, Quick Start, and Planet checks against an
+The setup batch also checks Credits dismissal, canceling and reopening the map
+catalog, Current Rules, canceling faction selection, and starting the selected
+base Planet map as the University. It verifies that opening or canceling these
+menus downloads no maps. Run it together with both Planet checks using:
+
+```sh
+SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:setup
+```
+
+FastDebug builds additionally verify the chosen faction and difficulty in the
+actual backend startup log. Screenshots and logs are saved under
+`tools/wasm-tests/build/artifacts/`, with `game-setup-*`, `game-planet-*`, and
+`game-huge-planet-*` filenames.
+
+Set `WASM_SITE_URL` to run the local-folder, Quick Start, Planet, and setup checks against an
 already published site. The streaming test requires the local asset server and
 skips with that variable set. These checks do not verify a complete single-player game.
 

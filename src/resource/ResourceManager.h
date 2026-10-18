@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "common/Module.h"
 
@@ -22,6 +23,7 @@ CLASS( ResourceManager, common::Module )
 	const std::string& GetPath( const resource_t res ) const;
 	const std::string& TryGetCustomPath( const std::string& path );
 	const std::string& GetCustomPath( const std::string& path );
+	std::vector< std::pair< std::string, std::string > > GetMapFiles() const;
 
 private:
 

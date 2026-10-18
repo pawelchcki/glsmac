@@ -17,6 +17,7 @@
 #include "gse/callable/Native.h"
 #include "gse/Exception.h"
 #include "gse/value/Undefined.h"
+#include "gse/value/Array.h"
 
 #include "game/backend/Game.h"
 #include "game/backend/State.h"
@@ -261,9 +262,29 @@ WRAPIMPL_BEGIN( GLSMAC )
 			} ),
 		},
 		{
-			"start_game",
+			"list_maps",
 			NATIVE_CALL( this ) {
 				N_EXPECT_ARGS( 0 );
+				if ( !m_state ) {
+					GSE_ERROR( gse::EC.GAME_ERROR, "Game not initialized" );
+				}
+				if ( m_is_game_running || m_is_loading ) {
+					GSE_ERROR( gse::EC.GAME_ERROR, "Maps can only be listed during game setup" );
+				}
+				gse::value::array_elements_t maps = {};
+				for ( const auto& map : g_engine->GetResourceManager()->GetMapFiles() ) {
+					maps.push_back( VALUEEXT( gse::value::Object, GSE_CALL, ( gse::value::object_properties_t{
+						{ "name", VALUE( gse::value::String,, map.first ) },
+						{ "filename", VALUE( gse::value::String,, map.second ) },
+					} ) ) );
+				}
+				return VALUE( gse::value::Array,, maps );
+			} )
+		},
+		{
+			"start_game",
+			NATIVE_CALL( this ) {
+				N_EXPECT_ARGS_MAX( 1 );
 				if ( !m_state ) {
 					GSE_ERROR( gse::EC.GAME_ERROR, "Game not initialized" );
 				}
@@ -273,8 +294,21 @@ WRAPIMPL_BEGIN( GLSMAC )
 				if ( m_is_loading ) {
 					GSE_ERROR( gse::EC.GAME_ERROR, "Game still initializing" );
 				}
+				game::backend::faction::Faction* faction = nullptr;
+				if ( !arguments.empty() ) {
+					N_GETVALUE( faction_id, 0, String );
+					if ( m_state->m_settings.local.game_mode != game::backend::settings::LocalSettings::GM_SINGLEPLAYER || !m_state->m_slots->GetSlots().empty() ) {
+						GSE_ERROR( gse::EC.GAME_ERROR, "Faction can only be chosen when creating a single-player game" );
+					}
+					if ( faction_id != "RANDOM" ) {
+						faction = m_state->GetFM()->Get( faction_id );
+						if ( !faction ) {
+							GSE_ERROR( gse::EC.GAME_ERROR, "Unknown faction: " + faction_id );
+						}
+					}
+				}
 				if ( m_state->m_slots->GetSlots().empty() ) {
-					AddSinglePlayerSlot( nullptr );
+					AddSinglePlayerSlot( faction );
 				}
 				StartGame( GSE_CALL );
 				return VALUE( gse::value::Undefined );
@@ -548,12 +582,14 @@ void GLSMAC::RandomizeSettings( GSE_CALLABLE ) {
 void GLSMAC::AddSinglePlayerSlot( game::backend::faction::Faction* const faction ) {
 	m_state->m_slots->Resize( 7 ); // TODO: make dynamic?
 	const auto& rules = m_state->m_settings.global.rules;
+	const auto& difficulty = rules.m_difficulty_levels.GetString( m_state->m_settings.global.difficulty_level );
+	Log( "Single-player setup: faction=" + ( faction ? faction->m_id : "RANDOM" ) + ", difficulty=" + difficulty );
 	m_state->m_settings.local.player_name = "Player";
 	NEWV( player, ::game::backend::Player,
 		m_state->m_settings.local.player_name,
 		::game::backend::Player::PR_SINGLE,
 		faction,
-		rules.GetDefaultDifficultyLevel() // TODO: make configurable
+		difficulty
 	);
 	m_state->AddPlayer( player );
 	size_t slot_num = 0; // player always has slot 0

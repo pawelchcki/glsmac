@@ -26,7 +26,7 @@ return (i) => {
 				i.steps.multiplayer_type(i);
 			}],
 			['View Credits', () => {
-				i.steps.notimpl(i);
+				i.steps.credits(i);
 			}],
 			['Exit Game', () => {
 				i.glsmac.exit();

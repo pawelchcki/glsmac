@@ -142,7 +142,9 @@ return (m) => {
 		for (step of [
 			'notimpl',
 			'main',
+			'credits',
 			'start_game',
+			'select_map_file',
 			'select_mapsize',
 			'customize_ocean_coverage',
 			'customize_erosive_forces',
@@ -150,6 +152,7 @@ return (m) => {
 			'customize_cloud_cover',
 			'select_difficulty_level',
 			'select_rules',
+			'select_faction',
 			'multiplayer_type',
 			'multiplayer_role',
 			'multiplayer_host',
