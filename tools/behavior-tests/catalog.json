@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "suites": [
+    {"id":"ui-interactions", "script":"GLSMAC_data/tests/ui_interactions.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"base-decisions", "script":"GLSMAC_data/tests/base_decisions.gls.js", "domains":["economy","decision-logic","gameplay"], "evidence":"glsmac-regression"},
+    {"id":"gameplay-events", "script":"GLSMAC_data/tests/gameplay_events.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"resources", "script":"GLSMAC_data/tests/resources.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
+    {"id":"base-navigation", "script":"GLSMAC_data/tests/base_navigation.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"menu-credits", "script":"GLSMAC_data/tests/mainmenu_credits.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"menu-factions", "script":"GLSMAC_data/tests/mainmenu_factions.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"menu-map-files", "script":"GLSMAC_data/tests/mainmenu_map_files.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"menu-maps", "script":"GLSMAC_data/tests/mainmenu_maps.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"terrain-intel", "script":"GLSMAC_data/tests/tile_intel.gls.js", "domains":["ui","ux","gameplay"], "evidence":"glsmac-regression"},
+    {"id":"skip-turn", "script":"GLSMAC_data/tests/unit_skip_button.gls.js", "domains":["ui","ux","gameplay"], "evidence":"glsmac-regression"}
+  ],
+  "references": [
+    {"id":"same-row-distance", "cases":"cases/map-distance.json", "observations":"observations/smacx-gog-2.0-map-distance.json"},
+    {"id":"vector-distance", "cases":"cases/map-vector.json", "observations":"observations/smacx-gog-2.0-map-vector.json"},
+    {"id":"technology", "cases":"cases/technology.json", "observations":"observations/smacx-gog-2.0-technology.json"}
+  ]
+}

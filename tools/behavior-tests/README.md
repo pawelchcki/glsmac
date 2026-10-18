@@ -6,7 +6,58 @@ locally supplied original executable. The candidate runner calls production
 GLSMAC code. Only synthetic inputs, observed outputs, build fingerprints and
 test infrastructure belong in this directory.
 
-The first working contract is `map.same_row_distance.v1`: distance between two
+## Fast parallel gameplay and UI checks
+
+Build the FastDebug WASM app once using [the browser build instructions](../../web/README.md).
+After that, changing GSE tests or production GSE scripts needs **no relink**:
+
+```sh
+npm --prefix tools/wasm-tests run test:fast -- --jobs 4
+```
+
+The current passing lane contains **175 scenarios and 1,226 assertions** across
+11 suites. It exercises production movement/combat/spawn events, deterministic
+random draws and rollback, base growth/starvation and worker decisions, menus,
+map/faction selection, base navigation, turn controls, popups, prompts, timer
+cleanup, terrain labels and the visible Skip Turn action. Existing older
+assertion-only scripts count as one file scenario; the three new suites contain
+167 individually named scenarios. This is current GLSMAC regression/invariant
+coverage, not original-game parity.
+
+The worker uses the actual WASM GSE parser/interpreter and production scripts.
+Only native managers, display nodes, input events, animation completion and
+random inputs are replaced where a fixture needs control. UI tests check
+transitions and emitted commands, not pixels, font layout, hit testing or real
+browser input routing. Browser smoke tests remain in the existing suite.
+
+Each process gets fresh engine state, a unique prefix and the same immutable
+script snapshot. Scripts live under an isolated virtual root, so deleting a
+host module cannot accidentally run its old embedded copy. Reports identify
+both runtime hashes and the script snapshot hash, and reject a runtime changed
+during execution. Rebuild the engine after C++ changes; run builds and tests
+sequentially. Default concurrency is at most four workers and can be reduced on
+memory-constrained machines. The catalog places longer suites first.
+
+```sh
+python3 tools/behavior-tests/fast.py --list
+python3 tools/behavior-tests/fast.py --domain ui --jobs 4
+python3 tools/behavior-tests/fast.py --suite gameplay-events --suite base-decisions --jobs 2
+```
+
+Failures, crashes, timeouts, skipped scripts, zero assertions, missing completion
+markers and partially completed scenarios all fail the run. Reports include
+named scenarios, actual assertion counts, durations and failure output.
+
+CI has a separate parallel **Fast headless behavior** job. Its engine cache is
+keyed by C++ sources, native test bindings, CMake, compiler/toolchain version and
+build inputs. A cache miss builds the engine once; script-only changes reuse
+the engine but always execute fresh scripts. The full native/WASM/browser jobs
+and Pages publishing remain gated, and the headless report is downloadable as
+the `headless-behavior` artifact.
+
+## Original observations and implementation gaps
+
+The supported candidate contract is `map.same_row_distance.v1`: distance between two
 valid tiles **on the same row of a round map**. Ninety cases cover all coordinate
 pairs on widths 4 and 8, both row parities, wraparound in both directions,
 half-width boundaries, widths 80/128/4096 and high row numbers. The checked-in
@@ -30,6 +81,59 @@ helper as native C++ or WASM. This extraction preserves the previous arithmetic.
 The original's general `vector_dist` has different semantics: these tests make
 no claim about arbitrary two-dimensional distances, flat maps, movement costs,
 tile yields, combat or AI.
+
+There are also **928 additional original observations** across six versioned
+contracts: raw/coordinate vector distance, technology possession, weight
+category, research availability and bounded prerequisite queries. Their precise
+fixtures and exclusions are in [contracts.md](contracts.md). The total original
+reference set is **1,018 cases**. These technology/category probes cover small
+rule helpers; they do not constitute a complete AI turn or research planner.
+
+The new contracts are deliberately still **unsupported by the GLSMAC adapter**.
+The audit exposes that gap without converting missing implementations into
+passes:
+
+```sh
+npm --prefix tools/wasm-tests run test:parity
+```
+
+Currently this exits **1** and reports **90 matched, 928 unsupported**. It runs
+independent reference suites in parallel; each result remains bound to its
+recorded input hashes. To validate all recorded evidence without executing a
+candidate, use the explicitly separate operation:
+
+```sh
+python3 tools/behavior-tests/audit.py --validate-only
+```
+
+Evidence validation reports no parity score. CI validates all evidence and
+strictly compares the implemented same-row contract; the pending contracts
+remain tests-first implementation targets. Never reduce that gap by changing
+original observations to match the candidate.
+
+## Preserved failing gameplay and UX regressions
+
+Five reproducible existing bugs have separate red tests. They express intended
+invariants, remain uncaught, and are **not included in passing counts**:
+
+| Suite | Expected behavior currently violated |
+| --- | --- |
+| `known-base-growth` | Growth with no unworked tiles creates a doctor |
+| `known-combat-rollback` | Restoring a casualty preserves its spawn descriptor |
+| `known-faction-retry` | A chosen faction survives a rejected start and error dismissal |
+| `known-popup-sound` | Replacing a quit popup stops its owned speech |
+| `known-popup-resize` | Resizing during popup exit still delivers the confirmed result |
+
+```sh
+npm --prefix tools/wasm-tests run test:known -- --jobs 3
+```
+
+This command currently exits **1** with five failures at the intended assertions.
+Fix each production issue, then move its case into the required passing catalog.
+The underscore-prefixed files stay outside the default GSE test enumeration;
+the explicit known-issues runner executes non-underscore aliases in its isolated
+filesystem to avoid the engine's underscore skip rule. It never treats a skip
+as an expected failure or a pass.
 
 ## Compare without the original game
 
@@ -63,8 +167,8 @@ crashes or other execution errors. Reports identify each case and differing
 JSON paths. Outputs are compared exactly, including field presence, types and
 trace order. Unsupported or missing cases never count as passing.
 
-The CI workflow runs the native checks and the WASM comparison from the recorded
-observations. It does not download or execute the original game.
+The CI workflow runs native checks and the implemented WASM comparison from
+recorded observations. It does not download or execute the original game.
 
 ## Capture or compare with the original
 

@@ -46,6 +46,19 @@ ignored by Git. The native game's CMake build is independent.
 
 ## Run
 
+For fast gameplay, decision-logic, UI and UX regression checks with mocked
+display boundaries, build the FastDebug app once and run:
+
+```sh
+npm --prefix tools/wasm-tests run test:fast -- --jobs 4
+```
+
+The runner loads current host GSE files into isolated WASM filesystems, so
+script/test edits do not require relinking. It records actual assertion counts
+and named scenarios; longer suites start first. The original-reference audit
+and separate known-failure probes are documented in
+[Original-game behavior comparisons](../behavior-tests/README.md).
+
 ```sh
 npm --prefix tools/wasm-tests test
 ```

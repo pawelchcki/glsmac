@@ -16,9 +16,9 @@ from unittest import mock
 import original
 
 
-def synthetic_oracle(program, extra=()):
+def synthetic_oracle(program, extra=(), entry=original.X_DIST):
     image = bytearray(original.IMAGE_SIZE)
-    for address, code in ((original.X_DIST, program), *extra):
+    for address, code in ((entry, program), *extra):
         offset = address - original.IMAGE_BASE
         image[offset:offset + len(code)] = code
     return original.OriginalOracle(bytes(image))
@@ -35,6 +35,47 @@ class FingerprintTests(unittest.TestCase):
                 with self.assertRaisesRegex(original.ProbeError, "unsupported executable SHA-256"):
                     original.load_image(path)
         parser.assert_not_called()
+
+
+class FixtureContractTests(unittest.TestCase):
+    def test_rejects_invalid_geometry_fixtures(self):
+        valid = dict(width=80, height=40, flat=False, x1=0, y1=0, x2=1, y2=1)
+        for update in ({"flat": 0}, {"width": 81}, {"x1": True}, {"y2": 40},
+                       {"x2": 2}, {"height": 1}, {"extra": 1}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.VECTOR_DISTANCE, dict(valid, **update))
+
+    def test_raw_vectors_accept_odd_parity_but_reject_overflow_and_booleans(self):
+        original.validate_input(original.RAW_VECTOR_DISTANCE, {"dx": 0, "dy": 1})
+        for values in ({"dx": 4096, "dy": 0}, {"dx": 0, "dy": False}):
+            with self.assertRaises(original.ProtocolError):
+                original.validate_input(original.RAW_VECTOR_DISTANCE, values)
+
+    def test_rejects_ambiguous_technology_graphs(self):
+        row = {"id": 0, "prerequisites": [-1, -1], "owners": 2}
+        valid = dict(ancestor_id=0, tech_id=1, max_depth=5, technologies=[row])
+        original.validate_input(original.TECH_PREREQUISITE, valid)
+        for update in ({"max_depth": 6}, {"max_depth": True}, {"technologies": [row, row]},
+                       {"technologies": [dict(row, prerequisites=[89, -1])]},
+                       {"technologies": [dict(row, owners=256)]}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.TECH_PREREQUISITE, dict(valid, **update))
+
+    def test_rejects_invalid_technology_predicate_inputs(self):
+        valid = dict(tech_id=0, faction_id=1, prerequisites=[-1, -1], owners=2)
+        for update in ({"tech_id": -3}, {"faction_id": 8}, {"owners": True},
+                       {"prerequisites": [-1]}, {"prerequisites": [-1, -1.0]}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.HAS_TECH, dict(valid, **update))
+
+    def test_rejects_incomplete_category_and_nonboolean_expansion_flag(self):
+        for values in ({"weights": [0, 1, 2]}, {"weights": [0, 1, 2, 32768]},
+                       {"weights": [False, 1, 2, 3]}):
+            with self.assertRaises(original.ProtocolError):
+                original.validate_input(original.TECH_CATEGORY, values)
+        with self.assertRaises(original.ProtocolError):
+            original.validate_input(original.TECH_AVAILABLE, dict(
+                tech_id=0, faction_id=1, expansion_enabled=1, technologies=[]))
 
 
 @unittest.skipUnless(importlib.util.find_spec("unicorn"), "optional Unicorn dependency is absent")
@@ -102,6 +143,37 @@ class EmulatorGuardTests(unittest.TestCase):
         # int 0x80 -- even a synthetic request for a host-like syscall must fail.
         with self.assertRaisesRegex(original.ProbeError, "attempted interrupt"):
             synthetic_oracle(b"\xCD\x80").distance(self.values)
+
+    def test_rejects_reads_of_mapped_but_uninitialized_fixture_bytes(self):
+        # The byte next to MAP_FLAGS is mapped but is outside the public fixture.
+        program = b"\xA1" + struct.pack("<I", original.MAP_FLAGS + 1) + b"\xC3"
+        with self.assertRaisesRegex(original.ProbeError, "read outside its fixture"):
+            synthetic_oracle(program).distance(self.values)
+
+    def test_sparse_technology_fixture_resets_omitted_rows(self):
+        entry = original.FUNCTIONS[original.HAS_TECH][1]
+        # movzx eax,byte [owners]; ret -- tests fixture isolation, not game rules.
+        program = b"\x0F\xB6\x05" + struct.pack("<I", original.TECH_OWNERS) + b"\xC3"
+        oracle = synthetic_oracle(program, entry=entry)
+        row = {"id": 0, "prerequisites": [-1, -1], "owners": 64}
+        for rows, expected in (([row], 64), ([], 0), ([row], 64)):
+            self.assertEqual(oracle.execute(original.HAS_TECH, (0, 1),
+                                            oracle.technology_fixture(rows)), expected)
+
+    def test_original_only_metadata_names_every_requested_function(self):
+        oracle = synthetic_oracle(b"\xC3")
+        self.assertEqual(oracle.metadata(), oracle.metadata(iter([original.ALGORITHM])))
+        algorithms = [original.ALGORITHM, original.HAS_TECH, original.TECH_CATEGORY]
+        metadata = oracle.metadata(iter(algorithms))
+        self.assertEqual([item["algorithm"] for item in metadata["functions"]], sorted(algorithms))
+        self.assertEqual(metadata["adapter_version"], 2)
+
+    def test_verified_function_can_cross_an_executable_page_boundary(self):
+        entry = original.FUNCTIONS[original.TECH_CATEGORY][1]
+        target = (entry & ~(original.PAGE_SIZE - 1)) + original.PAGE_SIZE
+        program = b"\xE9" + struct.pack("<i", target - entry - 5)
+        oracle = synthetic_oracle(program, ((target, b"\xB8\x02\x00\x00\x00\xC3"),), entry=entry)
+        self.assertEqual(oracle.execute(original.TECH_CATEGORY, (0,)), 2)
 
 
 if __name__ == "__main__":

@@ -24,3 +24,13 @@ Read README.md before adding a contract or modifying its evidence.
   values. Control all relevant globals and random inputs before recording.
 - Run the harness unit tests and native/WASM comparisons after changes. No
   original assets should be required for public CI or recorded-case replay.
+- Use fast.py for the required display-free script suites; they execute current
+  host scripts in isolated WASM filesystems without relinking. Rebuild after
+  C++ changes. Never run a shared build while workers use its runtime.
+- Keep newly confirmed defects as strict red probes in known-issues.json until
+  fixed. Their underscore source files need the worker's non-underscore alias;
+  the built-in runner silently skips underscore files even when selected.
+  Failing or unsupported specs must never be included in passing totals.
+- The six additional original contracts in contracts.md remain unsupported
+  candidate specs. audit.py exposes those gaps; --validate-only only checks
+  reference integrity and must never be presented as candidate agreement.
