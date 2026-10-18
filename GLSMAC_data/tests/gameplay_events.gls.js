@@ -222,8 +222,7 @@ for (deaths of [[true, false], [false, true], [true, true]]) {
 			test.assert(state.events[count - 1] == 'despawn_unit');
 		}
 		test.assert(count == (deaths[0] ? 1 : 0) + (deaths[1] ? 1 : 0));
-		// Casualty resurrection is intentionally outside this mock contract: the
-		// production rollback passes {unit}, while spawn_unit.apply needs fields.
+		// Casualty resurrection is covered by combat_rollback_regression.gls.js.
 	});
 }
 

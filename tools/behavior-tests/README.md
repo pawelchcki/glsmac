@@ -15,14 +15,14 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **175 scenarios and 1,226 assertions** across
-11 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **203 scenarios and 1,401 assertions** across
+17 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
-cleanup, terrain labels and the visible Skip Turn action. Existing older
-assertion-only scripts count as one file scenario; the three new suites contain
-167 individually named scenarios. This is current GLSMAC regression/invariant
-coverage, not original-game parity.
+cleanup, terrain labels, the visible Skip Turn action, geometry and technology
+bindings, and technology snapshots. Older assertion-only scripts count as one
+file scenario; the remaining scenarios have individual names. This is current
+GLSMAC regression/invariant coverage, separate from original-game parity.
 
 The worker uses the actual WASM GSE parser/interpreter and production scripts.
 Only native managers, display nodes, input events, animation completion and
@@ -55,9 +55,9 @@ the engine but always execute fresh scripts. The full native/WASM/browser jobs
 and Pages publishing remain gated, and the headless report is downloadable as
 the `headless-behavior` artifact.
 
-## Original observations and implementation gaps
+## Original observations and implemented contracts
 
-The supported candidate contract is `map.same_row_distance.v1`: distance between two
+The `map.same_row_distance.v1` contract measures distance between two
 valid tiles **on the same row of a round map**. Ninety cases cover all coordinate
 pairs on widths 4 and 8, both row parities, wraparound in both directions,
 half-width boundaries, widths 80/128/4096 and high row numbers. The checked-in
@@ -78,9 +78,10 @@ checks. There are no substitutes for original function results in this runner.
 GLSMAC's existing distance calculation is shared with its tile manager through
 `src/game/backend/map/tile/Geometry.h`. The candidate adapter compiles this same
 helper as native C++ or WASM. This extraction preserves the previous arithmetic.
-The original's general `vector_dist` has different semantics: these tests make
-no claim about arbitrary two-dimensional distances, flat maps, movement costs,
-tile yields, combat or AI.
+The original's general `vector_dist` has different semantics: the same-row cases
+make no claim about arbitrary two-dimensional distances or flat maps. The
+separate vector contracts below cover that bounded score. Neither distance
+contract measures movement costs, tile yields, combat or AI.
 
 There are also **928 additional original observations** across six versioned
 contracts: raw/coordinate vector distance, technology possession, weight
@@ -89,51 +90,68 @@ fixtures and exclusions are in [contracts.md](contracts.md). The total original
 reference set is **1,018 cases**. These technology/category probes cover small
 rule helpers; they do not constitute a complete AI turn or research planner.
 
-The new contracts are deliberately still **unsupported by the GLSMAC adapter**.
-The audit exposes that gap without converting missing implementations into
-passes:
+All seven bounded contracts are implemented by shared production GLSMAC helpers.
+The vector helpers expose the original vector score separately from tile steps.
+The technology table implements possession, weight classification, availability
+and bounded prerequisite queries; it does not add a full research planner or
+populate the shipped technology rules. The candidate adapter calls these same
+helpers for native and WASM replay:
 
 ```sh
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-Currently this exits **1** and reports **90 matched, 928 unsupported**. It runs
-independent reference suites in parallel; each result remains bound to its
-recorded input hashes. To validate all recorded evidence without executing a
-candidate, use the explicitly separate operation:
+This checks all **1,018 cases**. It runs independent reference suites in
+parallel; each result remains bound to its recorded input hashes. Run both
+compilation targets with:
+
+```sh
+python3 tools/behavior-tests/audit.py --target native
+python3 tools/behavior-tests/audit.py --target wasm
+```
+
+The WASM target requires the Emscripten SDK and Node.js. To validate all recorded
+evidence without executing a candidate, use the explicitly separate operation:
 
 ```sh
 python3 tools/behavior-tests/audit.py --validate-only
 ```
 
-Evidence validation reports no parity score. CI validates all evidence and
-strictly compares the implemented same-row contract; the pending contracts
-remain tests-first implementation targets. Never reduce that gap by changing
-original observations to match the candidate.
+Evidence validation reports no parity score. CI strictly compares all recorded
+contracts on native and WASM candidates. Never change original observations to
+match the candidate.
 
-## Preserved failing gameplay and UX regressions
+Gameplay scripts can call `game.geometry` for the three distance queries and
+`game.technologies` for table definitions and technology predicates. Technology
+mutation keeps the engine's event write guard; restarting a game clears the
+table, and world snapshots carry its definitions, weights and ownership. Faction
+arguments are original ownership-mask IDs (0 for native life, 1–7 for factions),
+separate from GLSMAC player slot indices. The `behavior-rules` suite exercises
+these production bindings, lifecycle reset and snapshot validation.
 
-Five reproducible existing bugs have separate red tests. They express intended
-invariants, remain uncaught, and are **not included in passing counts**:
+## Fixed gameplay and UX regressions
 
-| Suite | Expected behavior currently violated |
+The five previously failing probes now run in the required passing catalog and
+the default GSE suite. Their expanded cases cover the original failures and
+related dismissal, retry and rollback paths:
+
+| Suite | Fixed behavior |
 | --- | --- |
-| `known-base-growth` | Growth with no unworked tiles creates a doctor |
-| `known-combat-rollback` | Restoring a casualty preserves its spawn descriptor |
-| `known-faction-retry` | A chosen faction survives a rejected start and error dismissal |
-| `known-popup-sound` | Replacing a quit popup stops its owned speech |
-| `known-popup-resize` | Resizing during popup exit still delivers the confirmed result |
+| `base-growth-regression` | Growth with no unworked tiles creates a doctor |
+| `combat-rollback-regression` | Restoring a casualty preserves its spawn descriptor |
+| `faction-retry-regression` | A chosen faction survives a rejected start and error dismissal |
+| `popup-sound-regression` | Replacing a quit popup stops its owned speech exactly once |
+| `popup-resize-regression` | Resizing during popup exit delivers the pending result exactly once |
 
 ```sh
-npm --prefix tools/wasm-tests run test:known -- --jobs 3
+npm --prefix tools/wasm-tests run test:regressions -- --jobs 3
 ```
 
-This command currently exits **1** with five failures at the intended assertions.
-Fix each production issue, then move its case into the required passing catalog.
-The underscore-prefixed files stay outside the default GSE test enumeration;
-the explicit known-issues runner executes non-underscore aliases in its isolated
-filesystem to avoid the engine's underscore skip rule. It never treats a skip
-as an expected failure or a pass.
+`test:known` remains an alias for this focused regression command. There are no
+remaining red probes from this set. Keep future confirmed defects in a separate
+`known-issues.json` catalog until fixed; the worker executes non-underscore
+aliases for those probes to avoid the engine's underscore skip rule. A skip
+never counts as an expected failure or a pass.
 
 ## Compare without the original game
 

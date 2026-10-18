@@ -40,7 +40,7 @@ jobs:
         run: |
           python3 tools/behavior-tests/fast.py --jobs 4 --report build/behavior-artifacts/fast-report.json
           python3 tools/behavior-tests/audit.py --validate-only --report build/behavior-artifacts/reference-validation.json
-          python3 tools/behavior-tests/audit.py --suite same-row-distance --target native --report build/behavior-artifacts/implemented-parity.json
+          python3 tools/behavior-tests/audit.py --target native --report build/behavior-artifacts/implemented-parity.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -83,10 +83,7 @@ jobs:
           "$RUNNER_TEMP/smacx-reference/bin/pip" install -r tools/behavior-tests/requirements-reference.txt
           "$RUNNER_TEMP/smacx-reference/bin/python" -m unittest discover -s tools/behavior-tests -p 'test_*.py' -v
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
-          python3 tools/behavior-tests/compare.py compare \
-            --cases tools/behavior-tests/cases/map-distance.json \
-            --reference tools/behavior-tests/observations/smacx-gog-2.0-map-distance.json \
-            --command 'python3 tools/behavior-tests/glsmac.py --target wasm' \
+          python3 tools/behavior-tests/audit.py --target wasm \
             --report tools/wasm-tests/build/artifacts/behavior-wasm-report.json
       - name: Test browser startup
         run: |

@@ -1,6 +1,19 @@
 const MIN_DAMAGE_VALUE = 0.1;
 const MAX_DAMAGE_VALUE = 0.3;
 
+const get_spawn_descriptor = (unit) => {
+	return {
+		id: unit.id,
+		type: unit.get_def().id,
+		owner: unit.owner,
+		tile: unit.get_tile(),
+		morale: unit.morale,
+		health: unit.health,
+		movement: unit.movement,
+		moved_this_turn: unit.moved_this_turn,
+	};
+};
+
 const get_unit_attack_power = (unit) => {
 	const is_native = true; // TODO: non-native units
 	if (is_native) {
@@ -126,6 +139,17 @@ return {
 		attacker.movement = 0.0; // TODO: rovers etc
 
 		let animations = [];
+		// Capture living units before animation damage and despawning invalidate
+		// their wrappers. Store the descriptor only when the casualty completes.
+		let attacker_spawn = undefined;
+		let defender_spawn = undefined;
+		if (e.resolved.attacker_dead) {
+			attacker_spawn = get_spawn_descriptor(attacker);
+			attacker_spawn.movement = applied.backup.attacker_movement;
+		}
+		if (e.resolved.defender_dead) {
+			defender_spawn = get_spawn_descriptor(defender);
+		}
 		for (step of e.resolved.sequence) {
 			const s = step;
 			if (step[0]) {
@@ -153,7 +177,7 @@ return {
 				id: 'DEATH_PSI',
 				tile: attacker_tile,
 				oncomplete: () => {
-					applied.backup.attacker = attacker;
+					applied.backup.attacker = attacker_spawn;
 					e.game.event('despawn_unit', {unit: attacker});
 				}
 			};
@@ -163,7 +187,7 @@ return {
 				id: 'DEATH_PSI',
 				tile: defender_tile,
 				oncomplete: () => {
-					applied.backup.defender = defender;
+					applied.backup.defender = defender_spawn;
 					e.game.event('despawn_unit', {unit: defender});
 				}
 			};
@@ -179,14 +203,16 @@ return {
 		const a = e.applied;
 		e.game.am.stop_animations(a.animations_id);
 		if (#is_defined(a.backup.attacker)) {
-			e.game.event('spawn_unit', {unit: a.backup.attacker});
+			a.backup.attacker.owner = e.game.get_player(a.backup.attacker.owner);
+			e.game.event('spawn_unit', a.backup.attacker);
 		}
 		else {
 			e.data.attacker.movement = a.backup.attacker_movement;
 			e.data.attacker.health = a.backup.attacker_health;
 		}
 		if (#is_defined(a.backup.defender)) {
-			e.game.event('spawn_unit', {unit: a.backup.defender});
+			a.backup.defender.owner = e.game.get_player(a.backup.defender.owner);
+			e.game.event('spawn_unit', a.backup.defender);
 		}
 		else {
 			e.data.defender.health = a.backup.defender_health;

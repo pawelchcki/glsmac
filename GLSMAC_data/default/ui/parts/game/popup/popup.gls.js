@@ -28,6 +28,7 @@ return {
 		this.popup_def = null;
 		this.popup_cb = null;
 		this.popup_result = null;
+		this.popup_hiding = false;
 
 		this.sliding_timer = null;
 		this.sliding_speed = null;
@@ -105,15 +106,14 @@ return {
 			this.viewport_size = {
 				height: e.height - parent.bottombar_height,
 			};
-			const is_hiding = this.popup != null && this.popup_result != null;
+			const is_hiding = this.popup != null && this.popup_hiding;
 			this.sliding_stop();
-			if (is_hiding) {
-				this.clear();
-			}
 			for (data of this.popups) {
 				this.resize(data);
 			}
-			if (this.popup != null) {
+			if (is_hiding) {
+				this.finish_hide();
+			} else if (this.popup != null) {
 				this.calculate_sliding_speed(this.popup.el.top);
 			}
 		});
@@ -125,7 +125,7 @@ return {
 			modules: p.modules,
 
 			hide: () => {
-				if (#is_defined(parent.popup)) {
+				if (parent.popup != null && !parent.popup_hiding) {
 					parent.popup_result = false;
 					parent.hide(parent.popup.id);
 				}
@@ -191,6 +191,9 @@ return {
 				});
 
 				const f_result = (result) => {
+					if (parent.popup != data || parent.popup_hiding) {
+						return;
+					}
 					parent.popup_result = result;
 					parent.hide(data.id);
 				};
@@ -237,9 +240,10 @@ return {
 		if (!#is_defined(data)) {
 			throw Error('Unknown popup: ' + popup);
 		}
-		if (data != this.popup) {
+		if (data != this.popup || this.popup_hiding) {
 			return;
 		}
+		this.popup_hiding = true;
 
 		const was_sliding = this.sliding_timer != null;
 		const was_sliding_down = was_sliding && this.target_top > data.el.top;
@@ -261,13 +265,7 @@ return {
 		const f_done = () => {
 			data.el.top = this.target_top;
 			this.sliding_timer = null;
-			if (this.popup_cb != null && this.popup_result != null) {
-				this.popup_cb(this.popup_result);
-				this.popup_cb = null;
-				this.popup_result = null;
-			}
-			this.clear();
-			this.resize(data);
+			this.finish_hide();
 		};
 
 		if (this.no_sliding) {
@@ -285,13 +283,30 @@ return {
 		}
 	},
 
+	finish_hide: () => {
+		const data = this.popup;
+		const callback = this.popup_cb;
+		const result = this.popup_result;
+		// Release the old popup before its callback can open another one.
+		this.clear();
+		this.resize(data);
+		if (callback != null && result != null) {
+			callback(result);
+		}
+	},
+
 	clear: () => {
 		if (this.popup != null) {
 			this.sliding_stop();
+			if (!this.popup_hiding && #is_defined(this.popup_def.on_hide)) {
+				this.popup_def.on_hide();
+			}
 			this.popup.el.hide();
 			this.popup = null;
 			this.popup_def = null;
 			this.popup_cb = null;
+			this.popup_result = null;
+			this.popup_hiding = false;
 		}
 	},
 

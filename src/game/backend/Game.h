@@ -17,6 +17,7 @@
 #include "game/FrontendRequest.h"
 #include "game/BackendRequest.h"
 #include "game/backend/turn/Turn.h"
+#include "game/backend/technology/Table.h"
 
 // TODO: remove those
 #include "game/backend/map/tile/Tile.h"
@@ -341,6 +342,8 @@ public:
 	unit::UnitManager* GetUM() const;
 	base::BaseManager* GetBM() const;
 	animation::AnimationManager* GetAM() const;
+	technology::Table& GetTechnologyTable();
+	const technology::Table& GetTechnologyTable() const;
 
 	gc::Space* const GetGCSpace() const;
 
@@ -357,6 +360,7 @@ private:
 	unit::UnitManager* m_um = nullptr;
 	base::BaseManager* m_bm = nullptr;
 	animation::AnimationManager* m_am = nullptr;
+	technology::Table m_technologies;
 
 	enum game_state_t {
 		GS_NONE,

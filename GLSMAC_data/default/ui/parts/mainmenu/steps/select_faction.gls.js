@@ -5,15 +5,22 @@ return (i) => {
 		items :+[faction.id, faction.name];
 	}
 	let choices = null;
+	let selected = 'RANDOM';
 	let starting = false;
 	i.popup.show({
 		title: 'Choose your faction',
 		width: 480,
 		height: 340,
 		generator: (body) => {
+			let selected_name = 'Random';
+			for (item of items) {
+				if (item[0] == selected) {
+					selected_name = item[1];
+				}
+			}
 			const selected_label = body.text({
 				class: 'popup-text',
-				text: 'Faction: Random',
+				text: 'Faction: ' + selected_name,
 				align: 'top center',
 				top: 6,
 			});
@@ -35,11 +42,12 @@ return (i) => {
 				itemheight: 23,
 				itempadding: 1,
 				items: items,
-				value: 'RANDOM',
+				value: selected,
 			});
 			choices.on('select', (e) => {
 				for (item of items) {
 					if (item[0] == e.value) {
+						selected = e.value;
 						selected_label.text = 'Faction: ' + item[1];
 					}
 				}
@@ -53,10 +61,10 @@ return (i) => {
 					if (starting) {
 						return true;
 					}
-					const selected = choices.value;
-					let valid = selected == 'RANDOM';
+					const faction_id = choices.value;
+					let valid = faction_id == 'RANDOM';
 					for (faction of factions) {
-						if (faction.id == selected) {
+						if (faction.id == faction_id) {
 							valid = true;
 						}
 					}
@@ -64,6 +72,8 @@ return (i) => {
 						i.popup.error('Choose an available faction.');
 						return true;
 					}
+					// Error popups rebuild this picker when dismissed.
+					selected = faction_id;
 					try {
 						i.glsmac.start_game(selected);
 						starting = true;

@@ -31,7 +31,7 @@ class AuditTests(unittest.TestCase):
         self.assertFalse(result["candidate_executed"])
         self.assertNotIn("comparison", result)
 
-    def test_original_only_specs_remain_unsupported_and_never_match(self):
+    def test_unsupported_candidate_results_never_count_as_matches(self):
         reference = audit.load_references(audit.DIRECTORY / "catalog.json")[1]
         suite = compare.read_json(audit.DIRECTORY / reference["cases"])
         unsupported = {"version": 1, "implementation": {"name": "synthetic-test-double", "kind": "candidate"},

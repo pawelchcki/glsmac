@@ -43,6 +43,9 @@
 #include "game/backend/event/Event.h"
 #include "game/backend/event/EventHandler.h"
 #include "gse/value/Bool.h"
+#include "technology/Bindings.h"
+#include "technology/Serialization.h"
+#include "map/tile/GeometryBindings.h"
 
 namespace game {
 namespace backend {
@@ -509,6 +512,8 @@ WRAPIMPL_BEGIN( Game )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
 	WRAPIMPL_CUSTOM_SETTERS
+		{ "technologies", technology::WrapTable( GSE_CALL, m_technologies, this ) },
+		{ "geometry", map::tile::WrapGeometry( GSE_CALL ) },
 		{
 			"is_master",
 			NATIVE_CALL( this ) {
@@ -1718,6 +1723,13 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 						buf.WriteString( b.ToString() );
 					}
 
+					// technology definitions and ownership
+					{
+						types::Buffer b;
+						technology::SerializeTable( m_technologies, b );
+						buf.WriteString( b.ToString() );
+					}
+
 					// send turn info
 					MTModule::Log( "Sending turn ID: " + std::to_string( m_current_turn.GetId() ) );
 					buf.WriteInt( m_current_turn.GetId() );
@@ -1938,6 +1950,12 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 									m_am->Deserialize( ab );
 								}
 
+								// technology definitions and ownership
+								{
+									auto tb = types::Buffer( buf.ReadString() );
+									technology::DeserializeTable( m_technologies, tb );
+								}
+
 								// get turn info
 								const auto turn_id = buf.ReadInt();
 								if ( turn_id > 0 ) {
@@ -1985,6 +2003,7 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 }
 
 void Game::ResetGame() {
+	m_technologies.Clear();
 
 	ClearHandlers();
 
@@ -2037,6 +2056,14 @@ void Game::ResetGame() {
 			m_state->m_connection->ResetHandlers();
 		}
 	}
+}
+
+technology::Table& Game::GetTechnologyTable() {
+	return m_technologies;
+}
+
+const technology::Table& Game::GetTechnologyTable() const {
+	return m_technologies;
 }
 
 void Game::CheckTurnComplete() {

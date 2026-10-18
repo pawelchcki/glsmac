@@ -56,7 +56,7 @@ npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 The runner loads current host GSE files into isolated WASM filesystems, so
 script/test edits do not require relinking. It records actual assertion counts
 and named scenarios; longer suites start first. The original-reference audit
-and separate known-failure probes are documented in
+and focused fixed-bug regression checks are documented in
 [Original-game behavior comparisons](../behavior-tests/README.md).
 
 ```sh

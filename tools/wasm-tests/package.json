@@ -12,7 +12,7 @@
     "test:gse": "node gse.test.mjs",
     "test:fast": "python3 ../behavior-tests/fast.py",
     "test:parity": "python3 ../behavior-tests/audit.py",
-    "test:known": "python3 ../behavior-tests/fast.py --catalog ../behavior-tests/known-issues.json",
+    "test:known": "npm run test:regressions --",
     "test:assets": "node --test assets.test.mjs asset-bridge.test.mjs",
     "test:custom-maps": "node --test custom-maps.test.mjs",
     "test:gameplay": "node --test gameplay.test.mjs",
@@ -23,7 +23,8 @@
     "test:installer": "node --test installer.test.mjs",
     "test:pages": "node --test pages.test.mjs",
     "test:textures": "node texture-upload-build.mjs && node --test texture-upload.test.mjs",
-    "test:maps": "node smac-map-build.mjs && node --test smac-map.test.mjs"
+    "test:maps": "node smac-map-build.mjs && node --test smac-map.test.mjs",
+    "test:regressions": "python3 ../behavior-tests/fast.py --suite base-growth-regression --suite combat-rollback-regression --suite faction-retry-regression --suite popup-sound-regression --suite popup-resize-regression"
   },
   "devDependencies": {
     "playwright": "1.61.1",

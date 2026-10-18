@@ -1,8 +1,9 @@
 # Bounded original behavior contracts
 
-The six contracts below have original executable observations and currently
-have no GLSMAC implementation in this harness. Their recorded cases are open
-behavior specifications, not parity claims. Each probe executes only its
+The six contracts below have original executable observations and production
+GLSMAC implementations exercised by the native and WASM candidate adapter.
+Agreement is bounded to the recorded cases and fixtures described here.
+Each reference probe executes only its
 verified original function and permitted original dependencies; game image data
 is read-only, data reads are restricted to the declared fixture, and every case
 uses a fresh emulator and stack. No Windows or game startup state is inherited.

@@ -112,7 +112,7 @@ const process_growth = (game, base) => {
 
 	if (grow) {
 		const best_tile = (find_best_or_worst_tiles(base, base.get_unworked_tiles(), 1, 1))[0];
-		if (best_tile != null) {
+		if (#is_defined(best_tile)) {
 			// found tile to work, spawn worker
 			// TODO: talents logic
 			game.event('add_base_pop', {

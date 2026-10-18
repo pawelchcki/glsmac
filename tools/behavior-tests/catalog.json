@@ -11,7 +11,13 @@
     {"id":"menu-map-files", "script":"GLSMAC_data/tests/mainmenu_map_files.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"menu-maps", "script":"GLSMAC_data/tests/mainmenu_maps.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"terrain-intel", "script":"GLSMAC_data/tests/tile_intel.gls.js", "domains":["ui","ux","gameplay"], "evidence":"glsmac-regression"},
-    {"id":"skip-turn", "script":"GLSMAC_data/tests/unit_skip_button.gls.js", "domains":["ui","ux","gameplay"], "evidence":"glsmac-regression"}
+    {"id":"skip-turn", "script":"GLSMAC_data/tests/unit_skip_button.gls.js", "domains":["ui","ux","gameplay"], "evidence":"glsmac-regression"},
+    {"id":"base-growth-regression","script":"GLSMAC_data/tests/base_growth_regression.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"combat-rollback-regression","script":"GLSMAC_data/tests/combat_rollback_regression.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
+    {"id":"faction-retry-regression","script":"GLSMAC_data/tests/faction_retry_regression.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"popup-sound-regression","script":"GLSMAC_data/tests/popup_sound_regression.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"popup-resize-regression","script":"GLSMAC_data/tests/popup_resize_regression.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"same-row-distance", "cases":"cases/map-distance.json", "observations":"observations/smacx-gog-2.0-map-distance.json"},

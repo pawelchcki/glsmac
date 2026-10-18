@@ -10,6 +10,7 @@ SUBDIR( unit )
 SUBDIR( base )
 SUBDIR( event )
 SUBDIR( turn )
+SUBDIR( technology )
 
 SET( SRC ${SRC}
 

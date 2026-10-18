@@ -1,4 +1,5 @@
 SET( SRC ${SRC}
+	${PWD}/GeometryBindings.cpp
 
 	${PWD}/TileManager.cpp
 	${PWD}/Tile.cpp

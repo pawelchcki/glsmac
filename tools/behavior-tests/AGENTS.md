@@ -30,7 +30,8 @@ Read README.md before adding a contract or modifying its evidence.
 - Keep newly confirmed defects as strict red probes in known-issues.json until
   fixed. Their underscore source files need the worker's non-underscore alias;
   the built-in runner silently skips underscore files even when selected.
+  Promote fixed probes into catalog.json with non-underscore filenames.
   Failing or unsupported specs must never be included in passing totals.
-- The six additional original contracts in contracts.md remain unsupported
-  candidate specs. audit.py exposes those gaps; --validate-only only checks
-  reference integrity and must never be presented as candidate agreement.
+- Gate the bounded contracts in contracts.md with native/WASM candidate replay.
+  audit.py --validate-only only checks reference integrity and must never be
+  presented as candidate agreement.

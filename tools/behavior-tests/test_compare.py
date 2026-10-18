@@ -232,12 +232,15 @@ class ProcessTests(unittest.TestCase):
 class ProductionCandidateTests(unittest.TestCase):
     def test_native_production_helper_matches_captured_original_observations(self):
         directory = Path(__file__).resolve().parent
-        cases = compare.read_json(directory / "cases/map-distance.json")
-        evidence = compare.read_json(directory / "observations/smacx-gog-2.0-map-distance.json")
+        catalog = compare.read_json(directory / "catalog.json")
         command = shlex.join([sys.executable, str(directory / "glsmac.py"), "--target", "native"])
-        candidate = compare.run_probe(command, probe_request(cases))
-        report = compare.compare(cases, evidence, candidate)
-        self.assertEqual(report["summary"], {"matched": len(cases["cases"]), "mismatched": 0, "unsupported": 0, "errors": 0})
+        for reference in catalog["references"]:
+            with self.subTest(reference=reference["id"]):
+                cases = compare.read_json(directory / reference["cases"])
+                evidence = compare.read_json(directory / reference["observations"])
+                candidate = compare.run_probe(command, probe_request(cases))
+                report = compare.compare(cases, evidence, candidate)
+                self.assertEqual(report["summary"], {"matched": len(cases["cases"]), "mismatched": 0, "unsupported": 0, "errors": 0})
 
 
 if __name__ == "__main__":
