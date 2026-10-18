@@ -24,6 +24,8 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 		MT_RANDOM,
 		MT_CUSTOM,
 		MT_MAPFILE,
+		MT_PLANET,
+		MT_HUGE_PLANET,
 	};
 	type_t type = MT_RANDOM;
 

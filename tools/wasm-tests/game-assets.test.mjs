@@ -58,9 +58,10 @@ async function menuScreenshot(page, filename) {
   let colors = new Set();
   let previous;
   let stableFrames = 0;
+  let controlsVisible = false;
   // The scripted menu slides onto the background. Wait for that production
   // animation to finish so the artifact shows the actual menu controls.
-  for (let attempt = 0; attempt < 40 && (colors.size < 64 || stableFrames < 2); ++attempt) {
+  for (let attempt = 0; attempt < 60 && (colors.size < 64 || stableFrames < 2 || !controlsVisible); ++attempt) {
     const png = PNG.sync.read(await page.locator('#canvas').screenshot({
       path: fileURLToPath(new URL(filename, artifacts)),
     }));
@@ -68,10 +69,23 @@ async function menuScreenshot(page, filename) {
     previous = png.data;
     colors = new Set();
     for (let offset = 0; offset < png.data.length; offset += 4) colors.add(png.data.readUInt32LE(offset));
-    if (colors.size < 64 || stableFrames < 2) await page.waitForTimeout(100);
+    // Every sliding menu anchors its final button at the same bottom edge.
+    // Require its dark green body so a stationary transition background cannot
+    // be mistaken for an interactive menu while the SDL worker is busy.
+    let buttonPixels = 0;
+    let samples = 0;
+    for (let y = 719; y < 742; ++y) for (let x = 700; x < 940; ++x) {
+      const offset = (Math.floor(y * png.height / 768) * png.width + Math.floor(x * png.width / 1024)) * 4;
+      const [red, green, blue] = png.data.subarray(offset, offset + 3);
+      if (green > red + 4 && red < 70 && green < 100 && blue < 70) ++buttonPixels;
+      ++samples;
+    }
+    controlsVisible = buttonPixels > samples * 0.6;
+    if (colors.size < 64 || stableFrames < 2 || !controlsVisible) await page.waitForTimeout(100);
   }
   assert.ok(colors.size >= 64, `Expected the original main-menu image, found ${colors.size} colors`);
   assert.ok(stableFrames >= 2, 'The main-menu animation finished rendering');
+  assert.ok(controlsVisible, 'The menu controls are visible after the transition');
   const loaded = await page.evaluate(() => [...Module.assetStore.loaded]);
   assert.ok(loaded.some((path) => /\.ttf$/i.test(path)), 'A real original game font was read');
   assert.ok(loaded.includes('console_x.pcx'), 'The main-menu controls loaded original graphics');
@@ -93,7 +107,16 @@ async function gamePage(t, artifactPrefix) {
   const graphicsErrors = [];
   const assetRequests = [];
   const logs = [];
-  page.on('pageerror', (error) => errors.push(String(error)));
+  page.on('pageerror', async (error) => {
+    errors.push(String(error));
+    const pointer = String(error).match(/^(\d+)\b/);
+    if (pointer) {
+      try {
+        const detail = await page.evaluate((value) => Module.getExceptionMessage(value), Number(pointer[1]));
+        logs.push(`C++ exception: ${JSON.stringify(detail)}`);
+      } catch { /* The runtime may already have stopped. */ }
+    }
+  });
   page.on('console', (message) => {
     if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)/i.test(message.text())) {
       graphicsErrors.push(message.text());
@@ -115,6 +138,78 @@ async function gamePage(t, artifactPrefix) {
     }
   });
   return { page, address, errors, graphicsErrors, assetRequests, logs };
+}
+
+async function clickMenuEntry(page, count, index) {
+  const box = await page.locator('#canvas').boundingBox();
+  const y = 732 - 70 * (count - 1 - index);
+  await page.mouse.click(box.x + box.width * 820 / 1024, box.y + box.height * y / 768);
+}
+
+function changedPixels(before, after) {
+  let changed = 0;
+  for (let offset = 0; offset < after.length; offset += 4) {
+    if (before.readUInt32LE(offset) !== after.readUInt32LE(offset)) ++changed;
+  }
+  return changed;
+}
+
+async function changeMenu(page, count, index, filename) {
+  const before = PNG.sync.read(await page.locator('#canvas').screenshot()).data;
+  await clickMenuEntry(page, count, index);
+  let changed = 0;
+  // SDL consumes input on its worker. The old menu may remain stationary for
+  // several browser frames before that worker starts the outgoing animation.
+  // A hover highlight affects fewer than 30,000 pixels and cannot satisfy this.
+  for (let attempt = 0; attempt < 60 && changed < 30000; ++attempt) {
+    const png = PNG.sync.read(await page.locator('#canvas').screenshot({
+      path: fileURLToPath(new URL(filename, artifacts)),
+    }));
+    changed = changedPixels(before, png.data);
+    if (changed < 30000) await page.waitForTimeout(100);
+  }
+  assert.ok(changed >= 30000, 'The menu changed after the selected entry was clicked');
+  await menuScreenshot(page, filename);
+}
+
+async function terrainScreenshot(page, filename, menuPixels, errors, graphicsErrors) {
+  await page.waitForFunction(() => document.body.dataset.state === 'failed' || (
+    [...Module.assetStore.loaded].some((path) => /(?:^|\/)units\.pcx$/i.test(path))
+    && Module.assetStore.pending.size === 0
+  ), null, { timeout: 120000 });
+  let terrainPixels = 0;
+  let requiredPixels = 0;
+  let changedPixels = 0;
+  let requiredChanges = 0;
+  for (let attempt = 0; attempt < 40; ++attempt) {
+    const png = PNG.sync.read(await page.locator('#canvas').screenshot({
+      path: fileURLToPath(new URL(filename, artifacts)),
+    }));
+    // Exclude the bottom HUD. Sprites drawn over a failed black terrain atlas
+    // cannot fill this area; comparing the menu also rejects a premature frame.
+    const rows = Math.min(500, png.height);
+    terrainPixels = 0;
+    changedPixels = 0;
+    requiredPixels = png.width * rows / 5;
+    requiredChanges = png.width * png.height / 4;
+    for (let offset = 0; offset < png.data.length; offset += 4) {
+      if (png.data.readUInt32LE(offset) !== menuPixels.readUInt32LE(offset)) ++changedPixels;
+    }
+    for (let y = 0; y < rows; ++y) for (let x = 0; x < png.width; ++x) {
+      const offset = (y * png.width + x) * 4;
+      if (png.data[offset] + png.data[offset + 1] + png.data[offset + 2] > 12) ++terrainPixels;
+    }
+    if ((terrainPixels > requiredPixels && changedPixels > requiredChanges) || errors.length || graphicsErrors.length) break;
+    await page.waitForTimeout(250);
+  }
+  assert.deepEqual(errors, [], 'The game produced no browser runtime errors');
+  assert.deepEqual(graphicsErrors, [], 'Terrain upload and drawing produced no WebGL or shader errors');
+  assert.equal(await page.locator('body').getAttribute('data-state'), 'running',
+    await page.locator('#log').textContent());
+  assert.ok(terrainPixels > requiredPixels,
+    `Terrain must fill the playfield rather than leaving only sprites on black (${terrainPixels} visible pixels)`);
+  assert.ok(changedPixels > requiredChanges, 'The game frame replaced the main menu');
+  return { terrainPixels, changedPixels };
 }
 
 test('original game assets stream into the main menu and restart from browser storage', {
@@ -236,47 +331,12 @@ test('Quick Start renders terrain within the browser GPU limit', optionalGameTes
   await menuScreenshot(page, 'game-quickstart-menu.png');
   const canvas = page.locator('#canvas');
   const menuPixels = PNG.sync.read(await canvas.screenshot()).data;
-  const box = await canvas.boundingBox();
   // These are canvas coordinates of the real scripted Quick Start button;
   // account for the launcher's CSS scaling when the viewport is narrower.
-  await page.mouse.click(box.x + box.width * 820 / 1024, box.y + box.height * 382 / 768);
-  await page.waitForFunction(() => document.body.dataset.state === 'failed' || (
-    [...Module.assetStore.loaded].some((path) => /(?:^|\/)units\.pcx$/i.test(path))
-    && Module.assetStore.pending.size === 0
-  ), null, { timeout: 120000 });
-
-  let terrainPixels = 0;
-  let requiredPixels = 0;
-  let changedPixels = 0;
-  let requiredChanges = 0;
-  for (let attempt = 0; attempt < 40; ++attempt) {
-    const png = PNG.sync.read(await canvas.screenshot({
-      path: fileURLToPath(new URL('game-quickstart-map.png', artifacts)),
-    }));
-    // The upper playfield excludes the bottom HUD. The broken oversized atlas
-    // showed isolated sprites on black; those cannot satisfy this area check.
-    const rows = Math.min(500, png.height);
-    terrainPixels = 0;
-    changedPixels = 0;
-    requiredPixels = png.width * rows / 5;
-    requiredChanges = png.width * png.height / 4;
-    for (let offset = 0; offset < png.data.length; offset += 4) {
-      if (png.data.readUInt32LE(offset) !== menuPixels.readUInt32LE(offset)) ++changedPixels;
-    }
-    for (let y = 0; y < rows; ++y) for (let x = 0; x < png.width; ++x) {
-      const offset = (y * png.width + x) * 4;
-      if (png.data[offset] + png.data[offset + 1] + png.data[offset + 2] > 12) ++terrainPixels;
-    }
-    if ((terrainPixels > requiredPixels && changedPixels > requiredChanges) || errors.length || graphicsErrors.length) break;
-    await page.waitForTimeout(250);
-  }
+  await clickMenuEntry(page, 7, 1);
+  const { terrainPixels, changedPixels } = await terrainScreenshot(page,
+    'game-quickstart-map.png', menuPixels, errors, graphicsErrors);
   logs.push(await page.locator('#log').textContent());
-  assert.deepEqual(errors, [], 'Quick Start produced no browser runtime errors');
-  assert.deepEqual(graphicsErrors, [], 'Terrain upload and drawing produced no WebGL or shader errors');
-  assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
-  assert.ok(terrainPixels > requiredPixels,
-    `Terrain must fill the playfield rather than leaving only sprites on black (${terrainPixels} visible pixels)`);
-  assert.ok(changedPixels > requiredChanges, 'The game frame replaced the main menu');
   assert.deepEqual(assetRequests, [], 'The game reads its original resources from the saved local installation');
   assert.doesNotMatch(logs.join('\n'), /FATAL ERROR|Aborted\(|shader.*(?:failed|error)/i);
   const maximum = await page.evaluate(() => {
@@ -285,3 +345,60 @@ test('Quick Start renders terrain within the browser GPU limit', optionalGameTes
   });
   t.diagnostic(`Quick Start rendered ${terrainPixels} nonblack playfield pixels, replacing ${changedPixels} menu pixels, with MAX_TEXTURE_SIZE=${maximum}.`);
 });
+
+for (const { label, index, dimension, preferred, fallback, prefix } of [
+  { label: 'The Map of Planet', index: 2, dimension: 80,
+    preferred: 'maps/xplanet.mp', fallback: 'maps/planet.mp', prefix: 'game-planet' },
+  { label: 'Huge Map of Planet', index: 3, dimension: 128,
+    preferred: 'maps/xplanetx.mp', fallback: 'maps/planetx.mp', prefix: 'game-huge-planet' },
+]) {
+  test(`${label} loads the original map through difficulty and standard rules`, {
+    ...optionalGameTest, timeout: 300000,
+  }, async (t) => {
+    const { page, address, errors, graphicsErrors, assetRequests, logs } = await gamePage(t, prefix);
+    await page.goto(address);
+    await page.waitForFunction(() => document.body.dataset.state === 'ready');
+    if (site) {
+      await page.locator('#asset-source').selectOption('local');
+      await page.locator('#assets').setInputFiles(assets);
+    } else {
+      await page.locator('#asset-source').selectOption('remote');
+      await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
+    }
+    await startGame(page);
+    await menuScreenshot(page, `${prefix}-menu.png`);
+    const menuPixels = PNG.sync.read(await page.locator('#canvas').screenshot()).data;
+    assert.deepEqual(await page.evaluate(() => [...Module.assetStore.loaded].filter((path) => /\.mp$/i.test(path))), []);
+
+    await changeMenu(page, 7, 0, `${prefix}-selection.png`); // Start Game
+    await changeMenu(page, 5, index, `${prefix}-difficulty.png`);
+    await changeMenu(page, 6, 0, `${prefix}-rules.png`); // Citizen
+    await clickMenuEntry(page, 3, 0); // Play with Standard Rules
+    const pixels = await terrainScreenshot(page, `${prefix}-map.png`, menuPixels, errors, graphicsErrors);
+
+    const loadedMap = await page.evaluate(({ preferred, fallback }) => {
+      const files = Module.assetStore.current.files;
+      const selected = files.find((file) => file.path.toLowerCase() === preferred)
+        || files.find((file) => file.path.toLowerCase() === fallback);
+      const loaded = [...Module.assetStore.loaded].filter((path) => /\.mp$/i.test(path));
+      if (!selected || loaded.length !== 1 || loaded[0] !== selected.path) return { loaded, selected };
+      const bytes = Module.FS.readFile(`/smac/${selected.path}`);
+      const header = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+      return { loaded, selected, width: header.getUint32(15, true), height: header.getUint32(19, true) };
+    }, { preferred, fallback });
+    assert.deepEqual(loadedMap.loaded, [loadedMap.selected?.path], 'Only the selected original map entered game memory');
+    assert.equal(loadedMap.width, dimension);
+    assert.equal(loadedMap.height, dimension);
+    logs.push(await page.locator('#log').textContent());
+    assert.doesNotMatch(logs.join('\n'), /FATAL ERROR|Aborted\(|shader.*(?:failed|error)/i);
+    if (logs.join('\n').includes('Loading map from')) {
+      assert.match(logs.join('\n'), new RegExp(`Loading ${dimension * dimension / 2} tiles`),
+        'The debug backend initialized the original map dimensions');
+      assert.doesNotMatch(logs.join('\n'), /Generating map of size/, 'Built-in maps bypass random generation');
+    }
+    if (site) assert.deepEqual(assetRequests, [], 'The public game never uploads or requests hosted original resources');
+    else assert.equal(assetRequests.filter((url) => /\.mp$/i.test(new URL(url).pathname)).length, 1,
+      'Streaming fetched only the selected map');
+    t.diagnostic(`${label}: ${loadedMap.loaded[0]}, original ${dimension}x${dimension}, ${pixels.terrainPixels} terrain pixels and ${pixels.changedPixels} changed menu pixels.`);
+  });
+}

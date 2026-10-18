@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <array>
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -98,6 +99,10 @@ public:
 	//   safe to call anytime
 	void Update();
 
+	// Original SMAC maps store center heights and a separate land/sea class.
+	// Preserve them until an actual edit changes one of the shared corners.
+	void SetImportedElevation( const elevation_t value, const bool water );
+
 	// reset to empty state
 	void Clear();
 
@@ -121,6 +126,11 @@ public:
 	gse::value::Object* const GetResourcesAsValue( GSE_CALLABLE, slot::Slot* const slot );
 
 private:
+	bool m_has_imported_elevation = false;
+	elevation_t m_imported_elevation = 0;
+	bool m_imported_water = false;
+	std::array< elevation_t, 4 > m_imported_corners = {};
+
 	bool m_is_locked = false;
 	size_t m_lock_initiator_slot = 0;
 

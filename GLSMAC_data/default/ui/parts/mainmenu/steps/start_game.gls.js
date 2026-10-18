@@ -11,10 +11,12 @@ return (i) => {
 				i.steps.select_mapsize(i);
 			}],
 			['The Map of Planet', () => {
-				i.steps.notimpl(i);
+				i.settings.global.map.type = 'planet';
+				i.steps.select_difficulty_level(i);
 			}],
 			['Huge Map of Planet', () => {
-				i.steps.notimpl(i);
+				i.settings.global.map.type = 'huge_planet';
+				i.steps.select_difficulty_level(i);
 			}],
 			['Load Map File', () => {
 				i.steps.notimpl(i);

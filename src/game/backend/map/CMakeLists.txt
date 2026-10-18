@@ -7,5 +7,6 @@ SET( SRC ${SRC}
 	${PWD}/Consts.cpp
 	${PWD}/Map.cpp
 	${PWD}/MapState.cpp
+	${PWD}/SMACMap.cpp
 
 	PARENT_SCOPE )

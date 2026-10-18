@@ -13,6 +13,8 @@ WRAPMAP( type, MapSettings::type_t,
 	{ MapSettings::MT_RANDOM, "random" },
 	{ MapSettings::MT_CUSTOM, "custom" },
 	{ MapSettings::MT_MAPFILE, "mapfile" },
+	{ MapSettings::MT_PLANET, "planet" },
+	{ MapSettings::MT_HUGE_PLANET, "huge_planet" },
 )
 
 WRAPIMPL_DYNAMIC_GETTERS( MapSettings )

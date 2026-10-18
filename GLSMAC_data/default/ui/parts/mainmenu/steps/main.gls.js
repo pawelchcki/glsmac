@@ -10,6 +10,7 @@ return (i) => {
 			['Quick Start', () => {
 				i.glsmac.init();
 				i.settings.local.game_mode = 'single';
+				i.settings.global.map.type = 'random';
 				i.randomize_map();
 				i.glsmac.start_game();
 			}],

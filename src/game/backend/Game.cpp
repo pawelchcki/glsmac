@@ -26,7 +26,8 @@
 #include "map/tile/TileManager.h"
 #include "map/tile/Tiles.h"
 #include "map/MapState.h"
-#include "resource/ResourceManager.h"
+#include "game/backend/resource/ResourceManager.h"
+#include <resource/ResourceManager.h>
 #include "Bindings.h"
 #include "graphics/Graphics.h"
 #include "animation/Def.h"
@@ -959,7 +960,9 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 			//m_state->SetGame( this );
 
 			InitGame( response, MT_C );
-			response.data.init.slot_index = m_slot_num;
+			if ( response.result == R_SUCCESS ) {
+				response.data.init.slot_index = m_slot_num;
+			}
 			break;
 		}
 		case OP_GET_MAP_DATA: {
@@ -1836,7 +1839,20 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 			}
 			else {
 				auto& map_settings = m_state->m_settings.global.map;
-				if ( map_settings.type == settings::MapSettings::MT_MAPFILE ) {
+				if ( map_settings.type == settings::MapSettings::MT_PLANET || map_settings.type == settings::MapSettings::MT_HUGE_PLANET ) {
+					const bool huge = map_settings.type == settings::MapSettings::MT_HUGE_PLANET;
+					auto* resources = g_engine->GetResourceManager();
+					// Alien Crossfire adds its landmarks to the same Planet terrain.
+					// Original Alpha Centauri installations provide the base maps.
+					map_settings.filename = resources->TryGetCustomPath( huge ? "maps/xplanetx.MP" : "maps/xplanet.MP" );
+					if ( map_settings.filename.empty() ) {
+						map_settings.filename = resources->TryGetCustomPath( huge ? "maps/planetx.MP" : "maps/planet.MP" );
+					}
+					ec = map_settings.filename.empty()
+						? map::Map::EC_MAPFILE_NOT_FOUND
+						: m_map->LoadFromFile( map_settings.filename );
+				}
+				else if ( map_settings.type == settings::MapSettings::MT_MAPFILE ) {
 					ASSERT( !map_settings.filename.empty(), "loading map requested but map file not specified" );
 					ec = m_map->LoadFromFile( map_settings.filename );
 				}
@@ -1852,12 +1868,21 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 		}
 
 		if ( !ec ) {
+			m_state->m_settings.global.map.size_x = m_map->GetWidth();
+			m_state->m_settings.global.map.size_y = m_map->GetHeight();
 			m_slot->SetPlayerFlag( slot::PF_MAP_DOWNLOADED ); // map was generated locally
 			if ( connection ) {
 				connection->UpdateSlot( m_slot_num, m_slot, true );
 			}
 			m_game_state = GS_INITIALIZING;
 			response.result = R_SUCCESS;
+		}
+		else if ( ec == map::Map::EC_ABORTED ) {
+			response.result = R_ABORTED;
+		}
+		else {
+			InitFailed( map::Map::GetErrorString( ec ) );
+			response.result = R_ERROR;
 		}
 	}
 	else {

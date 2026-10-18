@@ -64,6 +64,19 @@ Tile* Tile::GetNeighbour( const direction_t direction ) {
 }
 
 void Tile::Update() {
+	if ( m_has_imported_elevation ) {
+		for ( size_t i = 0 ; i < m_imported_corners.size() ; ++i ) {
+			if ( *elevation.corners[ i ] != m_imported_corners[ i ] ) {
+				m_has_imported_elevation = false;
+				break;
+			}
+		}
+		if ( m_has_imported_elevation ) {
+			*elevation.center = m_imported_elevation;
+			is_water_tile = m_imported_water;
+			return;
+		}
+	}
 
 	*elevation.center = ( *elevation.left + *elevation.top + *elevation.right + *elevation.bottom ) / 4;
 
@@ -79,7 +92,18 @@ void Tile::Update() {
 	is_water_tile = corners_in_water > 2;
 }
 
+void Tile::SetImportedElevation( const elevation_t value, const bool water ) {
+	m_has_imported_elevation = true;
+	m_imported_elevation = value;
+	m_imported_water = water;
+	for ( size_t i = 0 ; i < m_imported_corners.size() ; ++i ) {
+		m_imported_corners[ i ] = *elevation.corners[ i ];
+	}
+	Update();
+}
+
 void Tile::Clear() {
+	m_has_imported_elevation = false;
 	for ( auto& c : elevation.corners ) {
 		*c = 0;
 	}
@@ -113,11 +137,17 @@ const types::Buffer Tile::Serialize() const {
 
 	buf.WriteInt( features );
 	buf.WriteInt( terraforming );
+	if ( m_has_imported_elevation ) {
+		buf.WriteBool( true );
+		buf.WriteInt( m_imported_elevation );
+		buf.WriteBool( m_imported_water );
+	}
 
 	return buf;
 }
 
 void Tile::Deserialize( types::Buffer buf ) {
+	m_has_imported_elevation = false;
 
 	coord.x = buf.ReadInt();
 	coord.y = buf.ReadInt();
@@ -126,7 +156,7 @@ void Tile::Deserialize( types::Buffer buf ) {
 	*elevation.left = buf.ReadInt();
 	*elevation.top = buf.ReadInt();
 	*elevation.right = buf.ReadInt();
-	*elevation.center = buf.ReadInt();
+	*elevation.bottom = buf.ReadInt();
 
 	moisture = buf.ReadInt();
 	rockiness = buf.ReadInt();
@@ -134,6 +164,18 @@ void Tile::Deserialize( types::Buffer buf ) {
 
 	features = buf.ReadInt();
 	terraforming = buf.ReadInt();
+	// Older GSM/network records end after terraforming.
+	if ( buf.lenr < buf.lenw && buf.ReadBool() ) {
+		const auto source_elevation = buf.ReadInt();
+		const auto source_water = buf.ReadBool();
+		if ( source_elevation < ELEVATION_MIN || source_elevation > ELEVATION_MAX ) {
+			THROW( "invalid imported tile elevation" );
+		}
+		SetImportedElevation( source_elevation, source_water );
+	}
+	if ( buf.lenr != buf.lenw ) {
+		THROW( "unexpected trailing tile data" );
+	}
 
 	Update();
 }

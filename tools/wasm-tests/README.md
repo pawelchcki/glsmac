@@ -90,6 +90,17 @@ boundaries, retain unaffected pixels, regenerate valid mipmaps, and cross the
 1 MiB upload-strip boundary. Identity uploads and a one-pixel limit are covered
 too. Run just these checks with `npm run test:textures` in this directory.
 
+The production SMAC `.MP` parser also runs as actual WASM with synthetic binary
+fixtures. It checks packed tile order, signed sea level, original coast and
+contour heights, resources, landmarks, terraforming, seeded resource placement,
+and rejection of malformed headers or truncated grids. Run it separately with
+`npm run test:maps`. No original map files are distributed. The full
+`npm run test:gse` suite additionally exercises real `Tile`/`Tiles` serialization:
+imported center heights and coast classifications survive updates and save/load,
+corner edits resume normal height calculation, and older GSM records remain
+readable. Script tests cover both Planet menu paths and resetting Quick Start
+to random generation after a Planet selection.
+
 ## Extending the port
 
 Add portable C++ sources to `build.mjs` and exercise their exports from

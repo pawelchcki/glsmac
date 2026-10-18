@@ -1,6 +1,7 @@
 #include "Tests.h"
 
 #include "GSE.h"
+#include "MapTiles.h"
 #include "Parser.h"
 #include "Runner.h"
 #include "Scripts.h"
@@ -44,6 +45,7 @@ void AddTests( task::gsetests::GSETests* task ) {
 			}
 		);
 		tests::AddGSETests( task );
+		tests::AddMapTilesTests( task );
 		tests::AddParserTests( task );
 		tests::AddRunnerTests( task );
 	}

@@ -324,7 +324,12 @@ void Tiles::Deserialize( types::Buffer buf ) {
 
 	for ( auto y = 0 ; y < m_height ; y++ ) {
 		for ( auto x = y & 1 ; x < m_width ; x += 2 ) {
-			At( x, y ).Deserialize( types::Buffer( buf.ReadString() ) );
+			auto& tile = At( x, y );
+			tile.Deserialize( types::Buffer( buf.ReadString() ) );
+			if ( tile.coord.x != x || tile.coord.y != y || tile.moisture > MOISTURE_RAINY ||
+				tile.rockiness > ROCKINESS_ROCKY || tile.bonus > BONUS_MINERALS ) {
+				THROW( "invalid serialized tile coordinates or terrain values" );
+			}
 		}
 	}
 

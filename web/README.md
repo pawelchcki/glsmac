@@ -38,6 +38,13 @@ clearing site data still apply. Asset storage belongs to the website's origin,
 so moving the website to a different origin creates a separate cache. The
 launcher can remove a saved source to reclaim space.
 
+To play the original Planet map, choose **Start Game → The Map of Planet** or
+**Huge Map of Planet**, then a difficulty and **Play with Standard Rules**.
+These choices load the original 80×80 or 128×128 `.MP` terrain from your
+installation instead of generating a random map. Alien Crossfire maps are
+preferred when available; the base game's Planet maps are supported too.
+Quick Start continues to generate a random map.
+
 Without assets, the game opens its path setup screen. The embedded GLSMAC
 scripts and fallback font are included in the executable; original game assets
 are not distributed. Settings and saved data under `/persist/glsmac` use a
@@ -142,8 +149,9 @@ python3 -m unittest discover -s tools -p test_wasm_assets.py
 
 The focused tests exercise production shaders, matrix uploads, integer picking,
 GPU texture-size limits and dirty updates, UUIDs, networking responses, and
-thread callbacks in actual WASM. `test:gse`
-runs the full application's scripting suite in Node. `test:app` starts the
+thread callbacks and original-map parsing in actual WASM. `test:gse`
+runs the full application's scripting suite, Planet menu regressions, and
+terrain save/load compatibility checks in Node. `test:app` starts the
 compiled application in headless Chromium and checks that its setup UI draws
 without browser errors, keyboard input opens the console, real WebAudio callbacks
 run, and production shaders and integer picking pass WebGL validation. Its screenshot is saved under
@@ -168,7 +176,16 @@ Run only that game check with:
 SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:quickstart
 ```
 
-Set `WASM_SITE_URL` to run the local-folder and Quick Start checks against an
+The Planet checks click both original-map menu choices, select a difficulty and
+standard rules, and require rendered terrain with no browser or graphics errors.
+They verify that only the selected `.MP` enters game memory and check the
+original map dimensions. Run them separately with:
+
+```sh
+SMAC_ASSETS_DIR="$(realpath ../smac-assets)" npm --prefix tools/wasm-tests run test:planet
+```
+
+Set `WASM_SITE_URL` to run the local-folder, Quick Start, and Planet checks against an
 already published site. The streaming test requires the local asset server and
 skips with that variable set. These checks do not verify a complete single-player game.
 

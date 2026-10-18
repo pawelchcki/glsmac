@@ -24,6 +24,7 @@
 #include "types/mesh/Data.h"
 #include "game/backend/State.h"
 #include "MapState.h"
+#include "SMACMap.h"
 #include "game/backend/map/tile/Tiles.h"
 #include "Consts.h"
 
@@ -253,7 +254,8 @@ const std::string& Map::GetErrorString( const error_code_t& code ) {
 
 	static const std::unordered_map< error_code_t, const std::string > m_error_code_strings = {
 		{ EC_UNKNOWN,              "Unknown error" },
-		{ EC_MAPFILE_FORMAT_ERROR, "Invalid map file format" }
+		{ EC_MAPFILE_FORMAT_ERROR, "Invalid map file format" },
+		{ EC_MAPFILE_NOT_FOUND,    "Map file not found" }
 	};
 
 	auto it = m_error_code_strings.find( code );
@@ -628,8 +630,10 @@ void Map::GetReachableObjects( std::unordered_set< Object* >& reachable_objects 
 	gse::GCWrappable::GetReachableObjects( reachable_objects );
 
 	GC_DEBUG_BEGIN( "tiles" );
-	for ( auto& t : *m_tiles->GetTilesPtr() ) {
-		t.GetReachableObjects( reachable_objects );
+	if ( m_tiles ) {
+		for ( auto& t : *m_tiles->GetTilesPtr() ) {
+			t.GetReachableObjects( reachable_objects );
+		}
 	}
 	GC_DEBUG_END();
 }
@@ -684,28 +688,96 @@ const Map::error_code_t Map::Generate( settings::MapSettings* map_settings, MT_C
 }
 
 const Map::error_code_t Map::LoadFromBuffer( types::Buffer& buffer ) {
-	if ( m_tiles ) {
-		DELETE( m_tiles );
-	}
-	NEW( m_tiles, tile::Tiles, this );
+	tile::Tiles* loaded_tiles = nullptr;
 	try {
-		m_tiles->Deserialize( buffer );
+		// Check dimensions before Tiles::Resize allocates or links any vertices.
+		auto header = types::Buffer( buffer );
+		const auto width = header.ReadInt();
+		const auto height = header.ReadInt();
+		// Each tile has twelve typed 64-bit integers (14 bytes each), wrapped
+		// in a typed string (6 bytes). Imported source metadata is optional.
+		constexpr size_t minimum_tile_record_size = 12 * 14 + 6;
+		if ( width <= 0 || height <= 0 || width > 4096 || height > 4096 || ( width & 1 ) || ( height & 1 ) ||
+			uint64_t( width ) * height / 2 > ( header.lenw - header.lenr ) / minimum_tile_record_size ) {
+			THROW( "invalid GLSMAC map dimensions or tile count" );
+		}
+		NEW( loaded_tiles, tile::Tiles, this );
+		loaded_tiles->Deserialize( buffer );
+		if ( m_tiles ) {
+			DELETE( m_tiles );
+		}
+		m_tiles = loaded_tiles;
 		return EC_NONE;
 	}
 	catch ( std::runtime_error& e ) {
 		Log( e.what() );
-		DELETE( m_tiles );
-		m_tiles = nullptr;
+		if ( loaded_tiles ) {
+			DELETE( loaded_tiles );
+		}
 		return EC_MAPFILE_FORMAT_ERROR;
 	}
 }
 
 const Map::error_code_t Map::LoadFromFile( const std::string& path ) {
-	ASSERT( util::FS::FileExists( path ), "map file \"" + path + "\" not found" );
-
-	Log( "Loading map from " + path );
-	auto b = types::Buffer( util::FS::ReadTextFile( path ) );
-	return LoadFromBuffer( b );
+	if ( path.empty() || !util::FS::FileExists( path ) ) {
+		return EC_MAPFILE_NOT_FOUND;
+	}
+	tile::Tiles* loaded_tiles = nullptr;
+	try {
+		Log( "Loading map from " + path );
+		std::vector< unsigned char > bytes;
+		util::FS::ReadFile( bytes, path );
+		if ( !smac::HasSignature( bytes ) ) {
+			auto buffer = types::Buffer( std::string( bytes.begin(), bytes.end() ) );
+			return LoadFromBuffer( buffer );
+		}
+		const auto source = smac::Parse( bytes );
+		if ( source.flat ) {
+			THROW( "Flat SMAC maps are not supported by the wrapping terrain renderer" );
+		}
+		NEW( loaded_tiles, tile::Tiles, this, source.width, source.height );
+		// A SMAC tile owns one center height. Reconstruct a mesh vertex from the
+		// mean of all incident centers; the linked pointers provide X wrapping
+		// and naturally omit nonexistent tiles beyond the polar edges.
+		std::unordered_map< tile::elevation_t*, std::pair< int64_t, uint32_t > > vertices;
+		for ( size_t y = 0 ; y < source.height ; ++y ) {
+			for ( size_t x = y & 1 ; x < source.width ; x += 2 ) {
+				const auto& original = source.tiles[ y * ( source.width / 2 ) + x / 2 ];
+				auto& tile = loaded_tiles->At( x, y );
+				tile.moisture = original.moisture;
+				tile.rockiness = original.rockiness;
+				tile.bonus = original.bonus;
+				tile.features = original.features;
+				tile.terraforming = original.terraforming;
+				for ( auto* corner : tile.elevation.corners ) {
+					auto& vertex = vertices[ corner ];
+					vertex.first += original.elevation;
+					++vertex.second;
+				}
+			}
+		}
+		for ( const auto& vertex : vertices ) {
+			*vertex.first = vertex.second.first / vertex.second.second;
+		}
+		for ( size_t y = 0 ; y < source.height ; ++y ) {
+			for ( size_t x = y & 1 ; x < source.width ; x += 2 ) {
+				const auto& original = source.tiles[ y * ( source.width / 2 ) + x / 2 ];
+				loaded_tiles->At( x, y ).SetImportedElevation( original.elevation, original.water );
+			}
+		}
+		if ( m_tiles ) {
+			DELETE( m_tiles );
+		}
+		m_tiles = loaded_tiles;
+		return EC_NONE;
+	}
+	catch ( std::runtime_error& e ) {
+		Log( e.what() );
+		if ( loaded_tiles ) {
+			DELETE( loaded_tiles );
+		}
+		return EC_MAPFILE_FORMAT_ERROR;
+	}
 }
 
 void Map::SaveToBuffer( types::Buffer& buffer ) const {
