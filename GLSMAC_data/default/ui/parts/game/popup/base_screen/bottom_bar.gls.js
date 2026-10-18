@@ -91,6 +91,7 @@ return {
 		]);
 
 		this.parts.middle_area.set({
+			base: data.base,
 			name: data.base.name,
 			owner: data.base.get_owner(),
 			pops: data.base.get_pops(),

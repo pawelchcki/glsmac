@@ -11,6 +11,8 @@
     "test:app": "node --test app.test.mjs",
     "test:gse": "node gse.test.mjs",
     "test:assets": "node --test assets.test.mjs asset-bridge.test.mjs",
+    "test:custom-maps": "node --test custom-maps.test.mjs",
+    "test:gameplay": "node --test gameplay.test.mjs",
     "test:game": "node --test game-assets.test.mjs",
     "test:quickstart": "node --test --test-name-pattern=Quick game-assets.test.mjs",
     "test:planet": "node --test --test-name-pattern=Planet game-assets.test.mjs",

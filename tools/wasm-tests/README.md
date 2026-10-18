@@ -102,6 +102,24 @@ readable. Script tests cover both Planet menu paths, installed-map selection,
 faction selection and cancellation, Credits, and resetting Quick Start to random
 generation after a Planet selection.
 
+Script tests also exercise owned-base navigation, wraparound and foreign-base
+exclusion; the visible Skip Turn control and the existing skip event's
+application and rollback; and complete tile landmark/improvement labels.
+Native GSE tests verify that each exposed improvement flag matches its stored
+terrain bit.
+
+`npm run test:custom-maps` uses the actual built WASM filesystem and IndexedDB
+without starting the game. Synthetic MP/GSM fixtures cover import, refresh,
+offline reads, installation changes, duplicate/malformed inputs, and rollback
+after storage failure. No original game assets are needed, and CI runs it.
+
+With `SMAC_ASSETS_DIR` set, `npm run test:gameplay` imports a synthetic map and
+starts the real engine with a test-only world containing two owned bases and
+one unit. Canvas interactions exercise both base arrows and wraparound, then
+the visible Skip Turn button. Read-only GSE probes check actual base selection,
+remaining movement, and the terrain labels drawn by the production UI. The
+fixture scripts are injected into test memory and are not shipped with the app.
+
 The optional `npm run test:setup` browser checks use a legally obtained original
 installation supplied through `SMAC_ASSETS_DIR`. They exercise both Planet maps
 through faction selection, then Credits and an installed-map flow including

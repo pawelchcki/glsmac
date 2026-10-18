@@ -1,5 +1,28 @@
 return {
 
+	get_skip_unit: () => {
+		if (this.selected_unit_id == null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
+			return null;
+		}
+		if (!this.um.has_unit(this.selected_unit_id)) {
+			this.selected_unit_id = null;
+			return null;
+		}
+		const unit = this.um.get_unit(this.selected_unit_id);
+		if (unit.owner != this.p.game.get_player().id || unit.is_immovable || unit.movement <= 0.0 || unit.get_tile().is_locked()) {
+			return null;
+		}
+		return unit;
+	},
+
+	update_skip_button: () => {
+		const available = this.get_skip_unit() != null;
+		if (available != this.skip_available) {
+			this.skip_available = available;
+			this.skip_button.class = available ? 'unit-skip-button-enabled' : 'unit-skip-button-disabled';
+		}
+	},
+
 	get_morale: (type, value) => {
 		if (!#is_defined(this.moralesets[type])) {
 			this.moralesets[type] = this.um.get_moraleset('NATIVE');
@@ -75,7 +98,7 @@ return {
 			left: 3,
 			right: 3,
 			top: 86,
-			bottom: 3,
+			bottom: 30,
 			itemsize: 17,
 		});
 
@@ -133,6 +156,9 @@ return {
 		this.preview = null;
 		this.last_object_class = null;
 		this.moralesets = {};
+		this.selected_unit_id = null;
+		this.is_turn_active = true;
+		this.skip_available = false;
 
 		this.p = p;
 		this.um = p.game.get_um();
@@ -154,6 +180,64 @@ return {
 		});
 		this.frame = frame_outer.panel({
 			class: 'bottombar-panel-inner',
+		});
+
+		p.ui.class('unit-skip-button').set({
+			left: 3,
+			right: 3,
+			bottom: 3,
+			height: 21,
+			align: 'bottom',
+			font: 'arialnb.ttf:14',
+			border: 'rgb(49,78,44),1',
+		});
+		p.ui.class('unit-skip-button-enabled').extend('unit-skip-button').set({
+			color: 'rgb(164,196,132)',
+			background: 'interface.pcx:crop(47,587,70,610)',
+			sound: 'ok.wav',
+			volume: 0.5,
+			_hover: { border: 'rgb(120,164,212),1' },
+			_active: { color: 'white' },
+		});
+		p.ui.class('unit-skip-button-disabled').extend('unit-skip-button').set({
+			color: 'rgb(80,95,90)',
+			background: 'rgb(22,36,30)',
+		});
+		this.skip_button = this.frame.button({
+			class: 'unit-skip-button-disabled',
+			text: 'SKIP TURN',
+		});
+		this.skip_button.on('click', (e) => {
+			const unit = this.get_skip_unit();
+			if (unit != null) {
+				const data = {};
+				data.unit = unit;
+				// The existing event owns validation and consumes the remaining moves.
+				this.p.game.event('unit_skip_turn', data);
+			}
+			this.update_skip_button();
+			return true;
+		});
+
+		this.frame.listen(p.game, 'unit_select', (e) => {
+			this.selected_unit_id = e.unit.id;
+			this.update_skip_button();
+		});
+		for (event of ['tile_select', 'base_select', 'turn']) {
+			this.frame.listen(p.game, event, (e) => {
+				this.selected_unit_id = null;
+				this.update_skip_button();
+			});
+		}
+		this.frame.listen(p.game, 'turn_status', (e) => {
+			this.is_turn_active = e.status == 'active';
+			this.update_skip_button();
+		});
+		// Movement and temporary tile locks change without a scripted UI update
+		// event. This timer belongs to the panel and stops when the UI is removed.
+		this.frame.timer(100, () => {
+			this.update_skip_button();
+			return true;
 		});
 
 		p.map.on('unit_preview', (e) => {

@@ -9,6 +9,10 @@ const remoteInput = document.getElementById('asset-url');
 const cachedInput = document.getElementById('cached-assets');
 const clearButton = document.getElementById('clear-assets');
 const storageElement = document.getElementById('storage-status');
+const mapInput = document.getElementById('custom-maps');
+const importMapsButton = document.getElementById('import-maps');
+const mapStatus = document.getElementById('custom-map-status');
+const mapList = document.getElementById('custom-map-list');
 const canvas = document.getElementById('canvas');
 const logElement = document.getElementById('log');
 const configuration = globalThis.GLSMAC_CONFIG || {};
@@ -51,6 +55,13 @@ async function initializeAssets() {
   try {
     Module.assetStore = new GLSMACAssets.AssetStore({ fs: Module.FS, onStatus: setStatus });
     await Module.assetStore.open();
+    if (!Module.persistenceError) {
+      Module.customMaps = new GLSMACCustomMaps.CustomMaps(Module.FS);
+      updateCustomMaps();
+    }
+    mapStatus.textContent = Module.persistenceError
+      ? 'Custom maps could not be restored. Reload before importing maps.'
+      : 'Choose maps to import. Existing saved maps are never overwritten.';
     const datasets = await updateSavedSources();
     sourceInput.value = datasets.length ? 'cached' : configuration.assetManifestURL ? 'remote' : 'installer';
     startButton.disabled = false;
@@ -58,6 +69,8 @@ async function initializeAssets() {
     installerInput.disabled = false;
     sourceInput.disabled = false;
     remoteInput.disabled = false;
+    mapInput.disabled = !!Module.persistenceError;
+    importMapsButton.disabled = !!Module.persistenceError;
     updateSource();
     document.body.dataset.state = 'ready';
     setStatus('Ready. Choose where to load your game assets.');
@@ -89,16 +102,53 @@ var Module = {
     fs.mount(Module.IDBFS, { autoPersist: true }, '/persist');
     Module.addRunDependency('restore-settings');
     fs.syncfs(true, (error) => {
-      if (error) log(`Settings could not be restored: ${error}`);
+      if (error) {
+        Module.persistenceError = error;
+        log(`Browser files could not be restored: ${error}`);
+      }
       Module.removeRunDependency('restore-settings');
     });
   }],
   onRuntimeInitialized: initializeAssets,
 };
 
+function updateCustomMaps() {
+  mapList.replaceChildren(...Module.customMaps.list().map((name) => {
+    const item = document.createElement('li');
+    item.textContent = name;
+    return item;
+  }));
+}
+
+importMapsButton.addEventListener('click', async () => {
+  const clearWasDisabled = clearButton.disabled;
+  mapInput.disabled = true;
+  importMapsButton.disabled = true;
+  startButton.disabled = true;
+  clearButton.disabled = true;
+  mapStatus.textContent = 'Saving custom maps…';
+  try {
+    if (Module.persistenceError) throw new Error('Browser storage could not be restored. Reload before importing maps.');
+    const names = await Module.customMaps.importFiles(mapInput.files);
+    mapInput.value = '';
+    updateCustomMaps();
+    mapStatus.textContent = `Saved ${names.length} map${names.length === 1 ? '' : 's'}. Choose Start Game → Load Map File.`;
+    navigator.storage?.persist?.().catch(() => {});
+  } catch (error) {
+    mapStatus.textContent = `Could not import maps: ${error.message || error}`;
+  } finally {
+    mapInput.disabled = !!Module.persistenceError;
+    importMapsButton.disabled = !!Module.persistenceError;
+    startButton.disabled = false;
+    clearButton.disabled = clearWasDisabled;
+  }
+});
+
 clearButton.addEventListener('click', async () => {
   clearButton.disabled = true;
   startButton.disabled = true;
+  mapInput.disabled = true;
+  importMapsButton.disabled = true;
   try {
     await Module.assetStore.clear(cachedInput.value);
     const remaining = await updateSavedSources();
@@ -110,11 +160,13 @@ clearButton.addEventListener('click', async () => {
     clearButton.disabled = false;
   } finally {
     startButton.disabled = false;
+    mapInput.disabled = !!Module.persistenceError;
+    importMapsButton.disabled = !!Module.persistenceError;
   }
 });
 
 startButton.addEventListener('click', async () => {
-  const controls = [startButton, assetInput, installerInput, sourceInput, remoteInput, cachedInput, clearButton];
+  const controls = [startButton, assetInput, installerInput, sourceInput, remoteInput, cachedInput, clearButton, mapInput, importMapsButton];
   for (const control of controls) control.disabled = true;
   let started = false;
   try {
@@ -143,6 +195,8 @@ startButton.addEventListener('click', async () => {
     document.body.dataset.state = started ? 'failed' : 'ready';
     if (!started) {
       for (const control of controls) control.disabled = false;
+      mapInput.disabled = !!Module.persistenceError;
+      importMapsButton.disabled = !!Module.persistenceError;
       await updateSavedSources();
     }
   }

@@ -269,6 +269,7 @@ WRAPIMPL_BEGIN( Tile )
 		},
 		{ "features", GetFeatures( GSE_CALL ) },
 		{ "bonuses", GetBonuses( GSE_CALL ) },
+		{ "terraforming", GetTerraforming( GSE_CALL ) },
 		{
 			"get_units",
 			NATIVE_CALL( this ) {
@@ -358,6 +359,27 @@ gse::Value* const Tile::GetBonuses( GSE_CALLABLE ) const {
 	);
 	X_BONUSES
 #undef X_BONUS
+	return VALUE( gse::value::Object,, GSE_CALL_NOGC, result );
+}
+
+gse::Value* const Tile::GetTerraforming( GSE_CALLABLE ) const {
+	gse::value::object_properties_t result = {};
+#define X_TERRAFORMING( _name, _flag ) \
+	result.emplace( _name, VALUE( gse::value::Bool,, ( terraforming & TERRAFORMING_ ## _flag ) != 0 ) );
+	X_TERRAFORMING( "road", ROAD )
+	X_TERRAFORMING( "mag_tube", MAG_TUBE )
+	X_TERRAFORMING( "forest", FOREST )
+	X_TERRAFORMING( "farm", FARM )
+	X_TERRAFORMING( "soil_enricher", SOIL_ENRICHER )
+	X_TERRAFORMING( "solar", SOLAR )
+	X_TERRAFORMING( "mine", MINE )
+	X_TERRAFORMING( "condenser", CONDENSER )
+	X_TERRAFORMING( "mirror", MIRROR )
+	X_TERRAFORMING( "borehole", BOREHOLE )
+	X_TERRAFORMING( "sensor", SENSOR )
+	X_TERRAFORMING( "bunker", BUNKER )
+	X_TERRAFORMING( "airbase", AIRBASE )
+#undef X_TERRAFORMING
 	return VALUE( gse::value::Object,, GSE_CALL_NOGC, result );
 }
 

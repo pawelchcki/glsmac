@@ -1,8 +1,53 @@
 return {
 
+	navigate_base: (direction) => {
+		if (this.base_id == null) {
+			return false;
+		}
+		const owner_id = this.p.game.get_player().id;
+		let current = null;
+		let first = null;
+		let last = null;
+		let target = null;
+		// get_bases() has no guaranteed order. Find numeric predecessors and
+		// successors directly, so navigation is stable across native map order.
+		for (base of this.p.game.get_bm().get_bases()) {
+			if (base.get_owner().id == owner_id) {
+				if (base.id == this.base_id) {
+					current = base;
+				}
+				if (first == null || base.id < first.id) {
+					first = base;
+				}
+				if (last == null || base.id > last.id) {
+					last = base;
+				}
+				if (direction > 0 && base.id > this.base_id && (target == null || base.id < target.id)) {
+					target = base;
+				}
+				if (direction < 0 && base.id < this.base_id && (target == null || base.id > target.id)) {
+					target = base;
+				}
+			}
+		}
+		if (current == null) {
+			return false;
+		}
+		if (target == null) {
+			target = direction > 0 ? first : last;
+		}
+		if (target == null || target.id == current.id) {
+			return false;
+		}
+		this.base_id = target.id;
+		this.p.game.select_base(target);
+		return true;
+	},
+
 	init: (p) => {
 
 		this.p = p;
+		this.base_id = null;
 
 		this.frame = p.body.panel({
 			class: 'default-panel',
@@ -56,8 +101,12 @@ return {
 				background: 'interface.pcx:crop(290,136,309,170)',
 			},
 		});
-		header.button({
+		const previous_base = header.button({
 			class: 'base-screen-bottombar-arrow-left',
+		});
+		previous_base.on('click', (e) => {
+			this.navigate_base(0 - 1);
+			return true;
 		});
 		p.ui.class('base-screen-bottombar-arrow-right').extend('base-screen-bottombar-arrow').set({
 			align: 'top right',
@@ -70,8 +119,12 @@ return {
 				background: 'interface.pcx:crop(311,136,330,170)',
 			},
 		});
-		header.button({
+		const next_base = header.button({
 			class: 'base-screen-bottombar-arrow-right',
+		});
+		next_base.on('click', (e) => {
+			this.navigate_base(1);
+			return true;
 		});
 
 		p.ui.class('base-screen-bottombar-pop').set({
@@ -119,6 +172,7 @@ return {
 
 	set: (data) => {
 
+		this.base_id = data.base.id;
 		this.basename.text = data.name;
 
 		// prepare classes with population images

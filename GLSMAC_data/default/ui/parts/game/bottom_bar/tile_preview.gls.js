@@ -45,8 +45,41 @@ return {
 			case 'monolith': {
 				return 'Monolith';
 			}
+			case 'unity_pod': { return 'Supply Pod'; }
+			case 'volcano': { return 'Volcano'; }
+			case 'sunny_mesa': { return 'Sunny Mesa'; }
+			case 'garland_crater': { return 'Garland Crater'; }
+			case 'fossil_field_ridge': { return 'Fossil Ridge'; }
+			case 'unity_energy': { return 'Unity Reactor'; }
+			case 'unity_chopper': { return 'Unity Chopper'; }
+			case 'unity_radar': { return 'Unity Radar'; }
 		}
 
+	},
+
+	get_terraforming_name: (tile, improvement) => {
+		if (tile.is_water) {
+			switch (improvement) {
+				case 'farm': { return 'Kelp Farm'; }
+				case 'solar': { return 'Tidal Harness'; }
+				case 'mine': { return 'Mining Platform'; }
+			}
+		}
+		switch (improvement) {
+			case 'road': { return 'Road'; }
+			case 'mag_tube': { return 'Mag Tube'; }
+			case 'forest': { return 'Forest'; }
+			case 'farm': { return 'Farm'; }
+			case 'soil_enricher': { return 'Soil Enricher'; }
+			case 'solar': { return 'Solar Collector'; }
+			case 'mine': { return 'Mine'; }
+			case 'condenser': { return 'Condenser'; }
+			case 'mirror': { return 'Echelon Mirror'; }
+			case 'borehole': { return 'Borehole'; }
+			case 'sensor': { return 'Sensor Array'; }
+			case 'bunker': { return 'Bunker'; }
+			case 'airbase': { return 'Airbase'; }
+		}
 	},
 
 	get_resource_name: (resource) => {
@@ -140,17 +173,30 @@ return {
 
 			for (f in tile.features) {
 				if (tile.features[f]) {
-					this.line(this.get_feature_name(tile, f));
+					const name = this.get_feature_name(tile, f);
+					if (#typeof(name) == 'String') {
+						this.line(name);
+					}
 				}
 			}
 
 			for (f in tile.bonuses) {
 				if (tile.bonuses[f]) {
-					this.line(this.get_resource_name(f));
+					const name = this.get_resource_name(f);
+					if (#typeof(name) == 'String') {
+						this.line(name);
+					}
 				}
 			}
 
-			// TODO: terraforming
+			for (f in tile.terraforming) {
+				if (tile.terraforming[f]) {
+					const name = this.get_terraforming_name(tile, f);
+					if (#typeof(name) == 'String') {
+						this.line(name);
+					}
+				}
+			}
 
 		}
 

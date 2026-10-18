@@ -136,6 +136,7 @@ private:
 
 	gse::Value* const GetFeatures( GSE_CALLABLE ) const;
 	gse::Value* const GetBonuses( GSE_CALLABLE ) const;
+	gse::Value* const GetTerraforming( GSE_CALLABLE ) const;
 
 };
 

@@ -44,6 +44,7 @@ jobs:
           cd tools/wasm-tests
           npx playwright install --with-deps chromium
           npm run test:assets
+          npm run test:custom-maps
           npm run test:installer
           npm run test:pages
           npm run test:app

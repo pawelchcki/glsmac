@@ -427,6 +427,10 @@ const std::string& ResourceManager::GetCustomPath( const std::string& path ) {
 std::vector< std::pair< std::string, std::string > > ResourceManager::GetMapFiles() const {
 	// Inspect directory entries only: browser assets remain lazy until selected.
 	std::vector< std::string > roots = { m_smac_path, m_data_path };
+#ifdef __EMSCRIPTEN__
+	// Custom browser maps survive installation changes in the IDBFS mount.
+	roots.push_back( "/persist/glsmac" );
+#endif
 	for ( const auto& path : g_engine->GetConfig()->GetModPaths() ) {
 		roots.push_back( path );
 	}

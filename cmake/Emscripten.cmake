@@ -34,6 +34,7 @@ CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/bootstrap.js" "${CMAKE_BINARY_DIR}/bi
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/isolation.js" "${CMAKE_BINARY_DIR}/bin/isolation.js" COPYONLY )
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/coi-serviceworker.js" "${CMAKE_BINARY_DIR}/bin/coi-serviceworker.js" COPYONLY )
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/asset-store.js" "${CMAKE_BINARY_DIR}/bin/asset-store.js" COPYONLY )
+CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/custom-maps.js" "${CMAKE_BINARY_DIR}/bin/custom-maps.js" COPYONLY )
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/installer-import.js" "${CMAKE_BINARY_DIR}/bin/installer-import.js" COPYONLY )
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/installer-worker.js" "${CMAKE_BINARY_DIR}/bin/installer-worker.js" COPYONLY )
 CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/web/config.js" "${CMAKE_BINARY_DIR}/bin/config.js" COPYONLY )

@@ -12,6 +12,7 @@
   canvas { display: block; max-width: 100%; background: black; margin: auto; }
   #status { min-height: 1.5em; }
   pre { white-space: pre-wrap; max-height: 240px; overflow: auto; font-size: 12px; }
+  #custom-map-list { max-height: 10em; overflow: auto; }
 </style>
 <main>
   <h1>GLSMAC</h1>
@@ -44,6 +45,15 @@
       <button id="clear-assets" type="button" disabled>Remove saved assets</button>
     </div>
     <p id="storage-status"></p>
+    <fieldset>
+      <legend>Custom terrain maps</legend>
+      <label>Map files <input id="custom-maps" type="file" accept=".mp,.gsm" multiple disabled></label>
+      <button id="import-maps" type="button" disabled>Import maps</button>
+      <p>Import .MP or .GSM maps, then choose Start Game → Load Map File.
+        Maps stay in this browser separately from your game assets.</p>
+      <p id="custom-map-status" role="status">Map storage is loading…</p>
+      <ul id="custom-map-list"></ul>
+    </fieldset>
     <button id="start" disabled>Start GLSMAC</button>
   </section>
   <p id="status" role="status">Loading WebAssembly…</p>
@@ -54,6 +64,7 @@
 <script src="isolation.js"></script>
 <script src="config.js"></script>
 <script src="asset-store.js"></script>
+<script src="custom-maps.js"></script>
 <script src="installer-import.js"></script>
 <script src="bootstrap.js"></script>
 </html>

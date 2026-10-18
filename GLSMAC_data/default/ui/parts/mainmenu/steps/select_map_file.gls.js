@@ -19,7 +19,7 @@ return (i) => {
 				class: 'popup-text',
 				align: 'top center',
 				top: 10,
-				text: 'Choose a map from your installation maps folder.',
+				text: 'Choose an installed or imported terrain map.',
 			});
 			const list = body.scrollview({
 				left: 10,

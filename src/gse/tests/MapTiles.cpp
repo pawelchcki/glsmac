@@ -2,6 +2,9 @@
 
 #include "game/backend/map/tile/Tiles.h"
 #include "task/gsetests/GSETests.h"
+#include "gse/GSE.h"
+#include "gse/value/Bool.h"
+#include "gc/Space.h"
 
 #include <unordered_map>
 
@@ -11,6 +14,48 @@ namespace tests {
 namespace terrain = game::backend::map::tile;
 
 void AddMapTilesTests( task::gsetests::GSETests* task ) {
+	task->AddTest(
+		"tile script metadata exposes independent improvement flags",
+		GT() {
+			terrain::Tiles tiles( nullptr, 4, 4 );
+			tiles.Clear();
+			auto& tile = tiles.At( 0, 0 );
+			const std::map< std::string, terrain::terraforming_t > flags = {
+				{ "road", terrain::TERRAFORMING_ROAD }, { "mag_tube", terrain::TERRAFORMING_MAG_TUBE },
+				{ "forest", terrain::TERRAFORMING_FOREST }, { "farm", terrain::TERRAFORMING_FARM },
+				{ "soil_enricher", terrain::TERRAFORMING_SOIL_ENRICHER }, { "solar", terrain::TERRAFORMING_SOLAR },
+				{ "mine", terrain::TERRAFORMING_MINE }, { "condenser", terrain::TERRAFORMING_CONDENSER },
+				{ "mirror", terrain::TERRAFORMING_MIRROR }, { "borehole", terrain::TERRAFORMING_BOREHOLE },
+				{ "sensor", terrain::TERRAFORMING_SENSOR }, { "bunker", terrain::TERRAFORMING_BUNKER },
+				{ "airbase", terrain::TERRAFORMING_AIRBASE },
+			};
+			bool valid = true;
+			auto* gc_space = gse->GetGCSpace();
+			gc_space->Accumulate( nullptr, [ & ]() {
+				const gse::si_t si = {};
+				gse::ExecutionPointer ep;
+				for ( const auto& selected : flags ) {
+					tile.terraforming = selected.second;
+					auto* wrapped = (gse::value::Object*)tile.Wrap( GSE_CALL );
+					auto* improvements = wrapped->Get( "terraforming" );
+					if ( improvements->type != gse::VT_OBJECT ) {
+						valid = false;
+						break;
+					}
+					const auto& properties = ((gse::value::Object*)improvements)->value;
+					valid = valid && properties.size() == flags.size();
+					for ( const auto& flag : flags ) {
+						const auto it = properties.find( flag.first );
+						valid = valid && it != properties.end() && it->second->type == gse::VT_BOOL &&
+							((gse::value::Bool*)it->second)->value == ( flag.first == selected.first );
+					}
+				}
+			} );
+			GT_ASSERT( valid, "script improvement booleans do not match terrain bits" );
+			GT_OK();
+		}
+	);
+
 	task->AddTest(
 		"original map center and coast survive updates until a corner height changes",
 		GT() {

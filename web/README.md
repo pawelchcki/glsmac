@@ -50,10 +50,24 @@ Quick Start continues to generate a random map with a random faction.
 **Start Game → Load Map File** lists `.MP` and `.GSM` files from the installation's
 `maps` directory. Select a map, press **Load Map**, then choose the difficulty,
 rules, and faction. Listing maps uses the asset manifest; hosted map contents
-download only when the game starts. To use custom maps, include them under
-`maps` before importing a local installation, or add them to a hosted source
-and regenerate its manifest. **View Credits** opens the project and original-game
+download only when the game starts. Use **Custom terrain maps → Import maps**
+in the launcher to add `.MP` or `.GSM` files directly. Imported maps survive
+reloads and changes to the selected installation. Duplicate filenames are
+rejected; rename a map before importing another version. The importer checks
+headers and dimensions, and the engine validates complete terrain on loading.
+You can also include maps under `maps` in a local installation or hosted source.
+**View Credits** opens the project and original-game
 credits; **OK** or Escape returns to the main menu.
+
+In a base screen, the left and right arrows beside the base name cycle through
+your bases and wrap at either end. The **Skip Turn** button below the unit
+preview spends the selected unit's remaining movement, as Space does. It is
+available only for your movable units during your active turn.
+
+Tile previews show supply pods, landmarks, and existing improvements such as
+roads, farms, mines, sensors, and airbases. Sea improvements use their sea names
+(kelp farms, tidal harnesses, and mining platforms). These labels report the
+map's stored terrain; they do not add terraforming orders.
 
 Without assets, the game opens its path setup screen. The embedded GLSMAC
 scripts and fallback font are included in the executable; original game assets
