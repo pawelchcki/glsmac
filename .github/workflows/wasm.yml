@@ -49,7 +49,7 @@ jobs:
             --cases tools/behavior-tests/cases/map-distance.json \
             --reference tools/behavior-tests/observations/smacx-gog-2.0-map-distance.json \
             --command 'python3 tools/behavior-tests/glsmac.py --target wasm' \
-            --report tools/behavior-tests/.build/wasm-report.json
+            --report tools/wasm-tests/build/artifacts/behavior-wasm-report.json
       - name: Test browser startup
         run: |
           cd tools/wasm-tests
@@ -64,9 +64,7 @@ jobs:
         if: always()
         with:
           name: wasm-rendering
-          path: |
-            tools/wasm-tests/build/artifacts
-            tools/behavior-tests/.build/*-report.json
+          path: tools/wasm-tests/build/artifacts
       - name: Upload Pages site
         if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
         uses: actions/upload-pages-artifact@v4
