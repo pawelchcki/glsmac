@@ -1,0 +1,4 @@
+# Optional local-only original-executable oracle; not needed by the WASM app.
+# Current versions verified against https://pypi.org/project/{pefile,unicorn}/.
+pefile==2024.8.26
+unicorn==2.1.4

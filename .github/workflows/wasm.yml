@@ -39,6 +39,17 @@ jobs:
           npm --prefix tools/wasm-tests test
           npm --prefix tools/wasm-tests run test:gse
           python3 -m unittest discover -s tools -p test_wasm_assets.py
+      - name: Compare original-game behavior observations
+        run: |
+          python3 -m venv "$RUNNER_TEMP/smacx-reference"
+          "$RUNNER_TEMP/smacx-reference/bin/pip" install -r tools/behavior-tests/requirements-reference.txt
+          "$RUNNER_TEMP/smacx-reference/bin/python" -m unittest discover -s tools/behavior-tests -p 'test_*.py' -v
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          python3 tools/behavior-tests/compare.py compare \
+            --cases tools/behavior-tests/cases/map-distance.json \
+            --reference tools/behavior-tests/observations/smacx-gog-2.0-map-distance.json \
+            --command 'python3 tools/behavior-tests/glsmac.py --target wasm' \
+            --report tools/behavior-tests/.build/wasm-report.json
       - name: Test browser startup
         run: |
           cd tools/wasm-tests
@@ -53,7 +64,9 @@ jobs:
         if: always()
         with:
           name: wasm-rendering
-          path: tools/wasm-tests/build/artifacts
+          path: |
+            tools/wasm-tests/build/artifacts
+            tools/behavior-tests/.build/*-report.json
       - name: Upload Pages site
         if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
         uses: actions/upload-pages-artifact@v4

@@ -1,4 +1,5 @@
 #include "TileManager.h"
+#include "Geometry.h"
 
 #include "game/backend/Game.h"
 #include "game/backend/State.h"
@@ -215,14 +216,7 @@ const std::string TileManager::TilesToString( const tiles_t& tiles, std::string 
 }
 
 const size_t TileManager::GetDistance( const Tile* const tile, const Tile* const other, const size_t map_width ) const {
-	const auto yd = abs(int( tile->coord.y - other->coord.y ) );
-	return std::min(
-		( abs(int( tile->coord.x - other->coord.x ) ) + yd ) / 2, // no wrap
-		std::min(
-			( abs(int( tile->coord.x - map_width - other->coord.x ) ) + yd ) / 2, // left wrap
-			( abs(int( tile->coord.x + map_width - other->coord.x ) ) + yd ) / 2 // right wrap
-		)
-	);
+	return GetTileDistance( tile->coord.x, tile->coord.y, other->coord.x, other->coord.y, map_width );
 }
 
 Map* TileManager::GetMap( GSE_CALLABLE ) const {

@@ -129,6 +129,8 @@ For the browser port's local WASM/WebGL2 test setup, see
 [Browser-free WASM canvas tests](tools/wasm-tests/README.md).
 For the full Emscripten build and browser launcher, see
 [GLSMAC in a browser](web/README.md).
+For tests comparing production GLSMAC algorithms with observed original-game
+behavior, see [Original-game behavior comparisons](tools/behavior-tests/README.md).
 
 Supported platforms:
 
