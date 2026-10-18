@@ -109,17 +109,20 @@ async function gamePage(t, artifactPrefix) {
   const logs = [];
   page.on('pageerror', async (error) => {
     errors.push(String(error));
-    const pointer = String(error).match(/^(\d+)\b/);
+    console.error(`Browser runtime error: ${error}`);
+    const pointer = String(error).match(/^\s*(\d+)\s*$/m);
     if (pointer) {
       try {
         const detail = await page.evaluate((value) => Module.getExceptionMessage(value), Number(pointer[1]));
         logs.push(`C++ exception: ${JSON.stringify(detail)}`);
+        console.error(logs.at(-1));
       } catch { /* The runtime may already have stopped. */ }
     }
   });
   page.on('console', (message) => {
     if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)/i.test(message.text())) {
       graphicsErrors.push(message.text());
+      console.error(`Browser graphics error: ${message.text()}`);
     }
   });
   page.on('request', (request) => {
