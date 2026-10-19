@@ -71,15 +71,35 @@
       "lane": "browser-and-backend-defaults",
       "status": "fixed-in-recorded-rendered-contract",
       "property": "Actual backend defaults initialized low ocean while original initial UI selects medium; controlled preference fixtures did not test startup configuration."
+    },
+    {
+      "id": "planet-size-reentry",
+      "suite": "reentry",
+      "examples": [
+        "menu-707f344090d2",
+        "menu-7d6423108e3b"
+      ],
+      "status": "fixed-in-recorded-rendered-contract",
+      "property": "Original retains the chosen Tiny/Huge size when random setup is reopened after canceling difficulty; reproduction resets Standard."
+    },
+    {
+      "id": "custom-difficulty-cancel",
+      "suite": "reentry",
+      "examples": [
+        "menu-86768cb07681",
+        "menu-d0f52cdd51e6"
+      ],
+      "status": "fixed-in-recorded-rendered-contract",
+      "property": "Canceling difficulty after confirmed custom questions returns to map type in the original; reproduction reopens clouds."
     }
   ],
   "verification": {
-    "cases": 310,
-    "matched": 310,
+    "cases": 324,
+    "matched": 324,
     "mismatched": 0,
     "errors": 0,
-    "rendered_selected_cases": 7,
-    "rendered_matched": 7,
-    "scope": "headless menu/controller contracts and seven selected rendered paths; not full-game parity"
+    "rendered_selected_cases": 9,
+    "rendered_matched": 9,
+    "scope": "headless menu/controller contracts and nine selected rendered paths; not full-game parity"
   }
 }

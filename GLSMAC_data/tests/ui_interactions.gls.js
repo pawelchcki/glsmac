@@ -324,31 +324,60 @@ scenario('canceling grouped questions destroys each question and restores caller
 	expect(f.view.find('button', 'text', 'Standard').class == 'menublock-item-active', 'size caller restored with its selection');
 	expect(#sizeof(f.manager.data_stack) == 1, 'only caller remains on stack');
 });
-scenario('random-map difficulty cancellation restores map type instead of size', () => {
+const create_map_setup = (type) => {
 	const f = create_sliding_menu();
 	f.m.sliding = f.sliding;
-	f.m.settings = { global: { map: { type: 'random', size_x: 112, size_y: 56 }, rules: { difficulty_levels: ['Citizen', 'Specialist'] } } };
-	f.m.steps = { select_difficulty_level: #include('../default/ui/parts/mainmenu/steps/select_difficulty_level') };
+	f.m.settings = { global: { map: { type: type, size_x: 112, size_y: 56, ocean_coverage: 0.6, erosive_forces: 0.75, native_lifeforms: 0.5, cloud_cover: 0.5 }, rules: { difficulty_levels: ['Citizen', 'Specialist'] } } };
+	f.m.customize_preview_defaults = { ocean_coverage_type: 3, erosive_forces_type: 0, native_lifeforms_type: 1, cloud_cover_type: 2 };
+	f.m.set_customize_preview = (data) => {};
+	f.m.steps = {};
+	for (name of ['select_mapsize', 'customize_ocean_coverage', 'customize_erosive_forces', 'customize_native_lifeforms', 'customize_cloud_cover', 'select_difficulty_level']) {
+		f.m.steps[name] = #include('../default/ui/parts/mainmenu/steps/' + name);
+	}
 	f.sliding.show({ entries: [['Map type', () => {}]] });
-	#include('../default/ui/parts/mainmenu/steps/select_mapsize')(f.m);
-	f.manager.select(2);
-	const stack = f.manager.data_stack;
-	const choose_standard = stack[#sizeof(stack) - 1].data.entries[2][1];
-	choose_standard();
+	f.m.steps.select_mapsize(f.m);
+	f.choose = (index) => {
+		f.manager.select(index);
+		const stack = f.manager.data_stack;
+		const choose = stack[#sizeof(stack) - 1].data.entries[index][1];
+		choose();
+	};
+	return f;
+};
+scenario('random-map difficulty cancellation restores map type instead of size', () => {
+	const f = create_map_setup('random');
+	f.choose(2);
 	expect(f.view.find('button', 'text', 'Pick a difficulty level').class == 'menublock-item-active', 'difficulty opened');
 	f.sliding.back();
 	expect(f.view.find('button', 'text', 'Map type').class == 'menublock-item-active', 'map type restored');
 	expect(#sizeof(f.manager.data_stack) == 1, 'random size and difficulty scope unwound');
 });
-scenario('custom-map difficulty cancellation retains its existing question caller', () => {
-	const f = create_sliding_menu();
-	f.m.settings = { global: { map: { type: 'custom' }, rules: { difficulty_levels: ['Citizen'] } } };
-	f.m.sliding = f.sliding;
-	f.sliding.show({ entries: [['Clouds', () => {}]], cancel_group: 'customize_map' });
-	#include('../default/ui/parts/mainmenu/steps/select_difficulty_level')(f.m);
+scenario('size menu remembers saved Tiny and Huge choices after difficulty cancellation', () => {
+	for (choice of [[0, 'Tiny Planet'], [4, 'Huge Planet']]) {
+		const f = create_map_setup('random');
+		f.choose(choice[0]);
+		f.sliding.back();
+		f.m.steps.select_mapsize(f.m);
+		expect(f.view.find('button', 'text', choice[1]).class == 'menublock-item-active', 'saved size restored');
+	}
+});
+scenario('completed custom-map difficulty cancellation restores map type and retains answers', () => {
+	const f = create_map_setup('custom');
+	f.choose(2);
+	for (let question = 0; question < 4; question++) { f.choose(0); }
 	f.sliding.back();
-	expect(f.view.find('button', 'text', 'Clouds').class == 'menublock-item-active', 'custom difficulty still restores its prior question');
-	expect(#sizeof(f.manager.data_stack) == 1, 'custom question retained');
+	expect(f.view.find('button', 'text', 'Map type').class == 'menublock-item-active', 'map type restored');
+	expect(#sizeof(f.manager.data_stack) == 1, 'all questions and size scope unwound');
+	expect(f.m.settings.global.map.ocean_coverage == 0.4 && f.m.settings.global.map.erosive_forces == 0.5 && f.m.settings.global.map.native_lifeforms == 0.25 && f.m.settings.global.map.cloud_cover == 0.25, 'answers retained after completed setup');
+});
+scenario('partial custom-map cancellation retains answers when questions reopen', () => {
+	const f = create_map_setup('custom');
+	f.choose(2);
+	f.choose(0);
+	f.sliding.back();
+	expect(f.view.find('button', 'text', 'Standard Planet').class == 'menublock-item-active', 'partial cancel returns to size');
+	f.choose(2);
+	expect(f.view.find('button', 'text', '30-50% of surface').class == 'menublock-item-active', 'saved answer remains selected');
 });
 scenario('mainmenu popup Escape removes its window and resets empty stack', () => {
 	const f = create_menu_popup();
@@ -642,4 +671,4 @@ scenario('native faction rejection is recoverable through real error back naviga
 	expect(f.state.attempts == 2 && f.state.started == ['HIVE'], 'retry uses fresh choice');
 });
 
-expect(cases == 58, 'all interaction scenarios executed');
+expect(cases == 60, 'all interaction scenarios executed');

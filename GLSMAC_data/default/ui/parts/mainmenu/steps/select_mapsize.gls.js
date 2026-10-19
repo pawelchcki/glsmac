@@ -1,4 +1,14 @@
 return (i) => {
+	const sizes = [[68, 34], [88, 44], [112, 56], [140, 70], [180, 90]];
+	let selected = 2;
+	let index = 0;
+	for (size of sizes) {
+		if (i.settings.global.map.size_x == size[0] && i.settings.global.map.size_y == size[1]) {
+			selected = index;
+			break;
+		}
+		index++;
+	}
 	const next = () => {
 		if (i.settings.global.map.type == 'random') {
 			i.steps.select_difficulty_level(i);
@@ -8,8 +18,9 @@ return (i) => {
 	};
 	i.sliding.show({
 		title: 'Select size of planet',
+		cancel_scope: 'map_setup',
 		cancel_group: i.settings.global.map.type == 'random' ? 'random_map' : undefined,
-		selected: 2,
+		selected: selected,
 		entries: [
 			['Tiny Planet', () => {
 				i.settings.global.map.size_x = 68;

@@ -13,7 +13,7 @@ import audit
 import compare
 import original
 from protocol import ProtocolError
-from ui import generate_custom, generate_navigation, headless, original_headless as controller
+from ui import generate_custom, generate_navigation, generate_reentry, headless, original_headless as controller
 from ui.probe import validate_input as validate_navigation
 
 
@@ -26,6 +26,19 @@ def custom_case(name="synthetic", choices=()):
 
 
 class HeadlessContractTests(unittest.TestCase):
+    def test_reentry_paths_are_new_bounded_inputs_without_answers(self):
+        suite = generate_reentry.make_suite()
+        self.assertEqual(json.loads((DIRECTORY / "cases/reentry.json").read_text()), suite)
+        self.assertEqual(len(suite["cases"]), 14)
+        ids = {case["id"] for case in suite["cases"]}
+        self.assertEqual(len(ids), 14)
+        prior = {case["id"] for name in ("menus", "navigation")
+                 for case in json.loads((DIRECTORY / f"cases/{name}.json").read_text())["cases"]}
+        self.assertFalse(prior & ids)
+        for case in suite["cases"]:
+            self.assertEqual(set(case), {"id", "algorithm", "input"})
+            validate_navigation(case["input"])
+
     def test_new_navigation_cases_are_bounded_unique_inputs_without_answers(self):
         suite = generate_navigation.make_suite()
         self.assertEqual(json.loads((DIRECTORY / "cases/navigation.json").read_text()), suite)
@@ -72,13 +85,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 310)
+        self.assertEqual(count, 324)
 
     def test_runtime_success_is_not_itself_an_observation(self):
         for output in ("", "All tests passed.\n", "HUI_CASE|synthetic\nAll tests passed.\n"):

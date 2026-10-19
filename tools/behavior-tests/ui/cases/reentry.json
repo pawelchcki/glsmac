@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "name": "original-menu-reentry",
+  "description": "Reopen size/custom menus after cancellation, return from nondefault difficulty/rules, and cancel after confirmed custom questions. Inputs only.",
+  "cases": [
+    {
+      "id": "menu-707f344090d2",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "TINY PLANET"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-b8caa1b87a2d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "TINY PLANET"
+          },
+          {
+            "choose": "THINKER"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-c16df8c0c517",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "TINY PLANET"
+          },
+          {
+            "choose": "THINKER"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-7d6423108e3b",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "HUGE PLANET"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-0c3ea4d356e4",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "HUGE PLANET"
+          },
+          {
+            "choose": "THINKER"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-00bf523f57d8",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "HUGE PLANET"
+          },
+          {
+            "choose": "THINKER"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-aad4948f194f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "30-50% OF SURFACE"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-64caf02c01c9",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "30-50% OF SURFACE"
+          },
+          {
+            "choose": "STRONG"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-5a391f9d9c59",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "30-50% OF SURFACE"
+          },
+          {
+            "choose": "STRONG"
+          },
+          {
+            "choose": "RARE"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-86768cb07681",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "30-50% OF SURFACE"
+          },
+          {
+            "choose": "STRONG"
+          },
+          {
+            "choose": "RARE"
+          },
+          {
+            "choose": "SPARSE"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-5413b2682310",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "70-90% OF SURFACE"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-cb22b3ba960f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "70-90% OF SURFACE"
+          },
+          {
+            "choose": "WEAK"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-386f9f98f918",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "70-90% OF SURFACE"
+          },
+          {
+            "choose": "WEAK"
+          },
+          {
+            "choose": "ABUNDANT"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-d0f52cdd51e6",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "70-90% OF SURFACE"
+          },
+          {
+            "choose": "WEAK"
+          },
+          {
+            "choose": "ABUNDANT"
+          },
+          {
+            "choose": "DENSE"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    }
+  ]
+}

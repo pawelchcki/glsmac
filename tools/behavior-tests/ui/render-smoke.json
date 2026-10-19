@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Seven real input paths through ten menu screens, including custom previews and defaults; original observations remain unchanged.",
+  "description": "Nine real input paths through ten menu screens, including custom previews, startup defaults and re-entry; original observations remain unchanged.",
   "suites": {
     "menus": [
       "menu-68f3cbd2bd99",
@@ -12,6 +12,10 @@
     "navigation": [
       "menu-eba7b3dc6a10",
       "menu-8d46dd28eda8"
+    ],
+    "reentry": [
+      "menu-7d6423108e3b",
+      "menu-d0f52cdd51e6"
     ]
   }
 }

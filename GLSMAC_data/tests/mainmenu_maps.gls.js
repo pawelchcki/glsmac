@@ -128,6 +128,9 @@ for (map_type of ['random', 'custom']) {
 	for (preset of [[0, 68, 34], [1, 88, 44], [2, 112, 56], [3, 140, 70], [4, 180, 90]]) {
 		const menu = create_menu();
 		let customized = 0;
+		// Standard is the fresh backend default; create_menu otherwise carries
+		// a previous Small setting, which the size menu correctly remembers.
+		menu.i.settings.global.map = test.default_map_settings();
 		menu.i.settings.global.map.type = map_type;
 		menu.i.steps.customize_ocean_coverage = (current) => { customized++; };
 		select_mapsize(menu.i);
