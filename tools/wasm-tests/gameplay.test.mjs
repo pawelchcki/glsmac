@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { chromium } from 'playwright';
@@ -85,6 +86,9 @@ const mainScript = String.raw`
     game.on('unit_select', (e) => {
       #print('SMOKE_UNIT|' + #to_string(e.unit.id) + '|' + #to_string(e.unit.owner));
     });
+    game.on('turn', (e) => {
+      #print('SMOKE_TURN|' + #to_string(game.get_turn()) + '|' + #to_string(e.year));
+    });
     game.on('turn_status', (e) => {
       const um = game.get_um();
       if (um.has_unit(1)) {
@@ -95,7 +99,9 @@ const mainScript = String.raw`
       #async(0, () => {
         glsmac.ui.root.on('keydown', (e) => {
           if (e.code == 'P' && e.modifiers == {}) {
-            #print('SMOKE_MOVEMENT|' + #to_string(game.get_um().get_unit(1).movement));
+            const unit = game.get_um().get_unit(1);
+            #print('SMOKE_MOVEMENT|' + #to_string(unit.movement));
+            #print('SMOKE_POSITION|' + #to_string(unit.tile.x) + '|' + #to_string(unit.tile.y));
             return true;
           }
           return false;
@@ -118,7 +124,7 @@ return (game) => {
     id: 'RECYCLING_TANKS',
     data: { type: 'facility', id: 'RECYCLING_TANKS' },
   });
-  for (position of [[8, 8], [2, 2]]) {
+  for (position of [[8, 8], [10, 8]]) {
     game.event('spawn_base', {
       owner: owner,
       tile: tm.get_tile(position[0], position[1]),
@@ -159,11 +165,15 @@ async function clickCanvas(page, x, y) {
   await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
-test('owned base arrows, visible Skip Turn and terrain labels use the real browser game', {
+test('owned base navigation, skipping, next turn and movement use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
   timeout: 180000,
 }, async (t) => {
   mkdirSync(artifacts, { recursive: true });
+  const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
+    .filter((name) => name.endsWith('.gls.js')).sort()
+    .map((name) => [`GLSMAC_data/default/${name}`, readFileSync(`${root}GLSMAC_data/default/${name}`, 'utf8')]));
+  t.diagnostic(`Production script snapshot SHA-256: ${createHash('sha256').update(JSON.stringify(scripts)).digest('hex')}`);
   const address = site || await serveAssets(t);
   const browser = await chromium.launch({
     executablePath: process.env.WASM_BROWSER_EXECUTABLE || undefined,
@@ -205,10 +215,15 @@ test('owned base arrows, visible Skip Turn and terrain labels use the real brows
     return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`gameplay-${name}.png`, artifacts)) });
   };
   const waitForLog = async (text, minimum = 1) => {
-    await page.waitForFunction(({ text, minimum }) => (
-      globalThis.__gameplayError || document.body.dataset.state === 'failed'
-      || document.querySelector('#log').textContent.split(text).length - 1 >= minimum
-    ), { text, minimum });
+    try {
+      await page.waitForFunction(({ text, minimum }) => (
+        globalThis.__gameplayError || document.body.dataset.state === 'failed'
+        || document.querySelector('#log').textContent.split(text).length - 1 >= minimum
+      ), { text, minimum });
+    } catch (error) {
+      const log = await page.locator('#log').textContent({ timeout: 1000 }).catch(() => 'No engine log available');
+      throw new Error(`Waiting for ${text} (${minimum} occurrences) failed.\n${log.slice(-12000)}`, { cause: error });
+    }
     assert.deepEqual(errors, [], 'No browser runtime or graphics errors');
     assert.ok((await page.locator('#log').textContent()).split(text).length - 1 >= minimum,
       `The running engine emitted ${text}`);
@@ -222,6 +237,18 @@ test('owned base arrows, visible Skip Turn and terrain labels use the real brows
     await waitForLog(`SMOKE_BASE|${id}|0`, count);
     await waitForLog(`SMOKE_BASE_RENDER|${id}`, count);
     selectedBases.push(id);
+  };
+  const probeUnit = async () => {
+    const previous = ((await page.locator('#log').textContent()).match(/SMOKE_POSITION\|/g) || []).length;
+    await page.keyboard.press('p');
+    await waitForLog('SMOKE_POSITION|', previous + 1);
+    const log = await page.locator('#log').textContent();
+    const movements = [...log.matchAll(/SMOKE_MOVEMENT\|([0-9.]+)/g)];
+    const positions = [...log.matchAll(/SMOKE_POSITION\|(\d+)\|(\d+)/g)];
+    return {
+      movement: Number(movements.at(-1)[1]),
+      position: positions.at(-1).slice(1).map(Number),
+    };
   };
 
   await page.goto(address);
@@ -238,25 +265,35 @@ test('owned base arrows, visible Skip Turn and terrain labels use the real brows
     await page.locator('#asset-source').selectOption('remote');
     await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
   }
-  await page.evaluate(({ mainScript, worldScript }) => {
-    Module.FS.mkdirTree('/GLSMAC_data/default/game/world');
-    Module.FS.writeFile('/GLSMAC_data/default/browser_smoke_main.gls.js', mainScript);
-    Module.FS.writeFile('/GLSMAC_data/default/game/world/browser_smoke.gls.js', worldScript);
+  await page.evaluate(({ mainScript, worldScript, scripts }) => {
+    const snapshotRoot = '/gameplay-snapshot';
+    for (const [name, source] of Object.entries(scripts)) {
+      if (!/^GLSMAC_data\/default\/[a-zA-Z0-9_./-]+\.gls\.js$/.test(name) || name.includes('..')) {
+        throw new Error('Invalid production script snapshot path');
+      }
+      const destination = `${snapshotRoot}/${name}`;
+      Module.FS.mkdirTree(destination.slice(0, destination.lastIndexOf('/')));
+      Module.FS.writeFile(destination, source);
+    }
+    Module.FS.mkdirTree(`${snapshotRoot}/GLSMAC_data/default/game/world`);
+    Module.FS.writeFile(`${snapshotRoot}/GLSMAC_data/default/browser_smoke_main.gls.js`, mainScript);
+    Module.FS.writeFile(`${snapshotRoot}/GLSMAC_data/default/game/world/browser_smoke.gls.js`, worldScript);
     const callMain = Module.callMain;
     Module.callMain = (args) => callMain([...args,
+      '--datapath', `${snapshotRoot}/GLSMAC_data`,
       '--mainscript', 'browser_smoke_main', '--worldscript', 'browser_smoke',
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/browser-smoke.MP',
       '--quickstart-faction', 'GAIANS',
     ]);
-  }, { mainScript, worldScript });
+  }, { mainScript, worldScript, scripts });
   await page.locator('#start').click();
   await waitForLog('SMOKE_UI_READY');
   await waitForLog('SMOKE_UNIT|1|0');
   for (const label of ['Supply Pod', 'Volcano', 'Road', 'Farm']) await waitForLog(`SMOKE_LABEL|${label}`);
-  await page.keyboard.press('p');
-  await waitForLog('SMOKE_MOVEMENT|');
-  const initialMovement = Number((await page.locator('#log').textContent()).match(/SMOKE_MOVEMENT\|([0-9.]+)/)?.[1]);
+  const initialUnit = await probeUnit();
+  const initialMovement = initialUnit.movement;
   assert.ok(initialMovement > 0, 'The selected owned unit begins with movement');
+  assert.deepEqual(initialUnit.position, [8, 8], 'The unit begins on the first base');
   const terrain = PNG.sync.read(await screenshot('terrain-labels'));
   let terrainPixels = 0;
   for (let offset = 0; offset < terrain.width * Math.min(500, terrain.height) * 4; offset += 4) {
@@ -286,14 +323,43 @@ test('owned base arrows, visible Skip Turn and terrain labels use the real brows
   await screenshot('skip-available');
   await clickCanvas(page, 74, 741); // Visible Skip Turn command, not its keyboard shortcut.
   await waitForLog('SMOKE_STATUS|turn_complete|0');
-  const probes = ((await page.locator('#log').textContent()).match(/SMOKE_MOVEMENT\|/g) || []).length;
-  await page.keyboard.press('p');
-  await waitForLog('SMOKE_MOVEMENT|', probes + 1);
+  assert.equal((await probeUnit()).movement, 0, 'Clicking Skip Turn exhausted actual backend movement');
+  await screenshot('skipped');
+
+  const beforeTurnLog = await page.locator('#log').textContent();
+  const previousTurns = [...beforeTurnLog.matchAll(/SMOKE_TURN\|(\d+)\|(\d+)/g)];
+  assert.ok(previousTurns.length > 0, 'The engine reported its initial turn and year');
+  const initialTurn = Number(previousTurns.at(-1)[1]);
+  const initialYear = Number(previousTurns.at(-1)[2]);
+  await clickCanvas(page, 899, 585); // Visible TURN COMPLETE button above the minimap.
+  await waitForLog(`SMOKE_TURN|${initialTurn + 1}|${initialYear + 1}`);
+  await waitForLog(`SMOKE_STATUS|active|${initialMovement}`);
+  const replenishedUnit = await probeUnit();
+  assert.equal(replenishedUnit.movement, initialMovement, 'The next turn replenished actual backend movement');
+  assert.deepEqual(replenishedUnit.position, [8, 8], 'Turn advancement preserves the unit position');
+  await screenshot('next-turn');
+
+  // Real keyboard routing must still control the replenished unit.
+  await page.keyboard.press('Tab');
+  await waitForLog('SMOKE_UNIT|1|0', 3);
+  await page.keyboard.press('ArrowRight');
+  // Movement is asynchronous; probe until the production event has committed.
+  let movedUnit;
+  for (let attempt = 0; attempt < 30; ++attempt) {
+    movedUnit = await probeUnit();
+    if (movedUnit.position[0] === 10 && movedUnit.position[1] === 8
+      && movedUnit.movement < initialMovement) break;
+    await page.waitForTimeout(100);
+  }
+  assert.deepEqual(movedUnit.position, [10, 8], 'The arrow key moved the actual unit to the neighboring base');
+  assert.ok(movedUnit.movement < initialMovement, 'The successful move consumed movement');
+  await screenshot('moved');
+  await clickCanvas(page, 280, 733); // Destination base preview in the actual objects list.
+  await waitForBase(2);
+  await waitForLog('SMOKE_BASE_OPEN', 2);
+  await screenshot('base-after-next-turn');
   const finalLog = await page.locator('#log').textContent();
-  const movements = [...finalLog.matchAll(/SMOKE_MOVEMENT\|([0-9.]+)/g)].map((match) => Number(match[1]));
-  assert.equal(movements.at(-1), 0, 'Clicking Skip Turn exhausted actual backend movement');
   assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(/);
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running', finalLog.slice(-3000));
-  await screenshot('skipped');
-  t.diagnostic(`Imported synthetic16x16 map; real base selection ${selectedBases.join(' -> ')}; unit movement ${initialMovement} -> 0; Supply Pod/Volcano/Road/Farm labels drew without errors.`);
+  t.diagnostic(`Imported synthetic 16x16 map; real base selection ${selectedBases.join(' -> ')}; turn ${initialTurn} -> ${initialTurn + 1}; unit movement ${initialMovement} -> 0 -> ${replenishedUnit.movement} -> ${movedUnit.movement}; unit moved (8,8) -> (10,8) and opened its destination base.`);
 });

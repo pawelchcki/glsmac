@@ -1,6 +1,7 @@
 return {
 
 	init: (p) => {
+		let confirmation_generation = 0;
 
 		p.ui.class('bottombar-minimap-info-text').set({
 			font: 'arialn.ttf:14',
@@ -58,6 +59,7 @@ return {
 			text: 'Mission Year ' + #to_string(p.game.get_year()),
 		});
 		minimap.listen(p.game, 'turn', (e) => {
+			confirmation_generation++;
 			info_year.text = 'Mission Year ' + #to_string(e.year);
 		});
 		const info_energy = info_block.text({
@@ -207,6 +209,7 @@ return {
 		let turn_status = 'active';
 		const f_set_status = (status) => {
 			if (turn_status != status) {
+				confirmation_generation++;
 				turn_status = status;
 				switch (turn_status) {
 					case 'please_wait': {
@@ -251,8 +254,9 @@ return {
 		btn_turn_complete.on('click', (e) => {
 			switch (turn_status) {
 				case 'active': {
+					const generation = confirmation_generation;
 					p.modules.popup.show('turn_confirmation', (result) => {
-						if (result) {
+						if (result && generation == confirmation_generation && turn_status == 'active') {
 							f_set_status('please_wait');
 							p.game.event('complete_turn', {});
 						}

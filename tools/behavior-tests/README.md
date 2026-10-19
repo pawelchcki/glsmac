@@ -26,14 +26,33 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **209 scenarios and 1,532 assertions** across
-17 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **245 scenarios and 1,765 assertions** across
+19 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
 bindings, and technology snapshots. Older assertion-only scripts count as one
 file scenario; the remaining scenarios have individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `turn-playability` suite exercises consecutive production event sequences,
+movement restoration, healing, completion/uncompletion and stale confirmation
+callbacks. `world-startup` controls coordinate draws to check bounded placement,
+land/naval starts, spacing and failure before initialization events. These are
+GLSMAC regressions; their mocked native boundaries do not establish original
+rules or prove the native lifecycle works.
+
+For the actual browser lifecycle, supply your installed original assets:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:gameplay
+```
+
+This uses a synthetic map and starting world, current host production scripts,
+real rendering/input and read-only backend telemetry. It checks terrain labels,
+base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
+opening the destination base. It does not validate normal world generation or
+original-game behavior. Browser failures and graphics errors remain failures.
 
 The worker uses the actual WASM GSE parser/interpreter and production scripts.
 Only native managers, display nodes, input events, animation completion and

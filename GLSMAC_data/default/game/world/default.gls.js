@@ -32,6 +32,7 @@ return (game) => {
 			const y = game.random.get_int(0, map_height - 1);
 			if (x % 2 != y % 2) {
 				// wrong oddity, try again
+				tries++;
 				continue;
 			}
 			const tile = tm.get_tile(x, y);
@@ -61,12 +62,21 @@ return (game) => {
 		throw Error('Failed to find good tile for base (try again, or try larger map or fewer players)');
 	};
 
+	// Find every starting tile before emitting events. A later placement failure
+	// must not leave earlier players with partial production choices or spawns.
+	for (player of players) {
+		const faction = player.get_faction();
+		tiles_with_bases :+ get_good_starting_base_location(faction.is_naval);
+	}
+
 	// initialize each player in game
+	let player_index = 0;
 	for (player of players) {
 
 		const faction = player.get_faction();
 
-		const tile = get_good_starting_base_location(faction.is_naval);
+		const tile = tiles_with_bases[player_index];
+		player_index++;
 
 		// initial production choices (TODO: technologies)
 		game.event('add_production_choice', {
@@ -102,7 +112,6 @@ return (game) => {
 				'HEADQUARTERS',
 			]
 		});
-		tiles_with_bases :+tile;
 
 		// spawn "scout patrol"
 		let type = 'MindWorms';
