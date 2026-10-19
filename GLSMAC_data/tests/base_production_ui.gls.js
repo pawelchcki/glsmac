@@ -19,9 +19,16 @@ const fixture = () => {
 	f.make_base = (id) => {
 		const b = {};
 		b.id = id; b.name = 'Base ' + #to_string(id);
-		b.state = { owner: 0, production: { choice_id: '', minerals: 0, last_processed_turn: 1 }, installed: {}, surplus: 4, size: 2 };
+		b.state = { owner: 0, production: { choice_id: '', minerals: 0, last_processed_turn: 1 }, installed: {}, surplus: 4, size: 2, unsupported: false };
 		b.get_owner = () => { const owner = {} + f.owner; owner.id = b.state.owner; return owner; };
 		b.get_production = () => { return b.state.production; };
+		// Arithmetic is a native boundary; this UI fixture supplies a fixed
+		// preview witness and tests how the actual picker presents it.
+		b.get_production_switch_loss = (id) => {
+			if (b.state.production.choice_id == '' || b.state.production.choice_id == id) { return 0; }
+			if (b.state.unsupported) { throw ContextError('unsupported switch'); }
+			return 6;
+		};
 		b.has_facility = (id) => { return #is_defined(b.state.installed[id]); };
 		b.get_facilities = () => { return b.state.installed; };
 		b.get_intake = () => { return { NUTRIENTS: 2, MINERALS: b.state.surplus, ENERGY: 2 }; };
@@ -122,6 +129,29 @@ behavior.scenario('backend updates show selected title real minerals surplus and
 	test.assert(#sizeof(production.production_cells.children) == 32);
 	f.change(); f.pick('TANKS'); f.ok();
 	test.assert(#sizeof(f.state.events) == 1, 'Reselecting the active project emits no event');
+});
+behavior.scenario('active picker previews target mineral loss before cancel or confirmation', () => {
+	f.base.state.production.choice_id = 'TANKS'; f.base.state.production.minerals = 21;
+	f.show(f.base); f.change();
+	test.assert(f.view.find('text', 'text', 'Switch loss: 0 minerals') != null);
+	f.pick('COLONY_POD');
+	test.assert(f.view.find('text', 'text', 'Switch loss: 6 minerals') != null);
+	f.view.find('button', 'text', 'CANCEL').emit('click', {});
+	test.assert(#sizeof(f.state.events) == 1 && f.base.state.production.minerals == 21);
+	f.change();
+	screen.production_selection.emit('keydown', { code: 'DOWN', modifiers: {} });
+	test.assert(screen.production_choices.value == 'COLONY_POD');
+	test.assert(f.view.find('text', 'text', 'Switch loss: 6 minerals') != null);
+	f.ok();
+	test.assert(f.state.events[1] == ['set_base_production', 1, 'COLONY_POD']);
+	// Keep the existing later independent UI scenarios' command baseline.
+	f.state.events = [['set_base_production', 1, 'TANKS']]; f.base.state.production.minerals = 12;
+});
+behavior.scenario('unsupported preview is visible and never emits a switch command', () => {
+	f.base.state.unsupported = true; f.show(f.base); f.change(); f.pick('COLONY_POD');
+	test.assert(f.view.find('text', 'text', 'Switch unavailable for this context') != null);
+	f.ok(); test.assert(#sizeof(f.state.events) == 1 && screen.production_selection == null);
+	f.base.state.unsupported = false;
 });
 behavior.scenario('zero surplus is displayed without inventing a completion date', () => {
 	f.base.state.surplus = 0; f.game.emit('update_base', { base: f.base });

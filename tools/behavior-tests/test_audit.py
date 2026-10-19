@@ -44,7 +44,8 @@ class AuditTests(unittest.TestCase):
         })
 
     def test_changed_inputs_cannot_reuse_reference_evidence(self):
-        reference = audit.load_references(audit.DIRECTORY / "catalog.json")[0]
+        reference = next(item for item in audit.load_references(audit.DIRECTORY / "catalog.json")
+                         if item["id"] == "same-row-distance")
         suite = compare.read_json(audit.DIRECTORY / reference["cases"])
         evidence = compare.read_json(audit.DIRECTORY / reference["observations"])
         suite["cases"][0]["input"]["x1"] += 2

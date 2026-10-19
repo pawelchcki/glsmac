@@ -92,6 +92,17 @@ class CandidateInputTests(unittest.TestCase):
             with self.subTest(key=key, value=value), self.assertRaises(ProtocolError):
                 glsmac.encode_input(algorithm, changed)
 
+    def test_basic_switch_inputs_reject_unobserved_state_and_invalid_bounds(self):
+        algorithm = "economy.basic_production_switch_loss.v1"
+        for key, value in (("base_id", -1), ("base_id", 8), ("faction_id", 0), ("faction_id", 8),
+                           ("previous_item", -65), ("current_item", 512), ("minerals", -1),
+                           ("minerals", 1_000_001), ("human", False), ("skunkworks", True),
+                           ("penalty_percent", 25)):
+            changed = deepcopy(self.examples[algorithm])
+            changed[key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(ProtocolError):
+                glsmac.encode_input(algorithm, changed)
+
     def test_human_nutrient_inputs_reject_unobserved_state_and_invalid_bounds(self):
         algorithm = "economy.human_nutrient_factor.v1"
         for key, value in (("faction_id", 0), ("faction_id", 8), ("map_size_level", -1),

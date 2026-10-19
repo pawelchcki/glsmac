@@ -38,6 +38,16 @@ class FingerprintTests(unittest.TestCase):
 
 
 class FixtureContractTests(unittest.TestCase):
+    def test_basic_switch_rejects_out_of_scope_item_rules_and_bounds(self):
+        valid = dict(base_id=0, faction_id=1, previous_item=0, current_item=-3, minerals=21)
+        original.validate_input(original.BASIC_SWITCH_LOSS, valid)
+        for update in ({"base_id": -1}, {"base_id": 8}, {"faction_id": 0}, {"faction_id": 8},
+                       {"previous_item": -65}, {"current_item": 512}, {"minerals": -1},
+                       {"minerals": 1_000_001}, {"minerals": True}, {"previous_item": 1.0},
+                       {"human": False}, {"skunkworks": True}, {"penalty_percent": 25}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.BASIC_SWITCH_LOSS, dict(valid, **update))
+
     def test_rejects_out_of_scope_human_nutrient_factor_inputs(self):
         valid = dict(faction_id=1, map_size_level=2, nutrient_rule_factor=10, growth=0)
         original.validate_input(original.HUMAN_NUTRIENT_FACTOR, valid)
@@ -126,6 +136,30 @@ class FixtureContractTests(unittest.TestCase):
 @unittest.skipUnless(importlib.util.find_spec("unicorn"), "optional Unicorn dependency is absent")
 class EmulatorGuardTests(unittest.TestCase):
     values = {"width": 80, "x1": 0, "x2": 2, "y": 0}
+
+    def test_basic_switch_fixture_resets_selected_base_fields_and_default_rules(self):
+        entry = original.FUNCTIONS[original.BASIC_SWITCH_LOSS][1]
+        for base_id in (0, 7):
+            address = 0x0097D040 + 308 * base_id + 68
+            oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            for previous in (-64, 511, 0):
+                data = dict(base_id=base_id, faction_id=7, previous_item=previous,
+                            current_item=-3, minerals=21)
+                self.assertEqual(oracle.probe(original.BASIC_SWITCH_LOSS, data), {"lost": previous})
+        data = dict(base_id=0, faction_id=1, previous_item=0, current_item=-3, minerals=21)
+        for address, value in ((0x00949828, 2), (0x0094982C, 50), (0x00949830, 10)):
+            oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            self.assertEqual(oracle.probe(original.BASIC_SWITCH_LOSS, data), {"lost": value})
+
+    def test_basic_switch_rejects_neighbor_reads_fixture_writes_and_dependency_escape(self):
+        entry = original.FUNCTIONS[original.BASIC_SWITCH_LOSS][1]
+        data = dict(base_id=0, faction_id=1, previous_item=0, current_item=-3, minerals=21)
+        programs = (b"\xA1" + struct.pack("<I", 0x0097D040 + 72) + b"\xC3",
+                    b"\xC7\x05" + struct.pack("<II", 0x0097D040 + 156, 0) + b"\xC3",
+                    b"\xE9" + struct.pack("<i", 0x0050BA27 - entry - 5))
+        for program in programs:
+            with self.subTest(program=program.hex()), self.assertRaises(original.ProbeError):
+                synthetic_oracle(program, entry=entry).probe(original.BASIC_SWITCH_LOSS, data)
 
     def test_human_mineral_fixture_supplies_actual_faction_slot_and_fresh_values(self):
         entry = original.FUNCTIONS[original.HUMAN_MINERAL_FACTOR][1]

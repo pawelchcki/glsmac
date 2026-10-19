@@ -63,6 +63,7 @@ public:
 
 	const Game* const GetGame() const;
 	const ProductionState& GetProductionState() const { return m_production; }
+	int64_t GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_id ) const;
 	ProductionState SelectProduction( GSE_CALLABLE, const std::string& choice_id );
 	struct ProductionResult { ProductionState previous; std::string added_facility; int64_t unit_receipt = 0; };
 	ProductionResult ProcessProduction( GSE_CALLABLE, const int64_t turn, const int64_t minerals );

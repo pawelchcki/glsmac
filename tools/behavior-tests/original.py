@@ -50,6 +50,7 @@ TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
 HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
 HUMAN_NUTRIENT_FACTOR = "economy.human_nutrient_factor.v1"
+BASIC_SWITCH_LOSS = "economy.basic_production_switch_loss.v1"
 BASE_SQUARE_RESOURCES = "economy.base_square_resources.v1"
 PROTOTYPE_BASE_COST = "unit.prototype_base_cost.v1"
 BASE_RESOURCE_FUNCTIONS = {
@@ -69,6 +70,7 @@ TECH_STRIDE = 44
 TECH_OWNERS = 0x009A6670
 EXPANSION_ENABLED = 0x009A6488
 FUNCTIONS = {
+    BASIC_SWITCH_LOSS: ("base_lose_minerals (human/basic, default retool rules)", 0x004E4810, 0x004E48B0),
     HUMAN_NUTRIENT_FACTOR: ("cost_factor (human/nutrient, no base)", 0x004E4430, 0x004E46C2),
     PROTOTYPE_BASE_COST: ("proto_cost (no abilities)", 0x005A5A60, 0x005A5CE1),
     BASE_SQUARE_RESOURCES: BASE_RESOURCE_FUNCTIONS["NUTRIENTS"],
@@ -159,6 +161,13 @@ def validate_input(algorithm, values):
         _integer(values["tech_id"], -2, 88, "tech_id")
         _integer(values["max_depth"], 0, 5, "max_depth")
         _technology_rows(values["technologies"])
+    elif algorithm == BASIC_SWITCH_LOSS:
+        _fields(values, {"base_id", "faction_id", "previous_item", "current_item", "minerals"})
+        _integer(values["base_id"], 0, 7, "base_id")
+        _integer(values["faction_id"], 1, 7, "faction_id")
+        _integer(values["previous_item"], -64, 511, "previous_item")
+        _integer(values["current_item"], -64, 511, "current_item")
+        _integer(values["minerals"], 0, 1_000_000, "minerals")
     elif algorithm == HUMAN_NUTRIENT_FACTOR:
         _fields(values, {"faction_id", "map_size_level", "nutrient_rule_factor", "growth"})
         _integer(values["faction_id"], 1, 7, "faction_id")
@@ -281,6 +290,15 @@ class OriginalOracle:
             result["readonly_original_tables"] = [
                 {"name": "cost_factor nutrient switch", "address": "0x004E46C4", "size": 48}
             ]
+        if BASIC_SWITCH_LOSS in algorithms:
+            result["adapter_version"] = 6
+            result["dependencies"] = [
+                {"name": "cost_mode", "address": "0x004E4700", "end": "0x004E4802"},
+                {"name": "facility bitfield", "address": "0x0050BA00", "end": "0x0050BA27"},
+            ]
+            result["fixture_rules"] = {"retool_strictness": 2, "retool_penalty_percent": 50,
+                                       "retool_exemption_minerals": 10, "human": True,
+                                       "installed_facilities": "none"}
         return result
 
     def distance(self, values):
@@ -358,6 +376,19 @@ class OriginalOracle:
 
     def probe(self, algorithm, values):
         validate_input(algorithm, values)
+        if algorithm == BASIC_SWITCH_LOSS:
+            base = 0x0097D040 + 308 * values["base_id"]
+            fixture = (
+                (0x00949828, struct.pack("<iii", 2, 50, 10)),
+                (HUMAN_FACTIONS, struct.pack("<I", 1 << values["faction_id"])),
+                (base + 4, bytes((values["faction_id"],))),
+                (base + 68, struct.pack("<i", values["previous_item"])),
+                (base + 80, struct.pack("<i", values["current_item"])),
+                (base + 156, struct.pack("<i", values["minerals"])),
+                (base + 140, bytes(16)),  # no installed facilities / Skunkworks
+            )
+            return {"lost": self.execute(algorithm, (values["base_id"], values["current_item"]), fixture,
+                                         dependencies=((0x004E4700, 0x004E4802), (0x0050BA00, 0x0050BA27)))}
         if algorithm == HUMAN_NUTRIENT_FACTOR:
             table_start, table_end = 0x004E46C4, 0x004E46F4
             fixture = (

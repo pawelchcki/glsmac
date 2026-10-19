@@ -12,6 +12,20 @@ const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const fatal = /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|CP_EVENT_REJECTED|CP_GAME_ERROR/;
 
+function recordedSwitchWitness() {
+  const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/cases/basic-production-switch-loss.json`, 'utf8')).cases;
+  const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/observations/smacx-gog-2.0-basic-production-switch-loss.json`, 'utf8')).observations;
+  const witness = cases.find(({ input }) => input.base_id === 0 && input.faction_id === 1
+    && input.previous_item === -3 && input.current_item === 0 && input.minerals === 12);
+  assert.ok(witness, 'Public evidence includes the 12-mineral basic facility-to-unit witness');
+  const observed = observations.find(({ id }) => id === witness.id);
+  assert.ok(observed, 'The switch witness has a recorded original output');
+  assert.equal(observed.output.lost, 1);
+  // The application scenario adds Headquarters, actual construction and UI.
+  // It uses these recorded loss values without adding an original parity case.
+  return { id: witness.id, minerals: witness.input.minerals, lost: observed.output.lost };
+}
+
 // Synthetic imported terrain supplies real resource yields. Rainy jungle and
 // rolling mineral-bonus squares bound construction time; the eastward founding
 // destination is flat and is not an initial worked square. No original map or
@@ -59,6 +73,7 @@ return (game) => {
   });
   game.event('add_production_choice', { player: owner, id: 'COLONY_POD',
     data: { type: 'unit', id: 'ColonyPod', cost: 30, cost_rows: 3, population_cost: 1 } });
+  game.event('add_production_choice', { player: owner, id: 'RECYCLING_TANKS', data: { type: 'facility', id: 'RECYCLING_TANKS' } });
   game.event('spawn_base', { owner: owner, tile: tm.get_tile(8, 8), facilities: ['HEADQUARTERS'] });
   game.event('spawn_unit', { owner: owner, tile: tm.get_tile(8, 8), type: 'MindWorms', health: 1.0, morale: 1 });
 };
@@ -95,6 +110,9 @@ const mainScript = String.raw`
         #print('CP_PICKER_ROW|' + #to_string(index) + '|' + choice.id + '|' + choice.name + '|' + #to_string(choice.cost));
         index++;
       }
+      if (base_screen.production_choices != null && base_screen.production_switch_preview != null) {
+        #print('CP_PICKER_SELECTED|' + base_screen.production_choices.value + '|' + base_screen.production_switch_preview.text);
+      }
     }
     return result;
   };
@@ -103,6 +121,14 @@ const mainScript = String.raw`
     const was_open = base_screen.production_selection != null;
     const result = hide_picker();
     if (was_open) { #print('CP_PICKER_CLOSED'); }
+    return result;
+  };
+  const update_switch_preview = base_screen.update_production_switch_preview;
+  base_screen.update_production_switch_preview = () => {
+    const result = update_switch_preview();
+    if (base_screen.production_switch_preview != null && base_screen.production_choices != null) {
+      #print('CP_SWITCH_PREVIEW|' + #to_string(base_screen.base_id) + '|' + base_screen.production_choices.value + '|' + base_screen.production_switch_preview.text);
+    }
     return result;
   };
   const show_base = base_screen.on_show;
@@ -130,7 +156,7 @@ const mainScript = String.raw`
     report_base = (base) => {
       const tile = base.get_tile(); const p = base.get_production();
       const pending = game.get('f_base_get_pending_production')(base);
-      #print('CP_BASE|' + #to_string(base.id) + '|' + #to_string(base.get_owner().id) + '|' + #to_string(tile.x) + '|' + #to_string(tile.y) + '|' + #to_string(base.get_size()) + '|' + p.choice_id + '|' + #to_string(p.minerals) + '|' + #to_string(p.last_processed_turn) + '|' + #to_string(pending));
+      #print('CP_BASE|' + #to_string(base.id) + '|' + #to_string(base.get_owner().id) + '|' + #to_string(tile.x) + '|' + #to_string(tile.y) + '|' + #to_string(base.get_size()) + '|' + p.choice_id + '|' + #to_string(p.minerals) + '|' + #to_string(p.last_processed_turn) + '|' + #to_string(pending) + '|' + #to_string(base.has_facility('HEADQUARTERS')) + '|' + #to_string(base.has_facility('RECYCLING_TANKS')));
     };
     game.on('configure', (e) => {
       game.get_um().on('unit_spawn', (e) => {
@@ -204,6 +230,7 @@ async function serveAssets(t) {
 test('real Colony Pod production can found a base and be selected again for renewable expansion', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation', timeout: 180000,
 }, async (t) => {
+  const switchWitness = recordedSwitchWitness();
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -254,8 +281,8 @@ test('real Colony Pod production can found a base and be selected again for rene
     await healthy(); await page.waitForTimeout(250);
     await page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`colony-production-${name}.png`, artifacts)) });
   };
-  const parseBases = (log) => [...log.matchAll(/CP_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([^|\n]*)\|(\d+)\|(\d+)\|(\d+)/g)]
-    .map((m) => ({ id: +m[1], owner: +m[2], x: +m[3], y: +m[4], size: +m[5], choice: m[6], minerals: +m[7], processed: +m[8], pending: +m[9] }));
+  const parseBases = (log) => [...log.matchAll(/CP_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([^|\n]*)\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)/g)]
+    .map((m) => ({ id: +m[1], owner: +m[2], x: +m[3], y: +m[4], size: +m[5], choice: m[6], minerals: +m[7], processed: +m[8], pending: +m[9], headquarters: m[10] === 'true', tanks: m[11] === 'true' }));
   const latestBase = async (id) => {
     const states = parseBases(await page.locator('#log').textContent()).filter((b) => b.id === id);
     assert.ok(states.length, `Actual base ${id} state was emitted`); return states.at(-1);
@@ -297,7 +324,7 @@ test('real Colony Pod production can found a base and be selected again for rene
   };
   const advance = async () => {
     let state = await probe(); const turn = state.turn;
-    const processing = state.bases.find((b) => b.id === 1).choice === 'COLONY_POD';
+    const processing = state.bases.find((b) => b.id === 1).choice !== '';
     const activeCount = state.units.filter((u) => u.movement > 0).length;
     for (let index = 0; index < activeCount; ++index) {
       await page.keyboard.press('Tab');
@@ -310,19 +337,35 @@ test('real Colony Pod production can found a base and be selected again for rene
     return waitState((s) => s.turn === turn + 1 && s.status === 'active'
       && (!processing || s.bases.find((b) => b.id === 1).processed === s.turn), 'Actual next turn and production commit');
   };
-  const choosePod = async () => {
-    const renders = await countLog('CP_RENDER|1|Colony Pod|');
+  const openPicker = async () => {
     const opened = await countLog('CP_PICKER_OPEN|1'); await clickCanvas(page, 188, 726); await waitLog('CP_PICKER_OPEN|1', opened + 1);
-    const log = await page.locator('#log').textContent();
-    const rows = [...log.matchAll(/CP_PICKER_ROW\|(\d+)\|COLONY_POD\|Colony Pod\|(\d+)/g)];
-    assert.ok(rows.length, 'The real picker offers the renewable Colony Pod project');
-    assert.equal(+rows.at(-1)[2], 30, 'Unknown synthetic map uses actual fallback cost 30');
-    await clickCanvas(page, 500, 150 + 29 * +rows.at(-1)[1]);
-    const closed = await countLog('CP_PICKER_CLOSED'); await clickCanvas(page, 565, 505); await waitLog('CP_PICKER_CLOSED', closed + 1);
-    await waitLog('CP_BASE|1|0|8|8|');
-    await waitLog('CP_RENDER|1|Colony Pod|', renders + 1);
-    const selected = await latestBase(1); assert.equal(selected.choice, 'COLONY_POD'); return selected;
   };
+  const selectPickerRow = async (id, cost, loss) => {
+    const log = (await page.locator('#log').textContent()).split('CP_PICKER_OPEN|1').at(-1);
+    const rows = [...log.matchAll(/CP_PICKER_ROW\|(\d+)\|([^|\n]+)\|([^|\n]+)\|(\d+)/g)];
+    const row = rows.find((m) => m[2] === id);
+    assert.ok(row, `The real picker offers ${id}`);
+    assert.equal(+row[4], cost, 'The actual project uses its declared synthetic-map fallback cost');
+    const preview = `CP_SWITCH_PREVIEW|1|${id}|Switch loss: ${loss} minerals`;
+    const previous = await countLog(preview);
+    await clickCanvas(page, 500, 150 + 29 * +row[1]);
+    const selected = log.match(/CP_PICKER_SELECTED\|([^|\n]+)\|([^\r\n]+)/);
+    if (selected?.[1] === id) {
+      // Native ChoiceList does not emit select for an already-selected row.
+      // Observe this opening's actual preview rather than demand that event.
+      assert.equal(selected[2], `Switch loss: ${loss} minerals`);
+    } else {
+      await waitLog(preview, previous + 1);
+    }
+  };
+  const chooseProject = async (id, title, cost, loss = 0) => {
+    const renders = await countLog(`CP_RENDER|1|${title}|`);
+    await openPicker(); await selectPickerRow(id, cost, loss);
+    const closed = await countLog('CP_PICKER_CLOSED'); await clickCanvas(page, 565, 505); await waitLog('CP_PICKER_CLOSED', closed + 1);
+    await waitLog(`CP_RENDER|1|${title}|`, renders + 1);
+    const selected = await latestBase(1); assert.equal(selected.choice, id); return selected;
+  };
+  const choosePod = async (loss = 0) => chooseProject('COLONY_POD', 'Colony Pod', 30, loss);
   const finishProject = async (excluded) => {
     let state = await probe(); let completion = null; let turns = 0;
     while (turns < 10) {
@@ -386,8 +429,34 @@ test('real Colony Pod production can found a base and be selected again for rene
   await closeBase(1);
   assert.deepEqual((await probe()).bases.find((b) => b.id === 1), idle, 'Cancel leaves actual project, minerals and population unchanged');
   await openSelectedBase(1);
-  await choosePod(); await screenshot('first-project'); await closeBase(1);
+  await chooseProject('RECYCLING_TANKS', 'Recycling Tanks', 32); await closeBase(1);
+  const beforeSwitch = await advance();
+  const activeTanks = beforeSwitch.bases.find((b) => b.id === 1);
+  assert.equal(activeTanks.choice, 'RECYCLING_TANKS');
+  assert.equal(activeTanks.minerals, switchWitness.minerals, 'One real productive turn reaches the public 12-mineral witness');
+  assert.equal(activeTanks.pending, 12); assert.equal(activeTanks.size, 3);
+  assert.equal(activeTanks.tanks, false); assert.deepEqual(beforeSwitch.units, initial.units);
+  await openSelectedBase(1); await openPicker();
+  await selectPickerRow('COLONY_POD', 30, switchWitness.lost);
+  await screenshot('switch-loss-preview');
+  const switchClosed = await countLog('CP_PICKER_CLOSED'); await page.keyboard.press('Escape'); await waitLog('CP_PICKER_CLOSED', switchClosed + 1);
+  await closeBase(1);
+  const canceledSwitch = await probe();
+  const worldState = (state) => ({ turn: state.turn, owner: state.owner, bases: state.bases, units: state.units });
+  assert.deepEqual(worldState(canceledSwitch), worldState(beforeSwitch), 'Canceling an active switch preserves actual minerals, project, population, facilities and world');
+  await openSelectedBase(1);
+  const switched = await choosePod(switchWitness.lost);
+  assert.equal(switched.minerals, switchWitness.minerals - switchWitness.lost, 'Confirming the actual switch retains 11 minerals after the recorded one-mineral loss');
+  assert.equal(switched.processed, beforeSwitch.turn, 'The switch retains the current-turn production barrier');
+  await screenshot('first-project'); await closeBase(1);
+  const afterSwitch = await probe();
+  const expectedSwitchWorld = worldState(beforeSwitch);
+  expectedSwitchWorld.bases = beforeSwitch.bases.map((base) => base.id === 1
+    ? { ...base, choice: 'COLONY_POD', minerals: switchWitness.minerals - switchWitness.lost, processed: beforeSwitch.turn } : base);
+  assert.deepEqual(worldState(afterSwitch), expectedSwitchWorld, 'Switch confirmation changes only the actual project, mineral loss and current-turn marker');
   const first = await finishProject(new Set(initial.units.map((u) => u.id)));
+  assert.equal(first.turns, 2, 'The switched pod completes through two further real turns');
+  assert.equal(first.overflow, 5, 'The actual switch loss leaves five minerals after first completion');
   await selectUnit(first.unit.id); await screenshot('first-produced-pod');
   await page.keyboard.press('ArrowRight');
   await waitState((s) => s.units.some((u) => u.id === first.unit.id && u.x === 10 && u.y === 8 && u.movement === 0), 'Actual produced pod moves off Headquarters');
@@ -415,5 +484,5 @@ test('real Colony Pod production can found a base and be selected again for rene
   assert.equal(second.state.bases.length, 2, 'The founded base survives renewed production');
   await selectUnit(second.unit.id); await screenshot('second-produced-pod');
   await healthy();
-  t.diagnostic(`Controlled three-worker startup; actual picker cancellation/selection, 30-mineral one-citizen projects completed in ${first.turns}+${second.turns} real turns with ${first.overflow}/${second.overflow} retained minerals. Produced pod ${first.unit.id} moved and founded owned base ${newBase.id}; manual renewal produced distinct pod ${second.unit.id}. No gameplay credits or native behavior were substituted; GLSMAC expansion regression, no original-game parity claim.`);
+  t.diagnostic(`Controlled three-worker startup; one real Tanks turn stored ${switchWitness.minerals}, actual picker preview/cancel/confirm used public witness ${switchWitness.id} loss ${switchWitness.lost} and retained ${switchWitness.minerals - switchWitness.lost}. Actual 30-mineral one-citizen pod projects completed in ${first.turns}+${second.turns} further turns with ${first.overflow}/${second.overflow} retained minerals. Produced pod ${first.unit.id} moved and founded owned base ${newBase.id}; manual renewal produced distinct pod ${second.unit.id}. No gameplay credits or native behavior were substituted; this GLSMAC switching/expansion regression adds no original-input parity case.`);
 });

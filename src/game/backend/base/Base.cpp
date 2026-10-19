@@ -20,6 +20,7 @@
 #include "PopDef.h"
 #include "FacilityDef.h"
 #include "NutrientCost.h"
+#include "ProductionSwitchCost.h"
 #include "game/backend/Random.h"
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/Player.h"
@@ -110,16 +111,54 @@ void Base::ProductionChanged() {
 	TriggerUpdate();
 }
 
-ProductionState Base::SelectProduction( GSE_CALLABLE, const std::string& choice_id ) {
-	m_game->CheckRW( GSE_CALL );
+static bool SameProduction( const FacilityDef* previous_def, const production::Unit* previous_recipe, const FacilityDef* def, const production::Unit* recipe ) {
+	return ( previous_def && def && previous_def->m_id == def->m_id ) ||
+		( previous_recipe && recipe && previous_recipe->unit_id == recipe->unit_id );
+}
+
+int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_id ) const {
 	const auto* def = ResolveProduction( m_game, m_owner, choice_id );
 	const auto* recipe = ResolveUnitProduction( m_game, m_owner, choice_id );
 	if ( !def && !recipe ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown or unsupported production choice: " + choice_id ); }
 	if ( def && m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility is already installed" ); }
+	if ( m_production.choice_id.empty() ) { return 0; }
+	const auto* previous_def = ResolveProduction( m_game, m_owner, m_production.choice_id );
+	const auto* previous_recipe = ResolveUnitProduction( m_game, m_owner, m_production.choice_id );
+	if ( SameProduction( previous_def, previous_recipe, def, recipe ) ) { return 0; }
+	const auto role = m_owner->GetPlayer()->GetRole();
+	const auto supported_item = []( const FacilityDef* facility, const production::Unit* unit ) {
+		return ( facility && facility->m_id == "RECYCLING_TANKS" ) || ( unit && unit->unit_id == "ColonyPod" );
+	};
+	// This application models only these declared basic items and human rules.
+	// Installed Headquarters is ordinary application state, not new original
+	// evidence. Other categories and Skunkworks require separate contracts.
+	if ( ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) ||
+		m_facilities.count( "SKUNKWORKS" ) || !supported_item( previous_def, previous_recipe ) || !supported_item( def, recipe ) ||
+		m_production.minerals < 0 || m_production.minerals > 1000000 ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Production switching is unsupported for this context" );
+	}
+	const auto valid_cost = [ & ]( const FacilityDef* facility, const production::Unit* unit ) {
+		const auto cost = unit ? unit->GetMineralCost( m_game, m_owner->GetPlayer() ) : facility->GetMineralCost( m_game, m_owner->GetPlayer() );
+		return cost > 0 && cost <= 1000000;
+	};
+	if ( !valid_cost( previous_def, previous_recipe ) || !valid_cost( def, recipe ) ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Production switching is unsupported for this project cost" );
+	}
+	// The recorded basic-item arithmetic depends only on equality, not which
+	// differing basic item is chosen. Representative basic codes keep application
+	// definition IDs separate from original fixture table indices.
+	return BasicProductionSwitchLoss( previous_def ? -1 : 0, def ? -1 : 0, int( m_production.minerals ) );
+}
+
+ProductionState Base::SelectProduction( GSE_CALLABLE, const std::string& choice_id ) {
+	m_game->CheckRW( GSE_CALL );
+	const auto lost = GetProductionSwitchLoss( GSE_CALL, choice_id );
+	const auto* def = ResolveProduction( m_game, m_owner, choice_id );
+	const auto* recipe = ResolveUnitProduction( m_game, m_owner, choice_id );
 	const auto previous = m_production;
-	if ( choice_id == m_production.choice_id ) { return previous; }
-	if ( !m_production.choice_id.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Switching active production is not supported" ); }
+	if ( SameProduction( ResolveProduction( m_game, m_owner, m_production.choice_id ), ResolveUnitProduction( m_game, m_owner, m_production.choice_id ), def, recipe ) ) { return previous; }
 	m_production.choice_id = choice_id;
+	m_production.minerals -= lost;
 	m_production.last_processed_turn = m_game->GetTurnId();
 	m_unit_production.reset();
 	ProductionChanged();
@@ -414,6 +453,12 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 		"get_production", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 0 );
 			return WrapProduction( GSE_CALL, m_production );
+		} )
+	},
+	{
+		"get_production_switch_loss", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( choice, 0, String );
+			return VALUE( gse::value::Int,, GetProductionSwitchLoss( GSE_CALL, choice ) );
 		} )
 	},
 	{

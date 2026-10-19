@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **601 scenarios and 3,206 assertions** across
-41 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **629 scenarios and 3,311 assertions** across
+42 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -68,8 +68,10 @@ telemetry; it supplies no world/map/RNG override. Run it separately with
 `npm --prefix tools/wasm-tests run test:normal-game`. These browser regressions
 do not establish original-game agreement. The additional
 `colony-production.test.mjs` case starts with three actual workers on controlled
-productive terrain and no seeded pods or minerals. It cancels and confirms the
-real picker, checks every mineral credit and population charge, moves the first
+productive terrain and no seeded pods or minerals. It earns 12 minerals toward
+Tanks, previews and cancels an active switch, then confirms the recorded
+one-mineral loss before finishing a Colony Pod. It checks every mineral credit
+and population charge, moves the first
 constructed pod and founds a base, then manually constructs a distinct second
 pod. Run it separately with `npm --prefix tools/wasm-tests run test:colony-production`.
 Browser failures and graphics errors remain failures.
@@ -86,7 +88,7 @@ human rule10/INDUSTRY0 setting. Unknown or custom dimensions and imported maps r
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
 A bounded land Colony Pod project is described below. Other unit construction,
-queues, switching and hurrying remain absent.
+queues and hurrying remain absent. Bounded active switching is described below.
 
 `facility-cost-native` and `facility-cost-completion-native` check that actual
 Player descriptors and Base completion share the same effective cost. Declared
@@ -129,7 +131,7 @@ and a native transaction that consumes the pod after base initialization. Native
 tests check exact pod state, worker links, names, RNG and IDs through failure and
 guarded rollback, plus rejection of stale commands, foreign stacks and civilian
 attacks. The prototype uses an existing static portrait; authentic vehicle models,
-naval pods, renewable pod production and original founding/movement rules remain
+naval pods and original founding/movement rules remain
 outside this feature's coverage.
 
 `objects-list-lifecycle` uses native entities and the shipped tile list to check
@@ -220,7 +222,8 @@ category, research availability, bounded prerequisite queries and the human
 mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
 reference set also includes **5,531 ability-free prototype cost cases** and
-**5,679 human nutrient-factor cases**, making **12,992 cases** in total. These probes cover small rule helpers; they do
+**5,679 human nutrient-factor cases** and **2,528 basic production switch-loss
+cases**, making **15,520 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -228,10 +231,10 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-12,992 native/WASM C++ helper cases. Run it with
+15,520 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
-All ten bounded C++ contracts are implemented by shared production GLSMAC helpers.
+All eleven bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
@@ -245,7 +248,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **12,992 cases**. It runs independent reference suites in
+This checks all **15,520 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -438,7 +441,7 @@ boundaries, selected weapon modes and table-slot independence. A further 1,024
 of these cases were recorded after the implementation was frozen.
 
 See [contracts.md](contracts.md) for exact bounds and evidence. The full
-C++ helper lane also includes nutrient factors and totals 12,992 original cases; resource callback and UI traces remain
+C++ helper lane also includes nutrient factors and totals 15,520 original cases; resource callback and UI traces remain
 separate. This arithmetic transfer does not establish full design, ability or
 production parity; the bounded Colony Pod application lifecycle below is separate.
 
@@ -504,3 +507,25 @@ controlled display boundary. These are GLSMAC application tests. Fresh-world uni
 including the associated backend manager used by frontend definition requests.
 Unit support, home-base rules, abandonment, automatic repeat/default selection, queues and
 whole original completion ordering remain outside this batch.
+
+## Basic production switching
+
+The original helper lane includes **2,528** human basic-item switch-loss cases
+at default retool rules, with no installed facilities. The 512 held-out cases
+were generated after the candidate header was frozen. Native and WASM call
+the same production helper; [contracts.md](contracts.md) records exact bounds.
+
+The separate `glsmac.basic_production_switch.v1` application contract allows
+active Recycling Tanks↔land Colony Pod switching for modeled human owners,
+without Skunkworks and within bounded mineral storage and project costs. The
+actual picker previews each target's mineral loss; cancellation preserves the
+project and credit. Confirmation debits only the loss and marks the current
+turn so switching cannot credit production again. Aliases of the same actual
+project preserve all state. Native tests check both directions, thresholds,
+read-only previews, exact event rollback and atomic rejection of unsupported
+contexts. The picker displays an unavailable message for those contexts.
+
+This application policy, including installed Headquarters, rollback and UI,
+is separate from the original helper observations. It does not establish whole
+original switching behavior, AI/social modifiers, projects, orbitals, Stockpile
+Energy, queues or hurrying.

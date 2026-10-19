@@ -28,6 +28,7 @@ return {
 
 		this.production_selection = null;
 		this.production_choices = null;
+		this.production_switch_preview = null;
 		this.production_selection_base_id = null;
 
 		p.ui.class('base-screen-frame').set({
@@ -281,6 +282,7 @@ return {
 			this.production_selection.remove();
 			this.production_selection = null;
 			this.production_choices = null;
+			this.production_switch_preview = null;
 			this.production_selection_base_id = null;
 			this.sections.buttons.show_default();
 			for (s in this.sections) {
@@ -302,6 +304,17 @@ return {
 			}
 		}
 		return choices;
+	},
+
+	update_production_switch_preview: () => {
+		if (this.production_switch_preview != null && this.production_choices != null) {
+			let text = 'Switch unavailable for this context';
+			try {
+				const loss = this.base.get_production_switch_loss(this.production_choices.value);
+				text = 'Switch loss: ' + #to_string(loss) + ' minerals';
+			} catch { : (e) => {} }
+			this.production_switch_preview.text = text;
+		}
 	},
 
 	show_production_selection: () => {
@@ -339,6 +352,10 @@ return {
 				top: 52,
 				text: 'Build one project, then stop. Colony Pods use 1 citizen (size 2 required).',
 			});
+			this.production_switch_preview = this.production_selection.text({
+				class: 'base-screen-frame-text', align: 'top center', top: 73,
+				text: '',
+			});
 			if (#sizeof(items) > 0) {
 				const list = this.production_selection.scrollview({
 					left: 24, right: 24, top: 90, bottom: 110,
@@ -352,7 +369,8 @@ return {
 					// routes those keys and arrow navigation explicitly below.
 					keyboard: false,
 				});
-				this.production_choices.on('select', (e) => { return true; });
+				this.production_choices.on('select', (e) => { this.update_production_switch_preview(); return true; });
+				this.update_production_switch_preview();
 			} else {
 				this.production_selection.text({
 					class: 'base-screen-frame-text', align: 'center',
@@ -367,7 +385,7 @@ return {
 						for (let i = 0; i < #sizeof(items); i++) {
 							if (items[i][0] == this.production_choices.value) {
 								const next = i + (e.code == 'UP' ? 0 - 1 : 1);
-								if (next >= 0 && next < #sizeof(items)) { this.production_choices.value = items[next][0]; }
+								if (next >= 0 && next < #sizeof(items)) { this.production_choices.value = items[next][0]; this.update_production_switch_preview(); }
 								break;
 							}
 						}
@@ -388,6 +406,10 @@ return {
 			if (same_base && this.is_open) {
 				for (choice of this.get_production_choices()) {
 					if (choice.id == selected) { valid = true; }
+				}
+				if (valid) {
+					try { base.get_production_switch_loss(selected); }
+					catch { : (e) => { valid = false; } }
 				}
 			}
 			// Remove the draft before an event can synchronously refresh the

@@ -229,6 +229,36 @@ Abilities, design legality and availability, the shipped component database,
 full prototype surcharges, actual construction, and design UI remain outside
 this contract.
 
+## Basic production switch loss
+
+`economy.basic_production_switch_loss.v1` takes `{base_id, faction_id,
+previous_item, current_item, minerals}`. Base IDs are 0..7; the selected owner is
+explicitly human, faction 1..7. Item codes -64..-1 represent basic facilities;
+0..511 represent unit slots. Mineral storage is an integer 0..1,000,000. Item
+availability, ownership and design legality are outside this helper contract.
+
+The fixture sets default retool strictness 2, penalty 50 percent and a
+10-mineral exemption. No facilities, including Skunkworks, are installed.
+Each case supplies the previous and current item fields of the selected base,
+then executes original `base_lose_minerals` at `0x004E4810`, original `cost_mode`
+at `0x004E4700` and the original facility-bitfield dependency at `0x0050BA00`.
+No dependency answers are substituted. Code and declared data reads, read-only
+image/fixture memory, stack, preserved registers and execution limits remain
+guarded. Output `{lost: integer}` is lost minerals; it is not a complete project
+switch, UI interaction or state mutation.
+
+The 2,016 repeated original observations are in
+`cases/basic-production-switch-loss.json` and
+`observations/smacx-gog-2.0-basic-production-switch-loss.json`. They cover same
+and differing basic items, threshold/rounding neighbors, two base slots, all
+seven human factions and large safe inputs. Projects, orbital facilities,
+Stockpile Energy, AI, installed facilities, modified retool rules and original
+signed multiplication overflow are excluded. Another 512 independently seeded
+cases were recorded twice after the candidate header was frozen, covering all
+base slots and additional differing item codes. All 2,528 observations match the
+shared production `ProductionSwitchCost.h` helper on native and WASM. These
+samples do not exhaust the input domain.
+
 ## Evidence files
 
 | Suite | Contracts | Cases | Original observations |
@@ -242,6 +272,8 @@ this contract.
 | `cases/prototype-cost-chassis-sweep.json` | Ability-free prototype mineral rows | 1,536 | `observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json` |
 | `cases/prototype-cost-sea-mode11.json` | Ability-free prototype mineral rows | 512 | `observations/smacx-gog-2.0-prototype-cost-sea-mode11.json` |
 | `cases/prototype-cost-held-out.json` | Ability-free prototype mineral rows | 1,024 | `observations/smacx-gog-2.0-prototype-cost-held-out.json` |
+| `cases/basic-production-switch-loss.json` | Human basic-item switching loss, default retool rules | 2,016 | `observations/smacx-gog-2.0-basic-production-switch-loss.json` |
+| `cases/basic-production-switch-loss-held-out.json` | Basic-item switch loss, post-freeze samples | 512 | `observations/smacx-gog-2.0-basic-production-switch-loss-held-out.json` |
 | `cases/starting-unit-components.json` | Starting infantry component mineral rows | 3 | `observations/smacx-gog-2.0-starting-unit-components.json` |
 
 All files are captured with `compare.py record`, requiring two identical runs
@@ -261,5 +293,5 @@ code/read/write boundaries and execution budgets remain guarded.
 
 Replay uses the real WASM GSE interpreter and shipped resource handler with
 controlled native inputs, without assets or pixels. It is not included in the
-12,992-case native/WASM C++ helper totals and does not establish native application
+15,520-case native/WASM C++ helper totals and does not establish native application
 execution, worked-tile yields, construction costs or complete base economy.

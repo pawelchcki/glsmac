@@ -2,6 +2,7 @@
 #include "game/backend/technology/Table.h"
 #include "game/backend/base/ProductionCost.h"
 #include "game/backend/base/NutrientCost.h"
+#include "game/backend/base/ProductionSwitchCost.h"
 #include "game/backend/unit/PrototypeCost.h"
 
 #include <array>
@@ -85,6 +86,14 @@ int Evaluate( std::istringstream& input ) {
 		const auto armor = ReadInteger( input, 1, 32 );
 		const auto reactor = ReadInteger( input, 1, 4 );
 		return game::backend::unit::PrototypeBaseCost( chassis, triad, missile, offense, mode, weapon, armor, reactor );
+	}
+	if ( algorithm == "basic_production_switch_loss" ) {
+		ReadInteger( input, 0, 7 ); // original fixture base slot
+		ReadInteger( input, 1, 7 ); // original human fixture faction
+		const auto previous = ReadInteger( input, -64, 511 );
+		const auto current = ReadInteger( input, -64, 511 );
+		const auto minerals = ReadInteger( input, 0, 1000000 );
+		return game::backend::base::BasicProductionSwitchLoss( previous, current, minerals );
 	}
 	if ( algorithm == "human_nutrient_factor" ) {
 		ReadInteger( input, 1, 7 ); // original human fixture faction identity

@@ -1,0 +1,5639 @@
+{
+  "version": 1,
+  "name": "Basic production switch loss held-out cases",
+  "description": "Independent post-header-freeze input sampling, same default human/no-installed-facility contract. Candidate frozen header SHA256 4b1f197f2956864daa5963f9d45340e4fb304f16951c07c98ba35b49aaafdc8c. No expected answer calculated by generator.",
+  "cases": [
+    {
+      "id": "switch-held-out-0000",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 1,
+        "previous_item": 429,
+        "current_item": 429,
+        "minerals": 13
+      }
+    },
+    {
+      "id": "switch-held-out-0001",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 1,
+        "previous_item": 166,
+        "current_item": 184,
+        "minerals": 508413
+      }
+    },
+    {
+      "id": "switch-held-out-0002",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 445,
+        "current_item": -14,
+        "minerals": 286274
+      }
+    },
+    {
+      "id": "switch-held-out-0003",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 276,
+        "current_item": 276,
+        "minerals": 147682
+      }
+    },
+    {
+      "id": "switch-held-out-0004",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 85,
+        "current_item": 68,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0005",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 506,
+        "current_item": 163,
+        "minerals": 321948
+      }
+    },
+    {
+      "id": "switch-held-out-0006",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 114,
+        "current_item": 114,
+        "minerals": 192104
+      }
+    },
+    {
+      "id": "switch-held-out-0007",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 340,
+        "current_item": 462,
+        "minerals": 677122
+      }
+    },
+    {
+      "id": "switch-held-out-0008",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 190,
+        "current_item": 151,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0009",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 130,
+        "current_item": 130,
+        "minerals": 710695
+      }
+    },
+    {
+      "id": "switch-held-out-0010",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": 255,
+        "current_item": 482,
+        "minerals": 838689
+      }
+    },
+    {
+      "id": "switch-held-out-0011",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 418,
+        "current_item": -43,
+        "minerals": 870954
+      }
+    },
+    {
+      "id": "switch-held-out-0012",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 248,
+        "current_item": 248,
+        "minerals": 6
+      }
+    },
+    {
+      "id": "switch-held-out-0013",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 283,
+        "current_item": 238,
+        "minerals": 989961
+      }
+    },
+    {
+      "id": "switch-held-out-0014",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": -53,
+        "current_item": 379,
+        "minerals": 675219
+      }
+    },
+    {
+      "id": "switch-held-out-0015",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 501,
+        "current_item": 501,
+        "minerals": 806517
+      }
+    },
+    {
+      "id": "switch-held-out-0016",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 368,
+        "current_item": 205,
+        "minerals": 7
+      }
+    },
+    {
+      "id": "switch-held-out-0017",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 152,
+        "current_item": 452,
+        "minerals": 518849
+      }
+    },
+    {
+      "id": "switch-held-out-0018",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 189,
+        "current_item": 189,
+        "minerals": 274774
+      }
+    },
+    {
+      "id": "switch-held-out-0019",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 369,
+        "current_item": 153,
+        "minerals": 218563
+      }
+    },
+    {
+      "id": "switch-held-out-0020",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 214,
+        "current_item": 31,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0021",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 236,
+        "current_item": 236,
+        "minerals": 741184
+      }
+    },
+    {
+      "id": "switch-held-out-0022",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 365,
+        "current_item": 283,
+        "minerals": 2465
+      }
+    },
+    {
+      "id": "switch-held-out-0023",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 6,
+        "previous_item": -60,
+        "current_item": 445,
+        "minerals": 859164
+      }
+    },
+    {
+      "id": "switch-held-out-0024",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 435,
+        "current_item": 435,
+        "minerals": 29
+      }
+    },
+    {
+      "id": "switch-held-out-0025",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 159,
+        "current_item": 178,
+        "minerals": 701860
+      }
+    },
+    {
+      "id": "switch-held-out-0026",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 79,
+        "current_item": 245,
+        "minerals": 583436
+      }
+    },
+    {
+      "id": "switch-held-out-0027",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 409,
+        "current_item": 409,
+        "minerals": 650376
+      }
+    },
+    {
+      "id": "switch-held-out-0028",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 309,
+        "current_item": 182,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0029",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 233,
+        "current_item": 17,
+        "minerals": 719879
+      }
+    },
+    {
+      "id": "switch-held-out-0030",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 254,
+        "current_item": 254,
+        "minerals": 248253
+      }
+    },
+    {
+      "id": "switch-held-out-0031",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 147,
+        "current_item": 37,
+        "minerals": 60031
+      }
+    },
+    {
+      "id": "switch-held-out-0032",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 252,
+        "current_item": 232,
+        "minerals": 2
+      }
+    },
+    {
+      "id": "switch-held-out-0033",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 396,
+        "current_item": 396,
+        "minerals": 630031
+      }
+    },
+    {
+      "id": "switch-held-out-0034",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 254,
+        "current_item": 281,
+        "minerals": 470140
+      }
+    },
+    {
+      "id": "switch-held-out-0035",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 281,
+        "current_item": 496,
+        "minerals": 584645
+      }
+    },
+    {
+      "id": "switch-held-out-0036",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 474,
+        "current_item": 474,
+        "minerals": 5
+      }
+    },
+    {
+      "id": "switch-held-out-0037",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": -24,
+        "current_item": 383,
+        "minerals": 963324
+      }
+    },
+    {
+      "id": "switch-held-out-0038",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 288,
+        "current_item": 260,
+        "minerals": 727905
+      }
+    },
+    {
+      "id": "switch-held-out-0039",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 53,
+        "current_item": 53,
+        "minerals": 463018
+      }
+    },
+    {
+      "id": "switch-held-out-0040",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 21,
+        "current_item": 428,
+        "minerals": 2
+      }
+    },
+    {
+      "id": "switch-held-out-0041",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 77,
+        "current_item": 341,
+        "minerals": 332640
+      }
+    },
+    {
+      "id": "switch-held-out-0042",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": 294,
+        "current_item": 294,
+        "minerals": 446845
+      }
+    },
+    {
+      "id": "switch-held-out-0043",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 158,
+        "current_item": 216,
+        "minerals": 305802
+      }
+    },
+    {
+      "id": "switch-held-out-0044",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 458,
+        "current_item": -64,
+        "minerals": 19
+      }
+    },
+    {
+      "id": "switch-held-out-0045",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 418,
+        "current_item": 418,
+        "minerals": 733700
+      }
+    },
+    {
+      "id": "switch-held-out-0046",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 423,
+        "current_item": 510,
+        "minerals": 349311
+      }
+    },
+    {
+      "id": "switch-held-out-0047",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 123,
+        "current_item": 382,
+        "minerals": 616656
+      }
+    },
+    {
+      "id": "switch-held-out-0048",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": -4,
+        "current_item": -4,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0049",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": 163,
+        "current_item": 80,
+        "minerals": 192488
+      }
+    },
+    {
+      "id": "switch-held-out-0050",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 492,
+        "current_item": 462,
+        "minerals": 917511
+      }
+    },
+    {
+      "id": "switch-held-out-0051",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 216,
+        "current_item": 216,
+        "minerals": 749073
+      }
+    },
+    {
+      "id": "switch-held-out-0052",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 6,
+        "previous_item": 124,
+        "current_item": 42,
+        "minerals": 13
+      }
+    },
+    {
+      "id": "switch-held-out-0053",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 12,
+        "current_item": 416,
+        "minerals": 710173
+      }
+    },
+    {
+      "id": "switch-held-out-0054",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 357,
+        "current_item": 357,
+        "minerals": 917391
+      }
+    },
+    {
+      "id": "switch-held-out-0055",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 453,
+        "current_item": 506,
+        "minerals": 878615
+      }
+    },
+    {
+      "id": "switch-held-out-0056",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 363,
+        "current_item": 85,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0057",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 199,
+        "current_item": 199,
+        "minerals": 257418
+      }
+    },
+    {
+      "id": "switch-held-out-0058",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 351,
+        "current_item": 464,
+        "minerals": 514644
+      }
+    },
+    {
+      "id": "switch-held-out-0059",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 244,
+        "current_item": 78,
+        "minerals": 782082
+      }
+    },
+    {
+      "id": "switch-held-out-0060",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": -14,
+        "current_item": -14,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0061",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": 290,
+        "current_item": 440,
+        "minerals": 393075
+      }
+    },
+    {
+      "id": "switch-held-out-0062",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 69,
+        "current_item": 220,
+        "minerals": 81437
+      }
+    },
+    {
+      "id": "switch-held-out-0063",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 174,
+        "current_item": 174,
+        "minerals": 611493
+      }
+    },
+    {
+      "id": "switch-held-out-0064",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 5,
+        "previous_item": 262,
+        "current_item": 341,
+        "minerals": 17
+      }
+    },
+    {
+      "id": "switch-held-out-0065",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": -4,
+        "current_item": -17,
+        "minerals": 713439
+      }
+    },
+    {
+      "id": "switch-held-out-0066",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": 66,
+        "current_item": 66,
+        "minerals": 812940
+      }
+    },
+    {
+      "id": "switch-held-out-0067",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 413,
+        "current_item": 166,
+        "minerals": 594052
+      }
+    },
+    {
+      "id": "switch-held-out-0068",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 501,
+        "current_item": 253,
+        "minerals": 28
+      }
+    },
+    {
+      "id": "switch-held-out-0069",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 214,
+        "current_item": 214,
+        "minerals": 218633
+      }
+    },
+    {
+      "id": "switch-held-out-0070",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 1,
+        "previous_item": 452,
+        "current_item": 190,
+        "minerals": 396617
+      }
+    },
+    {
+      "id": "switch-held-out-0071",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 358,
+        "current_item": -9,
+        "minerals": 41036
+      }
+    },
+    {
+      "id": "switch-held-out-0072",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 347,
+        "current_item": 347,
+        "minerals": 8
+      }
+    },
+    {
+      "id": "switch-held-out-0073",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 244,
+        "current_item": -35,
+        "minerals": 429583
+      }
+    },
+    {
+      "id": "switch-held-out-0074",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 62,
+        "current_item": 400,
+        "minerals": 47399
+      }
+    },
+    {
+      "id": "switch-held-out-0075",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 365,
+        "current_item": 365,
+        "minerals": 663008
+      }
+    },
+    {
+      "id": "switch-held-out-0076",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 149,
+        "current_item": -7,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0077",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 407,
+        "current_item": 362,
+        "minerals": 14571
+      }
+    },
+    {
+      "id": "switch-held-out-0078",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 69,
+        "current_item": 69,
+        "minerals": 817264
+      }
+    },
+    {
+      "id": "switch-held-out-0079",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 495,
+        "current_item": 312,
+        "minerals": 241285
+      }
+    },
+    {
+      "id": "switch-held-out-0080",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 2,
+        "previous_item": 474,
+        "current_item": -24,
+        "minerals": 11
+      }
+    },
+    {
+      "id": "switch-held-out-0081",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 215,
+        "current_item": 215,
+        "minerals": 635819
+      }
+    },
+    {
+      "id": "switch-held-out-0082",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 275,
+        "current_item": 20,
+        "minerals": 665147
+      }
+    },
+    {
+      "id": "switch-held-out-0083",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 335,
+        "current_item": -25,
+        "minerals": 644730
+      }
+    },
+    {
+      "id": "switch-held-out-0084",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 329,
+        "current_item": 329,
+        "minerals": 7
+      }
+    },
+    {
+      "id": "switch-held-out-0085",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 322,
+        "current_item": 47,
+        "minerals": 28359
+      }
+    },
+    {
+      "id": "switch-held-out-0086",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 500,
+        "current_item": 237,
+        "minerals": 283033
+      }
+    },
+    {
+      "id": "switch-held-out-0087",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 10,
+        "current_item": 10,
+        "minerals": 75063
+      }
+    },
+    {
+      "id": "switch-held-out-0088",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": -37,
+        "current_item": 189,
+        "minerals": 8
+      }
+    },
+    {
+      "id": "switch-held-out-0089",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": -9,
+        "current_item": -55,
+        "minerals": 685716
+      }
+    },
+    {
+      "id": "switch-held-out-0090",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": 213,
+        "current_item": 213,
+        "minerals": 398289
+      }
+    },
+    {
+      "id": "switch-held-out-0091",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 250,
+        "current_item": 445,
+        "minerals": 649761
+      }
+    },
+    {
+      "id": "switch-held-out-0092",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 213,
+        "current_item": 288,
+        "minerals": 2
+      }
+    },
+    {
+      "id": "switch-held-out-0093",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 88,
+        "current_item": 88,
+        "minerals": 29821
+      }
+    },
+    {
+      "id": "switch-held-out-0094",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 6,
+        "current_item": 430,
+        "minerals": 256269
+      }
+    },
+    {
+      "id": "switch-held-out-0095",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 420,
+        "current_item": 307,
+        "minerals": 622867
+      }
+    },
+    {
+      "id": "switch-held-out-0096",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 198,
+        "current_item": 198,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0097",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 42,
+        "current_item": -22,
+        "minerals": 158951
+      }
+    },
+    {
+      "id": "switch-held-out-0098",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 200,
+        "current_item": -10,
+        "minerals": 280749
+      }
+    },
+    {
+      "id": "switch-held-out-0099",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 445,
+        "current_item": 445,
+        "minerals": 600511
+      }
+    },
+    {
+      "id": "switch-held-out-0100",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 197,
+        "current_item": 501,
+        "minerals": 11
+      }
+    },
+    {
+      "id": "switch-held-out-0101",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 164,
+        "current_item": 470,
+        "minerals": 111395
+      }
+    },
+    {
+      "id": "switch-held-out-0102",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 452,
+        "current_item": 452,
+        "minerals": 84435
+      }
+    },
+    {
+      "id": "switch-held-out-0103",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": 437,
+        "current_item": -45,
+        "minerals": 260976
+      }
+    },
+    {
+      "id": "switch-held-out-0104",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 485,
+        "current_item": 109,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0105",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": 193,
+        "current_item": 193,
+        "minerals": 13577
+      }
+    },
+    {
+      "id": "switch-held-out-0106",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 6,
+        "previous_item": 117,
+        "current_item": 275,
+        "minerals": 449867
+      }
+    },
+    {
+      "id": "switch-held-out-0107",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 15,
+        "current_item": 96,
+        "minerals": 988692
+      }
+    },
+    {
+      "id": "switch-held-out-0108",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 270,
+        "current_item": 270,
+        "minerals": 14
+      }
+    },
+    {
+      "id": "switch-held-out-0109",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 60,
+        "current_item": 202,
+        "minerals": 385198
+      }
+    },
+    {
+      "id": "switch-held-out-0110",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 194,
+        "current_item": 175,
+        "minerals": 759317
+      }
+    },
+    {
+      "id": "switch-held-out-0111",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 22,
+        "current_item": 22,
+        "minerals": 735627
+      }
+    },
+    {
+      "id": "switch-held-out-0112",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 304,
+        "current_item": 247,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0113",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 481,
+        "current_item": 415,
+        "minerals": 654544
+      }
+    },
+    {
+      "id": "switch-held-out-0114",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 63,
+        "current_item": 63,
+        "minerals": 783940
+      }
+    },
+    {
+      "id": "switch-held-out-0115",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 320,
+        "current_item": 268,
+        "minerals": 706
+      }
+    },
+    {
+      "id": "switch-held-out-0116",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 1,
+        "previous_item": 67,
+        "current_item": -32,
+        "minerals": 18
+      }
+    },
+    {
+      "id": "switch-held-out-0117",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 199,
+        "current_item": 199,
+        "minerals": 973025
+      }
+    },
+    {
+      "id": "switch-held-out-0118",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 171,
+        "current_item": 312,
+        "minerals": 243130
+      }
+    },
+    {
+      "id": "switch-held-out-0119",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 43,
+        "current_item": 431,
+        "minerals": 385769
+      }
+    },
+    {
+      "id": "switch-held-out-0120",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 243,
+        "current_item": 243,
+        "minerals": 24
+      }
+    },
+    {
+      "id": "switch-held-out-0121",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 474,
+        "current_item": 334,
+        "minerals": 243195
+      }
+    },
+    {
+      "id": "switch-held-out-0122",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 264,
+        "current_item": 205,
+        "minerals": 993740
+      }
+    },
+    {
+      "id": "switch-held-out-0123",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 3,
+        "previous_item": 79,
+        "current_item": 79,
+        "minerals": 855918
+      }
+    },
+    {
+      "id": "switch-held-out-0124",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 420,
+        "current_item": -13,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0125",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 259,
+        "current_item": 12,
+        "minerals": 403409
+      }
+    },
+    {
+      "id": "switch-held-out-0126",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 347,
+        "current_item": 347,
+        "minerals": 581561
+      }
+    },
+    {
+      "id": "switch-held-out-0127",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 1,
+        "previous_item": -53,
+        "current_item": 65,
+        "minerals": 581083
+      }
+    },
+    {
+      "id": "switch-held-out-0128",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 384,
+        "current_item": 172,
+        "minerals": 10
+      }
+    },
+    {
+      "id": "switch-held-out-0129",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 200,
+        "current_item": 200,
+        "minerals": 36730
+      }
+    },
+    {
+      "id": "switch-held-out-0130",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 2,
+        "previous_item": 164,
+        "current_item": 492,
+        "minerals": 581338
+      }
+    },
+    {
+      "id": "switch-held-out-0131",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 180,
+        "current_item": 187,
+        "minerals": 44597
+      }
+    },
+    {
+      "id": "switch-held-out-0132",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 129,
+        "current_item": 129,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0133",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 13,
+        "current_item": 115,
+        "minerals": 72436
+      }
+    },
+    {
+      "id": "switch-held-out-0134",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 61,
+        "current_item": -59,
+        "minerals": 87787
+      }
+    },
+    {
+      "id": "switch-held-out-0135",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": -38,
+        "current_item": -38,
+        "minerals": 989365
+      }
+    },
+    {
+      "id": "switch-held-out-0136",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 182,
+        "current_item": 130,
+        "minerals": 15
+      }
+    },
+    {
+      "id": "switch-held-out-0137",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 7,
+        "current_item": 73,
+        "minerals": 233816
+      }
+    },
+    {
+      "id": "switch-held-out-0138",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 207,
+        "current_item": 207,
+        "minerals": 215508
+      }
+    },
+    {
+      "id": "switch-held-out-0139",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 52,
+        "current_item": 327,
+        "minerals": 31634
+      }
+    },
+    {
+      "id": "switch-held-out-0140",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 191,
+        "current_item": 16,
+        "minerals": 24
+      }
+    },
+    {
+      "id": "switch-held-out-0141",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 431,
+        "current_item": 431,
+        "minerals": 28523
+      }
+    },
+    {
+      "id": "switch-held-out-0142",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 214,
+        "current_item": 29,
+        "minerals": 639178
+      }
+    },
+    {
+      "id": "switch-held-out-0143",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": -17,
+        "current_item": 453,
+        "minerals": 165048
+      }
+    },
+    {
+      "id": "switch-held-out-0144",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 45,
+        "current_item": 45,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0145",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 116,
+        "current_item": 98,
+        "minerals": 625757
+      }
+    },
+    {
+      "id": "switch-held-out-0146",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 425,
+        "current_item": 176,
+        "minerals": 735279
+      }
+    },
+    {
+      "id": "switch-held-out-0147",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 211,
+        "current_item": 211,
+        "minerals": 113008
+      }
+    },
+    {
+      "id": "switch-held-out-0148",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 299,
+        "current_item": 61,
+        "minerals": 11
+      }
+    },
+    {
+      "id": "switch-held-out-0149",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 236,
+        "current_item": 121,
+        "minerals": 405201
+      }
+    },
+    {
+      "id": "switch-held-out-0150",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 90,
+        "current_item": 90,
+        "minerals": 873811
+      }
+    },
+    {
+      "id": "switch-held-out-0151",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 497,
+        "current_item": 27,
+        "minerals": 571419
+      }
+    },
+    {
+      "id": "switch-held-out-0152",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 92,
+        "current_item": 184,
+        "minerals": 8
+      }
+    },
+    {
+      "id": "switch-held-out-0153",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": -29,
+        "current_item": -29,
+        "minerals": 171133
+      }
+    },
+    {
+      "id": "switch-held-out-0154",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": 331,
+        "current_item": 245,
+        "minerals": 733155
+      }
+    },
+    {
+      "id": "switch-held-out-0155",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 464,
+        "current_item": 34,
+        "minerals": 259080
+      }
+    },
+    {
+      "id": "switch-held-out-0156",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 12,
+        "current_item": 12,
+        "minerals": 19
+      }
+    },
+    {
+      "id": "switch-held-out-0157",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 181,
+        "current_item": -21,
+        "minerals": 920605
+      }
+    },
+    {
+      "id": "switch-held-out-0158",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 1,
+        "previous_item": 225,
+        "current_item": 418,
+        "minerals": 761540
+      }
+    },
+    {
+      "id": "switch-held-out-0159",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": -52,
+        "current_item": -52,
+        "minerals": 600617
+      }
+    },
+    {
+      "id": "switch-held-out-0160",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 276,
+        "current_item": 335,
+        "minerals": 18
+      }
+    },
+    {
+      "id": "switch-held-out-0161",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 361,
+        "current_item": 119,
+        "minerals": 486409
+      }
+    },
+    {
+      "id": "switch-held-out-0162",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 445,
+        "current_item": 445,
+        "minerals": 451166
+      }
+    },
+    {
+      "id": "switch-held-out-0163",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 492,
+        "current_item": 113,
+        "minerals": 443211
+      }
+    },
+    {
+      "id": "switch-held-out-0164",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 433,
+        "current_item": 341,
+        "minerals": 27
+      }
+    },
+    {
+      "id": "switch-held-out-0165",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 187,
+        "current_item": 187,
+        "minerals": 97877
+      }
+    },
+    {
+      "id": "switch-held-out-0166",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": -56,
+        "current_item": -24,
+        "minerals": 88787
+      }
+    },
+    {
+      "id": "switch-held-out-0167",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 499,
+        "current_item": 481,
+        "minerals": 631479
+      }
+    },
+    {
+      "id": "switch-held-out-0168",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 387,
+        "current_item": 387,
+        "minerals": 6
+      }
+    },
+    {
+      "id": "switch-held-out-0169",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 133,
+        "current_item": -47,
+        "minerals": 355411
+      }
+    },
+    {
+      "id": "switch-held-out-0170",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 194,
+        "current_item": 8,
+        "minerals": 101830
+      }
+    },
+    {
+      "id": "switch-held-out-0171",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": 123,
+        "current_item": 123,
+        "minerals": 648582
+      }
+    },
+    {
+      "id": "switch-held-out-0172",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 405,
+        "current_item": 376,
+        "minerals": 24
+      }
+    },
+    {
+      "id": "switch-held-out-0173",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 479,
+        "current_item": 6,
+        "minerals": 905158
+      }
+    },
+    {
+      "id": "switch-held-out-0174",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 474,
+        "current_item": 474,
+        "minerals": 44712
+      }
+    },
+    {
+      "id": "switch-held-out-0175",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 367,
+        "current_item": 137,
+        "minerals": 594184
+      }
+    },
+    {
+      "id": "switch-held-out-0176",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": -58,
+        "current_item": 501,
+        "minerals": 24
+      }
+    },
+    {
+      "id": "switch-held-out-0177",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": -50,
+        "current_item": -50,
+        "minerals": 327752
+      }
+    },
+    {
+      "id": "switch-held-out-0178",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 330,
+        "current_item": 381,
+        "minerals": 984985
+      }
+    },
+    {
+      "id": "switch-held-out-0179",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 178,
+        "current_item": 492,
+        "minerals": 279678
+      }
+    },
+    {
+      "id": "switch-held-out-0180",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 485,
+        "current_item": 485,
+        "minerals": 29
+      }
+    },
+    {
+      "id": "switch-held-out-0181",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 196,
+        "current_item": 92,
+        "minerals": 776675
+      }
+    },
+    {
+      "id": "switch-held-out-0182",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 346,
+        "current_item": 502,
+        "minerals": 52808
+      }
+    },
+    {
+      "id": "switch-held-out-0183",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 476,
+        "current_item": 476,
+        "minerals": 917366
+      }
+    },
+    {
+      "id": "switch-held-out-0184",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 316,
+        "current_item": 264,
+        "minerals": 27
+      }
+    },
+    {
+      "id": "switch-held-out-0185",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": -32,
+        "current_item": 194,
+        "minerals": 796459
+      }
+    },
+    {
+      "id": "switch-held-out-0186",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 30,
+        "current_item": 30,
+        "minerals": 500161
+      }
+    },
+    {
+      "id": "switch-held-out-0187",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 141,
+        "current_item": 107,
+        "minerals": 197945
+      }
+    },
+    {
+      "id": "switch-held-out-0188",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 2,
+        "previous_item": 134,
+        "current_item": 215,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0189",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 20,
+        "current_item": 20,
+        "minerals": 267416
+      }
+    },
+    {
+      "id": "switch-held-out-0190",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 17,
+        "current_item": 98,
+        "minerals": 676324
+      }
+    },
+    {
+      "id": "switch-held-out-0191",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 402,
+        "current_item": 354,
+        "minerals": 131763
+      }
+    },
+    {
+      "id": "switch-held-out-0192",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 279,
+        "current_item": 279,
+        "minerals": 25
+      }
+    },
+    {
+      "id": "switch-held-out-0193",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 130,
+        "current_item": -16,
+        "minerals": 191609
+      }
+    },
+    {
+      "id": "switch-held-out-0194",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 175,
+        "current_item": 450,
+        "minerals": 703152
+      }
+    },
+    {
+      "id": "switch-held-out-0195",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 480,
+        "current_item": 480,
+        "minerals": 283245
+      }
+    },
+    {
+      "id": "switch-held-out-0196",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 73,
+        "current_item": 341,
+        "minerals": 10
+      }
+    },
+    {
+      "id": "switch-held-out-0197",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 120,
+        "current_item": -35,
+        "minerals": 851203
+      }
+    },
+    {
+      "id": "switch-held-out-0198",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": 377,
+        "current_item": 377,
+        "minerals": 556379
+      }
+    },
+    {
+      "id": "switch-held-out-0199",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 475,
+        "current_item": -44,
+        "minerals": 496680
+      }
+    },
+    {
+      "id": "switch-held-out-0200",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 249,
+        "current_item": 91,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0201",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 6,
+        "previous_item": 32,
+        "current_item": 32,
+        "minerals": 833023
+      }
+    },
+    {
+      "id": "switch-held-out-0202",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 218,
+        "current_item": 169,
+        "minerals": 530098
+      }
+    },
+    {
+      "id": "switch-held-out-0203",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 491,
+        "current_item": 100,
+        "minerals": 270567
+      }
+    },
+    {
+      "id": "switch-held-out-0204",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 24,
+        "current_item": 24,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0205",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 402,
+        "current_item": 198,
+        "minerals": 137615
+      }
+    },
+    {
+      "id": "switch-held-out-0206",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 2,
+        "previous_item": -8,
+        "current_item": 363,
+        "minerals": 364886
+      }
+    },
+    {
+      "id": "switch-held-out-0207",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 316,
+        "current_item": 316,
+        "minerals": 854916
+      }
+    },
+    {
+      "id": "switch-held-out-0208",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 423,
+        "current_item": 182,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0209",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 240,
+        "current_item": 368,
+        "minerals": 9316
+      }
+    },
+    {
+      "id": "switch-held-out-0210",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 5,
+        "previous_item": -25,
+        "current_item": -25,
+        "minerals": 817781
+      }
+    },
+    {
+      "id": "switch-held-out-0211",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 183,
+        "current_item": 486,
+        "minerals": 403842
+      }
+    },
+    {
+      "id": "switch-held-out-0212",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 460,
+        "current_item": 471,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0213",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 59,
+        "current_item": 59,
+        "minerals": 499727
+      }
+    },
+    {
+      "id": "switch-held-out-0214",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 278,
+        "current_item": 142,
+        "minerals": 855216
+      }
+    },
+    {
+      "id": "switch-held-out-0215",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 282,
+        "current_item": 18,
+        "minerals": 419446
+      }
+    },
+    {
+      "id": "switch-held-out-0216",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 254,
+        "current_item": 254,
+        "minerals": 21
+      }
+    },
+    {
+      "id": "switch-held-out-0217",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 9,
+        "current_item": 451,
+        "minerals": 350794
+      }
+    },
+    {
+      "id": "switch-held-out-0218",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 124,
+        "current_item": 407,
+        "minerals": 514837
+      }
+    },
+    {
+      "id": "switch-held-out-0219",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 77,
+        "current_item": 77,
+        "minerals": 924880
+      }
+    },
+    {
+      "id": "switch-held-out-0220",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": -59,
+        "current_item": 121,
+        "minerals": 15
+      }
+    },
+    {
+      "id": "switch-held-out-0221",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 117,
+        "current_item": 310,
+        "minerals": 831743
+      }
+    },
+    {
+      "id": "switch-held-out-0222",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 277,
+        "current_item": 277,
+        "minerals": 504514
+      }
+    },
+    {
+      "id": "switch-held-out-0223",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 470,
+        "current_item": 81,
+        "minerals": 919726
+      }
+    },
+    {
+      "id": "switch-held-out-0224",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 53,
+        "current_item": 100,
+        "minerals": 15
+      }
+    },
+    {
+      "id": "switch-held-out-0225",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 55,
+        "current_item": 55,
+        "minerals": 531735
+      }
+    },
+    {
+      "id": "switch-held-out-0226",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 381,
+        "current_item": 263,
+        "minerals": 192763
+      }
+    },
+    {
+      "id": "switch-held-out-0227",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 435,
+        "current_item": 242,
+        "minerals": 360432
+      }
+    },
+    {
+      "id": "switch-held-out-0228",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 499,
+        "current_item": 499,
+        "minerals": 14
+      }
+    },
+    {
+      "id": "switch-held-out-0229",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 493,
+        "current_item": -38,
+        "minerals": 655965
+      }
+    },
+    {
+      "id": "switch-held-out-0230",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 430,
+        "current_item": -34,
+        "minerals": 713493
+      }
+    },
+    {
+      "id": "switch-held-out-0231",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 321,
+        "current_item": 321,
+        "minerals": 109377
+      }
+    },
+    {
+      "id": "switch-held-out-0232",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 75,
+        "current_item": 143,
+        "minerals": 9
+      }
+    },
+    {
+      "id": "switch-held-out-0233",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": -27,
+        "current_item": 212,
+        "minerals": 735870
+      }
+    },
+    {
+      "id": "switch-held-out-0234",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 20,
+        "current_item": 20,
+        "minerals": 686452
+      }
+    },
+    {
+      "id": "switch-held-out-0235",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 27,
+        "current_item": 424,
+        "minerals": 73869
+      }
+    },
+    {
+      "id": "switch-held-out-0236",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": 498,
+        "current_item": 31,
+        "minerals": 21
+      }
+    },
+    {
+      "id": "switch-held-out-0237",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 140,
+        "current_item": 140,
+        "minerals": 293629
+      }
+    },
+    {
+      "id": "switch-held-out-0238",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 342,
+        "current_item": 256,
+        "minerals": 331308
+      }
+    },
+    {
+      "id": "switch-held-out-0239",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": -6,
+        "current_item": 391,
+        "minerals": 74794
+      }
+    },
+    {
+      "id": "switch-held-out-0240",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 428,
+        "current_item": 428,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0241",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 207,
+        "current_item": 265,
+        "minerals": 597240
+      }
+    },
+    {
+      "id": "switch-held-out-0242",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 405,
+        "current_item": 336,
+        "minerals": 875668
+      }
+    },
+    {
+      "id": "switch-held-out-0243",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 432,
+        "current_item": 432,
+        "minerals": 649907
+      }
+    },
+    {
+      "id": "switch-held-out-0244",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 50,
+        "current_item": -43,
+        "minerals": 4
+      }
+    },
+    {
+      "id": "switch-held-out-0245",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 1,
+        "previous_item": 353,
+        "current_item": 359,
+        "minerals": 9973
+      }
+    },
+    {
+      "id": "switch-held-out-0246",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 442,
+        "current_item": 442,
+        "minerals": 42554
+      }
+    },
+    {
+      "id": "switch-held-out-0247",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": -7,
+        "current_item": 135,
+        "minerals": 926018
+      }
+    },
+    {
+      "id": "switch-held-out-0248",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": -5,
+        "current_item": 468,
+        "minerals": 14
+      }
+    },
+    {
+      "id": "switch-held-out-0249",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 239,
+        "current_item": 239,
+        "minerals": 426391
+      }
+    },
+    {
+      "id": "switch-held-out-0250",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 505,
+        "current_item": -64,
+        "minerals": 289010
+      }
+    },
+    {
+      "id": "switch-held-out-0251",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 210,
+        "current_item": 47,
+        "minerals": 844478
+      }
+    },
+    {
+      "id": "switch-held-out-0252",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 46,
+        "current_item": 46,
+        "minerals": 11
+      }
+    },
+    {
+      "id": "switch-held-out-0253",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 422,
+        "current_item": 287,
+        "minerals": 858050
+      }
+    },
+    {
+      "id": "switch-held-out-0254",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": -7,
+        "current_item": 446,
+        "minerals": 574653
+      }
+    },
+    {
+      "id": "switch-held-out-0255",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 450,
+        "current_item": 450,
+        "minerals": 895845
+      }
+    },
+    {
+      "id": "switch-held-out-0256",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 423,
+        "current_item": 130,
+        "minerals": 18
+      }
+    },
+    {
+      "id": "switch-held-out-0257",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 1,
+        "previous_item": 339,
+        "current_item": 442,
+        "minerals": 594580
+      }
+    },
+    {
+      "id": "switch-held-out-0258",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 392,
+        "current_item": 392,
+        "minerals": 706554
+      }
+    },
+    {
+      "id": "switch-held-out-0259",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 419,
+        "current_item": 341,
+        "minerals": 73180
+      }
+    },
+    {
+      "id": "switch-held-out-0260",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 356,
+        "current_item": 106,
+        "minerals": 15
+      }
+    },
+    {
+      "id": "switch-held-out-0261",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 305,
+        "current_item": 305,
+        "minerals": 719242
+      }
+    },
+    {
+      "id": "switch-held-out-0262",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": -60,
+        "current_item": 197,
+        "minerals": 449780
+      }
+    },
+    {
+      "id": "switch-held-out-0263",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 315,
+        "current_item": 256,
+        "minerals": 507767
+      }
+    },
+    {
+      "id": "switch-held-out-0264",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": 169,
+        "current_item": 169,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0265",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 147,
+        "current_item": 323,
+        "minerals": 758199
+      }
+    },
+    {
+      "id": "switch-held-out-0266",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 353,
+        "current_item": 110,
+        "minerals": 273068
+      }
+    },
+    {
+      "id": "switch-held-out-0267",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 485,
+        "current_item": 485,
+        "minerals": 858462
+      }
+    },
+    {
+      "id": "switch-held-out-0268",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 108,
+        "current_item": 340,
+        "minerals": 6
+      }
+    },
+    {
+      "id": "switch-held-out-0269",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 54,
+        "current_item": 360,
+        "minerals": 181327
+      }
+    },
+    {
+      "id": "switch-held-out-0270",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 170,
+        "current_item": 170,
+        "minerals": 587399
+      }
+    },
+    {
+      "id": "switch-held-out-0271",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 297,
+        "current_item": 505,
+        "minerals": 671258
+      }
+    },
+    {
+      "id": "switch-held-out-0272",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 346,
+        "current_item": 158,
+        "minerals": 10
+      }
+    },
+    {
+      "id": "switch-held-out-0273",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 316,
+        "current_item": 316,
+        "minerals": 9195
+      }
+    },
+    {
+      "id": "switch-held-out-0274",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 195,
+        "current_item": -53,
+        "minerals": 499569
+      }
+    },
+    {
+      "id": "switch-held-out-0275",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 306,
+        "current_item": 493,
+        "minerals": 167330
+      }
+    },
+    {
+      "id": "switch-held-out-0276",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": -8,
+        "current_item": -8,
+        "minerals": 8
+      }
+    },
+    {
+      "id": "switch-held-out-0277",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 157,
+        "current_item": 495,
+        "minerals": 385490
+      }
+    },
+    {
+      "id": "switch-held-out-0278",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": -49,
+        "current_item": 190,
+        "minerals": 179043
+      }
+    },
+    {
+      "id": "switch-held-out-0279",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 334,
+        "current_item": 334,
+        "minerals": 675890
+      }
+    },
+    {
+      "id": "switch-held-out-0280",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 125,
+        "current_item": 26,
+        "minerals": 21
+      }
+    },
+    {
+      "id": "switch-held-out-0281",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 135,
+        "current_item": 253,
+        "minerals": 584274
+      }
+    },
+    {
+      "id": "switch-held-out-0282",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 17,
+        "current_item": 17,
+        "minerals": 508690
+      }
+    },
+    {
+      "id": "switch-held-out-0283",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 413,
+        "current_item": 116,
+        "minerals": 894049
+      }
+    },
+    {
+      "id": "switch-held-out-0284",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 124,
+        "current_item": 322,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0285",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 34,
+        "current_item": 34,
+        "minerals": 120299
+      }
+    },
+    {
+      "id": "switch-held-out-0286",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": -19,
+        "current_item": -18,
+        "minerals": 884264
+      }
+    },
+    {
+      "id": "switch-held-out-0287",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 453,
+        "current_item": 47,
+        "minerals": 569528
+      }
+    },
+    {
+      "id": "switch-held-out-0288",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 313,
+        "current_item": 313,
+        "minerals": 4
+      }
+    },
+    {
+      "id": "switch-held-out-0289",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 479,
+        "current_item": 217,
+        "minerals": 70367
+      }
+    },
+    {
+      "id": "switch-held-out-0290",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": -18,
+        "current_item": 133,
+        "minerals": 963457
+      }
+    },
+    {
+      "id": "switch-held-out-0291",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 95,
+        "current_item": 95,
+        "minerals": 745272
+      }
+    },
+    {
+      "id": "switch-held-out-0292",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 156,
+        "current_item": 185,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0293",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 423,
+        "current_item": 185,
+        "minerals": 523731
+      }
+    },
+    {
+      "id": "switch-held-out-0294",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": -24,
+        "current_item": -24,
+        "minerals": 499072
+      }
+    },
+    {
+      "id": "switch-held-out-0295",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": 35,
+        "current_item": 294,
+        "minerals": 555475
+      }
+    },
+    {
+      "id": "switch-held-out-0296",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 464,
+        "current_item": 199,
+        "minerals": 25
+      }
+    },
+    {
+      "id": "switch-held-out-0297",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 106,
+        "current_item": 106,
+        "minerals": 9636
+      }
+    },
+    {
+      "id": "switch-held-out-0298",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 473,
+        "current_item": 490,
+        "minerals": 710526
+      }
+    },
+    {
+      "id": "switch-held-out-0299",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 68,
+        "current_item": 406,
+        "minerals": 648326
+      }
+    },
+    {
+      "id": "switch-held-out-0300",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 427,
+        "current_item": 427,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0301",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 165,
+        "current_item": -41,
+        "minerals": 616398
+      }
+    },
+    {
+      "id": "switch-held-out-0302",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 223,
+        "current_item": 79,
+        "minerals": 879884
+      }
+    },
+    {
+      "id": "switch-held-out-0303",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 3,
+        "previous_item": 127,
+        "current_item": 127,
+        "minerals": 647127
+      }
+    },
+    {
+      "id": "switch-held-out-0304",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 484,
+        "current_item": 404,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0305",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 254,
+        "current_item": 10,
+        "minerals": 145332
+      }
+    },
+    {
+      "id": "switch-held-out-0306",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 222,
+        "current_item": 222,
+        "minerals": 949784
+      }
+    },
+    {
+      "id": "switch-held-out-0307",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 5,
+        "previous_item": 336,
+        "current_item": 508,
+        "minerals": 266660
+      }
+    },
+    {
+      "id": "switch-held-out-0308",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 379,
+        "current_item": 478,
+        "minerals": 6
+      }
+    },
+    {
+      "id": "switch-held-out-0309",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": -57,
+        "current_item": -57,
+        "minerals": 879848
+      }
+    },
+    {
+      "id": "switch-held-out-0310",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 19,
+        "current_item": -42,
+        "minerals": 468701
+      }
+    },
+    {
+      "id": "switch-held-out-0311",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 474,
+        "current_item": 117,
+        "minerals": 780514
+      }
+    },
+    {
+      "id": "switch-held-out-0312",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 421,
+        "current_item": 421,
+        "minerals": 0
+      }
+    },
+    {
+      "id": "switch-held-out-0313",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 41,
+        "current_item": 327,
+        "minerals": 797321
+      }
+    },
+    {
+      "id": "switch-held-out-0314",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 298,
+        "current_item": 344,
+        "minerals": 881468
+      }
+    },
+    {
+      "id": "switch-held-out-0315",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 209,
+        "current_item": 209,
+        "minerals": 991019
+      }
+    },
+    {
+      "id": "switch-held-out-0316",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 346,
+        "current_item": -2,
+        "minerals": 2
+      }
+    },
+    {
+      "id": "switch-held-out-0317",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 192,
+        "current_item": 111,
+        "minerals": 192038
+      }
+    },
+    {
+      "id": "switch-held-out-0318",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 375,
+        "current_item": 375,
+        "minerals": 146294
+      }
+    },
+    {
+      "id": "switch-held-out-0319",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 467,
+        "current_item": 12,
+        "minerals": 968373
+      }
+    },
+    {
+      "id": "switch-held-out-0320",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 1,
+        "previous_item": 354,
+        "current_item": 387,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0321",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 7,
+        "previous_item": 12,
+        "current_item": 12,
+        "minerals": 18100
+      }
+    },
+    {
+      "id": "switch-held-out-0322",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 443,
+        "current_item": 448,
+        "minerals": 720396
+      }
+    },
+    {
+      "id": "switch-held-out-0323",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 489,
+        "current_item": 486,
+        "minerals": 56229
+      }
+    },
+    {
+      "id": "switch-held-out-0324",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 507,
+        "current_item": 507,
+        "minerals": 4
+      }
+    },
+    {
+      "id": "switch-held-out-0325",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 3,
+        "previous_item": 34,
+        "current_item": 11,
+        "minerals": 763632
+      }
+    },
+    {
+      "id": "switch-held-out-0326",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 310,
+        "current_item": 456,
+        "minerals": 973023
+      }
+    },
+    {
+      "id": "switch-held-out-0327",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 378,
+        "current_item": 378,
+        "minerals": 351805
+      }
+    },
+    {
+      "id": "switch-held-out-0328",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": -55,
+        "current_item": 235,
+        "minerals": 6
+      }
+    },
+    {
+      "id": "switch-held-out-0329",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 167,
+        "current_item": 241,
+        "minerals": 875354
+      }
+    },
+    {
+      "id": "switch-held-out-0330",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 354,
+        "current_item": 354,
+        "minerals": 622620
+      }
+    },
+    {
+      "id": "switch-held-out-0331",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 126,
+        "current_item": 499,
+        "minerals": 196920
+      }
+    },
+    {
+      "id": "switch-held-out-0332",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 80,
+        "current_item": 184,
+        "minerals": 7
+      }
+    },
+    {
+      "id": "switch-held-out-0333",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 435,
+        "current_item": 435,
+        "minerals": 754758
+      }
+    },
+    {
+      "id": "switch-held-out-0334",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": -15,
+        "current_item": -42,
+        "minerals": 593837
+      }
+    },
+    {
+      "id": "switch-held-out-0335",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 510,
+        "current_item": 295,
+        "minerals": 438042
+      }
+    },
+    {
+      "id": "switch-held-out-0336",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 49,
+        "current_item": 49,
+        "minerals": 4
+      }
+    },
+    {
+      "id": "switch-held-out-0337",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 433,
+        "current_item": 168,
+        "minerals": 301750
+      }
+    },
+    {
+      "id": "switch-held-out-0338",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 239,
+        "current_item": 340,
+        "minerals": 590896
+      }
+    },
+    {
+      "id": "switch-held-out-0339",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 384,
+        "current_item": 384,
+        "minerals": 326379
+      }
+    },
+    {
+      "id": "switch-held-out-0340",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 43,
+        "current_item": 321,
+        "minerals": 10
+      }
+    },
+    {
+      "id": "switch-held-out-0341",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 117,
+        "current_item": 330,
+        "minerals": 422351
+      }
+    },
+    {
+      "id": "switch-held-out-0342",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 197,
+        "current_item": 197,
+        "minerals": 90489
+      }
+    },
+    {
+      "id": "switch-held-out-0343",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 2,
+        "previous_item": 387,
+        "current_item": 87,
+        "minerals": 145636
+      }
+    },
+    {
+      "id": "switch-held-out-0344",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 125,
+        "current_item": 278,
+        "minerals": 4
+      }
+    },
+    {
+      "id": "switch-held-out-0345",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 220,
+        "current_item": 220,
+        "minerals": 202296
+      }
+    },
+    {
+      "id": "switch-held-out-0346",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 351,
+        "current_item": 79,
+        "minerals": 874516
+      }
+    },
+    {
+      "id": "switch-held-out-0347",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 188,
+        "current_item": -3,
+        "minerals": 809234
+      }
+    },
+    {
+      "id": "switch-held-out-0348",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 212,
+        "current_item": 212,
+        "minerals": 24
+      }
+    },
+    {
+      "id": "switch-held-out-0349",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 293,
+        "current_item": 343,
+        "minerals": 565565
+      }
+    },
+    {
+      "id": "switch-held-out-0350",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 150,
+        "current_item": 35,
+        "minerals": 96271
+      }
+    },
+    {
+      "id": "switch-held-out-0351",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 199,
+        "current_item": 199,
+        "minerals": 12285
+      }
+    },
+    {
+      "id": "switch-held-out-0352",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": -23,
+        "current_item": -32,
+        "minerals": 5
+      }
+    },
+    {
+      "id": "switch-held-out-0353",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 312,
+        "current_item": 108,
+        "minerals": 609102
+      }
+    },
+    {
+      "id": "switch-held-out-0354",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 112,
+        "current_item": 112,
+        "minerals": 26109
+      }
+    },
+    {
+      "id": "switch-held-out-0355",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": -53,
+        "current_item": 186,
+        "minerals": 271169
+      }
+    },
+    {
+      "id": "switch-held-out-0356",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 2,
+        "current_item": 163,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0357",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 228,
+        "current_item": 228,
+        "minerals": 421941
+      }
+    },
+    {
+      "id": "switch-held-out-0358",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 111,
+        "current_item": 248,
+        "minerals": 585553
+      }
+    },
+    {
+      "id": "switch-held-out-0359",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 264,
+        "current_item": 69,
+        "minerals": 897150
+      }
+    },
+    {
+      "id": "switch-held-out-0360",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 162,
+        "current_item": 162,
+        "minerals": 19
+      }
+    },
+    {
+      "id": "switch-held-out-0361",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 387,
+        "current_item": 116,
+        "minerals": 300521
+      }
+    },
+    {
+      "id": "switch-held-out-0362",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 219,
+        "current_item": 438,
+        "minerals": 197335
+      }
+    },
+    {
+      "id": "switch-held-out-0363",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": -12,
+        "current_item": -12,
+        "minerals": 353535
+      }
+    },
+    {
+      "id": "switch-held-out-0364",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 399,
+        "current_item": 503,
+        "minerals": 26
+      }
+    },
+    {
+      "id": "switch-held-out-0365",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 1,
+        "previous_item": 231,
+        "current_item": 89,
+        "minerals": 536317
+      }
+    },
+    {
+      "id": "switch-held-out-0366",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 201,
+        "current_item": 201,
+        "minerals": 400334
+      }
+    },
+    {
+      "id": "switch-held-out-0367",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 132,
+        "current_item": 299,
+        "minerals": 703778
+      }
+    },
+    {
+      "id": "switch-held-out-0368",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 400,
+        "current_item": -5,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0369",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 101,
+        "current_item": 101,
+        "minerals": 468596
+      }
+    },
+    {
+      "id": "switch-held-out-0370",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 420,
+        "current_item": 485,
+        "minerals": 408463
+      }
+    },
+    {
+      "id": "switch-held-out-0371",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": -11,
+        "current_item": -51,
+        "minerals": 701571
+      }
+    },
+    {
+      "id": "switch-held-out-0372",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 5,
+        "previous_item": 457,
+        "current_item": 457,
+        "minerals": 13
+      }
+    },
+    {
+      "id": "switch-held-out-0373",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 149,
+        "current_item": -33,
+        "minerals": 321133
+      }
+    },
+    {
+      "id": "switch-held-out-0374",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 438,
+        "current_item": 127,
+        "minerals": 109208
+      }
+    },
+    {
+      "id": "switch-held-out-0375",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 83,
+        "current_item": 83,
+        "minerals": 268585
+      }
+    },
+    {
+      "id": "switch-held-out-0376",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 349,
+        "current_item": -11,
+        "minerals": 28
+      }
+    },
+    {
+      "id": "switch-held-out-0377",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 19,
+        "current_item": 366,
+        "minerals": 37539
+      }
+    },
+    {
+      "id": "switch-held-out-0378",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 54,
+        "current_item": 54,
+        "minerals": 77946
+      }
+    },
+    {
+      "id": "switch-held-out-0379",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 5,
+        "previous_item": 277,
+        "current_item": 288,
+        "minerals": 36200
+      }
+    },
+    {
+      "id": "switch-held-out-0380",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 216,
+        "current_item": 277,
+        "minerals": 3
+      }
+    },
+    {
+      "id": "switch-held-out-0381",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 212,
+        "current_item": 212,
+        "minerals": 543675
+      }
+    },
+    {
+      "id": "switch-held-out-0382",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 24,
+        "current_item": 266,
+        "minerals": 746877
+      }
+    },
+    {
+      "id": "switch-held-out-0383",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 181,
+        "current_item": 278,
+        "minerals": 595207
+      }
+    },
+    {
+      "id": "switch-held-out-0384",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 128,
+        "current_item": 128,
+        "minerals": 30
+      }
+    },
+    {
+      "id": "switch-held-out-0385",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 213,
+        "current_item": -16,
+        "minerals": 850468
+      }
+    },
+    {
+      "id": "switch-held-out-0386",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 2,
+        "previous_item": 289,
+        "current_item": 188,
+        "minerals": 731016
+      }
+    },
+    {
+      "id": "switch-held-out-0387",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 317,
+        "current_item": 317,
+        "minerals": 652549
+      }
+    },
+    {
+      "id": "switch-held-out-0388",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 80,
+        "current_item": 172,
+        "minerals": 21
+      }
+    },
+    {
+      "id": "switch-held-out-0389",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 155,
+        "current_item": 454,
+        "minerals": 530700
+      }
+    },
+    {
+      "id": "switch-held-out-0390",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 460,
+        "current_item": 460,
+        "minerals": 752916
+      }
+    },
+    {
+      "id": "switch-held-out-0391",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 5,
+        "previous_item": 242,
+        "current_item": 228,
+        "minerals": 799791
+      }
+    },
+    {
+      "id": "switch-held-out-0392",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": -51,
+        "current_item": 407,
+        "minerals": 7
+      }
+    },
+    {
+      "id": "switch-held-out-0393",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 5,
+        "previous_item": 86,
+        "current_item": 86,
+        "minerals": 760541
+      }
+    },
+    {
+      "id": "switch-held-out-0394",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 3,
+        "previous_item": 180,
+        "current_item": 241,
+        "minerals": 211920
+      }
+    },
+    {
+      "id": "switch-held-out-0395",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 397,
+        "current_item": 456,
+        "minerals": 290848
+      }
+    },
+    {
+      "id": "switch-held-out-0396",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 448,
+        "current_item": 448,
+        "minerals": 5
+      }
+    },
+    {
+      "id": "switch-held-out-0397",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 485,
+        "current_item": 373,
+        "minerals": 760079
+      }
+    },
+    {
+      "id": "switch-held-out-0398",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 320,
+        "current_item": 68,
+        "minerals": 141469
+      }
+    },
+    {
+      "id": "switch-held-out-0399",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 255,
+        "current_item": 255,
+        "minerals": 68701
+      }
+    },
+    {
+      "id": "switch-held-out-0400",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 103,
+        "current_item": 509,
+        "minerals": 14
+      }
+    },
+    {
+      "id": "switch-held-out-0401",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": -41,
+        "current_item": -42,
+        "minerals": 343522
+      }
+    },
+    {
+      "id": "switch-held-out-0402",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 38,
+        "current_item": 38,
+        "minerals": 20173
+      }
+    },
+    {
+      "id": "switch-held-out-0403",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 291,
+        "current_item": 351,
+        "minerals": 327097
+      }
+    },
+    {
+      "id": "switch-held-out-0404",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 176,
+        "current_item": 383,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0405",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 450,
+        "current_item": 450,
+        "minerals": 427314
+      }
+    },
+    {
+      "id": "switch-held-out-0406",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 113,
+        "current_item": 91,
+        "minerals": 290584
+      }
+    },
+    {
+      "id": "switch-held-out-0407",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 40,
+        "current_item": 211,
+        "minerals": 453939
+      }
+    },
+    {
+      "id": "switch-held-out-0408",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 182,
+        "current_item": 182,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0409",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 6,
+        "previous_item": 492,
+        "current_item": 494,
+        "minerals": 379513
+      }
+    },
+    {
+      "id": "switch-held-out-0410",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 326,
+        "current_item": 181,
+        "minerals": 698234
+      }
+    },
+    {
+      "id": "switch-held-out-0411",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 234,
+        "current_item": 234,
+        "minerals": 856172
+      }
+    },
+    {
+      "id": "switch-held-out-0412",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 389,
+        "current_item": -61,
+        "minerals": 29
+      }
+    },
+    {
+      "id": "switch-held-out-0413",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 386,
+        "current_item": 95,
+        "minerals": 159359
+      }
+    },
+    {
+      "id": "switch-held-out-0414",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 222,
+        "current_item": 222,
+        "minerals": 869046
+      }
+    },
+    {
+      "id": "switch-held-out-0415",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 245,
+        "current_item": 408,
+        "minerals": 410846
+      }
+    },
+    {
+      "id": "switch-held-out-0416",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 434,
+        "current_item": 278,
+        "minerals": 15
+      }
+    },
+    {
+      "id": "switch-held-out-0417",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 282,
+        "current_item": 282,
+        "minerals": 16226
+      }
+    },
+    {
+      "id": "switch-held-out-0418",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 2,
+        "previous_item": 49,
+        "current_item": 150,
+        "minerals": 877131
+      }
+    },
+    {
+      "id": "switch-held-out-0419",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 466,
+        "current_item": 322,
+        "minerals": 306624
+      }
+    },
+    {
+      "id": "switch-held-out-0420",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 143,
+        "current_item": 143,
+        "minerals": 5
+      }
+    },
+    {
+      "id": "switch-held-out-0421",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 7,
+        "previous_item": 503,
+        "current_item": 230,
+        "minerals": 566889
+      }
+    },
+    {
+      "id": "switch-held-out-0422",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 300,
+        "current_item": 395,
+        "minerals": 912474
+      }
+    },
+    {
+      "id": "switch-held-out-0423",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 225,
+        "current_item": 225,
+        "minerals": 478165
+      }
+    },
+    {
+      "id": "switch-held-out-0424",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 191,
+        "current_item": 414,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0425",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 128,
+        "current_item": 168,
+        "minerals": 399961
+      }
+    },
+    {
+      "id": "switch-held-out-0426",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 131,
+        "current_item": 131,
+        "minerals": 251531
+      }
+    },
+    {
+      "id": "switch-held-out-0427",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 12,
+        "current_item": -7,
+        "minerals": 411737
+      }
+    },
+    {
+      "id": "switch-held-out-0428",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": 303,
+        "current_item": 501,
+        "minerals": 14
+      }
+    },
+    {
+      "id": "switch-held-out-0429",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 132,
+        "current_item": 132,
+        "minerals": 628846
+      }
+    },
+    {
+      "id": "switch-held-out-0430",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 7,
+        "previous_item": 249,
+        "current_item": -29,
+        "minerals": 216725
+      }
+    },
+    {
+      "id": "switch-held-out-0431",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 7,
+        "previous_item": -52,
+        "current_item": 420,
+        "minerals": 962385
+      }
+    },
+    {
+      "id": "switch-held-out-0432",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 5,
+        "previous_item": 384,
+        "current_item": 384,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0433",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 3,
+        "previous_item": 288,
+        "current_item": 376,
+        "minerals": 267240
+      }
+    },
+    {
+      "id": "switch-held-out-0434",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 443,
+        "current_item": 339,
+        "minerals": 174543
+      }
+    },
+    {
+      "id": "switch-held-out-0435",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 3,
+        "previous_item": 345,
+        "current_item": 345,
+        "minerals": 282724
+      }
+    },
+    {
+      "id": "switch-held-out-0436",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 18,
+        "current_item": 177,
+        "minerals": 27
+      }
+    },
+    {
+      "id": "switch-held-out-0437",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 262,
+        "current_item": 390,
+        "minerals": 280664
+      }
+    },
+    {
+      "id": "switch-held-out-0438",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 6,
+        "previous_item": 279,
+        "current_item": 279,
+        "minerals": 512901
+      }
+    },
+    {
+      "id": "switch-held-out-0439",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 341,
+        "current_item": 26,
+        "minerals": 301030
+      }
+    },
+    {
+      "id": "switch-held-out-0440",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 6,
+        "previous_item": 293,
+        "current_item": 18,
+        "minerals": 13
+      }
+    },
+    {
+      "id": "switch-held-out-0441",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 4,
+        "previous_item": 58,
+        "current_item": 58,
+        "minerals": 935582
+      }
+    },
+    {
+      "id": "switch-held-out-0442",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 89,
+        "current_item": 269,
+        "minerals": 134651
+      }
+    },
+    {
+      "id": "switch-held-out-0443",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": 242,
+        "current_item": 49,
+        "minerals": 859792
+      }
+    },
+    {
+      "id": "switch-held-out-0444",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 4,
+        "previous_item": 470,
+        "current_item": 470,
+        "minerals": 30
+      }
+    },
+    {
+      "id": "switch-held-out-0445",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 415,
+        "current_item": 466,
+        "minerals": 271719
+      }
+    },
+    {
+      "id": "switch-held-out-0446",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 110,
+        "current_item": 415,
+        "minerals": 460873
+      }
+    },
+    {
+      "id": "switch-held-out-0447",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 8,
+        "current_item": 8,
+        "minerals": 759455
+      }
+    },
+    {
+      "id": "switch-held-out-0448",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 3,
+        "previous_item": 282,
+        "current_item": 62,
+        "minerals": 22
+      }
+    },
+    {
+      "id": "switch-held-out-0449",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 425,
+        "current_item": 76,
+        "minerals": 597505
+      }
+    },
+    {
+      "id": "switch-held-out-0450",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 23,
+        "current_item": 23,
+        "minerals": 749302
+      }
+    },
+    {
+      "id": "switch-held-out-0451",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 167,
+        "current_item": 196,
+        "minerals": 202498
+      }
+    },
+    {
+      "id": "switch-held-out-0452",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 3,
+        "previous_item": 50,
+        "current_item": 185,
+        "minerals": 5
+      }
+    },
+    {
+      "id": "switch-held-out-0453",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 444,
+        "current_item": 444,
+        "minerals": 581652
+      }
+    },
+    {
+      "id": "switch-held-out-0454",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 510,
+        "current_item": 394,
+        "minerals": 956988
+      }
+    },
+    {
+      "id": "switch-held-out-0455",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 36,
+        "current_item": 220,
+        "minerals": 493227
+      }
+    },
+    {
+      "id": "switch-held-out-0456",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 424,
+        "current_item": 424,
+        "minerals": 23
+      }
+    },
+    {
+      "id": "switch-held-out-0457",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 242,
+        "current_item": 26,
+        "minerals": 768437
+      }
+    },
+    {
+      "id": "switch-held-out-0458",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": -40,
+        "current_item": 84,
+        "minerals": 671477
+      }
+    },
+    {
+      "id": "switch-held-out-0459",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 407,
+        "current_item": 407,
+        "minerals": 872442
+      }
+    },
+    {
+      "id": "switch-held-out-0460",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 216,
+        "current_item": 200,
+        "minerals": 7
+      }
+    },
+    {
+      "id": "switch-held-out-0461",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 54,
+        "current_item": 443,
+        "minerals": 143288
+      }
+    },
+    {
+      "id": "switch-held-out-0462",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 294,
+        "current_item": 294,
+        "minerals": 64123
+      }
+    },
+    {
+      "id": "switch-held-out-0463",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 394,
+        "current_item": 178,
+        "minerals": 328482
+      }
+    },
+    {
+      "id": "switch-held-out-0464",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": -6,
+        "current_item": 232,
+        "minerals": 19
+      }
+    },
+    {
+      "id": "switch-held-out-0465",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": -4,
+        "current_item": -4,
+        "minerals": 267621
+      }
+    },
+    {
+      "id": "switch-held-out-0466",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 190,
+        "current_item": 482,
+        "minerals": 921866
+      }
+    },
+    {
+      "id": "switch-held-out-0467",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 440,
+        "current_item": 105,
+        "minerals": 649146
+      }
+    },
+    {
+      "id": "switch-held-out-0468",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 1,
+        "previous_item": 306,
+        "current_item": 306,
+        "minerals": 0
+      }
+    },
+    {
+      "id": "switch-held-out-0469",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 89,
+        "current_item": 392,
+        "minerals": 250217
+      }
+    },
+    {
+      "id": "switch-held-out-0470",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 2,
+        "previous_item": 283,
+        "current_item": -30,
+        "minerals": 385
+      }
+    },
+    {
+      "id": "switch-held-out-0471",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 316,
+        "current_item": 316,
+        "minerals": 523117
+      }
+    },
+    {
+      "id": "switch-held-out-0472",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 4,
+        "previous_item": 285,
+        "current_item": 114,
+        "minerals": 8
+      }
+    },
+    {
+      "id": "switch-held-out-0473",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 388,
+        "current_item": 396,
+        "minerals": 683374
+      }
+    },
+    {
+      "id": "switch-held-out-0474",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": 95,
+        "current_item": 95,
+        "minerals": 745327
+      }
+    },
+    {
+      "id": "switch-held-out-0475",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 369,
+        "current_item": 131,
+        "minerals": 412121
+      }
+    },
+    {
+      "id": "switch-held-out-0476",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 6,
+        "previous_item": 231,
+        "current_item": 106,
+        "minerals": 9
+      }
+    },
+    {
+      "id": "switch-held-out-0477",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 2,
+        "faction_id": 6,
+        "previous_item": 73,
+        "current_item": 73,
+        "minerals": 29724
+      }
+    },
+    {
+      "id": "switch-held-out-0478",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 1,
+        "previous_item": 246,
+        "current_item": 101,
+        "minerals": 317703
+      }
+    },
+    {
+      "id": "switch-held-out-0479",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 475,
+        "current_item": -26,
+        "minerals": 407494
+      }
+    },
+    {
+      "id": "switch-held-out-0480",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": -12,
+        "current_item": -12,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0481",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 51,
+        "current_item": 505,
+        "minerals": 496067
+      }
+    },
+    {
+      "id": "switch-held-out-0482",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 1,
+        "previous_item": 209,
+        "current_item": 315,
+        "minerals": 468824
+      }
+    },
+    {
+      "id": "switch-held-out-0483",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 7,
+        "previous_item": 214,
+        "current_item": 214,
+        "minerals": 543357
+      }
+    },
+    {
+      "id": "switch-held-out-0484",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 137,
+        "current_item": 398,
+        "minerals": 20
+      }
+    },
+    {
+      "id": "switch-held-out-0485",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 1,
+        "previous_item": 376,
+        "current_item": 261,
+        "minerals": 606018
+      }
+    },
+    {
+      "id": "switch-held-out-0486",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 121,
+        "current_item": 121,
+        "minerals": 661935
+      }
+    },
+    {
+      "id": "switch-held-out-0487",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 4,
+        "previous_item": 355,
+        "current_item": 323,
+        "minerals": 564697
+      }
+    },
+    {
+      "id": "switch-held-out-0488",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 7,
+        "previous_item": 374,
+        "current_item": 292,
+        "minerals": 28
+      }
+    },
+    {
+      "id": "switch-held-out-0489",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 2,
+        "previous_item": 362,
+        "current_item": 362,
+        "minerals": 98353
+      }
+    },
+    {
+      "id": "switch-held-out-0490",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 7,
+        "previous_item": 334,
+        "current_item": 163,
+        "minerals": 123376
+      }
+    },
+    {
+      "id": "switch-held-out-0491",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 6,
+        "previous_item": 480,
+        "current_item": 194,
+        "minerals": 344712
+      }
+    },
+    {
+      "id": "switch-held-out-0492",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 6,
+        "previous_item": 176,
+        "current_item": 176,
+        "minerals": 29
+      }
+    },
+    {
+      "id": "switch-held-out-0493",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 4,
+        "previous_item": 86,
+        "current_item": 394,
+        "minerals": 348678
+      }
+    },
+    {
+      "id": "switch-held-out-0494",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 6,
+        "faction_id": 3,
+        "previous_item": 40,
+        "current_item": 425,
+        "minerals": 378894
+      }
+    },
+    {
+      "id": "switch-held-out-0495",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 1,
+        "previous_item": 335,
+        "current_item": 335,
+        "minerals": 439268
+      }
+    },
+    {
+      "id": "switch-held-out-0496",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 2,
+        "previous_item": 86,
+        "current_item": 103,
+        "minerals": 21
+      }
+    },
+    {
+      "id": "switch-held-out-0497",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 5,
+        "faction_id": 3,
+        "previous_item": 262,
+        "current_item": 112,
+        "minerals": 176958
+      }
+    },
+    {
+      "id": "switch-held-out-0498",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 72,
+        "current_item": 72,
+        "minerals": 16743
+      }
+    },
+    {
+      "id": "switch-held-out-0499",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 2,
+        "previous_item": 475,
+        "current_item": 437,
+        "minerals": 604892
+      }
+    },
+    {
+      "id": "switch-held-out-0500",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 3,
+        "previous_item": 375,
+        "current_item": 31,
+        "minerals": 11
+      }
+    },
+    {
+      "id": "switch-held-out-0501",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 64,
+        "current_item": 64,
+        "minerals": 641621
+      }
+    },
+    {
+      "id": "switch-held-out-0502",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 6,
+        "previous_item": 363,
+        "current_item": 225,
+        "minerals": 329342
+      }
+    },
+    {
+      "id": "switch-held-out-0503",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 3,
+        "previous_item": 329,
+        "current_item": 48,
+        "minerals": 114500
+      }
+    },
+    {
+      "id": "switch-held-out-0504",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 5,
+        "previous_item": 81,
+        "current_item": 81,
+        "minerals": 17
+      }
+    },
+    {
+      "id": "switch-held-out-0505",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 4,
+        "faction_id": 4,
+        "previous_item": 41,
+        "current_item": 195,
+        "minerals": 475601
+      }
+    },
+    {
+      "id": "switch-held-out-0506",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 4,
+        "previous_item": 349,
+        "current_item": 306,
+        "minerals": 960753
+      }
+    },
+    {
+      "id": "switch-held-out-0507",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 0,
+        "faction_id": 5,
+        "previous_item": 249,
+        "current_item": 249,
+        "minerals": 809189
+      }
+    },
+    {
+      "id": "switch-held-out-0508",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 7,
+        "faction_id": 4,
+        "previous_item": 330,
+        "current_item": 334,
+        "minerals": 16
+      }
+    },
+    {
+      "id": "switch-held-out-0509",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 3,
+        "faction_id": 7,
+        "previous_item": 97,
+        "current_item": 443,
+        "minerals": 837105
+      }
+    },
+    {
+      "id": "switch-held-out-0510",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 2,
+        "previous_item": 217,
+        "current_item": 217,
+        "minerals": 833797
+      }
+    },
+    {
+      "id": "switch-held-out-0511",
+      "algorithm": "economy.basic_production_switch_loss.v1",
+      "input": {
+        "base_id": 1,
+        "faction_id": 5,
+        "previous_item": 59,
+        "current_item": 161,
+        "minerals": 890474
+      }
+    }
+  ]
+}

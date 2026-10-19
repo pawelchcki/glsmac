@@ -25,6 +25,7 @@
     {"id":"base-production-native", "script":"GLSMAC_data/tests/base_production_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production", "script":"GLSMAC_data/tests/base_production.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
+    {"id":"production-switch-native", "script":"GLSMAC_data/tests/production_switch_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"unit-production-native", "script":"GLSMAC_data/tests/unit_production_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"unit-production-events", "script":"GLSMAC_data/tests/unit_production_events.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
@@ -44,6 +45,8 @@
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"}
   ],
   "references": [
+    {"id":"basic-production-switch-loss", "cases":"cases/basic-production-switch-loss.json", "observations":"observations/smacx-gog-2.0-basic-production-switch-loss.json"},
+    {"id":"basic-production-switch-loss-held-out", "cases":"cases/basic-production-switch-loss-held-out.json", "observations":"observations/smacx-gog-2.0-basic-production-switch-loss-held-out.json"},
     {"id":"same-row-distance", "cases":"cases/map-distance.json", "observations":"observations/smacx-gog-2.0-map-distance.json"},
     {"id":"vector-distance", "cases":"cases/map-vector.json", "observations":"observations/smacx-gog-2.0-map-vector.json"},
     {"id":"technology", "cases":"cases/technology.json", "observations":"observations/smacx-gog-2.0-technology.json"},

@@ -74,7 +74,7 @@ behavior.scenario('size-one unit project retains credited minerals until another
 	test.assert(f.base.get_production() == { choice_id: 'COLONY_POD', minerals: 7, last_processed_turn: 4 });
 });
 
-behavior.scenario('unit selection rejects a foreign caller and active switching while same-project selection is idempotent', () => {
+behavior.scenario('unit selection rejects a foreign caller and accepts active switching while same-project selection is idempotent', () => {
 	const f = fixture(); f.set_turn(1);
 	const initial = f.base.get_production();
 	const foreign = event(f, f.owner.id + 1, { choice_id: 'COLONY_POD' });
@@ -84,8 +84,10 @@ behavior.scenario('unit selection rejects a foreign caller and active switching 
 	f.set_turn(2); choose(f);
 	test.assert(f.base.get_production() == selected);
 	const switch_project = event(f, f.owner.id, { choice_id: 'RECYCLING_TANKS' });
-	test.assert(#typeof(select.validate(switch_project)) == 'String');
+	test.assert(!#is_defined(select.validate(switch_project)));
 	test.assert(f.base.get_production() == selected);
+	apply(f, select, switch_project);
+	test.assert(f.base.get_production() == { choice_id: 'RECYCLING_TANKS', minerals: 0, last_processed_turn: 2 });
 });
 
 behavior.scenario('throwing real unit-spawn callback leaves event completion unchanged', () => {

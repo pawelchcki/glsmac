@@ -17,10 +17,10 @@ return {
 				if (choice.type == 'facility' && base.has_facility(choice.facility_id)) {
 					return 'Base already has this facility';
 				}
-				const active = base.get_production().choice_id;
-				if (active != '' && active != choice.id) {
-					return 'Base already has an active production project';
-				}
+				let supported = true;
+				try { base.get_production_switch_loss(choice.id); }
+				catch { : (e) => { supported = false; } }
+				if (!supported) { return 'Production switching is unsupported for this context'; }
 				return;
 			}
 		}

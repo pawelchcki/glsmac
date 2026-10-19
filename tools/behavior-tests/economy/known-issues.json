@@ -134,6 +134,30 @@
         "event_assertions": 38,
         "scope": "Actual native recipe/completion, scoped callback guards, receiving-manager codecs and shipped production events; recorded original agreement remains restricted to component rows and human mineral factors."
       }
+    },
+    {
+      "id": "basic-production-switching",
+      "contract": "economy.basic_production_switch_loss.v1",
+      "status": "fixed-in-bounded-contract",
+      "scope": "Recorded human basic-item loss at default retool rules; complete switching remains a separate application contract.",
+      "property": "The reproduction rejects switching active production, so it cannot transfer recorded original basic-project mineral loss.",
+      "before": {
+        "recorded_cases": 2016,
+        "candidate": "unsupported helper; active project switching rejected",
+        "artifact": "/tmp/glsmac-basic-switch-loss-unsupported-red.json",
+        "application_artifact": "/tmp/glsmac-production-switch-application-red.json"
+      },
+      "verification": {
+        "original_cases": 2528,
+        "native_matched": 2528,
+        "wasm_matched": 2528,
+        "native_scenarios": 26,
+        "native_assertions": 95,
+        "ui_scenarios": 16,
+        "ui_assertions": 72,
+        "artifact": "/tmp/glsmac-production-switch-focused.json",
+        "scope": "Recorded helper loss only; actual Tanks/land Colony Pod switching, native rollback and UI are separate GLSMAC application tests. No whole-original switching agreement claim."
+      }
     }
   ]
 }
