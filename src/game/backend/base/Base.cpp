@@ -81,7 +81,7 @@ static const FacilityDef* ResolveProduction( Game* game, slot::Slot* owner, cons
 	const auto* choice = owner->GetPlayer()->GetProductionChoice( id );
 	if ( !choice || choice->GetType() != production::Production::PT_FACILITY ) { return nullptr; }
 	const auto* def = game->GetBM()->GetFacilityDef( static_cast< const production::Facility* >( choice )->GetFacilityId() );
-	return def && def->m_cost > 0 && def->m_cost <= uint64_t( std::numeric_limits< int64_t >::max() ) ? def : nullptr;
+	return def && def->GetMineralCost( game, owner->GetPlayer() ) > 0 ? def : nullptr;
 }
 
 static gse::value::Object* WrapProduction( GSE_CALLABLE, const ProductionState& state ) {
@@ -125,8 +125,9 @@ Base::ProductionResult Base::ProcessProduction( GSE_CALLABLE, const int64_t turn
 		if ( !def || m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production facility is unavailable or already installed" ); }
 		if ( minerals > std::numeric_limits< int64_t >::max() - next.minerals ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production mineral credit overflow" ); }
 		next.minerals += minerals;
-		if ( uint64_t( next.minerals ) >= def->m_cost ) {
-			next.minerals -= def->m_cost;
+		const auto cost = def->GetMineralCost( m_game, m_owner->GetPlayer() );
+		if ( next.minerals >= cost ) {
+			next.minerals -= cost;
 			next.choice_id.clear();
 			result.added_facility = def->m_id;
 		}
@@ -508,7 +509,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 				result.insert( { it.first, VALUEEXT( gse::value::Object, GSE_CALL, {
 					{ "name", VALUE( gse::value::String,, it.second->m_name ) },
 					{ "description", VALUE( gse::value::String,, it.second->m_description ) },
-					{ "cost", VALUE( gse::value::Int,, it.second->m_cost ) },
+					{ "cost", VALUE( gse::value::Int,, it.second->GetMineralCost( m_game, m_owner->GetPlayer() ) ) },
 				} ) } );
 			}
 

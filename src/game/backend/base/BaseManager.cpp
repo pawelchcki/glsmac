@@ -17,6 +17,7 @@
 #include "gse/value/Bool.h"
 #include "gse/value/Array.h"
 #include <memory>
+#include <limits>
 
 namespace game {
 namespace backend {
@@ -430,12 +431,14 @@ WRAPIMPL_BEGIN( BaseManager )
 				N_GETPROP( name, def, "name", String );
 				N_GETPROP( description, def, "description", String );
 				N_GETPROP( cost, def, "cost", Int );
+				N_GETPROP_OPT( int64_t, cost_rows, def, "cost_rows", Int, 0 );
+				if ( cost_rows < 0 || cost_rows > std::numeric_limits< int64_t >::max() / 10 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Invalid facility row cost" ); }
 				if ( cost < 0 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility cost cannot be negative" ); }
 
 				N_GETPROP( render, def, "render", Object );
 				const auto r = RenderInfo::FromValue( GSE_CALL, render );
 
-				DefineFacility( new FacilityDef( id, name, description, cost, r ) );
+				DefineFacility( new FacilityDef( id, name, description, cost, r, cost_rows ) );
 
 				return VALUE( gse::value::Undefined );
 			} )
@@ -560,7 +563,7 @@ void BaseManager::TriggerUpdates( GSE_CALLABLE ) {
 }
 
 void BaseManager::Serialize( types::Buffer& buf ) const {
-	buf.WriteString( "GLSMAC_BASES_V2" );
+	buf.WriteString( "GLSMAC_BASES_V3" );
 
 	Log( "Serializing " + std::to_string( m_base_popdefs.size() ) + " base pop defs" );
 	buf.WriteInt( m_base_popdefs.size() );
@@ -588,7 +591,7 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 	ASSERT( m_bases.empty(), "bases not empty" );
 	ASSERT( m_unprocessed_bases.empty(), "unprocessed bases not empty" );
 	ASSERT( m_base_facilitydefs.empty(), "facility defs not empty" );
-	if ( buf.ReadString() != "GLSMAC_BASES_V2" ) { THROW( "unsupported base snapshot version" ); }
+	if ( buf.ReadString() != "GLSMAC_BASES_V3" ) { THROW( "unsupported base snapshot version" ); }
 	const auto read_count = [ &buf ]() {
 		const auto count = buf.ReadInt();
 		if ( count < 0 || uint64_t( count ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid base snapshot count" ); }

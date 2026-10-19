@@ -5,6 +5,13 @@ return (i) => {
 	const settings = game.get_settings().global;
 
 	const readonly = game.is_slave();
+	// These are IDs of the explicit named choices below, not inferred map sizes.
+	const planet_levels = {};
+	planet_levels['68x34'] = 0;
+	planet_levels['88x44'] = 1;
+	planet_levels['112x56'] = 2;
+	planet_levels['140x70'] = 3;
+	planet_levels['180x90'] = 4;
 
 	return i.make_section(settings.game_name, {
 		width: 296,
@@ -131,11 +138,13 @@ return (i) => {
 					readonly: readonly,
 				});
 				line.select.on('select', (e) => {
-					game.event('game_settings', {
-						changes: [
-							[line.key, line.converter(e.value)],
-						],
-					});
+					const changes = [];
+					changes :+[line.key, line.converter(e.value)];
+					if (line.key == 'planet_size') {
+						const level = planet_levels[e.value];
+						changes :+['preset_level', #is_defined(level) ? level : (0 - 1)];
+					}
+					game.event('game_settings', { changes: changes });
 					return true;
 				});
 			}

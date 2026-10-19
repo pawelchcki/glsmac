@@ -202,14 +202,16 @@ gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
 		if ( choice->GetType() != base::production::Production::PT_FACILITY || !bm ) { continue; }
 		const auto& facility_id = static_cast< const base::production::Facility* >( choice )->GetFacilityId();
 		const auto* def = bm->GetFacilityDef( facility_id );
-		if ( !def || def->m_cost == 0 || def->m_cost > uint64_t( std::numeric_limits< int64_t >::max() ) ) { continue; }
+		if ( !def ) { continue; }
+		const auto cost = def->GetMineralCost( GetGame(), this );
+		if ( cost <= 0 ) { continue; }
 		choices.push_back( VALUEEXT( gse::value::Object, GSE_CALL, {
 			{ "id", VALUE( gse::value::String,, id ) },
 			{ "type", VALUE( gse::value::String,, "facility" ) },
 			{ "facility_id", VALUE( gse::value::String,, facility_id ) },
 			{ "name", VALUE( gse::value::String,, def->m_name ) },
 			{ "description", VALUE( gse::value::String,, def->m_description ) },
-			{ "cost", VALUE( gse::value::Int,, def->m_cost ) },
+			{ "cost", VALUE( gse::value::Int,, cost ) },
 		} ) );
 	}
 	return VALUE( gse::value::Array,, choices );

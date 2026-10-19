@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **480 scenarios and 2,802 assertions** across
-35 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **518 scenarios and 2,910 assertions** across
+37 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -49,27 +49,47 @@ For the actual browser lifecycle, supply your installed original assets:
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:gameplay
 ```
 
-This uses a synthetic map and starting world, current host production scripts,
-real rendering/input and read-only backend telemetry. It checks terrain labels,
+The three synthetic-world cases use current host production scripts,
+real rendering/input and read-only backend telemetry. They check terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
-opening the destination base. It also cancels and confirms the facility picker,
+opening the destination base. The production case cancels and confirms the facility picker,
 then constructs Recycling Tanks through real turn controls, checking each mineral
 credit, completion, overflow and the refreshed base screen. Completion also
 raises actual base-square nutrients, minerals and energy by one each and pending
 mineral production by one in this reproduction fixture. Two separate paths
 move a Colony Pod, check modal blocking, found via B or FOUND BASE, open the new
-base and advance another turn after consumption. It does not validate
-normal world generation or original-game behavior. Browser failures and graphics
-errors remain failures.
+base and advance another turn after consumption.
+
+The additional `normal-game.test.mjs` case uses the real New Game menus to
+choose Tiny and Gaians, generates terrain through the production world path,
+opens Headquarters, skips both owned starting units, advances a turn, verifies
+movement replenishment and reopens the base. Its injected entry adds read-only
+telemetry; it supplies no world/map/RNG override. Run it separately with
+`npm --prefix tools/wasm-tests run test:normal-game`. These browser regressions
+do not establish original-game agreement. Browser failures and graphics errors
+remain failures.
 
 The production suites cover a bounded GLSMAC facility-building policy, separate
 from original-game economy comparisons. An owner selects an available unique
 facility; subsequent turns credit the nonnegative mineral surplus captured before
 growth changes workers. Each turn credits once. Completion installs the facility,
 clears the project and retains overflow. Idle bases do not accumulate minerals.
-The shipped project is Recycling Tanks, using its existing declared cost of 32;
-its base-square resource bonus is checked separately against original observations.
+The shipped project is Recycling Tanks, using four declared mineral rows when an
+explicit named map preset is known: 32
+minerals for Tiny, 36 for Small, and 40 for Standard/Large/Huge under the modeled
+human rule10/INDUSTRY0 setting. Unknown/custom/imported settings retain its
+explicit 32-mineral fallback. Its base-square resource bonus is checked separately
+against original observations.
 Unit production, queues, switching and hurrying remain absent.
+
+`facility-cost-native` and `facility-cost-completion-native` check that actual
+Player descriptors and Base completion share the same effective cost. Declared
+rows and preset provenance survive their native codecs; unknown dimensions,
+imported maps, unmodeled roles and facilities without rows retain declared
+mineral costs. Dimension changes clear provenance, and live settings wrappers
+stay consistent through native decoding and lobby apply/rollback. The factor
+comes from the recorded original contract; row declarations and item completion
+are GLSMAC application tests, not additional whole-item original observations.
 
 `base-production-native` uses real Base, Player and registry code with a synthetic
 asset-free native world. It checks write guards, integer validation, notifications,
@@ -210,8 +230,9 @@ The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
 populate the shipped technology rules. The mineral-factor helper transfers the
-recorded map-preset and industry behavior; it does not yet change facility costs
-or add social engineering. The candidate adapter calls these same
+recorded map-preset and industry behavior. Recycling Tanks now uses its explicit
+row declaration with known named presets at rule10/INDUSTRY0; social engineering,
+AI/difficulty and per-base cost effects remain outside this integration. The candidate adapter calls these same
 helpers for native and WASM replay:
 
 ```sh

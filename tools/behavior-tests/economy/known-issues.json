@@ -7,8 +7,50 @@
       "contract": "economy.base_square_resources.v1",
       "status": "fixed-in-recorded-contract",
       "property": "Every recorded Tanks case returns one additional nutrient, mineral and energy from the original base square; the shipped GSE callback omits all three increments.",
-      "before": { "cases": 504, "matched": 252, "mismatched": 252, "unsupported": 0, "errors": 0 },
-      "verification": { "cases": 504, "matched": 504, "mismatched": 0, "unsupported": 0, "errors": 0 }
+      "before": {
+        "cases": 504,
+        "matched": 252,
+        "mismatched": 252,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "verification": {
+        "cases": 504,
+        "matched": 504,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0
+      }
+    },
+    {
+      "id": "facility-preset-cost-integration",
+      "contract": "economy.human_mineral_factor.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "GLSMAC facility cost integration of the recorded human no-base factor; item row units and completion are an application contract, not whole-item original observations.",
+      "property": "An explicitly declared four-row facility uses fixed32 even with explicit Small map provenance where factor9 requires36; both descriptor and native completion disagree with that integration contract.",
+      "probes": [
+        "GLSMAC_data/tests/facility_cost_native.gls.js",
+        "GLSMAC_data/tests/facility_cost_completion_native.gls.js"
+      ],
+      "before": {
+        "descriptor": {
+          "preset_level": 1,
+          "rows": 4,
+          "expected": 36,
+          "actual": 32
+        },
+        "completion": {
+          "credited": 35,
+          "expected": "active",
+          "actual": "installed"
+        }
+      },
+      "verification": {
+        "focused_suites": 2,
+        "scenarios": 37,
+        "assertions": 90,
+        "scope": "Native descriptors, completion, row/settings codecs and retained-wrapper/lobby provenance. Original helper agreement remains bounded to its existing recorded factor cases."
+      }
     }
   ]
 }

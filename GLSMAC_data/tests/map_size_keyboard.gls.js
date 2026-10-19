@@ -10,7 +10,7 @@ const make_picker = (map_type) => {
 	const f = mocks.menu_popup();
 	f.state.routes = [];
 	f.m.popup = f.popup;
-	f.m.settings = { global: { map: { type: map_type, size_x: 112, size_y: 56, filename: 'retained.GSM' } } };
+	f.m.settings = { global: { map: { type: map_type, size_x: 112, size_y: 56, filename: 'retained.GSM', preset_level: 2 } } };
 	f.m.steps = {
 		select_difficulty_level: (current) => { f.state.routes :+ 'difficulty'; },
 		customize_ocean_coverage: (current) => { f.state.routes :+ 'ocean'; },
@@ -23,12 +23,13 @@ const make_picker = (map_type) => {
 	return f;
 };
 
-const assert_settings = (f, width, height, map_type) => {
-	test.assert(f.m.settings.global.map == { type: map_type, size_x: width, size_y: height, filename: 'retained.GSM' });
+const assert_settings = (f, width, height, map_type, preset) => {
+	const expected = #is_defined(preset) ? preset : 2;
+	test.assert(f.m.settings.global.map == { type: map_type, size_x: width, size_y: height, filename: 'retained.GSM', preset_level: expected });
 };
 
 const assert_submitted = (f, width, height, map_type) => {
-	assert_settings(f, width, height, map_type);
+	assert_settings(f, width, height, map_type, 0 - 1);
 	test.assert(f.state.routes == [map_type == 'random' ? 'difficulty' : 'ocean']);
 	test.assert(#sizeof(f.view.live('input')) == 0 && #sizeof(f.view.live('window')) == 1);
 	test.assert(f.view.find('window', 'title', 'Map Size').title == 'Map Size');
@@ -216,3 +217,10 @@ for (map_type of ['random', 'custom']) {
 		test.assert(f.m.settings.global.map.size_x == 120 && f.m.settings.global.map.size_y == 80);
 	});
 }
+
+behavior.scenario('accepting unchanged custom dimensions clears previous named preset provenance', () => {
+	const f = make_picker('random');
+	test.assert(f.m.settings.global.map.preset_level == 2);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	assert_submitted(f, 112, 56, 'random');
+});

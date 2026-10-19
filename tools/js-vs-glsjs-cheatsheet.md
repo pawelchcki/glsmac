@@ -10,6 +10,8 @@
 | Functions | `function`/arrow both | Arrow only: `let f = (a, b) => { ... };`. No hoisting — declare before use. |
 | Modules | `import`/`export` | `#include('path')` returns whatever that file's top-level `return` produced; call the result yourself. (`GLSMAC_data/default/main.gls.js:1-4`) |
 | Strings | Single or double quotes | Single quotes only; escape an apostrophe with `\'`. Double quotes produce a parse error. (`src/gse/parser/JS.h`, `CHARS_QUOTES`) |
+| Object keys | Quoted strings allowed in literals | Literal keys must be identifiers. For names such as `68x34`, create `{}` then assign `obj['68x34'] = value`. (`src/gse/parser/JS.cpp:1045-1061`) |
+| Negative inputs | Unary literals such as `-1` | In arrays and call arguments, use `(0 - 1)`; unary negative literals can fail parsing with “Left operand missing.” (`src/gse/parser/JS.cpp:605-623`) |
 | `+` coercion | Anything stringifies (`1+'2'==='12'`) | Strict — both sides must match type (int+int, float+float, string+string). Array `+` **concatenates**; object `+` **merges** (throws on duplicate key). Anything else throws `operation_not_supported`. (`src/gse/Interpreter.cpp:522-543`) |
 | Truthy/falsy | `0`, `''`, `null`, `[]` (no) all coerce | **None.** `if`/`while`/ternary require an actual `Bool` — `if (arr)` or `if (str)` throws `TYPE_ERROR`. Always compare explicitly. (`src/gse/Interpreter.cpp:1076-1077`) |
 | `this` | dynamic, many footguns | Context-bound inside callables, same idea as JS. Nothing special found here — don't over-solve it. (`src/gse/context/Context.cpp:13,48`) |

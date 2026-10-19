@@ -1777,6 +1777,7 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 			ASSERT( util::FS::FileExists( filename ), "map dump file \"" + filename + "\" not found" );
 			MTModule::Log( (std::string)"Loading map dump from " + filename );
 			SetLoaderText( "Loading dump" );
+			m_state->m_settings.global.map.preset_level = -1;
 			m_map->Deserialize( types::Buffer( util::FS::ReadTextFile( filename ) ) );
 			ec = map::Map::EC_NONE;
 		}
@@ -1818,6 +1819,8 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 		}
 
 		if ( !ec ) {
+			auto& completed_map = m_state->m_settings.global.map;
+			if ( completed_map.type != settings::MapSettings::MT_RANDOM && completed_map.type != settings::MapSettings::MT_CUSTOM ) { completed_map.preset_level = -1; }
 			m_state->m_settings.global.map.size_x = m_map->GetWidth();
 			m_state->m_settings.global.map.size_y = m_map->GetHeight();
 			m_slot->SetPlayerFlag( slot::PF_MAP_DOWNLOADED ); // map was generated locally

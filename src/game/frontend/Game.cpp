@@ -97,6 +97,7 @@ void Game::Start() {
 	if ( m_state->IsMaster() ) {
 		if ( config->HasLaunchFlag( config::Config::LF_QUICKSTART_MAP_FILE ) ) {
 			m_state->m_settings.global.map.type = backend::settings::MapSettings::MT_MAPFILE;
+			m_state->m_settings.global.map.preset_level = -1;
 			m_state->m_settings.global.map.filename = config->GetQuickstartMapFile();
 		}
 		if ( m_state->m_settings.global.map.type == backend::settings::MapSettings::MT_MAPFILE ) {
@@ -742,6 +743,7 @@ void Game::LoadMap( const std::string& path ) {
 	);
 	ASSERT( m_state, "state not set" );
 	m_state->m_settings.global.map.type = backend::settings::MapSettings::MT_MAPFILE;
+	m_state->m_settings.global.map.preset_level = -1;
 	m_state->m_settings.global.map.filename = path;
 	m_map_data.filename = util::FS::GetBaseName( path );
 	m_map_data.last_directory = util::FS::GetDirName( path );

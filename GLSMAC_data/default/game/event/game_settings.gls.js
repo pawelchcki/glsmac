@@ -19,7 +19,10 @@ return {
 		let old_settings = [];
 		let settings = e.game.get_settings().global.map;
 		let changes = [];
+		let restore_preset = false;
+		const old_preset = #is_defined(settings.preset_level) ? #to_int(settings.preset_level) : (0 - 1);
 		for (c of e.data.changes) {
+			if (c[0] == 'planet_size' || c[0] == 'size_x' || c[0] == 'size_y' || c[0] == 'preset_level' || c[0] == 'type') { restore_preset = true; }
 			if (c[0] == 'planet_size') {
 				const xy = #split(c[1], 'x');
 				changes :+['size_x', #to_int(xy[0])];
@@ -31,10 +34,13 @@ return {
 		for (c of changes) {
 			const oldv = settings[c[0]];
 			if (#is_defined(oldv)) { // TODO: support all fields
-				old_settings :+[c[0], oldv];
+				if (c[0] != 'preset_level') { old_settings :+[c[0], oldv]; }
 				settings[c[0]] = c[1]; // TODO: ro/rw permissions on settings in all places
 			}
 		}
+
+		// Restore provenance after dimensions/type, whose native setters clear it.
+		if (restore_preset) { old_settings :+['preset_level', old_preset]; }
 
 		unready_players(e.game.get_players());
 

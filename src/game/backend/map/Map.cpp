@@ -654,6 +654,7 @@ const Map::error_code_t Map::Generate( settings::MapSettings* map_settings, MT_C
 			const auto size = c->GetQuickstartMapSize();
 			map_settings->size_x = size.x;
 			map_settings->size_y = size.y;
+			map_settings->preset_level = -1;
 		}
 		map_settings->ocean_coverage = c->HasLaunchFlag( config::Config::LF_QUICKSTART_MAP_OCEAN )
 			? c->GetQuickstartMapOceanCoverage()

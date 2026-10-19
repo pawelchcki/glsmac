@@ -26,6 +26,7 @@ return (i) => {
 		}
 		i.settings.global.map.size_x = width;
 		i.settings.global.map.size_y = height;
+		i.settings.global.map.preset_level = 0 - 1;
 		i.popup.complete();
 		if (i.settings.global.map.type == 'random') {
 			i.steps.select_difficulty_level(i);

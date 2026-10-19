@@ -140,6 +140,7 @@ for (map_type of ['random', 'custom']) {
 		const choose = menu.state.menu.entries[preset[0]][1];
 		choose();
 		test.assert(menu.i.settings.global.map.size_x == preset[1]);
+		test.assert(menu.i.settings.global.map.preset_level == preset[0]);
 		test.assert(menu.i.settings.global.map.size_y == preset[2]);
 		if (map_type == 'random') {
 			test.assert(menu.state.menu.title == 'Pick a difficulty level');

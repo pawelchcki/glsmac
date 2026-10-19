@@ -41,6 +41,10 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 	int64_t size_x = 112;
 	int64_t size_y = 56;
 
+	// Explicit named-preset provenance. Dimensions alone never imply a level.
+	// -1 is custom, imported, legacy or otherwise unspecified.
+	int64_t preset_level = -1;
+
 	/*
 	 	{ settings::MAP_CONFIG_OCEAN_LOW,    0.4f }, // '30-50% of surface'
 		{ settings::MAP_CONFIG_OCEAN_MEDIUM, 0.6f }, // '50-70% of surface'
@@ -73,6 +77,9 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 
 	const types::Buffer Serialize() const override;
 	void Deserialize( types::Buffer buf ) override;
+
+private:
+	void RefreshPresetWrappers();
 };
 
 // settings that are synced between players (host has authority)

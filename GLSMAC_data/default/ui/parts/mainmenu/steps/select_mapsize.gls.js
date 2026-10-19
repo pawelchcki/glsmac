@@ -25,26 +25,31 @@ return (i) => {
 			['Tiny Planet', () => {
 				i.settings.global.map.size_x = 68;
 				i.settings.global.map.size_y = 34;
+				i.settings.global.map.preset_level = 0;
 				next();
 			}],
 			['Small Planet', () => {
 				i.settings.global.map.size_x = 88;
 				i.settings.global.map.size_y = 44;
+				i.settings.global.map.preset_level = 1;
 				next();
 			}],
 			['Standard Planet', () => {
 				i.settings.global.map.size_x = 112;
 				i.settings.global.map.size_y = 56;
+				i.settings.global.map.preset_level = 2;
 				next();
 			}],
 			['Large Planet', () => {
 				i.settings.global.map.size_x = 140;
 				i.settings.global.map.size_y = 70;
+				i.settings.global.map.preset_level = 3;
 				next();
 			}],
 			['Huge Planet', () => {
 				i.settings.global.map.size_x = 180;
 				i.settings.global.map.size_y = 90;
+				i.settings.global.map.preset_level = 4;
 				next();
 			}],
 			['Custom Size', () => {

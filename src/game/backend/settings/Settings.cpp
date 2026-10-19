@@ -4,6 +4,9 @@
 
 #include "gse/value/Float.h"
 #include "gse/value/Ptr.h"
+#include "gse/context/ChildContext.h"
+#include "gse/GSE.h"
+#include "gc/Space.h"
 
 namespace game {
 namespace backend {
@@ -22,11 +25,24 @@ WRAPIMPL_DYNAMIC_GETTERS( MapSettings )
 			WRAPIMPL_GET_PTR( "filename", filename )
 			WRAPIMPL_GET_PTR( "size_x", size_x )
 			WRAPIMPL_GET_PTR( "size_y", size_y )
+			WRAPIMPL_GET_PTR( "preset_level", preset_level )
 			WRAPIMPL_GET_PTR( "ocean_coverage", ocean_coverage )
 			WRAPIMPL_GET_PTR( "erosive_forces", erosive_forces )
 			WRAPIMPL_GET_PTR( "native_lifeforms", native_lifeforms )
 			WRAPIMPL_GET_PTR( "cloud_cover", cloud_cover )
 WRAPIMPL_DYNAMIC_SETTERS( MapSettings )
+	if ( key == "preset_level" ) {
+		if ( value->type != gse::VT_INT || ( (gse::value::Int*)value )->value < -1 || ( (gse::value::Int*)value )->value > 4 ) {
+			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Map preset level must be -1 or an integer from 0 through 4" );
+		}
+		const auto requested = ( (gse::value::Int*)value )->value;
+		if ( requested != -1 && obj->type != MapSettings::MT_RANDOM && obj->type != MapSettings::MT_CUSTOM ) {
+			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Imported maps cannot declare named preset provenance" );
+		}
+		obj->preset_level = requested;
+		obj->RefreshPresetWrappers();
+		return;
+	}
 	WRAPIMPL_SET_MAPPED( type )
 	WRAPIMPL_SET_PTR( "filename", String, filename )
 	WRAPIMPL_SET_PTR( "size_x", Int, size_x )
@@ -36,7 +52,25 @@ WRAPIMPL_DYNAMIC_SETTERS( MapSettings )
 	WRAPIMPL_SET_PTR( "native_lifeforms", Float, native_lifeforms )
 	WRAPIMPL_SET_PTR( "cloud_cover", Float, cloud_cover )
 WRAPIMPL_DYNAMIC_ON_SET( MapSettings )
+	if ( property_name == "size_x" || property_name == "size_y" ||
+		( property_name == "type" && type != MT_RANDOM && type != MT_CUSTOM ) ) {
+		preset_level = -1;
+		RefreshPresetWrappers();
+	}
 WRAPIMPL_DYNAMIC_END()
+
+void MapSettings::RefreshPresetWrappers() {
+	// Dynamic assignment caches a scalar in the assigning wrapper. Restore the
+	// native pointer on all retained wrappers when another field or a native
+	// decode changes provenance; each value belongs to its wrapper's GC space.
+	for ( auto* wrapper : m_wrapobjs ) {
+		auto* space = wrapper->GetContext()->GetGSE()->GetGCSpace();
+		if ( !space->IsOwnerThread() || !space->IsAccumulating() ) { THROW( "Live map settings require the owning GSE accumulation context" ); }
+		space->Accumulate( wrapper, [ this, wrapper, space ]() {
+			wrapper->Assign( "preset_level", new gse::value::Ptr< int64_t >( space, preset_level ) );
+		}, nullptr, true );
+	}
+}
 
 const types::Buffer MapSettings::Serialize() const {
 	types::Buffer buf;
@@ -49,19 +83,29 @@ const types::Buffer MapSettings::Serialize() const {
 	buf.WriteFloat( erosive_forces );
 	buf.WriteFloat( native_lifeforms );
 	buf.WriteFloat( cloud_cover );
+	buf.WriteInt( preset_level );
 
 	return buf;
 }
 
 void MapSettings::Deserialize( types::Buffer buf ) {
-	type = (type_t)buf.ReadInt();
-	filename = buf.ReadString();
-	size_x = buf.ReadInt();
-	size_y = buf.ReadInt();
-	ocean_coverage = buf.ReadFloat();
-	erosive_forces = buf.ReadFloat();
-	native_lifeforms = buf.ReadFloat();
-	cloud_cover = buf.ReadFloat();
+	const auto decoded_type = buf.ReadInt();
+	if ( decoded_type < MT_RANDOM || decoded_type > MT_HUGE_PLANET ) { THROW( "invalid map settings type" ); }
+	const auto decoded_filename = buf.ReadString();
+	const auto decoded_size_x = buf.ReadInt(); const auto decoded_size_y = buf.ReadInt();
+	const auto decoded_ocean = buf.ReadFloat(); const auto decoded_erosive = buf.ReadFloat();
+	const auto decoded_lifeforms = buf.ReadFloat(); const auto decoded_cloud = buf.ReadFloat();
+	// Older settings lack provenance and remain explicitly unknown. Validate
+	// the complete record before replacing any live settings.
+	auto decoded_preset = buf.lenr == buf.lenw ? -1 : buf.ReadInt();
+	if ( decoded_preset < -1 || decoded_preset > 4 || buf.lenr != buf.lenw ) { THROW( "invalid map preset provenance" ); }
+	if ( decoded_type != MT_RANDOM && decoded_type != MT_CUSTOM ) { decoded_preset = -1; }
+	type = (type_t)decoded_type; filename = decoded_filename;
+	size_x = decoded_size_x; size_y = decoded_size_y;
+	ocean_coverage = decoded_ocean; erosive_forces = decoded_erosive;
+	native_lifeforms = decoded_lifeforms; cloud_cover = decoded_cloud;
+	preset_level = decoded_preset;
+	RefreshPresetWrappers();
 }
 
 void GlobalSettings::Initialize() {

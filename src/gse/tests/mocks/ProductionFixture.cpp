@@ -165,6 +165,28 @@ struct ProductionFixture : gc::Object {
 	}
 
 
+	std::string MapSettingsSnapshot( const std::string& kind ) {
+		const auto bytes = state->m_settings.global.map.Serialize().ToString();
+		if ( kind == "current" ) { return bytes; }
+		types::Buffer input( bytes );
+		input.ReadInt(); input.ReadString(); input.ReadInt(); input.ReadInt();
+		for ( size_t i = 0; i < 4; ++i ) { input.ReadFloat(); }
+		const auto legacy = bytes.substr( 0, input.lenr );
+		if ( kind == "legacy" ) { return legacy; }
+		if ( kind == "trailing" ) { return bytes + "trailing"; }
+		if ( kind == "invalid_level" ) { types::Buffer tail; tail.WriteInt( 5 ); return legacy + tail.ToString(); }
+		THROW( "unknown fixture map settings snapshot kind" );
+	}
+	void RestoreMapSettings( const std::string& bytes ) {
+		state->m_settings.global.map.Deserialize( types::Buffer( bytes ) );
+	}
+	void SetOwnerRole( const std::string& role ) {
+		if ( role == "single" ) { owner->m_role = backend::Player::PR_SINGLE; }
+		else if ( role == "host" ) { owner->m_role = backend::Player::PR_HOST; }
+		else if ( role == "player" ) { owner->m_role = backend::Player::PR_PLAYER; }
+		else if ( role == "none" ) { owner->m_role = backend::Player::PR_NONE; }
+		else { THROW( "unknown fixture owner role" ); }
+	}
 	size_t NextPopId() const { return base->m_next_pop_id; }
 	void EnableEconomy() {
 		if ( game.m_rm ) { THROW( "fixture economy already enabled" ); }
@@ -583,6 +605,20 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	object->Set( "add_worker", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( variant, 0, Int );
 		session->current->AddWorker( GSE_CALL, variant );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "map_settings_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );
+		return VALUE( value::String,, session->current->MapSettingsSnapshot( kind ) );
+	} ), GSE_CALL );
+	object->Set( "restore_map_settings", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( bytes, 0, String );
+		try { session->current->RestoreMapSettings( bytes ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "set_owner_role", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( role, 0, String ); session->current->SetOwnerRole( role );
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	object->Set( "enable_economy", NATIVE_CALL( session, object ) {

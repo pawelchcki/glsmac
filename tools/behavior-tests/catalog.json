@@ -26,6 +26,8 @@
     {"id":"base-production", "script":"GLSMAC_data/tests/base_production.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
     {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"facility-cost-native", "script":"GLSMAC_data/tests/facility_cost_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
+    {"id":"facility-cost-completion-native", "script":"GLSMAC_data/tests/facility_cost_completion_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"prototype-cost-native", "script":"GLSMAC_data/tests/prototype_cost_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-work-snapshot-native", "script":"GLSMAC_data/tests/base_work_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"pop-snapshot-native", "script":"GLSMAC_data/tests/pop_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
