@@ -526,7 +526,8 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			N_EXPECT_ARGS( 1 );
 			N_GETVALUE_UNWRAP( pop, 0, Pop );
 
-			if ( m_pops.find( pop->m_id ) == m_pops.end() ) {
+			const auto it = m_pops.find( pop->m_id );
+			if ( it == m_pops.end() || &it->second != pop ) {
 				GSE_ERROR( gse::EC.GAME_ERROR, "Base does not have pop " + std::to_string( pop->m_id ) );
 			}
 

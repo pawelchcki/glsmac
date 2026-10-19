@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **646 scenarios and 3,950 assertions** across
-46 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **650 scenarios and 4,093 assertions** across
+47 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -569,3 +569,11 @@ or complete multiplayer synchronization.
 citizens retain their identity and links; undo recreates the removed citizen
 through the existing monotonic allocator. It does not rewind citizen identity,
 variant randomness or allocation counters.
+
+`pop-membership-native` checks that actual citizen identity is required by
+`Base.destroy_pop`, including foreign bases/worlds with matching per-base IDs.
+Rejection leaves both snapshots, RNG, counters, notifications and worker links
+unchanged; a fresh wrapper for the actual local citizen remains accepted. The
+queued turn suite additionally grows and starves a genuine worker while idle,
+checking successful host removal and the surviving worker graph. These are
+GLSMAC API/lifecycle invariants, separate from original-game helper evidence.

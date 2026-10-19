@@ -218,6 +218,24 @@
         "artifact": "/tmp/glsmac-queued-growth-focused.json",
         "scope": "Actual native worker and doctor removal/undo; recreation retains existing monotonic allocation policy, not exact citizen identity or RNG rollback."
       }
+    },
+    {
+      "id": "foreign-pop-destruction",
+      "contract": "glsmac.pop_membership.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Native GLSMAC population API identity/ownership invariant, not an original-game helper comparison.",
+      "property": "Base.destroy_pop accepts a foreign Pop with the same per-base ID and deletes the local citizen.",
+      "before": {
+        "artifact": "/tmp/glsmac-pop-membership-first-red.json",
+        "error": "Foreign native Pop must be rejected before changing either base",
+        "script": "GLSMAC_data/tests/_pop_membership_native.gls.js"
+      },
+      "verification": {
+        "native_scenarios": 3,
+        "native_assertions": 26,
+        "artifact": "/tmp/glsmac-pop-membership-focused.json",
+        "scope": "Actual same-world/cross-world Pop identity, unchanged snapshots/RNG/IDs/worker links and valid local wrapper acceptance; no original-game comparison claim."
+      }
     }
   ]
 }

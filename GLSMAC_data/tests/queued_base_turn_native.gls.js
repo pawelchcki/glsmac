@@ -117,3 +117,38 @@ behavior.scenario('real queued production completes before starvation decisions 
 	const pod = f.game.um.get_unit(next_unit);
 	test.assert(pod.get_def().id == 'ColonyPod' && pod.owner == f.owner.id && pod.get_tile() == f.base.get_tile());
 });
+
+behavior.scenario('real queued starvation accepts its actual local worker and preserves the surviving worker graph', () => {
+	const f = fixture(); const initial = f.base.get_pops(); const original = initial[0];
+	for (let turn = 2; turn <= 17; turn++) {
+		f.turn(turn); successful(f);
+		const grows = turn == 17;
+		test.assert(f.base.get_size() == (grows ? 2 : 1));
+		test.assert(f.base.get('accumulated_nutrients') == (grows ? 0 : turn - 1));
+		test.assert(f.base.get_production() == { choice_id: '', minerals: 0, last_processed_turn: 0 });
+	}
+	const grown = f.base.get_pops(); const victim_tile = f.tile_at(0, 2);
+	test.assert(grown[0] == original && grown[1].id == 2 && grown[1].get('worked_tile') == victim_tile);
+	test.assert(victim_tile.get('working_pop') == grown[1] && f.base.is_tile_worked(victim_tile));
+	test.assert(f.base.get_intake() == { NUTRIENTS: 3, MINERALS: 7, ENERGY: 0 });
+	test.assert(f.base.get_consumption() == { NUTRIENTS: 4, MINERALS: 0, ENERGY: 0 });
+	const ids = f.next_ids(); const unit_ids = f.inspect().unit_ids;
+	f.turn(18); successful(f);
+	let removals = 0;
+	for (result of f.queued_results) {
+		if (result.name == 'remove_base_pop') {
+			test.assert(result.turn == 18 && result.caller == 0 && result.success);
+			removals++;
+		}
+	}
+	test.assert(removals == 1, 'The real starvation queue must successfully remove exactly one actual local citizen');
+	test.assert(f.base.get_size() == 1 && f.base.get('accumulated_nutrients') == 0);
+	test.assert(f.base.get_production() == { choice_id: '', minerals: 0, last_processed_turn: 0 });
+	const remaining = f.base.get_pops(); const initial_tile = f.tile_at(2, 0);
+	test.assert(#sizeof(remaining) == 1 && remaining[0] == original && original.id == 1);
+	test.assert(initial_tile.get('working_pop') == original && original.get('worked_tile') == initial_tile);
+	test.assert(!victim_tile.has('working_pop') && !f.base.is_tile_worked(victim_tile));
+	test.assert(f.base.get_worked_tiles() == [initial_tile]);
+	test.assert(f.next_ids() == ids, 'Actual removal preserves the monotonic population allocation counter');
+	test.assert(f.queued_spawns == [] && f.inspect().unit_ids == unit_ids && f.base.get_tile().get_units() == []);
+});

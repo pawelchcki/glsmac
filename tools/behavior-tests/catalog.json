@@ -32,6 +32,7 @@
     {"id":"nutrient-factor-native", "script":"GLSMAC_data/tests/nutrient_factor_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-growth-stage", "script":"GLSMAC_data/tests/base_growth_stage.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"queued-base-turn-native", "script":"GLSMAC_data/tests/queued_base_turn_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
+    {"id":"pop-membership-native", "script":"GLSMAC_data/tests/pop_membership_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"remove-base-pop-native", "script":"GLSMAC_data/tests/remove_base_pop_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"growth-production-sequence", "script":"GLSMAC_data/tests/growth_production_sequence.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"growth-factor-integration", "script":"GLSMAC_data/tests/growth_factor_integration.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
