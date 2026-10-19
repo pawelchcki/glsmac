@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "references": [
+    {
+      "id": "base-square-resources",
+      "cases": "cases/base-square-resources.json",
+      "observations": "observations/smacx-gog-2.0-base-square-resources.json"
+    }
+  ]
+}

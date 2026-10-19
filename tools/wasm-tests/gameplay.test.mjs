@@ -13,6 +13,26 @@ const assets = process.env.SMAC_ASSETS_DIR;
 const site = process.env.WASM_SITE_URL;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 
+function recordedBaseSquareResources(installed) {
+  const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/economy/cases/base-square-resources.json`, 'utf8')).cases;
+  const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/economy/observations/smacx-gog-2.0-base-square-resources.json`, 'utf8')).observations;
+  // The recorded land/no-river/HQ matrix has the same output across its
+  // sampled faction, base-record and coordinate inputs. The browser's rainy
+  // 16x16 map, base 2 at (10,8), and growing population differ from that 4x4
+  // arid one-population matrix. This is a construction regression using those
+  // resource values; it adds no original-input parity case or parity count.
+  const matching = cases.filter(({ input }) => input.land && !input.river
+    && input.headquarters && input.recycling_tanks === installed);
+  assert.ok(matching.length > 0, 'The recorded contract includes this base-square facility state');
+  const outputs = matching.map(({ id }) => {
+    const observation = observations.find((entry) => entry.id === id);
+    assert.ok(observation, `Recorded resource observation exists for ${id}`);
+    return observation.output;
+  });
+  for (const output of outputs) assert.deepEqual(output, outputs[0], 'The sampled base-square contract is invariant for this terrain and facility state');
+  return outputs[0];
+}
+
 // Synthetic original-format terrain. Graphics still come from the user's
 // installation; no proprietary map data is embedded in this test.
 function smokeMap() {
@@ -143,6 +163,9 @@ const mainScript = String.raw`
         if (choice.id == state.choice_id) { cost = choice.cost; }
       }
       #print('SMOKE_PRODUCTION|' + #to_string(base.id) + '|' + state.choice_id + '|' + #to_string(state.minerals) + '|' + #to_string(state.last_processed_turn) + '|' + #to_string(base.has_facility('RECYCLING_TANKS')) + '|' + #to_string(surplus) + '|' + #to_string(cost));
+      const tile = base.get_tile();
+      const resources = tile.get_resources(base.get_owner());
+      #print('SMOKE_BASE_RESOURCES|' + #to_string(base.id) + '|' + #to_string(resources.NUTRIENTS) + '|' + #to_string(resources.MINERALS) + '|' + #to_string(resources.ENERGY));
     };
     game.on('update_base', (e) => { report_production(e.base); });
     game.on('base_select', (e) => {
@@ -353,6 +376,14 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
     return { choice: latest[2], minerals: Number(latest[3]), turn: Number(latest[4]),
       installed: latest[5] === 'true', pending: Number(latest[6]), cost: Number(latest[7]) };
   };
+  const baseSquareResources = async (id) => {
+    const log = await page.locator('#log').textContent();
+    const states = [...log.matchAll(/SMOKE_BASE_RESOURCES\|(\d+)\|(-?\d+)\|(-?\d+)\|(-?\d+)/g)]
+      .filter((match) => Number(match[1]) === id);
+    assert.ok(states.length > 0, `Read actual base-square resources for base ${id}`);
+    const latest = states.at(-1);
+    return { NUTRIENTS: Number(latest[2]), MINERALS: Number(latest[3]), ENERGY: Number(latest[4]) };
+  };
   const closeBase = async () => {
     const previous = ((await page.locator('#log').textContent()).match(/SMOKE_BASE_HIDDEN/g) || []).length;
     await page.keyboard.press('Escape');
@@ -397,14 +428,16 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   await page.locator('#start').click();
   await waitForLog('SMOKE_UI_READY');
   await waitForLog('SMOKE_UNIT|1|0');
-  return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, currentBases, selectedBases };
+  return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases, selectedBases };
 }
 
 test('owned bases, turns, movement and facility production use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
   timeout: 180000,
 }, async (t) => {
-  const { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, currentBases } = await startGame(t);
+  const { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases } = await startGame(t);
+  const recordedBeforeTanks = recordedBaseSquareResources(false);
+  const recordedAfterTanks = recordedBaseSquareResources(true);
   for (const label of ['Supply Pod', 'Volcano', 'Road', 'Farm']) await waitForLog(`SMOKE_LABEL|${label}`);
   const initialUnit = await probeUnit();
   const initialMovement = initialUnit.movement;
@@ -492,6 +525,9 @@ test('owned bases, turns, movement and facility production use the real browser 
   let production = await productionState(2);
   assert.equal(production.cost, 32, 'The selected facility uses its existing declared cost');
   assert.ok(production.pending > 0, 'The real fixture base has a positive mineral surplus');
+  const beforeTanks = await baseSquareResources(2);
+  assert.deepEqual(beforeTanks, recordedBeforeTanks,
+    'The actual Headquarters base square agrees with recorded resource values in this reproduction fixture before construction');
   await screenshot('production-selected');
   await closeBase();
 
@@ -521,6 +557,17 @@ test('owned bases, turns, movement and facility production use the real browser 
       'Actual production credits the previous visible surplus and preserves declared overflow');
     assert.equal(production.installed, completed, 'The facility installs exactly at its declared threshold');
     assert.equal(production.choice, completed ? '' : 'RECYCLING_TANKS', 'Completion clears the unique facility project');
+    const resources = await baseSquareResources(2);
+    assert.deepEqual(resources, completed ? recordedAfterTanks : recordedBeforeTanks,
+      'Actual base-square yields agree with recorded resource values in this reproduction fixture before and after completion');
+    if (completed) {
+      for (const resource of ['NUTRIENTS', 'MINERALS', 'ENERGY']) {
+        assert.equal(resources[resource], beforeTanks[resource] + 1,
+          `Completed Recycling Tanks adds one actual base-square ${resource}`);
+      }
+      assert.equal(production.pending, previous.pending + 1,
+        'Completed Recycling Tanks increases actual pending mineral production by one');
+    }
     ++productionTurns;
     const render = completed
       ? `SMOKE_PRODUCTION_RENDER|2|IDLE|Stored: ${production.minerals} minerals|`
@@ -541,10 +588,11 @@ test('owned bases, turns, movement and facility production use the real browser 
     }
   }
   assert.ok(production.installed, 'Real browser turns finish the chosen facility');
+  const afterTanks = await baseSquareResources(2);
   const finalLog = await page.locator('#log').textContent();
   assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(|Event result listener failed/);
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running', finalLog.slice(-3000));
-  t.diagnostic(`Imported synthetic 16x16 map; base navigation, skip, turn advance and move (8,8) -> (10,8) passed; canceled facility picker, selected declared 32-mineral Recycling Tanks, and completed it through ${productionTurns} real turns with ${production.minerals} overflow minerals.`);
+  t.diagnostic(`Imported synthetic 16x16 map; base navigation, skip, turn advance and move (8,8) -> (10,8) passed; canceled facility picker, selected declared 32-mineral Recycling Tanks, and completed it through ${productionTurns} real turns with ${production.minerals} overflow minerals. Actual base-square N/M/E changed from ${beforeTanks.NUTRIENTS}/${beforeTanks.MINERALS}/${beforeTanks.ENERGY} to ${afterTanks.NUTRIENTS}/${afterTanks.MINERALS}/${afterTanks.ENERGY}, agreeing with recorded resource values in this reproduction fixture; pending mineral production increased by one. This construction regression is outside the bounded original-input parity counts.`);
 });
 
 for (const action of ['keyboard', 'button']) {

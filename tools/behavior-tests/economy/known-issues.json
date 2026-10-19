@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "purpose": "Observed transfer work; this inventory never exempts comparison failures.",
+  "issues": [
+    {
+      "id": "recycling-tanks-base-square-resources",
+      "contract": "economy.base_square_resources.v1",
+      "status": "fixed-in-recorded-contract",
+      "property": "Every recorded Tanks case returns one additional nutrient, mineral and energy from the original base square; the shipped GSE callback omits all three increments.",
+      "before": { "cases": 504, "matched": 252, "mismatched": 252, "unsupported": 0, "errors": 0 },
+      "verification": { "cases": 504, "matched": 504, "mismatched": 0, "unsupported": 0, "errors": 0 }
+    }
+  ]
+}

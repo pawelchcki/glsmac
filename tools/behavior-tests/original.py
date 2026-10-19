@@ -49,6 +49,14 @@ TECH_CATEGORY = "technology.category.v1"
 TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
 HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
+BASE_SQUARE_RESOURCES = "economy.base_square_resources.v1"
+BASE_RESOURCE_FUNCTIONS = {
+    "NUTRIENTS": ("crop_yield (base square)", 0x004E6E50, 0x004E7306),
+    "MINERALS": ("mine_yield (base square)", 0x004E7310, 0x004E7748),
+    "ENERGY": ("energy_yield (base square)", 0x004E7750, 0x004E7DA3),
+}
+BASE_RESOURCE_DEPENDENCIES = ((0x00592030, 0x00592135), (0x0050BA00, 0x0050BA27))
+BASE_RESOURCE_CACHE = 0x0090E914
 HUMAN_FACTIONS = 0x009A64E8
 MINERAL_RULE_FACTOR = 0x00949750
 MAP_SIZE_LEVEL = 0x0094A2A0
@@ -59,6 +67,7 @@ TECH_STRIDE = 44
 TECH_OWNERS = 0x009A6670
 EXPANSION_ENABLED = 0x009A6488
 FUNCTIONS = {
+    BASE_SQUARE_RESOURCES: BASE_RESOURCE_FUNCTIONS["NUTRIENTS"],
     ALGORITHM: ("x_dist", X_DIST, 0x005797C7),
     VECTOR_DISTANCE: ("vector_dist_2", 0x005A5910, 0x005A5987),
     RAW_VECTOR_DISTANCE: ("vector_dist", 0x004F8090, 0x004F80CB),
@@ -153,6 +162,22 @@ def validate_input(algorithm, values):
         _integer(values["mineral_rule_factor"], 1, 100, "mineral_rule_factor")
         _integer(values["industry"], -8, 10, "industry")
 
+    elif algorithm == BASE_SQUARE_RESOURCES:
+        _fields(values, {"faction_id", "base_id", "x", "y", "land", "river", "headquarters", "recycling_tanks"})
+        _integer(values["faction_id"], 1, 7, "faction_id")
+        _integer(values["base_id"], 0, 7, "base_id")
+        if values["base_id"] not in (0, 1, 7):
+            raise ProtocolError("base_id must be one of 0, 1, 7")
+        _integer(values["x"], 0, 2, "x")
+        _integer(values["y"], 0, 2, "y")
+        if (values["x"], values["y"]) not in ((0, 0), (2, 2)):
+            raise ProtocolError("base square must be (0,0) or (2,2)")
+        for field in ("land", "river", "headquarters", "recycling_tanks"):
+            if type(values[field]) is not bool:
+                raise ProtocolError(field + " must be boolean")
+        if not values["land"] and values["river"]:
+            raise ProtocolError("sea fixture cannot have a river")
+
 
 class ProbeError(Exception):
     """An invalid request, unsupported binary, or failed original execution."""
@@ -220,6 +245,14 @@ class OriginalOracle:
                  "address": f"0x{FUNCTIONS[algorithm][1]:08X}"}
                 for algorithm in sorted(set(algorithms)) if algorithm in FUNCTIONS
             ]
+        if BASE_SQUARE_RESOURCES in algorithms:
+            result["adapter_version"] = 3
+            result["functions"] = [item for item in result["functions"]
+                                   if item["algorithm"] != BASE_SQUARE_RESOURCES] + [
+                {"algorithm": BASE_SQUARE_RESOURCES, "resource": resource,
+                 "function": function[0], "address": f"0x{function[1]:08X}"}
+                for resource, function in BASE_RESOURCE_FUNCTIONS.items()
+            ]
         return result
 
     def distance(self, values):
@@ -251,8 +284,48 @@ class OriginalOracle:
             owners[row["id"]] = row["owners"]
         return ((TECH_TABLE, bytes(table)), (TECH_OWNERS, bytes(owners)))
 
+    @staticmethod
+    def base_square_fixture(values):
+        # A 4x4 map has eight staggered tiles. Only the requested base square
+        # is inhabited; all omitted records are synthetic zeroes.
+        tiles = bytearray(44 * 8)
+        offset = (values["y"] * 2 + values["x"] // 2) * 44
+        tiles[offset] = 0x60 if values["land"] else 0x20
+        tiles[offset + 2] = values["faction_id"]
+        struct.pack_into("<I", tiles, offset + 8, 1 | (0x80 if values["river"] else 0))
+        bases = bytearray(308 * 8)
+        offset = values["base_id"] * 308
+        struct.pack_into("<hh", bases, offset, values["x"], values["y"])
+        bases[offset + 4] = values["faction_id"]
+        bases[offset + 6] = 1
+        bases[offset + 140] = (2 if values["headquarters"] else 0) | (8 if values["recycling_tanks"] else 0)
+        return (
+            (MAP_HALF_WIDTH, struct.pack("<i", 2)),
+            (0x0094A30C, struct.pack("<I", 0x009F0000)),
+            (0x009F0000, bytes(tiles)), (0x0097D040, bytes(bases)),
+            (0x00949878, struct.pack("<i", 0)),  # no resource bonus
+            (0x00945F60, struct.pack("<iii", 2, 1, 1)),  # base-square rules
+            (0x00945F70, struct.pack("<iii", 2, 2, 2)),  # resource-bonus rules
+            (0x00945F90, struct.pack("<iii", 1, 1, 1)),  # tank rules
+            (0x0096CC2C + values["faction_id"] * FACTION_STRIDE, struct.pack("<i", 0)),
+            (0x009A6614, struct.pack("<i", -1)),  # no governor faction
+            (0x009A680C, struct.pack("<i", 0)),   # no dust cloud
+            (0x0093A934, struct.pack("<i", 0)),   # no upkeep override
+            (0x009A6818, struct.pack("<i", 0)),   # no solar flares
+            (0x009A6520, struct.pack("<i", -1)),  # no Merchant Exchange
+            (BASE_RESOURCE_CACHE, struct.pack("<i", 0)),
+        )
+
     def probe(self, algorithm, values):
         validate_input(algorithm, values)
+        if algorithm == BASE_SQUARE_RESOURCES:
+            arguments = tuple(values[name] for name in ("faction_id", "base_id", "x", "y")) + (0,)
+            return {resource: self.execute(
+                algorithm, arguments, self.base_square_fixture(values), function=function,
+                dependencies=BASE_RESOURCE_DEPENDENCIES,
+                mutable=((BASE_RESOURCE_CACHE, BASE_RESOURCE_CACHE + 4),),
+                allow_argument_writes=True,
+            ) for resource, function in BASE_RESOURCE_FUNCTIONS.items()}
         if algorithm == ALGORITHM:
             return {"distance": self.distance(values)}
         if algorithm == VECTOR_DISTANCE:
@@ -301,12 +374,17 @@ class OriginalOracle:
             raise ProbeError("original technology predicate returned a non-boolean value")
         return {key: bool(result)}
 
-    def execute(self, algorithm, arguments, fixture=()):
+    def execute(self, algorithm, arguments, fixture=(), *, function=None,
+                dependencies=(), mutable=(), allow_argument_writes=False):
         """Execute only pinned original function instructions with a fresh fixture."""
         uc = self.unicorn
         regs = self.registers
-        _name, entry, end = FUNCTIONS[algorithm]
-        allowed_code = ((entry, end),)
+        _name, entry, end = function or FUNCTIONS[algorithm]
+        allowed_code = ((entry, end),) + tuple(dependencies)
+        fixture_ranges = tuple((start, start + len(data)) for start, data in fixture)
+        if any(not any(low <= start < end <= high for low, high in fixture_ranges)
+               for start, end in mutable):
+            raise ProbeError("mutable range must be fully initialized by its fixture")
         if algorithm in (ALGORITHM, VECTOR_DISTANCE, RAW_VECTOR_DISTANCE):
             allowed_code += ((ABS, 0x00644F45),)
         instruction_limit = MAX_INSTRUCTIONS * (10 if algorithm == TECH_PREREQUISITE else 1)
@@ -327,6 +405,11 @@ class OriginalOracle:
         for start, end in allowed_code:
             for page in range(start & ~(PAGE_SIZE - 1), end, PAGE_SIZE):
                 emulator.mem_protect(page, PAGE_SIZE, uc.UC_PROT_READ | uc.UC_PROT_EXEC)
+        for start, end in mutable:
+            for page in range(start & ~(PAGE_SIZE - 1), end, PAGE_SIZE):
+                if any(low < page + PAGE_SIZE and high > page for low, high in allowed_code):
+                    raise ProbeError("mutable fixture cannot share a code page")
+                emulator.mem_protect(page, PAGE_SIZE, uc.UC_PROT_READ | uc.UC_PROT_WRITE)
         emulator.mem_map(STACK_BASE, STACK_SIZE, uc.UC_PROT_READ | uc.UC_PROT_WRITE)
         emulator.mem_map(RETURN_ADDRESS, PAGE_SIZE, uc.UC_PROT_READ | uc.UC_PROT_EXEC)
         stack_pointer = STACK_BASE + STACK_SIZE - 0x100
@@ -364,6 +447,11 @@ class OriginalOracle:
             if not any(start <= address and address + size <= end for start, end in ranges):
                 stop(f"original execution read outside its fixture at 0x{address:08X}")
 
+        def check_write(_emulator, _access, address, size, _value, _data):
+            ranges = ((STACK_BASE, STACK_BASE + STACK_SIZE),) + tuple(mutable)
+            if not any(start <= address and address + size <= end for start, end in ranges):
+                stop(f"original execution wrote outside its writable fixture at 0x{address:08X}")
+
         def invalid_memory(_emulator, _access, address, _size, _value, _data):
             failure.append(f"original execution accessed unavailable memory at 0x{address:08X}")
             return False
@@ -373,6 +461,8 @@ class OriginalOracle:
 
         emulator.hook_add(uc.UC_HOOK_CODE, check_code)
         emulator.hook_add(uc.UC_HOOK_MEM_READ, check_read)
+        if mutable:
+            emulator.hook_add(uc.UC_HOOK_MEM_WRITE, check_write)
         emulator.hook_add(uc.UC_HOOK_MEM_INVALID, invalid_memory)
         emulator.hook_add(uc.UC_HOOK_INTR, interrupt)
         try:
@@ -388,7 +478,8 @@ class OriginalOracle:
             raise ProbeError("original execution exceeded its instruction limit")
         if emulator.reg_read(regs.UC_X86_REG_ESP) != stack_pointer + 4:
             raise ProbeError("original execution returned with an invalid cdecl stack")
-        if bytes(emulator.mem_read(stack_pointer, len(arguments))) != arguments:
+        checked_arguments = arguments[:4] if allow_argument_writes else arguments
+        if bytes(emulator.mem_read(stack_pointer, len(checked_arguments))) != checked_arguments:
             raise ProbeError("original execution changed its return address or arguments")
         if any(emulator.reg_read(register) != value for register, value in preserved.items()):
             raise ProbeError("original execution changed a callee-preserved register")

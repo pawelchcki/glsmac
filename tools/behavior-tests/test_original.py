@@ -49,6 +49,17 @@ class FixtureContractTests(unittest.TestCase):
             with self.subTest(update=update), self.assertRaises(original.ProtocolError):
                 original.validate_input(original.HUMAN_MINERAL_FACTOR, dict(valid, **update))
 
+    def test_base_square_fixture_rejects_unrecorded_shapes_and_nonbooleans(self):
+        valid = dict(faction_id=1, base_id=0, x=0, y=0, land=True, river=False,
+                     headquarters=False, recycling_tanks=False)
+        original.validate_input(original.BASE_SQUARE_RESOURCES, valid)
+        for update in ({"faction_id": 0}, {"faction_id": True}, {"base_id": 2},
+                       {"base_id": False}, {"x": 1}, {"y": 1}, {"x": 2},
+                       {"x": False}, {"land": 1}, {"river": 0}, {"headquarters": 0},
+                       {"recycling_tanks": 1}, {"land": False, "river": True}, {"extra": 0}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.BASE_SQUARE_RESOURCES, dict(valid, **update))
+
     def test_rejects_invalid_geometry_fixtures(self):
         valid = dict(width=80, height=40, flat=False, x1=0, y1=0, x2=1, y2=1)
         for update in ({"flat": 0}, {"width": 81}, {"x1": True}, {"y2": 40},
@@ -122,6 +133,63 @@ class EmulatorGuardTests(unittest.TestCase):
             with self.subTest(address=address), self.assertRaises(original.ProbeError):
                 oracle.probe(original.HUMAN_MINERAL_FACTOR, dict(
                     faction_id=1, map_size_level=2, mineral_rule_factor=10, industry=0))
+
+    def test_explicit_scratch_writes_are_fresh_and_neighbor_writes_are_rejected(self):
+        address = original.BASE_RESOURCE_CACHE
+        fixture = ((address, struct.pack("<ii", 0, 99)),)
+        scratch = struct.pack("<I", address)
+        # Read/increment/store fixture scratch. This is hand-written guard code.
+        oracle = synthetic_oracle(b"\xA1" + scratch + b"\x40\xA3" + scratch + b"\xC3")
+        for _ in range(2):
+            self.assertEqual(oracle.execute(original.ALGORITHM, (), fixture,
+                                           mutable=((address, address + 4),)), 1)
+        for target in (address - 1, address + 1, address + 4):
+            bad = synthetic_oracle(b"\xA3" + struct.pack("<I", target) + b"\xC3")
+            with self.subTest(target=target), self.assertRaisesRegex(original.ProbeError, "wrote outside"):
+                bad.execute(original.ALGORITHM, (), fixture, mutable=((address, address + 4),))
+
+    def test_mutable_ranges_must_be_initialized_and_separate_from_code(self):
+        oracle = synthetic_oracle(b"\xC3")
+        with self.assertRaisesRegex(original.ProbeError, "fully initialized"):
+            oracle.execute(original.ALGORITHM, (), mutable=((original.BASE_RESOURCE_CACHE,
+                                                            original.BASE_RESOURCE_CACHE + 4),))
+        fixture = ((original.X_DIST + 128, bytes(4)),)
+        with self.assertRaisesRegex(original.ProbeError, "share a code page"):
+            oracle.execute(original.ALGORITHM, (), fixture,
+                           mutable=((original.X_DIST + 128, original.X_DIST + 132),))
+
+    def test_argument_scratch_is_opt_in_and_return_address_remains_guarded(self):
+        # mov dword [esp+4],9; mov eax,3; ret
+        oracle = synthetic_oracle(b"\xC7\x44\x24\x04\x09\x00\x00\x00\xB8\x03\x00\x00\x00\xC3")
+        with self.assertRaisesRegex(original.ProbeError, "changed its return address or arguments"):
+            oracle.execute(original.ALGORITHM, (1,))
+        self.assertEqual(oracle.execute(original.ALGORITHM, (1,), allow_argument_writes=True), 3)
+        # pop ecx; overwrite saved return slot; jmp ecx -- return succeeds but slot changed.
+        oracle = synthetic_oracle(b"\x59\xC7\x44\x24\xFC\x00\x00\x00\x00\xFF\xE1")
+        with self.assertRaisesRegex(original.ProbeError, "changed its return address or arguments"):
+            oracle.execute(original.ALGORITHM, (1,), allow_argument_writes=True)
+
+    def test_only_explicit_original_dependencies_can_execute(self):
+        target = original.X_DIST + 0x100
+        program = b"\xE9" + struct.pack("<i", target - original.X_DIST - 5)
+        oracle = synthetic_oracle(program, ((target, b"\xB8\x03\x00\x00\x00\xC3"),))
+        with self.assertRaises(original.ProbeError):
+            oracle.execute(original.ALGORITHM, ())
+        self.assertEqual(oracle.execute(original.ALGORITHM, (), dependencies=((target, target + 6),)), 3)
+
+    def test_base_resource_fixture_uses_requested_base_and_faction_and_zero_cache(self):
+        values = dict(faction_id=7, base_id=7, x=2, y=2, land=True, river=True,
+                      headquarters=True, recycling_tanks=True)
+        fixture = dict(original.OriginalOracle.base_square_fixture(values))
+        self.assertEqual(fixture[original.BASE_RESOURCE_CACHE], bytes(4))
+        bases = fixture[0x0097D040]
+        self.assertEqual(bases[:308 * 7], bytes(308 * 7))
+        self.assertEqual(struct.unpack_from("<hh", bases, 308 * 7), (2, 2))
+        self.assertEqual(bases[308 * 7 + 4], 7)
+        self.assertEqual(bases[308 * 7 + 140], 10)
+        tiles = fixture[0x009F0000]
+        self.assertEqual(tiles[(2 * 2 + 1) * 44 + 2], 7)
+        self.assertEqual(struct.unpack_from("<I", tiles, (2 * 2 + 1) * 44 + 8)[0], 0x81)
 
     def test_fresh_memory_for_every_case(self):
         scratch = struct.pack("<I", original.STACK_BASE + 16)

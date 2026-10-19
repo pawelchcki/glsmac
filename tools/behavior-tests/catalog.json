@@ -4,6 +4,7 @@
     {"id":"ui-interactions", "script":"GLSMAC_data/tests/ui_interactions.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"base-decisions", "script":"GLSMAC_data/tests/base_decisions.gls.js", "domains":["economy","decision-logic","gameplay"], "evidence":"glsmac-regression"},
     {"id":"gameplay-events", "script":"GLSMAC_data/tests/gameplay_events.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"base-square-resources", "script":"GLSMAC_data/tests/base_square_resources.gls.js", "domains":["economy"], "evidence":"glsmac-regression"},
     {"id":"resources", "script":"GLSMAC_data/tests/resources.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-navigation", "script":"GLSMAC_data/tests/base_navigation.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"menu-credits", "script":"GLSMAC_data/tests/mainmenu_credits.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},

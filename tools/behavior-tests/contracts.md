@@ -5,8 +5,8 @@ GLSMAC implementations exercised by the native and WASM candidate adapter.
 Agreement is bounded to the recorded cases and fixtures described here.
 Each reference probe executes only its
 verified original function and permitted original dependencies; game image data
-is read-only, data reads are restricted to the declared fixture, and every case
-uses a fresh emulator and stack. No Windows or game startup state is inherited.
+for these C++ helper contracts is read-only, data reads are restricted to the
+declared fixture, and every case uses a fresh emulator and stack. No Windows or game startup state is inherited.
 
 All fields are required and additional fields are rejected. Integer fields
 reject JSON booleans and floats. Outputs contain exactly the indicated field.
@@ -161,3 +161,18 @@ All files are captured with `compare.py record`, requiring two identical runs
 and binding every case and its input hash. No expected output is calculated by
 the case author or the candidate. Existing same-row distance evidence remains
 separate and unchanged.
+
+## Base-square resource script contract
+
+`economy.base_square_resources.v1` is a separate production GSE callback contract.
+Its 504 original observations and exact fixture are documented in
+[economy/README.md](economy/README.md). It compares per-turn base-square nutrient,
+mineral and energy returns across selected base records, positions, land/sea,
+river, Headquarters and Recycling Tanks flags. The reference permits only an
+explicit four-byte energy scratch write; return address, preserved registers,
+code/read/write boundaries and execution budgets remain guarded.
+
+Replay uses the real WASM GSE interpreter and shipped resource handler with
+controlled native inputs, without assets or pixels. It is not included in the
+1,782-case native/WASM C++ helper totals and does not establish native application
+execution, worked-tile yields, construction costs or complete base economy.

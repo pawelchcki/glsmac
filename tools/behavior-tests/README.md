@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **429 scenarios and 2,647 assertions** across
-32 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **433 scenarios and 2,678 assertions** across
+33 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -54,7 +54,9 @@ real rendering/input and read-only backend telemetry. It checks terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
 opening the destination base. It also cancels and confirms the facility picker,
 then constructs Recycling Tanks through real turn controls, checking each mineral
-credit, completion, overflow and the refreshed base screen. Two separate paths
+credit, completion, overflow and the refreshed base screen. Completion also
+raises actual base-square nutrients, minerals and energy by one each and pending
+mineral production by one in this reproduction fixture. Two separate paths
 move a Colony Pod, check modal blocking, found via B or FOUND BASE, open the new
 base and advance another turn after consumption. It does not validate
 normal world generation or original-game behavior. Browser failures and graphics
@@ -66,7 +68,8 @@ facility; subsequent turns credit the nonnegative mineral surplus captured befor
 growth changes workers. Each turn credits once. Completion installs the facility,
 clears the project and retains overflow. Idle bases do not accumulate minerals.
 The shipped project is Recycling Tanks, using its existing declared cost of 32;
-its resource bonus, unit production, queues, switching and hurrying remain absent.
+its base-square resource bonus is checked separately against original observations.
+Unit production, queues, switching and hurrying remain absent.
 
 `base-production-native` uses real Base, Player and registry code with a synthetic
 asset-free native world. It checks write guards, integer validation, notifications,
@@ -178,11 +181,19 @@ There are also **1,692 additional original observations** across seven versioned
 contracts: raw/coordinate vector distance, technology possession, weight
 category, research availability, bounded prerequisite queries and the human
 mineral cost factor without base effects. Their precise
-fixtures and exclusions are in [contracts.md](contracts.md). The total original
-reference set is **1,782 cases**. These probes cover small rule helpers; they do
+fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
+reference set contains **1,782 cases**. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
-All eight bounded contracts are implemented by shared production GLSMAC helpers.
+A separate [economy script lane](economy/README.md) replays **504 original
+base-square resource cases** through the shipped GSE callback without rendering
+or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
+checks Headquarters/river combinations in a precise synthetic fixture. It uses
+the WASM interpreter with controlled native inputs and is separate from the
+1,782 native/WASM C++ helper cases. Run it with
+`python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
+
+All eight bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or

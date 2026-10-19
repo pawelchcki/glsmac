@@ -45,6 +45,8 @@ jobs:
           python3 tools/behavior-tests/ui/run.py --validate-only --report build/behavior-artifacts/ui-evidence-validation.json
       - name: Require recorded original UX parity
         run: python3 tools/behavior-tests/ui/run.py --jobs 4 --report build/behavior-artifacts/ui-parity.json
+      - name: Require recorded original economy parity
+        run: python3 tools/behavior-tests/economy/run.py --jobs 2 --report build/behavior-artifacts/economy-parity.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

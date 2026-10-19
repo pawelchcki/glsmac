@@ -1,0 +1,7063 @@
+{
+  "version": 1,
+  "name": "Bounded base-square resources",
+  "description": "Per-turn base-square NUTRIENTS/MINERALS/ENERGY on a synthetic 4x4 staggered map. Factions 1..7; base record 0,1,7; positions (0,0)/(2,2); bare land, land river or sea; independent Headquarters and Recycling Tanks flags. Rules: base square (2,1,1), resource bonus (2,2,2), tank (1,1,1). No special terrain, resource bonuses, terraforming, economy rating, events, projects, other facilities or upkeep overrides. This contract excludes worker-tile yields, full base output, item costs and construction.",
+  "cases": [
+    {
+      "id": "f1-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f1-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 1,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f2-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 2,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f3-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 3,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f4-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 4,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f5-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 5,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f6-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 6,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b0-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 0,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b1-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 1,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x0-y0-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 0,
+        "y": 0,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river1-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river1-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river1-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land1-river1-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": true,
+        "river": true,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land0-river0-hq0-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land0-river0-hq0-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": false,
+        "recycling_tanks": true
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land0-river0-hq1-tanks0",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": false
+      }
+    },
+    {
+      "id": "f7-b7-x2-y2-land0-river0-hq1-tanks1",
+      "algorithm": "economy.base_square_resources.v1",
+      "input": {
+        "faction_id": 7,
+        "base_id": 7,
+        "x": 2,
+        "y": 2,
+        "land": false,
+        "river": false,
+        "headquarters": true,
+        "recycling_tanks": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,4572 @@
+{
+  "captured_at": "2026-10-19T07:10:41.160944+00:00",
+  "observations": [
+    {
+      "case_sha256": "61abd72f4f0b8284811aaff74bfb4b468c3df512b6029b671b2f9b6b1a9e63f2",
+      "id": "f1-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "97864126d2049468d63eaabd7c0989787b428ac8a573e260a83f4222b78b43ef",
+      "id": "f1-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c0f52fa23d47cd1c2f04ee9df27990acf156aa5de47b59a40eb8ecd3b2ae878f",
+      "id": "f1-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "31ba358878442a1fb7b072f383a8b52d8785f88120f1ed6abb45d235c7a0a508",
+      "id": "f1-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "036b8756f4506b7d22472c2eccf75a588917d3765f290f5eaa0fb00472ec6826",
+      "id": "f1-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "11eb3d42dbb08c2a550429a92628250e93ef8aa31c49f2c32a65680a8ddc210f",
+      "id": "f1-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "57766b09214dcb78a09b1ba49d2c6dee3f1913a0cb9cfacf0c3386ee85158c92",
+      "id": "f1-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b3e021cd4e4f757d6b34691562c26cb56ebac0f8a91ab2eafafe29c6431cc9dd",
+      "id": "f1-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e9ee4cc4b04815448d66a19de97fe57c9eda2807015b7a3aec3cbf27585686c8",
+      "id": "f1-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5e967e4dc7cf4b8e52fed5cf05dc71eb157a45af084d306e5584735ae4c19e70",
+      "id": "f1-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a5243893707f1399d353d56af48e6876095b1edb766875c23c7ed6d9dc40389a",
+      "id": "f1-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fbd1f4764321efa77dc6abab47a4dbd9ca8ec4ab82045d2b7c58299bdf6628e5",
+      "id": "f1-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7a9f2a711ac166aa20385894bd9d352505716c724d9017d5a810f66808ba8fd3",
+      "id": "f1-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5239a54995f15ea5c0d0f13e4b08618f52b519beac584ad8e176338923a4d5f6",
+      "id": "f1-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "07239d4187b2b497a931abae47a86d609c5ca98c6c8a45ce5c5dd232532f3ac6",
+      "id": "f1-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "40802d8b19c316759c939f5a67ad2814506f9e4b46c29be305d505dc7af9711f",
+      "id": "f1-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0d4d69f04ecdc0da644632332547b27fdd5eee6803f47be966ce88e57b378f7a",
+      "id": "f1-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "819ecb91792b530dc853ea807ea659ab3c45ae876537db6fc1741b6b73565bc4",
+      "id": "f1-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a8ea7737f0cba8f45310ffd6db55470f453d77d59e6249c0fa84f024481edb52",
+      "id": "f1-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "de665fea39ff541d86e73fe4c7dbd3014f931a3ec921300627b42659bcb8a7ea",
+      "id": "f1-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "25454fd37cb6e139510d998787783ad9c8ff7d26ce2ef5e4cc13aece2376cdc6",
+      "id": "f1-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "106d948ccb70a8bfcac291daccffbf9b3da4e72e2f3a49f681174c155b5cea09",
+      "id": "f1-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2f2e899d8da4d70d3b5606d67b038b239da24d34e449d119746af80adc2012ab",
+      "id": "f1-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2746070255ecd980c1d6d7a314305669b88918485667b4bbd69a9ff3b0f88dfd",
+      "id": "f1-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ada16a858d624c1472cefe93e2ea6b88242daf7f897883e0507078a23aa5be5b",
+      "id": "f1-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "22c7481b356f21ff6fedcc7acbb08b8f1b8fd3c9b76af4a84e9c2a404b80f490",
+      "id": "f1-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5e6b99f572743e2acc4b7f22a57c4d5100d499521bf7725c399f45f20d9f46d7",
+      "id": "f1-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0416c6bdfa2c96b27b6fa392e140b4c4adaac39e170f995ab828e10106b9cc8d",
+      "id": "f1-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c99d85ebc583298a70caf9cf0a97eec84a8c3d180e7b2da54b81c4d0490d05d9",
+      "id": "f1-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "218525a50b19865b7b1020c1f38dd607fcb629febba06c907ffb3048fa1a7479",
+      "id": "f1-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d0993f87801ac85a85219de7e709809381e19f793e6c1683e9a672447e591cbc",
+      "id": "f1-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "78e620f0e55f6bba430b3b41ba2f7004d032422f7a108ceb94db43d8f338360d",
+      "id": "f1-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8964fa2e2355d718deed7840b90b1a67796c630fa00b5b42b8c2a0799449aa2c",
+      "id": "f1-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4b43801ca1ca3c83de5aee260fbba8a7fdc2df99329fe178af511c10c43c1f90",
+      "id": "f1-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "92a69fc0e71e5d12a7a37567ea63594e651a52e7f3479777ed6d9129a2935e80",
+      "id": "f1-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a9953b33abccc0c3cf6e46f61f37776ee758d79689202dcd1cf494f79551ed37",
+      "id": "f1-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5f5c022e01697edb1f34f699f89e1c27c58d4c36ef0111d79fcc6cc5dea54523",
+      "id": "f1-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "14a013cbffd8e28f0e7d9c68883a37656cfa3e8825edcf6e40d28ce5c9da2692",
+      "id": "f1-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "67d4eed915d4ff6c4d3c70a6310f8f03f4506e0e59cc79d71c38c53834db539f",
+      "id": "f1-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7a3b1a3033845a0390968ee0b8f28d4988cb904ee86759055d5f5d1672f34b91",
+      "id": "f1-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9e553055fcb395243c619867f355cf292a421823df7f4ccdfd186512c0351d71",
+      "id": "f1-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "de45d0704a3d571bb356568e78e4d8c390dc9d53c98dca9586c087408fbbd68b",
+      "id": "f1-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "35c316d08457866594f21c8f8e4b943be103b48e9154d014eb8eb9281e2ef7ab",
+      "id": "f1-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "50a9adf7e48bd3d7373470a86b75f0f1f9ce550c2f90eea43d1ae7dd63cf71e6",
+      "id": "f1-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a53bbd02283e5ab19ecb4a37a4cda8c07e642f735f52d320fc3335f8d670c861",
+      "id": "f1-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0c7909a5680a496625996a487aa345e22751e0161e83842cfcd81d36f6768aa4",
+      "id": "f1-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "84580e18842d16f4be7b97b0af70515dd622636e1c416aeff6c28fc3423b5d89",
+      "id": "f1-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4ed0b9197ff59f15ae9508c4c37344619fa11f1c76a77063a8a0713000cd59cc",
+      "id": "f1-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "17075ddacafe99c9600eb931de635bda58737888bbee65aa5471bbecb611880a",
+      "id": "f1-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2b76492d37049dc05a4e150683a8ddd1a6ab2df41dcecb2d64fd86595d8b176b",
+      "id": "f1-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9f72ecf243a3ee44950954f6170ca8f94d64da5f80a4633f1b1e034d66278007",
+      "id": "f1-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "35c4e1089283b0cac16f3649d48e09ab0be13b2587cfd3ac3a2748c336c4a07f",
+      "id": "f1-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2551d4533f08742063cb87f2742012ba7709e6c0db53efba0a04c429d0dc812b",
+      "id": "f1-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f39026822244354ababeace34a6e20825ba15819971696f6865407ef633dec30",
+      "id": "f1-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "445b97525df53448e7416a3262f0e421ef13b459a8bbf20e26595ae067acd78d",
+      "id": "f1-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "80f7df42f8cf7c7ba8b65426fe86c77a1a102370a8db0d7ac51811e7b6465af4",
+      "id": "f1-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f0a0555da8d0b56ab69ed16b108ff1f4903d13ff10e719ce2a6212e80bce3ba4",
+      "id": "f1-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4ee4cdb54d8334934bea66b7287acbe0f0e5b7435b4f5ae5b275c2d5229356b9",
+      "id": "f1-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1c27bb9aec930e672b148cba428f6425c92180d92861b0adecd706f988127bce",
+      "id": "f1-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d5b0ba34802d5d0f9bb3c0bb97849176df2f50c1fd5f65d768318325f2271488",
+      "id": "f1-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "207a48084f1bc2a4b42e6dc9eda3ced1452eea59d6e7139d64a2da408b631b01",
+      "id": "f1-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "37f605f3da3814850e4b7c6a33292ce6872f72a9fa904f187a91fae7e84d4e8e",
+      "id": "f1-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "6b1de57c9231317a00a272f8be3118c57cf4b298d8c9c381e5aa352b4b64adc5",
+      "id": "f1-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "02943dd020c7666debb8a25ca574234f8fd27987caee80aa165b6499e36436e0",
+      "id": "f1-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "36f831a23fdc2bda1192d18f4a52474ec15765d64f29b4f6f648bda4bcb499ed",
+      "id": "f1-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a06e77ce8a0f9f30dc80488cf10ad0804b7241b6e71d6e9ab01980b4510bdb51",
+      "id": "f1-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1d26ec0c0b848d2cfee965b5fc2bac6934fcc57f8bd3fa500339c7ec800ffe2f",
+      "id": "f1-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "53a7003c0f11993afa7f62170d2aa0aee2e6d513b5bbd6011a0decf38df20293",
+      "id": "f1-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "89d559f1e13279fda63b95f609d0448b218cd9a975384aa8cb5504e43bc3f182",
+      "id": "f1-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "787c912fbdc441ea6b2dc712f20cbaeef36f7156fe7bf15bece9526d05686633",
+      "id": "f1-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e361defb2b5ddd81cf8113b1d1922b9d9142c93c38596d6e6e26d708d9b8652c",
+      "id": "f1-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fcb206314fc670cf703fdce608160ecbb9ddf971190a27f445cabca865a530e3",
+      "id": "f1-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "24b80116e1a31feccb3dd87cb97bbc13803cce1e480447838e3f814cb6f5dc4b",
+      "id": "f2-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e7d8733a0133bcfa870b7e867994ed1216cde751a7ae51397c5347e9fb26f9b4",
+      "id": "f2-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "21388e9644eb5dacfdcfe290206ab171d2a2fb2a406be9a978a97952ee0dd6ea",
+      "id": "f2-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9fe4dc72cd5e7eb793daeab82b875b653a8b15ee74e3e6339cb26b8cefdc0064",
+      "id": "f2-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a194738a6f9fc39c3cee1be90324c49029b20a506553d1f8e3d1b8a9955c116b",
+      "id": "f2-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bb4ae9984e5c1597aba6687b5106852f00ae9a19abdd7f51c508eab832e0621e",
+      "id": "f2-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f50017cb7f2075dd97c188c6062541c00356b5d5b28081a3ff105b8821ce94fe",
+      "id": "f2-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "34e351b86e3c5bcff0dfdfc2bc318f3cb932507af84e7ac44e55f7d7cf419de6",
+      "id": "f2-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c4edd967f50e7d32deb29d24378f08ca260a51bdf69fbff76b995df114b0fe91",
+      "id": "f2-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "419c8476e15b79d67145c4ce6713a3c62d432608dca3a910195106a4a24844ad",
+      "id": "f2-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "cc13ac47301fcd6961de3282c1743b2b87f0ed2ef9a9ca4b908c1dcd77572636",
+      "id": "f2-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7e7d2ae852373c9ccb6f1268d0475b4995461c62cfe9c53750e4e293b0c8500b",
+      "id": "f2-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "89f81474fbc1b3627afb624beccdbf9cb96f9c61554bb2ff88d764894da97bec",
+      "id": "f2-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "50292491b75064d435bd404d73386e0cc427bc6178eac105065bfd7a034a4e6b",
+      "id": "f2-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5920a57ff60e2901482dabbd1c06df13c6139c5f082f12711da773f93449b7b6",
+      "id": "f2-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9df43ba5843ebf8cb3a2fc0fc20df8ace98c0fcbd6cd3f02d567538f9aa1a6d2",
+      "id": "f2-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a6ad317cf4ff152fc3ecd9a0b65477e0e9761d71a9409df84857b22beb742c88",
+      "id": "f2-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7ac737b041ee2e483a78157787956e68766e0a72052536a26d2de0947f9d9ecb",
+      "id": "f2-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2370b3b21ff95982e63929842dde74237465ce16857fa04b6def7e1574db523d",
+      "id": "f2-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fb235af6e1d10fc571af13cf49c2fc0273337e3e5cbd3b550548bb2ceb787981",
+      "id": "f2-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "79413f5c787cce9d797bdb15965b219604482768944c94e7c34740bdc631e994",
+      "id": "f2-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "29f46914a8b5dc758e36f1683b8e9f73a9f12e4243d53877b10086b94c28a36b",
+      "id": "f2-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1796625a56e9bf6db201ae9fffbad71c482f6318b6257878e14d11d2b408f140",
+      "id": "f2-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "03e714ac6b6d054c98c8da3ecded87bd3ba8866fc19ec20a6b4edc9724322c7c",
+      "id": "f2-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3d8b196251e2d1694538e48da9f37bab11d94f2baf50ed4a0c8f8017848880ac",
+      "id": "f2-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "50e71b7dfb81d4a793a59e58e16c85e89b00ca1108263f182df4c8c6c44e7023",
+      "id": "f2-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f28a5258b67a9ffa380c3db22ebe2b1d61f5dd459820a082c796422f339b8c81",
+      "id": "f2-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "905b6781b140fbc32381890eccfc8943add1d939d198d77f3bed491ab282bed0",
+      "id": "f2-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "931d6e669203a94c14536dafc9687c7fe125f92bc5e0cd503a86bb6a416c39d1",
+      "id": "f2-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "761e3fe9bf9c27664cdb19f5cc8c8fe6a279a6e6241f3203f6237b1912d80dab",
+      "id": "f2-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "66074a741e546c961d80e64cdffd1fec9f8292aa39733c4a1be78edb121fbd47",
+      "id": "f2-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "572587652d28b28c4a40dcb0e15a686e3aeb3998c1af9b6c540083c998fe890b",
+      "id": "f2-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4f4bba36c02640d3b6eba2daacff6bfa2d3115d8feb43661f2b1f508c4ea36d9",
+      "id": "f2-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "aa0a3ba0292ce67b3b92380ecbab3012c45a2f2ee5b4e46efcf41d2d02d624a2",
+      "id": "f2-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e94887a4d917ae025a8b574f0401f533b0601f1553ec88895fb8816c8e0a0a00",
+      "id": "f2-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "13b8395c5a7d14299b2342c1e603810713e63ef9ea8512ed6cf88dc82fd57e5e",
+      "id": "f2-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d56b2a37d46990cc10261d333e264f827ac8caef250c60f2083f00a6540baf82",
+      "id": "f2-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ac06f0a5dd40c3abb573177cd9a5bb962b85cffdcb7e386a88ceaa5260effa63",
+      "id": "f2-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "01a33ef5de3788e74f7a89801eb283b35a26df429d1484f47a9c409561215fad",
+      "id": "f2-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "56deab6a2b86a830709ebdd9d0d53de043a4e47a5db9bfc062e8d299080ecd80",
+      "id": "f2-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ae2cc6477c58b1f9b1b0c87396ed7b5119d0786e8243d9dcea0f8fcb94b794a5",
+      "id": "f2-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4086b5f3f3e77e11a832285531c1e5b76242fff226fa1bf6148b6a6321ccebe6",
+      "id": "f2-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "35404212f900cf8dc1fb61d65785c8bb19b280f35fb1488d3867d91c0fd8aee0",
+      "id": "f2-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a137fa4bcb83c132c6436620160f96ad14a5969acb6904d433447518738cec5a",
+      "id": "f2-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "29f1ededafdcc6a7e1f6795ba45a189ffcb6979d167e2c051dbbbf207da55e0f",
+      "id": "f2-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5f855114d8b9627660f671166830c617fd7d062347138a8b2549b95535248e03",
+      "id": "f2-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "247bddb6dd0bff6826622ec17140e294f15617111860a83defd9d355055b11e3",
+      "id": "f2-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d4b1f3a8e1cc5bdc6f0dddd279471315c158bd05685e1a6ab4bd73c47801ee0d",
+      "id": "f2-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e7efb8eb189523146bdaad60c584562887fd50bbc4f4e6b48d84ecc7423a57c3",
+      "id": "f2-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1c825d6124664b0216fee30a77951fbe8ecf00fbc8515ab502318783145f3966",
+      "id": "f2-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f7bcc06a20fc3f2dbe10f9b190434748fd446bb1d709b8b13dbe84e82908187d",
+      "id": "f2-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6e6bb54b2a8803858b9da291919e29990c4d817d5df639242af92cccc9828e20",
+      "id": "f2-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fd96896efd85f2815c9d2e25f5ae2a8c37d98e5cd39ae0c1a723c5dc5589e076",
+      "id": "f2-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d4b263439c9e1d9edd84276675f65adc937aeafb73c484e9404bd5879759c710",
+      "id": "f2-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7bfe03106656a2efa2ff482ef80c341bb83f742d6b76954399102ac140de701d",
+      "id": "f2-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "af086bac076d89727cf2391f0401f6be23b3871fa0421e4de6350a39e03f7782",
+      "id": "f2-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f8ef30954d18c246341887e766fc7fe4453aacc4a2de5545a8da5696dba10d0c",
+      "id": "f2-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9c1db805956cf173941aa7d21ce64e2bc7473aa60bfa4f29d3f6ec605b784126",
+      "id": "f2-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1568ff15ae260fc1cf1019d3f26aa703727cae49427988f3d9b88d3b1d2f882e",
+      "id": "f2-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9f48a0c9162542686bd2f411162b3a527eb83e277e1390c8c110d6d1daf32110",
+      "id": "f2-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "92fd0344c1933aefbf7e3fc81542deb3bddc8d63385df0978a3b742e7ddaa651",
+      "id": "f2-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ef67e103ef8d655947bc838f4c48709c587b10066a26e1d20174546142aa9f62",
+      "id": "f2-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b39cb6080924cb039c778207ce1b5842876be4ab422b81dd3c560009fe2f24ce",
+      "id": "f2-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8fcd68ee3e392cd42fd85d9d32f601edb55db852789905999fe6ddf7bce01920",
+      "id": "f2-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b7e4351c6ee8553616020dcc844d8e017a717fd786f6549df0caea0ce49dfc68",
+      "id": "f2-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1ccfc048aa6cca773d7186baba0d81c394f25f6447bebd28d85014d3452e37db",
+      "id": "f2-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "786bedbecc0b2bfaea3108641a22100ac1709550329ef869f5aad9fc334c5c44",
+      "id": "f2-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b2a320b31c2d49fcb0a77507820b2c0b9c990a05f29e99fd24d1d636d56b7404",
+      "id": "f2-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4258b6e60755a298bee46bb9736e59091609dbc56fb107ed80706c38a3527f5f",
+      "id": "f2-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "94d1bf3ec988dab01f2e29a8602ceb2f1022926f3600d053bf680415daeee28a",
+      "id": "f2-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "df2f2d729f0f1fe07ac491b43978636d76869f0d69b786a59a11f10632272df5",
+      "id": "f2-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b2fb4ebc15a39f71364b0f17befc0817eb2bad4ad656df0ae17c2c860c31dfa3",
+      "id": "f2-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "41d92a03a1390c047e3991e617a75c7892fef64c058de90f9b521fa2f4541f56",
+      "id": "f3-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8219ac7bc09a92f5b0af45c2d2f972bc726f21d25353584b1a92259832e9d45f",
+      "id": "f3-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7600140e4001e6fa77c084457b2a0c707c18eef1722e091f2987eaf7b386b761",
+      "id": "f3-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "146354629f11e417c115857ed43588fc12554c4e8a947d4b7e76412f8265623f",
+      "id": "f3-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3efe9b5ae4c98a40e497d1957a812cb4359872bfc6366f2b3b675f7e4a9b585c",
+      "id": "f3-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cf27698b542921aa426403f3ccd8192280b22767464a2de55b6f6ac2e0606ef8",
+      "id": "f3-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "269fe3a52bc67d13b5dbaa647ed88212f03a28bc30e4203d7d297fb8e18abae1",
+      "id": "f3-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "14d726d0e5b3daeda1d82f0c595ad02b45503381e584227b2bb07f4fd07afc25",
+      "id": "f3-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b2e3b81de4c1de9c84e2ffce0c1a8a25709cb3ae2d6f01a576c8fa74406bb0c4",
+      "id": "f3-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "863e42ac3a3d7f7af3e31b26b1cdc267fce3a986d27c890a901e26be0e922c89",
+      "id": "f3-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e8873e1cf43dc5df16d800c5a744389691a195a6afc41265cc72fb6693763c80",
+      "id": "f3-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7239e2093db60daa8a9de59f51e146bbccf82c0207f0c53d3d445d031be87b96",
+      "id": "f3-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c870b71177527266ca60fe17451b73b18530f2fb4fe8fd5ce4eb683c9582244f",
+      "id": "f3-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "acf1840ddf81dcec2e951616baf016ec79c99f963f6e22851f272d310d1ac679",
+      "id": "f3-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7697ee98bbc0aaabdd2129d001760fb5dc7d7d7b11d0bbaa54e9c24947a9b7af",
+      "id": "f3-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ffacffc6d2e5f03d5c9f35af3fe864f9be9eedf29899df637c9587b5f46d20cd",
+      "id": "f3-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "68ffbefc75792e9582a6740713bfae785e8c776423f67acb33db020aba034fb2",
+      "id": "f3-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "44ffd44aad47c1db1f61d08905f3da3276dbc999c97f1469eda7c61c920a23f1",
+      "id": "f3-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0b16ce10b780fd63ed0e44c4d2e43113c9eb1b2e413d9bd5393eeb5180499bad",
+      "id": "f3-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "242cd7772656699aea5f187e6410dbac5df89b1920f9ac3934c3abe031d1fda9",
+      "id": "f3-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "49ffe405c77865160c8bcff62dd83e76e39ed3972cd3191c4e0698a6e5544b2a",
+      "id": "f3-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b0907d33937d549e84219529472d0fa41cff2dd3d63509feb2066ca4324d1547",
+      "id": "f3-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "94da1c22787fcb618e412e5571ef8794f9366961a7690a25a93a06c72b9024f5",
+      "id": "f3-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cac1dedb752fadba15f7672b1aec8a088d0b1b3cf7a22c193083dc3f8aad63d9",
+      "id": "f3-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e0bbd94383c569a3c1e3057e5e32f1eb29fa1bc44fd89310b83272f2eea76d2f",
+      "id": "f3-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7718b82cc9bab54cc691738c067341b9d53db68425b170b8218913891c3c220f",
+      "id": "f3-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f40e2e2109a94348cbca1b5eca7473878dd08e33bb3ca54ad3a55c5e6dc8e52a",
+      "id": "f3-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "129bb189f5daebf9eb6b1db003a2026abea5096b95feb605b240081820eaa71b",
+      "id": "f3-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0c71173d3f57a5b884aa4f8028c32f63a10051a6472d2ebaf54dca4defe1d6eb",
+      "id": "f3-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bd87d2d79febff267ae1bade36bea15de87985ded526904308fb9dc3faddf120",
+      "id": "f3-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3ba4329d58fbd88864be4b27d4d6eeb5cf935a57eabb82d78a9dfc935a0228e0",
+      "id": "f3-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e388a2fc8d9973359ff7f92c4d8978acd00921edb34b806f59dcf9fd76dd1f30",
+      "id": "f3-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "02306022797da7c0749944289a2b07ab79b50f067f14a43682e2bc51788632f6",
+      "id": "f3-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "23080702946632c5d46427ceecf3734719d7c90393e238c89a5cdad0d2a12529",
+      "id": "f3-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "da44a010be8db2940330576eaf6f3589725922566008f64bca269699d8de2b82",
+      "id": "f3-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1f9d041e85acac988c4d7f64d27cd32246e420900a2896168c893e3f46d24a27",
+      "id": "f3-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "14c3bf2c05ccd96d26e8c27a466291fa8fe9767d9fdc94acc917439868a1dc1a",
+      "id": "f3-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a14c5bdd3142e2c277b8e1a6b6815ea9825cab14bdb1d5276e7c76eb6ff18f4f",
+      "id": "f3-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "83e3991df245b4206142d4d1af850a36ac86755caaacaf2ed0394cee8d7d2795",
+      "id": "f3-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "18566f5b5c4940a902b22b15e723d0e7b248f6995cc974b54f46c23130d0ef13",
+      "id": "f3-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ab4615559167b0d6a8d7e87ed259232da6304390c0b5b276daf6853616b96503",
+      "id": "f3-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6f58f7ab2dcc4de88eb3325bfbdba255fd877a18af8b94fce078083b105281c5",
+      "id": "f3-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "41df62619a409ca06fab09f78f99bdea2b1502be068d18c3d47123adc8b80720",
+      "id": "f3-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d6d27386675bad6590bbcc221e7c3b5c201e9e5f163a266e2a1dc55d5018f7d7",
+      "id": "f3-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a128fbf3ee018561aa1c28f7ccb8238d4476a19ed69a8e45ae8bbbdbb6831d96",
+      "id": "f3-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e0d3de83483be4248be95904fbaaf4559c8346b99482e5886a8b24182fc42142",
+      "id": "f3-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "53fcefa50ee23026cc483fce029bd582d2fcb37cf3222fc60e394efed4399a70",
+      "id": "f3-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "74dcf97f4a2fdd6fa419ec0c07c506be793aef7df1454eb2bbd495faa94eefc9",
+      "id": "f3-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "61b3f8832ffdb71187bfb390359cba324137e7c200f577edf3c667be0983eace",
+      "id": "f3-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5d58df15f53b7b38a93fa2463463ffe24924a1657b720447daa14d5cc8795556",
+      "id": "f3-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e45015b5221a425b9df8c5914f672027f90421ca40d37318eb4afed611736788",
+      "id": "f3-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "44c643b34c5d89f4d45aab9ea3010671dcb89e2c1e69f952ac3459d718511a00",
+      "id": "f3-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0f770d972a295f73dd97c382f9b277ebabf7de963c85f9f251f9822e53eca958",
+      "id": "f3-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b3a5912a236b84dcc484b87087bef7f86f648dd0acd7f9d9a14572397996d8e0",
+      "id": "f3-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d1f2e64db8e7e907548694bdc12f2880018e835effc3296e3df202bcf5333661",
+      "id": "f3-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "00c751c21bd1201185a532b0781f388356b5d1c46dccaca80f3f651f0cc05e49",
+      "id": "f3-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d4843a78e35c45a9bf54f1e883010546bedc7ac5dca266d107ff759b18021e06",
+      "id": "f3-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "421678169d05b2a696e8c142184b8d5a29f0f83bc4cc6cd755554d579000c3fd",
+      "id": "f3-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8c29abebd0d8c42966258af1a16c54f88d9c75f796921877755b856f5915bf05",
+      "id": "f3-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d9a6f1b9dfe41e96bffcdd7301226926d837e925db09828e04a13d58b4d1aa8f",
+      "id": "f3-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7bea1edc54d5746426315828e014d3bec6b81f1db2d0a2051c60dae46e6f95ab",
+      "id": "f3-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "242c25fe3a35c4f49a7a39ee0464f06613e93d576a10f31934b0ff3b0e45f25d",
+      "id": "f3-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8500f68b25ab47292b909742dc4e35ddbe6acd41f32a965b2ff63bdfc673ac27",
+      "id": "f3-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "12ac0609dbe1e5622466cff4fdf7fd61600cde84db8f071ae8ba65ec56d01bca",
+      "id": "f3-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ee578b002119b6c2d77faafcb9a1a9a5807eaf404796133bfa758f1a679a3e18",
+      "id": "f3-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1c31065f6c307954594002dd5c5fd0bb55aedd327247af5290189faae78de3f1",
+      "id": "f3-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "815ea5f4a448ccdea1b1d0d6a905576ce598b0464b646468d9fd75d5a1ac818f",
+      "id": "f3-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "36d36105559656b134074b4846591a5c9f18a54a509f229c070b7b5687474f34",
+      "id": "f3-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0b698c95840a44f865dd9e858b1fe0149a37818f04f86dbb7684fb8e14666d8d",
+      "id": "f3-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "815436fb8a5dcbbb1ad907cc25ceb6e4e9742b4d2ce61bbd64f8400e899c0afe",
+      "id": "f3-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2a5c8061e9f51e0c66306211083176e9ac29887e0562fc2a1e206b298d1cdf3d",
+      "id": "f3-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e4a771b1b71db70339684a75cf5b40b5f984e9e13bacda841328e185469532e2",
+      "id": "f3-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3033e827c94f0682ffcbb591863c7fca2c6ec7844885b45762bdf11d113391f1",
+      "id": "f4-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bcd11a4338784989b78a906b30b68a49bb41d33faad48c9a79eb9fe180357d0f",
+      "id": "f4-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ced09bddb0a96ea3eb08156090a7a892e0fde17a589e9bcb9c8adf41a7b52efe",
+      "id": "f4-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0b62520b06a9636cce003eb9accf7f84116ea755d142f77af01428aa5b6527ea",
+      "id": "f4-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "751020e9af3e8201858ed2156fa95950f962a0d076e34e005f208ff834cd5984",
+      "id": "f4-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3c2538e82e96542d1b4bc1232024e7372238b517c779e102628f0b67f86badef",
+      "id": "f4-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "75162ca23587c86df903a57f336796bdbbd77317e694a09085acd6c98e3571ca",
+      "id": "f4-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "64c1e36c07ab96034fc5823884ac8e9138138619bbc6728e4c73ab9bddb8ce84",
+      "id": "f4-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ef8838880cfe28fcedc6758f89ca24d9b25d0494bfa8dac911388b466fcaf90d",
+      "id": "f4-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "661dda304adc9e3f00aa7bc76ba0a69c96ace1bccc11ce15ff6ba7eb7c88ae54",
+      "id": "f4-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "97ea91f87fd723681ed3142671ed41eb61472a7f28a530ab56b5b83d67f43872",
+      "id": "f4-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8fcb446f97ab1c94939e03923432848834df747bf7e78522c463888512cc0795",
+      "id": "f4-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f711c97c7fef8f62613c8484428bfe6a84e84d9bfff002af86721da53f02c2d7",
+      "id": "f4-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5cccd9b433b640fec76c19aa22e758abe9279d1a59e7f4f91aeb75deb1b0f5c0",
+      "id": "f4-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e88f490d4e67022b193cd3557b8581eba3e857461d3ab1266056cf6720b63756",
+      "id": "f4-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f5d557f4d244c3eca1f97bfb1d00d8eff88ce0e880332ccff8820f46dc58e391",
+      "id": "f4-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2f2a83f61ecda7196e8aebc30672aa9bc1067c6192879d68eaf7745f9a582e83",
+      "id": "f4-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e476d6951ec4e45361648ec0fa3af80d8352f7a8a40e5a2ff8533084c2df6971",
+      "id": "f4-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "94d105253d5122941b99c80a1623fdfc2c92eef2e017406fe44ed0b73f7366b7",
+      "id": "f4-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c2958fe82cf72ece9d99da18e869fffb6b9cdc9efbd515177b9a63f46bb50b64",
+      "id": "f4-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4fe672b3193b4ae2d89e8801781e65ed9b5a0deba28f9f50a91c673c1ecf8cd6",
+      "id": "f4-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3606cf1c2704f5fbf75435fb5791147d3f4c11fbcfe63e3ddbc499a2dccc3a1d",
+      "id": "f4-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "af8a7f41d6415837bd9a3eb3d219febc7d19093198dd84e2d7a095e1863d433e",
+      "id": "f4-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "68523656c5695d90b50ebed5a5f111d745a576b42d7b295d3856dd410a61bd91",
+      "id": "f4-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b1152cf813f7531603f547acfdf00a0a66106dc07737560564e33b9d1d41d2c1",
+      "id": "f4-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "347450d8ea6e44bd2bcf8f1a9c3a9d3f618bd373602d984ad8f0aeae25d77b82",
+      "id": "f4-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8dffeefed23deaa1e8e80c47cc3fbef71a5eed6eb9845cdab9d31b601e280dda",
+      "id": "f4-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "622bbb10d552c12f61c31150cc2631af0e9ec72763b4e86fc654fe2f82f8a231",
+      "id": "f4-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fe831e000bf8c15dc265876ec0fafb4f42517b9429eced392cb318749cd2ad11",
+      "id": "f4-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "36a1fffc9aead701d70ac9361da2699e327f0aca4779fead265bc6bdf3361607",
+      "id": "f4-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "011212fecd90242358fc4ad18c84b6c032f983a53dc22bf13c46acafbc37370f",
+      "id": "f4-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d4a62fbf8fc50d8188ea9ed632fcc9e45fda88018bf4fd9e3d9501544b857e33",
+      "id": "f4-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "946601602a481d6dec070c7772de9107303c49f1451aca3a498da48cd75f5d96",
+      "id": "f4-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "140f952de8cb41f0c0df7a69486b66947c85e1e8e9a5555ffa64e403386b4b81",
+      "id": "f4-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0015915a4747be78d85d0db84ac65a9870ef5d6cb409802df03c70e73f3d63ac",
+      "id": "f4-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1f9f6cb0a8db5ff1f5c568e5e96c3b6186307bb5dfc96addc1360de3a7ad9cbd",
+      "id": "f4-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "cdf627450122759780f33beefae3bbe6ffb4a64e479922dc493d352cb02548fa",
+      "id": "f4-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f81ba7d4ad3eb6b18e6f77dae43bac4036cf747620ae223ee1135a31b2c0e301",
+      "id": "f4-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "68a2181d3619c5c5dba541aaa072bd7e230edb1c9e520bff0ef650f4966f7020",
+      "id": "f4-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ec4a228ea9dc23be4e5d9fa5a17446ae0f8f5e5e7be7fc2d866832437c9a456f",
+      "id": "f4-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0464796133b0b528ca5eb487bd0260d9e415ec034bc01ad4e8a2b7a5866badc5",
+      "id": "f4-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "86d44bcd95d27979656f768bd1bbde99a75f4b6723d729607465fca925a5e774",
+      "id": "f4-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f41ab7bac155fc0174e2d150464aaba486c1a06b793cb8385223492613f22ea6",
+      "id": "f4-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "991733cf663b89875bfbb14b5acd349267a89387a4f446160c75ebdf962587b3",
+      "id": "f4-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "6de98c1570e080dbf4e8044eba1c4d528ed27afefe2a955a95f0ebe7f886d75d",
+      "id": "f4-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8dd84adc18d2fcfa4667cec9f9f20f52bd251e2c0e01420340f847a9b3ee8ac2",
+      "id": "f4-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "379efe5ee08c9c8f056ecc7ec24d1d72d8502500de9af0ff7cc1ef6e7b004418",
+      "id": "f4-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1f858c445fd0a941dcb23427299006b94494a13510154534bfda738b7ccb3a0f",
+      "id": "f4-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "36f24fdf6cec3b28f6556721abe6b8f78f8728a04923af5e0601ef847b5be0c2",
+      "id": "f4-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a77050721e4077396ea0c22bf5b5393e5a1b4314de4accd2e3bbbef95f401e6f",
+      "id": "f4-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1e811ca4db876a5187ca2a491a8e3fcc63ae99082359c1738e3fcb504cc86d2b",
+      "id": "f4-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "773243839bc2a1f1db17da1d50f38d82e2758a5f00f63befb66969e4c8ce4d04",
+      "id": "f4-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f6d2bc561d01a905fb9f10999e2284011f62eecd305feda0575ecd006c3675b6",
+      "id": "f4-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fc760fddf87b84a3eacc221bd0588d407941e5e83df7b13bbfd16b4161375851",
+      "id": "f4-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "545ee3386d20ac1ff98438d0020667eb84e97711f803866b41a66fb2ba1e5357",
+      "id": "f4-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3b8c90d551b26cec9cd5bc841ffb2fce511833d917d8e672619b777632b72807",
+      "id": "f4-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a6d0f64deba3a9acd8974bc267f8ddb4555477ce51150927cf92238dd6bb0b48",
+      "id": "f4-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "56abcdcaf9cb53c68e32d7e43781e4faf170ac9979d208bc2ffde6f18e0a4937",
+      "id": "f4-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fbbc7b7d3f59d1fc6facf79cf63bfde9576dd207d2442ca9b334c9cfba5b9e70",
+      "id": "f4-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c018b3459931081144aae53cdc5377006c247f517fbc89442171a44c51edf50d",
+      "id": "f4-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "44ff9d2e42efea8b1cf2602c5247789a2e7fc49e2edd45993637efc7d473c666",
+      "id": "f4-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ebcc1895c57676437a7d8dbf88f400bad8186f1d94871682917806c544ed2bc2",
+      "id": "f4-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5c5a9c44a58152504c8b62be0e716b96ece2093d43bbc0803e020f377040e374",
+      "id": "f4-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7ee40e3a653c67f350d5b2d8b54e2091ecd91e4b1993a77e89e3621b408c0f06",
+      "id": "f4-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "62cf0dbae37b9633fe905a59f986329fc01cbbdd663a61dba1778e3ce86d274a",
+      "id": "f4-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "47e09e26e842875f9276ac9a1adf09a9ee3980d31ee307a99fc27da14868e931",
+      "id": "f4-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "35a06676e910379124009b07e6b24781ab02be4ad2813e289f1b3c2ed2da7391",
+      "id": "f4-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "20953c908e9d6d2d0fa14e038233c559e10ec3024132aafbd2ed823e84bca24b",
+      "id": "f4-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ab334e966732c18fc3baebd60a7657d318763b99fe314a07da1c113ea9345c3d",
+      "id": "f4-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fd5ea459a20e38d2a4b203569cd056165fccf79565e9b096272c08323162514c",
+      "id": "f4-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "dd35770c1d014b2a41b01fdb914773a9cb224e129f27c8399bd6c12265efd4c8",
+      "id": "f4-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "83f73c787ab54edc48d483bb3bf769852ec07e910cb9010dd37bcbde37c9505c",
+      "id": "f4-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9bbd5525bfaeb22195c31181d2af30e4eeebbcdd774679937a02437760d80a39",
+      "id": "f5-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c4cf63037c21dba1f54c3284462db999d93a55108a81b4b5d5e8d253dc00fd8b",
+      "id": "f5-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3f0eca6e6af14dfa2b4d37c0b5e3a174fc582e437494ff45f30fafb4e0ebfca6",
+      "id": "f5-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "59fd4207162fac0d98633b565552719eaacfee018d299013f0c78a3914b3d991",
+      "id": "f5-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "05cc0e3ebb665f4eaf26b82ca4dff2850d6e9dc96ceb69ab605f0f55e725fbad",
+      "id": "f5-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "00c9a8adb9029b34c2cdf9531bbbbfb67d222077bbd5a506291c723752070160",
+      "id": "f5-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "69b39eb8474330db1e4ffa46da2a2e80c7ef7ccdd8484047dd9ba7a68cb20f5a",
+      "id": "f5-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5d7c3031a02397dbf8491cb55e6520575ccfe8be7daae1a730f50d6bd93838f9",
+      "id": "f5-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "cf5b61f0ad445743c7312d987bd7d9fd942c13b93c3c9389e92b2736a076741c",
+      "id": "f5-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f413708b0947ffa082dc0d3c91ba100c77a6cc8fa43f4815dc37cfa2a891d74e",
+      "id": "f5-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9f9593b62b90dd25baf8b0a2cf214bea57bec871c1aac6c426bc319f66e39bcc",
+      "id": "f5-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "490ea2eda1f76686aa231ca11bfd098ee1cd5a50bff1a99430db9732f95953d5",
+      "id": "f5-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0441b26a93cf6bf898463bbbb1d460ad3fc7d6825aa7ea48fa061531744d2c39",
+      "id": "f5-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1c9578b1aa4df00054e66c07422bb4d218b7ef8fd6f00227986e05a2cb91397f",
+      "id": "f5-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "98d6d2cf10722dbe22976dc5d8273197c67226953515bf603ae364131fb18b00",
+      "id": "f5-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0e19f3b70739065a8d7e0138af3083ed8d30635fabb5fc2cae7c8fc59dc611a0",
+      "id": "f5-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "094c72f98658c959f057c0f1a99f92638146a0f6aa62ab1f3ff11deb66881763",
+      "id": "f5-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "08650bc64a4def2b8ecbd4de7c49ab72a405b58d8a7dba72330b85f9899febe1",
+      "id": "f5-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "564045a45749cb3ea6aef7276ee425c28bfe78d6ed04fdc355109de2cf307cee",
+      "id": "f5-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e5b4fd9fb4a7f1d8389c456b7270219291eb090ed04c40e93316c3800c15950c",
+      "id": "f5-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "809a422d0a33522c5d4bf48143ce4846337daa508f9bfacab1ff94696d780e48",
+      "id": "f5-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "eace35d0b9162c899fcac4b69edbf23231a64cf760c59a25a4c367fe0dee28e4",
+      "id": "f5-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "bca1a7589eb0ce0fd10ffcceef5fea60d0cab5e8ae982701f0c974e6676d1e05",
+      "id": "f5-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8580f42b4db8a5708aeb4677eeec6afd0bf0d169fd1fd09287a0eaae6de2ac03",
+      "id": "f5-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c7daf84afd09fae7c22ac197377e6c12c3aa6a6ed5adbdc1bd4d1f36a873e67a",
+      "id": "f5-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d56461680180d91ab4b18af4892152498e49e6a9329948a30b53c77abccc84ca",
+      "id": "f5-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7e87d8ab487a4f25b783e4cee7fa59cbff3474470f53fbbafb20fa0ec41b3c57",
+      "id": "f5-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0525fe5292910b6fbaca3400fc439cac02506ece29c1b94281a833fc415c52e5",
+      "id": "f5-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5c7020c908aac2e240e4d4bd0bb8d3975c70804f32e6b4132fd77d637fffe51d",
+      "id": "f5-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "630ba357070c7d757e010201c69ce5debbe0068202d1b15a59fcebfe34176338",
+      "id": "f5-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "45ed76a6317cf53c298eb815a5aa17e17950d7553d82e4166c01cba37aa3614b",
+      "id": "f5-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e9c733b5a8f22b6817d6b77c49eaddf5d7bf25c9479c76f13ede2137a9a57b9e",
+      "id": "f5-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "467292b94dbade11e49dfd288c56c0bc75cf61b51eb038b6253104d5ad812b0d",
+      "id": "f5-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b98520a26dbc118fc36ac03bb47e0845636d0d84a9486c6eeb5ac71a9b320d41",
+      "id": "f5-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b71cfc2c84f84e6afd401c1841fe96629dac290b7cd8ad844d26610f1717ff6a",
+      "id": "f5-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d498c3c6bcebd1b858119a05f014ab5729f4adf4aecac757c4c8736485901914",
+      "id": "f5-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5562c5eb98a65efd982e4fdf5fa928db5db3f240a96278056adb9b87f3af13ea",
+      "id": "f5-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c97c1ddaedf75d24000004fd672aea02a75b5bce99399d49bea09318808cc79b",
+      "id": "f5-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e8ccb5ce72768f5c98297e2b06f4b3952a9a6a198caa6d84f13346a93e74ec71",
+      "id": "f5-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "55ee1ca8881959e21970c057d946303b98bf0f5c6078b1ef83ebe285655a6535",
+      "id": "f5-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ea5c1394acdcb2f555d5b744b8210f44c702250a84e7c24a7a868c6ac413b69f",
+      "id": "f5-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "33af387ed5c68e5c285b586c2c3e817145f02d47b6f4582bbfb22d4d05168763",
+      "id": "f5-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8be53d8aa4626d885c103da2d9e638eb78f9731d1a4d6766732ec7b34a463b12",
+      "id": "f5-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "16446950a507ffc11a523f8c8566ce4c17d5063ae68de17eafc3994557be718c",
+      "id": "f5-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d1b30f531880c3c456fce10c5e61299268225d61be8035442d0030ce478c55d8",
+      "id": "f5-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c41adb9f008c2559f7a05ffec084968317e44e6e604ff3939859ef5aa24383d6",
+      "id": "f5-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fd0ebc17d72171c442bd1914793150590a1e75aa7ddfe72e42c1111353cd72b4",
+      "id": "f5-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8c79c6620d51056ca968e6d057ebdd965e08430d7d5e709164e65e1669b736ee",
+      "id": "f5-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9a2cb11fd590f47a3b8c9a635d34d3c62fb75076adb33ab7d1427c5742f11dc5",
+      "id": "f5-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2e30274627c0795080ddc53ded3b912374c4c2ebeae9686fd8c3e5cd1c9e3f3f",
+      "id": "f5-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2cedf90bc4071f020eb33fe8de790810038ad68c71016ea266570889205f8607",
+      "id": "f5-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5ee21c643dbd218a30bb837041cdfee5cb0fb1dffafd76cf2b3a7acded42c217",
+      "id": "f5-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "50f099a1f6b6803d368a5360124f9451f0595e30232517216b90e88daea194db",
+      "id": "f5-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "51a94a70a6963ca4af58a12df100d3d232622aee4d6921b63f90c18396774048",
+      "id": "f5-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3199e3c208760dcf82c89ce2e32458f793f2645cdc9445298e55a90396da16fc",
+      "id": "f5-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b7fae0b27abccf13b2ddaaa34b7e1e48e504765bf27e8eb7e5eba350fbcd373a",
+      "id": "f5-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9309b487c09a640b0f47275af3a965ad53c00103b1c240eaec281d91fb3bd2b0",
+      "id": "f5-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7f5e6dc70c8712f4056f5d0dabe23fec98f1f65d1645d81ea593fec892c6eccc",
+      "id": "f5-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f0e97c1d6b539eb3799aa418bdbe56eb3d7480b62883f6f78a964f609cc9146d",
+      "id": "f5-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "01646342dd31c36f4e8ff337f41801129aab701b6ff18121dc606afb3d0e8590",
+      "id": "f5-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9a65c2da1732dc9c6c52652cdf54a8fc9cea3be7b4751c2e5d8de66e55d4e167",
+      "id": "f5-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3976fa5e29284929930fefedb8f3f5caf44d0ea94722ffc18ccb8fa86b65aac8",
+      "id": "f5-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d57427b20fc2c86a74e094acccc149125fbf3821239c89dfadf3321bbca4a6cd",
+      "id": "f5-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "297de750d95fd22e351524c822861f44060e912ecca51779e78e2aff4a74d240",
+      "id": "f5-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b6283b4f7df7314760358f8ac8dd7e53a12f6de85427938fd7233da9c87cd978",
+      "id": "f5-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "aeeddc521b4e0306f2e003f31759190b8a5cfea52854429861d9b41347e830e2",
+      "id": "f5-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1483f1ab98c83fef5202d5e7f464c006589daebb69b4406bc5c76b7f0b058770",
+      "id": "f5-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "09a8dc7f0f4c088384705a1fe42a6fd2066b9ccf68639115b4a353a6e9faa7da",
+      "id": "f5-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b71a3e01aa4328679af1c27782c9bf8ca41fb73e0c782f3dc1348cacee47cc8f",
+      "id": "f5-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5594e946eca2bd4819597a7778ac0a6bda6738edb01982c5fe7f340388d623c1",
+      "id": "f5-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "374a1eac7d913a2a89607438ab622e228b30216c8ff8dc34fa5fcd3ba86851f4",
+      "id": "f5-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ae03d8465c0575960c20ea4f5bf3e4ecbf451c1789f4f1b0f17ef4649ff5a9cf",
+      "id": "f5-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c4217e7da04224e033ff6d10543205ea05afa8f9044ad953e646c512a5fa1e21",
+      "id": "f6-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3bd02a4b7d7d984600b4613b4ed1e6fb5bc2603afbac34fa4d2fa6a808e59740",
+      "id": "f6-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f90f10d22484b0ebd72e74713371e526c72a8174ee13e17a410cd78c43bf2d6e",
+      "id": "f6-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "16ac0760656b373f51276eea9b906fa6cb900baedc94be8153ae194c9489018d",
+      "id": "f6-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3bd9a484ef5164309846e2fe939c2c9cd9bc94a22d888f1e0e20ca269bdb3a55",
+      "id": "f6-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "df3089a88ddfa6d77b6e383df63b37861f4888e379bae23ae55dc36c8257412d",
+      "id": "f6-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "56afc0cc8a1bed72792a22d8319c4075689b48ede381e8e636b9858d9a9bc201",
+      "id": "f6-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c37d3f1f8d235b25affae89cc1c265dda2c7d6b3b41eb4f00462470638444fb2",
+      "id": "f6-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d8fe3a504804afe93b57f20a8f5acc6a054f5e416aeeff6276e536352813560c",
+      "id": "f6-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e617ca36cccf12cf34476d3dff1ec59ba4367e3af807197fc0d8ab796785eaa8",
+      "id": "f6-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9d6509239065af22121a676b1c171037cb4e6eef2ed530eddee89828edf57bcc",
+      "id": "f6-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ea1e8ecf1cacf69b71a49f04a10bfce28ef8b5eaa36c9e51b5e9573f5f859971",
+      "id": "f6-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e50ed6c629bc93aca85963961ae2eca333bd6df3e8e366b1c31c2f3520b60d0c",
+      "id": "f6-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6d8dd9624b70ceaa9b37287c8e5332d4534347fb6014d8d82af4c3b02024db6a",
+      "id": "f6-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ae17a55910fb876d9a89fee68fb90a5c68e2e246b9585b02149480d966b209c7",
+      "id": "f6-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d13c332b7636d77bf5743b241c65a9b7fa8fb3904466ee7168ac21f983e30743",
+      "id": "f6-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "6affe62465e7bb6c8b547f3b9c3ed8650fe8bdd1c4126490b8268b1da65be27a",
+      "id": "f6-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "93c36ad5bfe9e0192d67c27fdbbb7f572f448b41b362101d94363aab667dd4a4",
+      "id": "f6-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "67a356e92d3c249a6261a184e6d22383dccadc98db54da80da7ead5c3d2c13a0",
+      "id": "f6-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "47f3e70d386fd841173fd2a2fcd623b3e22dad12342f6679c8e5842b545cc353",
+      "id": "f6-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "9940b4ac2512582a10c62ddd61cda04aa5e34139d7396dbf7cfe8598ce63a207",
+      "id": "f6-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "064e7f189cb250c891611a39d40b7d21555ef22c7186a30c1a642cfc6cfdc3df",
+      "id": "f6-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1e6ed53cf4e92265115fd041baec601cd04c44a17dba34606c10b082d7f92bfa",
+      "id": "f6-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3cd4395227d2ef188b8a3f4f5ef2d21b7565aa1c420eee72bcc2502ec20d94ca",
+      "id": "f6-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "db9f7f1500dc220a02fd0d96e33a712e7d29876fdf9e4ab4f911a657f7371c30",
+      "id": "f6-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6bec5dead2aff5109048516437e0860204a83f8583440a88209feb9ecd0d0ae0",
+      "id": "f6-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5243014830c242649b523de557274b8a5e0cb5cec8a69cff4eda74277296c27f",
+      "id": "f6-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "21abe1e4d385c33c49218d1c2b96d687b7931df45a52bdd4bb36f5db4d7677f0",
+      "id": "f6-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ad54763810606c05a4d4174f293fb0b56006dc26bf86bc54746e906686dc3c60",
+      "id": "f6-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "15e1734013661afb7e17789a00ed649ab1d99dadeb2a7a1724f585358596353f",
+      "id": "f6-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "7d9d05a3d616c34c64f405a6f7707561218a26cfd4212542ea93f1940f39d22e",
+      "id": "f6-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b5408df9c03a0a497acbfdfd0aae9081bad701cfc3b78f8464d00cf535bfb1f7",
+      "id": "f6-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3f0211591c4fa6543a89986f75c15e82adc8a4cc71b5d0809e03a12c721b0315",
+      "id": "f6-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c4c8c6b42a89f9c5361b8bd50bfd7a30094d1ad83f47d7b09df32aa2a70e621b",
+      "id": "f6-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0c89d0c283741d9927e731dd74420406a5fa207e317aed4e8ff8165839fb14af",
+      "id": "f6-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "738bc6d1db1913bc9edeca445a0972c12444ac19d5a0f27ae1f890ebe0329050",
+      "id": "f6-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "771d72b6ecc7b0a93423204d66b8c9baa334a8be11b5719530954f4bf5dca2fd",
+      "id": "f6-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "191e85526a609d5ccbd70ff042824c88d112d8624e57d523d021e58d710e1d88",
+      "id": "f6-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4a3551b8aa092236185b08c80fd011c4217f070e5aa830782c5141e24c04ed0f",
+      "id": "f6-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "79f62640a45ef77f5eee883d7d2f9a77d2019250e3a24903ec755e8e3145cd82",
+      "id": "f6-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "6d717ed6d09216cd14e45fc4d62be0afe807d1fc88ec9c1142b8c996370b2e9d",
+      "id": "f6-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e44cf477e23d0a2f029743172b4d9a94c8d56da3850a883b84ddd29585f17abc",
+      "id": "f6-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d7a1723fc78b41000c7675457c31a5f5a770cf4b6c8a36ec6acaec351b3eeaab",
+      "id": "f6-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e7333a5d2080efbb9cdc25986d0f1e84bb1017978f0eeea362ec0d4f2f03ec0d",
+      "id": "f6-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c7586f258cb6340e827418b3ea0419e10fd54835d230502fbf2eec19058c35d4",
+      "id": "f6-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9cafff7faedb8c1354a07873421024339abd9de118954d627091e81b300627d5",
+      "id": "f6-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "10b2dc5738fe9a20b739056941d8864767118cdf21c24da588328c9b81f3dea8",
+      "id": "f6-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "79bdd2f0c37af96df28414c810c97ee993f093a11623360cd110489aefd8de9b",
+      "id": "f6-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3f2657f31d952f3aea4a51d4d8c516059f6d87c82b540e740a2ca62651b25b69",
+      "id": "f6-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a2e87311e9fd7304b25e08331e82bfb9f68f1993cb07ab2994064eb551cd6a71",
+      "id": "f6-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "6ff9e7cd92f423b156bf003f1eabf3cb907c839b9b87281195597cb26598c509",
+      "id": "f6-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a58051542ab335445c710748281fdd550186bb2df6610f55734b2e8a6c957e2f",
+      "id": "f6-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3794e9229682a4e4af96412aee7e816f23df4975ae7f66f93f31aa30d36c58ee",
+      "id": "f6-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2e803d40628803c7c482f0e9bcc0a918283abc87ed56e2d0e9ef6b4867929fb6",
+      "id": "f6-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "60abb7cd9d7310e33e0a3fbaa8f6813db3b7b3a99910e7ba4e441ced46d7a148",
+      "id": "f6-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "da5c5136caa433a4417a3dffacc481f877bb1761c1b48b7bee854eb59f8f3538",
+      "id": "f6-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "21007a26dd53d161d2e3e0141e2d8cd9d237ed8ba05b9c04694d06ba36cb4ea8",
+      "id": "f6-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "617982120102ccc32d4d9830e5a481a341200d3a86615dde5e5fc63ec9ed10cb",
+      "id": "f6-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b4ed17e0f5d55b5ebb08e1b326aaf670952222fd15ce36b3a40ff8fafd4a6f79",
+      "id": "f6-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "29e7ab6b646b58812b0b9751beb063cfecaab197000bc755f9bd6a59dca2d03c",
+      "id": "f6-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "2edfa775007ae7143c82e776f8bc2717ac810b7cfe63bcbfd0e6bc09260abf61",
+      "id": "f6-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "424f40a987c29c38b23bdc6dd48647845ce49e2fbcac76f4bea022c0a447ae96",
+      "id": "f6-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "49820653f5a1a21ebfb7c95ac4e6ac23a0e7d2684ef76f7808c93a8d6af87008",
+      "id": "f6-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "810f9476802a2f864b5c53cd38d2d2d7fe14b75a6d48696cafc1c910fa92777b",
+      "id": "f6-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "aae8165efa6edce3ec4dd8af7c64d7187a1dd263f07594a1b6f9e200b9c3583d",
+      "id": "f6-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4b050a63e01534e1278f036de3311bcc20042a20acddc39e705f3d8f4e19ff98",
+      "id": "f6-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "284834482fcaad162546b88d1e62b7596651bc534659144e9ae15014ee976bec",
+      "id": "f6-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8548cbadadf0541293c94228d3e1eb8351535859970d6fcfc517351edfa46e01",
+      "id": "f6-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "27d9055f9c27f84fd777711aa73dc1e28215438a7dd96bed167bb23924100af6",
+      "id": "f6-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2c10bb634e8e277d732413dc81d60839012fae0e62fe9748b71c461fcc054b0a",
+      "id": "f6-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1a62a8d77250656fbc60ce219c39ffccaadf394c0c08c158041c7696787b6fc7",
+      "id": "f6-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e49ef8a2ccdded208bb28c50190bc6060bd69438442df5c03d4e1ae9fcd7690a",
+      "id": "f6-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3608db4acf69a42d7a48eebe523dd2a47f03a0ac64a0295f80274d6e05ecb39b",
+      "id": "f7-b0-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "716d24d112c08750dfb41fb569839ba0b8a6625e6154608579d6625fd72ae1c6",
+      "id": "f7-b0-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e9663c85f53718edc789650e40a47c12cf9ba887bb25aef90e6a0ce859c90b3e",
+      "id": "f7-b0-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "285fd12baffa68f3e1f090e5755443d3d4455dc94885d3e901180d463cfaac4f",
+      "id": "f7-b0-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "0b902a998f2e711ceae3be72fb8c032cfd8e44cd3e7f5de9e75bb6174b68d6e9",
+      "id": "f7-b0-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8217a52884e70132604ae6dee609caf8bd62d4ac2489f28f6d65f192634a84a6",
+      "id": "f7-b0-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "d82402a006846af36fb00aede189f9b465759f54ec340298ac0193fded280740",
+      "id": "f7-b0-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6343553b4aa15289cba2f6479b3ab45c0bdf9412f3095753c6c0acdcb975b5f0",
+      "id": "f7-b0-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8c89d672096c7f37f09351da23437aa9971104f7f468102c07a945181b52fa1b",
+      "id": "f7-b0-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "362d8b5d039944c6971bab0801471a9db6b14a9250100353c7383c34dc846d16",
+      "id": "f7-b0-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "32bb9dfe9e29ef1a10038f21104735d8fb81a809b99ee018f54a7fa6f4154607",
+      "id": "f7-b0-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fa7f9155d9eac62225b3998ee5d8124464e24e591457e9c9ebaa40ef2f2357fd",
+      "id": "f7-b0-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "41834c58ea1c4f002494113e4a69799929c4e28037753a8675310eda05db13ae",
+      "id": "f7-b0-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "533c291e0b4aaa49d2d94e10f33f2c87c81169d8b08d510dc1e811681363441b",
+      "id": "f7-b0-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "cdb2b39aee82a0651f5662bb62ce5188c0f0f9826b3ba233eadd2c5bcf1e57e2",
+      "id": "f7-b0-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "23af03b6b27cc8b0d8e7869a12c0b2014c401f615d05b0076ee291bc354331d6",
+      "id": "f7-b0-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "13e87ad85de2761af9d2937c1f7f78fe54e9fc2a09a23cc084fcb2254a4bc7a1",
+      "id": "f7-b0-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5b25dfa6608a4a96209fe1ba3c9587a34c35bf503e14cb7adba83842d123a3af",
+      "id": "f7-b0-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8acd2da9bc97d23abbb6ccbabd01e663c61f52ea3f26d2bb20a90598117f2d23",
+      "id": "f7-b0-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "16443d0716457cb465cd6c25471c6d170c2ee5f3803d7c5ce14b28f9bd0d44b3",
+      "id": "f7-b0-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "a8f44c4d060c6264a7f5bb2ea0a7775dd8117c8ff067ea67939b27e28c22b699",
+      "id": "f7-b0-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "be4c9ad7d57b9c7afbb0bc243d15ebfc9a5c3e22e74b5ff21ec33dc08a64681a",
+      "id": "f7-b0-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "460c0c8dc459838c50052010a4d3f65f9d9795a5db551b137c818ca68bfa3deb",
+      "id": "f7-b0-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "24c4b663920e1b372134a3e6ca365db51893294352da6b51ae3b688303266f2b",
+      "id": "f7-b0-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b16152b840e06995dce7b237a57318f2df640c6b9a1f3fed2106d6fd67570348",
+      "id": "f7-b1-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ea80638c94b005fbfb7f717c09c7b3e6edbfe8f80478002988b931276a86f801",
+      "id": "f7-b1-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "17514d252a16f6ef4d00e5615919a2574f2bbc03a3f7ea9aaf37d60a385df28f",
+      "id": "f7-b1-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3da67aa9b8245e084fdbc28e317a196a4675032ab792a42ab94126a428c353cf",
+      "id": "f7-b1-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "b7fc5db0201a1d81af89c36bc3452384d828161066770d9b6656e2480f6d40fd",
+      "id": "f7-b1-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "21d92c8a7b8661e128e6f6850d07a474df78a4fb97386409ed406fcc6bfb618d",
+      "id": "f7-b1-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4029d1e6ea3c65a611ba74728e049886a3e684be30dcc0816408f249d4962471",
+      "id": "f7-b1-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c96048d4fd6718b980dfd14820ce6cb8ef0f85ae7f52bfcc1a7488d3e990a661",
+      "id": "f7-b1-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "db8700cc5f21148a6748a11f03aa37aecbcd5045d6f68613d77e782627626520",
+      "id": "f7-b1-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "572ce05fab0dd9f14c1677a385043d544dc6c2f2f344b312ad8e6eb5f14c9279",
+      "id": "f7-b1-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "abbc66bb2e079b24e845bbeb940be15657a3408cb7436d9f3aecb367dc150910",
+      "id": "f7-b1-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "613404c20d59f2f211bef968b0e07c72a92eb417a0c034c45468463629dd5738",
+      "id": "f7-b1-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "139888cd1753672f1d80dd6a203d7248244d8e04721bfe6be8061c5b6ef5ecaa",
+      "id": "f7-b1-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "61597cb15e46ed8e2524f42f0ee145187bc49e5dcea5953606fa4d0bf4148c74",
+      "id": "f7-b1-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fbc3e7dd6adc4d94fa792036ec7a6464aae9b1bb818fe8a548d86a6b965e0d1f",
+      "id": "f7-b1-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "389171221c4afc1e3eba4ab67b98d0ecc57e18b39b1f4005266968d2ce6e54a2",
+      "id": "f7-b1-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5c9aa2c585f2aef90a3a61278218c6e305975534e4de021570a3e19ac8bfaaa0",
+      "id": "f7-b1-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "dda642db9aa28d7cecc6b6a55fd4a6cb7eaf6c6ded01ee483838d9877a7380e5",
+      "id": "f7-b1-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c8da06783dac38a2d9152a0283dcb8872527abec37ce8b9bf395fd5037cb2cd5",
+      "id": "f7-b1-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "65f0137f3b441ccb2b4d2091314b8bb1bf90a07fe6f96605a0fa8fae1f2e15cd",
+      "id": "f7-b1-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "8b32cc87fcd9137c3ed7a8759be15c2942414ab7dfac4ed7a227e2a2cdc671dc",
+      "id": "f7-b1-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0a603b565f89674e3e2f77b91f4d9d5a2457b88f370c8c324bbd0a96c69c056f",
+      "id": "f7-b1-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e1f1ea4604c803406098eabc56179f821ac6e9cd318229154952813639cd9daf",
+      "id": "f7-b1-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "821c68238f615909b0b202a193ffec1d36b67ba7372215c643a68e407ab39fb9",
+      "id": "f7-b1-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "c8f58e40ff4f524ff3a8bb10ca561604fada3caa3309dd2529be08544f0e47d0",
+      "id": "f7-b7-x0-y0-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "39718a648735d36880f8c1770454c1766210bef6f08cb5b656d264694befe40c",
+      "id": "f7-b7-x0-y0-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "08c748103581c06310c41eaee1dca9b3146ab247dd9e6bb4eb389da372f1eddf",
+      "id": "f7-b7-x0-y0-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b6eafc94ea3f122ab5b22262a12e1682c7cffe0fcbb6b70002ff570b25690f5b",
+      "id": "f7-b7-x0-y0-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fa18507b7650e116fb5cd7e3df8f321f142654c7d950208cd43a476a7cee79c0",
+      "id": "f7-b7-x0-y0-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e5acc5697c2901a5f51313e11740e4887d0b913e3c495cc054844b0b8191f2cb",
+      "id": "f7-b7-x0-y0-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "41b8e35452d8f8423c7fa795e28ef67c655c06b817ced1284e40386cc5849533",
+      "id": "f7-b7-x0-y0-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3462241d74264f90bddbb70ba940f268f120d3898bc88e48ad0903d580f2cc53",
+      "id": "f7-b7-x0-y0-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e9aa77041363725e9e3ea3c9e0ae8ea034f493e12d6ee4e8bb3cc6113bdba321",
+      "id": "f7-b7-x0-y0-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "14b3683d38cdc74018bd4e7877af0f2253335a4deb9a9008ca07b3addeae9b99",
+      "id": "f7-b7-x0-y0-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1239bd6fdbb66499128c2f72f3416f36734221fe3d9e1ac5291f9dd6ceab4386",
+      "id": "f7-b7-x0-y0-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "941cc44b39ab9e84c07693fd93a560aa3697e7b52424b655696bc3d773ed11ca",
+      "id": "f7-b7-x0-y0-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "480a9c866be9ea94bf70501b2d9b38dbd8abbeec5b8bc43817a5ee699550af95",
+      "id": "f7-b7-x2-y2-land1-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6b515833199c886133047126f922e9e730dad3978678ce01ede0f97c832ed139",
+      "id": "f7-b7-x2-y2-land1-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "f4d978775c9720f25853749a9ba94d7f19cb303e953c1b2c04b1b5b03c26bb76",
+      "id": "f7-b7-x2-y2-land1-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "20cba4e3f3044b78bad233b1a0484b2678b5f894f376e26e0e8e78a6f7ee2592",
+      "id": "f7-b7-x2-y2-land1-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "dfd5c50098818b8d7c02aa3fa4281994dbf5e52ea1cbd9b70b791167279c5287",
+      "id": "f7-b7-x2-y2-land1-river1-hq0-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9dd4a439df38f08f87cfddea2d56fe3ef072b4b2d3cb5691cac7a53088a69b28",
+      "id": "f7-b7-x2-y2-land1-river1-hq0-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5ae23d5f42521532c13d3d3768eac26fec8f4aa1e356df1da7f81c33f893d287",
+      "id": "f7-b7-x2-y2-land1-river1-hq1-tanks0",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d2612843ed3ab5fd0d89da89241203474b35106ba3fc6e68ad15a3b20c219320",
+      "id": "f7-b7-x2-y2-land1-river1-hq1-tanks1",
+      "output": {
+        "ENERGY": 4,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "ad06d035483ff3cdbbc0c4d8e11260ec69b1c7ba14367b1c63ff0c566a9b5d3c",
+      "id": "f7-b7-x2-y2-land0-river0-hq0-tanks0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9276e78385ecd03bf10e2edb6261d369ae633317672893df0c856ef999d5ea47",
+      "id": "f7-b7-x2-y2-land0-river0-hq0-tanks1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "72a56955359ce7c13dc5b3167738871546423c544c15064264b27daf3b716dc4",
+      "id": "f7-b7-x2-y2-land0-river0-hq1-tanks0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7449c47a0d52c7282a5048f817239666a05f8a7db1dc46a4bad781e60831f91a",
+      "id": "f7-b7-x2-y2-land0-river0-hq1-tanks1",
+      "output": {
+        "ENERGY": 3,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    }
+  ],
+  "reference": {
+    "adapter_version": 3,
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x004E6E50",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "crop_yield (base square)",
+        "resource": "NUTRIENTS"
+      },
+      {
+        "address": "0x004E7310",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "mine_yield (base square)",
+        "resource": "MINERALS"
+      },
+      {
+        "address": "0x004E7750",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "energy_yield (base square)",
+        "resource": "ENERGY"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original"
+  },
+  "repeat": 2,
+  "suite_sha256": "335d20a073044fc9c5852ef0296af3bcee20b40ea6170afe50ba0b5fc11e6838",
+  "version": 1
+}
