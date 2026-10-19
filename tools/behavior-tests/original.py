@@ -48,6 +48,12 @@ HAS_TECH = "technology.has_tech.v1"
 TECH_CATEGORY = "technology.category.v1"
 TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
+HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
+HUMAN_FACTIONS = 0x009A64E8
+MINERAL_RULE_FACTOR = 0x00949750
+MAP_SIZE_LEVEL = 0x0094A2A0
+FACTION_INDUSTRY = 0x0096CC44
+FACTION_STRIDE = 0x20CC
 TECH_TABLE = 0x0094F358
 TECH_STRIDE = 44
 TECH_OWNERS = 0x009A6670
@@ -60,6 +66,7 @@ FUNCTIONS = {
     TECH_CATEGORY: ("tech_category", 0x005B9FE0, 0x005BA02C),
     TECH_AVAILABLE: ("tech_avail", 0x005BAC20, 0x005BADBF),
     TECH_PREREQUISITE: ("tech_is_preq", 0x005BCB60, 0x005BCBDB),
+    HUMAN_MINERAL_FACTOR: ("cost_factor (human/mineral, no base)", 0x004E4430, 0x004E45B3),
 }
 
 
@@ -139,6 +146,12 @@ def validate_input(algorithm, values):
         _integer(values["tech_id"], -2, 88, "tech_id")
         _integer(values["max_depth"], 0, 5, "max_depth")
         _technology_rows(values["technologies"])
+    elif algorithm == HUMAN_MINERAL_FACTOR:
+        _fields(values, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
+        _integer(values["faction_id"], 1, 7, "faction_id")
+        _integer(values["map_size_level"], 0, 4, "map_size_level")
+        _integer(values["mineral_rule_factor"], 1, 100, "mineral_rule_factor")
+        _integer(values["industry"], -8, 10, "industry")
 
 
 class ProbeError(Exception):
@@ -261,6 +274,18 @@ class OriginalOracle:
             if result not in (0, 1):
                 raise ProbeError("original technology predicate returned a non-boolean value")
             return {"has_tech": bool(result)}
+        if algorithm == HUMAN_MINERAL_FACTOR:
+            # Human status bypasses AI/difficulty dependencies. Mineral mode
+            # and base=-1 exclude nutrient and per-base effects. Every data
+            # read on this bounded path has an explicit synthetic fixture.
+            fixture = (
+                (HUMAN_FACTIONS, struct.pack("<I", 1 << values["faction_id"])),
+                (MINERAL_RULE_FACTOR, struct.pack("<i", values["mineral_rule_factor"])),
+                (MAP_SIZE_LEVEL, struct.pack("<i", values["map_size_level"])),
+                (FACTION_INDUSTRY + values["faction_id"] * FACTION_STRIDE,
+                 struct.pack("<i", values["industry"])),
+            )
+            return {"factor": self.execute(algorithm, (values["faction_id"], 0, -1), fixture)}
         fixture = self.technology_fixture(values["technologies"])
         if algorithm == TECH_AVAILABLE:
             fixture += ((EXPANSION_ENABLED, struct.pack("<I", values["expansion_enabled"])),)

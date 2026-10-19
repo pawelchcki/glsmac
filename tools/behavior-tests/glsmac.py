@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run production GLSMAC geometry and technology rules through the probe protocol."""
+"""Run shared GLSMAC rule helpers through the probe protocol."""
 
 import argparse
 import os
@@ -20,6 +20,7 @@ ALGORITHMS = {
     "technology.category.v1": ("category", "category", int),
     "technology.available.v1": ("available", "available", bool),
     "technology.prerequisite.v1": ("prerequisite", "is_prerequisite", bool),
+    "economy.human_mineral_factor.v1": ("human_mineral_factor", "factor", int),
 }
 DIRECTORY = Path(__file__).resolve().parent
 ROOT = DIRECTORY.parent.parent
@@ -95,6 +96,10 @@ def encode_input(algorithm, data):
             raise ProtocolError("expected boolean expansion_enabled flag")
         values = [integer(data["tech_id"], 0, 88), integer(data["faction_id"], 0, 7),
                   int(data["expansion_enabled"]), *technologies(data["technologies"])]
+    elif operation == "human_mineral_factor":
+        fields(data, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
+        values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
+                  integer(data["mineral_rule_factor"], 1, 100), integer(data["industry"], -8, 10)]
     else:
         fields(data, {"ancestor_id", "tech_id", "max_depth", "technologies"})
         values = [integer(data["ancestor_id"], -2, 88), integer(data["tech_id"], -2, 88),
@@ -158,9 +163,10 @@ def main():
             })
     write_response({
         "name": "glsmac", "kind": "candidate", "target": args.target,
-        "sources": ["src/game/backend/map/tile/Geometry.h", "src/game/backend/technology/Table.cpp"],
+        "sources": ["src/game/backend/map/tile/Geometry.h", "src/game/backend/technology/Table.cpp",
+                    "src/game/backend/base/ProductionCost.h"],
         "algorithms": list(ALGORITHMS),
-        "scope": "Bounded geometry scores and fixture-supplied technology rules",
+        "scope": "Bounded geometry, technology and human mineral-factor helpers; excludes complete economy",
     }, results)
 
 

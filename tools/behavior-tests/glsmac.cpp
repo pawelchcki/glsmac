@@ -1,5 +1,6 @@
 #include "game/backend/map/tile/Geometry.h"
 #include "game/backend/technology/Table.h"
+#include "game/backend/base/ProductionCost.h"
 
 #include <array>
 #include <cstdint>
@@ -68,6 +69,15 @@ int Evaluate( std::istringstream& input ) {
 			throw std::invalid_argument( "Invalid vector coordinates" );
 		}
 		return geometry::GetVectorDistance( x1, y1, x2, y2, width, flat );
+	}
+	if ( algorithm == "human_mineral_factor" ) {
+		// Faction identity controls the original human fixture. GLSMAC's pure
+		// helper receives the corresponding faction's explicit industry rating.
+		ReadInteger( input, 1, 7 );
+		const auto size = ReadInteger( input, 0, 4 );
+		const auto rule = ReadInteger( input, 1, 100 );
+		const auto industry = ReadInteger( input, -8, 10 );
+		return game::backend::base::HumanMineralFactor( size, rule, industry );
 	}
 	Table table;
 	if ( algorithm == "has_tech" ) {

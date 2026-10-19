@@ -147,25 +147,28 @@ make no claim about arbitrary two-dimensional distances or flat maps. The
 separate vector contracts below cover that bounded score. Neither distance
 contract measures movement costs, tile yields, combat or AI.
 
-There are also **928 additional original observations** across six versioned
+There are also **1,692 additional original observations** across seven versioned
 contracts: raw/coordinate vector distance, technology possession, weight
-category, research availability and bounded prerequisite queries. Their precise
+category, research availability, bounded prerequisite queries and the human
+mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The total original
-reference set is **1,018 cases**. These technology/category probes cover small
-rule helpers; they do not constitute a complete AI turn or research planner.
+reference set is **1,782 cases**. These probes cover small rule helpers; they do
+not constitute a complete economy, AI turn or research planner.
 
-All seven bounded contracts are implemented by shared production GLSMAC helpers.
+All eight bounded contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
-populate the shipped technology rules. The candidate adapter calls these same
+populate the shipped technology rules. The mineral-factor helper transfers the
+recorded map-preset and industry behavior; it does not yet change facility costs
+or add social engineering. The candidate adapter calls these same
 helpers for native and WASM replay:
 
 ```sh
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **1,018 cases**. It runs independent reference suites in
+This checks all **1,782 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 

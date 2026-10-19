@@ -1,6 +1,6 @@
 # Bounded original behavior contracts
 
-The six contracts below have original executable observations and production
+The seven contracts below have original executable observations and production
 GLSMAC implementations exercised by the native and WASM candidate adapter.
 Agreement is bounded to the recorded cases and fixtures described here.
 Each reference probe executes only its
@@ -121,14 +121,43 @@ Unbounded reachability, full shipped technology trees and research planning are
 outside the contract. The instruction budget is independently capped even for
 cyclic fixtures.
 
+## `economy.human_mineral_factor.v1`
+
+Input: `{faction_id, map_size_level, mineral_rule_factor, industry}`.
+
+- `faction_id`: integer 1 through 7, the original faction-mask bit position.
+- `map_size_level`: integer 0 through 4, the raw map preset level. This is not
+  a width, height or tile count.
+- `mineral_rule_factor`: integer 1 through 100, the configured integer mineral
+  cost multiplier, supplied explicitly rather than inherited from rules text.
+- `industry`: signed integer -8 through 10, the queried faction's social rating.
+
+Output: `{factor: integer}`, the original `cost_factor` result at `0x004E4430`
+in mineral mode with base ID -1. It is a cost factor, not an item's total cost.
+Zero results for small synthetic multipliers are retained exactly.
+
+The fixture marks only the queried faction as human and initializes every data
+read on this path: human faction status, mineral rule multiplier, map preset
+level and that faction's industry field. No AI or difficulty branch executes;
+no base is supplied. Cases cover all seven playable faction slots, map presets,
+industry boundaries, small multipliers and integer rounding. Each capture starts
+from fresh original instructions and synthetic state.
+
+AI/difficulty modifiers, nutrient/growth factors, per-base effects, facilities,
+the shipped rules database, complete item costs and turn production are outside
+this contract. The GLSMAC helper is independently replayed on native and WASM;
+this transfer does not yet change the shipped Recycling Tanks cost or implement
+social engineering.
+
 ## Evidence files
 
 | Suite | Contracts | Cases | Original observations |
 | --- | --- | ---: | --- |
 | `cases/map-vector.json` | Both vector helpers | 296 | `observations/smacx-gog-2.0-map-vector.json` |
 | `cases/technology.json` | Four technology helpers | 632 | `observations/smacx-gog-2.0-technology.json` |
+| `cases/human-mineral-factor.json` | Human mineral cost factor without a base | 764 | `observations/smacx-gog-2.0-human-mineral-factor.json` |
 
-Both files are captured with `compare.py record`, requiring two identical runs
+All files are captured with `compare.py record`, requiring two identical runs
 and binding every case and its input hash. No expected output is calculated by
 the case author or the candidate. Existing same-row distance evidence remains
 separate and unchanged.

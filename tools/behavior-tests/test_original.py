@@ -38,6 +38,17 @@ class FingerprintTests(unittest.TestCase):
 
 
 class FixtureContractTests(unittest.TestCase):
+    def test_rejects_out_of_scope_human_mineral_factor_inputs(self):
+        valid = dict(faction_id=1, map_size_level=2, mineral_rule_factor=10, industry=0)
+        original.validate_input(original.HUMAN_MINERAL_FACTOR, valid)
+        for update in ({"faction_id": 0}, {"faction_id": 8}, {"faction_id": True},
+                       {"map_size_level": -1}, {"map_size_level": 5}, {"map_size_level": False},
+                       {"mineral_rule_factor": 0}, {"mineral_rule_factor": 101},
+                       {"industry": -9}, {"industry": 11}, {"industry": 1.0},
+                       {"base_id": -1}, {"human": False}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.HUMAN_MINERAL_FACTOR, dict(valid, **update))
+
     def test_rejects_invalid_geometry_fixtures(self):
         valid = dict(width=80, height=40, flat=False, x1=0, y1=0, x2=1, y2=1)
         for update in ({"flat": 0}, {"width": 81}, {"x1": True}, {"y2": 40},
@@ -81,6 +92,36 @@ class FixtureContractTests(unittest.TestCase):
 @unittest.skipUnless(importlib.util.find_spec("unicorn"), "optional Unicorn dependency is absent")
 class EmulatorGuardTests(unittest.TestCase):
     values = {"width": 80, "x1": 0, "x2": 2, "y": 0}
+
+    def test_human_mineral_fixture_supplies_actual_faction_slot_and_fresh_values(self):
+        entry = original.FUNCTIONS[original.HUMAN_MINERAL_FACTOR][1]
+        for faction in (1, 7):
+            address = original.FACTION_INDUSTRY + faction * original.FACTION_STRIDE
+            # mov eax,[industry]; ret -- fixture isolation, not game behavior.
+            oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            for industry in (-8, 10, 0):
+                values = dict(faction_id=faction, map_size_level=2, mineral_rule_factor=10,
+                              industry=industry)
+                self.assertEqual(oracle.probe(original.HUMAN_MINERAL_FACTOR, values),
+                                 {"factor": industry})
+
+    def test_human_mineral_fixture_marks_only_requested_faction_as_human(self):
+        entry = original.FUNCTIONS[original.HUMAN_MINERAL_FACTOR][1]
+        oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", original.HUMAN_FACTIONS) + b"\xC3",
+                                  entry=entry)
+        for faction in (1, 4, 7):
+            result = oracle.probe(original.HUMAN_MINERAL_FACTOR, dict(
+                faction_id=faction, map_size_level=2, mineral_rule_factor=10, industry=0))
+            self.assertEqual(result, {"factor": 1 << faction})
+
+    def test_human_mineral_fixture_does_not_allow_neighboring_or_ai_global_reads(self):
+        entry = original.FUNCTIONS[original.HUMAN_MINERAL_FACTOR][1]
+        for address in (original.MINERAL_RULE_FACTOR + 4, original.FACTION_INDUSTRY,
+                        0x009A64C4):
+            oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            with self.subTest(address=address), self.assertRaises(original.ProbeError):
+                oracle.probe(original.HUMAN_MINERAL_FACTOR, dict(
+                    faction_id=1, map_size_level=2, mineral_rule_factor=10, industry=0))
 
     def test_fresh_memory_for_every_case(self):
         scratch = struct.pack("<I", original.STACK_BASE + 16)

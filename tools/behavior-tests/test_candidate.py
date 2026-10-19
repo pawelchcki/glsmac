@@ -66,6 +66,14 @@ class CandidateInputTests(unittest.TestCase):
             ("technology.has_tech.v1", "owners", 256),
             ("technology.available.v1", "expansion_enabled", 1),
             ("technology.prerequisite.v1", "max_depth", 6),
+            ("economy.human_mineral_factor.v1", "faction_id", 0),
+            ("economy.human_mineral_factor.v1", "faction_id", 8),
+            ("economy.human_mineral_factor.v1", "map_size_level", -1),
+            ("economy.human_mineral_factor.v1", "map_size_level", 5),
+            ("economy.human_mineral_factor.v1", "mineral_rule_factor", 0),
+            ("economy.human_mineral_factor.v1", "mineral_rule_factor", 101),
+            ("economy.human_mineral_factor.v1", "industry", -9),
+            ("economy.human_mineral_factor.v1", "industry", 11),
         ]
         for algorithm, key, value in invalid:
             changed = deepcopy(self.examples[algorithm])

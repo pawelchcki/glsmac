@@ -31,6 +31,7 @@
   "references": [
     {"id":"same-row-distance", "cases":"cases/map-distance.json", "observations":"observations/smacx-gog-2.0-map-distance.json"},
     {"id":"vector-distance", "cases":"cases/map-vector.json", "observations":"observations/smacx-gog-2.0-map-vector.json"},
-    {"id":"technology", "cases":"cases/technology.json", "observations":"observations/smacx-gog-2.0-technology.json"}
+    {"id":"technology", "cases":"cases/technology.json", "observations":"observations/smacx-gog-2.0-technology.json"},
+    {"id":"human-mineral-factor", "cases":"cases/human-mineral-factor.json", "observations":"observations/smacx-gog-2.0-human-mineral-factor.json"}
   ]
 }

@@ -111,8 +111,8 @@
     },
     {
       "id": "economy",
-      "status": "unobserved",
-      "contracts": [],
+      "status": "partial",
+      "contracts": ["economy.human_mineral_factor.v1"],
       "remaining": [
         "Tile yields",
         "Support and upkeep",
