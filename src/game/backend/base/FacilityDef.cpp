@@ -4,6 +4,7 @@
 #include "game/backend/State.h"
 #include "game/backend/Player.h"
 #include <limits>
+#include <stdexcept>
 
 namespace game {
 namespace backend {
@@ -33,15 +34,24 @@ int64_t FacilityDef::GetMineralCost( const Game* game, const Player* player ) co
 	return DeclaredMineralCost( game, player, fallback, m_cost_rows );
 }
 
-int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {
-	if ( !game || !game->GetState() || !player || rows <= 0 || rows > std::numeric_limits< int64_t >::max() / 10 ) { return fallback; }
+bool HasDeclaredMineralCost( const Game* game, const Player* player, const int64_t rows ) {
+	if ( !game || !game->GetState() || !player || rows <= 0 ) { return false; }
 	const auto role = player->GetRole();
-	if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return fallback; }
+	if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return false; }
 	const auto& map = game->GetState()->m_settings.global.map;
-	if ( ( map.type != settings::MapSettings::MT_RANDOM && map.type != settings::MapSettings::MT_CUSTOM ) || map.preset_level < 0 || map.preset_level > 4 ) { return fallback; }
-	// Only the observed human/no-base factor is modeled: default rule10 and
-	// INDUSTRY0. Item row declarations are a separate GLSMAC application rule.
-	return rows * HumanMineralFactor( map.preset_level, 10, 0 );
+	return ( map.type == settings::MapSettings::MT_RANDOM || map.type == settings::MapSettings::MT_CUSTOM ) && map.preset_level >= 0 && map.preset_level <= 4;
+}
+
+int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {
+	if ( !HasDeclaredMineralCost( game, player, rows ) ) { return fallback; }
+	const auto& settings = game->GetState()->m_settings.global;
+	// Only the observed human/no-base factor at INDUSTRY0 is modeled. Item
+	// row declarations remain a separate GLSMAC application rule.
+	const auto factor = HumanMineralFactor( settings.map.preset_level, int( settings.rules.GetMineralCostFactor() ), 0 );
+	if ( factor > 0 && rows > std::numeric_limits< int64_t >::max() / factor ) {
+		throw std::overflow_error( "Declared mineral price overflow" );
+	}
+	return rows * factor;
 }
 
 const std::string FacilityDef::ToString( const std::string& prefix ) const {

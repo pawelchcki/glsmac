@@ -8,6 +8,9 @@ namespace game::backend { class Game; class Player; }
 namespace game::backend::base {
 
 int64_t DeclaredMineralCost( const Game* game, const Player* player, int64_t fallback, int64_t rows );
+// A supported row declaration may resolve to exactly zero. An explicit zero
+// fallback without this pricing context is not a constructible project.
+bool HasDeclaredMineralCost( const Game* game, const Player* player, int64_t rows );
 
 // Human mineral cost factor with no base effects. Inputs use the raw map
 // preset level (0..4), integer mineral rule multiplier (1..100), and signed

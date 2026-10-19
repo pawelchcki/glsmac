@@ -14,7 +14,7 @@ const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const fatal = /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|NORMAL_EVENT_REJECTED/;
 
-function recordedNormalFactors(level = 0, nutrientRule = 10) {
+function recordedNormalFactors(level = 0, nutrientRule = 10, mineralRule = 10) {
   const witness = (name, predicate) => {
     const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/cases/${name}.json`, 'utf8')).cases;
     const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/observations/smacx-gog-2.0-${name}.json`, 'utf8')).observations;
@@ -26,11 +26,11 @@ function recordedNormalFactors(level = 0, nutrientRule = 10) {
   };
   const rows = witness('starting-unit-components', ({ id }) => id === 'colony-pod-fission-infantry').rows;
   const mineral = witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
-    && i.mineral_rule_factor === 10 && i.industry === 0).factor;
+    && i.mineral_rule_factor === mineralRule && i.industry === 0).factor;
   const nutrient = witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
     && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor;
   assert.equal(rows, 3);
-  if (level === 0 && nutrientRule === 10) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
+  if (level === 0 && nutrientRule === 10 && mineralRule === 10) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
   // The generated-world lifecycle below is application coverage, outside the
   // bounded component/factor observations and original-input parity counts.
   return { rows, mineral, nutrient, cost: rows * mineral };
@@ -160,6 +160,7 @@ const normalMain = String.raw`
       const production = base.get_production();
       let food = base.get('accumulated_nutrients'); if (!#is_defined(food)) { food = 0; }
       #print('NORMAL_ECONOMY|' + #to_string(base.id) + '|' + #to_string(base.get_size()) + '|' + #to_string(food) + '|' + #to_string(game.get('f_base_get_pending_growth')(base)) + '|' + #to_string(base.get_nutrient_factor()) + '|' + #to_string(game.get('f_base_get_pending_production')(base)) + '|' + production.choice_id + '|' + #to_string(production.minerals) + '|' + #to_string(production.last_processed_turn));
+      #print('NORMAL_TANKS|' + #to_string(base.id) + '|' + #to_string(base.has_facility('RECYCLING_TANKS')));
     };
     game.on('configure', (e) => {
       game.get_um().on('unit_spawn', (e) => {
@@ -244,13 +245,15 @@ async function clickCanvas(page, x, y) {
 for (const profile of [
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [68, 34], rule: 10, lifecycle: true },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
+  { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
+  { name: 'ordinary startup consumes installed mineral rules for zero-price Tiny projects', level: 0, size: [68, 34], rule: 10, mineralRule: 1, lifecycle: false },
 ]) {
 test(profile.name, {
   skip: (!assets || (!profile.lifecycle && process.env.WASM_SITE_URL)) && 'Requires SMAC_ASSETS_DIR; synthetic rules require the local asset server',
   timeout: 180000,
 }, async (t) => {
-  const factors = recordedNormalFactors(profile.level, profile.rule);
-  const artifactPrefix = profile.lifecycle ? 'normal-game' : 'nutrient-rule-ordinary';
+  const factors = recordedNormalFactors(profile.level, profile.rule, profile.mineralRule ?? 10);
+  const artifactPrefix = profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -423,6 +426,11 @@ test(profile.name, {
         .map((m) => ({ id: +m[1], def: m[2], owner: +m[3], movement: +m[4], x: +m[5], y: +m[6] })),
       baseOpen: /NORMAL_POPUP\|base_screen\|true\|true/.test(log),
       popupClosed: /NORMAL_POPUP\|[^|\n]+\|false\|true/.test(log) };
+    for (const economy of state.economies) {
+      const tanks = [...log.matchAll(/NORMAL_TANKS\|(\d+)\|(true|false)/g)].find((row) => +row[1] === economy.id);
+      assert.ok(tanks, 'Actual native facility state is readable');
+      economy.tanks = tanks[2] === 'true';
+    }
     state.growth = state.bases.map((base) => growthSettlement(fullLog, state, base.id));
     return state;
   };
@@ -464,7 +472,7 @@ test(profile.name, {
       && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual production, growth stage and any population child have committed');
   };
 
-  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule));
+  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10));
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -529,7 +537,7 @@ test(profile.name, {
     const economy = initial.economies.find((entry) => entry.id === headquarters.id);
     assert.equal(economy.factor, factors.nutrient, 'The installed multiplier reaches the actual native factor');
     const threshold = factors.nutrient * (economy.size + 1);
-    assert.equal(threshold, 22, 'Population one uses the imported Standard rule eleven');
+    assert.equal(threshold, profile.level === 0 ? 16 : 22, 'Population one uses the imported named-preset nutrient factor');
     const turns = economy.pendingFood > 0 ? Math.ceil((threshold - economy.food) / economy.pendingFood) : 0;
     const expectedLabel = economy.pendingFood > 0
       ? `Growth: ${turns} ${turns === 1 ? 'turn' : 'turns'}`
@@ -538,6 +546,73 @@ test(profile.name, {
     const labels = [...log.matchAll(/NORMAL_NUTRIENT_LABEL\|(\d+)\|([^\r\n]*)/g)]
       .filter((row) => +row[1] === headquarters.id);
     assert.equal(labels.at(-1)?.[2], expectedLabel, 'The actual displayed growth label uses the imported threshold');
+    if (profile.mineralRule !== undefined) {
+      const recipe = [...log.matchAll(/NORMAL_RECIPE\|COLONY_POD\|ColonyPod\|(\d+)\|1/g)].at(-1);
+      assert.ok(recipe, 'Actual generated gameplay exposes its native Colony Pod recipe');
+      assert.equal(+recipe[1], factors.cost, 'The native unit descriptor uses the independently loaded mineral rule');
+      const pickerOpens = await countLog(`NORMAL_PICKER_OPEN|${headquarters.id}`);
+      await clickCanvas(page, 188, 726);
+      await waitLog(`NORMAL_PICKER_OPEN|${headquarters.id}`, pickerOpens + 1);
+      const pickerLog = (await page.locator('#log').textContent()).split(`NORMAL_PICKER_OPEN|${headquarters.id}`).at(-1);
+      const rows = [...pickerLog.matchAll(/NORMAL_PICKER_ROW\|(\d+)\|([^|\n]+)\|(\d+)/g)];
+      const pod = rows.find((row) => row[2] === 'COLONY_POD');
+      const tanks = rows.find((row) => row[2] === 'RECYCLING_TANKS');
+      assert.ok(pod && tanks, 'The actual picker offers both shipped row-priced projects');
+      assert.equal(+pod[3], factors.cost);
+      assert.equal(+tanks[3], 4 * factors.mineral);
+      await clickCanvas(page, 500, 150 + 29 * +pod[1]);
+      const closed = await countLog('NORMAL_PICKER_CLOSED');
+      const rendered = await countLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`);
+      await clickCanvas(page, 565, 505);
+      await waitLog('NORMAL_PICKER_CLOSED', closed + 1);
+      await waitLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`, rendered + 1);
+      const project = (await page.locator('#log').textContent()).split(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`).at(-1).split('\n')[0];
+      assert.ok(project.startsWith(`0 / ${factors.cost} minerals|`), 'The actual selected project displays the imported native price');
+      if (factors.cost === 0) assert.equal(project.split('|')[1], 'NEEDS POPULATION', 'A free size-one pod still needs its real population charge');
+      await screenshot('mineral-price-selected');
+      await closeBase(headquarters.id);
+      const before = await probe();
+      const credit = before.economies.find((entry) => entry.id === headquarters.id);
+      const after = await advanceProductionTurn(headquarters.id);
+      const production = after.economies.find((entry) => entry.id === headquarters.id);
+      assert.equal(production.choice, 'COLONY_POD');
+      assert.equal(production.minerals, credit.minerals + credit.pendingMinerals, 'The first real turn credits minerals toward the imported project cost');
+      if (factors.cost === 0) {
+        assert.equal(production.size, 1, 'The free pod holds at size one after the actual processed turn');
+        assert.deepEqual(after.units.map((unit) => unit.id), before.units.map((unit) => unit.id), 'Population holding creates no new unit');
+        await openBase(headquarters.id);
+        const nextPicker = await countLog(`NORMAL_PICKER_OPEN|${headquarters.id}`);
+        await clickCanvas(page, 188, 726);
+        await waitLog(`NORMAL_PICKER_OPEN|${headquarters.id}`, nextPicker + 1);
+        const freeLog = (await page.locator('#log').textContent()).split(`NORMAL_PICKER_OPEN|${headquarters.id}`).at(-1);
+        const freeTanks = [...freeLog.matchAll(/NORMAL_PICKER_ROW\|(\d+)\|RECYCLING_TANKS\|(\d+)/g)].at(-1);
+        assert.ok(freeTanks && +freeTanks[2] === 0, 'Free Tanks remain offered after the held pod turn');
+        await clickCanvas(page, 500, 150 + 29 * +freeTanks[1]);
+        const hidden = await countLog('NORMAL_PICKER_CLOSED');
+        const tankRenders = await countLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Recycling Tanks|`);
+        await clickCanvas(page, 565, 505);
+        await waitLog('NORMAL_PICKER_CLOSED', hidden + 1);
+        await waitLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Recycling Tanks|`, tankRenders + 1);
+        const renderedTanks = (await page.locator('#log').textContent()).split(`NORMAL_PROJECT_RENDER|${headquarters.id}|Recycling Tanks|`).at(-1).split('\n')[0];
+        assert.ok(renderedTanks.endsWith('|1 TURN'), 'An available free facility displays next-turn completion');
+        await closeBase(headquarters.id);
+        const waiting = await probe();
+        const tankBefore = waiting.economies.find((entry) => entry.id === headquarters.id);
+        assert.equal(tankBefore.choice, 'RECYCLING_TANKS');
+        assert.equal(tankBefore.tanks, false, 'Selection has not installed the facility inline');
+        const finished = await advanceProductionTurn(headquarters.id);
+        const completed = finished.economies.find((entry) => entry.id === headquarters.id);
+        assert.equal(completed.tanks, true, 'The real next production turn installs free Tanks');
+        assert.equal(completed.choice, '');
+        assert.equal(completed.minerals, tankBefore.minerals + tankBefore.pendingMinerals, 'Free completion retains every earned mineral');
+        await screenshot('free-tanks-completed');
+      }
+
+      assert.equal(rulesAsset.reads(), 1);
+      t.diagnostic(`Loaded nutrient ${profile.rule} and mineral ${profile.mineralRule} through real ${profile.level === 0 ? 'Tiny' : 'Standard'} menus. Actual picker showed Tanks ${4 * factors.mineral}, Pod ${factors.cost}; selected project and first real credit agreed.${factors.cost === 0 ? ' The free Pod held at size one; free Tanks then completed through actual turn controls with every earned mineral retained.' : ''} Whole-item flow is application coverage, beyond recorded factor witnesses.`);
+      await healthy();
+      return;
+    }
     assert.equal(rulesAsset.reads(), 1, 'Native initialization and menus share the verified rules asset');
     await healthy();
     t.diagnostic('Synthetic installed rule eleven flowed through real menus, Standard generation, native factor and actual food label. No world/RNG/population overrides; adds no original-input parity case.');

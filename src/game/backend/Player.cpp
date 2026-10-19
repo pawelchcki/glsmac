@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <memory>
 #include <limits>
+#include <stdexcept>
 
 #include "engine/Engine.h"
 #include "Game.h"
@@ -18,6 +19,7 @@
 #include "game/backend/base/BaseManager.h"
 #include "game/backend/base/Base.h"
 #include "game/backend/base/FacilityDef.h"
+#include "game/backend/base/ProductionCost.h"
 #include "game/backend/base/production/Facility.h"
 #include "game/backend/base/production/Custom.h"
 #include "game/backend/base/production/Unit.h"
@@ -236,7 +238,7 @@ gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
 		const auto* def = bm->GetFacilityDef( facility_id );
 		if ( !def ) { continue; }
 		const auto cost = def->GetMineralCost( GetGame(), this );
-		if ( cost <= 0 ) { continue; }
+		if ( cost <= 0 && !base::HasDeclaredMineralCost( GetGame(), this, def->m_cost_rows ) ) { continue; }
 		choices.push_back( VALUEEXT( gse::value::Object, GSE_CALL, {
 			{ "id", VALUE( gse::value::String,, id ) },
 			{ "type", VALUE( gse::value::String,, "facility" ) },
@@ -368,7 +370,8 @@ WRAPIMPL_BEGIN( Player )
 				"get_production_choices",
 				NATIVE_CALL( this ) {
 					N_EXPECT_ARGS( 0 );
-					return GetProductionChoices( GSE_CALL );
+					try { return GetProductionChoices( GSE_CALL ); }
+					catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 				} )
 			},
 			{

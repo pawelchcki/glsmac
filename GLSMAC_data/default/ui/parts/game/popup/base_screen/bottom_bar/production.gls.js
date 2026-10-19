@@ -92,6 +92,7 @@ return {
 			this.production_label,
 			(progress_in) => {
 				if (choice.type == 'unit' && state.minerals >= choice.cost && base.get_size() <= choice.population_cost) { return 'NEEDS POPULATION'; }
+				if (state.minerals >= choice.cost) { return '1 TURN'; }
 				if (pending == 0) { return 'NO SURPLUS'; }
 				const turns = #max(1, #ceil(#to_float(choice.cost - state.minerals) / #to_float(pending)));
 				return #to_string(turns) + (turns == 1 ? ' TURN' : ' TURNS');

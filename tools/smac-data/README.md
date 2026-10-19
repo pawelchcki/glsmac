@@ -103,6 +103,31 @@ SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:n
 These integration tests add no original-executable parity cases. The separate
 recorded nutrient-factor arithmetic contract retains its existing scope.
 
+## Installed mineral rule
+
+The [mineral rule contract](mineral-rule-contract.md) maps `RULES` data row six
+to independent native state. Both startup routes validate nutrient and mineral
+scalars before committing either. Declared facility and Colony Pod rows use the
+loaded factor for known human named-preset contexts; existing explicit fallbacks
+retain their scope. Native transfer supports empty, nutrient-only and current
+two-field rules records, with complete validation before mutation.
+
+Synthetic tests cover native descriptors, preview, selection, exact completion,
+overflow rejection, zero-priced declared projects and mineral-grid geometry.
+The browser check loads nutrient 11 and mineral 13 through the real asset
+verification path, enters generated Standard gameplay, checks the actual picker
+and selected-project price, and advances a real production turn. A Tiny/rule-one
+browser path also selects a free Pod through the real validator, verifies its
+size-one population hold, then selects free Tanks and completes them through
+real turn controls without spending stored minerals:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:mineral-rules
+```
+
+Recorded factor arithmetic remains separate from these application construction
+and UI checks; this integration adds no original-executable parity cases.
+
 ## Integration and remaining work
 
 The intended consumers are shipped rules/technology/unit/facility data, main

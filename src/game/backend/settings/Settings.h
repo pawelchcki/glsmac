@@ -80,6 +80,7 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 
 private:
 	void RefreshPresetWrappers();
+	void RefreshWrappers();
 };
 
 // settings that are synced between players (host has authority)
@@ -100,6 +101,9 @@ CLASS2( GlobalSettings, types::Serializable, gse::Wrappable )
 
 	const types::Buffer Serialize() const override;
 	void Deserialize( types::Buffer buf ) override;
+
+private:
+	void RefreshWrappers();
 };
 
 // settings that aren't synced between players

@@ -12,7 +12,8 @@ Rules::Rules( const Rules& other )
 	: types::Serializable( other ), gse::Wrappable( other )
 	, m_difficulty_levels( other.m_difficulty_levels )
 	, m_is_initialized( other.m_is_initialized )
-	, m_nutrient_cost_factor( other.m_nutrient_cost_factor ) {}
+	, m_nutrient_cost_factor( other.m_nutrient_cost_factor )
+	, m_mineral_cost_factor( other.m_mineral_cost_factor ) {}
 
 Rules& Rules::operator=( const Rules& other ) {
 	if ( this != &other ) {
@@ -25,6 +26,7 @@ Rules& Rules::operator=( const Rules& other ) {
 		}
 		m_is_initialized = other.m_is_initialized;
 		m_nutrient_cost_factor = other.m_nutrient_cost_factor;
+		m_mineral_cost_factor = other.m_mineral_cost_factor;
 	}
 	return *this;
 }
@@ -36,6 +38,13 @@ int64_t Rules::GetNutrientCostFactor() const { return m_nutrient_cost_factor; }
 void Rules::SetNutrientCostFactor( const int64_t factor ) {
 	if ( factor < 1 || factor > 100 ) { THROW( "Nutrient cost multiplier must be an integer from 1 through 100" ); }
 	m_nutrient_cost_factor = factor;
+}
+
+int64_t Rules::GetMineralCostFactor() const { return m_mineral_cost_factor; }
+
+void Rules::SetMineralCostFactor( const int64_t factor ) {
+	if ( factor < 1 || factor > 100 ) { THROW( "Mineral cost multiplier must be an integer from 1 through 100" ); }
+	m_mineral_cost_factor = factor;
 }
 
 const int Rules::GetDefaultDifficultyLevelV() const {
@@ -70,6 +79,25 @@ WRAPIMPL_DYNAMIC_GETTERS( Rules )
 			return VALUE( gse::value::Undefined );
 		} )
 	},
+	{
+		"get_mineral_cost_factor", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 0 );
+			auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			return VALUE( gse::value::Int,, rules->GetMineralCostFactor() );
+		} )
+	},
+	{
+		"set_mineral_cost_factor", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( factor, 0, Int );
+			auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			CheckCustomMutation( GSE_CALL );
+			if ( factor < 1 || factor > 100 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Mineral cost multiplier must be from 1 through 100" ); }
+			rules->SetMineralCostFactor( factor );
+			return VALUE( gse::value::Undefined );
+		} )
+	},
 WRAPIMPL_DYNAMIC_SETTERS( Rules )
 WRAPIMPL_DYNAMIC_ON_SET( Rules )
 WRAPIMPL_DYNAMIC_END()
@@ -78,19 +106,23 @@ const types::Buffer Rules::Serialize() const {
 	types::Buffer buf;
 
 	// Difficulty levels remain fixed; this typed extension carries the loaded
-	// scalar rather than relying on script custom properties during transfer.
+	// multipliers rather than relying on script custom properties during transfer.
 	buf.WriteInt( m_nutrient_cost_factor );
+	buf.WriteInt( m_mineral_cost_factor );
 
 	return buf;
 }
 
 void Rules::Deserialize( types::Buffer buf ) {
 
-	// An exact empty legacy rules payload used the previous multiplier ten.
-	// A present extension must be complete and valid before any live mutation.
-	const auto factor = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
-	if ( factor < 1 || factor > 100 || buf.lenr != buf.lenw ) { THROW( "Invalid serialized nutrient cost multiplier" ); }
-	SetNutrientCostFactor( factor );
+	// Exact empty legacy records default both fields. Exact nutrient-only
+	// records retain that value and default mineral; a present second field
+	// must be complete and valid before either live value changes.
+	const auto nutrient = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
+	const auto mineral = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
+	if ( nutrient < 1 || nutrient > 100 || mineral < 1 || mineral > 100 || buf.lenr != buf.lenw ) { THROW( "Invalid serialized cost multipliers" ); }
+	SetNutrientCostFactor( nutrient );
+	SetMineralCostFactor( mineral );
 	m_is_initialized = true;
 
 }

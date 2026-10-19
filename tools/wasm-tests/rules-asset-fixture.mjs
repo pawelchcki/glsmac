@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
-// Synthetic source-data fixture, with unrelated neighboring rows. No installed
-// text is copied. The actual asset store still verifies the body size and hash.
-export function syntheticNutrientRules(value) {
-  return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n91,\n#END\n`;
+// Synthetic source-data fixture with both cost scalars and distinct earlier
+// rows. No installed text is copied; the asset store verifies size and hash.
+export function syntheticNutrientRules(value, mineralValue = 10) {
+  return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n${mineralValue},\n#END\n`;
 }
 
 export async function overrideRulesAsset(page, source) {

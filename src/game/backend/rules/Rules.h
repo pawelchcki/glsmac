@@ -34,6 +34,8 @@ CLASS2( Rules, types::Serializable, gse::Wrappable )
 	void Initialize();
 	int64_t GetNutrientCostFactor() const;
 	void SetNutrientCostFactor( int64_t factor );
+	int64_t GetMineralCostFactor() const;
+	void SetMineralCostFactor( int64_t factor );
 
 	WRAPDEFS_DYNAMIC( Rules );
 
@@ -46,6 +48,7 @@ protected:
 private:
 	bool m_is_initialized = false;
 	int64_t m_nutrient_cost_factor = 10;
+	int64_t m_mineral_cost_factor = 10;
 	// Saved native callables may outlive a settings wrapper or its world.
 	// Each copy owns a distinct handle; assignment preserves destination readers.
 	const std::shared_ptr< Rules* > m_nutrient_handle = std::make_shared< Rules* >( this );

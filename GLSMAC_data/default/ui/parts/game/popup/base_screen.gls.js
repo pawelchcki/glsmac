@@ -243,9 +243,9 @@ return {
 
 	set_cells: (total_width, total_height, columns, rows, filled, pending, cells_el, cell_baseclass, label_el, f_label) => {
 		cells_el.clear();
-		// A valid zero nutrient factor has no cells or cell geometry. Keep
+		// A valid zero nutrient factor or project price has no cell geometry. Keep
 		// the caller's existing label policy, with exactly zero progress.
-		if (columns == 0) {
+		if (columns == 0 || rows == 0) {
 			label_el.text = f_label(0);
 			return;
 		}
@@ -319,7 +319,7 @@ return {
 			return choices;
 		}
 		for (choice of this.base.get_owner().get_production_choices()) {
-			if (choice.cost > 0 && (choice.type == 'unit' || (choice.type == 'facility' && !this.base.has_facility(choice.facility_id)))) {
+			if (choice.cost >= 0 && (choice.type == 'unit' || (choice.type == 'facility' && !this.base.has_facility(choice.facility_id)))) {
 				choices :+choice;
 			}
 		}

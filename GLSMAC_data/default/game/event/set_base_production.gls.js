@@ -11,7 +11,7 @@ return {
 		}
 		for (choice of owner.get_production_choices()) {
 			if (choice.id == e.data.choice_id) {
-				if ((choice.type != 'facility' && choice.type != 'unit') || #typeof(choice.cost) != 'Int' || choice.cost <= 0) {
+				if ((choice.type != 'facility' && choice.type != 'unit') || #typeof(choice.cost) != 'Int' || choice.cost < 0) {
 					return 'Production choice is not a supported project';
 				}
 				if (choice.type == 'facility' && base.has_facility(choice.facility_id)) {

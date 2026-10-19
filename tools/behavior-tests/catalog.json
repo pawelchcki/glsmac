@@ -1,6 +1,12 @@
 {
   "version": 1,
   "suites": [
+    {"id":"mineral-rule-picker-native","script":"GLSMAC_data/tests/mineral_rule_picker_native.gls.js","domains":["gameplay","economy","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"mineral-rule-native","script":"GLSMAC_data/tests/mineral_rule_native.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"mineral-rule-consumer","script":"GLSMAC_data/tests/mineral_rule_consumer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"mineral-rule-production","script":"GLSMAC_data/tests/mineral_rule_production.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"mineral-zero-grid","script":"GLSMAC_data/tests/mineral_zero_grid.gls.js","domains":["economy","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"settings-alias-transfer-native","script":"GLSMAC_data/tests/settings_alias_transfer_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"nutrient-zero-grid","script":"GLSMAC_data/tests/nutrient_zero_grid.gls.js","domains":["economy","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"nutrient-rule-native","script":"GLSMAC_data/tests/nutrient_rule_native.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"nutrient-rule-consumer","script":"GLSMAC_data/tests/nutrient_rule_consumer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},

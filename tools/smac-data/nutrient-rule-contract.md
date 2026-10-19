@@ -37,7 +37,11 @@ script custom property. It must reach ordinary startup and Quick Start and
 survive settings transfer. A receiving client must retain authoritative
 received rules. Decode an exact legacy empty rules payload as the previous
 default 10; validate any present extension completely before mutation.
-Retained wrappers must observe native changes consistently.
+Retained wrappers must observe native changes consistently. Current records also
+carry the [mineral multiplier](mineral-rule-contract.md); exact nutrient-only
+records retain their nutrient value and default only mineral to ten. The
+nutrient scalar consumer remains independent; startup validates both mapped
+values before committing either.
 
 At the containing `GlobalSettings` boundary, decode all fields and validate the
 nested map and rules records before replacing live settings. Rejection of an

@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **777 scenarios and 5,536 assertions** across
-61 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **838 scenarios and 6,114 assertions** across
+67 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -474,6 +474,45 @@ component properties; original table slot IDs belong only to the reference
 fixture. Regenerate synthetic inputs with
 `python3 tools/behavior-tests/generate_prototype_cost.py --suite all`;
 observations require separate repeated original execution.
+
+## Installed mineral rule and settings transfer
+
+Six additional suites cover 61 scenarios and 578 assertions. The real parser
+feeds the mapped mineral scalar into native rules independently of nutrient
+data. Both startup paths validate both values before committing either. Current
+rules carry both values; exact empty and nutrient-only records retain their
+declared compatibility. Copies, aliases, destruction and actual pre-world State
+wire remain native application checks.
+
+The shared declared-price resolver applies the loaded factor to facilities and
+Colony Pods, including descriptor, preview, selection, exact completion and
+retained overflow. Tests preserve exact zero prices on Tiny/rule-one settings,
+next-turn completion and population holding. Real native choices also pass the
+shipped base picker and command validator/apply, including zero labels, preview,
+cancellation, ownership, installed/invalid exclusions and positive-price recovery.
+Multiplication is checked against
+the actual factor; overflow rejects through script-call boundaries before
+production changes. This transfers the existing recorded factor arithmetic;
+row declarations and whole-item construction add no original parity cases.
+
+The actual mineral panel handles zero rows without geometry division, clears
+old cells and recovers positive prices. Funded projects report one turn even
+without new income; unfunded projects retain NO SURPLUS and population-blocked
+pods retain NEEDS POPULATION. Synthetic display boundaries do not establish
+original rendered UI parity.
+
+A separate 23-scenario suite transfers every exposed map property, difficulty
+and game name through real native codecs. Assigned wrappers and fresh wrappers
+must match the serialized receiving state. Rejected map/global records preserve
+all fields; unregistered full-width difficulty values reject before mutation,
+including a value that would narrow into a valid mapped key. These checks do
+not claim malformed whole-State/faction atomicity or complete save/load.
+
+With installed assets, `npm --prefix tools/wasm-tests run test:mineral-rules`
+loads distinct nutrient/mineral values through normal manifest verification,
+checks Quick Start and generated Standard gameplay, the actual picker and
+selected-project prices, then advances a real production turn. See the
+[source-data contract](../smac-data/mineral-rule-contract.md).
 
 ## Installed nutrient rule integration
 

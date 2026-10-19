@@ -6,6 +6,7 @@
 #include "gse/value/Ptr.h"
 #include "gse/context/ChildContext.h"
 #include "gse/GSE.h"
+#include "gse/ExecutionPointer.h"
 #include "gc/Space.h"
 
 namespace game {
@@ -72,6 +73,27 @@ void MapSettings::RefreshPresetWrappers() {
 	}
 }
 
+void MapSettings::RefreshWrappers() {
+	// Native transfer replaces every field, including values whose assigning
+	// wrappers cached scalars. Restore each exposed value in its own context.
+	for ( auto* wrapper : m_wrapobjs ) {
+		auto* space = wrapper->GetContext()->GetGSE()->GetGCSpace();
+		if ( !space->IsOwnerThread() || !space->IsAccumulating() ) { THROW( "Live map settings require the owning GSE accumulation context" ); }
+		space->Accumulate( wrapper, [ this, wrapper, space ]() {
+			gse::ExecutionPointer ep;
+			wrapper->Assign( "type", __wrap_type.Get( space, wrapper->GetContext(), {}, ep, type ) );
+			wrapper->Assign( "filename", new gse::value::Ptr< std::string >( space, filename ) );
+			wrapper->Assign( "size_x", new gse::value::Ptr< int64_t >( space, size_x ) );
+			wrapper->Assign( "size_y", new gse::value::Ptr< int64_t >( space, size_y ) );
+			wrapper->Assign( "preset_level", new gse::value::Ptr< int64_t >( space, preset_level ) );
+			wrapper->Assign( "ocean_coverage", new gse::value::Ptr< float >( space, ocean_coverage ) );
+			wrapper->Assign( "erosive_forces", new gse::value::Ptr< float >( space, erosive_forces ) );
+			wrapper->Assign( "native_lifeforms", new gse::value::Ptr< float >( space, native_lifeforms ) );
+			wrapper->Assign( "cloud_cover", new gse::value::Ptr< float >( space, cloud_cover ) );
+		}, nullptr, true );
+	}
+}
+
 const types::Buffer MapSettings::Serialize() const {
 	types::Buffer buf;
 
@@ -105,7 +127,7 @@ void MapSettings::Deserialize( types::Buffer buf ) {
 	ocean_coverage = decoded_ocean; erosive_forces = decoded_erosive;
 	native_lifeforms = decoded_lifeforms; cloud_cover = decoded_cloud;
 	preset_level = decoded_preset;
-	RefreshPresetWrappers();
+	RefreshWrappers();
 }
 
 void GlobalSettings::Initialize() {
@@ -147,6 +169,16 @@ void GlobalSettings::Deserialize( types::Buffer buf ) {
 	decoded_map.Deserialize( types::Buffer( map_bytes ) );
 	::game::backend::rules::Default decoded_rules;
 	decoded_rules.Deserialize( types::Buffer( rules_bytes ) );
+	// Wire integers are wider than the fixed difficulty map's keys. Compare
+	// before narrowing so an out-of-range value cannot alias a registered key.
+	bool registered_difficulty = false;
+	for ( const auto& entry : decoded_rules.m_difficulty_levels.GetVK() ) {
+		if ( decoded_difficulty == static_cast< int64_t >( entry.first ) ) {
+			registered_difficulty = true;
+			break;
+		}
+	}
+	if ( !registered_difficulty ) { THROW( "Invalid serialized difficulty level" ); }
 
 	// Keep the actual destination objects: map decode refreshes retained preset
 	// wrappers, and Rules assignment preserves its saved native-reader handle.
@@ -154,6 +186,21 @@ void GlobalSettings::Deserialize( types::Buffer buf ) {
 	rules = decoded_rules;
 	difficulty_level = decoded_difficulty;
 	game_name = decoded_name;
+	RefreshWrappers();
+}
+
+void GlobalSettings::RefreshWrappers() {
+	// Script assignment caches scalar values. Successful native transfer must
+	// restore both exposed global values using the receiver's existing rules.
+	for ( auto* wrapper : m_wrapobjs ) {
+		auto* space = wrapper->GetContext()->GetGSE()->GetGCSpace();
+		if ( !space->IsOwnerThread() || !space->IsAccumulating() ) { THROW( "Live global settings require the owning GSE accumulation context" ); }
+		space->Accumulate( wrapper, [ this, wrapper, space ]() {
+			gse::ExecutionPointer ep;
+			wrapper->Assign( "difficulty_level", rules.m_difficulty_levels.Get( space, wrapper->GetContext(), {}, ep, difficulty_level ) );
+			wrapper->Assign( "game_name", new gse::value::Ptr< std::string >( space, game_name ) );
+		}, nullptr, true );
+	}
 }
 
 WRAPMAP( game_mode, LocalSettings::game_mode_t,

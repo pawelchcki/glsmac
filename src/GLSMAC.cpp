@@ -484,7 +484,16 @@ void GLSMAC::S_Init( GSE_CALLABLE, const std::optional< std::string >& path ) {
 	if ( !factor || factor->type != gse::VT_INT ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_rules must return an integer nutrient multiplier" ); }
 	const auto value = static_cast< gse::value::Int* >( factor )->value;
 	if ( value < 1 || value > 100 ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_rules nutrient multiplier must be from 1 through 100" ); }
+	auto* mineral_factor = TriggerObject( this, "configure_mineral_rules", ARGS_F( &document ) {
+		{ "document", loader::txt::WrapSmacTextDocument( GSE_CALL, document ) },
+	}; } );
+	if ( !mineral_factor || mineral_factor->type != gse::VT_INT ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_mineral_rules must return an integer mineral multiplier" ); }
+	const auto mineral_value = static_cast< gse::value::Int* >( mineral_factor )->value;
+	if ( mineral_value < 1 || mineral_value > 100 ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_mineral_rules mineral multiplier must be from 1 through 100" ); }
+	// Both pure callbacks and both native bounds checks finish before either
+	// field changes. Invalid mineral data cannot partially commit nutrient data.
 	m_state->m_settings.global.rules.SetNutrientCostFactor( value );
+	m_state->m_settings.global.rules.SetMineralCostFactor( mineral_value );
 	Reset( GSE_CALL );
 }
 

@@ -186,14 +186,34 @@ struct ProductionFixture : gc::Object {
 		const auto bytes = state->m_settings.global.rules.Serialize().ToString();
 		if ( kind == "current" ) { return bytes; }
 		if ( kind == "legacy" ) { return ""; }
+		if ( kind == "legacy_nutrient" ) {
+			types::Buffer legacy; legacy.WriteInt( state->m_settings.global.rules.GetNutrientCostFactor() ); return legacy.ToString();
+		}
 		if ( kind == "truncated" ) { return bytes.substr( 0, bytes.size() - 1 ); }
 		if ( kind == "trailing" ) { return bytes + "trailing"; }
 		types::Buffer invalid;
 		if ( kind == "invalid_low" ) { invalid.WriteInt( 0 ); }
 		else if ( kind == "invalid_high" ) { invalid.WriteInt( 101 ); }
 		else if ( kind == "wrong_type" ) { invalid.WriteString( "11" ); }
+		else if ( kind == "mineral_invalid_low" || kind == "mineral_invalid_high" || kind == "mineral_wrong_type" || kind == "mineral_truncated" || kind == "mineral_trailing" ) {
+			invalid.WriteInt( state->m_settings.global.rules.GetNutrientCostFactor() );
+			if ( kind == "mineral_wrong_type" ) { invalid.WriteString( "11" ); }
+			else { invalid.WriteInt( kind == "mineral_invalid_low" ? 0 : kind == "mineral_invalid_high" ? 101 : 11 ); }
+			const auto malformed = invalid.ToString();
+			if ( kind == "mineral_truncated" ) { return malformed.substr( 0, malformed.size() - 1 ); }
+			if ( kind == "mineral_trailing" ) { return malformed + "trailing"; }
+		}
 		else { THROW( "unknown fixture rules settings snapshot kind" ); }
 		return invalid.ToString();
+	}
+	Value* RulesRecordProbe( GSE_CALLABLE ) {
+		auto record = state->m_settings.global.rules.Serialize();
+		const auto nutrient = record.ReadInt();
+		const auto mineral = record.ReadInt();
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "nutrient", VALUE( value::Int,, nutrient ) }, { "mineral", VALUE( value::Int,, mineral ) },
+			{ "exhausted", VALUE( value::Bool,, record.lenr == record.lenw ) },
+		} );
 	}
 	void RestoreRulesSettings( const std::string& bytes ) {
 		state->m_settings.global.rules.Deserialize( types::Buffer( bytes ) );
@@ -204,12 +224,18 @@ struct ProductionFixture : gc::Object {
 		types::Buffer result;
 		result.WriteString( settings.map.Serialize().ToString() );
 		if ( kind == "legacy_rules" ) { result.WriteString( "" ); }
+		else if ( kind == "legacy_nutrient_rules" ) {
+			types::Buffer legacy; legacy.WriteInt( settings.rules.GetNutrientCostFactor() ); result.WriteString( legacy.ToString() );
+		}
 		else if ( kind == "invalid_rules" ) {
 			types::Buffer invalid; invalid.WriteInt( 101 ); result.WriteString( invalid.ToString() );
 		}
-		else if ( kind == "truncated_name" ) { result.WriteString( settings.rules.Serialize().ToString() ); }
+		else if ( kind == "invalid_mineral_rules" ) {
+			types::Buffer invalid; invalid.WriteInt( settings.rules.GetNutrientCostFactor() ); invalid.WriteInt( 101 ); result.WriteString( invalid.ToString() );
+		}
+		else if ( kind == "truncated_name" || kind == "invalid_difficulty" || kind == "invalid_difficulty_wide" ) { result.WriteString( settings.rules.Serialize().ToString() ); }
 		else { THROW( "unknown fixture global settings snapshot kind" ); }
-		result.WriteInt( settings.difficulty_level );
+		result.WriteInt( kind == "invalid_difficulty" ? 999 : kind == "invalid_difficulty_wide" ? 4294967293LL : settings.difficulty_level );
 		result.WriteString( settings.game_name );
 		const auto bytes = result.ToString();
 		return kind == "truncated_name" ? bytes.substr( 0, bytes.size() - 1 ) : bytes;
@@ -226,62 +252,93 @@ struct ProductionFixture : gc::Object {
 		auto& from = source->m_settings.global;
 		auto& to = target->m_settings.global;
 		from.map.size_x = 68; from.map.size_y = 34; from.map.preset_level = 0;
-		from.rules.SetNutrientCostFactor( 17 ); from.game_name = "Source wire";
+		from.rules.SetNutrientCostFactor( 17 ); from.rules.SetMineralCostFactor( 19 ); from.game_name = "Source wire";
 		to.map.size_x = 112; to.map.size_y = 56; to.map.preset_level = 2;
-		to.rules.SetNutrientCostFactor( 23 ); to.game_name = "Previous target";
+		to.rules.SetNutrientCostFactor( 23 ); to.rules.SetMineralCostFactor( 31 ); to.game_name = "Previous target";
 		source->GetFM()->Add( new backend::faction::Faction( "WIRE_SOURCE", "Wire Source" ) );
 		target->GetFM()->Add( new backend::faction::Faction( "WIRE_OLD", "Old Target" ) );
 		auto* wrapper = static_cast< value::Object* >( to.rules.Wrap( GSE_CALL ) );
 		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
+		auto* mineral_read = static_cast< value::Callable* >( wrapper->Get( "get_mineral_cost_factor" ) );
 		const auto wire = source->Serialize().ToString();
 		target->Deserialize( types::Buffer( wire ) );
 		auto* read_value = read->Run( GSE_CALL, {} );
 		const bool aliases = read_value->type == VT_INT && static_cast< value::Int* >( read_value )->value == 17;
+		auto* mineral_read_value = mineral_read->Run( GSE_CALL, {} );
+		const bool mineral_aliases = mineral_read_value->type == VT_INT && static_cast< value::Int* >( mineral_read_value )->value == 19;
+		const bool mineral_received = to.rules.GetMineralCostFactor() == 19;
 		const bool received = to.map.size_x == 68 && to.map.size_y == 34 && to.map.preset_level == 0 &&
 			to.rules.GetNutrientCostFactor() == 17 && to.game_name == "Source wire";
 		const bool factions = target->GetFM()->Get( "WIRE_SOURCE" ) && !target->GetFM()->Get( "WIRE_OLD" ) &&
 			target->GetFM()->Get( "WIRE_SOURCE" ) != source->GetFM()->Get( "WIRE_SOURCE" );
 		const bool roundtrip = target->Serialize().ToString() == wire;
-		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.game_name = "Changed sender";
+		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.rules.SetMineralCostFactor( 37 ); from.game_name = "Changed sender";
 		const bool independent = target->Serialize().ToString() == wire && to.rules.GetNutrientCostFactor() == 17;
+		const bool mineral_independent = target->Serialize().ToString() == wire && to.rules.GetMineralCostFactor() == 19;
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "received", VALUE( value::Bool,, received ) }, { "aliases", VALUE( value::Bool,, aliases ) },
 			{ "factions", VALUE( value::Bool,, factions ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
 			{ "independent", VALUE( value::Bool,, independent ) },
+			{ "mineral_received", VALUE( value::Bool,, mineral_received ) },
+			{ "mineral_aliases", VALUE( value::Bool,, mineral_aliases ) },
+			{ "mineral_independent", VALUE( value::Bool,, mineral_independent ) },
 		} );
 	}
 	Value* RulesCopyProbe( GSE_CALLABLE ) {
 		auto& source = state->m_settings.global.rules;
 		const auto before = source.GetNutrientCostFactor();
+		const auto mineral_before = source.GetMineralCostFactor();
 		auto constructed = std::make_unique< backend::rules::Default >( source );
 		const bool constructor = constructed->GetNutrientCostFactor() == before;
+		const bool mineral_constructor = constructed->GetMineralCostFactor() == mineral_before;
 		auto assigned = std::make_unique< backend::rules::Default >();
 		assigned->SetNutrientCostFactor( 19 );
+		assigned->SetMineralCostFactor( 43 );
 		auto* alias = static_cast< value::Object* >( assigned->Wrap( GSE_CALL ) );
 		auto* read = static_cast< value::Callable* >( alias->Get( "get_nutrient_cost_factor" ) );
+		auto* mineral_read = static_cast< value::Callable* >( alias->Get( "get_mineral_cost_factor" ) );
 		*assigned = *constructed;
 		const bool assignment = assigned->GetNutrientCostFactor() == before;
+		const bool mineral_assignment = assigned->GetMineralCostFactor() == mineral_before;
 		const auto read_factor = [ & ]() {
 			auto* result = read->Run( GSE_CALL, {} );
 			return result->type == VT_INT && static_cast< value::Int* >( result )->value == assigned->GetNutrientCostFactor();
 		};
 		bool aliases = read_factor();
+		const auto read_mineral = [ & ]() {
+			auto* result = mineral_read->Run( GSE_CALL, {} );
+			return result->type == VT_INT && static_cast< value::Int* >( result )->value == assigned->GetMineralCostFactor();
+		};
+		bool mineral_aliases = read_mineral();
 		constructed->SetNutrientCostFactor( 29 );
 		assigned->SetNutrientCostFactor( 31 );
+		constructed->SetMineralCostFactor( 37 );
+		assigned->SetMineralCostFactor( 41 );
 		const bool independent = source.GetNutrientCostFactor() == before && constructed->GetNutrientCostFactor() == 29 && assigned->GetNutrientCostFactor() == 31;
+		const bool mineral_independent = source.GetMineralCostFactor() == mineral_before && constructed->GetMineralCostFactor() == 37 && assigned->GetMineralCostFactor() == 41;
 		aliases = aliases && read_factor();
+		mineral_aliases = mineral_aliases && read_mineral();
 		auto* constructed_wrapper = static_cast< value::Object* >( constructed->Wrap( GSE_CALL ) );
 		auto* saved_read = static_cast< value::Callable* >( constructed_wrapper->Get( "get_nutrient_cost_factor" ) );
 		auto* saved_write = static_cast< value::Callable* >( constructed_wrapper->Get( "set_nutrient_cost_factor" ) );
+		auto* mineral_saved_read = static_cast< value::Callable* >( constructed_wrapper->Get( "get_mineral_cost_factor" ) );
+		auto* mineral_saved_write = static_cast< value::Callable* >( constructed_wrapper->Get( "set_mineral_cost_factor" ) );
 		constructed.reset();
 		bool read_rejected = false; bool write_rejected = false;
 		try { saved_read->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { read_rejected = true; }
 		try { saved_write->Run( GSE_CALL, { VALUE( value::Int,, 11 ) } ); } catch ( const std::exception& ) { write_rejected = true; }
 		const bool lifetime = read_rejected && write_rejected && source.GetNutrientCostFactor() == before && read_factor();
+		bool mineral_read_rejected = false; bool mineral_write_rejected = false;
+		try { mineral_saved_read->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { mineral_read_rejected = true; }
+		try { mineral_saved_write->Run( GSE_CALL, { VALUE( value::Int,, 11 ) } ); } catch ( const std::exception& ) { mineral_write_rejected = true; }
+		const bool mineral_lifetime = mineral_read_rejected && mineral_write_rejected && source.GetMineralCostFactor() == mineral_before && read_mineral();
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "constructor", VALUE( value::Bool,, constructor ) }, { "assignment", VALUE( value::Bool,, assignment ) },
 			{ "independent", VALUE( value::Bool,, independent ) }, { "aliases", VALUE( value::Bool,, aliases ) },
 			{ "lifetime", VALUE( value::Bool,, lifetime ) },
+			{ "mineral_constructor", VALUE( value::Bool,, mineral_constructor ) }, { "mineral_assignment", VALUE( value::Bool,, mineral_assignment ) },
+			{ "mineral_independent", VALUE( value::Bool,, mineral_independent ) }, { "mineral_aliases", VALUE( value::Bool,, mineral_aliases ) },
+			{ "mineral_lifetime", VALUE( value::Bool,, mineral_lifetime ) },
 		} );
 	}
 	void SetOwnerRole( const std::string& role ) {
@@ -892,6 +949,9 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	} ), GSE_CALL );
 	object->Set( "rules_copy_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->RulesCopyProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "rules_record_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->RulesRecordProbe( GSE_CALL );
 	} ), GSE_CALL );
 	object->Set( "global_settings_snapshot", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );

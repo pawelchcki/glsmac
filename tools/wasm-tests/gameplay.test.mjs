@@ -679,6 +679,41 @@ test('Quick Start loads the installed nutrient rule before configuring gameplay'
   t.diagnostic('Actual Quick Start loaded rule 11 before configure_game. Imported-map factor provenance stays unsupported; this startup fixture adds no original-input parity case.');
 });
 
+test('Quick Start loads installed mineral and nutrient rules before configuring gameplay', {
+  skip: (!assets || site) && 'Requires SMAC_ASSETS_DIR and the local asset server',
+  timeout: 120000,
+}, async (t) => {
+  const observer = mainScript.replace('  glsmac.run();', String.raw`
+  glsmac.on('configure_game', (e) => {
+    const game = e.game;
+    const rules = game.get_settings().global.rules;
+    let value = 'MISSING';
+    if (#typeof(rules.get_nutrient_cost_factor) == 'Callable') { value = #to_string(rules.get_nutrient_cost_factor()); }
+    #print('LOADED_NUTRIENT_RULE|' + value);
+    let mineral = 'MISSING';
+    if (#typeof(rules.get_mineral_cost_factor) == 'Callable') { mineral = #to_string(rules.get_mineral_cost_factor()); }
+    #print('LOADED_MINERAL_RULE|' + mineral);
+    game.on('start_ui', (e) => {
+      for (base of game.get_bm().get_bases()) {
+        #print('QUICKSTART_NUTRIENT_FACTOR|' + #to_string(base.get_nutrient_factor()));
+      }
+    });
+  });
+  glsmac.run();
+`);
+  const { page, waitForLog, screenshot, rulesAsset } = await startGame(t, ordersWorldScript, 'mineral-rule-quickstart', {
+    mainScript: observer, rulesText: syntheticNutrientRules(11, 13),
+  });
+  await waitForLog('LOADED_NUTRIENT_RULE|');
+  const log = await page.locator('#log').textContent();
+  assert.equal(log.match(/LOADED_NUTRIENT_RULE\|([^\r\n]*)/)?.[1], '11', 'Quick Start configures gameplay with the loaded native rule');
+  assert.equal(log.match(/LOADED_MINERAL_RULE\|([^\r\n]*)/)?.[1], '13', 'Quick Start configures gameplay with the independently loaded native mineral rule');
+  await waitForLog('QUICKSTART_NUTRIENT_FACTOR|undefined');
+  assert.equal(rulesAsset.reads(), 1, 'Quick Start reads the verified synthetic installed rules once');
+  await screenshot('loaded');
+  t.diagnostic('Actual Quick Start loaded nutrient 11 and mineral 13 before configure_game. Imported-map factor provenance stays unsupported; this startup fixture adds no original-input parity case.');
+});
+
 test('owned bases, turns, movement and facility production use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
   timeout: 180000,

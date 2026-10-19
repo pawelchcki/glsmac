@@ -21,6 +21,7 @@
 #include "FacilityDef.h"
 #include "NutrientCost.h"
 #include "ProductionSwitchCost.h"
+#include "ProductionCost.h"
 #include "game/backend/Random.h"
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/Player.h"
@@ -32,6 +33,7 @@
 #include <limits>
 #include <memory>
 #include <set>
+#include <stdexcept>
 
 namespace game {
 namespace backend {
@@ -87,7 +89,7 @@ static const FacilityDef* ResolveProduction( Game* game, slot::Slot* owner, cons
 	const auto* choice = owner->GetPlayer()->GetProductionChoice( id );
 	if ( !choice || choice->GetType() != production::Production::PT_FACILITY ) { return nullptr; }
 	const auto* def = game->GetBM()->GetFacilityDef( static_cast< const production::Facility* >( choice )->GetFacilityId() );
-	return def && def->GetMineralCost( game, owner->GetPlayer() ) > 0 ? def : nullptr;
+	return def && ( def->GetMineralCost( game, owner->GetPlayer() ) > 0 || HasDeclaredMineralCost( game, owner->GetPlayer(), def->m_cost_rows ) ) ? def : nullptr;
 }
 
 static const production::Unit* ResolveUnitProduction( Game* game, slot::Slot* owner, const std::string& id ) {
@@ -95,7 +97,9 @@ static const production::Unit* ResolveUnitProduction( Game* game, slot::Slot* ow
 	if ( !choice || choice->GetType() != production::Production::PT_UNIT ) { return nullptr; }
 	const auto* recipe = static_cast< const production::Unit* >( choice );
 	const auto* def = game->GetUM() ? game->GetUM()->GetUnitDef( recipe->unit_id ) : nullptr;
-	return def && def->m_type == unit::DT_STATIC && def->GetMovementType() == unit::MT_LAND ? recipe : nullptr;
+	// Resolve the live price even for a same-project preview, so overflow is
+	// rejected consistently before selection or production state can change.
+	return def && def->m_type == unit::DT_STATIC && def->GetMovementType() == unit::MT_LAND && recipe->GetMineralCost( game, owner->GetPlayer() ) >= 0 ? recipe : nullptr;
 }
 
 static gse::value::Object* WrapProduction( GSE_CALLABLE, const ProductionState& state ) {
@@ -139,7 +143,7 @@ int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_i
 	}
 	const auto valid_cost = [ & ]( const FacilityDef* facility, const production::Unit* unit ) {
 		const auto cost = unit ? unit->GetMineralCost( m_game, m_owner->GetPlayer() ) : facility->GetMineralCost( m_game, m_owner->GetPlayer() );
-		return cost > 0 && cost <= 1000000;
+		return cost >= 0 && cost <= 1000000;
 	};
 	if ( !valid_cost( previous_def, previous_recipe ) || !valid_cost( def, recipe ) ) {
 		GSE_ERROR( gse::EC.GAME_ERROR, "Production switching is unsupported for this project cost" );
@@ -458,19 +462,23 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 	{
 		"get_production_switch_loss", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( choice, 0, String );
-			return VALUE( gse::value::Int,, GetProductionSwitchLoss( GSE_CALL, choice ) );
+			try { return VALUE( gse::value::Int,, GetProductionSwitchLoss( GSE_CALL, choice ) ); }
+			catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 		} )
 	},
 	{
 		"select_production", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( choice, 0, String );
-			return WrapProduction( GSE_CALL, SelectProduction( GSE_CALL, choice ) );
+			try { return WrapProduction( GSE_CALL, SelectProduction( GSE_CALL, choice ) ); }
+			catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 		} )
 	},
 	{
 		"process_production", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( turn, 0, Int ); N_GETVALUE( minerals, 1, Int );
-			const auto result = ProcessProduction( GSE_CALL, turn, minerals );
+			ProductionResult result;
+			try { result = ProcessProduction( GSE_CALL, turn, minerals ); }
+			catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 			auto* object = VALUEEXT( gse::value::Object, GSE_CALL, {
 				{ "previous", WrapProduction( GSE_CALL, result.previous ) },
 				{ "added_facility", VALUE( gse::value::String,, result.added_facility ) },
@@ -492,7 +500,8 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			N_GETPROP( choice, data, "choice_id", String );
 			N_GETPROP( minerals, data, "minerals", Int );
 			N_GETPROP( turn, data, "last_processed_turn", Int );
-			RestoreProduction( GSE_CALL, { choice, minerals, turn }, added );
+			try { RestoreProduction( GSE_CALL, { choice, minerals, turn }, added ); }
+			catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 			return VALUE( gse::value::Undefined );
 		} )
 	},
@@ -604,10 +613,13 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			gse::value::object_properties_t result = {};
 
 			for ( auto& it : m_facilities ) {
+				int64_t cost;
+				try { cost = it.second->GetMineralCost( m_game, m_owner->GetPlayer() ); }
+				catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 				result.insert( { it.first, VALUEEXT( gse::value::Object, GSE_CALL, {
 					{ "name", VALUE( gse::value::String,, it.second->m_name ) },
 					{ "description", VALUE( gse::value::String,, it.second->m_description ) },
-					{ "cost", VALUE( gse::value::Int,, it.second->GetMineralCost( m_game, m_owner->GetPlayer() ) ) },
+					{ "cost", VALUE( gse::value::Int,, cost ) },
 				} ) } );
 			}
 
