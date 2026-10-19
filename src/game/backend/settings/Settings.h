@@ -46,7 +46,7 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 		{ settings::MAP_CONFIG_OCEAN_MEDIUM, 0.6f }, // '50-70% of surface'
 		{ settings::MAP_CONFIG_OCEAN_HIGH,   0.8f }  // '70-90% of surface'
 	 */
-	float ocean_coverage = 0.4f;
+	float ocean_coverage = 0.6f;
 
 	/*
 	 	{ settings::MAP_CONFIG_EROSIVE_STRONG,  0.5f }, // 'strong'

@@ -436,7 +436,7 @@ void Mesh::DrawImpl( shader_program::ShaderProgram* shader_program, scene::Camer
 					r->SetProcessed();
 				}
 
-				glReadBuffer( GL_NONE );
+				// Retain this FBO's color read selection, as in FBO::CaptureToTexture.
 			}
 		);
 

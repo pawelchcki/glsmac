@@ -246,7 +246,8 @@ void FBO::CaptureToTexture( types::texture::Texture* const texture, const types:
 
 				glReadPixels( top_left.x, top_left.y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, texture->GetBitmap() );
 
-				glReadBuffer( GL_NONE );
+				// Keep the private FBO's color read selection when unbinding.
+				// Selecting NONE here can break the following WebGL presentation blit.
 			}
 		);
 		texture->FullUpdate(); // TODO: partial updates

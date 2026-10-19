@@ -1,0 +1,6497 @@
+{
+  "captured_at": "2026-10-19T00:10:17.594776+00:00",
+  "observations": [
+    {
+      "case_sha256": "9d89b8f0be0692cad9181767e1019be8355af9d35b056e68c772d498b8480555",
+      "id": "menu-e765a70bc07d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a75fd8482a0406990722f8496b30d1145e6c2d99ea0e1e314016fff2d5bf920b",
+      "id": "menu-851b3d3c417a",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ebc9c717da94ae112b94467412b90df3ade08d5bb32d784d6bd61d51bb73c110",
+      "id": "menu-bb66683c826c",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SCENARIO"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MULTIPLAYER"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "VIEW CREDITS"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EXIT GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EXIT GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "VIEW CREDITS"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MULTIPLAYER"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SCENARIO"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f0247ae3ee67fac3384abceabae8baf6db76c07b8029f6acef69c0622c224ef6",
+      "id": "menu-314d0fb287df",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EXIT GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "VIEW CREDITS"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MULTIPLAYER"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SCENARIO"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SCENARIO"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MULTIPLAYER"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "VIEW CREDITS"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EXIT GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4f2d9753940e367ae29b4b8ce89b23bdb7a15d440e5567692c685ea18b5fc8af",
+      "id": "menu-15904e7769dc",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f80d534d90fa48b8f6a5eefec849f2525ef10ae105a7afdbd855a1d5e1b57525",
+      "id": "menu-482ba6ddcff0",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6188bf7c2aebbd93af78146752d936b23ccced15897be7eb7ad9700bb0fe631b",
+      "id": "menu-0cd11d1da37b",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "389c70769538a60bf7f68d9a8a70b8ce02797844de922037f39d3a5e5bfcf00d",
+      "id": "menu-01eda2cc301d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "58519d83640c3f0cb4a1ef2a5993a5b969c23c38c45cfaaf3afed5a68d1907f2",
+      "id": "menu-6347d8daaab4",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE MAP OF PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ea73e358008baf87e25b1e539954625cbf842c4bf7f4a034fa736296bba5a846",
+      "id": "menu-834e1e5f7240",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fba0330ac561d2f601da9609cb4550b0772265c15c9ce3ff507a7535723c3897",
+      "id": "menu-da1d2ac7a824",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "5f2d81084739c6ae9c3f6dcf002d8118f64c99cca2d263697d5e1effcb3897a3",
+      "id": "menu-c30ad15044f7",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f356d42987e715c12fe98fc385c46801cba6f216a6885cbcc00b57fe41c1528c",
+      "id": "menu-e1bf24c7f5ca",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EDIT SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EDIT SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3d613f83703f80a1812acb69798c9c14107f0e87867029e538fa30408e29a800",
+      "id": "menu-19d4d4fedb09",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EDIT SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EDIT SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4e713c6dee03a4e1d508f82ccbfcc8460487ffd91e7f4ca397aefb2efbba3809",
+      "id": "menu-910d57fe9570",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "02144560e6ec8b14fcc9997b3bcf656b5e7789b3eaeba9ac99db8bc0efe45228",
+      "id": "menu-18cdd4636c58",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d6c3cdc4ff36374a22e12884ba3af12336d92d105646b53c54e00bfc94236506",
+      "id": "menu-eba7b3dc6a10",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOM SIZE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TINY PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SMALL PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SMALL PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TINY PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOM SIZE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "53321dc30185678c5e6acbd667016a99a8845cf6544ee12d6ddeeb679ac536ae",
+      "id": "menu-b1b574786516",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SMALL PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TINY PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOM SIZE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "HUGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOM SIZE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TINY PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SMALL PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8b5168d76f5aa1ce1256b82841928caf0f776d106b2008fd7a295fdf83e46e3c",
+      "id": "menu-0c15ed1afc14",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8eb3cf4f19174456cd3c3c6acac7f36dbd3e6c16d3057385bb2651f878355c6c",
+      "id": "menu-fbed81ceb276",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4c8bf361c93aba279de27c58da737cf97daa3c6d351dba5a051d56d8c57866cc",
+      "id": "menu-53fd9f6ca642",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f71ca7ba8d081a94a6e6ebbcc29577909285c8c46684011abc079ada21f545a4",
+      "id": "menu-8ea5dd140938",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TALENT"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LIBRARIAN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THINKER"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TRANSCEND"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TRANSCEND"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THINKER"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LIBRARIAN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TALENT"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f1d1d1e0930ca5303518c5dd1448f73cb55ac2ad5477cc6d05ee42df2623ef74",
+      "id": "menu-3790909a94b6",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TRANSCEND"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THINKER"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LIBRARIAN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TALENT"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TALENT"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LIBRARIAN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THINKER"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TRANSCEND"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b7f69d266950b900ce96d642a464ee2eee0e75971decda7bf314455017aa3e3c",
+      "id": "menu-e6d95b0508d1",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6fb07b0c07ba82e3aa59d6cfeb44abd4bbc13fb109e41ec9497bc3e5b271674c",
+      "id": "menu-681125f11b47",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "21dbaca2d76f1639ec994d9d09b5124a8562eb411d0f98f12f3f6ff8dca6685a",
+      "id": "menu-e2b5c26a2016",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a416437e9303075544ebc89b3d3cff744c7756488f26cfce1b23ba8d19c8931b",
+      "id": "menu-aa7150ea4afe",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1ce9395b335955ac2c135bfe081d93314e91eda3fdb53341477d094c7bd848f4",
+      "id": "menu-2d6cf6cca91f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bea63476e081ece15d148fb50470cc626f95953a7e1579b649b8939e1a51f3b1",
+      "id": "menu-45d6c4a80e0f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7efddfbff20d5cae09f1f5048ebe39fa76833c76bf0c25264b36974bc1e7faf2",
+      "id": "menu-a478c11840a7",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "765a55014a2aec044bc9915520bc3d3b25333e13ea2b606f57a5804769092aae",
+      "id": "menu-bf6a820cbbef",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e6679ef805efee72fdce531b17154f5e38414f4ed8239c9b558476ba13862d79",
+      "id": "menu-6ad648fa9290",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f82829704a2bcf25ff996d80b3bd23ebd72acb07ba2d2aebc7679e974eb037c1",
+      "id": "menu-3e22fc2acb2d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "70-90% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "30-50% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "30-50% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "70-90% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bb7f3549d766abb7239d08072d98befd25e903227d01a641da2bc7fb4c4fb7ab",
+      "id": "menu-c103569802b6",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "30-50% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "70-90% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "70-90% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "30-50% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fa8264774fc9f1f997bc2a9c963a01bd336313fd1379137c2688f92407e340dd",
+      "id": "menu-26c3f6196bab",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d18a85e484efc6288f1e608999d9363ac84e7060bb85dea8ece7eb4291e39854",
+      "id": "menu-56d6563d291a",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "db6acfcd600ff2853251e2ee61f39b7daa46e54d940ef82cc95ba52155d253ac",
+      "id": "menu-23e083be4063",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f835d56fab9b1042c3aaf960405c7aabb76087984ec74c4a6b1bf3ca2d9d2f35",
+      "id": "menu-a89fc6c0ee3f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a9104ac1da7659c08bf8cc41b5271c07059541876836d533dbe6274afe388b8a",
+      "id": "menu-e141f09f0424",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "WEAK"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STRONG"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STRONG"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "WEAK"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b6015891e770b18cf76ba54d5d30d270ce3d4072b3a2ee9bd1375b892efac9f4",
+      "id": "menu-25c957a909fb",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STRONG"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "WEAK"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "WEAK"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STRONG"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "5f8bc87e7a7c7ac92a428257206afae9a75fc8f673fdf9a35c94cd18cb6b419a",
+      "id": "menu-4a763a221845",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f48958020acbf521183dd1c6d9f4d190ba8ee162094bd9d949ad895419f4e748",
+      "id": "menu-6982f5694d3a",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a0f1cd2eab56e6760c71c181ec7bec6723dc32b520c0a61d9390262adfc06a32",
+      "id": "menu-32ed261ff913",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d33b9b727f1dd24c3edf7a36eaf748f6d322f746c3d4eeb58a02db22cab91b8d",
+      "id": "menu-9e657d5275f9",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f53e4cbb6e74db36a95225296d644635eff7b29112c73ddd9de7a097bb5ff0ce",
+      "id": "menu-75743e883094",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "ABUNDANT"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "RARE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "RARE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "ABUNDANT"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6b379afdcfc333363b884030ba2d3a3d6631d46bae5b05b18d3c8433f95b143b",
+      "id": "menu-79a16889e7a4",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "RARE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "ABUNDANT"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "ABUNDANT"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "RARE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8d8a842734cbb82a0bb83feed324a5a8d9ea3ff6970cbe15d74088db4354feff",
+      "id": "menu-b63f4ece56a2",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "299974dd88d3b3b0215cb562b9aba9f2bb0a0f161669e78d37ff9ed109653141",
+      "id": "menu-d6f4b6c7d082",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3d05a1f94d8dd4b3af55ad5f219b80ade7472cb26a3466759508159c828be9a1",
+      "id": "menu-818d13054ab9",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f837ad3b3d56e06b02619c03a91bc3e92e351bcf192994608a357ba31a99337e",
+      "id": "menu-f4a04b83ce31",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e5eb977c353fd9e4695c5f1f876097d6b261b6e98536c16bddad2a0e1f9b09aa",
+      "id": "menu-8d46dd28eda8",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "DENSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPARSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPARSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "DENSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "06fa788523925869c2bbb8ec25a91ccbbfb67ce1013c164f7c6252dff4586e0c",
+      "id": "menu-411e61cb6a66",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPARSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "DENSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "DENSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPARSE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f314de270e2c3178534d25f186427c7676b53716aa04464025d6dc33302c18a3",
+      "id": "menu-5b58e17674e3",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "54831ede5c0ca2950d6dcbe00a4db16975927ab7d40fd1dc4fc5874107c9c7e7",
+      "id": "menu-5e606202981b",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT OCEAN COVERAGE",
+            "entries": [
+              "30-50% OF SURFACE",
+              "50-70% OF SURFACE",
+              "70-90% OF SURFACE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "50-70% OF SURFACE"
+            ]
+          },
+          {
+            "caption": "ADJUST EROSIVE FORCES",
+            "entries": [
+              "STRONG",
+              "AVERAGE",
+              "WEAK"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "NATIVE LIFE FORMS",
+            "entries": [
+              "RARE",
+              "AVERAGE",
+              "ABUNDANT"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "SELECT CLOUD COVER",
+            "entries": [
+              "SPARSE",
+              "AVERAGE",
+              "DENSE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "AVERAGE"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "9c94cd15146724179991529138826e28863568d3974c9a5fb8331239ea7387d6",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.menu_trace.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible-menu-text-and-highlight",
+    "ocr": "tesseract",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "viewport": [
+      1024,
+      768
+    ],
+    "workers": 4
+  },
+  "repeat": 2,
+  "suite_sha256": "98381c1fedbbf4ce917fc6d2102bfe004bdcc91823802f1d428189a2662d26ef",
+  "version": 1
+}

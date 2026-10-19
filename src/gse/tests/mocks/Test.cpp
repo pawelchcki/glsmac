@@ -11,10 +11,12 @@
 #include "gse/value/Object.h"
 #include "gse/value/Bool.h"
 #include "gse/value/Int.h"
+#include "gse/value/Float.h"
 #include "gse/value/String.h"
 #include "gse/tests/Tests.h"
 #include "gse/ExecutionPointer.h"
 #include "game/backend/Game.h"
+#include "game/backend/settings/Settings.h"
 #include "game/backend/technology/Bindings.h"
 #include "game/backend/technology/Serialization.h"
 
@@ -84,6 +86,24 @@ static Value* MakeRulesFixture( GSE_CALLABLE, const std::shared_ptr< RulesFixtur
 void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, const test_info_t& test_info ) {
 	const auto rules_fixtures = std::make_shared< std::vector< std::shared_ptr< RulesFixture > > >();
 	value::object_properties_t mocks = {
+		{
+			"default_map_settings",
+			NATIVE_CALL() {
+				N_EXPECT_ARGS( 0 );
+				// Read the production constructor, rather than supplying synthetic
+				// menu preferences. Copy scalars so no wrapper outlives this object.
+				const game::backend::settings::MapSettings map;
+				const value::object_properties_t properties = {
+					{ "size_x", VALUE( value::Int,, map.size_x ) },
+					{ "size_y", VALUE( value::Int,, map.size_y ) },
+					{ "ocean_coverage", VALUE( value::Float,, map.ocean_coverage ) },
+					{ "erosive_forces", VALUE( value::Float,, map.erosive_forces ) },
+					{ "native_lifeforms", VALUE( value::Float,, map.native_lifeforms ) },
+					{ "cloud_cover", VALUE( value::Float,, map.cloud_cover ) },
+				};
+				return VALUE( value::Object,, ctx, si, ep, properties );
+			} )
+		},
 		{
 			"rules_fixture",
 			NATIVE_CALL( rules_fixtures ) {

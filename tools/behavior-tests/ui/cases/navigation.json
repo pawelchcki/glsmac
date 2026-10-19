@@ -1,0 +1,1552 @@
+{
+  "version": 1,
+  "name": "original-menu-keyboard-boundaries",
+  "description": "New Home/End, both full navigation cycles, Enter and Escape paths on ten observed menu screens. Inputs only; record original results independently.",
+  "cases": [
+    {
+      "id": "menu-e765a70bc07d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-851b3d3c417a",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-bb66683c826c",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-314d0fb287df",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-15904e7769dc",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-482ba6ddcff0",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-0cd11d1da37b",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-01eda2cc301d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-6347d8daaab4",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-834e1e5f7240",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-da1d2ac7a824",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-c30ad15044f7",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-e1bf24c7f5ca",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-19d4d4fedb09",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-910d57fe9570",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-18cdd4636c58",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-eba7b3dc6a10",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-b1b574786516",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-0c15ed1afc14",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-fbed81ceb276",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-53fd9f6ca642",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-8ea5dd140938",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-3790909a94b6",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-e6d95b0508d1",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-681125f11b47",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-e2b5c26a2016",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-aa7150ea4afe",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-2d6cf6cca91f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-45d6c4a80e0f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-a478c11840a7",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-bf6a820cbbef",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-6ad648fa9290",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-3e22fc2acb2d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-c103569802b6",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-26c3f6196bab",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-56d6563d291a",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-23e083be4063",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-a89fc6c0ee3f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-e141f09f0424",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-25c957a909fb",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-4a763a221845",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-6982f5694d3a",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-32ed261ff913",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-9e657d5275f9",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-75743e883094",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-79a16889e7a4",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-b63f4ece56a2",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-d6f4b6c7d082",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-818d13054ab9",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Home"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-f4a04b83ce31",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "End"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-8d46dd28eda8",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-411e61cb6a66",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-5b58e17674e3",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-5e606202981b",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          },
+          {
+            "choose": "50-70% OF SURFACE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "choose": "AVERAGE"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -4,14 +4,16 @@ These are harness tests. They are never original-game reference evidence.
 """
 
 from copy import deepcopy
+import io
+import json
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
 from protocol import ProtocolError
-from ui import discover, probe
-from ui.vision import VisionError, consensus
+from ui import discover, probe, run
+from ui.vision import MenuVision, VisionError, consensus
 
 
 def menu(entries, selected=None, caption=None):
@@ -20,6 +22,62 @@ def menu(entries, selected=None, caption=None):
 
 
 class UiContractTests(unittest.TestCase):
+    def test_render_profile_validates_both_references_and_includes_custom_flow(self):
+        with tempfile.TemporaryDirectory() as directory, patch("sys.stdout", new=io.StringIO()):
+            report = Path(directory) / "validation.json"
+            self.assertEqual(run.main(["--render-smoke", "--validate-only", "--report", str(report)]), 0)
+            observed = json.loads(report.read_text())
+        self.assertFalse(observed["summary"]["candidate_executed"])
+        self.assertEqual(observed["summary"]["reference_cases"], 7)
+        self.assertEqual({row["id"] for row in observed["results"]}, {"menus", "navigation"})
+        selected = [case for row in observed["results"] for case in row["selected_case_ids"]]
+        self.assertIn("menu-8d46dd28eda8", selected)
+        self.assertTrue(all(row["source_suite_sha256"] for row in observed["results"]))
+
+    def cached_observer(self):
+        # Synthetic pixel buffers exercise caching without Pillow/Tesseract.
+        observer = MenuVision.__new__(MenuVision)
+        observer.Image = Mock()
+        image = observer.Image.open.return_value.convert.return_value.resize.return_value
+        image.tobytes.return_value = b"synthetic pixels"
+        observer.observations = {}
+        observer.read_image = Mock(return_value=(menu(["ACTUAL"], "ACTUAL"), [{"text": "ACTUAL", "x": 4, "y": 5}]))
+        return observer, image
+
+    def test_pixel_cache_reuses_exact_pixels_and_isolates_mutable_results(self):
+        observer, image = self.cached_observer()
+        first = observer.read("same-path.png")
+        first[0]["entries"][0] = "CALLER MUTATION"
+        first[1][0]["x"] = 999
+        second = observer.read("different-path.png")
+        self.assertEqual(second[0]["entries"], ["ACTUAL"])
+        self.assertEqual(second[1][0]["x"], 4)
+        observer.read_image.assert_called_once()
+        image.tobytes.return_value = b"changed rendered pixels"
+        observer.read("same-path.png")
+        self.assertEqual(observer.read_image.call_count, 2)
+
+    def test_failed_observation_never_enters_pixel_cache(self):
+        observer, _ = self.cached_observer()
+        observer.read_image.side_effect = VisionError("unsupported frame")
+        for _ in range(2):
+            with self.assertRaises(VisionError):
+                observer.read("frame.png")
+        self.assertEqual(observer.observations, {})
+        self.assertEqual(observer.read_image.call_count, 2)
+
+    def test_pixel_cache_is_bounded_and_evicted_pixels_require_observation(self):
+        observer, image = self.cached_observer()
+        for index in range(129):
+            image.tobytes.return_value = str(index).encode()
+            observer.read("frame.png")
+        self.assertEqual(len(observer.observations), 128)
+        observer.read("frame.png")
+        self.assertEqual(observer.read_image.call_count, 129)
+        image.tobytes.return_value = b"0"
+        observer.read("frame.png")
+        self.assertEqual(observer.read_image.call_count, 130)
+
     def test_ocr_requires_agreement_without_a_dictionary_of_expected_labels(self):
         self.assertEqual(consensus(["NEW CONTROL", "NEW CONTROL", "NOISE"]), "NEW CONTROL")
         for readings in (["A", "B", "C"], ["", "", "A"]):

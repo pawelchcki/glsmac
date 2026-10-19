@@ -13,7 +13,8 @@ import audit
 import compare
 import original
 from protocol import ProtocolError
-from ui import generate_custom, headless, original_headless as controller
+from ui import generate_custom, generate_navigation, headless, original_headless as controller
+from ui.probe import validate_input as validate_navigation
 
 
 DIRECTORY = Path(__file__).parent / "ui"
@@ -25,6 +26,21 @@ def custom_case(name="synthetic", choices=()):
 
 
 class HeadlessContractTests(unittest.TestCase):
+    def test_new_navigation_cases_are_bounded_unique_inputs_without_answers(self):
+        suite = generate_navigation.make_suite()
+        self.assertEqual(json.loads((DIRECTORY / "cases/navigation.json").read_text()), suite)
+        cases = suite["cases"]
+        self.assertEqual(len(cases), 54)
+        self.assertEqual(len({case["id"] for case in cases}), 54)
+        previous = {case["id"] for case in json.loads((DIRECTORY / "cases/menus.json").read_text())["cases"]}
+        self.assertFalse(previous & {case["id"] for case in cases})
+        keys = set()
+        for case in cases:
+            self.assertEqual(set(case), {"id", "algorithm", "input"})
+            validate_navigation(case["input"])
+            keys.update(action["key"] for action in case["input"]["actions"] if "key" in action)
+        self.assertEqual(keys, {"Home", "End", "ArrowUp", "ArrowDown", "Enter", "Escape"})
+
     def test_custom_input_is_bounded_and_cancellation_is_terminal(self):
         controller.validate_input(custom_case(choices=[0, 1, 2, -1])["input"])
         invalid = [{}, {"choices": [], "preferences": [1] * 3},
@@ -56,13 +72,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 256)
+        self.assertEqual(count, 310)
 
     def test_runtime_success_is_not_itself_an_observation(self):
         for output in ("", "All tests passed.\n", "HUI_CASE|synthetic\nAll tests passed.\n"):

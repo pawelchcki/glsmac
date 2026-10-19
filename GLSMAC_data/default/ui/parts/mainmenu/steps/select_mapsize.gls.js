@@ -8,6 +8,7 @@ return (i) => {
 	};
 	i.sliding.show({
 		title: 'Select size of planet',
+		cancel_group: i.settings.global.map.type == 'random' ? 'random_map' : undefined,
 		selected: 2,
 		entries: [
 			['Tiny Planet', () => {

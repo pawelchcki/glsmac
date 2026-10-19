@@ -297,7 +297,7 @@ const create_sliding_menu = () => {
 	f.sliding = #include('../default/ui/parts/mainmenu/sliding')(f.m);
 	return f;
 };
-scenario('sliding menu uses its explicit default and Up wraps to its last entry', () => {
+scenario('sliding menu uses its explicit default and wraps arrows in both directions', () => {
 	const f = create_sliding_menu();
 	f.sliding.show({ selected: 1, entries: [['First', () => {}], ['Second', () => {}], ['Third', () => {}]] });
 	expect(f.view.find('button', 'text', 'Second').class == 'menublock-item-active', 'explicit default highlighted');
@@ -306,6 +306,11 @@ scenario('sliding menu uses its explicit default and Up wraps to its last entry'
 	areas[0].emit('keydown', key('UP'));
 	expect(f.view.find('button', 'text', 'Third').class == 'menublock-item-active', 'Up from first wraps to last');
 	expect(f.view.find('button', 'text', 'First').class != 'menublock-item-active', 'previous highlight cleared');
+	areas[0].emit('keydown', key('DOWN'));
+	expect(f.view.find('button', 'text', 'First').class == 'menublock-item-active', 'Down from last wraps to first');
+	areas[0].emit('keydown', key('HOME'));
+	areas[0].emit('keydown', key('END'));
+	expect(f.view.find('button', 'text', 'First').class == 'menublock-item-active', 'Home and End leave selection unchanged');
 });
 scenario('canceling grouped questions destroys each question and restores caller selection', () => {
 	const f = create_sliding_menu();
@@ -318,6 +323,32 @@ scenario('canceling grouped questions destroys each question and restores caller
 	expect(destroyed == ['erosion', 'ocean'], 'question cleanup follows reverse entry order');
 	expect(f.view.find('button', 'text', 'Standard').class == 'menublock-item-active', 'size caller restored with its selection');
 	expect(#sizeof(f.manager.data_stack) == 1, 'only caller remains on stack');
+});
+scenario('random-map difficulty cancellation restores map type instead of size', () => {
+	const f = create_sliding_menu();
+	f.m.sliding = f.sliding;
+	f.m.settings = { global: { map: { type: 'random', size_x: 112, size_y: 56 }, rules: { difficulty_levels: ['Citizen', 'Specialist'] } } };
+	f.m.steps = { select_difficulty_level: #include('../default/ui/parts/mainmenu/steps/select_difficulty_level') };
+	f.sliding.show({ entries: [['Map type', () => {}]] });
+	#include('../default/ui/parts/mainmenu/steps/select_mapsize')(f.m);
+	f.manager.select(2);
+	const stack = f.manager.data_stack;
+	const choose_standard = stack[#sizeof(stack) - 1].data.entries[2][1];
+	choose_standard();
+	expect(f.view.find('button', 'text', 'Pick a difficulty level').class == 'menublock-item-active', 'difficulty opened');
+	f.sliding.back();
+	expect(f.view.find('button', 'text', 'Map type').class == 'menublock-item-active', 'map type restored');
+	expect(#sizeof(f.manager.data_stack) == 1, 'random size and difficulty scope unwound');
+});
+scenario('custom-map difficulty cancellation retains its existing question caller', () => {
+	const f = create_sliding_menu();
+	f.m.settings = { global: { map: { type: 'custom' }, rules: { difficulty_levels: ['Citizen'] } } };
+	f.m.sliding = f.sliding;
+	f.sliding.show({ entries: [['Clouds', () => {}]], cancel_group: 'customize_map' });
+	#include('../default/ui/parts/mainmenu/steps/select_difficulty_level')(f.m);
+	f.sliding.back();
+	expect(f.view.find('button', 'text', 'Clouds').class == 'menublock-item-active', 'custom difficulty still restores its prior question');
+	expect(#sizeof(f.manager.data_stack) == 1, 'custom question retained');
 });
 scenario('mainmenu popup Escape removes its window and resets empty stack', () => {
 	const f = create_menu_popup();
@@ -611,4 +642,4 @@ scenario('native faction rejection is recoverable through real error back naviga
 	expect(f.state.attempts == 2 && f.state.started == ['HIVE'], 'retry uses fresh choice');
 });
 
-expect(cases == 56, 'all interaction scenarios executed');
+expect(cases == 58, 'all interaction scenarios executed');

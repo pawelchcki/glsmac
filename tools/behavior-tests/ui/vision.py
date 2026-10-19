@@ -5,6 +5,7 @@ Tesseract reads their contents. No list of expected labels supplies answers.
 Screenshots and OCR diagnostics stay in the ignored artifacts directory.
 """
 
+from copy import deepcopy
 import ctypes as c
 import ctypes.util
 from collections import Counter
@@ -55,6 +56,7 @@ class MenuVision:
         for library, name, arguments, result in signatures:
             function = getattr(library, name)
             function.argtypes, function.restype = arguments, result
+        self.observations = {}
         self.handle = self.tess.TessBaseAPICreate()
         if self.tess.TessBaseAPIInit3(self.handle, None, b"eng"):
             self.close()
@@ -93,6 +95,18 @@ class MenuVision:
 
     def read(self, path):
         image = self.Image.open(path).convert("RGB").resize((1024, 768))
+        # Reuse only complete observations of identical rendered pixels. The
+        # cache holds hashes/results, never images, labels from expectations or
+        # entries inferred from a previous action. Every capture is still read.
+        key = hashlib.sha256(image.tobytes()).digest()
+        if key not in self.observations:
+            observed = self.read_image(image, path)
+            if len(self.observations) >= 128:
+                self.observations.pop(next(iter(self.observations)))
+            self.observations[key] = observed
+        return deepcopy(self.observations[key])
+
+    def read_image(self, image, path):
         pixels = image.load()
         counts, selected = [], []
         # This is a declared observation region, not an expected menu layout.

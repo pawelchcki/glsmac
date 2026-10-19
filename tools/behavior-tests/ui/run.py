@@ -24,7 +24,7 @@ def main(argv=None):
     mode.add_argument("--record", action="store_true", help="capture two independent identical original runs")
     mode.add_argument("--validate-only", action="store_true", help="validate evidence without executing either app")
     parser.add_argument("--force", action="store_true", help="explicitly replace existing evidence when recording")
-    parser.add_argument("--browser", action="store_true", help="optional rendered integration replay (menus suite only)")
+    parser.add_argument("--browser", action="store_true", help="optional rendered integration replay (menu-trace contracts)")
     parser.add_argument("--render-smoke", action="store_true", help="render a small selection covering real menu inputs")
     parser.add_argument("--case", action="append", help="replay selected case IDs after validating their full reference")
     parser.add_argument("--reference-python", default=os.environ.get("SMAC_REFERENCE_PYTHON", sys.executable))
@@ -33,20 +33,23 @@ def main(argv=None):
     parser.add_argument("--wine", default=os.environ.get("SMAC_WINE", "wine"))
     parser.add_argument("--build", type=Path, default=Path(os.environ.get("WASM_APP_DIR", ROOT / "build/wasm-release/bin")))
     parser.add_argument("--jobs", type=int, help="workers (default: browser 1, otherwise 2)")
-    parser.add_argument("--step-timeout", type=float, default=8)
+    parser.add_argument("--step-timeout", type=float, help="settling deadline (browser 20s, otherwise 8s)")
     parser.add_argument("--timeout", type=float, default=600)
     parser.add_argument("--report", type=Path, default=DIRECTORY.parent / ".build/ui/parity.json")
     args = parser.parse_args(argv)
+    rendered_cases = None
     if args.render_smoke:
         if args.record or args.suite or args.case:
             raise ProtocolError("--render-smoke selects its own replay suite and cases")
         args.browser = True
-        args.suite = ["menus"]
-        args.case = compare.read_json(DIRECTORY / "render-smoke.json")["case_ids"]
+        rendered_cases = compare.read_json(DIRECTORY / "render-smoke.json")["suites"]
+        args.suite = list(rendered_cases)
     if args.case and (args.record or not args.suite or len(args.suite) != 1):
         raise ProtocolError("--case requires exactly one --suite and cannot replace evidence")
     if args.jobs is None:
         args.jobs = 1 if args.browser else 2
+    if args.step_timeout is None:
+        args.step_timeout = 20 if args.browser else 8
     started = time.perf_counter()
     if (not 1 <= args.jobs <= 4 or not 0 < args.step_timeout <= 120 or not 0 < args.timeout <= 1800
             or args.force and not args.record):
@@ -70,17 +73,18 @@ def main(argv=None):
         command = shlex.join([sys.executable, str(DIRECTORY / "headless.py"), "--jobs", str(args.jobs)])
     # Reject missing/corrupt evidence or accidental overwrites before booting apps.
     for reference in references:
-        if args.browser and reference["id"] != "menus":
-            raise ProtocolError("browser replay supports only --suite menus; use headless replay for custom-map")
         suite = compare.read_json(DIRECTORY / reference["cases"])
+        if args.browser and any(case["algorithm"] != "ui.menu_trace.v1" for case in suite["cases"]):
+            raise ProtocolError("browser replay supports menu traces only; use headless replay for custom-map")
         if args.record:
             if (DIRECTORY / reference["observations"]).exists() and not args.force:
                 raise ProtocolError("observation file already exists; choose --force explicitly to replace it")
         else:
             evidence = compare.read_json(DIRECTORY / reference["observations"])
             compare.validate_observations(evidence, suite)
-            if args.case:
-                compare.select_cases(suite, evidence, args.case)
+            case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
+            if case_ids:
+                compare.select_cases(suite, evidence, case_ids)
     results = []
     for reference in references:
         if args.record:
@@ -93,7 +97,8 @@ def main(argv=None):
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
         else:
-            result = audit.check_reference(reference, command, args.timeout, directory=DIRECTORY, case_ids=args.case)
+            case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
+            result = audit.check_reference(reference, command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
             print(f"{reference['id']}: {counts if counts is not None else 'evidence valid; apps not executed'}", flush=True)

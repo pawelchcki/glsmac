@@ -161,6 +161,8 @@ return (m) => {
 					case 'DOWN': {
 						if (active_entry_index < #sizeof(current_entries) - 1) {
 							this.select(active_entry_index + 1);
+						} else if (#sizeof(current_entries) > 0) {
+							this.select(0);
 						}
 						return true;
 					}

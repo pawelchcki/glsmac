@@ -32,6 +32,13 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | --- | ---: | --- | --- |
 | `ui.menu_trace.v1` | 41 | Captions, ordered choices, selected choice and intermediate screens after clicks, arrows and Escape | Real original application in Wine/Xvfb; recorded twice |
 | `ui.custom_planet.v1` | 215 | Question order, selected defaults, cancel/confirm/wait status, consumed responses and confirmed map parameters | Original x86 custom-planet controller in Unicorn; recorded twice without graphics |
+| `ui.menu_trace.v1` (navigation) | 54 | Both full navigation cycles, Home/End, Enter and Escape across ten menu screens; 425 checkpoints | Real original application in Wine/Xvfb; recorded twice |
+
+There are 310 recorded cases in total. `generate_navigation.py` generates only
+new input sequences, excluding paths already present in the first menu suite.
+The recordings establish that both arrows wrap and Home/End leave these menus
+unchanged. Random-map difficulty cancellation returns to map type, while the
+custom-question controller's cancellation returns to size selection.
 
 Custom-map inputs contain four saved preference ordinals and at most four
 responses. Question order is ocean, erosion, native life, clouds. Ordinals 0..2
@@ -49,6 +56,10 @@ controller exit. Parameter values are converted into declared choice ordinals;
 unknown values are errors. Preview drawing and map randomization are outside
 this contract. The menu trace adapter delivers events directly to production
 controls and observes their actual highlight classes.
+
+The GSE regression lane also reads a fresh compiled `MapSettings` object before
+executing all four production custom questions. This separately checks actual
+startup defaults; the controller's supplied preferences do not cover them.
 
 Headless tests do **not** cover pixels, geometry, mouse hit testing, global browser
 input routing, focus, real animation timing or audio output. Use the selected
@@ -87,7 +98,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 256 recorded cases now agree after production fixes to choices,
+any failures. All 310 recorded cases now agree after production fixes to choices,
 selection, wrapping and cancellation. This does not cover Scenario child actions
 or the original custom-size dialog. These totals remain separate from the
 regression and helper-comparison catalogs. CI validates evidence and requires
@@ -114,7 +125,7 @@ npm --prefix tools/wasm-tests run test:ui-discover -- --max-cases 64
 # Replay the frozen menu cases through real Chromium instead of headless GSE.
 npm --prefix tools/wasm-tests run test:ui-parity -- --suite menus --browser
 
-# Render just five paths spanning the six observed menu styles and real input.
+# Render seven paths spanning all ten menu screens and real input.
 npm --prefix tools/wasm-tests run test:ui-parity -- --render-smoke
 
 # Or select specific frozen cases; their full original evidence is validated.
@@ -126,10 +137,21 @@ browser filesystem, so script changes need no engine relink. Each case retains
 an isolated browser context; worker script/runtime fingerprints must agree.
 The selected lane is an integration check against the same original evidence,
 not an exemption from the full headless suite.
-Rendered replay defaults to one worker: concurrent software-rendered contexts
-produced an intermittent framebuffer error on the development machine. The
-isolated path passed. Explicit `--jobs` permits more workers; graphics errors
-remain failures and are never retried into a passing result automatically.
+Rendered replay defaults to one worker to bound graphics load. Explicit `--jobs`
+permits more workers. Graphics errors remain failures and are never retried into
+a passing result automatically. The custom-preview trace is part of this
+profile because it exposed a presentation failure that headless checks missed.
+Its settling deadline is 20 seconds and returns as soon as observations stabilize.
+Run this graphics lane without competing headless workers on constrained hosts;
+the initial loaded run hit observation deadlines, while isolated replay passed
+all seven paths. The recorded outputs are compared exactly in both conditions.
+
+The observer caches only complete observations of identical normalized RGB
+pixels. Each screenshot is still loaded and hashed; changed pixels require
+fresh segmentation and OCR consensus. The bounded cache holds hashes and copied
+results, not images or expected labels. Errors never enter it. An 18-observation
+sample took 6.7 seconds without caching and 2.2 seconds with it, with identical
+outputs. This sample is not a whole-suite speed guarantee.
 
 Discovery follows unseen menus and tries their choices, arrows and Escape. Menu
 identity includes a bounded route context (`--context-depth`, default 2), so

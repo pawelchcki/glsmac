@@ -41,13 +41,45 @@
       "example": "cancel-0",
       "property": "Canceling a later original custom-map question returns to the caller; reproduction reopens the preceding custom question and waits for input.",
       "status": "fixed-in-recorded-contract"
+    },
+    {
+      "id": "keyboard-down-wrap",
+      "suite": "navigation",
+      "example": "menu-bb66683c826c",
+      "status": "fixed-in-recorded-contract",
+      "property": "Down at the last original item wraps to the first across all ten recorded menu screens; reproduction previously clamped."
+    },
+    {
+      "id": "random-difficulty-cancel",
+      "suite": "navigation",
+      "example": "menu-e6d95b0508d1",
+      "status": "fixed-in-recorded-contract",
+      "property": "Canceling random-map difficulty returns to map type, skipping the size menu."
+    },
+    {
+      "id": "rendered-custom-framebuffer",
+      "suite": "navigation",
+      "example": "menu-8d46dd28eda8",
+      "lane": "browser",
+      "status": "fixed-in-recorded-rendered-contract",
+      "property": "Entering custom setup can corrupt the presentation framebuffer and raise a WebGL blit error; headless agreement does not cover rendering."
+    },
+    {
+      "id": "real-startup-ocean-default",
+      "suite": "navigation",
+      "example": "menu-8d46dd28eda8",
+      "lane": "browser-and-backend-defaults",
+      "status": "fixed-in-recorded-rendered-contract",
+      "property": "Actual backend defaults initialized low ocean while original initial UI selects medium; controlled preference fixtures did not test startup configuration."
     }
   ],
   "verification": {
-    "cases": 256,
-    "matched": 256,
+    "cases": 310,
+    "matched": 310,
     "mismatched": 0,
     "errors": 0,
-    "scope": "menus and bounded custom-planet controller only"
+    "rendered_selected_cases": 7,
+    "rendered_matched": 7,
+    "scope": "headless menu/controller contracts and seven selected rendered paths; not full-game parity"
   }
 }

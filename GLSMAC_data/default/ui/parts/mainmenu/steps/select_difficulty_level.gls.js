@@ -9,6 +9,7 @@ return (i) => {
 	}
 	i.sliding.show({
 		title: 'Pick a difficulty level',
+		cancel_group: i.settings.global.map.type == 'random' ? 'random_map' : undefined,
 		entries: entries
 	});
 };

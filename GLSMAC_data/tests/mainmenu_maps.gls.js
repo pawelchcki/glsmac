@@ -5,6 +5,42 @@ const main_menu = #include('../default/ui/parts/mainmenu/steps/main');
 const scenario = #include('../default/ui/parts/mainmenu/steps/scenario');
 const select_mapsize = #include('../default/ui/parts/mainmenu/steps/select_mapsize');
 const customize_mapsize = #include('../default/ui/parts/mainmenu/steps/customize_mapsize');
+const customize_ocean_coverage = #include('../default/ui/parts/mainmenu/steps/customize_ocean_coverage');
+const customize_erosive_forces = #include('../default/ui/parts/mainmenu/steps/customize_erosive_forces');
+const customize_native_lifeforms = #include('../default/ui/parts/mainmenu/steps/customize_native_lifeforms');
+const customize_cloud_cover = #include('../default/ui/parts/mainmenu/steps/customize_cloud_cover');
+
+// Exercise fresh compiled backend defaults through the production controls.
+// Recorded navigation starts at medium ocean and Average for all other questions.
+// Supplying mock preference ordinals here would hide startup-setting mismatches.
+const defaults_state = { menu: null, complete: false };
+const defaults_i = {
+	settings: { global: { map: {} } },
+	sliding: { show: (data) => { defaults_state.menu = data; } },
+	set_customize_preview: (data) => {},
+	customize_preview_defaults: {ocean_coverage_type: 3, erosive_forces_type: 0, native_lifeforms_type: 1, cloud_cover_type: 2},
+	steps: {
+		customize_erosive_forces: customize_erosive_forces,
+		customize_native_lifeforms: customize_native_lifeforms,
+		customize_cloud_cover: customize_cloud_cover,
+		select_difficulty_level: (current) => { defaults_state.complete = true; },
+	},
+};
+defaults_i.settings.global.map = test.default_map_settings();
+customize_ocean_coverage(defaults_i);
+for (expected of [
+	['Select ocean coverage', '50-70% of surface'],
+	['Adjust erosive forces', 'Average'],
+	['Native life forms', 'Average'],
+	['Select cloud cover', 'Average'],
+]) {
+	test.assert(defaults_state.menu.title == expected[0]);
+	const selected = defaults_state.menu.selected;
+	test.assert(defaults_state.menu.entries[selected][0] == expected[1]);
+	const confirm = defaults_state.menu.entries[selected][1];
+	confirm();
+}
+test.assert(defaults_state.complete);
 
 // Capture the real menu callbacks without constructing a graphical UI.
 const create_menu = () => {
