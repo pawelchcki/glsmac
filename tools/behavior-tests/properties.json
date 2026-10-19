@@ -112,7 +112,7 @@
     {
       "id": "economy",
       "status": "partial",
-      "contracts": ["economy.human_mineral_factor.v1", "economy.base_square_resources.v1"],
+      "contracts": ["economy.human_mineral_factor.v1", "economy.human_nutrient_factor.v1", "economy.base_square_resources.v1"],
       "remaining": [
         "Tile yields",
         "Support and upkeep",

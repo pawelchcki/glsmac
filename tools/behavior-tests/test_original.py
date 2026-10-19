@@ -38,6 +38,17 @@ class FingerprintTests(unittest.TestCase):
 
 
 class FixtureContractTests(unittest.TestCase):
+    def test_rejects_out_of_scope_human_nutrient_factor_inputs(self):
+        valid = dict(faction_id=1, map_size_level=2, nutrient_rule_factor=10, growth=0)
+        original.validate_input(original.HUMAN_NUTRIENT_FACTOR, valid)
+        for update in ({"faction_id": 0}, {"faction_id": 8}, {"faction_id": True},
+                       {"map_size_level": -1}, {"map_size_level": 5},
+                       {"nutrient_rule_factor": 0}, {"nutrient_rule_factor": 101},
+                       {"nutrient_rule_factor": 1.0}, {"growth": -9}, {"growth": 11},
+                       {"growth": False}, {"base_id": -1}, {"human": False}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.HUMAN_NUTRIENT_FACTOR, dict(valid, **update))
+
     def test_rejects_out_of_scope_human_mineral_factor_inputs(self):
         valid = dict(faction_id=1, map_size_level=2, mineral_rule_factor=10, industry=0)
         original.validate_input(original.HUMAN_MINERAL_FACTOR, valid)
@@ -202,6 +213,28 @@ class EmulatorGuardTests(unittest.TestCase):
         tiles = fixture[0x009F0000]
         self.assertEqual(tiles[(2 * 2 + 1) * 44 + 2], 7)
         self.assertEqual(struct.unpack_from("<I", tiles, (2 * 2 + 1) * 44 + 8)[0], 0x81)
+
+    def test_nutrient_fixture_preserves_local_image_table_and_resets_rule_input(self):
+        entry = original.FUNCTIONS[original.HUMAN_NUTRIENT_FACTOR][1]
+        values = dict(faction_id=1, map_size_level=2, nutrient_rule_factor=10, growth=0)
+        table = 0x004E46C4
+        oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", table) + b"\xC3",
+                                  ((table, struct.pack("<I", 47)),), entry=entry)
+        for rule in (1, 100, 10):
+            self.assertEqual(oracle.probe(original.HUMAN_NUTRIENT_FACTOR, dict(values, nutrient_rule_factor=rule)), {"factor": 47})
+        oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", 0x00949754) + b"\xC3", entry=entry)
+        for rule in (1, 100, 10):
+            self.assertEqual(oracle.probe(original.HUMAN_NUTRIENT_FACTOR, dict(values, nutrient_rule_factor=rule)), {"factor": rule})
+
+    def test_nutrient_fixture_rejects_neighbor_reads_and_original_table_writes(self):
+        entry = original.FUNCTIONS[original.HUMAN_NUTRIENT_FACTOR][1]
+        values = dict(faction_id=1, map_size_level=2, nutrient_rule_factor=10, growth=0)
+        neighbor = 0x0096CC54 + original.FACTION_STRIDE
+        programs = (b"\xA1" + struct.pack("<I", neighbor) + b"\xC3",
+                    b"\xC7\x05" + struct.pack("<II", 0x004E46C4, 0) + b"\xC3")
+        for program in programs:
+            with self.subTest(program=program.hex()), self.assertRaises(original.ProbeError):
+                synthetic_oracle(program, entry=entry).probe(original.HUMAN_NUTRIENT_FACTOR, values)
 
     def test_prototype_fixture_supplies_selected_record_and_resets_costs(self):
         entry = original.FUNCTIONS[original.PROTOTYPE_BASE_COST][1]

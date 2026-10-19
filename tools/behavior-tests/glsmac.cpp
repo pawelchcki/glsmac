@@ -1,6 +1,7 @@
 #include "game/backend/map/tile/Geometry.h"
 #include "game/backend/technology/Table.h"
 #include "game/backend/base/ProductionCost.h"
+#include "game/backend/base/NutrientCost.h"
 #include "game/backend/unit/PrototypeCost.h"
 
 #include <array>
@@ -84,6 +85,13 @@ int Evaluate( std::istringstream& input ) {
 		const auto armor = ReadInteger( input, 1, 32 );
 		const auto reactor = ReadInteger( input, 1, 4 );
 		return game::backend::unit::PrototypeBaseCost( chassis, triad, missile, offense, mode, weapon, armor, reactor );
+	}
+	if ( algorithm == "human_nutrient_factor" ) {
+		ReadInteger( input, 1, 7 ); // original human fixture faction identity
+		const auto level = ReadInteger( input, 0, 4 );
+		const auto rule = ReadInteger( input, 1, 100 );
+		const auto growth = ReadInteger( input, -8, 10 );
+		return game::backend::base::HumanNutrientFactor( level, rule, growth );
 	}
 	if ( algorithm == "human_mineral_factor" ) {
 		// Faction identity controls the original human fixture. GLSMAC's pure

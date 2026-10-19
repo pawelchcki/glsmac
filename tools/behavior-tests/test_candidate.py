@@ -92,6 +92,17 @@ class CandidateInputTests(unittest.TestCase):
             with self.subTest(key=key, value=value), self.assertRaises(ProtocolError):
                 glsmac.encode_input(algorithm, changed)
 
+    def test_human_nutrient_inputs_reject_unobserved_state_and_invalid_bounds(self):
+        algorithm = "economy.human_nutrient_factor.v1"
+        for key, value in (("faction_id", 0), ("faction_id", 8), ("map_size_level", -1),
+                           ("map_size_level", 5), ("nutrient_rule_factor", 0),
+                           ("nutrient_rule_factor", 101), ("growth", -9), ("growth", 11),
+                           ("base_id", -1), ("human", False)):
+            changed = deepcopy(self.examples[algorithm])
+            changed[key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(ProtocolError):
+                glsmac.encode_input(algorithm, changed)
+
     def test_sparse_rows_reject_duplicates_extras_and_invalid_nested_values(self):
         row = {"id": 0, "prerequisites": [-1, -1], "owners": 0}
         invalid = [[row, row], [row] * 90, None]

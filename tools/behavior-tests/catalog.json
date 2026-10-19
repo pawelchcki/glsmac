@@ -26,6 +26,8 @@
     {"id":"base-production", "script":"GLSMAC_data/tests/base_production.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
     {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"nutrient-factor-native", "script":"GLSMAC_data/tests/nutrient_factor_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
+    {"id":"growth-factor-integration", "script":"GLSMAC_data/tests/growth_factor_integration.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"facility-cost-native", "script":"GLSMAC_data/tests/facility_cost_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"facility-cost-completion-native", "script":"GLSMAC_data/tests/facility_cost_completion_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"prototype-cost-native", "script":"GLSMAC_data/tests/prototype_cost_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
@@ -47,6 +49,8 @@
     {"id": "prototype-base-cost", "cases": "cases/prototype-base-cost.json", "observations": "observations/smacx-gog-2.0-prototype-base-cost.json"},
     {"id": "prototype-cost-chassis-sweep", "cases": "cases/prototype-cost-chassis-sweep.json", "observations": "observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json"},
     {"id": "prototype-cost-sea-mode11", "cases": "cases/prototype-cost-sea-mode11.json", "observations": "observations/smacx-gog-2.0-prototype-cost-sea-mode11.json"},
-    {"id": "prototype-cost-held-out", "cases": "cases/prototype-cost-held-out.json", "observations": "observations/smacx-gog-2.0-prototype-cost-held-out.json"}
+    {"id": "prototype-cost-held-out", "cases": "cases/prototype-cost-held-out.json", "observations": "observations/smacx-gog-2.0-prototype-cost-held-out.json"},
+    {"id": "human-nutrient-factor", "cases": "cases/human-nutrient-factor.json", "observations": "observations/smacx-gog-2.0-human-nutrient-factor.json"},
+    {"id": "human-nutrient-factor-held-out", "cases": "cases/human-nutrient-factor-held-out.json", "observations": "observations/smacx-gog-2.0-human-nutrient-factor-held-out.json"}
   ]
 }

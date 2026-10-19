@@ -3,8 +3,20 @@ const facilities = #include('facilities');
 
 const globals = {};
 
+const get_nutrient_factor = (base) => {
+	if (#typeof(base.get_nutrient_factor) == 'Callable') {
+		const factor = base.get_nutrient_factor();
+		if (#is_defined(factor)) {
+			return factor;
+		}
+	}
+	return globals.map_growth_base;
+};
+
 const get_nutrients_for_growth = (game, base) => {
-	return globals.map_growth_base * (base.get_size() + 1);
+	// The row count is GLSMAC's existing growth policy, separate from the
+	// bounded original-game no-base factor supplied by the optional native API.
+	return get_nutrient_factor(base) * (base.get_size() + 1);
 };
 
 const get_pending_growth = (base) => {
@@ -279,6 +291,7 @@ return (game) => {
 
 		// set bases-related globals
 		// TODO: prettier way to do this? needs to be callable from events
+		game.set('f_base_get_nutrient_factor', get_nutrient_factor);
 		game.set('f_base_get_pending_growth', get_pending_growth);
 		game.set('f_base_get_pending_production', get_pending_production);
 		game.set('f_base_reset_nutrients', reset_nutrients);

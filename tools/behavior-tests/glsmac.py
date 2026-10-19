@@ -21,6 +21,7 @@ ALGORITHMS = {
     "technology.available.v1": ("available", "available", bool),
     "technology.prerequisite.v1": ("prerequisite", "is_prerequisite", bool),
     "economy.human_mineral_factor.v1": ("human_mineral_factor", "factor", int),
+    "economy.human_nutrient_factor.v1": ("human_nutrient_factor", "factor", int),
     "unit.prototype_base_cost.v1": ("prototype_base_cost", "rows", int),
 }
 DIRECTORY = Path(__file__).resolve().parent
@@ -108,6 +109,10 @@ def encode_input(algorithm, data):
                   integer(data["offense"], -1, 127), integer(data["weapon_mode"], 0, 14),
                   integer(data["weapon_cost"], 1, 32), integer(data["armor_cost"], 1, 32),
                   integer(data["reactor"], 1, 4)]
+    elif operation == "human_nutrient_factor":
+        fields(data, {"faction_id", "map_size_level", "nutrient_rule_factor", "growth"})
+        values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
+                  integer(data["nutrient_rule_factor"], 1, 100), integer(data["growth"], -8, 10)]
     elif operation == "human_mineral_factor":
         fields(data, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
         values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
@@ -176,9 +181,10 @@ def main():
     write_response({
         "name": "glsmac", "kind": "candidate", "target": args.target,
         "sources": ["src/game/backend/map/tile/Geometry.h", "src/game/backend/technology/Table.cpp",
-                    "src/game/backend/base/ProductionCost.h", "src/game/backend/unit/PrototypeCost.h"],
+                    "src/game/backend/base/ProductionCost.h", "src/game/backend/base/NutrientCost.h",
+                    "src/game/backend/unit/PrototypeCost.h"],
         "algorithms": list(ALGORITHMS),
-        "scope": "Bounded geometry, technology, human mineral factors and no-ability prototype base costs; excludes complete economy",
+        "scope": "Bounded geometry, technology, human mineral/nutrient factors and no-ability prototype base costs; excludes complete economy",
     }, results)
 
 

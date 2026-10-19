@@ -51,6 +51,29 @@
         "assertions": 90,
         "scope": "Native descriptors, completion, row/settings codecs and retained-wrapper/lobby provenance. Original helper agreement remains bounded to its existing recorded factor cases."
       }
+    },
+    {
+      "id": "named-preset-growth-factor-integration",
+      "contract": "economy.human_nutrient_factor.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "GLSMAC growth integration of the recorded human no-base nutrient factor at modeled rule10/GROWTH0; population row count, callbacks and UI are application tests, not complete original growth observations.",
+      "property": "Shipped growth uses an area-based fallback even when an explicit named preset and supported human owner are available; the native per-base query is absent.",
+      "probes": [
+        "GLSMAC_data/tests/nutrient_factor_native.gls.js",
+        "GLSMAC_data/tests/growth_factor_integration.gls.js"
+      ],
+      "before": {
+        "query": "missing",
+        "tiny_size1_nutrients": 16,
+        "expected": "grows",
+        "actual": "does not grow"
+      },
+      "verification": {
+        "focused_suites": 2,
+        "scenarios": 40,
+        "assertions": 121,
+        "scope": "Actual native per-base query, shipped threshold/reset callbacks and real food-grid script with controlled display boundary. Original agreement remains confined to recorded nutrient-factor cases."
+      }
     }
   ]
 }

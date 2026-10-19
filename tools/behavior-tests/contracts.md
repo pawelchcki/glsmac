@@ -1,6 +1,6 @@
 # Bounded original behavior contracts
 
-The eight contracts below have original executable observations and production
+The nine contracts below have original executable observations and production
 GLSMAC implementations exercised by the native and WASM candidate adapter.
 Agreement is bounded to the recorded cases and fixtures described here.
 Each reference probe executes only its
@@ -147,10 +147,45 @@ AI/difficulty modifiers, nutrient/growth factors, per-base effects, facilities,
 the shipped rules database, complete item costs and turn production are outside
 this contract. The GLSMAC helper is independently replayed on native and WASM;
 the shipped Recycling Tanks declaration now supplies four row units to the
-shared native resolver for explicit named presets at rule10/INDUSTRY0. Unknown,
-custom or imported settings retain the explicit 32-mineral fallback. Descriptor
+shared native resolver for explicit named presets at rule10/INDUSTRY0. Absent preset provenance, custom dimensions,
+or imported maps retain the explicit 32-mineral fallback. Descriptor
 and completion tests exercise that application integration, not original
 whole-item construction. Social engineering remains unimplemented.
+
+## `economy.human_nutrient_factor.v1`
+
+Input: `{faction_id, map_size_level, nutrient_rule_factor, growth}`.
+
+- `faction_id`: integer 1 through 7, explicitly marked human.
+- `map_size_level`: raw preset level 0 through 4, not dimensions.
+- `nutrient_rule_factor`: integer 1 through 100.
+- `growth`: signed faction GROWTH rating -8 through 10.
+
+Output: `{factor: integer}`, original `cost_factor` at `0x004E4430` in
+nutrient mode with base ID -1. It is a nutrient factor, not the complete
+nutrients needed to grow a population. Zero returns remain exact.
+
+Every fresh emulator initializes the human mask, both rule globals read on
+this path, the map level and the selected faction's GROWTH field. The probe
+also reads the pinned executable's own 48-byte switch table without changing
+its data. No original table bytes are committed; the adapter reads them from
+the verified local image. Execution cannot enter that data table. The image
+remains read-only during execution, and the usual return address, stack,
+register, read and instruction guards apply. Adapter guard tests use synthetic
+x86 to check table integrity, fresh rule inputs and rejected neighboring reads
+or original-table writes.
+
+The 4,655-case matrix crosses all seven human fixture slots, five presets,
+19 GROWTH values and seven multipliers (1, 2, 3, 7, 10, 11, 100). Another 1,024
+seeded cases use previously unobserved multipliers and were captured after
+the independently inferred production header was frozen. Each suite was
+recorded twice. The permitted multiplier range is not exhaustively crossed.
+The candidate calls `src/game/backend/base/NutrientCost.h` on native and WASM.
+
+Population booms, faction trait data, social-engineering policy, AI/difficulty,
+per-base modifiers, total growth requirements, growth/starvation events and
+UI behavior remain outside this helper contract. Application integration
+checks are separate from these original observations.
 
 ## `unit.prototype_base_cost.v1`
 
@@ -198,6 +233,8 @@ this contract.
 | `cases/map-vector.json` | Both vector helpers | 296 | `observations/smacx-gog-2.0-map-vector.json` |
 | `cases/technology.json` | Four technology helpers | 632 | `observations/smacx-gog-2.0-technology.json` |
 | `cases/human-mineral-factor.json` | Human mineral cost factor without a base | 764 | `observations/smacx-gog-2.0-human-mineral-factor.json` |
+| `cases/human-nutrient-factor.json` | Human nutrient factor without a base | 4,655 | `observations/smacx-gog-2.0-human-nutrient-factor.json` |
+| `cases/human-nutrient-factor-held-out.json` | Human nutrient factor, post-freeze samples | 1,024 | `observations/smacx-gog-2.0-human-nutrient-factor-held-out.json` |
 | `cases/prototype-base-cost.json` | Ability-free prototype mineral rows | 2,456 | `observations/smacx-gog-2.0-prototype-base-cost.json` |
 | `cases/prototype-cost-chassis-sweep.json` | Ability-free prototype mineral rows | 1,536 | `observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json` |
 | `cases/prototype-cost-sea-mode11.json` | Ability-free prototype mineral rows | 512 | `observations/smacx-gog-2.0-prototype-cost-sea-mode11.json` |
@@ -220,5 +257,5 @@ code/read/write boundaries and execution budgets remain guarded.
 
 Replay uses the real WASM GSE interpreter and shipped resource handler with
 controlled native inputs, without assets or pixels. It is not included in the
-7,310-case native/WASM C++ helper totals and does not establish native application
+12,989-case native/WASM C++ helper totals and does not establish native application
 execution, worked-tile yields, construction costs or complete base economy.

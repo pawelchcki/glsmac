@@ -19,6 +19,7 @@
 #include "Pop.h"
 #include "PopDef.h"
 #include "FacilityDef.h"
+#include "NutrientCost.h"
 #include "game/backend/Random.h"
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/Player.h"
@@ -367,6 +368,21 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 	WRAPIMPL_LINK( "get_owner", m_owner )
 	WRAPIMPL_LINK( "get_tile", m_tile )
 	WRAPIMPL_CUSTOM_SETTERS
+	{
+		"get_nutrient_factor", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 0 );
+			const auto* state = m_game->GetState();
+			const auto* player = m_owner->GetPlayer();
+			if ( !state || !player ) { return VALUE( gse::value::Undefined ); }
+			const auto role = player->GetRole();
+			if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return VALUE( gse::value::Undefined ); }
+			const auto& map = state->m_settings.global.map;
+			if ( ( map.type != settings::MapSettings::MT_RANDOM && map.type != settings::MapSettings::MT_CUSTOM ) || map.preset_level < 0 || map.preset_level > 4 ) { return VALUE( gse::value::Undefined ); }
+			// Model only the recorded human/no-base factor at default rule10 and
+			// GROWTH0. Population growth rows remain a separate script policy.
+			return VALUE( gse::value::Int,, HumanNutrientFactor( map.preset_level, 10, 0 ) );
+		} )
+	},
 	{
 		"get_production", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 0 );

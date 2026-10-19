@@ -138,7 +138,7 @@ return {
 
 		this.sections.nutrients.set({
 			rows: base.get_size() + 1,
-			columns: game.get('map_growth_base'),
+			columns: game.get('f_base_get_nutrient_factor')(base),
 			filled: base.get('accumulated_nutrients'),
 			pending: game.get('f_base_get_pending_growth')(base),
 		});

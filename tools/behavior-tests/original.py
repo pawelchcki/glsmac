@@ -49,6 +49,7 @@ TECH_CATEGORY = "technology.category.v1"
 TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
 HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
+HUMAN_NUTRIENT_FACTOR = "economy.human_nutrient_factor.v1"
 BASE_SQUARE_RESOURCES = "economy.base_square_resources.v1"
 PROTOTYPE_BASE_COST = "unit.prototype_base_cost.v1"
 BASE_RESOURCE_FUNCTIONS = {
@@ -68,6 +69,7 @@ TECH_STRIDE = 44
 TECH_OWNERS = 0x009A6670
 EXPANSION_ENABLED = 0x009A6488
 FUNCTIONS = {
+    HUMAN_NUTRIENT_FACTOR: ("cost_factor (human/nutrient, no base)", 0x004E4430, 0x004E46C2),
     PROTOTYPE_BASE_COST: ("proto_cost (no abilities)", 0x005A5A60, 0x005A5CE1),
     BASE_SQUARE_RESOURCES: BASE_RESOURCE_FUNCTIONS["NUTRIENTS"],
     ALGORITHM: ("x_dist", X_DIST, 0x005797C7),
@@ -157,6 +159,12 @@ def validate_input(algorithm, values):
         _integer(values["tech_id"], -2, 88, "tech_id")
         _integer(values["max_depth"], 0, 5, "max_depth")
         _technology_rows(values["technologies"])
+    elif algorithm == HUMAN_NUTRIENT_FACTOR:
+        _fields(values, {"faction_id", "map_size_level", "nutrient_rule_factor", "growth"})
+        _integer(values["faction_id"], 1, 7, "faction_id")
+        _integer(values["map_size_level"], 0, 4, "map_size_level")
+        _integer(values["nutrient_rule_factor"], 1, 100, "nutrient_rule_factor")
+        _integer(values["growth"], -8, 10, "growth")
     elif algorithm == HUMAN_MINERAL_FACTOR:
         _fields(values, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
         _integer(values["faction_id"], 1, 7, "faction_id")
@@ -268,6 +276,11 @@ class OriginalOracle:
             ]
         if PROTOTYPE_BASE_COST in algorithms:
             result["adapter_version"] = 4
+        if HUMAN_NUTRIENT_FACTOR in algorithms:
+            result["adapter_version"] = 5
+            result["readonly_original_tables"] = [
+                {"name": "cost_factor nutrient switch", "address": "0x004E46C4", "size": 48}
+            ]
         return result
 
     def distance(self, values):
@@ -345,6 +358,20 @@ class OriginalOracle:
 
     def probe(self, algorithm, values):
         validate_input(algorithm, values)
+        if algorithm == HUMAN_NUTRIENT_FACTOR:
+            table_start, table_end = 0x004E46C4, 0x004E46F4
+            fixture = (
+                (HUMAN_FACTIONS, struct.pack("<I", 1 << values["faction_id"])),
+                (MINERAL_RULE_FACTOR, struct.pack("<i", 10)),
+                (0x00949754, struct.pack("<i", values["nutrient_rule_factor"])),
+                (MAP_SIZE_LEVEL, struct.pack("<i", values["map_size_level"])),
+                (0x0096CC50 + values["faction_id"] * FACTION_STRIDE, struct.pack("<i", values["growth"])),
+                # Preserve the pinned executable's own switch table verbatim.
+                # These bytes are read only from the local verified image;
+                # no original data or computed answers live in this adapter.
+                (table_start, self.image[table_start - IMAGE_BASE:table_end - IMAGE_BASE]),
+            )
+            return {"factor": self.execute(algorithm, (values["faction_id"], 1, -1), fixture)}
         if algorithm == PROTOTYPE_BASE_COST:
             arguments = tuple(values[name] for name in ("chassis_id", "weapon_id", "armor_id")) + (0, values["reactor"])
             return {"rows": self.execute(algorithm, arguments, self.prototype_fixture(values),

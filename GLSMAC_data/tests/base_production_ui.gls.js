@@ -35,6 +35,7 @@ const fixture = () => {
 	f.game.get_year = () => { return 2101; };
 	f.game.get = (name) => {
 		if (name == 'map_growth_base') { return 10; }
+		if (name == 'f_base_get_nutrient_factor') { return (base) => { return 10; }; }
 		if (name == 'f_base_get_pending_production') { return (base) => { return base.state.surplus; }; }
 		return (base) => { return 0; };
 	};

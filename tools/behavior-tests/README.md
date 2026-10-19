@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **518 scenarios and 2,910 assertions** across
-37 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **558 scenarios and 3,031 assertions** across
+39 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -77,7 +77,7 @@ clears the project and retains overflow. Idle bases do not accumulate minerals.
 The shipped project is Recycling Tanks, using four declared mineral rows when an
 explicit named map preset is known: 32
 minerals for Tiny, 36 for Small, and 40 for Standard/Large/Huge under the modeled
-human rule10/INDUSTRY0 setting. Unknown/custom/imported settings retain its
+human rule10/INDUSTRY0 setting. Unknown or custom dimensions and imported maps retain its
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
 Unit production, queues, switching and hurrying remain absent.
@@ -213,8 +213,8 @@ contracts: raw/coordinate vector distance, technology possession, weight
 category, research availability, bounded prerequisite queries and the human
 mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
-reference set also includes **5,528 ability-free prototype cost cases**, making
-**7,310 cases** in total. These probes cover small rule helpers; they do
+reference set also includes **5,528 ability-free prototype cost cases** and
+**5,679 human nutrient-factor cases**, making **12,989 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -222,10 +222,10 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-7,310 native/WASM C++ helper cases. Run it with
+12,989 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
-All nine bounded C++ contracts are implemented by shared production GLSMAC helpers.
+All ten bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
@@ -239,7 +239,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **7,310 cases**. It runs independent reference suites in
+This checks all **12,989 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -431,8 +431,8 @@ The fixtures cover land, sea, air, reactor and component ranges, missile offense
 boundaries, selected weapon modes and table-slot independence. A further 1,024
 of these cases were recorded after the implementation was frozen.
 
-See [contracts.md](contracts.md) for exact bounds and evidence. This raises the
-C++ helper lane to 7,310 original cases; resource callback and UI traces remain
+See [contracts.md](contracts.md) for exact bounds and evidence. The full
+C++ helper lane also includes nutrient factors and totals 12,989 original cases; resource callback and UI traces remain
 separate. This arithmetic transfer does not yet make units constructible or
 establish full design, ability or production parity.
 
@@ -443,3 +443,27 @@ component properties; original table slot IDs belong only to the reference
 fixture. Regenerate synthetic inputs with
 `python3 tools/behavior-tests/generate_prototype_cost.py --suite all`;
 observations require separate repeated original execution.
+
+## Human nutrient cost factors
+
+The original helper replay includes **5,679** human nutrient-factor observations,
+with explicit preset, rule multiplier and GROWTH inputs. The implementation
+was inferred independently from recorded outputs, then checked against 1,024
+samples using multipliers absent from its initial matrix. Native and WASM replay
+call the same production header. See [contracts.md](contracts.md) for bounds,
+original switch-table handling and exclusions.
+
+Regenerate inputs with
+`python3 tools/behavior-tests/generate_nutrient_factor.py --suite all`.
+Original answers require separate repeated executable captures. These helper
+cases do not establish population booms or whole-base growth behavior.
+
+`nutrient-factor-native` and `growth-factor-integration` additionally check the
+actual per-base query, shipped growth/reset callbacks and food-grid cells.
+Supported human owners with explicit named presets use the recorded factor at
+modeled rule10/GROWTH0; procedural custom climate still supports a named size.
+Unknown/custom dimensions, imported maps and unmodeled owner roles retain the
+existing area-based fallback. Growth thresholds and food-grid capacity share
+the same factor. Population row counts, events and UI checks are GLSMAC
+application coverage, separate from original factor observations; faction
+traits, social engineering, per-base modifiers and population booms remain gaps.
