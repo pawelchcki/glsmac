@@ -3,6 +3,7 @@
 const world_source = '#WORLDSIZE\n5\nChoice Zero,24,48\nChoice One,32,64\nChoice Two,40,80\nChoice Three,44,90\nChoice Four,64,128\n#END\n';
 const dialogs = '#TOPMENU\n#itemlist\nStart Game\nQuick Start\nScenario\nLoad Game\nMultiplayer\nView Credits\nExit Game\n#MAPMENU\n#itemlist\nMake Random Map\nCustomize Random Map\nThe Map of Planet\nHuge Map of Planet\nLoad Map File\n#SCENARIOMENU\n#caption Scenario\n#itemlist\nPlay Scenario\nCreate Scenario\nLoad Map File\nEdit Scenario\n#END\n';
 const label_cache = {};
+let installed_default = null;
 const label_source = (alternate) => {
 	const key = alternate ? 'alternate' : 'default';
 	if (!#is_defined(label_cache[key])) {
@@ -44,10 +45,11 @@ return {
 	static_dialogs: dialogs,
 	create: create,
 	install: (i) => {
-		let data = null;
 		const get_bundle = () => {
-			if (data == null) { data = create('default', world_source); }
-			return data.bundle;
+			// These action-only fixtures share immutable source inputs, like one
+			// production menu controller. Source-failure tests use create() directly.
+			if (installed_default == null) { installed_default = create('default', world_source); }
+			return installed_default.bundle;
 		};
 		i.smac_data = {
 			dimension_dialog: () => { const bundle = get_bundle(); return bundle.dimension_dialog(); },
