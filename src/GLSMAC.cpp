@@ -20,6 +20,7 @@
 #include "gse/Exception.h"
 #include "gse/value/Undefined.h"
 #include "gse/value/Array.h"
+#include "gse/value/Int.h"
 
 #include "game/backend/Game.h"
 #include "game/backend/State.h"
@@ -469,6 +470,21 @@ void GLSMAC::S_Init( GSE_CALLABLE, const std::optional< std::string >& path ) {
 			c->SetSMACPath( path.value() );
 		}
 	}
+	// Asset resolution precedes both main-menu startup and CLI Quick Start.
+	// Import once here; game configuration and receiving settings never reload
+	// local rules over an authoritative transferred value.
+	const auto* loaders = g_engine->GetTXTLoaders();
+	if ( !loaders ) { GSE_ERROR( gse::EC.LOADER_ERROR, "SMAC text loaders are unavailable" ); }
+	loader::txt::SmacTextDocument document;
+	try { document = loaders->smac_text->Load( "alphax.txt", "rules" ); }
+	catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+	auto* factor = TriggerObject( this, "configure_rules", ARGS_F( &document ) {
+		{ "document", loader::txt::WrapSmacTextDocument( GSE_CALL, document ) },
+	}; } );
+	if ( !factor || factor->type != gse::VT_INT ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_rules must return an integer nutrient multiplier" ); }
+	const auto value = static_cast< gse::value::Int* >( factor )->value;
+	if ( value < 1 || value > 100 ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_rules nutrient multiplier must be from 1 through 100" ); }
+	m_state->m_settings.global.rules.SetNutrientCostFactor( value );
 	Reset( GSE_CALL );
 }
 

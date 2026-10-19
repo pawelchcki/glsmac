@@ -182,6 +182,108 @@ struct ProductionFixture : gc::Object {
 	void RestoreMapSettings( const std::string& bytes ) {
 		state->m_settings.global.map.Deserialize( types::Buffer( bytes ) );
 	}
+	std::string RulesSettingsSnapshot( const std::string& kind ) {
+		const auto bytes = state->m_settings.global.rules.Serialize().ToString();
+		if ( kind == "current" ) { return bytes; }
+		if ( kind == "legacy" ) { return ""; }
+		if ( kind == "truncated" ) { return bytes.substr( 0, bytes.size() - 1 ); }
+		if ( kind == "trailing" ) { return bytes + "trailing"; }
+		types::Buffer invalid;
+		if ( kind == "invalid_low" ) { invalid.WriteInt( 0 ); }
+		else if ( kind == "invalid_high" ) { invalid.WriteInt( 101 ); }
+		else if ( kind == "wrong_type" ) { invalid.WriteString( "11" ); }
+		else { THROW( "unknown fixture rules settings snapshot kind" ); }
+		return invalid.ToString();
+	}
+	void RestoreRulesSettings( const std::string& bytes ) {
+		state->m_settings.global.rules.Deserialize( types::Buffer( bytes ) );
+	}
+	std::string GlobalSettingsSnapshot( const std::string& kind ) {
+		const auto& settings = state->m_settings.global;
+		if ( kind == "current" ) { return settings.Serialize().ToString(); }
+		types::Buffer result;
+		result.WriteString( settings.map.Serialize().ToString() );
+		if ( kind == "legacy_rules" ) { result.WriteString( "" ); }
+		else if ( kind == "invalid_rules" ) {
+			types::Buffer invalid; invalid.WriteInt( 101 ); result.WriteString( invalid.ToString() );
+		}
+		else if ( kind == "truncated_name" ) { result.WriteString( settings.rules.Serialize().ToString() ); }
+		else { THROW( "unknown fixture global settings snapshot kind" ); }
+		result.WriteInt( settings.difficulty_level );
+		result.WriteString( settings.game_name );
+		const auto bytes = result.ToString();
+		return kind == "truncated_name" ? bytes.substr( 0, bytes.size() - 1 ) : bytes;
+	}
+	void RestoreGlobalSettings( const std::string& bytes ) {
+		state->m_settings.global.Deserialize( types::Buffer( bytes ) );
+	}
+	Value* StateRulesWireProbe( GSE_CALLABLE ) {
+		// Global settings normally arrive before the receiving world exists.
+		// These dedicated States have no players/bases retaining faction pointers;
+		// exercise the real State wire without replacing the live fixture graph.
+		auto source = std::unique_ptr< backend::State >( new backend::State( gc_space, ctx, nullptr, false ) );
+		auto target = std::unique_ptr< backend::State >( new backend::State( gc_space, ctx, nullptr, false ) );
+		auto& from = source->m_settings.global;
+		auto& to = target->m_settings.global;
+		from.map.size_x = 68; from.map.size_y = 34; from.map.preset_level = 0;
+		from.rules.SetNutrientCostFactor( 17 ); from.game_name = "Source wire";
+		to.map.size_x = 112; to.map.size_y = 56; to.map.preset_level = 2;
+		to.rules.SetNutrientCostFactor( 23 ); to.game_name = "Previous target";
+		source->GetFM()->Add( new backend::faction::Faction( "WIRE_SOURCE", "Wire Source" ) );
+		target->GetFM()->Add( new backend::faction::Faction( "WIRE_OLD", "Old Target" ) );
+		auto* wrapper = static_cast< value::Object* >( to.rules.Wrap( GSE_CALL ) );
+		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
+		const auto wire = source->Serialize().ToString();
+		target->Deserialize( types::Buffer( wire ) );
+		auto* read_value = read->Run( GSE_CALL, {} );
+		const bool aliases = read_value->type == VT_INT && static_cast< value::Int* >( read_value )->value == 17;
+		const bool received = to.map.size_x == 68 && to.map.size_y == 34 && to.map.preset_level == 0 &&
+			to.rules.GetNutrientCostFactor() == 17 && to.game_name == "Source wire";
+		const bool factions = target->GetFM()->Get( "WIRE_SOURCE" ) && !target->GetFM()->Get( "WIRE_OLD" ) &&
+			target->GetFM()->Get( "WIRE_SOURCE" ) != source->GetFM()->Get( "WIRE_SOURCE" );
+		const bool roundtrip = target->Serialize().ToString() == wire;
+		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.game_name = "Changed sender";
+		const bool independent = target->Serialize().ToString() == wire && to.rules.GetNutrientCostFactor() == 17;
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "received", VALUE( value::Bool,, received ) }, { "aliases", VALUE( value::Bool,, aliases ) },
+			{ "factions", VALUE( value::Bool,, factions ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
+			{ "independent", VALUE( value::Bool,, independent ) },
+		} );
+	}
+	Value* RulesCopyProbe( GSE_CALLABLE ) {
+		auto& source = state->m_settings.global.rules;
+		const auto before = source.GetNutrientCostFactor();
+		auto constructed = std::make_unique< backend::rules::Default >( source );
+		const bool constructor = constructed->GetNutrientCostFactor() == before;
+		auto assigned = std::make_unique< backend::rules::Default >();
+		assigned->SetNutrientCostFactor( 19 );
+		auto* alias = static_cast< value::Object* >( assigned->Wrap( GSE_CALL ) );
+		auto* read = static_cast< value::Callable* >( alias->Get( "get_nutrient_cost_factor" ) );
+		*assigned = *constructed;
+		const bool assignment = assigned->GetNutrientCostFactor() == before;
+		const auto read_factor = [ & ]() {
+			auto* result = read->Run( GSE_CALL, {} );
+			return result->type == VT_INT && static_cast< value::Int* >( result )->value == assigned->GetNutrientCostFactor();
+		};
+		bool aliases = read_factor();
+		constructed->SetNutrientCostFactor( 29 );
+		assigned->SetNutrientCostFactor( 31 );
+		const bool independent = source.GetNutrientCostFactor() == before && constructed->GetNutrientCostFactor() == 29 && assigned->GetNutrientCostFactor() == 31;
+		aliases = aliases && read_factor();
+		auto* constructed_wrapper = static_cast< value::Object* >( constructed->Wrap( GSE_CALL ) );
+		auto* saved_read = static_cast< value::Callable* >( constructed_wrapper->Get( "get_nutrient_cost_factor" ) );
+		auto* saved_write = static_cast< value::Callable* >( constructed_wrapper->Get( "set_nutrient_cost_factor" ) );
+		constructed.reset();
+		bool read_rejected = false; bool write_rejected = false;
+		try { saved_read->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { read_rejected = true; }
+		try { saved_write->Run( GSE_CALL, { VALUE( value::Int,, 11 ) } ); } catch ( const std::exception& ) { write_rejected = true; }
+		const bool lifetime = read_rejected && write_rejected && source.GetNutrientCostFactor() == before && read_factor();
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "constructor", VALUE( value::Bool,, constructor ) }, { "assignment", VALUE( value::Bool,, assignment ) },
+			{ "independent", VALUE( value::Bool,, independent ) }, { "aliases", VALUE( value::Bool,, aliases ) },
+			{ "lifetime", VALUE( value::Bool,, lifetime ) },
+		} );
+	}
 	void SetOwnerRole( const std::string& role ) {
 		if ( role == "single" ) { owner->m_role = backend::Player::PR_SINGLE; }
 		else if ( role == "host" ) { owner->m_role = backend::Player::PR_HOST; }
@@ -777,6 +879,32 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		try { session->current->RestoreMapSettings( bytes ); }
 		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "rules_settings_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );
+		return VALUE( value::String,, session->current->RulesSettingsSnapshot( kind ) );
+	} ), GSE_CALL );
+	object->Set( "restore_rules_settings", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( bytes, 0, String );
+		try { session->current->RestoreRulesSettings( bytes ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "rules_copy_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->RulesCopyProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "global_settings_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );
+		return VALUE( value::String,, session->current->GlobalSettingsSnapshot( kind ) );
+	} ), GSE_CALL );
+	object->Set( "restore_global_settings", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( bytes, 0, String );
+		try { session->current->RestoreGlobalSettings( bytes ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "state_rules_wire_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->StateRulesWireProbe( GSE_CALL );
 	} ), GSE_CALL );
 	object->Set( "set_owner_role", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( role, 0, String ); session->current->SetOwnerRole( role );

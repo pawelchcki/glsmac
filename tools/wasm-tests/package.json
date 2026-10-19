@@ -32,7 +32,8 @@
     "test:pages": "node --test pages.test.mjs",
     "test:textures": "node texture-upload-build.mjs && node --test texture-upload.test.mjs",
     "test:maps": "node smac-map-build.mjs && node --test smac-map.test.mjs",
-    "test:regressions": "python3 ../behavior-tests/fast.py --suite base-growth-regression --suite combat-rollback-regression --suite faction-retry-regression --suite popup-sound-regression --suite popup-resize-regression"
+    "test:regressions": "python3 ../behavior-tests/fast.py --suite base-growth-regression --suite combat-rollback-regression --suite faction-retry-regression --suite popup-sound-regression --suite popup-resize-regression",
+    "test:nutrient-rules": "node --test --test-concurrency=1 --test-name-pattern=\"Quick Start loads the installed nutrient rule|ordinary startup consumes installed nutrient rules\" gameplay.test.mjs normal-game.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

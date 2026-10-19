@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 #include <vector>
+#include <memory>
+#include <cstdint>
 
 #include "types/Serializable.h"
 #include "gse/Wrappable.h"
@@ -11,6 +13,11 @@ namespace backend {
 namespace rules {
 
 CLASS2( Rules, types::Serializable, gse::Wrappable )
+
+	Rules() = default;
+	Rules( const Rules& other );
+	Rules& operator=( const Rules& other );
+	~Rules() override;
 
 	wrapmap_t< int > m_difficulty_levels{ {
 		{ -3, "Citizen", },
@@ -25,6 +32,8 @@ CLASS2( Rules, types::Serializable, gse::Wrappable )
 	const int GetDefaultDifficultyLevelV() const;
 
 	void Initialize();
+	int64_t GetNutrientCostFactor() const;
+	void SetNutrientCostFactor( int64_t factor );
 
 	WRAPDEFS_DYNAMIC( Rules );
 
@@ -36,6 +45,10 @@ protected:
 
 private:
 	bool m_is_initialized = false;
+	int64_t m_nutrient_cost_factor = 10;
+	// Saved native callables may outlive a settings wrapper or its world.
+	// Each copy owns a distinct handle; assignment preserves destination readers.
+	const std::shared_ptr< Rules* > m_nutrient_handle = std::make_shared< Rules* >( this );
 
 	const gse::value::array_elements_t WrapDifficultyLevels( gc::Space* const gc_space );
 

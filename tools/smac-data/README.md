@@ -82,6 +82,27 @@ production parser and GSE document wrapper. Invalid argument types/counts,
 unknown formats, missing blocks, ambiguous IDs and invalid occurrence bounds
 must fail explicitly. Returned collections must not mutate cached documents.
 
+## Installed nutrient rule
+
+The [nutrient rule contract](nutrient-rule-contract.md) maps `RULES` data row five
+to native global rules. Startup validates the loaded multiplier before changing
+settings, including CLI Quick Start. Existing nutrient arithmetic, growth and
+food-grid consumers use the transferred native value. Exact legacy empty rules
+retain multiplier 10; malformed current records reject before mutation.
+
+Asset-free tests cover parsing, strict values, aliases/lifetime, native copies,
+settings codecs, actual pre-world State transfer, growth/overflow and positive
+and zero food grids. Browser checks replace only `alphax.txt` with synthetic
+rules through the normal manifest/hash verification path, then check Quick
+Start and ordinary Standard gameplay. Run them with installed assets:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:nutrient-rules
+```
+
+These integration tests add no original-executable parity cases. The separate
+recorded nutrient-factor arithmetic contract retains its existing scope.
+
 ## Integration and remaining work
 
 The intended consumers are shipped rules/technology/unit/facility data, main

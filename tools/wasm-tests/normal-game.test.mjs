@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
+import { overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
@@ -13,7 +14,7 @@ const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const fatal = /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|NORMAL_EVENT_REJECTED/;
 
-function recordedNormalFactors() {
+function recordedNormalFactors(level = 0, nutrientRule = 10) {
   const witness = (name, predicate) => {
     const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/cases/${name}.json`, 'utf8')).cases;
     const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/observations/smacx-gog-2.0-${name}.json`, 'utf8')).observations;
@@ -24,11 +25,12 @@ function recordedNormalFactors() {
     return output;
   };
   const rows = witness('starting-unit-components', ({ id }) => id === 'colony-pod-fission-infantry').rows;
-  const mineral = witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === 0
+  const mineral = witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
     && i.mineral_rule_factor === 10 && i.industry === 0).factor;
-  const nutrient = witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === 0
-    && i.nutrient_rule_factor === 10 && i.growth === 0).factor;
-  assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
+  const nutrient = witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
+    && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor;
+  assert.equal(rows, 3);
+  if (level === 0 && nutrientRule === 10) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
   // The generated-world lifecycle below is application coverage, outside the
   // bounded component/factor observations and original-input parity counts.
   return { rows, mineral, nutrient, cost: rows * mineral };
@@ -83,11 +85,13 @@ const normalMain = String.raw`
   #include('game/game')(glsmac);
   #include('ui/ui')(glsmac);
   let report_base = null;
+  const nutrients = #include('ui/parts/game/popup/base_screen/nutrients');
   const middle = #include('ui/parts/game/popup/base_screen/bottom_bar/middle_area');
   const set_middle = middle.set;
   middle.set = (data) => {
     const result = set_middle(data);
     if (report_base != null) { report_base(data.base); }
+    #print('NORMAL_NUTRIENT_LABEL|' + #to_string(data.base.id) + '|' + nutrients.growth_label.text);
     #print('NORMAL_BASE_RENDER|' + #to_string(data.base.id));
     return result;
   };
@@ -237,11 +241,16 @@ async function clickCanvas(page, x, y) {
   await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
-test('normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', {
-  skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+for (const profile of [
+  { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [68, 34], rule: 10, lifecycle: true },
+  { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
+]) {
+test(profile.name, {
+  skip: (!assets || (!profile.lifecycle && process.env.WASM_SITE_URL)) && 'Requires SMAC_ASSETS_DIR; synthetic rules require the local asset server',
   timeout: 180000,
 }, async (t) => {
-  const factors = recordedNormalFactors();
+  const factors = recordedNormalFactors(profile.level, profile.rule);
+  const artifactPrefix = profile.lifecycle ? 'normal-game' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -264,8 +273,8 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   t.after(async () => {
     try {
       const log = await page.locator('#log').textContent({ timeout: 1000 }).catch(() => 'Engine log unavailable');
-      writeFileSync(new URL('normal-game-log.txt', artifacts), log);
-      await page.locator('#canvas').screenshot({ path: fileURLToPath(new URL('normal-game-final.png', artifacts)), timeout: 3000 }).catch(() => {});
+      writeFileSync(new URL(`${artifactPrefix}-log.txt`, artifacts), log);
+      await page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`${artifactPrefix}-final.png`, artifacts)), timeout: 3000 }).catch(() => {});
       t.diagnostic(log.slice(-16000));
       if (errors.length) t.diagnostic(errors.join('\n'));
     } finally { await browser.close(); }
@@ -293,7 +302,7 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   const screenshot = async (name) => {
     await healthy();
     await page.waitForTimeout(250);
-    return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`normal-game-${name}.png`, artifacts)) });
+    return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`${artifactPrefix}-${name}.png`, artifacts)) });
   };
   // Production sliding menus have the same bottom button anchor. Require an
   // actual transition, stationary frames and visible controls before input.
@@ -455,6 +464,7 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
       && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual production, growth stage and any population child have committed');
   };
 
+  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule));
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -480,7 +490,7 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   await menuReady('main');
   await chooseMenu(7, 0, 'map-type'); // Start Game
   await chooseMenu(5, 0, 'map-size'); // Make Random Map
-  await chooseMenu(6, 0, 'difficulty'); // Named Tiny Planet preset
+  await chooseMenu(6, profile.level, 'difficulty'); // Actual named preset
   await chooseMenu(6, 0, 'rules'); // Citizen
   await chooseMenu(3, 0, 'faction'); // Play with Standard Rules
   // The real faction choice list starts at Random.
@@ -491,7 +501,7 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   await waitLog('NORMAL_UI_READY');
   const initial = await waitState((s) => s.selected !== null && s.status === 'active'
     && s.bases.length > 0 && s.growth.every((g) => g.settled), 'Initial owned unit becomes selectable after starting population settles');
-  assert.deepEqual([initial.width, initial.height], [68, 34], 'The named Tiny preset generated its actual dimensions');
+  assert.deepEqual([initial.width, initial.height], profile.size, 'The named preset generated its actual dimensions');
   assert.equal(initial.faction, 'GAIANS', 'The actual faction picker selected Gaians');
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];
@@ -515,6 +525,24 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   // actual popup completion; P probes remain outside the modal input boundary.
   await waitLog(`NORMAL_BASE_OPEN|${headquarters.id}`);
   await screenshot('headquarters');
+  if (!profile.lifecycle) {
+    const economy = initial.economies.find((entry) => entry.id === headquarters.id);
+    assert.equal(economy.factor, factors.nutrient, 'The installed multiplier reaches the actual native factor');
+    const threshold = factors.nutrient * (economy.size + 1);
+    assert.equal(threshold, 22, 'Population one uses the imported Standard rule eleven');
+    const turns = economy.pendingFood > 0 ? Math.ceil((threshold - economy.food) / economy.pendingFood) : 0;
+    const expectedLabel = economy.pendingFood > 0
+      ? `Growth: ${turns} ${turns === 1 ? 'turn' : 'turns'}`
+      : economy.pendingFood < 0 ? 'Hunger!' : 'Growth: -stagnant-';
+    const log = await page.locator('#log').textContent();
+    const labels = [...log.matchAll(/NORMAL_NUTRIENT_LABEL\|(\d+)\|([^\r\n]*)/g)]
+      .filter((row) => +row[1] === headquarters.id);
+    assert.equal(labels.at(-1)?.[2], expectedLabel, 'The actual displayed growth label uses the imported threshold');
+    assert.equal(rulesAsset.reads(), 1, 'Native initialization and menus share the verified rules asset');
+    await healthy();
+    t.diagnostic('Synthetic installed rule eleven flowed through real menus, Standard generation, native factor and actual food label. No world/RNG/population overrides; adds no original-input parity case.');
+    return;
+  }
   await page.keyboard.press('Escape');
   await waitLog(`NORMAL_BASE_HIDDEN|${headquarters.id}`);
   await waitState((s) => s.popupClosed, 'Headquarters screen closes');
@@ -644,3 +672,4 @@ test('normal Tiny gameplay grows naturally and produces a new Colony Pod through
   await healthy();
   t.diagnostic(`Production menus chose Tiny Planet and Gaians; generation created ${initial.width}x${initial.height} terrain, Headquarters ${headquarters.id} at (${headquarters.x},${headquarters.y}) and ${initial.units.length} starting units. Existing turn ${initial.turn}→${next.turn} selection/replenishment/base checks passed. Then real picker and ${productionTurns} natural production turns grew a citizen and produced distinct owned pod ${completedPod.id} at cost ${factors.cost}, cleared the project and retained ${natural.economies.find((e) => e.id === headquarters.id).minerals} minerals. No RNG, world, population or mineral overrides; GLSMAC application coverage outside original-input parity counts.`);
 });
+}

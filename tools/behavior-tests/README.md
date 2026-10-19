@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **744 scenarios and 5,318 assertions** across
-56 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **777 scenarios and 5,536 assertions** across
+61 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -474,6 +474,27 @@ component properties; original table slot IDs belong only to the reference
 fixture. Regenerate synthetic inputs with
 `python3 tools/behavior-tests/generate_prototype_cost.py --suite all`;
 observations require separate repeated original execution.
+
+## Installed nutrient rule integration
+
+Five additional suites add 33 scenarios and 218 assertions. Synthetic rules
+reach native settings and the shipped growth/food-grid code; aliases, object
+lifetime, copies, legacy/current codecs and valid pre-world State transfer are
+checked without rendering. Invalid nested rules and truncated late fields leave
+GlobalSettings unchanged. This does not establish whole-State malformed-packet
+atomicity or original growth/UI parity.
+
+The probes exposed and now guard zero-column food-grid division, partial
+GlobalSettings mutation on rejected records, and lost GSE function returns in
+classic `for` loops. The language suite checks return values, nested loops,
+side effects and existing break/continue behavior. Failing baselines were
+preserved before fixes; fixed probes are promoted into the passing catalog.
+
+With installed assets, `npm --prefix tools/wasm-tests run test:nutrient-rules`
+checks actual Quick Start initialization and ordinary Standard menus, world
+generation, native factors and the displayed growth label using a verified
+synthetic rules asset. See the [source-data contract](../smac-data/nutrient-rule-contract.md).
+These are application regression tests; original parity totals are unchanged.
 
 ## Human nutrient cost factors
 

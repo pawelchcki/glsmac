@@ -1,6 +1,11 @@
 {
   "version": 1,
   "suites": [
+    {"id":"nutrient-zero-grid","script":"GLSMAC_data/tests/nutrient_zero_grid.gls.js","domains":["economy","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"nutrient-rule-native","script":"GLSMAC_data/tests/nutrient_rule_native.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"nutrient-rule-consumer","script":"GLSMAC_data/tests/nutrient_rule_consumer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"nutrient-settings-transfer-native","script":"GLSMAC_data/tests/nutrient_settings_transfer_native.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"gse-classic-for-return","script":"GLSMAC_data/tests/gse_classic_for_return.gls.js","domains":["decision-logic"],"evidence":"glsmac-regression"},
     {"id":"unit-orders-events", "script":"GLSMAC_data/tests/unit_orders_events.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
     {"id":"unit-orders-controls", "script":"GLSMAC_data/tests/unit_orders_controls.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"unit-orders-native", "script":"GLSMAC_data/tests/unit_orders_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},

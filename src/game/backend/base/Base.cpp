@@ -444,9 +444,9 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return VALUE( gse::value::Undefined ); }
 			const auto& map = state->m_settings.global.map;
 			if ( ( map.type != settings::MapSettings::MT_RANDOM && map.type != settings::MapSettings::MT_CUSTOM ) || map.preset_level < 0 || map.preset_level > 4 ) { return VALUE( gse::value::Undefined ); }
-			// Model only the recorded human/no-base factor at default rule10 and
-			// GROWTH0. Population growth rows remain a separate script policy.
-			return VALUE( gse::value::Int,, HumanNutrientFactor( map.preset_level, 10, 0 ) );
+			// Model only the recorded human/no-base factor at GROWTH0. The
+			// installed multiplier is typed rules state; growth rows are script policy.
+			return VALUE( gse::value::Int,, HumanNutrientFactor( map.preset_level, int( state->m_settings.global.rules.GetNutrientCostFactor() ), 0 ) );
 		} )
 	},
 	{

@@ -168,10 +168,9 @@ gse::Value* const Interpreter::EvaluateConditional( context::Context* ctx, Execu
 			switch ( c->condition->for_type ) {
 				case ForCondition::FCT_EXPRESSIONS: {
 					const auto* condition = (ForConditionExpressions*)c->condition;
-					bool return_flag = false;
 					EvaluateExpression( ctx, ep, condition->init, returnflag );
 					while ( EvaluateBool( ctx, ep, condition->check ) ) {
-						result = EvaluateScope( ctx, ep, c->body );
+						result = EvaluateScope( ctx, ep, c->body, returnflag );
 						CheckBreakCondition( result, &need_break, &need_clear, returnflag );
 						if ( need_break || ( returnflag && *returnflag ) ) {
 							if ( need_clear ) {

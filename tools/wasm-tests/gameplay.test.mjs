@@ -7,6 +7,7 @@ import { test } from 'node:test';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
+import { overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
@@ -500,6 +501,11 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   });
   const page = await browser.newPage({ viewport: { width: 1100, height: 1000 } });
   page.setDefaultTimeout(60000);
+  let rulesAsset;
+  if (options.rulesText !== undefined) {
+    assert.ok(!site, 'Synthetic rules require the local asset server');
+    rulesAsset = await overrideRulesAsset(page, options.rulesText);
+  }
   const errors = [];
   const selectedBases = [];
   const recordError = (kind, error) => {
@@ -639,8 +645,39 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   await page.locator('#start').click();
   await waitForLog('SMOKE_UI_READY');
   await waitForLog('SMOKE_UNIT|1|0');
-  return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases, selectedBases };
+  return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases, selectedBases, rulesAsset };
 }
+
+test('Quick Start loads the installed nutrient rule before configuring gameplay', {
+  skip: (!assets || site) && 'Requires SMAC_ASSETS_DIR and the local asset server',
+  timeout: 120000,
+}, async (t) => {
+  const observer = mainScript.replace('  glsmac.run();', String.raw`
+  glsmac.on('configure_game', (e) => {
+    const game = e.game;
+    const rules = game.get_settings().global.rules;
+    let value = 'MISSING';
+    if (#typeof(rules.get_nutrient_cost_factor) == 'Callable') { value = #to_string(rules.get_nutrient_cost_factor()); }
+    #print('LOADED_NUTRIENT_RULE|' + value);
+    game.on('start_ui', (e) => {
+      for (base of game.get_bm().get_bases()) {
+        #print('QUICKSTART_NUTRIENT_FACTOR|' + #to_string(base.get_nutrient_factor()));
+      }
+    });
+  });
+  glsmac.run();
+`);
+  const { page, waitForLog, screenshot, rulesAsset } = await startGame(t, ordersWorldScript, 'nutrient-rule-quickstart', {
+    mainScript: observer, rulesText: syntheticNutrientRules(11),
+  });
+  await waitForLog('LOADED_NUTRIENT_RULE|');
+  const log = await page.locator('#log').textContent();
+  assert.equal(log.match(/LOADED_NUTRIENT_RULE\|([^\r\n]*)/)?.[1], '11', 'Quick Start configures gameplay with the loaded native rule');
+  await waitForLog('QUICKSTART_NUTRIENT_FACTOR|undefined');
+  assert.equal(rulesAsset.reads(), 1, 'Quick Start reads the verified synthetic installed rules once');
+  await screenshot('loaded');
+  t.diagnostic('Actual Quick Start loaded rule 11 before configure_game. Imported-map factor provenance stays unsupported; this startup fixture adds no original-input parity case.');
+});
 
 test('owned bases, turns, movement and facility production use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',

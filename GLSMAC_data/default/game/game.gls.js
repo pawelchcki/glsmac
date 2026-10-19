@@ -4,6 +4,12 @@ return (glsmac) => {
 	const factions = #include('../factions');
 	const resources = #include('../resources');
 	const units = #include('../units');
+	const nutrient_rules = #include('nutrient_rules');
+
+	// Native asset initialization supplies the parsed document on both ordinary
+	// and command-line Quick Start paths. Return a validated scalar; native code
+	// commits it only after this complete parse succeeds.
+	glsmac.on('configure_rules', (e) => { return nutrient_rules.parse(e.document); });
 
 	const modules = ['bases'];
 	let m = {};

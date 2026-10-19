@@ -243,6 +243,12 @@ return {
 
 	set_cells: (total_width, total_height, columns, rows, filled, pending, cells_el, cell_baseclass, label_el, f_label) => {
 		cells_el.clear();
+		// A valid zero nutrient factor has no cells or cell geometry. Keep
+		// the caller's existing label policy, with exactly zero progress.
+		if (columns == 0) {
+			label_el.text = f_label(0);
+			return;
+		}
 
 		const width = #floor(#to_float(total_width) / #to_float(columns));
 		const height = #floor(#to_float(total_height) / #to_float(rows));

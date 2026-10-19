@@ -1,10 +1,42 @@
 #include "Rules.h"
 
 #include "gse/value/Array.h"
+#include "gse/value/Int.h"
+#include "gse/value/Undefined.h"
 
 namespace game {
 namespace backend {
 namespace rules {
+
+Rules::Rules( const Rules& other )
+	: types::Serializable( other ), gse::Wrappable( other )
+	, m_difficulty_levels( other.m_difficulty_levels )
+	, m_is_initialized( other.m_is_initialized )
+	, m_nutrient_cost_factor( other.m_nutrient_cost_factor ) {}
+
+Rules& Rules::operator=( const Rules& other ) {
+	if ( this != &other ) {
+		// wrapmap_t is immutable and previously made implicit assignment
+		// unavailable. This bounded assignment supports the fixed definition
+		// only; reject a differing map before changing any destination state.
+		if ( m_difficulty_levels.GetVK() != other.m_difficulty_levels.GetVK() ||
+			m_difficulty_levels.GetKV() != other.m_difficulty_levels.GetKV() ) {
+			THROW( "Cannot assign rules with different fixed difficulty definitions" );
+		}
+		m_is_initialized = other.m_is_initialized;
+		m_nutrient_cost_factor = other.m_nutrient_cost_factor;
+	}
+	return *this;
+}
+
+Rules::~Rules() { *m_nutrient_handle = nullptr; }
+
+int64_t Rules::GetNutrientCostFactor() const { return m_nutrient_cost_factor; }
+
+void Rules::SetNutrientCostFactor( const int64_t factor ) {
+	if ( factor < 1 || factor > 100 ) { THROW( "Nutrient cost multiplier must be an integer from 1 through 100" ); }
+	m_nutrient_cost_factor = factor;
+}
 
 const int Rules::GetDefaultDifficultyLevelV() const {
 	return m_difficulty_levels.GetValueUnsafe( GetDefaultDifficultyLevel() );
@@ -19,6 +51,25 @@ void Rules::Initialize() {
 
 WRAPIMPL_DYNAMIC_GETTERS( Rules )
 			WRAPIMPL_GET_CUSTOM( "difficulty_levels", Array, WrapDifficultyLevels( gc_space ) )
+	{
+		"get_nutrient_cost_factor", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 0 );
+			auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			return VALUE( gse::value::Int,, rules->GetNutrientCostFactor() );
+		} )
+	},
+	{
+		"set_nutrient_cost_factor", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( factor, 0, Int );
+			auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			CheckCustomMutation( GSE_CALL );
+			if ( factor < 1 || factor > 100 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Nutrient cost multiplier must be from 1 through 100" ); }
+			rules->SetNutrientCostFactor( factor );
+			return VALUE( gse::value::Undefined );
+		} )
+	},
 WRAPIMPL_DYNAMIC_SETTERS( Rules )
 WRAPIMPL_DYNAMIC_ON_SET( Rules )
 WRAPIMPL_DYNAMIC_END()
@@ -26,27 +77,20 @@ WRAPIMPL_DYNAMIC_END()
 const types::Buffer Rules::Serialize() const {
 	types::Buffer buf;
 
-	// no need for now, difficulty levels are hardcoded
-/*	buf.WriteInt( m_difficulty_levels.size() );
-	for ( auto& it : m_difficulty_levels ) {
-		buf.WriteString( it.first );
-		buf.WriteString( it.second.Serialize().ToString() );
-	}*/
+	// Difficulty levels remain fixed; this typed extension carries the loaded
+	// scalar rather than relying on script custom properties during transfer.
+	buf.WriteInt( m_nutrient_cost_factor );
 
 	return buf;
 }
 
 void Rules::Deserialize( types::Buffer buf ) {
 
-	// no need for now, difficulty levels are hardcoded
-	/*
-	m_difficulty_levels.clear();
-	const size_t difficulty_levels_count = buf.ReadInt();
-	for ( size_t i = 0 ; i < difficulty_levels_count ; i++ ) {
-		const std::string difficulty_level_name = buf.ReadString();
-		m_difficulty_levels[ difficulty_level_name ].Deserialize( buf.ReadString() );
-	}*/
-
+	// An exact empty legacy rules payload used the previous multiplier ten.
+	// A present extension must be complete and valid before any live mutation.
+	const auto factor = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
+	if ( factor < 1 || factor > 100 || buf.lenr != buf.lenw ) { THROW( "Invalid serialized nutrient cost multiplier" ); }
+	SetNutrientCostFactor( factor );
 	m_is_initialized = true;
 
 }

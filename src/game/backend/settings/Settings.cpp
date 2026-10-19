@@ -136,10 +136,24 @@ const types::Buffer GlobalSettings::Serialize() const {
 }
 
 void GlobalSettings::Deserialize( types::Buffer buf ) {
-	map.Deserialize( buf.ReadString() );
-	rules.Deserialize( buf.ReadString() );
-	difficulty_level = buf.ReadInt();
-	game_name = buf.ReadString();
+	// A rejected aggregate must not leave an earlier map or Rules field live.
+	// Parse every field and validate both nested records before committing any
+	// destination state. Temporary Wrappables have no receiving-world aliases.
+	const auto map_bytes = buf.ReadString();
+	const auto rules_bytes = buf.ReadString();
+	const auto decoded_difficulty = buf.ReadInt();
+	const auto decoded_name = buf.ReadString();
+	MapSettings decoded_map;
+	decoded_map.Deserialize( types::Buffer( map_bytes ) );
+	::game::backend::rules::Default decoded_rules;
+	decoded_rules.Deserialize( types::Buffer( rules_bytes ) );
+
+	// Keep the actual destination objects: map decode refreshes retained preset
+	// wrappers, and Rules assignment preserves its saved native-reader handle.
+	map.Deserialize( types::Buffer( map_bytes ) );
+	rules = decoded_rules;
+	difficulty_level = decoded_difficulty;
+	game_name = decoded_name;
 }
 
 WRAPMAP( game_mode, LocalSettings::game_mode_t,

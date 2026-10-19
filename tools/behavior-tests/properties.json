@@ -243,7 +243,7 @@
       "id": "installed-data",
       "status": "partial",
       "contracts": [],
-      "coverage": "Shared native/WASM parsing, native GSE queries and three shipped static menu dialogs consume installed SMACX data; this is data-import/application coverage, not original-executable gameplay parity.",
+      "coverage": "Shared native/WASM parsing, native GSE queries and three static menu dialogs consume installed SMACX data. The installed nutrient multiplier reaches native rules, both startup paths, growth and food-grid display; native rules and GlobalSettings transfer have regression coverage. This is data-import/application coverage, separate from original-executable arithmetic parity.",
       "remaining": [
         "Rule table integration into technology, unit, facility and economy systems",
         "Dynamic setup choices from rules tables",
