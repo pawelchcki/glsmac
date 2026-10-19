@@ -1,4 +1,5 @@
 const ui_mocks = #include('./_ui_mocks');
+const dimension_text = #include('./_dimension_text_fixture');
 const start_game = #include('../default/ui/parts/mainmenu/steps/start_game');
 const select_difficulty = #include('../default/ui/parts/mainmenu/steps/select_difficulty_level');
 const select_rules = #include('../default/ui/parts/mainmenu/steps/select_rules');
@@ -166,6 +167,7 @@ const custom_size_picker = (map_type) => {
 			customize_ocean_coverage: (current) => { state.events = state.events + 'ocean;'; },
 		},
 	};
+	dimension_text.install(i);
 	customize_mapsize(i);
 	state.popup.generator({
 		input: (props) => {
@@ -188,9 +190,9 @@ const custom_size_picker = (map_type) => {
 
 for (map_type of ['random', 'custom']) {
 	const picker = custom_size_picker(map_type);
-	test.assert(picker.state.inputs[0].value == '112');
-	test.assert(picker.state.inputs[1].value == '56');
-	picker.state.inputs[0].value = '120';
+	test.assert(picker.state.inputs[0].value == '40');
+	test.assert(picker.state.inputs[1].value == '80');
+	picker.state.inputs[0].value = '60';
 	picker.state.inputs[1].value = '80';
 	const confirm = picker.state.popup.buttons[0].onclick;
 	confirm({});
@@ -199,7 +201,7 @@ for (map_type of ['random', 'custom']) {
 	test.assert(picker.state.events == (map_type == 'random' ? 'back;difficulty;' : 'back;ocean;'));
 }
 
-for (invalid of [['nonsense', '80'], ['121', '80'], ['120', '0'], ['4098', '80'], ['120junk', '80'], ['120', '2.5'], ['2', '80']]) {
+for (invalid of [['nonsense', '80'], ['60.5', '80'], ['120', '0'], ['2049', '80'], ['120junk', '80'], ['120', '2.5'], ['1', '80']]) {
 	const picker = custom_size_picker('random');
 	picker.state.inputs[0].value = invalid[0];
 	picker.state.inputs[1].value = invalid[1];
@@ -208,7 +210,7 @@ for (invalid of [['nonsense', '80'], ['121', '80'], ['120', '0'], ['4098', '80']
 	test.assert(picker.state.events == '');
 	test.assert(picker.i.settings.global.map.size_x == 112);
 	test.assert(picker.i.settings.global.map.size_y == 56);
-	test.assert(picker.state.error.text == 'Use even whole numbers within the displayed ranges.');
+	test.assert(picker.state.error.text == 'Use whole horizontal and even vertical sizes within the displayed ranges.');
 }
 const cancelled_size = custom_size_picker('custom');
 cancelled_size.state.inputs[0].value = '120';

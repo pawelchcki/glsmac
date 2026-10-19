@@ -48,8 +48,11 @@ and `line`. Records use `text`, `directive`, `blank` and `comment` kinds.
 
 The current reproduction requires SMACX assets; the first bundle therefore
 explicitly loads `alphax.txt` as rules, `xscript.txt` as dialogs and `menu.txt`
-as menus. Do not silently substitute base-game files if the chosen expansion
-data is missing. Explicit alternate filenames may be supported for declared
+as menus. Custom dimensions additionally load common `script.txt` and
+`labels.txt` lazily. This common CUSTOMMAP source is an independently observed
+selection, including with conflicting expansion text; it is not a fallback for
+missing expansion data. Do not silently substitute files if a required source
+is missing. Explicit alternate filenames may be supported for declared
 fixtures/future base-game mode, with their own validation.
 
 The first consumer manifest is deliberately tied to existing action slots:
@@ -220,3 +223,20 @@ synthetic fixtures. The checked local dataset contained 1,362 rule rows across
 `alpha.txt`/`alphax.txt`, 1,501 blocks in each dialog file, and 180 menu items.
 No installed text is copied into the checkout. This does not execute original
 instructions or verify associated gameplay mechanics.
+
+## Custom-dimension dialog text
+
+The [18 original dialog comparisons](../behavior-tests/ui/dimension-dialog-contract.md)
+select common `Script.txt` CUSTOMMAP caption and zero-based `labels.txt` LABELS
+entries 1090/1091. `bundle.dimension_dialog()` loads these optional sources only
+on first use, validates both before caching and returns a detached definition.
+The source count must be canonical, match all label records and include both
+ordinals. The caption block accepts a single plain caption, blank/comment records
+and the known `xs`/`x`/`y` layout directives; it rejects unexpected body text or
+directives. Target text rejects empty values and unsupported formatting markers
+(`^`, `|`, `$`, `{`, `}`). Missing/duplicate blocks, malformed counts and unsupported
+text fail explicitly. Existing static menus remain usable when optional text fails.
+Layout directives are preserved by the shared parser but do not drive layout.
+Untouched fields use the recorded raw `40` and `80`. Validation bounds and
+horizontal-to-backend conversion are application coverage, beyond these original
+visible-text observations.

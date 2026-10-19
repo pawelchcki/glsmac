@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "name": "custom-dimension-caption-source-dependencies",
+  "description": "Visible dialog controls with common-script caption overrides, alone and in conflict with expansion-script captions. No edited dimensions, layout or generated-terrain claims.",
+  "cases": [
+    {
+      "id": "caption-source-random-core",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "text_profile": "core"
+      }
+    },
+    {
+      "id": "caption-source-random-both",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "text_profile": "both"
+      }
+    },
+    {
+      "id": "caption-source-custom-core",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "text_profile": "core"
+      }
+    },
+    {
+      "id": "caption-source-custom-both",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "text_profile": "both"
+      }
+    }
+  ]
+}

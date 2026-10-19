@@ -25,7 +25,15 @@ const fixture = () => {
 		game: { get_fm: () => { return { list: () => { return []; } }; } },
 	};
 	m.glsmac.ui = view.ui;
+	let dimension_source = null;
 	m.glsmac.load_smac_text = (filename, format) => {
+		if (filename == 'script.txt' || filename == 'labels.txt') {
+			if (dimension_source == null) {
+				const source = #include('./_dimension_text_fixture');
+				dimension_source = source.create('default', source.world_source);
+			}
+			return test.parse_smac_text(dimension_source.sources[filename], format);
+		}
 		if (filename == 'xscript.txt' && format == 'dialogs') { return test.parse_smac_text(fixture_dialogs, format); }
 		if (filename == 'alphax.txt' && format == 'rules') { return test.parse_smac_text('#RULES\nSynthetic rule, 1\n#END\n', format); }
 		if (filename == 'menu.txt' && format == 'menus') { return test.parse_smac_text('#GAME\nSynthetic in-game menu\nUnknown action|Ctrl+Z\n#END\n', format); }
@@ -51,6 +59,7 @@ const fixture = () => {
 		randomize_map: () => {},
 	};
 	i.glsmac = m.glsmac;
+	i.smac_data = m.smac_data;
 	#include('./_world_size_fixture')(i.settings);
 	i.sliding = sliding;
 	i.popup = popup;

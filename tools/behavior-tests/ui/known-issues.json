@@ -156,11 +156,38 @@
       "strict_replay": "SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:unit-orders",
       "first_failure": "Activate selects the real native unit, including when exhausted: null !== 1",
       "scope": "Five selected paths in a declared synthetic one-Scout world; no added original-input parity cases."
+    },
+    {
+      "id": "custom-dimension-dialog-values",
+      "suite": "dimension-dialog",
+      "catalog": "catalog.json",
+      "status": "fixed-in-recorded-contract",
+      "examples": [
+        "dimension-random-untouched",
+        "dimension-custom-4",
+        "dimension-random-alternate"
+      ],
+      "property": "18 independently repeated original cases now match actual production dialog controls: common Script.txt CUSTOMMAP caption despite conflicting expansion text, labels.txt field labels and untouched raw 40/80 values on both routes after every preset. First strict replay failed all 18 cases before the fixes.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite dimension-dialog --suite dimension-caption-sources",
+      "candidate_probes": [
+        {
+          "script": "GLSMAC_data/tests/dimension_data.gls.js",
+          "status": "fixed-regression",
+          "scope": "Lazy strict source consumer and detached cache"
+        },
+        {
+          "script": "GLSMAC_data/tests/dimension_controls.gls.js",
+          "status": "fixed-regression",
+          "first_failure": "Retained assigned wrappers must observe the committed dimensions",
+          "scope": "Actual popup actions, application input policy, cancel, imported-state guard and restoration of random/custom routes through retained aliases",
+          "additional_first_failure": "A retained imported wrapper must observe the restored random route"
+        }
+      ]
     }
   ],
   "verification": {
-    "cases": 355,
-    "matched": 355,
+    "cases": 373,
+    "matched": 373,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,

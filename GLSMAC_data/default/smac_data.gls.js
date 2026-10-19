@@ -2,6 +2,65 @@
 // These three static dialogs decorate only verified existing action slots.
 const static_counts = { TOPMENU: 7, MAPMENU: 5, SCENARIOMENU: 4 };
 
+const plain_dimension_text = (text) => {
+	if (#trim(text) == '') { throw Error('Empty SMAC dimension text'); }
+	for (marker of ['^', '|', '$', '{', '}']) {
+		if (#sizeof(#split(text, marker)) != 1) { throw Error('Unsupported formatting in SMAC dimension text'); }
+	}
+	return text;
+};
+
+const dimension_caption = (document) => {
+	const block = document.dialog('CUSTOMMAP');
+	let caption = #undefined;
+	for (record of block.records) {
+		switch (record.kind) {
+			case 'blank': { break; }
+			case 'comment': { break; }
+			case 'directive': {
+				switch (record.name) {
+					case 'caption': {
+						if (#is_defined(caption)) { throw Error('Duplicate SMAC dimension caption'); }
+						caption = plain_dimension_text(record.argument);
+						break;
+					}
+					case 'xs': { break; }
+					case 'x': { break; }
+					case 'y': { break; }
+					default: { throw Error('Unsupported SMAC dimension directive: ' + record.name); }
+				}
+				break;
+			}
+			default: { throw Error('Unsupported body in SMAC dimension caption'); }
+		}
+	}
+	if (!#is_defined(caption)) { throw Error('Missing SMAC dimension caption'); }
+	return caption;
+};
+
+const dimension_labels = (document) => {
+	const block = document.dialog('LABELS');
+	const labels = [];
+	for (record of block.records) {
+		switch (record.kind) {
+			case 'blank': { break; }
+			case 'comment': { break; }
+			case 'text': { labels :+ record.text; break; }
+			default: { throw Error('Unsupported directive in SMAC labels'); }
+		}
+	}
+	if (#sizeof(labels) == 0) { throw Error('Missing SMAC label count'); }
+	const text = #trim(labels[0]);
+	let count = 0;
+	try { count = #to_int(text); }
+	catch { : (e) => { throw Error('SMAC label count must be a canonical integer'); } }
+	if (#to_string(count) != text || count < 1092 || count != #sizeof(labels) - 1) {
+		throw Error('Invalid or insufficient SMAC label count');
+	}
+	// The count record precedes zero-based label ordinals 1090 and 1091.
+	return [plain_dimension_text(labels[1091]), plain_dimension_text(labels[1092])];
+};
+
 const static_dialog = (document, id, count) => {
 	const dialog = document.dialog(id);
 	let caption = #undefined;
@@ -60,6 +119,17 @@ return (glsmac) => {
 		let index = 0;
 		for (label of definition.labels) { menu.entries[index][0] = label; index = index + 1; }
 		menu.title = definition.caption;
+	};
+	let dimensions = null;
+	bundle.dimension_dialog = () => {
+		if (dimensions == null) {
+			// Original controlled-source observations select the common script's
+			// CUSTOMMAP caption, independently of a conflicting expansion block.
+			const caption = dimension_caption(glsmac.load_smac_text('script.txt', 'dialogs'));
+			const labels = dimension_labels(glsmac.load_smac_text('labels.txt', 'dialogs'));
+			dimensions = {caption: caption, horizontal: labels[0], vertical: labels[1]};
+		}
+		return #clone(dimensions);
 	};
 	return bundle;
 };

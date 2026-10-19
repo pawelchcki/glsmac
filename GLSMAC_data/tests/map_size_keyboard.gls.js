@@ -4,6 +4,7 @@
 // original-game parity.
 const behavior = #include('./_behavior');
 const mocks = #include('./_ui_mocks');
+const dimension_text = #include('./_dimension_text_fixture');
 const customize_mapsize = #include('../default/ui/parts/mainmenu/steps/customize_mapsize');
 
 const make_picker = (map_type) => {
@@ -11,6 +12,7 @@ const make_picker = (map_type) => {
 	f.state.routes = [];
 	f.m.popup = f.popup;
 	f.m.settings = { global: { map: { type: map_type, size_x: 112, size_y: 56, filename: 'retained.GSM', preset_level: 2 } } };
+	dimension_text.install(f.m);
 	f.m.steps = {
 		select_difficulty_level: (current) => { f.state.routes :+ 'difficulty'; },
 		customize_ocean_coverage: (current) => { f.state.routes :+ 'ocean'; },
@@ -19,7 +21,7 @@ const make_picker = (map_type) => {
 	f.popup.show({ title: 'Map Size', width: 480, height: 180 });
 	customize_mapsize(f.m);
 	f.inputs = f.view.live('input');
-	test.assert(#sizeof(f.inputs) == 2 && f.inputs[0].value == '112' && f.inputs[1].value == '56');
+	test.assert(#sizeof(f.inputs) == 2 && f.inputs[0].value == '40' && f.inputs[1].value == '80');
 	return f;
 };
 
@@ -35,7 +37,7 @@ const assert_submitted = (f, width, height, map_type) => {
 	test.assert(f.view.find('window', 'title', 'Map Size').title == 'Map Size');
 	test.assert(f.state.reset == 0 && f.state.exit == 0);
 	// The real popup removes old inputs, so delayed delivery cannot submit twice.
-	f.inputs[0].emit('input', { value: '120' });
+	f.inputs[0].emit('input', { value: '60' });
 	f.inputs[1].emit('input', { value: '80' });
 	test.assert(#sizeof(f.state.routes) == 1);
 };
@@ -44,7 +46,7 @@ for (map_type of ['random', 'custom']) {
 	for (field of [0, 1]) {
 		behavior.scenario('Enter in dimension ' + #to_string(field) + ' submits the ' + map_type + ' map route', () => {
 			const f = make_picker(map_type);
-			f.inputs[0].value = '120';
+			f.inputs[0].value = '60';
 			f.inputs[1].value = '80';
 			const value = f.inputs[field].value;
 			test.assert(f.inputs[field].emit('input', { value: value }) == true, 'Enter from either input must submit the dialog');
@@ -53,7 +55,7 @@ for (map_type of ['random', 'custom']) {
 	}
 	behavior.scenario('OK click retains the same ' + map_type + ' map submission', () => {
 		const f = make_picker(map_type);
-		f.inputs[0].value = '120';
+		f.inputs[0].value = '60';
 		f.inputs[1].value = '80';
 		test.assert(f.view.find('button', 'text', 'OK').emit('click', {}) == true);
 		assert_submitted(f, 120, 80, map_type);
@@ -84,11 +86,11 @@ for (action of ['complete', 'cancel']) {
 for (c of [
 	['text width', 'nonsense', '80', 0],
 	['trailing height text', '120', '80junk', 1],
-	['odd width', '121', '80', 0],
+	['fractional horizontal size', '60.5', '80', 0],
 	['odd height', '120', '3', 1],
-	['width below minimum', '2', '80', 0],
+	['width below minimum', '1', '80', 0],
 	['height below minimum', '120', '0', 1],
-	['width above maximum', '4098', '80', 0],
+	['width above maximum', '2049', '80', 0],
 	['height above maximum', '120', '4098', 1],
 	['decimal width', '120.0', '80', 0],
 	['decimal height', '120', '2.5', 1],
@@ -104,16 +106,16 @@ for (c of [
 		test.assert(f.inputs[field].emit('input', { value: value }) == true);
 		assert_settings(f, 112, 56, 'random');
 		test.assert(f.state.routes == [] && #sizeof(f.view.live('input')) == 2);
-		test.assert(f.view.find('window', 'title', 'Custom Size').title == 'Custom Size');
-		test.assert(f.view.find('text', 'text', 'Use even whole numbers within the displayed ranges.').text == 'Use even whole numbers within the displayed ranges.');
-		f.inputs[0].value = '120';
+		test.assert(f.view.find('window', 'title', 'Custom Map Size').title == 'Custom Map Size');
+		test.assert(f.view.find('text', 'text', 'Use whole horizontal and even vertical sizes within the displayed ranges.').text == 'Use whole horizontal and even vertical sizes within the displayed ranges.');
+		f.inputs[0].value = '60';
 		f.inputs[1].value = '80';
-		test.assert(f.inputs[field].emit('input', { value: field == 0 ? '120' : '80' }) == true);
+		test.assert(f.inputs[field].emit('input', { value: field == 0 ? '60' : '80' }) == true);
 		assert_submitted(f, 120, 80, 'random');
 	});
 }
 
-for (c of [['4', '2', 4, 2], ['4096', '4096', 4096, 4096], [' 120 ', ' 80 ', 120, 80]]) {
+for (c of [['2', '2', 4, 2], ['2048', '4096', 4096, 4096], [' 60 ', ' 80 ', 120, 80]]) {
 	behavior.scenario('Enter accepts dimension boundaries or whitespace ' + c[0] + 'x' + c[1], () => {
 		const f = make_picker('custom');
 		f.inputs[0].value = c[0];
@@ -126,15 +128,15 @@ for (c of [['4', '2', 4, 2], ['4096', '4096', 4096, 4096], [' 120 ', ' 80 ', 120
 for (cancel of ['button', 'escape']) {
 	behavior.scenario(cancel + ' cancellation preserves dimensions after rejected Enter', () => {
 		const f = make_picker('custom');
-		f.inputs[0].value = '121';
+		f.inputs[0].value = '60.5';
 		f.inputs[1].value = '80';
-		f.inputs[0].emit('input', { value: '121' });
+		f.inputs[0].emit('input', { value: '60.5' });
 		if (cancel == 'button') { f.view.find('button', 'text', 'Cancel').emit('click', {}); }
-		else { f.view.find('window', 'title', 'Custom Size').emit('keydown', { code: 'ESCAPE', modifiers: [] }); }
+		else { f.view.find('window', 'title', 'Custom Map Size').emit('keydown', { code: 'ESCAPE', modifiers: [] }); }
 		assert_settings(f, 112, 56, 'custom');
 		test.assert(f.state.routes == [] && #sizeof(f.view.live('input')) == 0);
 		test.assert(f.view.find('window', 'title', 'Map Size').title == 'Map Size');
-		f.inputs[0].emit('input', { value: '120' });
+		f.inputs[0].emit('input', { value: '60' });
 		test.assert(f.state.routes == [] && f.state.reset == 0 && f.state.exit == 0);
 	});
 }
@@ -164,6 +166,7 @@ const make_setup = (map_type) => {
 		rules: { difficulty_levels: ['Citizen', 'Specialist'] },
 	} };
 	#include('./_world_size_fixture')(f.m.settings);
+	dimension_text.install(f.m);
 	f.m.randomize_map = () => {};
 	f.m.set_customize_preview = (data) => {};
 	f.m.customize_preview_defaults = { ocean_coverage_type: 3 };
@@ -189,10 +192,10 @@ for (map_type of ['random', 'custom']) {
 	for (cancel of ['escape', 'button']) {
 		behavior.scenario(map_type + ' custom-size ' + cancel + ' restores the selected map-type caller', () => {
 			const f = make_setup(map_type);
-			f.inputs[0].value = '120';
+			f.inputs[0].value = '60';
 			f.inputs[1].value = '80';
 			if (cancel == 'button') { f.view.find('button', 'text', 'Cancel').emit('click', {}); }
-			else { f.view.find('window', 'title', 'Custom Size').emit('keydown', { code: 'ESCAPE', modifiers: [] }); }
+			else { f.view.find('window', 'title', 'Custom Map Size').emit('keydown', { code: 'ESCAPE', modifiers: [] }); }
 			test.assert(#sizeof(f.manager.data_stack) == 1, 'cancel unwinds both the custom dialog and size question');
 			const label = map_type == 'random' ? 'Make Random Map' : 'Customize Random Map';
 			test.assert(f.view.find('button', 'text', label).class == 'menublock-item-active');
@@ -204,9 +207,9 @@ for (map_type of ['random', 'custom']) {
 	}
 	behavior.scenario(map_type + ' custom-size success retains the setup scope for subsequent navigation', () => {
 		const f = make_setup(map_type);
-		f.inputs[0].value = '120';
+		f.inputs[0].value = '60';
 		f.inputs[1].value = '80';
-		f.inputs[0].emit('input', { value: '120' });
+		f.inputs[0].emit('input', { value: '60' });
 		test.assert(#sizeof(f.manager.data_stack) == 3, 'successful confirmation preserves the size scope');
 		const title = map_type == 'random' ? 'Pick a difficulty level' : 'Select ocean coverage';
 		test.assert(f.view.find('button', 'text', title).class == 'menublock-item-active');
@@ -219,9 +222,9 @@ for (map_type of ['random', 'custom']) {
 	});
 }
 
-behavior.scenario('accepting unchanged custom dimensions clears previous named preset provenance', () => {
+behavior.scenario('confirming untouched displayed defaults clears previous named preset provenance', () => {
 	const f = make_picker('random');
 	test.assert(f.m.settings.global.map.preset_level == 2);
 	f.view.find('button', 'text', 'OK').emit('click', {});
-	assert_submitted(f, 112, 56, 'random');
+	assert_submitted(f, 80, 80, 'random');
 });

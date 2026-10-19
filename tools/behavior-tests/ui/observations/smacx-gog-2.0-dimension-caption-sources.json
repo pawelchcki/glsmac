@@ -1,0 +1,99 @@
+{
+  "captured_at": "2026-10-19T20:27:48.901287+00:00",
+  "observations": [
+    {
+      "case_sha256": "e23004ed2ff95b92eb0e8da2945fa7097025213b91125efbc4ba91f2eb83391b",
+      "id": "caption-source-random-core",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CORE DIMENSIONS",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "049bc3d2432a8671e463ca9d8d898fde4659495c26163a730f53b44add7d38ad",
+      "id": "caption-source-random-both",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CORE DIMENSIONS",
+        "labels": [
+          "MERIDIAN",
+          "PARALLEL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "da32a28efbf8ea6229925fd0c7b0acc3c1e3c386334bba6a13845e70977f23d3",
+      "id": "caption-source-custom-core",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CORE DIMENSIONS",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "757bd875380db75a756929d53b907341e0d217a0bcdadc5c401f159407c1c212",
+      "id": "caption-source-custom-both",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CORE DIMENSIONS",
+        "labels": [
+          "MERIDIAN",
+          "PARALLEL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "b14f8dc8d04dfe0e19bab5f6eba01997fcfee99b436bb62bfddb57b1ec254f5d",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.map_dimension_dialog.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible untouched caption, field labels/raw strings and action labels",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "text_profiles_sha256": "7c4d94223f05ef1568d9e86931a8c2205cc3edf428b7a3665a1b65b073da04d0"
+  },
+  "repeat": 2,
+  "suite_sha256": "d7b68e68a1e3b64bad78128adbd772e5562bbe2b0bd21c6e63a79dea1df1430a",
+  "version": 1
+}

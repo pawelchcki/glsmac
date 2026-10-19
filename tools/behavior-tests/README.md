@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit controls without graphics against 355 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 373 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **867 scenarios and 6,417 assertions** across
-70 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **889 scenarios and 6,566 assertions** across
+72 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -769,3 +769,22 @@ the native order and visible labels before another command is sent.
 See the [bounded order contract](ui/unit-orders-contract.md) and
 [transfer inventory](properties.json) for exclusions. The pending catalog is
 currently empty; future red probes remain separate and never count as matches.
+
+## Custom-dimension source and control transfer
+
+The 18 frozen [dialog comparisons](ui/dimension-dialog-contract.md) cover actual
+original captions, labels, untouched `40`/`80` strings and buttons on random and
+custom routes, after every preset and with controlled text changes. They prove
+that CUSTOMMAP uses common `Script.txt`, even with conflicting `xscript.txt`
+text, and that horizontal/vertical labels use `labels.txt` entries 1090/1091.
+Production loads those two sources lazily, validates them before opening a
+window and caches detached definitions. Native map wrappers now refresh retained
+assigned dimension/type values when custom settings change.
+
+`dimension-data` and `dimension-controls` add 22 display-free scenarios/149
+assertions for real source parsing, control actions, validation, cancellation
+and native settings aliases. The declared horizontal-to-backend conversion and
+bounds are application policy, beyond the observed original dialog contract.
+With installed assets, `npm --prefix tools/wasm-tests run test:dimensions` checks
+both real setup routes, native typing/Enter, source resolution, conflicting text,
+terrain generation and a complete turn. Those checks remain application coverage.

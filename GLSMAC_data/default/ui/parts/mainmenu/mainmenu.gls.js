@@ -43,6 +43,7 @@ return (m) => {
 				cloud_cover_type: 2,
 			},
 		};
+		i.smac_data = smac_data;
 
 		const resize_customize_preview = (width) => {
 			if (#is_defined(i.customize_preview)) {

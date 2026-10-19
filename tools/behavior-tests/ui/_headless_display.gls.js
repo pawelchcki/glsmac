@@ -62,7 +62,13 @@ return () => {
 		node.panel = (props) => { return node; };
 		node.surface = (props) => {};
 		node.sound = (props) => {};
-		if (!#is_defined(node.text)) { node.text = (props) => { return { text: props.text }; }; }
+		if (!#is_defined(node.text)) {
+			node.text = (props) => {
+				const label = create('text', props);
+				node.children :+ label;
+				return label;
+			};
+		}
 		view.nodes :+ node;
 		return node;
 	};

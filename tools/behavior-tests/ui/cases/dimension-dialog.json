@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "name": "custom-dimension-visible-dialog",
+  "description": "Untouched visible dialog controls on random/custom routes after five prior presets, plus controlled caption/label source changes; excludes edited values, validation, layout and terrain.",
+  "cases": [
+    {
+      "id": "dimension-random-untouched",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-0",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 0,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-1",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 1,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-2",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 2,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-3",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 3,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-4",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 4,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-untouched",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-0",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 0,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-1",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 1,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-2",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 2,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-3",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 3,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-custom-4",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 4,
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "dimension-random-alternate",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "text_profile": "alternate"
+      }
+    },
+    {
+      "id": "dimension-custom-alternate",
+      "algorithm": "ui.map_dimension_dialog.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "text_profile": "alternate"
+      }
+    }
+  ]
+}

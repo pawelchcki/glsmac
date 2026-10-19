@@ -1,0 +1,289 @@
+{
+  "captured_at": "2026-10-19T20:23:44.240214+00:00",
+  "observations": [
+    {
+      "case_sha256": "247a5158960977b17e40ec2601a07b544ddbf28b4cdb5e94db34238b71759f84",
+      "id": "dimension-random-untouched",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "6a4c1c3c97393a2ac32805387099de9bdb6163de42b8897da0d8f5abe54c4947",
+      "id": "dimension-random-0",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "2ab11f165683255e4ed783267324d25b16670ae625f548461c1a2e427e90800c",
+      "id": "dimension-random-1",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "2f99f15378480fd52822075bd45556de73c31d6065e1fc8fd20cbbc244dc38fc",
+      "id": "dimension-random-2",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "367e1d9e7f7fb727829aa67e5560bab35d4bfdebfd60857ccb3c731ecbfe6c6f",
+      "id": "dimension-random-3",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "f0e1f818b278856447381267a3a66e378f3e1b6764459d329dcb66b17f40d53f",
+      "id": "dimension-random-4",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "cefe9ea9c8fbbcad8204fbda32afcabb095575bf786786a26fdeaab65927ab83",
+      "id": "dimension-custom-untouched",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "7776f9a2280460bfaa06c091d3bbc85699f584c35039557a889e5174fc3bb993",
+      "id": "dimension-custom-0",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "417af99776122d2eb57c9ca63c67d85c97ec520e5a665e4e6bf74a90a88dc8ea",
+      "id": "dimension-custom-1",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "7a3a8de742d2f38359f9e746d296347aeb8f6be09b2e19a3ae8746113b8758b9",
+      "id": "dimension-custom-2",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "665fe69a126cac7da06fb0c7053af38bf49c10aa865904f0cd21628989e023a5",
+      "id": "dimension-custom-3",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "c3063bcb51bdc5be96c067a4fe4e99db50d9a2b561cbba8385c82abc189a0ba0",
+      "id": "dimension-custom-4",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "HORIZONTAL",
+          "VERTICAL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "daad0c6b6d99196bb4fff22af0c86803e142442b2a0e91e2aa5e3cccbe84c0f2",
+      "id": "dimension-random-alternate",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "MERIDIAN",
+          "PARALLEL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    },
+    {
+      "case_sha256": "bac47071dd41ab5ace5b6ec1e6c86fda0b8dca264f5cc69e3f3b719830487f87",
+      "id": "dimension-custom-alternate",
+      "output": {
+        "buttons": [
+          "OK",
+          "CANCEL"
+        ],
+        "caption": "CUSTOM MAP SIZE",
+        "labels": [
+          "MERIDIAN",
+          "PARALLEL"
+        ],
+        "values": [
+          "40",
+          "80"
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "fd590a35d1b3425e47cc41286d350d3ca7ede3ce459c2655fc9a448fc15eb12e",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.map_dimension_dialog.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible untouched caption, field labels/raw strings and action labels",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "text_profiles_sha256": "fce0cc6e05f3a8dd1a958692b87eb0c9841ab1e603acd4af357920ba023aa1b2"
+  },
+  "repeat": 2,
+  "suite_sha256": "afb3305ab3579691fcf389c586aeb7d7749f3fdddf800f0d4bb8bd8725c34778",
+  "version": 1
+}

@@ -56,7 +56,9 @@ WRAPIMPL_DYNAMIC_ON_SET( MapSettings )
 	if ( property_name == "size_x" || property_name == "size_y" ||
 		( property_name == "type" && type != MT_RANDOM && type != MT_CUSTOM ) ) {
 		preset_level = -1;
-		RefreshPresetWrappers();
+	}
+	if ( property_name == "size_x" || property_name == "size_y" || property_name == "type" ) {
+		RefreshWrappers();
 	}
 WRAPIMPL_DYNAMIC_END()
 
@@ -76,8 +78,8 @@ void MapSettings::RefreshPresetWrappers() {
 }
 
 void MapSettings::RefreshWrappers() {
-	// Native transfer replaces every field, including values whose assigning
-	// wrappers cached scalars. Restore each exposed value in its own context.
+	// Assignment and native transfer can replace values whose assigning wrappers
+	// cached scalars. Restore each exposed value in its own context.
 	for ( auto* wrapper : m_wrapobjs ) {
 		auto* space = wrapper->GetContext()->GetGSE()->GetGCSpace();
 		if ( !space->IsOwnerThread() || !space->IsAccumulating() ) { THROW( "Live map settings require the owning GSE accumulation context" ); }

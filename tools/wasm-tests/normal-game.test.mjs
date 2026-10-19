@@ -58,7 +58,7 @@ const normalMain = String.raw`
     const base = e.data.base; const size = base.get_size();
     let before = base.get('accumulated_nutrients'); if (!#is_defined(before)) { before = 0; }
     const result = apply_growth(e);
-    #print('NORMAL_GROWTH_BOUNDARY|' + #to_string(base.id) + '|' + #to_string(e.game.get_turn()) + '|' + #to_string(size) + '|' + #to_string(base.get_size()) + '|' + #to_string(before) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(base.get_nutrient_factor()));
+    #print('NORMAL_GROWTH_BOUNDARY|' + #to_string(base.id) + '|' + #to_string(e.game.get_turn()) + '|' + #to_string(size) + '|' + #to_string(base.get_size()) + '|' + #to_string(before) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(e.game.get('f_base_get_nutrient_factor')(base)));
     return result;
   };
   const starvation_event = #include('game/event/remove_base_pop');
@@ -67,7 +67,7 @@ const normalMain = String.raw`
     const base = e.data.base; const size = base.get_size();
     let before = base.get('accumulated_nutrients'); if (!#is_defined(before)) { before = 0; }
     const result = apply_starvation(e);
-    #print('NORMAL_STARVATION_BOUNDARY|' + #to_string(base.id) + '|' + #to_string(e.game.get_turn()) + '|' + #to_string(size) + '|' + #to_string(base.get_size()) + '|' + #to_string(before) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(base.get_nutrient_factor()));
+    #print('NORMAL_STARVATION_BOUNDARY|' + #to_string(base.id) + '|' + #to_string(e.game.get_turn()) + '|' + #to_string(size) + '|' + #to_string(base.get_size()) + '|' + #to_string(before) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(e.game.get('f_base_get_nutrient_factor')(base)));
     return result;
   };
   const growth_stage = #include('game/event/process_base_growth');
@@ -76,7 +76,8 @@ const normalMain = String.raw`
     const base = e.data.base; const size = base.get_size();
     let before = base.get('accumulated_nutrients'); if (!#is_defined(before)) { before = 0; }
     const pending = e.game.get('f_base_get_pending_growth')(base);
-    const factor = base.get_nutrient_factor();
+    // Read the same effective policy as growth; custom maps use its fallback.
+    const factor = e.game.get('f_base_get_nutrient_factor')(base);
     const result = apply_growth_stage(e);
     let after = base.get('accumulated_nutrients'); if (!#is_defined(after)) { after = 0; }
     #print('NORMAL_GROWTH_STAGE|' + #to_string(base.id) + '|' + #to_string(e.data.turn_id) + '|' + #to_string(size) + '|' + #to_string(base.get_size()) + '|' + #to_string(before) + '|' + #to_string(pending) + '|' + #to_string(factor) + '|' + #to_string(after));
@@ -166,7 +167,8 @@ const normalMain = String.raw`
     report_base = (base) => {
       const production = base.get_production();
       let food = base.get('accumulated_nutrients'); if (!#is_defined(food)) { food = 0; }
-      #print('NORMAL_ECONOMY|' + #to_string(base.id) + '|' + #to_string(base.get_size()) + '|' + #to_string(food) + '|' + #to_string(game.get('f_base_get_pending_growth')(base)) + '|' + #to_string(base.get_nutrient_factor()) + '|' + #to_string(game.get('f_base_get_pending_production')(base)) + '|' + production.choice_id + '|' + #to_string(production.minerals) + '|' + #to_string(production.last_processed_turn));
+      #print('NORMAL_ECONOMY|' + #to_string(base.id) + '|' + #to_string(base.get_size()) + '|' + #to_string(food) + '|' + #to_string(game.get('f_base_get_pending_growth')(base)) + '|' + #to_string(game.get('f_base_get_nutrient_factor')(base)) + '|' + #to_string(game.get('f_base_get_pending_production')(base)) + '|' + production.choice_id + '|' + #to_string(production.minerals) + '|' + #to_string(production.last_processed_turn));
+      #print('NORMAL_NATIVE_NUTRIENT_FACTOR|' + #to_string(base.id) + '|' + #to_string(base.get_nutrient_factor()));
       #print('NORMAL_TANKS|' + #to_string(base.id) + '|' + #to_string(base.has_facility('RECYCLING_TANKS')));
     };
     game.on('configure', (e) => {
@@ -228,6 +230,72 @@ const normalMain = String.raw`
 });
 `;
 
+// Observe actual control factories while delegating every node and callback to
+// production. Browser input below changes the real native Input values.
+const dimensionObserver = String.raw`
+const production = #include('./dimension_production');
+return (i) => {
+  const show = i.popup.show;
+  i.popup.show = (data) => {
+    #print('NORMAL_DIMENSION_CAPTION|' + data.title);
+    const generate = data.generator;
+    data.generator = (body) => {
+      let index = 0;
+      generate({
+        text: (props) => { const label = body.text(props); #print('NORMAL_DIMENSION_TEXT|' + label.text); return label; },
+        input: (props) => {
+          const field = body.input(props); const ordinal = index; index++;
+          #print('NORMAL_DIMENSION_FIELD|' + #to_string(ordinal) + '|' + field.value);
+          field.on('change', (e) => { #print('NORMAL_DIMENSION_CHANGE|' + #to_string(ordinal) + '|' + field.value); return false; });
+          return field;
+        },
+      });
+    };
+    return show(data);
+  };
+  try { production(i); }
+  catch { : (e) => { i.popup.show = show; throw e; } }
+  i.popup.show = show;
+};
+`;
+
+async function overrideDimensionAssets(page) {
+  const sources = new Map();
+  for (const name of ['script.txt', 'xscript.txt', 'labels.txt']) {
+    const names = readdirSync(assets).filter((item) => item.toLowerCase() === name);
+    assert.equal(names.length, 1, 'The installed text source is unambiguous');
+    let text = readFileSync(`${assets}/${names[0]}`, 'latin1');
+    if (name === 'labels.txt') {
+      const lines = text.split(/\r?\n/); const start = lines.indexOf('#LABELS');
+      assert.equal(lines[start + 1].trim(), '1131');
+      lines[start + 2 + 1090] = 'Meridian'; lines[start + 2 + 1091] = 'Parallel';
+      text = lines.join('\r\n');
+    } else {
+      let changes = 0;
+      text = text.replace(/(#CUSTOMMAP\r?\n(?:(?!#[A-Z])[^\n]*\n)*?#caption )[^\r\n]*/g,
+        (_, prefix) => { changes++; return prefix + (name === 'script.txt' ? 'Core Dimensions' : 'Expansion Dimensions'); });
+      assert.equal(changes, 1, 'Only the declared CUSTOMMAP caption is overridden');
+    }
+    const bytes = Buffer.from(text, 'latin1');
+    sources.set(name, { bytes, reads: 0, sha256: createHash('sha256').update(bytes).digest('hex') });
+  }
+  await page.route('**/assets/manifest.json', async (route) => {
+    const response = await route.fetch(); assert.equal(response.status(), 200);
+    const manifest = await response.json();
+    for (const [name, source] of sources) {
+      const entries = manifest.files.filter((entry) => entry.path.toLowerCase() === name);
+      assert.equal(entries.length, 1); entries[0].size = source.bytes.length; entries[0].sha256 = source.sha256;
+    }
+    await route.fulfill({ json: manifest });
+  });
+  await page.route(/\/assets\/(?:x?script|labels)\.txt$/i, async (route) => {
+    const name = new URL(route.request().url()).pathname.split('/').at(-1).toLowerCase();
+    const source = sources.get(name); source.reads++;
+    await route.fulfill({ status: 200, contentType: 'application/octet-stream', body: source.bytes });
+  });
+  return sources;
+}
+
 async function serveAssets(t) {
   const server = spawn('python3', ['tools/serve-wasm.py', build, '--port', '0', '--assets', assets], { cwd: root });
   t.after(() => server.kill());
@@ -250,6 +318,10 @@ async function clickCanvas(page, x, y) {
 }
 
 for (const profile of [
+  ...['random', 'custom'].map((route) => ({
+    name: `custom dimensions load installed text and generate a playable ${route} world`,
+    dimension: route, alternateText: route === 'custom', level: 0, size: [60, 48], rule: 10, lifecycle: false,
+  })),
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
@@ -264,11 +336,25 @@ test(profile.name, {
   timeout: 180000,
 }, async (t) => {
   const factors = recordedNormalFactors(profile.level, profile.rule, profile.mineralRule ?? 10);
-  const artifactPrefix = profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  const artifactPrefix = profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
     .map((name) => [`GLSMAC_data/default/${name}`, readFileSync(`${root}GLSMAC_data/default/${name}`, 'utf8')]));
+  if (profile.dimension) {
+    const prefix = 'GLSMAC_data/default/ui/parts/mainmenu/steps/';
+    scripts[`${prefix}dimension_production.gls.js`] = scripts[`${prefix}customize_mapsize.gls.js`];
+    scripts[`${prefix}customize_mapsize.gls.js`] = dimensionObserver;
+    for (const name of ['customize_ocean_coverage', 'customize_erosive_forces', 'customize_native_lifeforms', 'customize_cloud_cover', 'select_difficulty_level']) {
+      const source = scripts[`${prefix}${name}.gls.js`];
+      assert.ok(source.startsWith('return (i) => {'));
+      scripts[`${prefix}${name}.gls.js`] = source.replace('return (i) => {', `return (i) => { #print('NORMAL_MENU_STEP|${name}');`);
+    }
+    const difficulty = scripts[`${prefix}select_difficulty_level.gls.js`];
+    assert.ok(difficulty.startsWith('return (i) => {'));
+    scripts[`${prefix}select_difficulty_level.gls.js`] = difficulty.replace('return (i) => {',
+      `return (i) => { const map = i.settings.global.map; #print('NORMAL_DIMENSION_CONFIRMED|' + #to_string(map.size_x) + '|' + #to_string(map.size_y) + '|' + #to_string(map.preset_level));`);
+  }
   t.diagnostic(`Production script snapshot SHA-256: ${createHash('sha256').update(JSON.stringify(scripts)).digest('hex')}`);
   const address = process.env.WASM_SITE_URL || await serveAssets(t);
   const browser = await chromium.launch({ executablePath: process.env.WASM_BROWSER_EXECUTABLE || undefined,
@@ -342,6 +428,16 @@ test(profile.name, {
     await screenshot(name);
   };
   const chooseMenu = async (count, index, next) => {
+    const step = profile.dimension && { ocean: 'customize_ocean_coverage', erosion: 'customize_erosive_forces',
+      life: 'customize_native_lifeforms', cloud: 'customize_cloud_cover', difficulty: 'select_difficulty_level' }[next];
+    if (step) {
+      // Adjacent three-choice menus can differ by fewer than 30,000 pixels.
+      // Observe real step entry, then require its rendered controls to settle.
+      const marker = `NORMAL_MENU_STEP|${step}`;
+      const previous = (await page.locator('#log').textContent()).split(marker).length - 1;
+      await clickCanvas(page, 820, 732 - 70 * (count - 1 - index));
+      await waitLog(marker, previous + 1); await menuReady(next); return;
+    }
     const before = PNG.sync.read(await page.locator('#canvas').screenshot()).data;
     await clickCanvas(page, 820, 732 - 70 * (count - 1 - index));
     let changed = 0;
@@ -468,6 +564,8 @@ test(profile.name, {
   };
   const advanceProductionTurn = async (baseId) => {
     let state = await probe(); const previousTurn = state.turn;
+    const previousProduction = state.economies.find((entry) => entry.id === baseId);
+    assert.ok(previousProduction, 'Actual base production state is available before the turn');
     const activeCount = state.units.filter((u) => u.movement > 0).length;
     for (let index = 0; index < activeCount; ++index) {
       await page.keyboard.press('Tab');
@@ -479,11 +577,14 @@ test(profile.name, {
     await waitState((s) => s.status === 'turn_complete' && s.units.every((u) => u.movement === 0), 'All actual units finish this production turn');
     await clickCanvas(page, 899, 585);
     return waitState((s) => s.turn === previousTurn + 1 && s.status === 'active'
-      && s.economies.some((e) => e.id === baseId && e.processed === s.turn)
-      && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual production, growth stage and any population child have committed');
+      && s.economies.some((e) => e.id === baseId && (previousProduction.choice !== ''
+        ? e.processed === s.turn
+        : e.processed === previousProduction.processed && e.minerals === previousProduction.minerals && e.choice === ''))
+      && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual idle or selected production policy, growth stage and any population child have committed');
   };
 
-  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined));
+  const dimensionAssets = profile.alternateText ? await overrideDimensionAssets(page) : null;
+  const rulesAsset = profile.lifecycle || profile.dimension ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined));
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -508,7 +609,7 @@ test(profile.name, {
   await page.waitForFunction(() => document.body.dataset.state === 'running' || document.body.dataset.state === 'failed');
   await menuReady('main');
   await chooseMenu(7, 0, 'map-type'); // Start Game
-  await chooseMenu(5, 0, 'map-size'); // Make Random Map
+  await chooseMenu(5, profile.dimension === 'custom' ? 1 : 0, 'map-size');
   if (profile.worldRules) {
     const setupLog = await page.locator('#log').textContent();
     assert.equal(setupLog.match(/NORMAL_SETUP_DEFAULT\|([^\r\n]*)/)?.[1], '88|74|2');
@@ -518,7 +619,36 @@ test(profile.name, {
         [3, 'Dune', '', 108, 92], [4, 'Elm', 'Patient', 132, 114],
       ]);
   }
-  await chooseMenu(6, profile.level, 'difficulty'); // Actual named preset
+  if (profile.dimension) {
+    await clickCanvas(page, 820, 732); // Custom Size, the sixth actual menu row
+    await waitLog('NORMAL_DIMENSION_FIELD|1|80');
+    const log = await page.locator('#log').textContent();
+    assert.match(log, /NORMAL_DIMENSION_FIELD\|0\|40/);
+    assert.ok(log.includes(`NORMAL_DIMENSION_CAPTION|${profile.alternateText ? 'Core Dimensions' : 'Custom Map Size'}`));
+    for (const label of profile.alternateText ? ['Meridian', 'Parallel'] : ['Horizontal', 'Vertical']) {
+      assert.ok(log.includes(`NORMAL_DIMENSION_TEXT|${label}`));
+    }
+    const loaded = await page.evaluate(() => [...Module.assetStore.loaded].map((name) => name.toLowerCase()));
+    for (const name of ['script.txt', 'labels.txt']) assert.ok(loaded.includes(name), `The actual resolver loads ${name}`);
+    if (dimensionAssets) for (const [name, source] of dimensionAssets) assert.equal(source.reads, 1, `${name} is hash-verified and read once`);
+    await screenshot('untouched-dimensions');
+    // Window is centered at 512,384; production header/body and field offsets
+    // put the two native inputs here. Change notifications verify real focus.
+    for (const [index, value] of ['30', '48'].entries()) {
+      await clickCanvas(page, 570, 344 + 27 * index);
+      await page.keyboard.press('Backspace'); await page.keyboard.press('Backspace');
+      await page.keyboard.type(value);
+      await waitLog(`NORMAL_DIMENSION_CHANGE|${index}|${value}`);
+    }
+    await page.keyboard.press('Enter'); // Submit the focused vertical field
+    if (profile.dimension === 'custom') {
+      await menuReady('ocean');
+      await chooseMenu(3, 1, 'erosion'); await chooseMenu(3, 1, 'life');
+      await chooseMenu(3, 1, 'cloud'); await chooseMenu(3, 1, 'difficulty');
+    } else { await menuReady('difficulty'); }
+    await waitLog('NORMAL_DIMENSION_CONFIRMED|60|48|-1');
+  } else { await chooseMenu(6, profile.level, 'difficulty'); }
+
   await chooseMenu(6, 0, 'rules'); // Citizen
   await chooseMenu(3, 0, 'faction'); // Play with Standard Rules
   // The real faction choice list starts at Random.
@@ -529,7 +659,7 @@ test(profile.name, {
   await waitLog('NORMAL_UI_READY');
   const initial = await waitState((s) => s.selected !== null && s.status === 'active'
     && s.bases.length > 0 && s.growth.every((g) => g.settled), 'Initial owned unit becomes selectable after starting population settles');
-  assert.deepEqual([initial.width, initial.height], profile.size, 'The named preset generated its actual dimensions');
+  assert.deepEqual([initial.width, initial.height], profile.size, 'The actual size controls generated their dimensions');
   assert.equal(initial.faction, 'GAIANS', 'The actual faction picker selected Gaians');
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];
@@ -553,6 +683,19 @@ test(profile.name, {
   // actual popup completion; P probes remain outside the modal input boundary.
   await waitLog(`NORMAL_BASE_OPEN|${headquarters.id}`);
   await screenshot('headquarters');
+  if (profile.dimension) {
+    const customLog = await page.locator('#log').textContent();
+    assert.ok(customLog.includes(`NORMAL_NATIVE_NUTRIENT_FACTOR|${headquarters.id}|undefined`), 'Custom coordinates retain the explicit unknown-preset native boundary');
+    assert.ok(initial.economies.find((entry) => entry.id === headquarters.id).factor > 0, 'Production growth resolves its existing custom-map fallback');
+    await closeBase(headquarters.id);
+    const next = await advanceProductionTurn(headquarters.id);
+    assert.equal(next.turn, initial.turn + 1);
+    assert.deepEqual([next.width, next.height], profile.size);
+    await openBase(headquarters.id);
+    await screenshot('custom-world-after-turn'); await healthy();
+    t.diagnostic('Actual installed text, native input, terrain generation, Headquarters and a complete turn passed. Edited coordinates and validation remain application coverage.');
+    return;
+  }
   if (!profile.lifecycle) {
     const economy = initial.economies.find((entry) => entry.id === headquarters.id);
     assert.equal(economy.factor, factors.nutrient, 'The installed multiplier reaches the actual native factor');

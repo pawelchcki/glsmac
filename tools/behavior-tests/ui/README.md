@@ -37,8 +37,9 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `ui.map_size_keyboard.v1` | 4 | Final menu after Enter/Escape in untouched custom dimensions, on random/custom routes | Real original application in Wine/Xvfb; recorded twice |
 | `ui.citizen_job.v1` | 14 | Starting Worker/Doctor choices, highlight, draft/confirm/cancel, keyboard behavior and visible Psych bonus; 67 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 | `ui.unit_orders.v1` | 13 | Paused-turn Scout Hold/Activate/Skip, two advances, idle Space base opening, actual OK close and modal key blocking; 45 checkpoints | Real original application in Wine/Xvfb; recorded twice |
+| `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 355 recorded cases in total. `generate_navigation.py` generates only
+There are 373 recorded cases in total. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -56,6 +57,13 @@ replay emits the native focused Input's `input` event through the real popup,
 submission callback and manager. The rendered profile checks actual browser
 keyboard delivery. Field values, dimension units, validation bounds, focus
 traversal and generated terrain remain outside this contract.
+
+The separate [custom-dimension contract](dimension-dialog-contract.md) observes
+untouched `40`/`80` values, common `Script.txt` caption selection and `labels.txt`
+field labels. Four controlled source profiles distinguish common and expansion
+captions. It does not observe original edited-input validation or generated
+coordinate units. Replay executes native Rules/MapSettings and production source
+consumers and controls without graphics.
 
 The citizen-job contract observes one starting citizen with Worker and Doctor
 available. Clicking its portrait opens the actual original chooser. Doctor shows
@@ -140,7 +148,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 355 recorded cases now agree after production fixes to choices,
+any failures. All 373 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the

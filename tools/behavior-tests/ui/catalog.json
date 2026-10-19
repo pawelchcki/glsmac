@@ -35,6 +35,16 @@
       "id": "unit-orders",
       "cases": "cases/unit-orders.json",
       "observations": "observations/smacx-gog-2.0-unit-orders.json"
+    },
+    {
+      "id": "dimension-dialog",
+      "cases": "cases/dimension-dialog.json",
+      "observations": "observations/smacx-gog-2.0-dimension-dialog.json"
+    },
+    {
+      "id": "dimension-caption-sources",
+      "cases": "cases/dimension-caption-sources.json",
+      "observations": "observations/smacx-gog-2.0-dimension-caption-sources.json"
     }
   ]
 }

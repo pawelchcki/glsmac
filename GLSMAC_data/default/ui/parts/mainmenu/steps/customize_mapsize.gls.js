@@ -1,6 +1,7 @@
-// Recorded keyboard navigation covers final menus; dimension validation is a
-// GLSMAC rule outside that bounded original-game contract.
+// Original dialog observations cover raw defaults and source-driven text.
+// Validation and conversion to backend parity coordinates are application rules.
 return (i) => {
+	const definition = i.smac_data.dimension_dialog();
 	let width_input = null;
 	let height_input = null;
 	let error_text = null;
@@ -18,13 +19,17 @@ return (i) => {
 		return dimension;
 	};
 	const submit = (e) => {
-		const width = parse_dimension(width_input.value);
+		const horizontal = parse_dimension(width_input.value);
 		const height = parse_dimension(height_input.value);
-		if (width < 4 || height < 2 || width > 4096 || height > 4096 || width % 2 != 0 || height % 2 != 0) {
-			error_text.text = 'Use even whole numbers within the displayed ranges.';
+		if (i.settings.global.map.type != 'random' && i.settings.global.map.type != 'custom') {
+			error_text.text = 'Choose a random or customized map before setting its size.';
 			return true;
 		}
-		i.settings.global.map.size_x = width;
+		if (horizontal < 2 || horizontal > 2048 || height < 2 || height > 4096 || height % 2 != 0) {
+			error_text.text = 'Use whole horizontal and even vertical sizes within the displayed ranges.';
+			return true;
+		}
+		i.settings.global.map.size_x = horizontal * 2;
 		i.settings.global.map.size_y = height;
 		i.settings.global.map.preset_level = 0 - 1;
 		i.popup.complete();
@@ -36,26 +41,26 @@ return (i) => {
 		return true;
 	};
 	i.popup.show({
-		title: 'Custom Size',
+		title: definition.caption,
 		cancel_through: 'map_setup',
 		width: 480,
 		height: 180,
 		generator: (body) => {
-			body.text({class: 'popup-text', text: 'Width:', align: 'left', top: 13, left: 15});
+			body.text({class: 'popup-text', text: definition.horizontal, align: 'left', top: 13, left: 15});
 			width_input = body.input({
 				class: 'popup-input', top: 12, left: 150, width: 310,
-				value: #to_string(i.settings.global.map.size_x),
+				value: '40',
 			});
 			width_input.on('input', submit);
-			body.text({class: 'popup-text', text: 'Height:', align: 'left', top: 40, left: 15});
+			body.text({class: 'popup-text', text: definition.vertical, align: 'left', top: 40, left: 15});
 			height_input = body.input({
 				class: 'popup-input', top: 39, left: 150, width: 310,
-				value: #to_string(i.settings.global.map.size_y),
+				value: '80',
 			});
 			height_input.on('input', submit);
 			error_text = body.text({
 				class: 'popup-text', align: 'left', top: 70, left: 15,
-				text: 'Enter even dimensions (width 4-4096, height 2-4096).',
+				text: 'Horizontal: 2-2048. Vertical: even values 2-4096.',
 			});
 		},
 		buttons: [
