@@ -2,6 +2,7 @@
 
 #include "Facility.h"
 #include "Custom.h"
+#include "Unit.h"
 
 namespace game {
 namespace backend {
@@ -23,6 +24,8 @@ const Production* const Production::Deserialize( types::Buffer& buf ) {
 			return Facility::DeserializeImpl( buf );
 		case PT_CUSTOM:
 			return Custom::DeserializeImpl( buf );
+		case PT_UNIT:
+			return Unit::DeserializeImpl( buf );
 		default:
 			THROW( "unknown production choice type: " + std::to_string( type ) );
 	}

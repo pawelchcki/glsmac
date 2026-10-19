@@ -50,6 +50,12 @@ void Pop::SetBase( Base* const base ) {
 	m_base = base;
 }
 
+void Pop::CheckCustomMutation( GSE_CALLABLE ) const {
+	gse::Wrappable::CheckCustomMutation( GSE_CALL );
+	const auto it = m_base->m_pops.find( m_id );
+	if ( it == m_base->m_pops.end() || &it->second != this ) { GSE_ERROR( gse::EC.INVALID_CALL, "Citizen no longer belongs to its base" ); }
+}
+
 WRAPIMPL_BEGIN( Pop )
 	WRAPIMPL_PROPS
 	WRAPIMPL_CUSTOM_SETTERS
@@ -81,6 +87,7 @@ WRAPIMPL_BEGIN( Pop )
 			NATIVE_CALL( this ) {
 
 				m_base->GetGame()->CheckRW( GSE_CALL );
+				CheckCustomMutation( GSE_CALL );
 
 				N_EXPECT_ARGS( 1 );
 				N_GETVALUE( id, 0, String );

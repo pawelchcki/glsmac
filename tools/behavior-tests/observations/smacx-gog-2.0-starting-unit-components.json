@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-19T09:05:16.647870+00:00",
+  "observations": [
+    {
+      "case_sha256": "c64be32c4c864093ca90fb36b249632348e160613ac242f7580859957a7c9ab3",
+      "id": "colony-pod-fission-infantry",
+      "output": {
+        "rows": 3
+      }
+    },
+    {
+      "case_sha256": "e3c3d46657613e9fe2b89b323365e3915d12299b1ce4133a2d1c82ee4cf6d0e5",
+      "id": "former-fission-infantry",
+      "output": {
+        "rows": 2
+      }
+    },
+    {
+      "case_sha256": "09427be8b9fc3a55adcf9da322e41da225d0a59536ac05cde1e55af15e7c8534",
+      "id": "scout-patrol-fission-infantry",
+      "output": {
+        "rows": 1
+      }
+    }
+  ],
+  "reference": {
+    "adapter_version": 4,
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x005A5A60",
+        "algorithm": "unit.prototype_base_cost.v1",
+        "function": "proto_cost (no abilities)"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original"
+  },
+  "repeat": 2,
+  "suite_sha256": "5cfaf0c10bb3bff8760cb2de9473f78ee13fe5c3c793990198f6e4bd666af49c",
+  "version": 1
+}

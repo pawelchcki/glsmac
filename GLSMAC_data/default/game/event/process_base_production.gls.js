@@ -24,7 +24,11 @@ return {
 	},
 
 	rollback: (e) => {
-		e.data.base.restore_production(e.applied.previous, e.applied.added_facility);
+		if (#is_defined(e.applied.unit_receipt)) {
+			e.data.base.rollback_unit_production(e.applied.unit_receipt);
+		} else {
+			e.data.base.restore_production(e.applied.previous, e.applied.added_facility);
+		}
 	},
 
 };

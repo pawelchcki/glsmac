@@ -297,7 +297,7 @@ return {
 			return choices;
 		}
 		for (choice of this.base.get_owner().get_production_choices()) {
-			if (choice.type == 'facility' && choice.cost > 0 && !this.base.has_facility(choice.facility_id)) {
+			if (choice.cost > 0 && (choice.type == 'unit' || (choice.type == 'facility' && !this.base.has_facility(choice.facility_id)))) {
 				choices :+choice;
 			}
 		}
@@ -331,13 +331,13 @@ return {
 				class: 'base-screen-frame-title',
 				align: 'top center',
 				top: 18,
-				text: 'CHOOSE FACILITY PRODUCTION',
+				text: 'CHOOSE PRODUCTION',
 			});
 			this.production_selection.text({
 				class: 'base-screen-frame-text',
 				align: 'top center',
 				top: 52,
-				text: 'Build one facility, then stop production.',
+				text: 'Build one project, then stop. Colony Pods use 1 citizen (size 2 required).',
 			});
 			if (#sizeof(items) > 0) {
 				const list = this.production_selection.scrollview({
@@ -356,7 +356,7 @@ return {
 			} else {
 				this.production_selection.text({
 					class: 'base-screen-frame-text', align: 'center',
-					text: 'No facilities available to build.',
+					text: 'No projects available to build.',
 				});
 			}
 			this.production_selection.on('keydown', (e) => {

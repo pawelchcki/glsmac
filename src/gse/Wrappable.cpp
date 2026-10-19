@@ -10,6 +10,15 @@
 
 namespace gse {
 
+static thread_local size_t custom_mutation_guards = 0;
+
+Wrappable::CustomMutationGuard::CustomMutationGuard() { ++custom_mutation_guards; }
+Wrappable::CustomMutationGuard::~CustomMutationGuard() { --custom_mutation_guards; }
+
+void Wrappable::CheckCustomMutation( GSE_CALLABLE ) {
+	if ( custom_mutation_guards ) { GSE_ERROR( EC.INVALID_CALL, "Native state is read-only during this lifecycle callback" ); }
+}
+
 Wrappable::Wrappable( const Wrappable& other ) {
 	// not copying callbacks
 }

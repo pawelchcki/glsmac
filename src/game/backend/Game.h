@@ -458,6 +458,7 @@ private:
 	friend class resource::ResourceManager;
 	friend class unit::UnitManager;
 	friend class base::BaseManager;
+	friend class base::Base;
 	friend class animation::AnimationManager;
 	void AddFrontendRequest( const FrontendRequest& request );
 

@@ -99,7 +99,7 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	ASSERT( um, "um is null" );
 	const auto id = buf.ReadInt();
 	auto defbuf = types::Buffer( buf.ReadString() );
-	auto* def = Def::Deserialize( defbuf );
+	auto* def = Def::Deserialize( defbuf, um );
 	auto* slot = um->GetSlot( buf.ReadInt() );
 	const auto pos_x = buf.ReadInt();
 	const auto pos_y = buf.ReadInt();

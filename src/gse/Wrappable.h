@@ -29,6 +29,16 @@ class Object;
 
 class Wrappable {
 public:
+	// Native transactions can expose read-only lifecycle callbacks without
+	// changing ordinary script setters/event queueing outside that scope.
+	class CustomMutationGuard {
+	public:
+		CustomMutationGuard();
+		~CustomMutationGuard();
+		CustomMutationGuard( const CustomMutationGuard& ) = delete;
+		CustomMutationGuard& operator=( const CustomMutationGuard& ) = delete;
+	};
+	static void CheckCustomMutation( GSE_CALLABLE );
 
 	template< typename T >
 	class wrapmap_t {

@@ -1,8 +1,13 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdint>
+
+namespace game::backend { class Game; class Player; }
 
 namespace game::backend::base {
+
+int64_t DeclaredMineralCost( const Game* game, const Player* player, int64_t fallback, int64_t rows );
 
 // Human mineral cost factor with no base effects. Inputs use the raw map
 // preset level (0..4), integer mineral rule multiplier (1..100), and signed

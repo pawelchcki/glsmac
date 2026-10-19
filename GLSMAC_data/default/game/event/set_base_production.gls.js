@@ -11,11 +11,15 @@ return {
 		}
 		for (choice of owner.get_production_choices()) {
 			if (choice.id == e.data.choice_id) {
-				if (choice.type != 'facility' || #typeof(choice.cost) != 'Int' || choice.cost <= 0) {
-					return 'Production choice is not a supported facility';
+				if ((choice.type != 'facility' && choice.type != 'unit') || #typeof(choice.cost) != 'Int' || choice.cost <= 0) {
+					return 'Production choice is not a supported project';
 				}
-				if (base.has_facility(choice.facility_id)) {
+				if (choice.type == 'facility' && base.has_facility(choice.facility_id)) {
 					return 'Base already has this facility';
+				}
+				const active = base.get_production().choice_id;
+				if (active != '' && active != choice.id) {
+					return 'Base already has an active production project';
 				}
 				return;
 			}

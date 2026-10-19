@@ -20,6 +20,9 @@
 #include "game/backend/base/FacilityDef.h"
 #include "game/backend/base/production/Facility.h"
 #include "game/backend/base/production/Custom.h"
+#include "game/backend/base/production/Unit.h"
+#include "game/backend/unit/UnitManager.h"
+#include "game/backend/unit/StaticDef.h"
 
 namespace game {
 namespace backend {
@@ -164,6 +167,22 @@ void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse
 		}
 		production = new base::production::Facility( facility );
 	}
+	else if ( type == "unit" ) {
+		const auto id_it = data.find( "id" );
+		if ( id_it == data.end() || id_it->second->type != gse::VT_STRING ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production needs a definition id" ); }
+		const auto& unit_id = static_cast< gse::value::String* >( id_it->second )->value;
+		const auto* um = GetGame()->GetUM();
+		const auto* def = um ? um->GetUnitDef( unit_id ) : nullptr;
+		if ( !def || unit_id != "ColonyPod" || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { GSE_ERROR( gse::EC.GAME_ERROR, "Only a defined static land Colony Pod is supported" ); }
+		const auto integer = [ & ]( const std::string& key ) {
+			const auto it = data.find( key );
+			if ( it == data.end() || it->second->type != gse::VT_INT ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production needs integer " + key ); }
+			return static_cast< gse::value::Int* >( it->second )->value;
+		};
+		const auto cost = integer( "cost" ); const auto rows = integer( "cost_rows" ); const auto population = integer( "population_cost" );
+		if ( cost <= 0 || rows <= 0 || rows > std::numeric_limits< int64_t >::max() / 10 || population != 1 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Invalid colony production recipe" ); }
+		production = new base::production::Unit( unit_id, cost, rows, population );
+	}
 	else if ( type == "custom" ) {
 		const auto& render_it = data.find( "render" );
 		if ( render_it == data.end() || render_it->second->type != gse::VT_OBJECT ) {
@@ -199,6 +218,19 @@ gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
 	const auto* bm = GetGame()->GetBM();
 	for ( const auto& id : ids ) {
 		const auto* choice = m_production_choices.at( id );
+		if ( choice->GetType() == base::production::Production::PT_UNIT ) {
+			const auto* recipe = static_cast< const base::production::Unit* >( choice );
+			const auto* um = GetGame()->GetUM();
+			const auto* def = um ? um->GetUnitDef( recipe->unit_id ) : nullptr;
+			if ( !def || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { continue; }
+			choices.push_back( VALUEEXT( gse::value::Object, GSE_CALL, {
+				{ "id", VALUE( gse::value::String,, id ) }, { "type", VALUE( gse::value::String,, "unit" ) },
+				{ "unit_id", VALUE( gse::value::String,, recipe->unit_id ) }, { "name", VALUE( gse::value::String,, def->m_name ) },
+				{ "description", VALUE( gse::value::String,, "" ) }, { "cost", VALUE( gse::value::Int,, recipe->GetMineralCost( GetGame(), this ) ) },
+				{ "population_cost", VALUE( gse::value::Int,, recipe->population_cost ) },
+			} ) );
+			continue;
+		}
 		if ( choice->GetType() != base::production::Production::PT_FACILITY || !bm ) { continue; }
 		const auto& facility_id = static_cast< const base::production::Facility* >( choice )->GetFacilityId();
 		const auto* def = bm->GetFacilityDef( facility_id );

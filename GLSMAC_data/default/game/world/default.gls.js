@@ -103,6 +103,17 @@ return (game) => {
 				hint: 'Minerals to Energy',
 			},
 		});
+		if (!faction.is_naval) {
+			// Explicit GLSMAC construction policy; prototype helper costs alone
+			// do not establish an original-game Colony Pod recipe.
+			game.event('add_production_choice', {
+				player: player,
+				id: 'COLONY_POD',
+				data: {
+					type: 'unit', id: 'ColonyPod', cost: 30, cost_rows: 3, population_cost: 1,
+				},
+			});
+		}
 
 		// spawn headquarters base
 		game.event('spawn_base', {

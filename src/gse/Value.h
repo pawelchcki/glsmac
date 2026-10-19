@@ -93,6 +93,7 @@ typedef std::function< void( GSE_CALLABLE, value::object_properties_t& args ) > 
             N_EXPECT_ARGS( 2 ); \
             N_GETVALUE( key, 0, String ); \
             auto* const value = arguments[ 1 ]; \
+            CheckCustomMutation( GSE_CALL ); \
             CustomSet( key, value ); \
             return VALUE( gse::value::Undefined ); \
         } ) \
@@ -102,6 +103,7 @@ typedef std::function< void( GSE_CALLABLE, value::object_properties_t& args ) > 
         NATIVE_CALL( this ) { \
             N_EXPECT_ARGS( 1 ); \
             N_GETVALUE( key, 0, String ); \
+            CheckCustomMutation( GSE_CALL ); \
             CustomUnset( key ); \
             return VALUE( gse::value::Undefined ); \
         } ) \
@@ -181,7 +183,8 @@ typedef std::function< void( GSE_CALLABLE, value::object_properties_t& args ) > 
 } \
 void _type::WrapSet( gse::Wrappable* wrapobj, const std::string& key, gse::Value* const value, GSE_CALLABLE ) { \
     auto* obj = (_type*)wrapobj; \
-    if ( !obj ) { return; }
+    if ( !obj ) { return; } \
+    obj->CheckCustomMutation( GSE_CALL );
 
 #define WRAPIMPL_END_NOPTR( _type ) \
     return VALUEEXT( gse::value::Object, GSE_CALL, properties, WRAP_CLASS ); \

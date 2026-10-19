@@ -64,7 +64,7 @@ return {
 		const state = base.get_production();
 		let choice = null;
 		for (candidate of base.get_owner().get_production_choices()) {
-			if (candidate.id == state.choice_id && candidate.type == 'facility') { choice = candidate; }
+			if (candidate.id == state.choice_id && (candidate.type == 'facility' || candidate.type == 'unit')) { choice = candidate; }
 		}
 		if (choice == null) {
 			this.production_title.text = 'IDLE';
@@ -91,8 +91,9 @@ return {
 			'base-screen-bottombar-production-cell',
 			this.production_label,
 			(progress_in) => {
+				if (choice.type == 'unit' && state.minerals >= choice.cost && base.get_size() <= choice.population_cost) { return 'NEEDS POPULATION'; }
 				if (pending == 0) { return 'NO SURPLUS'; }
-				const turns = #ceil(#to_float(choice.cost - state.minerals) / #to_float(pending));
+				const turns = #max(1, #ceil(#to_float(choice.cost - state.minerals) / #to_float(pending)));
 				return #to_string(turns) + (turns == 1 ? ' TURN' : ' TURNS');
 			},
 		);

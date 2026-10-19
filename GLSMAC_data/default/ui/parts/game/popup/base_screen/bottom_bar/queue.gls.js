@@ -31,7 +31,13 @@ return {
 
 	set: (data) => {
 
-		this.status.text = data.base.get_production().choice_id == '' ? 'No project' : 'Facility project';
+		const active = data.base.get_production().choice_id;
+		this.status.text = 'No project';
+		for (choice of data.base.get_owner().get_production_choices()) {
+			if (choice.id == active) {
+				this.status.text = choice.type == 'unit' ? 'Unit project' : 'Facility project';
+			}
+		}
 	},
 
 };

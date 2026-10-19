@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "name": "Starting infantry component base rows",
+  "description": "Synthetic Fission infantry component fixtures corresponding to colony, terraformer and scout recipes. Executes ability-free prototype cost only; excludes final mineral factors, unit availability, population costs, completion, support, home bases and movement state.",
+  "cases": [
+    {
+      "id": "colony-pod-fission-infantry",
+      "algorithm": "unit.prototype_base_cost.v1",
+      "input": {
+        "chassis_id": 0,
+        "weapon_id": 17,
+        "armor_id": 0,
+        "triad": 0,
+        "chassis_cost": 1,
+        "missile": false,
+        "offense": 0,
+        "weapon_mode": 8,
+        "weapon_cost": 10,
+        "armor_cost": 1,
+        "reactor": 1
+      }
+    },
+    {
+      "id": "former-fission-infantry",
+      "algorithm": "unit.prototype_base_cost.v1",
+      "input": {
+        "chassis_id": 0,
+        "weapon_id": 18,
+        "armor_id": 0,
+        "triad": 0,
+        "chassis_cost": 1,
+        "missile": false,
+        "offense": 0,
+        "weapon_mode": 9,
+        "weapon_cost": 6,
+        "armor_cost": 1,
+        "reactor": 1
+      }
+    },
+    {
+      "id": "scout-patrol-fission-infantry",
+      "algorithm": "unit.prototype_base_cost.v1",
+      "input": {
+        "chassis_id": 0,
+        "weapon_id": 0,
+        "armor_id": 0,
+        "triad": 0,
+        "chassis_cost": 1,
+        "missile": false,
+        "offense": 1,
+        "weapon_mode": 0,
+        "weapon_cost": 1,
+        "armor_cost": 1,
+        "reactor": 1
+      }
+    }
+  ]
+}

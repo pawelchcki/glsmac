@@ -12,20 +12,21 @@ const fixture = () => {
 	f.state = { events: [], closed: 0, player: 0 };
 	f.choices = [
 		{ id: 'TANKS', type: 'facility', facility_id: 'RECYCLING_TANKS', name: 'Recycling Tanks', description: 'Synthetic facility description', cost: 32 },
+		{ id: 'COLONY_POD', type: 'unit', unit_id: 'ColonyPod', name: 'Colony Pod', description: '', cost: 30, population_cost: 1 },
 		{ id: 'CUSTOM', type: 'custom', facility_id: '', name: 'Unsupported custom project', description: '', cost: 10 },
 	];
 	f.owner = { id: 0, get_faction: () => { return { is_progenitor: false }; }, get_production_choices: () => { return f.choices; } };
 	f.make_base = (id) => {
 		const b = {};
 		b.id = id; b.name = 'Base ' + #to_string(id);
-		b.state = { owner: 0, production: { choice_id: '', minerals: 0, last_processed_turn: 1 }, installed: {}, surplus: 4 };
+		b.state = { owner: 0, production: { choice_id: '', minerals: 0, last_processed_turn: 1 }, installed: {}, surplus: 4, size: 2 };
 		b.get_owner = () => { const owner = {} + f.owner; owner.id = b.state.owner; return owner; };
 		b.get_production = () => { return b.state.production; };
 		b.has_facility = (id) => { return #is_defined(b.state.installed[id]); };
 		b.get_facilities = () => { return b.state.installed; };
 		b.get_intake = () => { return { NUTRIENTS: 2, MINERALS: b.state.surplus, ENERGY: 2 }; };
 		b.get_consumption = () => { return { NUTRIENTS: 2, MINERALS: 0, ENERGY: 0 }; };
-		b.get_size = () => { return 1; };
+		b.get_size = () => { return b.state.size; };
 		b.get = (name) => { return 0; };
 		b.get_pops = () => { return []; };
 		return b;
@@ -71,7 +72,7 @@ behavior.scenario('idle production displays real zero storage and no invented qu
 behavior.scenario('CHANGE opens declared supported choices by stable id and Cancel emits nothing', () => {
 	f.change();
 	test.assert(screen.production_selection != null);
-	test.assert(screen.production_choices.items == [['TANKS', 'Recycling Tanks (32 minerals)']]);
+	test.assert(screen.production_choices.items == [['TANKS', 'Recycling Tanks (32 minerals)'], ['COLONY_POD', 'Colony Pod (30 minerals)']]);
 	f.pick('TANKS');
 	f.view.find('button', 'text', 'CANCEL').emit('click', {});
 	test.assert(screen.production_selection == null && f.state.events == []);
@@ -135,7 +136,8 @@ behavior.scenario('completion refresh installs the real facility and removes its
 	test.assert(screen.sections.bottom_bar.parts.production.production_amount.text == 'Stored: 3 minerals');
 	test.assert(#sizeof(screen.sections.facilities.list.children) == 1);
 	test.assert(screen.sections.facilities.list.children[0].text == 'Recycling Tanks');
-	f.change(); test.assert(screen.production_choices == null); f.ok();
+	f.change(); test.assert(screen.production_choices.items == [['COLONY_POD', 'Colony Pod (30 minerals)']]);
+	f.view.find('button', 'text', 'CANCEL').emit('click', {});
 	test.assert(#sizeof(f.state.events) == 1);
 });
 behavior.scenario('unknown draft choice and a newly installed facility cannot submit', () => {
@@ -150,4 +152,40 @@ behavior.scenario('closing and reopening the base drops the previous draft', () 
 	test.assert(screen.production_selection == null && !f.popup.is_shown());
 	f.show(f.base); f.ok();
 	test.assert(#sizeof(f.state.events) == 1 && f.state.closed == 1);
+});
+
+behavior.scenario('Colony Pod selection cancels and confirms through the same real picker', () => {
+	f.show(f.base); f.change(); f.pick('COLONY_POD');
+	f.view.find('button', 'text', 'CANCEL').emit('click', {});
+	test.assert(#sizeof(f.state.events) == 1 && f.base.state.production.choice_id == '');
+	f.change(); f.pick('COLONY_POD'); f.ok();
+	test.assert(f.state.events[1] == ['set_base_production', 1, 'COLONY_POD']);
+	f.ok(); test.assert(#sizeof(f.state.events) == 2);
+});
+behavior.scenario('active Colony Pod renders its cost and population delay as a unit project', () => {
+	f.base.state.production.choice_id = 'COLONY_POD'; f.base.state.production.minerals = 15;
+	f.base.state.surplus = 5; f.base.state.size = 2;
+	f.game.emit('update_base', { base: f.base });
+	const production = screen.sections.bottom_bar.parts.production;
+	test.assert(production.production_title.text == 'Colony Pod');
+	test.assert(production.production_amount.text == '15 / 30 minerals');
+	test.assert(production.production_pending.text == '+5 minerals / turn');
+	test.assert(production.production_label.text == '3 TURNS');
+	test.assert(screen.sections.bottom_bar.parts.queue.status.text == 'Unit project');
+	f.base.state.size = 1; f.base.state.production.minerals = 37;
+	f.game.emit('update_base', { base: f.base });
+	test.assert(production.production_amount.text == '37 / 30 minerals');
+	test.assert(production.production_label.text == 'NEEDS POPULATION');
+	f.change(); f.pick('COLONY_POD'); f.ok();
+	test.assert(#sizeof(f.state.events) == 2, 'Active project reselection emits no duplicate command');
+});
+behavior.scenario('completed Colony Pod remains available for manual reselection', () => {
+	f.base.state.production.choice_id = ''; f.base.state.production.minerals = 7;
+	f.game.emit('update_base', { base: f.base });
+	test.assert(screen.sections.bottom_bar.parts.production.production_title.text == 'IDLE');
+	test.assert(screen.sections.bottom_bar.parts.production.production_amount.text == 'Stored: 7 minerals');
+	test.assert(screen.sections.bottom_bar.parts.queue.status.text == 'No project');
+	f.change(); test.assert(screen.production_choices.items == [['COLONY_POD', 'Colony Pod (30 minerals)']]);
+	f.pick('COLONY_POD'); f.ok();
+	test.assert(f.state.events[2] == ['set_base_production', 1, 'COLONY_POD']);
 });

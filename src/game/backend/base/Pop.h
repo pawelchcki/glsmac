@@ -35,6 +35,9 @@ public:
 	const PopDef* m_def;
 	uint8_t m_variant = 0;
 
+private:
+	void CheckCustomMutation( GSE_CALLABLE ) const;
+
 };
 
 }

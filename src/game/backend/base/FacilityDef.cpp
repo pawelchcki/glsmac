@@ -30,14 +30,18 @@ int64_t FacilityDef::GetMineralCost( const Game* game, const Player* player ) co
 	const uint64_t declared = m_cost;
 	if ( declared > uint64_t( std::numeric_limits< int64_t >::max() ) ) { return 0; }
 	const auto fallback = int64_t( declared );
-	if ( !game || !game->GetState() || !player || m_cost_rows <= 0 || m_cost_rows > std::numeric_limits< int64_t >::max() / 10 ) { return fallback; }
+	return DeclaredMineralCost( game, player, fallback, m_cost_rows );
+}
+
+int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {
+	if ( !game || !game->GetState() || !player || rows <= 0 || rows > std::numeric_limits< int64_t >::max() / 10 ) { return fallback; }
 	const auto role = player->GetRole();
 	if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return fallback; }
 	const auto& map = game->GetState()->m_settings.global.map;
 	if ( ( map.type != settings::MapSettings::MT_RANDOM && map.type != settings::MapSettings::MT_CUSTOM ) || map.preset_level < 0 || map.preset_level > 4 ) { return fallback; }
 	// Only the observed human/no-base factor is modeled: default rule10 and
 	// INDUSTRY0. Item row declarations are a separate GLSMAC application rule.
-	return m_cost_rows * HumanMineralFactor( map.preset_level, 10, 0 );
+	return rows * HumanMineralFactor( map.preset_level, 10, 0 );
 }
 
 const std::string FacilityDef::ToString( const std::string& prefix ) const {

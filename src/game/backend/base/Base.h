@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "gse/Wrappable.h"
 #include "game/backend/MapObject.h"
@@ -63,9 +64,10 @@ public:
 	const Game* const GetGame() const;
 	const ProductionState& GetProductionState() const { return m_production; }
 	ProductionState SelectProduction( GSE_CALLABLE, const std::string& choice_id );
-	struct ProductionResult { ProductionState previous; std::string added_facility; };
+	struct ProductionResult { ProductionState previous; std::string added_facility; int64_t unit_receipt = 0; };
 	ProductionResult ProcessProduction( GSE_CALLABLE, const int64_t turn, const int64_t minerals );
 	void RestoreProduction( GSE_CALLABLE, const ProductionState& previous, const std::string& added_facility );
+	void RollbackUnitProduction( GSE_CALLABLE, int64_t receipt );
 
 	Pop* const AddPop( const Pop& pop );
 	void RemovePop( const size_t pop_id );
@@ -97,7 +99,22 @@ private:
 	std::vector< std::pair< size_t, map::tile::Tile* > > m_snapshot_work;
 	Game* const m_game;
 	ProductionState m_production;
+	struct UnitProductionRecord {
+		int64_t token = 0;
+		ProductionState previous;
+		pops_t::node_type citizen;
+		map::tile::Tile* worked = nullptr;
+		std::unordered_set< map::tile::Tile* >::node_type worked_node;
+		size_t unit_id = 0;
+		size_t previous_unit_id = 0;
+		size_t next_unit_id = 0;
+		gse::value::Object* identity = nullptr;
+		std::string previous_rng, expected_rng, expected_base, expected_unit;
+	};
+	std::unique_ptr< UnitProductionRecord > m_unit_production;
+	int64_t m_next_production_receipt = 0;
 	void ProductionChanged();
+	ProductionResult CompleteUnitProduction( GSE_CALLABLE, const ProductionState& next );
 
 	std::unordered_set< map::tile::Tile* > m_worked_tiles = {};
 

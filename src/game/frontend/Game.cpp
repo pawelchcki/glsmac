@@ -1060,7 +1060,7 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 		}
 		case FrontendRequest::FR_UNIT_DEFINE: {
 			types::Buffer buf( *request->data.unit_define.serialized_unitdef );
-			const auto* unitdef = backend::unit::Def::Deserialize( buf );
+			const auto* unitdef = backend::unit::Def::Deserialize( buf, m_game->GetUM() );
 			m_um->DefineUnit( unitdef );
 			delete unitdef;
 			break;

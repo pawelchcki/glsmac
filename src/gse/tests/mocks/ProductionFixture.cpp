@@ -30,6 +30,7 @@
 #include "game/backend/base/PopDef.h"
 #include "game/backend/base/production/Facility.h"
 #include "game/backend/base/production/Custom.h"
+#include "game/backend/base/production/Unit.h"
 #include "game/backend/faction/Faction.h"
 #include "game/backend/faction/FactionManager.h"
 #include "game/backend/map/Map.h"
@@ -244,6 +245,50 @@ struct ProductionFixture : gc::Object {
 			{ "next_unit_id", VALUE( value::Int,, backend::unit::Unit::GetNextId() ) },
 			{ "rng", VALUE( value::String,, game.GetRandom()->GetStateString() ) },
 			{ "updates", VALUE( value::Int,, game.m_bm->m_updated_bases.size() ) },
+			{ "unit_updates", VALUE( value::Int,, game.m_um->m_unit_updates.size() ) },
+			{ "base_updates", VALUE( value::Int,, game.m_bm->m_base_updates.size() ) },
+			{ "pending_events", VALUE( value::Int,, game.m_pending_events.size() ) },
+			{ "frontend_requests", VALUE( value::Int,, game.m_pending_frontend_requests->size() ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
+	value::Object* UnitRecipeCodecProbe( GSE_CALLABLE ) {
+		const auto source_bytes = owner->Serialize().ToString();
+		const auto payload = ChoiceBytes( *owner, "COLONY_POD" );
+		auto copy = std::make_unique< backend::Player >( owner.get() );
+		const bool independent = copy->GetProductionChoice( "COLONY_POD" ) && copy->GetProductionChoice( "COLONY_POD" ) != owner->GetProductionChoice( "COLONY_POD" );
+		const bool copied = copy->Serialize().ToString() == source_bytes && ChoiceBytes( *copy, "COLONY_POD" ) == payload;
+		copy.reset();
+		auto receiving = std::make_unique< ProductionFixture >( GSE_CALL, false );
+		receiving->game.m_um = new backend::unit::UnitManager( &receiving->game, false );
+		receiving->game.m_game_state = backend::Game::GS_RUNNING;
+		types::Buffer units; game.m_um->Serialize( units );
+		receiving->game.m_um->Deserialize( GSE_CALL, units );
+		receiving->Load( GSE_CALL, Snapshot() );
+		const auto* received_def = receiving->game.m_um->GetUnitDef( "ColonyPod" );
+		const auto* received_morale = receiving->game.m_um->GetMoraleSet( "SYNTHETIC" );
+		const auto* received_unit = receiving->game.m_um->GetUnit( colony_id );
+		const bool unit_parent = received_def && received_def != game.m_um->GetUnitDef( "ColonyPod" ) && received_morale && received_morale != game.m_um->GetMoraleSet( "SYNTHETIC" ) && received_def->m_moraleset == received_morale && received_unit && received_unit->m_def->m_moraleset == received_morale && received_unit->m_owner == receiving->owner->GetSlot();
+		const bool roundtrip = receiving->Snapshot() == Snapshot();
+		const bool parent = receiving->base->m_owner == receiving->owner->GetSlot() && receiving->base->GetGame() == &receiving->game;
+		const auto before = receiving->Snapshot();
+		auto missing_morale = receiving->game.m_um->m_unit_moralesets.extract( "SYNTHETIC" );
+		bool rejected_morale = false;
+		try { auto bytes = backend::unit::Def::Serialize( game.m_um->GetUnitDef( "ColonyPod" ) ); std::unique_ptr< backend::unit::Def > staged( backend::unit::Def::Deserialize( bytes, receiving->game.m_um ) ); }
+		catch ( ... ) { rejected_morale = true; }
+		receiving->game.m_um->m_unit_moralesets.insert( std::move( missing_morale ) );
+		auto missing = receiving->game.m_um->m_unit_defs.extract( "ColonyPod" );
+		bool rejected = false;
+		try { auto bytes = backend::base::Base::Serialize( base ); std::unique_ptr< backend::base::Base > staged( backend::base::Base::Deserialize( GSE_CALL, bytes, &receiving->game, false ) ); }
+		catch ( ... ) { rejected = true; }
+		receiving->game.m_um->m_unit_defs.insert( std::move( missing ) );
+		const value::object_properties_t result {
+			{ "independent", VALUE( value::Bool,, independent ) }, { "copied", VALUE( value::Bool,, copied ) },
+			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "receiving_parent", VALUE( value::Bool,, parent ) },
+			{ "receiving_units", VALUE( value::Bool,, unit_parent ) },
+			{ "missing_morale_rejected", VALUE( value::Bool,, rejected_morale ) },
+			{ "missing_definition_rejected", VALUE( value::Bool,, rejected ) }, { "receiver_unchanged", VALUE( value::Bool,, receiving->Snapshot() == before ) },
+			{ "source_unchanged", VALUE( value::Bool,, owner->Serialize().ToString() == source_bytes ) },
 		};
 		return VALUEEXT( value::Object, GSE_CALL, result );
 	}
@@ -693,6 +738,7 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		object->Set( "add_scout", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( owner, 0, Int ); return VALUE( value::Int,, session->current->AddScout( GSE_CALL, owner ) ); } ), GSE_CALL );
 		object->Set( "add_colony", NATIVE_CALL( session ) { N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int ); return VALUE( value::Int,, session->current->AdditionalColony( GSE_CALL, x, y ) ); } ), GSE_CALL );
 		object->Set( "inspect", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectFounding( GSE_CALL ); } ), GSE_CALL );
+		object->Set( "unit_recipe_codec_probe", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->UnitRecipeCodecProbe( GSE_CALL ); } ), GSE_CALL );
 		object->Set( "snapshot", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->FoundingSnapshot() ); } ), GSE_CALL );
 		object->Set( "configure", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); session->current->ConfigureFounding( kind ); return VALUE( value::Undefined ); } ), GSE_CALL );
 	}

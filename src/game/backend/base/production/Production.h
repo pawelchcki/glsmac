@@ -12,6 +12,7 @@ public:
 	enum production_type_t {
 		PT_FACILITY,
 		PT_CUSTOM,
+		PT_UNIT,
 	};
 
 	Production( const production_type_t type );

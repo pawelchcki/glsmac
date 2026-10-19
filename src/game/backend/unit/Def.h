@@ -21,6 +21,7 @@ class TileState;
 namespace unit {
 
 class MoraleSet;
+class UnitManager;
 
 class Def : public gse::Wrappable {
 public:
@@ -38,7 +39,7 @@ public:
 	virtual const std::string ToString( const std::string& prefix = "" ) const = 0;
 
 	static const types::Buffer Serialize( const Def* def );
-	static Def* Deserialize( types::Buffer& buf );
+	static Def* Deserialize( types::Buffer& buf, const UnitManager* manager );
 
 	WRAPDEFS_PTR( Def );
 

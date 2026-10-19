@@ -596,7 +596,7 @@ void UnitManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 	for ( size_t i = 0 ; i < sz ; i++ ) {
 		const auto name = buf.ReadString();
 		auto b = types::Buffer( buf.ReadString() );
-		DefineUnit( Def::Deserialize( b ) );
+		DefineUnit( Def::Deserialize( b, this ) );
 	}
 
 	sz = buf.ReadInt();

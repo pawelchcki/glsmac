@@ -72,15 +72,23 @@ const assert_player_events = (events, offset, owner, x, y, type) => {
 	test.assert(events[offset + 1].name == 'add_production_choice' && events[offset + 1].data.player.id == owner);
 	test.assert(events[offset + 1].data.id == 'STOCKPILE_ENERGY');
 	test.assert(events[offset + 1].data.data.type == 'custom' && events[offset + 1].data.data.hint == 'Minerals to Energy');
-	const base = events[offset + 2];
+	let next = offset + 2;
+	if (type == 'MindWorms') {
+		const recipe = events[next];
+		test.assert(recipe.name == 'add_production_choice' && recipe.data.player.id == owner);
+		test.assert(recipe.data.id == 'COLONY_POD');
+		test.assert(recipe.data.data == { type: 'unit', id: 'ColonyPod', cost: 30, cost_rows: 3, population_cost: 1 });
+		next++;
+	}
+	const base = events[next];
 	test.assert(base.name == 'spawn_base' && base.data.owner.id == owner);
 	test.assert(base.data.tile.x == x && base.data.tile.y == y && base.data.facilities == ['HEADQUARTERS']);
-	const unit = events[offset + 3];
+	const unit = events[next + 1];
 	test.assert(unit.name == 'spawn_unit' && unit.data.owner.id == owner && unit.data.type == type);
 	test.assert(unit.data.tile.x == x && unit.data.tile.y == y);
 	test.assert(unit.data.health == 1.0 && unit.data.morale == 1);
 	if (type == 'MindWorms') {
-		const pod = events[offset + 4];
+		const pod = events[next + 2];
 		test.assert(pod.name == 'spawn_unit' && pod.data.type == 'ColonyPod');
 		test.assert(pod.data.owner.id == owner && pod.data.tile.x == x && pod.data.tile.y == y);
 		test.assert(pod.data.health == 1.0 && pod.data.morale == 1);
@@ -101,7 +109,7 @@ behavior.scenario('land startup skips water and invalid parity before emitting t
 	start_world(f.game);
 	test.assert(f.state.draws == 6 && f.state.ranges_valid);
 	test.assert(f.state.lookups == [[0, 0], [2, 0]] && f.state.distances == []);
-	test.assert(#sizeof(f.state.events) == 5);
+	test.assert(#sizeof(f.state.events) == 6);
 	assert_player_events(f.state.events, 0, 0, 2, 0, 'MindWorms');
 });
 
@@ -122,9 +130,9 @@ behavior.scenario('mixed land and naval players receive ordered loadouts on thei
 	], [0, 0, 4, 0], [0, 1]);
 	start_world(f.game);
 	test.assert(f.state.draws == 4 && f.state.ranges_valid);
-	test.assert(#sizeof(f.state.events) == 9 && f.state.distances == [[4, 0, 0, 0]]);
+	test.assert(#sizeof(f.state.events) == 10 && f.state.distances == [[4, 0, 0, 0]]);
 	assert_player_events(f.state.events, 0, 0, 0, 0, 'MindWorms');
-	assert_player_events(f.state.events, 5, 1, 4, 0, 'SeaLurk');
+	assert_player_events(f.state.events, 6, 1, 4, 0, 'SeaLurk');
 });
 
 behavior.scenario('the final permitted coordinate pair can still place a base', () => {
@@ -135,7 +143,7 @@ behavior.scenario('the final permitted coordinate pair can still place a base', 
 	const f = make_fixture(4, 4, [false], [{ x: 2, y: 0, is_water: false }], draws, [0, 1]);
 	start_world(f.game);
 	test.assert(f.state.draws == 2000 && f.state.lookups == [[2, 0]]);
-	test.assert(f.state.ranges_valid && #sizeof(f.state.events) == 5);
+	test.assert(f.state.ranges_valid && #sizeof(f.state.events) == 6);
 });
 
 behavior.scenario('terrain mismatch also consumes the full finite placement budget', () => {
@@ -153,10 +161,10 @@ behavior.scenario('each candidate is checked against all previously selected bas
 	start_world(f.game);
 	test.assert(f.state.draws == 8 && f.state.ranges_valid);
 	test.assert(f.state.distances == [[8, 0, 0, 0], [10, 0, 0, 0], [10, 0, 8, 0], [4, 0, 0, 0], [4, 0, 8, 0]]);
-	test.assert(#sizeof(f.state.events) == 15);
+	test.assert(#sizeof(f.state.events) == 18);
 	assert_player_events(f.state.events, 0, 0, 0, 0, 'MindWorms');
-	assert_player_events(f.state.events, 5, 1, 8, 0, 'MindWorms');
-	assert_player_events(f.state.events, 10, 2, 4, 0, 'MindWorms');
+	assert_player_events(f.state.events, 6, 1, 8, 0, 'MindWorms');
+	assert_player_events(f.state.events, 12, 2, 4, 0, 'MindWorms');
 });
 
 behavior.scenario('crowded maps relax spacing until a legal two-step candidate is accepted', () => {
@@ -165,8 +173,8 @@ behavior.scenario('crowded maps relax spacing until a legal two-step candidate i
 	], [0, 0], [4, 0]);
 	start_world(f.game);
 	test.assert(f.state.draws == 1006 && f.state.ranges_valid, 'spacing relaxes after the configured retries');
-	test.assert(#sizeof(f.state.distances) == 502 && #sizeof(f.state.events) == 10);
-	assert_player_events(f.state.events, 5, 1, 4, 0, 'MindWorms');
+	test.assert(#sizeof(f.state.distances) == 502 && #sizeof(f.state.events) == 12);
+	assert_player_events(f.state.events, 6, 1, 4, 0, 'MindWorms');
 });
 
 for (x of [0, 2]) {

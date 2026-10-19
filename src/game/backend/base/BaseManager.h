@@ -83,6 +83,7 @@ public:
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class game::backend::Game;
+	friend class Base;
 	BaseManager( Game* game, const bool register_with_gc );
 	std::vector< std::unique_ptr< Base > > DecodeSnapshotBases( GSE_CALLABLE, std::vector< types::Buffer >& records, const size_t next_id );
 	Game* m_game = nullptr;

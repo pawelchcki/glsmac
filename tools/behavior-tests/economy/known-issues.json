@@ -74,6 +74,66 @@
         "assertions": 121,
         "scope": "Actual native per-base query, shipped threshold/reset callbacks and real food-grid script with controlled display boundary. Original agreement remains confined to recorded nutrient-factor cases."
       }
+    },
+    {
+      "id": "renewable-colony-pod-production",
+      "contract": "glsmac.unit_production.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "GLSMAC application lifecycle contract; only the three-row component cost and supported human mineral factors have recorded original agreement. Whole production, population loss and size-one delay are not original observations.",
+      "property": "The shipped production registry and native Base reject unit projects, so a consumed starting Colony Pod cannot be replaced.",
+      "probes": [
+        "GLSMAC_data/tests/unit_production_native.gls.js",
+        "GLSMAC_data/tests/unit_production_events.gls.js"
+      ],
+      "before": {
+        "native": "strict assertion: Colony Pod must be a registered constructible unit project",
+        "event": "GSEGameError: Unknown production choice type: unit",
+        "artifact": "/tmp/glsmac-unit-production-initial-red.json"
+      },
+      "verification": {
+        "native_scenarios": 34,
+        "native_assertions": 103,
+        "event_scenarios": 6,
+        "event_assertions": 38,
+        "scope": "Actual native recipe/completion, scoped callback guards, receiving-manager codecs and shipped production events; recorded original agreement remains restricted to component rows and human mineral factors."
+      }
+    },
+    {
+      "id": "unit-production-callback-mutations",
+      "contract": "glsmac.unit_production.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Native unit completion application transaction; no original-game agreement claim.",
+      "property": "A failing unit_spawn listener can change an existing unit scalar or consume an event identity despite the transaction write guard.",
+      "before": {
+        "scalar": "strict snapshot and native bookkeeping equality assertion fails",
+        "event_queue": "strict next real event identity assertion fails",
+        "artifact": "/tmp/glsmac-unit-production-callback-red.json"
+      },
+      "verification": {
+        "native_scenarios": 34,
+        "native_assertions": 103,
+        "event_scenarios": 6,
+        "event_assertions": 38,
+        "scope": "Actual native recipe/completion, scoped callback guards, receiving-manager codecs and shipped production events; recorded original agreement remains restricted to component rows and human mineral factors."
+      }
+    },
+    {
+      "id": "unit-definition-receiving-morale",
+      "contract": "glsmac.unit_production.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Native snapshot application regression, separate from recorded original cost helpers.",
+      "property": "Unit definition decoding reads morale definitions from the global game rather than the receiving unit manager, breaking a fresh-world unit/project snapshot.",
+      "before": {
+        "error": "Internal error: could not find morale set: SYNTHETIC",
+        "artifact": "/tmp/glsmac-unit-production-guard-focused.json"
+      },
+      "verification": {
+        "native_scenarios": 34,
+        "native_assertions": 103,
+        "event_scenarios": 6,
+        "event_assertions": 38,
+        "scope": "Actual native recipe/completion, scoped callback guards, receiving-manager codecs and shipped production events; recorded original agreement remains restricted to component rows and human mineral factors."
+      }
     }
   ]
 }

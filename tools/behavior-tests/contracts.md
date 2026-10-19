@@ -210,10 +210,13 @@ instructions may reuse argument stack slots; the return address, stack balance,
 preserved registers, code/data boundaries and execution budgets remain checked.
 The executable image remains read-only and no original dependencies are replaced.
 
-The 5,528 observations include component matrices, cost/reactor boundaries,
+The 5,531 observations include component matrices, cost/reactor boundaries,
 missile offense boundaries, slot independence, dense chassis and sea mode11
 sweeps, and 1,024 independently seeded samples captured after the candidate
-source was frozen. Every suite was recorded twice. These samples do not exhaust
+source was frozen. Three additional infantry fixtures check Colony Pod, Former and
+Scout component recipes at Fission power, observing 3, 2 and 1 base rows
+respectively. These are component calculations, not whole-item construction
+observations. Every suite was recorded twice. These samples do not exhaust
 the valid input domain. Native and WASM replay call the same production header,
 `src/game/backend/unit/PrototypeCost.h`.
 The actual unit manager exposes the same read-only helper as
@@ -239,6 +242,7 @@ this contract.
 | `cases/prototype-cost-chassis-sweep.json` | Ability-free prototype mineral rows | 1,536 | `observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json` |
 | `cases/prototype-cost-sea-mode11.json` | Ability-free prototype mineral rows | 512 | `observations/smacx-gog-2.0-prototype-cost-sea-mode11.json` |
 | `cases/prototype-cost-held-out.json` | Ability-free prototype mineral rows | 1,024 | `observations/smacx-gog-2.0-prototype-cost-held-out.json` |
+| `cases/starting-unit-components.json` | Starting infantry component mineral rows | 3 | `observations/smacx-gog-2.0-starting-unit-components.json` |
 
 All files are captured with `compare.py record`, requiring two identical runs
 and binding every case and its input hash. No expected output is calculated by
@@ -257,5 +261,5 @@ code/read/write boundaries and execution budgets remain guarded.
 
 Replay uses the real WASM GSE interpreter and shipped resource handler with
 controlled native inputs, without assets or pixels. It is not included in the
-12,989-case native/WASM C++ helper totals and does not establish native application
+12,992-case native/WASM C++ helper totals and does not establish native application
 execution, worked-tile yields, construction costs or complete base economy.

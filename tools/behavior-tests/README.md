@@ -26,12 +26,12 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **558 scenarios and 3,031 assertions** across
-39 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **601 scenarios and 3,206 assertions** across
+41 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
-bindings, facility production and technology/production snapshots. Older
+bindings, facility and Colony Pod production, and technology/production snapshots. Older
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
@@ -66,8 +66,13 @@ opens Headquarters, skips both owned starting units, advances a turn, verifies
 movement replenishment and reopens the base. Its injected entry adds read-only
 telemetry; it supplies no world/map/RNG override. Run it separately with
 `npm --prefix tools/wasm-tests run test:normal-game`. These browser regressions
-do not establish original-game agreement. Browser failures and graphics errors
-remain failures.
+do not establish original-game agreement. The additional
+`colony-production.test.mjs` case starts with three actual workers on controlled
+productive terrain and no seeded pods or minerals. It cancels and confirms the
+real picker, checks every mineral credit and population charge, moves the first
+constructed pod and founds a base, then manually constructs a distinct second
+pod. Run it separately with `npm --prefix tools/wasm-tests run test:colony-production`.
+Browser failures and graphics errors remain failures.
 
 The production suites cover a bounded GLSMAC facility-building policy, separate
 from original-game economy comparisons. An owner selects an available unique
@@ -80,7 +85,8 @@ minerals for Tiny, 36 for Small, and 40 for Standard/Large/Huge under the modele
 human rule10/INDUSTRY0 setting. Unknown or custom dimensions and imported maps retain its
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
-Unit production, queues, switching and hurrying remain absent.
+A bounded land Colony Pod project is described below. Other unit construction,
+queues, switching and hurrying remain absent.
 
 `facility-cost-native` and `facility-cost-completion-native` check that actual
 Player descriptors and Base completion share the same effective cost. Declared
@@ -213,8 +219,8 @@ contracts: raw/coordinate vector distance, technology possession, weight
 category, research availability, bounded prerequisite queries and the human
 mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
-reference set also includes **5,528 ability-free prototype cost cases** and
-**5,679 human nutrient-factor cases**, making **12,989 cases** in total. These probes cover small rule helpers; they do
+reference set also includes **5,531 ability-free prototype cost cases** and
+**5,679 human nutrient-factor cases**, making **12,992 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -222,7 +228,7 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-12,989 native/WASM C++ helper cases. Run it with
+12,992 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
 All ten bounded C++ contracts are implemented by shared production GLSMAC helpers.
@@ -239,7 +245,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **12,989 cases**. It runs independent reference suites in
+This checks all **12,992 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -424,7 +430,7 @@ skips. They are separate from the genuine game observations.
 
 ## Ability-free prototype base costs
 
-The original-game replay additionally checks **5,528** synthetic unit component
+The original-game replay additionally checks **5,531** synthetic unit component
 cases against `src/game/backend/unit/PrototypeCost.h`, on native C++ and WASM.
 The output is mineral rows before map/faction factors and prototype surcharges.
 The fixtures cover land, sea, air, reactor and component ranges, missile offense
@@ -432,9 +438,9 @@ boundaries, selected weapon modes and table-slot independence. A further 1,024
 of these cases were recorded after the implementation was frozen.
 
 See [contracts.md](contracts.md) for exact bounds and evidence. The full
-C++ helper lane also includes nutrient factors and totals 12,989 original cases; resource callback and UI traces remain
-separate. This arithmetic transfer does not yet make units constructible or
-establish full design, ability or production parity.
+C++ helper lane also includes nutrient factors and totals 12,992 original cases; resource callback and UI traces remain
+separate. This arithmetic transfer does not establish full design, ability or
+production parity; the bounded Colony Pod application lifecycle below is separate.
 
 `prototype-cost-native` also exercises the real unit manager's read-only
 `get_prototype_base_cost` binding with recorded witnesses, unchanged-world
@@ -467,3 +473,34 @@ existing area-based fallback. Growth thresholds and food-grid capacity share
 the same factor. Population row counts, events and UI checks are GLSMAC
 application coverage, separate from original factor observations; faction
 traits, social engineering, per-base modifiers and population booms remain gaps.
+
+
+## Renewable Colony Pod construction
+
+The `glsmac.unit_production.v1` application contract extends the actual production
+registry, event, base screen and native completion to a declared land Colony Pod
+recipe. It uses three mineral rows, with supported human preset costs of
+24/27/30/30/30 and an explicit 30-mineral fallback for unknown provenance. The
+component rows and human mineral factor each have recorded original evidence;
+whole-item construction is not an additional original comparison.
+
+An owner selects the project through CHANGE. Subsequent turns credit the existing
+nonnegative surplus once. Completion consumes one actual citizen, releases its
+worker assignment, spawns one real owned pod at the base center, keeps overflow
+and clears the project. Manual reselection allows another pod. A size-one base
+retains its credited project until another citizen exists; the original game's
+abandonment dialog remains unimplemented. Produced movement, health and morale
+follow the reproduction's existing spawn defaults, not a new original contract.
+
+Native completion owns the unit, citizen and production transaction. Spawn
+callbacks observe that state under a scoped native mutation guard. Consumed
+citizen references reject later mutation; receipt undo preserves the same
+citizen identity. Arbitrary script closure state and configuration or handler
+registry changes are outside this native journal.
+Its tests exercise callback failure, identity-sensitive undo, receiving-world recipe
+resolution, prices and invalid mutations. Script tests check owner validation,
+duplicate turns, optional unit receipts and the actual picker/display with a
+controlled display boundary. These are GLSMAC application tests. Fresh-world unit definitions resolve morale through the receiving manager,
+including the associated backend manager used by frontend definition requests.
+Unit support, home-base rules, abandonment, automatic repeat/default selection, queues and
+whole original completion ordering remain outside this batch.

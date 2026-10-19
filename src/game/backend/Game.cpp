@@ -686,6 +686,7 @@ WRAPIMPL_BEGIN( Game )
 			"event",
 			NATIVE_CALL( this ) {
 				N_EXPECT_ARGS( 2 );
+				CheckCustomMutation( GSE_CALL );
 				N_GETVALUE( name, 0, String );
 				{
 					std::lock_guard guard( m_event_handlers_mutex );

@@ -24,6 +24,10 @@
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/Player.h"
 #include "production/Facility.h"
+#include "production/Unit.h"
+#include "game/backend/unit/Unit.h"
+#include "game/backend/unit/UnitManager.h"
+#include "game/backend/unit/StaticDef.h"
 #include <limits>
 #include <memory>
 #include <set>
@@ -85,6 +89,14 @@ static const FacilityDef* ResolveProduction( Game* game, slot::Slot* owner, cons
 	return def && def->GetMineralCost( game, owner->GetPlayer() ) > 0 ? def : nullptr;
 }
 
+static const production::Unit* ResolveUnitProduction( Game* game, slot::Slot* owner, const std::string& id ) {
+	const auto* choice = owner->GetPlayer()->GetProductionChoice( id );
+	if ( !choice || choice->GetType() != production::Production::PT_UNIT ) { return nullptr; }
+	const auto* recipe = static_cast< const production::Unit* >( choice );
+	const auto* def = game->GetUM() ? game->GetUM()->GetUnitDef( recipe->unit_id ) : nullptr;
+	return def && def->m_type == unit::DT_STATIC && def->GetMovementType() == unit::MT_LAND ? recipe : nullptr;
+}
+
 static gse::value::Object* WrapProduction( GSE_CALLABLE, const ProductionState& state ) {
 	return VALUEEXT( gse::value::Object, GSE_CALL, {
 		{ "choice_id", VALUE( gse::value::String,, state.choice_id ) },
@@ -101,13 +113,15 @@ void Base::ProductionChanged() {
 ProductionState Base::SelectProduction( GSE_CALLABLE, const std::string& choice_id ) {
 	m_game->CheckRW( GSE_CALL );
 	const auto* def = ResolveProduction( m_game, m_owner, choice_id );
-	if ( !def ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown or unsupported facility production choice: " + choice_id ); }
-	if ( m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility is already installed" ); }
+	const auto* recipe = ResolveUnitProduction( m_game, m_owner, choice_id );
+	if ( !def && !recipe ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown or unsupported production choice: " + choice_id ); }
+	if ( def && m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility is already installed" ); }
 	const auto previous = m_production;
 	if ( choice_id == m_production.choice_id ) { return previous; }
 	if ( !m_production.choice_id.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Switching active production is not supported" ); }
 	m_production.choice_id = choice_id;
 	m_production.last_processed_turn = m_game->GetTurnId();
+	m_unit_production.reset();
 	ProductionChanged();
 	return previous;
 }
@@ -123,19 +137,30 @@ Base::ProductionResult Base::ProcessProduction( GSE_CALLABLE, const int64_t turn
 	const FacilityDef* def = nullptr;
 	if ( !next.choice_id.empty() ) {
 		def = ResolveProduction( m_game, m_owner, next.choice_id );
-		if ( !def || m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production facility is unavailable or already installed" ); }
+		const auto* recipe = ResolveUnitProduction( m_game, m_owner, next.choice_id );
+		if ( ( !def && !recipe ) || ( def && m_facilities.count( def->m_id ) ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production choice is unavailable or already installed" ); }
 		if ( minerals > std::numeric_limits< int64_t >::max() - next.minerals ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production mineral credit overflow" ); }
 		next.minerals += minerals;
-		const auto cost = def->GetMineralCost( m_game, m_owner->GetPlayer() );
+		const auto cost = recipe ? recipe->GetMineralCost( m_game, m_owner->GetPlayer() ) : def->GetMineralCost( m_game, m_owner->GetPlayer() );
 		if ( next.minerals >= cost ) {
+			if ( recipe ) {
+				// Size-one abandonment is not implemented. Keep the credited project
+				// until another citizen exists; this is explicit application policy.
+				if ( m_pops.size() > size_t( recipe->population_cost ) ) {
+					next.minerals -= cost; next.choice_id.clear();
+					return CompleteUnitProduction( GSE_CALL, next );
+				}
+			} else {
 			next.minerals -= cost;
 			next.choice_id.clear();
 			result.added_facility = def->m_id;
+			}
 		}
 	}
 	// All validation and arithmetic complete before either state is changed.
 	if ( !result.added_facility.empty() ) { m_facilities.emplace( def->m_id, def ); }
 	m_production = std::move( next );
+	m_unit_production.reset();
 	ProductionChanged();
 	return result;
 }
@@ -146,7 +171,8 @@ void Base::RestoreProduction( GSE_CALLABLE, const ProductionState& previous, con
 		GSE_ERROR( gse::EC.GAME_ERROR, "Invalid production restore state" );
 	}
 	const auto* def = previous.choice_id.empty() ? nullptr : ResolveProduction( m_game, m_owner, previous.choice_id );
-	if ( !previous.choice_id.empty() && !def ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown production restore choice" ); }
+	const auto* recipe = previous.choice_id.empty() ? nullptr : ResolveUnitProduction( m_game, m_owner, previous.choice_id );
+	if ( !previous.choice_id.empty() && !def && !recipe ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown production restore choice" ); }
 	if ( !added_facility.empty() ) {
 		if ( !def || def->m_id != added_facility || !m_production.choice_id.empty() || !m_facilities.count( added_facility ) ) {
 			GSE_ERROR( gse::EC.GAME_ERROR, "Production rollback facility does not match the previous project" );
@@ -155,6 +181,7 @@ void Base::RestoreProduction( GSE_CALLABLE, const ProductionState& previous, con
 	if ( previous == m_production && added_facility.empty() ) { return; }
 	if ( !added_facility.empty() ) { m_facilities.erase( added_facility ); }
 	m_production = previous;
+	m_unit_production.reset();
 	ProductionChanged();
 }
 
@@ -295,7 +322,7 @@ Base* Base::Deserialize( GSE_CALLABLE, types::Buffer& buf, Game* game, const boo
 	const auto production = ProductionState::Deserialize( buf );
 	if ( !production.choice_id.empty() ) {
 		const auto* def = ResolveProduction( game, slot, production.choice_id );
-		if ( !def || facilities.count( def->m_id ) ) { THROW( "invalid or installed base production choice" ); }
+		if ( ( !def && !ResolveUnitProduction( game, slot, production.choice_id ) ) || ( def && facilities.count( def->m_id ) ) ) { THROW( "invalid or installed base production choice" ); }
 	}
 	if ( buf.ReadString() != "GLSMAC_BASE_WORK_V1" ) { THROW( "unsupported base work snapshot" ); }
 	const auto has_nutrients = buf.ReadBool();
@@ -399,10 +426,19 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 		"process_production", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( turn, 0, Int ); N_GETVALUE( minerals, 1, Int );
 			const auto result = ProcessProduction( GSE_CALL, turn, minerals );
-			return VALUEEXT( gse::value::Object, GSE_CALL, {
+			auto* object = VALUEEXT( gse::value::Object, GSE_CALL, {
 				{ "previous", WrapProduction( GSE_CALL, result.previous ) },
 				{ "added_facility", VALUE( gse::value::String,, result.added_facility ) },
 			} );
+			if ( result.unit_receipt ) { object->Set( "unit_receipt", VALUE( gse::value::Int,, result.unit_receipt ), GSE_CALL ); }
+			return object;
+		} )
+	},
+	{
+		"rollback_unit_production", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Int );
+			RollbackUnitProduction( GSE_CALL, receipt );
+			return VALUE( gse::value::Undefined );
 		} )
 	},
 	{
@@ -596,6 +632,10 @@ void Base::GetReachableObjects( std::unordered_set< gc::Object* >& reachable_obj
 	GC_DEBUG_BEGIN( "pops" );
 	for ( auto& it : m_pops ) {
 		it.second.GetReachableObjects( reachable_objects );
+	}
+	if ( m_unit_production ) {
+		GC_REACHABLE( m_unit_production->identity );
+		if ( !m_unit_production->citizen.empty() ) { m_unit_production->citizen.mapped().GetReachableObjects( reachable_objects ); }
 	}
 	GC_DEBUG_END();
 }

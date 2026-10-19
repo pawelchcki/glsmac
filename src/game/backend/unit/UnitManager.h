@@ -12,6 +12,7 @@ namespace game {
 namespace backend {
 
 class Game;
+namespace base { class Base; }
 
 namespace map {
 class Map;
@@ -68,6 +69,7 @@ public:
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class game::backend::Game;
+	friend class game::backend::base::Base;
 	UnitManager( Game* game, const bool register_with_gc );
 	Unit* DetachUnit( GSE_CALLABLE, size_t unit_id );
 	Game* m_game = nullptr;
