@@ -30,6 +30,7 @@ return {
 		this.production_choices = null;
 		this.production_switch_preview = null;
 		this.production_selection_base_id = null;
+		this.citizen_job = null;
 
 		p.ui.class('base-screen-frame').set({
 			border: 'rgb(35,59,34),2',
@@ -90,6 +91,14 @@ return {
 		return p.create('', 680, 442, (body, cb) => {
 
 			this.body = body;
+			const screen = this;
+			this.citizen_job = #include('base_screen/citizen_job');
+			this.citizen_job.init({
+				ui: p.ui, game: p.game,
+				is_open: () => { return screen.is_open; },
+				get_base: () => { return screen.base; },
+			});
+			body.on('remove', (e) => { this.hide_citizen_selection(); });
 
 			body.listen(p.game, 'update_base', (e) => {
 				if (this.is_open && e.base.id == this.base_id) {
@@ -110,6 +119,7 @@ return {
 					show_production_selection: parent.parent.show_production_selection,
 					hide_production_selection: parent.parent.hide_production_selection,
 					update_production_selection: parent.parent.update_production_selection,
+					show_citizen_selection: parent.parent.show_citizen_selection,
 				},
 			};
 
@@ -136,6 +146,7 @@ return {
 		const consumption = base.get_consumption();
 
 		this.hide_production_selection();
+		this.hide_citizen_selection();
 
 		this.sections.nutrients.set({
 			rows: base.get_size() + 1,
@@ -186,24 +197,26 @@ return {
 
 		const allocation_labs = 0.4;
 		const allocation_psych = 0.2;
+		const specialist_bonus = #include('../../../../game/base_specialist_bonus');
+		const bonuses = specialist_bonus.get(base);
 
 		const total_energy = resource_data.energy.profit - resource_data.energy.loss;
 		const energy_data = {
 			labs: {
 				allocation: allocation_labs,
 				value: #round(#to_float(total_energy) * allocation_labs),
-				bonus: 0,
+				bonus: bonuses.labs,
 			},
 			psych: {
 				allocation: allocation_psych,
 				value: #round(#to_float(total_energy) * allocation_psych),
-				bonus: 0,
+				bonus: bonuses.psych,
 			},
 		};
 		energy_data.economy = {
 			allocation: 1.0 - energy_data.labs.allocation - energy_data.psych.allocation,
 			value: total_energy - energy_data.labs.value - energy_data.psych.value,
-			bonus: 0,
+			bonus: bonuses.economy,
 		};
 		this.sections.energy.set(energy_data);
 
@@ -217,6 +230,7 @@ return {
 	},
 
 	on_hide: () => {
+		this.hide_citizen_selection();
 		this.sections.bottom_bar.frame.hide();
 		this.hide_production_selection();
 		this.is_open = false;
@@ -306,6 +320,16 @@ return {
 		return choices;
 	},
 
+	hide_citizen_selection: () => {
+		if (#is_defined(this.citizen_job) && this.citizen_job != null) { this.citizen_job.cancel(); }
+	},
+
+	show_citizen_selection: (base_id, pop_id, base_identity, pop_identity) => {
+		if (!this.is_open || !#is_defined(this.citizen_job) || this.citizen_job == null) { return; }
+		this.hide_production_selection();
+		this.citizen_job.open(base_id, pop_id, base_identity, pop_identity);
+	},
+
 	update_production_switch_preview: () => {
 		if (this.production_switch_preview != null && this.production_choices != null) {
 			let text = 'Switch unavailable for this context';
@@ -318,6 +342,7 @@ return {
 	},
 
 	show_production_selection: () => {
+		this.hide_citizen_selection();
 		if (this.production_selection == null && this.is_open && this.base != null && this.base.get_owner().id == this.p.game.get_player().id) {
 			this.production_selection_base_id = this.base_id;
 			for (s in this.sections) {

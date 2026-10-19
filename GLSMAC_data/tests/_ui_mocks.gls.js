@@ -101,7 +101,12 @@ const display = () => {
 			for (child of node.children) { child.remove(); }
 			node.children = [];
 		};
-		for (tag of ['area', 'panel', 'window', 'surface', 'text', 'input', 'button', 'scrollview', 'listview', 'choicelist', 'widget', 'sound']) {
+		// Native Window disables Panel factories and forwards only this subset
+		// from its body (Window.cpp / Container::ForwardFactories).
+		const factories = kind == 'window'
+			? ['surface', 'group', 'panel', 'window', 'text', 'button', 'input', 'sound']
+			: ['area', 'panel', 'window', 'surface', 'text', 'input', 'button', 'scrollview', 'listview', 'choicelist', 'widget', 'sound'];
+		for (tag of factories) {
 			const child_kind = tag;
 			if (!#is_defined(node[child_kind])) {
 				node[child_kind] = (props) => {

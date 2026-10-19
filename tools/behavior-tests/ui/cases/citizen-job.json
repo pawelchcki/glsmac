@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "name": "Starting citizen job chooser",
+  "description": "Fresh original Quick Start; first size-one base, no turn advanced, no changed research. Visible ordered Worker/Doctor choices, selection draft, confirm/cancel/keyboard transitions and specialist Psych bonus only; excludes other specialists, unlocks, allocation/rounding, worker tile choice and graphics.",
+  "cases": [
+    {
+      "id": "open-initial-worker",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "cancel-doctor-selection",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "cancel",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "confirm-doctor-selection",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "confirm",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "cancel-worker-restoration",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "confirm",
+          "open",
+          "WORKER",
+          "cancel",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "confirm-worker-restoration",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "confirm",
+          "open",
+          "WORKER",
+          "confirm",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "confirm-unchanged-worker",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "confirm",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-down",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "ArrowDown"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-up",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "ArrowUp"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-end",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "End"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-down-from-doctor",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "ArrowDown"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-home-from-doctor",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "Home"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-enter-doctor",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "ArrowDown",
+          "Enter",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-escape-doctor",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "ArrowDown",
+          "Escape",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "keyboard-confirm-restored-worker",
+      "algorithm": "ui.citizen_job.v1",
+      "input": {
+        "actions": [
+          "open",
+          "DOCTOR",
+          "confirm",
+          "open",
+          "Home",
+          "Enter",
+          "open"
+        ]
+      }
+    }
+  ]
+}

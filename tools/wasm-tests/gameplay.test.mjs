@@ -355,6 +355,61 @@ const workerMainScript = mainScript.replace("  #include('game/game')(glsmac);", 
   glsmac.run();
 `);
 
+// This extra entry belongs only to the citizen-job case. Each observer runs
+// after the original callback and preserves its return value. A draft is read
+// from the actual ChoiceList; the bonus is read from the actual energy text.
+const citizenMainScript = workerMainScript.replace('  glsmac.run();', String.raw`
+  const citizen = #include('ui/parts/game/popup/base_screen/citizen_job');
+  const citizen_energy = #include('ui/parts/game/popup/base_screen/energy');
+  let citizen_sequence = 0;
+  const report_citizen = (reason) => {
+    if (worker_game == null || base_screen.base == null || !#is_defined(citizen_energy.labels)) { return; }
+    citizen_sequence += 1;
+    const seq = #to_string(citizen_sequence);
+    #print('JOB_BEGIN|' + reason + '|' + seq);
+    for (base of worker_game.get_bm().get_bases()) {
+      if (base.id == base_screen.base_id) { report_workers(base); }
+    }
+    const state = citizen.window == null ? 'base' : 'job';
+    #print('JOB_STATE|' + seq + '|' + state + '|' + citizen_energy.labels.psych.bonus.text);
+    if (citizen.window != null) {
+      let index = 0;
+      for (item of citizen.choices.items) {
+        #print('JOB_ROW|' + seq + '|' + #to_string(index) + '|' + #uppercase(item[1]) + '|' + #to_string(item[0] == citizen.choices.value));
+        index += 1;
+      }
+      #print('JOB_EFFECT|' + seq + '|' + #uppercase(citizen.doctor_effect.text));
+    }
+    #print('JOB_DONE|' + reason + '|' + seq);
+  };
+  const open_citizen = citizen.open;
+  citizen.open = (base_id, pop_id, base_identity, pop_identity) => {
+    const result = open_citizen(base_id, pop_id, base_identity, pop_identity);
+    if (citizen.window != null) {
+      citizen.choices.on('select', (e) => { report_citizen('SELECT'); return true; });
+      // The production modal consumes every key and returns true. Preserve
+      // that same result while sampling even no-op clamp/Home/End inputs.
+      citizen.window.on('keydown', (e) => { report_citizen('KEY_' + e.code); return true; });
+      report_citizen('OPEN');
+    }
+    return result;
+  };
+  const cancel_citizen = citizen.cancel;
+  citizen.cancel = () => {
+    const was_open = citizen.window != null;
+    const result = cancel_citizen();
+    if (was_open) { report_citizen('CLOSE'); }
+    return result;
+  };
+  const render_citizen_base = base_screen.set;
+  base_screen.set = (data) => {
+    const result = render_citizen_base(data);
+    report_citizen('RENDER');
+    return result;
+  };
+  glsmac.run();
+`);
+
 async function serveAssets(t) {
   const server = spawn('python3', ['tools/serve-wasm.py', build, '--port', '0', '--assets', assets], { cwd: root });
   t.after(() => server.kill());
@@ -944,4 +999,171 @@ test('resource-map clicks reassign a real worker through Doctor and preserve the
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
   await screenshot('next-turn');
   t.diagnostic(`Actual resource-map mouse input changed citizen ${citizen} from northern Worker to Doctor to eastern Worker, refreshed real intake labels, preserved all three native links across reopening, and credited ${pendingMinerals} minerals/${pendingFood} food on turn ${next.turn}. No assignment commands or resource/population writes were injected; this is GLSMAC application coverage.`);
+});
+
+test('citizen portraits open the real job chooser and commit Worker Doctor changes with visible Psych bonus', {
+  skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+  timeout: 180000,
+}, async (t) => {
+  const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/observations/smacx-gog-2.0-citizen-job.json`, 'utf8')).observations;
+  const recorded = (id) => {
+    const observation = observations.find((entry) => entry.id === id);
+    assert.ok(observation, `Public citizen-job observation exists for ${id}`);
+    return observation.output.trace;
+  };
+  const initialWitness = recorded('open-initial-worker');
+  const doctorWitness = recorded('confirm-doctor-selection')[3];
+  assert.equal(initialWitness[0].psych_bonus, 0); assert.equal(doctorWitness.psych_bonus, 2);
+  const { page, waitForLog, screenshot, waitForBase, closeBase } = await startGame(t,
+    workerWorldScript, 'citizen-job', {
+      mainScript: citizenMainScript, map: workerMap(),
+      fatal: /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|WORK_GAME_ERROR|WORK_EVENT_REJECTED/,
+    });
+  const logText = () => page.locator('#log').textContent();
+  const count = async (marker) => (await logText()).split(marker).length - 1;
+  const frame = async (reason) => {
+    const log = await logText();
+    const done = [...log.matchAll(/JOB_DONE\|([^|\r\n]+)\|(\d+)/g)].filter((m) => m[1] === reason).at(-1);
+    assert.ok(done, `The read-only observer completed an actual ${reason} callback`);
+    const body = log.slice(log.lastIndexOf(`JOB_BEGIN|${reason}|${done[2]}`, done.index), done.index);
+    const sequence = [...body.matchAll(/WORK_DONE\|(\d+)/g)].at(-1)?.[1];
+    assert.ok(sequence, 'Chooser observation includes a complete native worker graph');
+    const rows = (kind) => [...body.matchAll(new RegExp(`WORK_${kind}\\|([^\\r\\n]*)`, 'g'))]
+      .map((m) => m[1].split('|')).filter((r) => r[0] === sequence).map((r) => r.slice(1));
+    const [base] = rows('BASE');
+    const state = {
+      id: +base[0], owner: +base[1], turn: +base[2], size: +base[3], food: +base[4],
+      project: { choice: base[5], minerals: +base[6], processed: +base[7] },
+      intake: base.slice(8, 11).map(Number), consumption: base.slice(11, 14).map(Number), facilities: +base[14],
+      pops: rows('POP').map((p) => ({ id: +p[0], type: p[1], base: +p[2], tile: p.slice(3, 5).map(Number) })),
+      worked: rows('WORKED').map((r) => r.map(Number)),
+      tiles: rows('TILE').map((r) => ({ xy: r.slice(0, 2).map(Number), worked: r[2] === 'true',
+        pop: +r[3], base: +r[4], yield: r.slice(5, 8).map(Number) })),
+      resourceLabels: rows('RENDER')[0],
+    };
+    const view = [...body.matchAll(/JOB_STATE\|\d+\|(base|job)\|([^\r\n]*)/g)].at(-1);
+    assert.ok(view && /^\s*-?\d+\s*$/.test(view[2]), 'Actual energy text contains an integer Psych bonus');
+    const items = [...body.matchAll(/JOB_ROW\|\d+\|(\d+)\|([^|\r\n]+)\|(true|false)/g)];
+    items.forEach((item, index) => assert.equal(+item[1], index, 'Actual chooser rows retain their displayed order'));
+    return { state, view: { screen: view[1], psych_bonus: Number(view[2]), jobs: items.map((item) => item[2]),
+      selected: items.filter((item) => item[3] === 'true').map((item) => item[2]),
+      effect: [...body.matchAll(/JOB_EFFECT\|\d+\|([^\r\n]*)/g)].at(-1)?.[1] } };
+  };
+  const input = async (reason, perform) => {
+    const previous = await count(`JOB_DONE|${reason}|`);
+    await perform();
+    await waitForLog(`JOB_DONE|${reason}|`, previous + 1);
+    return frame(reason);
+  };
+  const openChooser = () => input('OPEN', () => clickCanvas(page, 288, 653));
+  const key = (name, code = name.toUpperCase()) => input(`KEY_${code}`, () => page.keyboard.press(name));
+  const select = async (label, current) => {
+    const row = current.view.jobs.indexOf(label);
+    assert.ok(row >= 0, `Actual chooser has the ${label} row`);
+    // Root-centered 340x230 window; actual ChoiceList top48, item27/padding2.
+    return input('SELECT', () => clickCanvas(page, 512, 332 + row * 29));
+  };
+  const assertJob = (current, selected, psych) => {
+    assert.equal(current.view.screen, 'job');
+    assert.deepEqual(current.view.jobs, initialWitness[1].job.jobs);
+    assert.equal(current.view.effect, initialWitness[1].job.doctor_effect);
+    assert.deepEqual(current.view.selected, [selected], 'Actual list highlights exactly the requested job');
+    assert.equal(current.view.psych_bonus, psych, 'The real energy section displays the committed citizen bonus');
+  };
+  const assertGraph = (current, type, target) => {
+    const state = current.state;
+    assert.equal(state.size, 1); assert.equal(state.pops.length, 1);
+    assert.deepEqual(state.pops[0], { id: 1, type, base: state.id, tile: target || [-1, -1] });
+    assert.deepEqual(state.worked, target ? [target] : []);
+    for (const tile of state.tiles) {
+      const selected = target !== null && tile.xy[0] === target[0] && tile.xy[1] === target[1];
+      assert.equal(tile.worked, selected); assert.equal(tile.pop, selected ? 1 : -1);
+      assert.equal(tile.base, selected ? state.id : -1);
+    }
+  };
+  const assertDraft = (before, after, selected) => {
+    assert.deepEqual(after.state, before.state, 'Open/selection/navigation drafts preserve native population, all links, intake and storage');
+    assertJob(after, selected, before.view.psych_bonus);
+  };
+  const assertStorage = (before, after) => {
+    for (const name of ['id', 'owner', 'turn', 'size', 'food', 'facilities']) assert.equal(after.state[name], before.state[name], name);
+    assert.deepEqual(after.state.project, before.state.project, 'Job commits preserve the real project, stored minerals and turn marker');
+    assert.deepEqual(after.state.consumption, before.state.consumption);
+  };
+  const reopenBase = async () => {
+    const previousUnit = await count('SMOKE_UNIT|1|0');
+    await page.keyboard.press('Tab'); await waitForLog('SMOKE_UNIT|1|0', previousUnit + 1);
+    const previousOpen = await count('SMOKE_BASE_OPEN');
+    await page.keyboard.press('Enter'); await waitForBase(1);
+    await waitForLog('SMOKE_BASE_OPEN', previousOpen + 1);
+    return frame('RENDER');
+  };
+  await page.keyboard.press('Enter'); await waitForBase(1); await waitForLog('SMOKE_BASE_OPEN');
+  await clickCanvas(page, 188, 726); await waitForLog('SMOKE_PICKER_OPEN|1'); await waitForLog('WORK_PICKER_ROW|');
+  const tanks = [...(await logText()).matchAll(/WORK_PICKER_ROW\|(\d+)\|RECYCLING_TANKS/g)].at(-1);
+  assert.ok(tanks);
+  const projectRender = await count('JOB_DONE|RENDER|');
+  await clickCanvas(page, 500, 150 + Number(tanks[1]) * 29); await clickCanvas(page, 565, 505);
+  await waitForLog('SMOKE_PRODUCTION|1|RECYCLING_TANKS|0|'); await waitForLog('JOB_DONE|RENDER|', projectRender + 1);
+  const initial = await frame('RENDER');
+  assert.equal(initial.state.project.choice, 'RECYCLING_TANKS');
+  assert.equal(initial.view.psych_bonus, initialWitness[0].psych_bonus);
+  assertGraph(initial, 'WORKER', [8, 6]);
+
+  let current = await openChooser(); assertDraft(initial, current, 'WORKER');
+  current = await key('ArrowUp', 'UP'); assertDraft(initial, current, 'WORKER');
+  current = await key('End'); assertDraft(initial, current, 'WORKER');
+  current = await select('DOCTOR', current); assertDraft(initial, current, 'DOCTOR');
+  current = await key('ArrowDown', 'DOWN'); assertDraft(initial, current, 'DOCTOR');
+  current = await key('Home'); assertDraft(initial, current, 'DOCTOR');
+  await screenshot('doctor-draft');
+  current = await key('Escape', 'ESCAPE');
+  assert.equal(current.view.screen, 'base'); assert.deepEqual(current.state, initial.state);
+  assert.equal(current.view.psych_bonus, initialWitness[0].psych_bonus);
+  current = await openChooser(); current = await select('DOCTOR', current);
+  current = await input('CLOSE', () => clickCanvas(page, 592, 471));
+  assert.equal(current.view.screen, 'base'); assert.deepEqual(current.state, initial.state);
+  assert.equal(current.view.psych_bonus, initialWitness[0].psych_bonus);
+  assert.equal(await count('WORK_EVENT|unwork_base_tile|true'), 0, 'Drafts, Escape and Cancel send no population command');
+
+  current = await openChooser(); current = await key('ArrowDown', 'DOWN'); assertDraft(initial, current, 'DOCTOR');
+  let renderCount = await count('JOB_DONE|RENDER|');
+  await page.keyboard.press('Enter');
+  await waitForLog('WORK_EVENT|unwork_base_tile|true'); await waitForLog('JOB_DONE|RENDER|', renderCount + 1);
+  const doctor = await frame('RENDER');
+  assertGraph(doctor, 'DOCTOR', null); assertStorage(initial, doctor);
+  assert.equal(doctor.view.screen, 'base'); assert.equal(doctor.view.psych_bonus, doctorWitness.psych_bonus);
+  await screenshot('doctor-committed');
+  await closeBase();
+  const reopenedDoctor = await reopenBase();
+  assert.deepEqual(reopenedDoctor, doctor, 'Base close/reopen preserves actual Doctor state and visible Psych bonus');
+  current = await openChooser(); assertDraft(doctor, current, 'DOCTOR');
+  current = await key('Home'); assertDraft(doctor, current, 'DOCTOR');
+  current = await input('CLOSE', () => page.keyboard.press('Enter'));
+  assert.equal(current.view.screen, 'base'); assert.deepEqual(current.state, doctor.state);
+  assert.equal(await count('WORK_EVENT|unwork_base_tile|true'), 1, 'Confirming the unchanged Doctor emits no duplicate unwork');
+  assert.equal(await count('WORK_EVENT|work_base_tile|true'), 0);
+  current = await openChooser(); current = await select('WORKER', current); assertDraft(doctor, current, 'WORKER');
+  current = await input('CLOSE', () => clickCanvas(page, 592, 471));
+  assert.deepEqual(current.state, doctor.state); assert.equal(current.view.psych_bonus, doctorWitness.psych_bonus);
+  current = await openChooser(); assertDraft(doctor, current, 'DOCTOR');
+  current = await key('ArrowUp', 'UP'); assertDraft(doctor, current, 'WORKER');
+  current = await key('ArrowUp', 'UP'); assertDraft(doctor, current, 'WORKER');
+  current = await key('End'); assertDraft(doctor, current, 'WORKER');
+  renderCount = await count('JOB_DONE|RENDER|');
+  await clickCanvas(page, 432, 471); // Actual chooser OK.
+  await waitForLog('WORK_EVENT|work_base_tile|true'); await waitForLog('JOB_DONE|RENDER|', renderCount + 1);
+  const restored = await frame('RENDER');
+  // The unique northern square is selected by GLSMAC's existing best-vacant
+  // heuristic. The public job contract makes no original worker-tile claim.
+  assertGraph(restored, 'WORKER', [8, 6]); assertStorage(initial, restored);
+  assert.equal(restored.view.psych_bonus, initialWitness[0].psych_bonus);
+  assert.deepEqual(restored.state, initial.state, 'Restoring the Worker restores actual intake and all original links');
+  await closeBase();
+  assert.deepEqual(await reopenBase(), restored, 'The restored Worker survives actual base close/reopen');
+  await screenshot('worker-restored');
+  assert.equal(await count('WORK_EVENT|unwork_base_tile|true'), 1);
+  assert.equal(await count('WORK_EVENT|work_base_tile|true'), 1);
+  assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
+  t.diagnostic('Actual portrait/mouse/keyboard controls preserved Worker and Doctor drafts through clamp/Home/End and cancellation, committed one real Doctor with visible +2 Psych, then restored the same Worker and native links without changing food, minerals, project or turn. Rendered choices/effect/bonus use public citizen-job witnesses; this synthetic-world application flow adds no original-input parity case.');
 });

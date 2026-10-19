@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus without graphics against 328 recorded original cases. The original
+GSE menus and native-backed citizen controls without graphics against 342 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **677 scenarios and 4,583 assertions** across
-49 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **691 scenarios and 4,888 assertions** across
+51 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -49,7 +49,7 @@ For the actual browser lifecycle, supply your installed original assets:
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:gameplay
 ```
 
-The four synthetic-world cases use current host production scripts,
+The five synthetic-world cases use current host production scripts,
 real rendering/input and read-only backend telemetry. They check terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
 opening the destination base. The production case cancels and confirms the facility picker,
@@ -592,4 +592,39 @@ Rejected requests preserve snapshots, RNG, IDs and native notifications.
 selector without graphics, covering request ordering, diamond hit tests, empty
 populations, refresh to another base and panel removal. Its local display
 boundary models native Container.clear handler cleanup. These are application
-regressions; they do not transfer original specialist rules or job-dialog UX.
+regressions; the separate citizen-job contract below transfers bounded starting-job UX and the Doctor bonus.
+
+
+## Citizen job controls and Doctor Psych
+
+`ui.citizen_job.v1` adds 14 independently recorded original sequences and 67
+checkpoints: the starting Worker/Doctor choices, selected job, draft/confirm/
+cancel behavior, clamped arrows, ignored Home/End and visible Psych bonus.
+The actual original chooser reports +2 Psych for Doctor; confirmation changes
+the displayed bonus from zero to two, while drafts and cancellations preserve
+it. The native-backed candidate initially failed because portraits had no input
+handler and real Doctors still displayed a zero bonus. Both failures remain
+strictly represented by the recorded cases; see [the UI scope](ui/README.md).
+
+`base-specialist-bonus-native` checks shipped energy payloads for actual native
+citizens, unchanged native snapshots/RNG/IDs/notifications on reads, and real
+unwork receipt undo. Summing multiple Doctors is separately labeled GLSMAC
+application policy, beyond the original one-citizen recordings.
+`citizen-job-lifecycle` executes the shipped portrait, chooser and base screen
+with native identities and real work/unwork validators. It checks draft-only
+selection, stale controls, ownership/removal/consumed-citizen handling and a
+no-square Worker restoration guard. Display, terrain and immediate event
+delivery are controlled boundaries. The browser case separately drives actual
+mouse/keyboard input, queued commands, all three worker links, rendered Psych,
+close/reopen persistence and unchanged food/minerals/project/population.
+
+Only Worker/Doctor and the bounded visible Doctor bonus have original evidence
+here. Other jobs/unlocks, drones/talents, energy allocation and rounding, and
+original Worker square selection remain gaps. The latter uses the reproduction's
+existing best-vacant-square policy.
+
+The first actual chooser browser run also exposed a display-boundary mistake:
+native Window does not forward the ChoiceList factory. The shared mock now
+models its actual forwarded factories; the same recorded replay fails without
+an inner panel, preserving this as a display-free regression. The chooser uses
+that supported panel and an explicit zero-height header for its own layout.

@@ -1,0 +1,743 @@
+{
+  "captured_at": "2026-10-19T11:30:45.598208+00:00",
+  "observations": [
+    {
+      "case_sha256": "1978327320289c7c394471bb06981edc477e49adf332774cc2b3afb0ff2fe2b1",
+      "id": "open-initial-worker",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f7de7cc07d5627d19fd07ab8b192e7f8f264175e9c02071668c4b9d57992181c",
+      "id": "cancel-doctor-selection",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9f823f184946b1837a60534f9a946a05a1b93312e07705e92322b1d006753d29",
+      "id": "confirm-doctor-selection",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ccd0f584bf63b8c67c52b2691acbc11ef550a819326fbca8653c3d4306162bad",
+      "id": "cancel-worker-restoration",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cdac12aa78736a6952eece1ef4beb8f662e2ee3a5b9c1648a6ade803281fb9dd",
+      "id": "confirm-worker-restoration",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d447db1e99c75cba0683dfbe73eea2950700e09279cf34c286dab27c19bfabd1",
+      "id": "confirm-unchanged-worker",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "97fc54baa3c6b574ed8a3425df9b267a7cdd5743f5b084a5d014dea27bf78d45",
+      "id": "keyboard-down",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "77f8529a6d56ef7bf6dbb016980bde9a445479bb09bd2fb7c8f92d93762276cf",
+      "id": "keyboard-up",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6a9a232e3cd0721844f28dc8021cb18071551492f8a60755594b3b08b51ce456",
+      "id": "keyboard-end",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "68612e5c930df4ab6b658eb7236b03bc1d5dda48d0e28fde399d8bf9b8b15bf5",
+      "id": "keyboard-down-from-doctor",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6ea9df0105bd2edd4d0548bc60421ab42bc62440569253bea9d5bad52ef7e5cf",
+      "id": "keyboard-home-from-doctor",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "762f894f983db9528724e3a0a4b028ce71a99101375fd851533f3658e6ff094a",
+      "id": "keyboard-enter-doctor",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2062fa41e2023b72afec76936d7f21a98fe450f3a7795bb260347260386a7b0e",
+      "id": "keyboard-escape-doctor",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e3871e9d05f1ce67f2382e2a18ef61240731035b116c7e34bfbd4a323d21084b",
+      "id": "keyboard-confirm-restored-worker",
+      "output": {
+        "trace": [
+          {
+            "psych_bonus": 0,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "WORKER"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 0,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          },
+          {
+            "psych_bonus": 2,
+            "screen": "base"
+          },
+          {
+            "job": {
+              "doctor_effect": "+2 PSYCH",
+              "jobs": [
+                "WORKER",
+                "DOCTOR"
+              ],
+              "selected": "DOCTOR"
+            },
+            "psych_bonus": 2,
+            "screen": "job"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "765e216b3ada503b4e3bc0df862cb26f1749fb0c01ae6b0012960c6d9565f8eb",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.citizen_job.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible-job-text-highlight-and-specialist-psych-bonus",
+    "ocr": "tesseract",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "viewport": [
+      1024,
+      768
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "a17ac7126a2a00e90167bce0b0e62d1d2a32a449645143e513776798fefbc745",
+  "version": 1
+}

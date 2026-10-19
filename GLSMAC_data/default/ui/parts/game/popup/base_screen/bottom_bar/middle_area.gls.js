@@ -48,6 +48,7 @@ return {
 
 		this.p = p;
 		this.base_id = null;
+		this.citizen_epoch = 0;
 
 		this.frame = p.body.panel({
 			class: 'default-panel',
@@ -172,6 +173,9 @@ return {
 
 	set: (data) => {
 
+		this.citizen_epoch = this.citizen_epoch + 1;
+		const epoch = this.citizen_epoch;
+		const base_identity = data.base;
 		this.base_id = data.base.id;
 		this.basename.text = data.name;
 
@@ -196,9 +200,18 @@ return {
 			if (!#is_defined(renders[pop_type][variant])) {
 				variant = 0;
 			}
-			this.pops.surface({
+			const pop_id = pop.id;
+			const citizen_identity = pop;
+			const base_id = data.base.id;
+			const portrait = this.pops.surface({
 				class: 'base-screen-bottombar-pop-' + pop_type + '-' + #to_string(variant),
 				left: left,
+			});
+			portrait.on('mousedown', (e) => {
+				if (e.button == 'left' && epoch == this.citizen_epoch && this.base_id == base_id && #is_defined(this.p.utils.show_citizen_selection)) {
+					this.p.utils.show_citizen_selection(base_id, pop_id, base_identity, citizen_identity);
+				}
+				return true;
 			});
 			left += shift;
 		}

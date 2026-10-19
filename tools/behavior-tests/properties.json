@@ -10,7 +10,8 @@
       "contracts": [
         "ui.menu_trace.v1",
         "ui.custom_planet.v1",
-        "ui.map_size_keyboard.v1"
+        "ui.map_size_keyboard.v1",
+        "ui.citizen_job.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -26,7 +27,8 @@
       "status": "partial",
       "contracts": [
         "ui.menu_trace.v1",
-        "ui.map_size_keyboard.v1"
+        "ui.map_size_keyboard.v1",
+        "ui.citizen_job.v1"
       ],
       "remaining": [
         "Gameplay hotkeys",
@@ -97,12 +99,14 @@
     },
     {
       "id": "bases",
-      "status": "unobserved",
-      "contracts": [],
+      "status": "partial",
+      "contracts": [
+        "ui.citizen_job.v1"
+      ],
       "remaining": [
         "Navigation and ownership",
         "Worker allocation",
-        "Specialists",
+        "Specialist jobs/unlocks beyond starting Worker/Doctor and the single Doctor Psych bonus",
         "Facilities",
         "Growth and starvation",
         "Drones and talents",
@@ -112,7 +116,13 @@
     {
       "id": "economy",
       "status": "partial",
-      "contracts": ["economy.human_mineral_factor.v1", "economy.human_nutrient_factor.v1", "economy.base_square_resources.v1", "economy.basic_production_switch_loss.v1"],
+      "contracts": [
+        "economy.human_mineral_factor.v1",
+        "economy.human_nutrient_factor.v1",
+        "economy.base_square_resources.v1",
+        "economy.basic_production_switch_loss.v1",
+        "ui.citizen_job.v1"
+      ],
       "remaining": [
         "Tile yields",
         "Support and upkeep",
@@ -162,7 +172,9 @@
     {
       "id": "unit-design",
       "status": "partial",
-      "contracts": ["unit.prototype_base_cost.v1"],
+      "contracts": [
+        "unit.prototype_base_cost.v1"
+      ],
       "remaining": [
         "Design components",
         "Abilities",

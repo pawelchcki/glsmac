@@ -27,6 +27,17 @@ def size_keyboard_command(args):
     return shlex.join(command)
 
 
+def citizen_job_command(args):
+    if args.browser:
+        raise ProtocolError("citizen-job comparisons use the pixel-free adapter; rendered gameplay is tested separately")
+    if args.record:
+        command = [sys.executable, str(DIRECTORY / "citizen_job_original.py"),
+                   "--assets", str(args.assets.resolve()), "--wine", args.wine]
+    else:
+        command = [sys.executable, str(DIRECTORY / "citizen_job_headless.py")]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -104,12 +115,16 @@ def main(argv=None):
             if reference["id"] == "custom-map":
                 reference_command = shlex.join([args.reference_python, str(DIRECTORY / "original_headless.py"),
                                                 "--exe", str(args.assets.resolve() / "terranx.exe")])
+            if reference["id"] == "citizen-job":
+                reference_command = citizen_job_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
         else:
             case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
             candidate_command = size_keyboard_command(args) if command is not None and reference["id"] == "size-keyboard" else command
+            if command is not None and reference["id"] == "citizen-job":
+                candidate_command = citizen_job_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -123,7 +138,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Sliding menus/input traces, custom-planet controller and custom-dimension keyboard navigation; not full-game parity",
+        "scope": "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation and bounded citizen-job choices/Psych bonus; not full-game parity",
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,
     }, overwrite=True)

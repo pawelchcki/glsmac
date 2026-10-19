@@ -101,15 +101,29 @@
       ],
       "status": "fixed-in-recorded-rendered-contract",
       "property": "Escape from original custom dimensions returns to map type with its route highlighted; reproduction reopens planet sizes."
+    },
+    {
+      "id": "citizen-portrait-opens-job-chooser",
+      "suite": "citizen-job",
+      "example": "open-initial-worker",
+      "status": "fixed-in-recorded-contract",
+      "property": "Original startup citizen portrait opens Worker/Doctor choices; reproduction previously had no portrait input handler. Initial native-backed replay failed with a missing-control error."
+    },
+    {
+      "id": "doctor-two-psych-bonus",
+      "suite": "citizen-job",
+      "example": "confirm-doctor-selection",
+      "status": "fixed-in-recorded-contract",
+      "property": "Confirming the original starting Doctor changes the visible Psych bonus from zero to two; reproduction previously displayed zero for an actual native Doctor."
     }
   ],
   "verification": {
-    "cases": 328,
-    "matched": 328,
+    "cases": 342,
+    "matched": 342,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "headless menu/controller/keyboard contracts and thirteen selected rendered paths; not full-game parity"
+    "scope": "headless menu/controller/keyboard/citizen-job contracts and thirteen selected rendered menu paths; not full-game parity"
   }
 }

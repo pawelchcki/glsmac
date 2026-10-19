@@ -35,8 +35,9 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `ui.menu_trace.v1` (navigation) | 54 | Both full navigation cycles, Home/End, Enter and Escape across ten menu screens; 425 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 | `ui.menu_trace.v1` (re-entry) | 14 | Remembered size, nondefault difficulty return paths, partial custom answers and completed custom cancellation; 104 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 | `ui.map_size_keyboard.v1` | 4 | Final menu after Enter/Escape in untouched custom dimensions, on random/custom routes | Real original application in Wine/Xvfb; recorded twice |
+| `ui.citizen_job.v1` | 14 | Starting Worker/Doctor choices, highlight, draft/confirm/cancel, keyboard behavior and visible Psych bonus; 67 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 
-There are 328 recorded cases in total. `generate_navigation.py` generates only
+There are 342 recorded cases in total. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -54,6 +55,27 @@ replay emits the native focused Input's `input` event through the real popup,
 submission callback and manager. The rendered profile checks actual browser
 keyboard delivery. Field values, dimension units, validation bounds, focus
 traversal and generated terrain remain outside this contract.
+
+The citizen-job contract observes one starting citizen with Worker and Doctor
+available. Clicking its portrait opens the actual original chooser. Doctor shows
+`+2 PSYCH`; only confirmation changes the base-screen Psych bonus from zero to
+two. Drafting or canceling preserves the prior job. Arrows clamp at the two ends;
+Home/End leave the highlight unchanged. Enter confirms and Escape cancels.
+Every case starts in a fresh original process, and both recorded passes agree.
+Original text and highlight are read from rendered controls by OCR consensus;
+the reference does not calculate the Doctor bonus.
+
+Citizen replay executes real native Base/Pop/Tile objects, shipped portrait and
+chooser callbacks, actual work/unwork validation and application, and the real
+energy panel. Display/artwork, timer delivery, local-owner identity, synchronous
+command delivery and unrelated panels are controlled boundaries. Nonnegative
+terrain with zero raw energy isolates the visible specialist bonus. This scope
+does not establish other jobs or unlocks, energy allocation/rounding, drones,
+talents, original Worker tile selection, or complete original base behavior.
+Returning Workers use GLSMAC's existing best-vacant-square selector; its no-square
+message and multi-citizen bonus aggregation are separate application policies.
+The actual browser citizen-job regression checks native queued commands and
+rendered input separately; it adds no original observation count.
 
 Custom-map inputs contain four saved preference ordinals and at most four
 responses. Question order is ocean, erosion, native life, clouds. Ordinals 0..2
@@ -80,7 +102,7 @@ Headless tests do **not** cover pixels, geometry, mouse hit testing, global brow
 input routing, focus, real animation timing or audio output. Use the selected
 rendered integration lane for real control coordinates and browser input delivery.
 Gameplay, dialogs and side effects
-outside these contracts need additional observations; [the property inventory](../properties.json)
+outside these bounded contracts need additional observations; [the property inventory](../properties.json)
 keeps that work explicit. Case counts are not counts of all original properties.
 
 ## Record and transfer
@@ -113,7 +135,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 328 recorded cases now agree after production fixes to choices,
+any failures. All 342 recorded cases now agree after production fixes to choices,
 selection, wrapping and cancellation. This does not cover Scenario child actions
 or custom-dimension values, units and validation limits. These totals remain separate from the
 regression and helper-comparison catalogs. CI validates evidence and requires
