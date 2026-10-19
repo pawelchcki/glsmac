@@ -1,5 +1,9 @@
 return (i) => {
+	const saved = i.settings.global.map.native_lifeforms;
+	const selected = saved == 0.5 ? 1 : (saved == 0.75 ? 2 : 0);
 	i.sliding.show({
+		selected: selected,
+		cancel_group: 'customize_map',
 		title: 'Native life forms',
 		entries: [
 			['Rare', () => {

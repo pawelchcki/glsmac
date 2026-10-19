@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "description": "Five real input paths through main, Scenario, map type, size, difficulty and rules menus; original observations remain unchanged.",
+  "case_ids": [
+    "menu-68f3cbd2bd99",
+    "menu-eeb9ba2ab362",
+    "menu-57c3c88a298d",
+    "menu-7bea93364a12",
+    "menu-53f7b1d33de9"
+  ]
+}

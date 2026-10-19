@@ -3,6 +3,7 @@
 
 import argparse
 from datetime import datetime, timezone
+from copy import deepcopy
 import json
 from pathlib import Path
 import re
@@ -114,6 +115,22 @@ def validate_observations(record, suite):
         raise ProtocolError("missing observations; partial recordings cannot pass")
     canonical(record)
     return results
+
+
+def select_cases(suite, record, case_ids):
+    """Project validated original evidence without changing any observation."""
+    validate_observations(record, suite)
+    wanted = set(case_ids)
+    known = {case["id"] for case in suite["cases"]}
+    if not wanted or wanted - known:
+        raise ProtocolError(f"empty or unknown case selection: {sorted(wanted - known)}")
+    selected = deepcopy(suite)
+    selected["cases"] = [case for case in selected["cases"] if case["id"] in wanted]
+    evidence = deepcopy(record)
+    evidence["suite_sha256"] = fingerprint(probe_request(selected))
+    evidence["observations"] = [row for row in evidence["observations"] if row["id"] in wanted]
+    validate_observations(evidence, selected)
+    return selected, evidence
 
 
 def differences(expected, actual, path="$", limit=50):

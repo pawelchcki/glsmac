@@ -48,6 +48,26 @@ def record():
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_selected_replay_preserves_original_observations_and_input_bindings(self):
+        source, evidence = suite(), record()
+        before = deepcopy((source, evidence))
+        selected, projected = compare.select_cases(source, evidence, ["synthetic-b"])
+        self.assertEqual(selected["cases"], source["cases"][1:])
+        self.assertEqual(projected["observations"], evidence["observations"][1:])
+        self.assertEqual(projected["reference"], evidence["reference"])
+        self.assertEqual(projected["repeat"], evidence["repeat"])
+        self.assertEqual((source, evidence), before)
+        self.assertEqual(compare.validate_observations(projected, selected), {"synthetic-b": {"value": 8}})
+
+    def test_selected_replay_still_validates_unselected_evidence(self):
+        evidence = record()
+        evidence["observations"][0]["case_sha256"] = "0" * 64
+        with self.assertRaises(ProtocolError):
+            compare.select_cases(suite(), evidence, ["synthetic-b"])
+        for ids in ([], ["unknown"], ["synthetic-a", "unknown"]):
+            with self.subTest(ids=ids), self.assertRaises(ProtocolError):
+                compare.select_cases(suite(), record(), ids)
+
     def test_strict_json_rejects_duplicate_fields_and_nonfinite_numbers(self):
         for text in ('{"x":1,"x":2}', '{"x":NaN}', '{"x":Infinity}', '{"x":1e999}', '{} trailing'):
             with self.subTest(text=text), self.assertRaises(ProtocolError):

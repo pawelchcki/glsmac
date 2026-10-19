@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "objective": "Transfer observable SMAC behavior to GLSMAC using independent original observations and candidate replay.",
+  "complete": false,
+  "coverage_unit": "A versioned contract plus recorded input sequences; scenario counts are not a count of all game properties.",
+  "domains": [
+    {
+      "id": "menus",
+      "status": "partial",
+      "contracts": [
+        "ui.menu_trace.v1",
+        "ui.custom_planet.v1"
+      ],
+      "remaining": [
+        "Modal dialogs",
+        "Faction and leader customization",
+        "Custom rules",
+        "File dialogs",
+        "Credits",
+        "Setting combinations and side effects outside custom-planet controller"
+      ]
+    },
+    {
+      "id": "controls",
+      "status": "partial",
+      "contracts": [
+        "ui.menu_trace.v1"
+      ],
+      "remaining": [
+        "Gameplay hotkeys",
+        "Mouse gestures",
+        "Focus and modal input blocking",
+        "Selection cycling",
+        "Action availability"
+      ]
+    },
+    {
+      "id": "map-geometry",
+      "status": "partial",
+      "contracts": [
+        "map.same_row_distance.v1",
+        "map.vector_distance.v1",
+        "map.raw_vector_distance.v1"
+      ],
+      "remaining": [
+        "Neighbors",
+        "Map boundaries",
+        "Picking",
+        "Pathfinding",
+        "Terrain generation and loading"
+      ]
+    },
+    {
+      "id": "technology",
+      "status": "partial",
+      "contracts": [
+        "technology.has_tech.v1",
+        "technology.category.v1",
+        "technology.available.v1",
+        "technology.prerequisite.v1"
+      ],
+      "remaining": [
+        "Shipped rules database",
+        "Research choice UI",
+        "Research costs and progress",
+        "Technology acquisition effects"
+      ]
+    },
+    {
+      "id": "unit-actions",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Movement and terrain costs",
+        "Skip and end turn",
+        "Sentry, hold and wake",
+        "Orders and cancellation",
+        "Transport and stacking",
+        "Terraforming",
+        "Founding bases"
+      ]
+    },
+    {
+      "id": "combat",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Attack availability",
+        "Combat odds display",
+        "Resolution with controlled random draws",
+        "Damage and casualties",
+        "Retreat",
+        "Promotion"
+      ]
+    },
+    {
+      "id": "bases",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Navigation and ownership",
+        "Worker allocation",
+        "Specialists",
+        "Facilities",
+        "Growth and starvation",
+        "Drones and talents",
+        "Base screen commands"
+      ]
+    },
+    {
+      "id": "economy",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Tile yields",
+        "Support and upkeep",
+        "Resource allocation",
+        "Production and queues",
+        "Hurrying",
+        "Energy and commerce"
+      ]
+    },
+    {
+      "id": "turn-lifecycle",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Unit activation order",
+        "End-turn prompts",
+        "Turn advancement",
+        "Per-turn effects",
+        "Notifications and interruptions"
+      ]
+    },
+    {
+      "id": "diplomacy",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Contact",
+        "Treaties and pacts",
+        "Negotiation",
+        "Trade",
+        "Vendetta",
+        "Planetary council"
+      ]
+    },
+    {
+      "id": "social-engineering",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Policy availability",
+        "Costs",
+        "Effects",
+        "Faction modifiers",
+        "Confirmation and cancellation"
+      ]
+    },
+    {
+      "id": "unit-design",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Design components",
+        "Abilities",
+        "Costs",
+        "Prototypes",
+        "Upgrades and retirement"
+      ]
+    },
+    {
+      "id": "ai",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Research decisions",
+        "Worker and production decisions",
+        "Movement and combat decisions",
+        "Diplomacy decisions",
+        "Complete deterministic turn traces"
+      ]
+    },
+    {
+      "id": "persistence",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Save/load state preservation",
+        "Settings",
+        "Map import/export",
+        "Canceled dialogs",
+        "Failure recovery"
+      ]
+    },
+    {
+      "id": "multiplayer",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "Connection setup",
+        "Lobby",
+        "Player configuration",
+        "Command synchronization",
+        "Disconnection and recovery"
+      ]
+    },
+    {
+      "id": "presentation",
+      "status": "unobserved",
+      "contracts": [],
+      "remaining": [
+        "HUD labels",
+        "Tooltips",
+        "Accessibility",
+        "Sound and speech lifetime",
+        "Animation and resizing",
+        "Notification timing"
+      ]
+    }
+  ]
+}

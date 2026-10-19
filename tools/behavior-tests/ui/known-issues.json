@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "purpose": "Observed transfer work; this inventory never changes comparison outcomes or exempts failures.",
+  "issues": [
+    {
+      "id": "size-choices-and-default",
+      "suite": "menus",
+      "example": "menu-a8805298bca3",
+      "property": "Original size menu has six choices including Custom Size and selects Standard Planet; reproduction has five and selects Tiny Planet.",
+      "status": "fixed-in-recorded-contract"
+    },
+    {
+      "id": "keyboard-wrap",
+      "suite": "menus",
+      "examples": [
+        "menu-68f3cbd2bd99",
+        "menu-52542504341f",
+        "menu-7bea93364a12",
+        "menu-53f7b1d33de9"
+      ],
+      "property": "ArrowUp at the first item wraps to the last original menu item; reproduction remains at the first.",
+      "status": "fixed-in-recorded-contract"
+    },
+    {
+      "id": "scenario-menu",
+      "suite": "menus",
+      "example": "menu-a3900cbc6a8a",
+      "property": "Original Scenario opens its menu. Reproduction opens an ERROR popup, outside the sliding-menu observer; five affected traces are errors.",
+      "status": "fixed-in-recorded-contract"
+    },
+    {
+      "id": "custom-preferences",
+      "suite": "custom-map",
+      "example": "preferences-1111",
+      "property": "Original selects stored preference ordinals for all four questions; reproduction selects the first item regardless of supplied parameter values.",
+      "status": "fixed-in-recorded-contract"
+    },
+    {
+      "id": "custom-cancellation",
+      "suite": "custom-map",
+      "example": "cancel-0",
+      "property": "Canceling a later original custom-map question returns to the caller; reproduction reopens the preceding custom question and waits for input.",
+      "status": "fixed-in-recorded-contract"
+    }
+  ],
+  "verification": {
+    "cases": 256,
+    "matched": 256,
+    "mismatched": 0,
+    "errors": 0,
+    "scope": "menus and bounded custom-planet controller only"
+  }
+}

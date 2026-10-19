@@ -1,0 +1,6092 @@
+{
+  "captured_at": "2026-10-18T23:30:20.404043+00:00",
+  "observations": [
+    {
+      "case_sha256": "f981d5a4eefa8dfde60d07f143f4629b5ec5c66a224959c8c25b0ddf0661a4a1",
+      "id": "preferences-0000",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "0df01539933da44e889e77a936528615235514e0fbac520c1d78f3220c9176fa",
+      "id": "preferences-0001",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "22446a213f9fce94bfb603eb68c697cc1a10348207bbca9fa38ea19b8cc733c8",
+      "id": "preferences-0002",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "3bc58c358245dec6ccb08689689d0f065fc60d427b978210381cb07b0af4c612",
+      "id": "preferences-0010",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "daa1dcc3f6af2ac302e5e64fd5973bd8b0e50c67fcda43f7a023ba7db29904fd",
+      "id": "preferences-0011",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "d54c005d6c8864dd04858484c17557ba58e72d4e39202bb6747b1333341c5cb5",
+      "id": "preferences-0012",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "501e535cabb3e5b3fe952a6c33bc8af72f429ae96e6902a0bc28edb7f684c6be",
+      "id": "preferences-0020",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "04375b3ac3a9baf9955b83d928a10f62b97eca2af5fe31a0100c352369554148",
+      "id": "preferences-0021",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "65f5167df512a5bf9e52fb0158084992b3b202dd1c867a47560fe75c14e41e08",
+      "id": "preferences-0022",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "697d5e64318d17762676ac763e2b8000e550768ea75ff8c78e67685f2ae22799",
+      "id": "preferences-0100",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "4d4a4d10a2fb4b45cde54cc340f3ee41864902bde000fdaa1b2f06a1f7dd2614",
+      "id": "preferences-0101",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "49a3ba95b18a8e73abb85834ebd24e5ee01867275055a7e985380eab17fca8aa",
+      "id": "preferences-0102",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "7340f7dbf35056eb4aa49c880ccfeea57933524cddaf5fd75f04028d29dc041e",
+      "id": "preferences-0110",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "a2b8290b1a6ecd73d81137443ac051cbf1c8dc5ef66e0407cce0af0fab030afd",
+      "id": "preferences-0111",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "df1210c855f9ccbd218b77259974ed89c3cb20b49dd2f353b2a0c8d80b6a66a2",
+      "id": "preferences-0112",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "1e15c1d164613a3901a96b6ef2e1fa24aec518633b2c6f2fc2a278eed82ee95c",
+      "id": "preferences-0120",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "bd3dbdf7f8e1dfe8128c2d077d03184d8f0b9b39e4c8340bb721ea100e1783d3",
+      "id": "preferences-0121",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "3319bb35477336c79b37b4de1ee69e04927da60615799dc699535d87f0607099",
+      "id": "preferences-0122",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "cdd82352c661a13c129287cc3d48659ed50904d4d4bc3dc68899f90b92b8f937",
+      "id": "preferences-0200",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "a78472bdd678f8dfe7cca8e1ec67e8684bd1baef3a4551b04a69bfc5de6edcb3",
+      "id": "preferences-0201",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "e0ae39425a10a46dc4bd12738acb07359cc49830d910857cd9dbd4a1996c32c6",
+      "id": "preferences-0202",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "9ceb2e278d45d50347ee319b16ba61c86696fe4dd4bce1bc00c408c9768ec320",
+      "id": "preferences-0210",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "30f0e8fbda43fbaa5f9626b46a348b1c9ea6c51db17c6cbfa5c7604ba7a0726a",
+      "id": "preferences-0211",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "a137f0af077f698f9db2b86cb1ef6f9caae848a3232f1446d09b21e7c4a4eabd",
+      "id": "preferences-0212",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "71a8d18047dd9d73565fc3f32d7fdac84c712b9fc4055743b018a65811f2df7d",
+      "id": "preferences-0220",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "9e06e3f0b35a8740bf49fe9a1ba2bc2cf5eeafef14160563225b00206a4a19be",
+      "id": "preferences-0221",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "28d4974337da8de5710f84cc0f07a0f4a62bc4661387d01a9582949b7b760d3f",
+      "id": "preferences-0222",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 0
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "83a4e83ce4fac009aec7d4d0f2732e686d2b94ceaa1db4ae97652509d03fc0fb",
+      "id": "preferences-1000",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "5ec785e3e39cdce1efb974c0080a167f70d79c64de122999f1e937f285dd66d6",
+      "id": "preferences-1001",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "6c54fa120aed94d8e16a618d1c98d5752da59c4901e0170da417cbfd11407e0e",
+      "id": "preferences-1002",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "e0ceb7d5eecc2c7e9f8af6216d5b5afdc3081731ce6bd893f4737fe83e24742c",
+      "id": "preferences-1010",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "a3659b4fa79c4c8affdf0e9d5481e87655e61bc1e81f0ec97ac89d136cfaa57b",
+      "id": "preferences-1011",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "10f6bc313d70d80348cd98776fc9aada61151296a9cf8ef37578e0794a31a0c9",
+      "id": "preferences-1012",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "efe1812324b483a507523db8f2822c326ca4642eb9f1881174a9abf950b19b5e",
+      "id": "preferences-1020",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "0931941f7502fc92c513dc7022a484ffa13ea44e491eb82b6c8d2561cd83f841",
+      "id": "preferences-1021",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "91164fd9baa1ab3d641a18fc38a83f05cc489d20f3bb6e0b4ce9f404d5ec25f3",
+      "id": "preferences-1022",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "cc34577c6026604fe0ff04a7dfbf22ec8eaaf56d8a2ef1852de80f807f4cb469",
+      "id": "preferences-1100",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "7672260f9a04404dff86d4791a8b59f1dec817d1058e1b6db088897c2f4b9111",
+      "id": "preferences-1101",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "101a5df6f20f4c593ac3d522d2a0cf4db36cbcb13acafdda8aed611b69c02bc7",
+      "id": "preferences-1102",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "3507f4bc53422f81d7b2d1db58ee2d604d6132311845b8ec2577b1dcbd0f293c",
+      "id": "preferences-1110",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "8f140d69d64b0f7af4abdd38fe1edad92bba1fb2d9ef5b28cc4f0ae1042619dd",
+      "id": "preferences-1111",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "84ffb18638e22fc9007c918f3f9c8fa70fdb75627f3d76fcb502ecce882a369e",
+      "id": "preferences-1112",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "0cf0bf5abb5c54f72efabb7ae7041fe8f9540143faee0861641e46f84e917f2f",
+      "id": "preferences-1120",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "74d91b9b11e66c95a600af0f8579cbd6aa93c6aea49eecaeff37602468fa24d1",
+      "id": "preferences-1121",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "15a2cc42b075389b35e533ab964f2eec9fa814685a0d8ccece903371bb0cc078",
+      "id": "preferences-1122",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "ce47feb1c883b2d23d58ce0421129b7c07f2891fcfa469c984f19974f14ba2f3",
+      "id": "preferences-1200",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "9d54517cb2974b446dc610f028a0cfdfa870710adf696849d811d602b246a468",
+      "id": "preferences-1201",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "1e6defa8d8dd6d2e2b3de1f65652c5a13d5f2e0888f8c3c0e02be56ebbeb9b9d",
+      "id": "preferences-1202",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "92ae9be6471e6e3ef4b85cb7b0ce43ae110c310211f2ba542e46a158b8da3912",
+      "id": "preferences-1210",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "f09739b655213f51ad358e5834260185a18e5e7b27a59315f3efee1c649514b3",
+      "id": "preferences-1211",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "b7f286d065bf316b53b571f2e28abd7ea6f6ab9037d71edd68b712522c169132",
+      "id": "preferences-1212",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "e2d94cbca2e732f71aeed92e2822bd8d8efc3f0ba6fb1d1eac85d4abfd7ad5e3",
+      "id": "preferences-1220",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "ad923dd5dc8e87cd93d6b9925f3f874946b5224eafa41339ebe3b18de3748b5b",
+      "id": "preferences-1221",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "7c4b2b0d6e639a4dc8ec0baa160b1afcbf8fccc17b221a375bf1f9f132a0836d",
+      "id": "preferences-1222",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "4b8b47cfa1d8d8994d9a67ec113c3144d323dfd06afe6cc0aab644b67996f6ae",
+      "id": "preferences-2000",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "19201d37a8e877ff66c80c71198c775cedb79e2de77866d3a49b08b19f4cc7e7",
+      "id": "preferences-2001",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "cb21ee3b30af455cdb991c5d6ceeaa16be4a2f3f44b7be524f5ac41860b98f61",
+      "id": "preferences-2002",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "5a9b99ce2d5b611d32ca03574af89e4166fa46b91dfa4e27d8b834392be766cd",
+      "id": "preferences-2010",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "b694ce7bc6bed424af0e627e2be7eac5d444e16972b41530481e327d6f9cb634",
+      "id": "preferences-2011",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "6b87ee51f8bce383199a830b694edfde14f3827306083e27252254b64dfd63f2",
+      "id": "preferences-2012",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "c848cddf868a804c251e16f936d78eacd60e34db2b550ce070195161d9d05bf3",
+      "id": "preferences-2020",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "72563d548e8890a7d1a30cce52c04e517fd4d4f16c64d9c3586be6e05a1b8975",
+      "id": "preferences-2021",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "edb6d6a2a2cda184fa013291b68808cfa4576f8c41d68d589a7f882187a7e88c",
+      "id": "preferences-2022",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 0
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "f3c1697f4becb49d9ffb309cbbea8e4d334de8be1b8097fe9ab836cf0dfad179",
+      "id": "preferences-2100",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "07adfc8dfae1a04f4c8d278feab765d23a4268d7ba8a6a52bf477b745274079b",
+      "id": "preferences-2101",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "0774aaaee01619f75c22f782449c7319367f5aac02bbf2e9e21d8b3405cb0b5e",
+      "id": "preferences-2102",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "7a1ab43ef073899d163b0820e057cb0817a43599041986089ec97f92302475dc",
+      "id": "preferences-2110",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "3b6f9465bd01c0dc5ae5718dbc3b7f90e60bc779ee47eee0197de33846bfc8f6",
+      "id": "preferences-2111",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "0aebaad4137f938453d786a24bb2c3d2618684c183a2ce39c01e3085d0868c6f",
+      "id": "preferences-2112",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "fbbbd4b5749d631d8c7dc178cb97d233ca536adc25501085d7f2a33c17b07a69",
+      "id": "preferences-2120",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "adfaa269eb1f8a14ea5053468e10ae70773e06ca33c2ef7672fdb6c26edb788c",
+      "id": "preferences-2121",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "294652cf22626aca5bd86796a622ea3a620c7533d168159ecdcef84e3ce22eaf",
+      "id": "preferences-2122",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "a7e3a3c613c8723178b166874edb569dcc8d65a0c2b716a080ea4e51b1929bf2",
+      "id": "preferences-2200",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "c643f6e9c433276e46fb04b9e6ac7709f517d61ad0450f996aeadf5da09b23b6",
+      "id": "preferences-2201",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "041a7076da7e97a4c40123a3b8f1e66139a82364f9d6b4bb6637db836155ea7a",
+      "id": "preferences-2202",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 0
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "84a58c2cc83a354d857b5da86704b00b94313f529a8d7b4ba4b623bc64b10ac4",
+      "id": "preferences-2210",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "327f31440b9087beb3011d1776e50a21ded7506452aea3dcc92943734be0525c",
+      "id": "preferences-2211",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "4ecbe6404eecce0760c78c9c400380263ab17003f158f0a61897c830dd23ce9d",
+      "id": "preferences-2212",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "9a9cf86e47227b09ccb386aabd00aef4134cc700fd5559d92963ec2c607fd487",
+      "id": "preferences-2220",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 0
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "8a8e7f84cf16f8b9d8d5b9c156ddce71b357caeff44ba8f4c97f02a0895a71f7",
+      "id": "preferences-2221",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "7cee2fd916931f56ba42015593df9044cc19a0132acda878156989642a027ebe",
+      "id": "preferences-2222",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 2
+          },
+          {
+            "screen": "erosion",
+            "selected": 2
+          },
+          {
+            "screen": "life",
+            "selected": 2
+          },
+          {
+            "screen": "clouds",
+            "selected": 2
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "66be4a862de25b07ad9dec5ca0d3843d3db16ae605d651ff142b300ba47bf8d8",
+      "id": "confirm-0000",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "87fdf4626e00307cfde23b1bc1300f35096ed9da82ee44222a7da31866812aa6",
+      "id": "confirm-0001",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "c72ef56213abfb92a5acb590cded9d2e81015cb7e0356ad9fb9023a3b5487159",
+      "id": "confirm-0002",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "5f8f543a8c1d37e52d83a7ffd5e0e29d43f96acc322d47af2a6ded4397325830",
+      "id": "confirm-0010",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "24e1a3183891c42656ca46834f610d1b1ea67e3b7e5fc7b3f61bba2b625b39f7",
+      "id": "confirm-0011",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "a42e4f446795506f2ee3c3ffeae6a0ee0338128d57c35f27290c5e0f6ab36661",
+      "id": "confirm-0012",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "60e4296b36d1ead30cb0707b6cf159595f6e1494540b715ffea5f3c2594ce957",
+      "id": "confirm-0020",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "456c35871b46e301ff652aac8b4937449dacfd20d2aa796afc0cac9347e38e67",
+      "id": "confirm-0021",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "51f1227c1024e0ab62a1f93bfdabf956bbdc00d7edf53b4805ad7ce4484506bc",
+      "id": "confirm-0022",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          0,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "b69504f08aeaf8651407c75a46d6edafa4f1f306f14d82390dff03819558b5fa",
+      "id": "confirm-0100",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "949c527995fc3d1fffaff5d02363e68dbcadd147c35f246a96cdf0d216bc551d",
+      "id": "confirm-0101",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "c02cbded78fcec2725255236daf08e99d44eed8c2f3a33eb97c6fa20a1e38247",
+      "id": "confirm-0102",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "97a6c3ae5f8cc75fabafd7cbdb2420c6aa11d8c49211b0451b26e05214b6be90",
+      "id": "confirm-0110",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "3725b719b74860b9ed603ca359305d7399ef182791a1ba102be36992c11b495d",
+      "id": "confirm-0111",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "054d7d151e72a3d69eee9272645e40aee3f0768a57e4ee93eab6dee1a2958acc",
+      "id": "confirm-0112",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "64e7953541fa7ef0477f2aff97646e23a5a4dddd6938346a34788383acdbdca0",
+      "id": "confirm-0120",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "beabb5dacb62b9dd89a4da12ca704e7b888e41c41b21ee0d08bcf8f9585c1eca",
+      "id": "confirm-0121",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "76471d00e72dc9457c8861c3f236281c7cc05d4489ec1ea17f763a86c393055d",
+      "id": "confirm-0122",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          1,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "ea5f679c3c32e30cdb87238f875b292137f42204cf370c90136e04d616858c2f",
+      "id": "confirm-0200",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "2d69fae458c163615343a42d561b508e0b324e0ece1f23277c786923400868fd",
+      "id": "confirm-0201",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "62de60a8d77187eec01d39ab9c72948db49dd81fd4e6d91a6f06c5d290d5ca9f",
+      "id": "confirm-0202",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "93b7a41b68cd5e794a2cba8864c8b879c9e5304bca3371b0f926f79c9908fb87",
+      "id": "confirm-0210",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "0f72501fc7de9829503ed556cd36b6077ed1aa9b095b17772334f17c3b535041",
+      "id": "confirm-0211",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "d37c9be87bf7f0fc7af909d72ce90a0a3b0113f3e8bc5c72c1638a3c3cbaa545",
+      "id": "confirm-0212",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "a4bc2e587e26e37cd76c2ff7eb4e61c830e52e5581b96df80e7e95011c6966c2",
+      "id": "confirm-0220",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "74d52c37c05b46c2a410b47000937244f345ad76c7b0f9c8bb54c730755e943e",
+      "id": "confirm-0221",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "2fffced5ce3d8175f48c3694d9ee0a3dbfec368f829a939086fca1b21b646be6",
+      "id": "confirm-0222",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          0,
+          2,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "0f918a32dbc3db6e8a865f0f6a7e7282b38b68041620ddd3e43362b3ae3b6a90",
+      "id": "confirm-1000",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "03c7ae88b34aed29efa2127d1d1eba80f84970a218e14d7e8647b7496e150523",
+      "id": "confirm-1001",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "43492deb4c99dea784c30dcfdcfcf56b76d14593538e92bac34efb91d13427bb",
+      "id": "confirm-1002",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "475e963f30d4aeb903f8856caf718c238275dbfc29c807685baedc9ceee3a8ee",
+      "id": "confirm-1010",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "57dacf7aa6b855a062deb5e1d0b2d8623bef5e0c55c0e244730647d563b2735e",
+      "id": "confirm-1011",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "7c00abaa669e0429c5cad8fae0e8aac3f0452b9ef8e65b9780db3c67be7401db",
+      "id": "confirm-1012",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "5cecda5c5e114df3baed6e1c69414db43ffd6ab4351ca80bd03c5b8853aba111",
+      "id": "confirm-1020",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "d33bc391c0bb26e8460725b545a11f867b91a9e56d2b5a6fb7ad380647df32fc",
+      "id": "confirm-1021",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "ec0224d2a00ad5080a223f6df9990e5f57a83acfa870decdf06016f03c1b688c",
+      "id": "confirm-1022",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          0,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "bfb854ba7755ed80c5a6c920d6557a79c0f0d8d462277acaaeccb598457078f7",
+      "id": "confirm-1100",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "bd95b2cf57770a139001278ddafeb7851f6b60f719e9739918d7420c335dfe9c",
+      "id": "confirm-1101",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "6db1ce61eb9873c29d4c5e9388ad3c41cf445dbcd00c7fc8b3e3ce68014b13ee",
+      "id": "confirm-1102",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "1e774f2b3331841d911d6926be8b362d363ad91111af744ce206715ce019cbe4",
+      "id": "confirm-1110",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "00b6d007d7396525b5becd8f17eaacc28af42f393f801cd192db6c366ee9bab4",
+      "id": "confirm-1111",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "d42249e2382cbc722ebb3bbcb6b6827c9e43b3526cd5d86fc009a2c7e376b564",
+      "id": "confirm-1112",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "9164da0e7a69ec2b8dfb9cd591142338ab833b347e6088c4e2d8c36d33aab774",
+      "id": "confirm-1120",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "36b288e3517886b37bd02ae54b75f8222c3847da75ab970b08a40823303983de",
+      "id": "confirm-1121",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "72ac11e96dad4cddad0a08c466f6d91b105de30aa7bc93e38f04d1e009361371",
+      "id": "confirm-1122",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "4adc842a6e80210104eaee826dd11190c747f0dececfbca11c496597a21c907e",
+      "id": "confirm-1200",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "c31dc8da56d864459264c5c3596d50796624ffa85f85f60ff511823e22bc9deb",
+      "id": "confirm-1201",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "b6b606aed19959e35a7403896b8a9c81247e46c6c3d3abc6fa0f6f2a479f0004",
+      "id": "confirm-1202",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "c8e08760b25c0e7fe7289a90df16117a320dc876e726e17b3a5e6b2889c3d3e0",
+      "id": "confirm-1210",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "d98bf536d8785713e6d2452499c69c14640e521aa359a6cf8fa36c11789bc2fc",
+      "id": "confirm-1211",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "32c0fd0f85cc6134008fe6d76deeeeea74c3d58dd183164d3d0fe8339b8da2cb",
+      "id": "confirm-1212",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "8ae037173ef3bc39532a3e883dbc87641e86d80d2191bd53085b2bc7883dec76",
+      "id": "confirm-1220",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "690107adb36a5fc0bfd026bade954a84b84494091f082a1b380eabe4a22f776c",
+      "id": "confirm-1221",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "a8ca05eea2edbf15b31470d1b87b8c26dff06bc565540daa568ef30ffcf1cfe8",
+      "id": "confirm-1222",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "42f2d5bd152e86b1dbc6364771bd6a08f4e485a9a909ff43f6f3682e91abb4a2",
+      "id": "confirm-2000",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "21ee7d0532f18f310471eb41ce900d2537efc9cb18603e7e10e8afef47e37826",
+      "id": "confirm-2001",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "62e69fa9a950e18767c3bbb934b355a0fac2434b52494bfdc7d7f6a444d501b2",
+      "id": "confirm-2002",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "28154a1bb93dde0d4da25ece784bf11a6565f192f495dc8a134fe67b600d059e",
+      "id": "confirm-2010",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "12c0ef8181d503ddf6d96f76ddf8579c4923ebce37dd5c502a39d3d749015e04",
+      "id": "confirm-2011",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "7a3e09fdb1194dddfc3d93863814b4b14f8d601b85a2ede2c6bf2ed5cbf05971",
+      "id": "confirm-2012",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "1beab8a7a21cafe2b0e6d4493b7b91f54643281a5c172e68e6ffb323a4c54510",
+      "id": "confirm-2020",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "ec502f008e3358c679605d8586af36a2122d59b58de52b5f46bff3b9e23f4fb0",
+      "id": "confirm-2021",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "bf10f538abd1626be488b546ea92475fed0e6d2469c06539f510f2682beea95e",
+      "id": "confirm-2022",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          0,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "e63137e24d4fc1a07fabceb064db361b327fcc3757746dcf8a046b3825705894",
+      "id": "confirm-2100",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "607d0ec6e9e04109f27df45aef50cc47314235c25bd01346054b737ca00db226",
+      "id": "confirm-2101",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "1c809559da59eb7bfca1b38666cd845ac7944c1534220764603c7fa222e7b191",
+      "id": "confirm-2102",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "ecd2909a7913144d74bd229406bb049069661afb6af0cef2ca3bf412883da7df",
+      "id": "confirm-2110",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "b5c20e54ede14a27c0a911a1b68d0dda62f922582df779a3468d705b8ecd5738",
+      "id": "confirm-2111",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "3c7a96903bc8a84ac15df5d8986b9b57c09cd0af9769f6ebb5f6aefa9fe97041",
+      "id": "confirm-2112",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "ec2cb346ab54a46c79e628cfda766b66e1bf4e279fb20e242bdf64f8a0a87f27",
+      "id": "confirm-2120",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "b089bebd78428ff344af42f9bc4c63a06153b19467c59ea026bff3f3a2b92e25",
+      "id": "confirm-2121",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "cac9398d2ade39a00696db9f70f314fe339a4f672b68dd981a655adaebde938a",
+      "id": "confirm-2122",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          1,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "45834eb00fb81e2258b47763703d18a6dc96ef592bd37401a340b26e19306ced",
+      "id": "confirm-2200",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          0,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "4325eae45001b088637eef72501ad5c605258365a50510898266f8e7bbc8020c",
+      "id": "confirm-2201",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          0,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "a4bffb11e33f0005b34d5d35d4c860c65e1697507ae090dc3ca84d277771a864",
+      "id": "confirm-2202",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          0,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "f6b394e72f748db05acc932218c41f387c43448c74217a777e431578b2ef0e63",
+      "id": "confirm-2210",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          1,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "c4c858c95310f6c6d30075221cd37ceeabf3a7a820a8c54ae09b8f3a1204f806",
+      "id": "confirm-2211",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "54bad112e8bce003e8a0942ec5f646e4f0b8762d74d698487622cfc4477a89a4",
+      "id": "confirm-2212",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "1ee69a71020c55ab37a2b762f50c1378c772885f450c204301272891971cda54",
+      "id": "confirm-2220",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          2,
+          0
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "bf6b65a96f328cf50103012ad9021d11aca4f0628c403fa3e4791198a94c0554",
+      "id": "confirm-2221",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "58f40de9ddbd2980e76f1fd24524ebbc9398e4e2b93c65bfadd7ad1311dda2fc",
+      "id": "confirm-2222",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "status": "confirmed"
+      }
+    },
+    {
+      "case_sha256": "cb5245d0efa143e0e28de8bc35702024e74b9f92925149d0a111b7d176506adf",
+      "id": "cancel-initial",
+      "output": {
+        "consumed": 1,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "fc4be6c9968a53abb498e22bb28d25b2c8169641b2f553758718648d69f3543b",
+      "id": "cancel-0",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "851b49da86a9ccec89eaae8338fbaabf06fdbc94971ef4a5490c9fd5e91c1680",
+      "id": "cancel-1",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "eee777900bbaafa62795bddb88a5169acd134ee7420b4772e497ddba8b8c2342",
+      "id": "cancel-2",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "0051a9cb0b7c4ec07b69e5732f0a3fa08a5976480ae75ab3cf52284a2a6751c5",
+      "id": "cancel-00",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "aeb09993923cd71f6fd727ad1f6a85c9f29f63dcc14439ca78046410f603ec66",
+      "id": "cancel-01",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "0cf9f0b054dcdaea84e3d50cd87e72fcf6e4e8f24deda684f9923bd79e9e72c7",
+      "id": "cancel-02",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "5474a996e19f15224723ea6810589fcb1dfe95bde39178ee4c4d5b2be6cf41e0",
+      "id": "cancel-10",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "56e329fffbb358a6bb2de9b0b0a5f2ba2d595bb56668f9674efdbab28de9047a",
+      "id": "cancel-11",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "e79ef7b0377cd0e38f45f6aadd2651875209b46ffb92456504c1b4768b30ddb3",
+      "id": "cancel-12",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "09840ef69e8642f0818e39cff4117c8375de1f89275578653b90bb39c4547934",
+      "id": "cancel-20",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "31bd33994431f855ffabb30a925088aa51fb500aed642f69123d90c3e95d85c8",
+      "id": "cancel-21",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "0f04bded015edd96ba2885e63584c3ea0876772527bb8014d154a313310a90a5",
+      "id": "cancel-22",
+      "output": {
+        "consumed": 3,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "5a97f201daf64e32fe467408dc8ecf5bd8740cc0993caf88ef6c1e58657335d7",
+      "id": "cancel-000",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "8f205ea443ffd2431750371f9b28ca8c188f8504b6af7a8708d7884d962c45ba",
+      "id": "cancel-001",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "99d006c1359e248999a4e21a05c6cd2f8fb5ed307f403c76cec76b1cbf332052",
+      "id": "cancel-002",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "5ef268ca01ce3b59320648b95736d5f845e85923428c33b155cab87bc31f0a1d",
+      "id": "cancel-010",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "7c4bf905d50f1c5f20fbe5e67f70b59afe40dea0eec91b5968140001cf1f5abe",
+      "id": "cancel-011",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "33ae66e408a04e3de24c67f711791644e14e6597774b99003ed9c9ca54f42627",
+      "id": "cancel-012",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "8538170ed428123bd27f5ab64483746f7b808f578867fa9afc41d33df8b8d7d0",
+      "id": "cancel-020",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "301e6c9528ad5735afd8a023a4ff63c09a5ea528b91c6f2b53a22adf6a257350",
+      "id": "cancel-021",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "8f4bb008d649df42c7f07622c4f890d8d09c695c0adf27048febb2c2a0750eb6",
+      "id": "cancel-022",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "bf84716325efbb0862dfd45d9541b3f5bca53e182643887fe5becdbd5c2d18c1",
+      "id": "cancel-100",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "b9f24f69f5bfb5e3558237016545d8412e94456870d0c93c708d2ee9c22fc7d9",
+      "id": "cancel-101",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "2325a79280c93ea9e0887074e9648765796c114fe4ce4449a6d9dd458f2f1df1",
+      "id": "cancel-102",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "6e0382e70608324f5f5e73a408d408a2b7fafe06c380aed5a4763f1950584d57",
+      "id": "cancel-110",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "54db20226aeb9f0fdb24d83f56a389738f74b6163f8166b14d54f04da96fa4dc",
+      "id": "cancel-111",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "aa5b6ebf0cc22d1192069e636e41c83d3cef456b15faeecf33db2fe9768480c7",
+      "id": "cancel-112",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "b9ae73e7bc133e72b56e0fbdade40cf1425444520f3e9fb251a5cc2ada239803",
+      "id": "cancel-120",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "934f03ed60989155226b354b80ce379b3c656023abd68e0ef34a92402a472e99",
+      "id": "cancel-121",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "3c4fe07c9d75e59044e8124645b5e8cba306e620ab71b6c686f57f4e64258893",
+      "id": "cancel-122",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "dd5137ed95f56e7dbb2a7eb258e61c564ec344774081002d62cc654d3ae1e51f",
+      "id": "cancel-200",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "157dab179fdba6f636995830198d28d03c0a3821b14534a9d402f389e5e8618d",
+      "id": "cancel-201",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "97028024aee8f2b05ceececb378913ed09ec9e61c5a48ae90256e3ce8f36ddca",
+      "id": "cancel-202",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "e1e021c16728571baec3b0fccf9d7c739fe04f1e8e096b71ce29a23ceab2bc98",
+      "id": "cancel-210",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "8c3b8da34faee53416d377d33ca84b7f614cd8e1374928e24c38910b705138c6",
+      "id": "cancel-211",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "e080d850d7b8411abf57d1ba95d5c7fbf8abe7db90da7994020a3fe4a2582091",
+      "id": "cancel-212",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "edc11703fc0901fe84552e92c5961143af691eb261cae7609f1c08d103f1d171",
+      "id": "cancel-220",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "479fe2ab7d516f93b2cf55ab28a142d9411e613919d6ac6367b1942bd6437997",
+      "id": "cancel-221",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "a44721102663c99a5b9b0a76e2b68c9fead54e794cacd91cd5a5efed0a56614f",
+      "id": "cancel-222",
+      "output": {
+        "consumed": 4,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          },
+          {
+            "screen": "clouds",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "canceled"
+      }
+    },
+    {
+      "case_sha256": "bf97c2f018f8f631133c556e79eecffe26fda3a3d2252a29f590b2dc0ecfbdc1",
+      "id": "prefix-initial",
+      "output": {
+        "consumed": 0,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "4386965c26600c98dbf4e9fb4d9ba4d731aa45bcd21bdd67f0da336d2e16b8b6",
+      "id": "prefix-0",
+      "output": {
+        "consumed": 1,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "6d5bbfc624613691646d21f82f1d9496aad075581ba66c07536eb7195fb6fd43",
+      "id": "prefix-1",
+      "output": {
+        "consumed": 1,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "3192d76973e01fe311f2bc05583cdb854fd692fda0bafcb9acaac9d80b6edf15",
+      "id": "prefix-2",
+      "output": {
+        "consumed": 1,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "58cc850f5b0f8fb8e38b8af5718d146002da459b447cf09954165987302f680e",
+      "id": "prefix-00",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "c05e6838372c18383a9b5712666321f90e2442e97c6c2d4486b6df07aa1b75ec",
+      "id": "prefix-01",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "e62410fe319b343be0e9de7e6432ecb7035ed3587d00b4f90f1c0a85859dbb08",
+      "id": "prefix-02",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "f9a207b622669123ee54bc7992c25152208465c41cac6df85b30da7a7d223506",
+      "id": "prefix-10",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "67237fb0d7d28b4043fe85d1a457832b0c3615299a78520a1534e346f39fbb8b",
+      "id": "prefix-11",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "c3e0d73602cee668fbca1ce4e182f98060c5a8011d350ce850713d8a3a5d311f",
+      "id": "prefix-12",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "9cdc0ba926560066f03ed96c7c961e40706778c7b233fbd8dcf0a354497da424",
+      "id": "prefix-20",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "dedcdfff06a24969e662550373a74baf3e9a4d1b1018b4e4eb6da6777edf20e2",
+      "id": "prefix-21",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    },
+    {
+      "case_sha256": "b6d2ba279c89f3894fe23f6b76511d7b0ee457dfee7685bcacb0000517762b96",
+      "id": "prefix-22",
+      "output": {
+        "consumed": 2,
+        "menus": [
+          {
+            "screen": "ocean",
+            "selected": 1
+          },
+          {
+            "screen": "erosion",
+            "selected": 1
+          },
+          {
+            "screen": "life",
+            "selected": 1
+          }
+        ],
+        "parameters": null,
+        "status": "waiting"
+      }
+    }
+  ],
+  "reference": {
+    "adapter_version": 1,
+    "address": "0x0058C2A0",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "function": "custom_planet",
+    "kind": "original-executable",
+    "mocked": [
+      "graphics object construction",
+      "bitmap loading",
+      "popup creation",
+      "modal response delivery"
+    ],
+    "name": "smacx-original-headless-ui",
+    "rendering": false,
+    "scope": "Original question order, selected defaults, parameter writes and cancel/confirm branches before UI teardown"
+  },
+  "repeat": 2,
+  "suite_sha256": "c976cd97e0750300e3382cd907582d591bd4b5b56737b54f06b84187ce40122f",
+  "version": 1
+}

@@ -8,6 +8,7 @@ return (i) => {
 	};
 	i.sliding.show({
 		title: 'Select size of planet',
+		selected: 2,
 		entries: [
 			['Tiny Planet', () => {
 				i.settings.global.map.size_x = 68;
@@ -33,6 +34,9 @@ return (i) => {
 				i.settings.global.map.size_x = 180;
 				i.settings.global.map.size_y = 90;
 				next();
+			}],
+			['Custom Size', () => {
+				i.steps.customize_mapsize(i);
 			}],
 		],
 	});

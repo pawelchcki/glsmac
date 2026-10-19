@@ -41,16 +41,22 @@ def load_references(catalog):
     return references
 
 
-def check_reference(reference, command=None, timeout=60, directory=DIRECTORY):
+def check_reference(reference, command=None, timeout=60, directory=DIRECTORY, case_ids=None):
     suite = compare.read_json(directory / reference["cases"])
     evidence = compare.read_json(directory / reference["observations"])
     compare.validate_observations(evidence, suite)
+    source_hash = evidence["suite_sha256"]
+    if case_ids is not None:
+        suite, evidence = compare.select_cases(suite, evidence, case_ids)
     result = {
         "id": reference["id"], "cases": len(suite["cases"]),
         "algorithms": dict(sorted(Counter(case["algorithm"] for case in suite["cases"]).items())),
         "executable_sha256": evidence["reference"]["executable_sha256"],
         "observations_validated": True, "candidate_executed": command is not None,
     }
+    if case_ids is not None:
+        result["source_suite_sha256"] = source_hash
+        result["selected_case_ids"] = [case["id"] for case in suite["cases"]]
     if command is not None:
         candidate = compare.run_probe(command, probe_request(suite), timeout)
         comparison = compare.compare(suite, evidence, candidate)

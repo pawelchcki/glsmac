@@ -41,6 +41,9 @@ jobs:
           python3 tools/behavior-tests/fast.py --jobs 4 --report build/behavior-artifacts/fast-report.json
           python3 tools/behavior-tests/audit.py --validate-only --report build/behavior-artifacts/reference-validation.json
           python3 tools/behavior-tests/audit.py --target native --report build/behavior-artifacts/implemented-parity.json
+          python3 tools/behavior-tests/ui/run.py --validate-only --report build/behavior-artifacts/ui-evidence-validation.json
+      - name: Require recorded original UX parity
+        run: python3 tools/behavior-tests/ui/run.py --jobs 4 --report build/behavior-artifacts/ui-parity.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -1,0 +1,2622 @@
+{
+  "captured_at": "2026-10-18T23:22:42.888015+00:00",
+  "observations": [
+    {
+      "case_sha256": "9672ebcb5a199c0b3ce71bec6f1c5d624e9ca651930ce7313ee4625fe2fcf3eb",
+      "id": "menu-4f53cda18c2b",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fdc3c7e08caaf852688394cd4b2f10e746bdcb6aaea56f04e9dee4a376e974e5",
+      "id": "menu-d9948fe95e6f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8a37f631a18c236cf68cfdf1fec514494e3e05321eb52aaa8c1762b10e377ce5",
+      "id": "menu-a3900cbc6a8a",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "feeb7b22c496ff007bf77f0402d92d1ab018d6753456f1a9e66387f1a92b15c1",
+      "id": "menu-68f3cbd2bd99",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EXIT GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3a2bf7acaf16d113fd23ac46677e574cfa8d8785760f403a491cfa1d583c844c",
+      "id": "menu-e08e6ff7fcac",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1cce3138820e068642a6f2beb3054c7671264851e490ca7886714af4ce9d5cf2",
+      "id": "menu-537d9d2e1574",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "QUICK START"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "88a768c68886b92a6126147a056eb48ee7a06525105e4430513d8646663730cb",
+      "id": "menu-a8805298bca3",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6562446b3ec4e176d0789ab4e1f145ca8d1237be65fbbae691d1e4c120530599",
+      "id": "menu-13da1212b602",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b56fd4e3827163e5f135a8015152f70b3e480f58bae94c20454d85f0bf9cc4f9",
+      "id": "menu-ce38f737ed12",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fc11ba1c82f600b621b96168651ce031efcf45a31085c60e745e434dae5b53b9",
+      "id": "menu-8b37ba8c476f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "48c9e732720c071083a53de4641bd13ee6b3cadf107c3e8e09652deb5b6a5a81",
+      "id": "menu-52542504341f",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LOAD MAP FILE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "34935d2e445829906298fe29b9fe0542cb54a4508bd7557a326ce631471a188c",
+      "id": "menu-82f6e170cc10",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7ffb5047262bdb6e22c299c4838f801f476440ef1bab19c5db03cbbb53c8f933",
+      "id": "menu-a3eb9ea13026",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4f609d9ad9a6d6711987fd5765e60f323f46f77d602a10897ce38fe50b2b2fb8",
+      "id": "menu-05f8474287c9",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d02e25fc81605bca5de6de6d9e624fc29519c546a2ff4cc1971ebeda9f4c221e",
+      "id": "menu-52df1b563167",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "EDIT SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d316162eb737e035663dd666c8127093d28366c84a5684ceb07d4bde49fd607b",
+      "id": "menu-73163e858a82",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f732973c9e7adf8b690946214c7c88704f28545477b562a8b300f72cb239d20e",
+      "id": "menu-3dbd0a88eb53",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CREATE SCENARIO"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ee132524c81f965d9f79ae2f1e1ae35505c7389833b428341cd730fffc156d64",
+      "id": "menu-eeb9ba2ab362",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": "SCENARIO",
+            "entries": [
+              "PLAY SCENARIO",
+              "CREATE SCENARIO",
+              "LOAD MAP FILE",
+              "EDIT SCENARIO"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY SCENARIO"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SCENARIO"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0508bf70a54dea33555ac8ef21ea38e28d9b018a693ada721642895f911bcae7",
+      "id": "menu-20eae6c29ea5",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a4c4765f17d6e201f22a17ba518f4f646d6e2bc3769e16317a77b9012277acc5",
+      "id": "menu-95f56354df12",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "eeeb884cc68b68ffdd7fcc817fd080a9e59064247c9dff331e485b9ab19cb8bd",
+      "id": "menu-4dae4bafdbef",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "418fb55fc013eda9b505344945e1bf443f4973c42f7341dca6230e7646cd857e",
+      "id": "menu-662b93c6ccff",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cd830f00e1e291b3cd1fb87c9fcff8078f816e5462d5e091efa2eb55963bcb02",
+      "id": "menu-b8431e86249d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e0f38d53cb98e53c4a9c0b451fd2eeaee1d9461e1942c24a9a3ff1337d258710",
+      "id": "menu-0ccc89368087",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SMALL PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4b2df151ae15a1c63a4537b7cafe4b433b7f8e89f54b52f4224c46d4bc318352",
+      "id": "menu-6a201f8142cf",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "425c763bb6d1b89ec54ff6f0ffbe52ce6fe865ab6a0010c7efaff59d02017fed",
+      "id": "menu-57c3c88a298d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "LARGE PLANET"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e75b315afd2ad25c9b297cd6e743ba125f494e9fa0a6636cdecf9b28f0285348",
+      "id": "menu-102c287a10e3",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "SELECT SIZE OF PLANET",
+            "entries": [
+              "TINY PLANET",
+              "SMALL PLANET",
+              "STANDARD PLANET",
+              "LARGE PLANET",
+              "HUGE PLANET",
+              "CUSTOM SIZE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "STANDARD PLANET"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "06ab271e374e0a898cec95b00c2e183b7bbe0193dd91dfa540d8369b12c61320",
+      "id": "menu-bf84d1d9b274",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "876a7bf19ec545c17af560b51d7aa2e59c864f73fbb1b064ad3e81f2dc7bd048",
+      "id": "menu-eb08ea64a0a0",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "066c2f63ebed9bda716e7eb8a83a3db216c4584e76ccb1bdfb97c4d8c01e39fe",
+      "id": "menu-d4bb86438f52",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "08264f0eb8faf16cd9fddad4d7c599f85d99dc51e3d6387a7849d8942d0e0636",
+      "id": "menu-fd0968951634",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "afef2e0f4d779f4ad35d4720edda771385fb9e4acd06b8b24af6d498dc2a37f9",
+      "id": "menu-0e7af4c8e118",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1ab311af37be4d019fd1d1c67e30b793c4d5c44d9b35da7836c05601ee03dcff",
+      "id": "menu-30a826424196",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a2a1691494826e6272597fc261f1c37817108c002fd8799a6d94266252c40bb6",
+      "id": "menu-7bea93364a12",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "TRANSCEND"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9fa0f8cdcaf4452661fb0e00d50ff646db56c9f3318e3d5ab1bdbb3be7f4b150",
+      "id": "menu-b0df4c2d9073",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0fc24fbb0cffcacf9cb1da72f48eb2aca4bb2f1845cbd133c229dba55e8685fc",
+      "id": "menu-8c14a63b486d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "SPECIALIST"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ac2ac152b5ab29a91fa832a26e92979194559e317869fd432ae38fa1d5d68af2",
+      "id": "menu-40acca2ad804",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "THE MAP OF PLANET"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cdfa8c71711092bcd7a8262e7d13348583b5fd30fea8b9fc862c029a66011043",
+      "id": "menu-14aca4dcf46d",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b9e1715a7be4b1b3053f3a214341bab6a83f08487c1d6a1be6f05d4f92075b08",
+      "id": "menu-53f7b1d33de9",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3cf4f30ec33f8649a55d77288889d78eeff3b0c45aac0afba54f6c058f490ad7",
+      "id": "menu-41a7d73330ae",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0a2d9513026d0fee41a87fa65afdaa6f7cb5f880c26e01bb86bfc0b60ad5c77a",
+      "id": "menu-636b52d34873",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "trace": [
+          {
+            "caption": null,
+            "entries": [
+              "START GAME",
+              "QUICK START",
+              "SCENARIO",
+              "LOAD GAME",
+              "MULTIPLAYER",
+              "VIEW CREDITS",
+              "EXIT GAME"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "START GAME"
+            ]
+          },
+          {
+            "caption": null,
+            "entries": [
+              "MAKE RANDOM MAP",
+              "CUSTOMIZE RANDOM MAP",
+              "THE MAP OF PLANET",
+              "HUGE MAP OF PLANET",
+              "LOAD MAP FILE"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "MAKE RANDOM MAP"
+            ]
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH CURRENT RULES"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "kind": "sliding-menu",
+            "selected": [
+              "PLAY WITH STANDARD RULES"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "64e76579f85ea7ffdd6d7288e41f82c5a01f84646e49994bdd1790032ff2b45c",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.menu_trace.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible-menu-text-and-highlight",
+    "ocr": "tesseract",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "viewport": [
+      1024,
+      768
+    ],
+    "workers": 2
+  },
+  "repeat": 2,
+  "suite_sha256": "b5a66dbfb2a9631ae763c883351a705c9b86122231ac38464e7c509aeeb15f72",
+  "version": 1
+}

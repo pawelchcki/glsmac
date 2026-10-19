@@ -142,10 +142,12 @@ return (m) => {
 		for (step of [
 			'notimpl',
 			'main',
+			'scenario',
 			'credits',
 			'start_game',
 			'select_map_file',
 			'select_mapsize',
+			'customize_mapsize',
 			'customize_ocean_coverage',
 			'customize_erosive_forces',
 			'customize_native_lifeforms',

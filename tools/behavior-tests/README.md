@@ -6,6 +6,17 @@ locally supplied original executable. The candidate runner calls production
 GLSMAC code. Only synthetic inputs, observed outputs, build fingerprints and
 test infrastructure belong in this directory.
 
+For automatic discovery and replay of **real application UI flows**, including
+menu choices, selection defaults, keyboard navigation and cancellation, use the
+[dual-application UI harness](ui/README.md). Its default replay executes production
+GSE menus without graphics against 256 recorded original cases. The original
+custom-map controller also executes headlessly in Unicorn; an optional
+Wine/Chromium lane discovers and checks rendered controls. The strict recorder
+requires independent repeated original runs. This is separate from both the
+helper contracts and the display-free GLSMAC-only regressions below.
+[properties.json](properties.json) tracks the wider transfer scope and explicit
+gaps; existing passing case totals do not imply complete SMAC parity.
+
 ## Fast parallel gameplay and UI checks
 
 Build the FastDebug WASM app once using [the browser build instructions](../../web/README.md).

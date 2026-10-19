@@ -23,6 +23,19 @@ const manager = {
 		if (#is_defined(last_entry) && #is_defined(last_entry.data.destructor)) {
 			last_entry.data.destructor();
 		}
+		// A multi-question controller cancels to its caller as one unit.
+		if (#is_defined(last_entry) && #is_defined(last_entry.data.cancel_group)) {
+			while (!#is_empty(this.data_stack)) {
+				const previous = this.data_stack[#sizeof(this.data_stack) - 1];
+				if (!#is_defined(previous.data.cancel_group) || previous.data.cancel_group != last_entry.data.cancel_group) {
+					break;
+				}
+				this.data_stack :~;
+				if (#is_defined(previous.data.destructor)) {
+					previous.data.destructor();
+				}
+			}
+		}
 		if ( !#is_empty(this.data_stack)) {
 			const entry = this.data_stack :~;
 			this.modules[entry.type].show(entry.data);

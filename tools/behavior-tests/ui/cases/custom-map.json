@@ -1,0 +1,3746 @@
+{
+  "version": 1,
+  "name": "original-custom-planet-controller",
+  "description": "All 81 response combinations, all 81 preference vectors, every cancellation prefix and partial input waits. Graphics are excluded.",
+  "cases": [
+    {
+      "id": "preferences-0000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          0,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          1,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-0220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-0221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-0222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          0,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          0,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-1220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-1221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-1222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          0,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          1,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "preferences-2220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "preferences-2221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "preferences-2222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "confirm-0000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-0222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-1222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "confirm-2222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-initial",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-0",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-1",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-2",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-00",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-01",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-02",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-10",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-11",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-12",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-20",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-21",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-22",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-000",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-001",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-002",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-010",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-011",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-012",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-020",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-021",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-022",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-100",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-101",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-102",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-110",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-111",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-112",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-120",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-121",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-122",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-200",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-201",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-202",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-210",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-211",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-212",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-220",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          0,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-221",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          1,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "cancel-222",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2,
+          2,
+          -1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-initial",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-0",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-1",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-2",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-00",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-01",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-02",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          0,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-10",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-11",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-12",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          1,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-20",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          0
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-21",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          1
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "prefix-22",
+      "algorithm": "ui.custom_planet.v1",
+      "input": {
+        "choices": [
+          2,
+          2
+        ],
+        "preferences": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ]
+}

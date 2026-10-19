@@ -1,5 +1,9 @@
 return (i) => {
+	const saved = i.settings.global.map.cloud_cover;
+	const selected = saved == 0.5 ? 1 : (saved == 0.75 ? 2 : 0);
 	i.sliding.show({
+		selected: selected,
+		cancel_group: 'customize_map',
 		title: 'Select cloud cover',
 		entries: [
 			['Sparse', () => {

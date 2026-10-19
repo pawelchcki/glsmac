@@ -1,5 +1,9 @@
 return (i) => {
+	const saved = i.settings.global.map.ocean_coverage;
+	const selected = saved == 0.6 ? 1 : (saved == 0.8 ? 2 : 0);
 	i.sliding.show({
+		selected: selected,
+		cancel_group: 'customize_map',
 		title: 'Select ocean coverage',
 		entries: [
 			['30-50% of surface', () => {

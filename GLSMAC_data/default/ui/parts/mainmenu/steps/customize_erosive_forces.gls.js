@@ -1,5 +1,9 @@
 return (i) => {
+	const saved = i.settings.global.map.erosive_forces;
+	const selected = saved == 0.75 ? 1 : (saved == 1.0 ? 2 : 0);
 	i.sliding.show({
+		selected: selected,
+		cancel_group: 'customize_map',
 		title: 'Adjust erosive forces',
 		entries: [
 			['Strong', () => {

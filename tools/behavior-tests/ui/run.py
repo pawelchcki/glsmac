@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Record, validate or replay the original-application UI reference catalog."""
+
+import argparse
+import os
+from pathlib import Path
+import shlex
+import sys
+import time
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import audit
+import compare
+from protocol import ProtocolError
+from ui.drivers import ROOT
+
+
+DIRECTORY = Path(__file__).resolve().parent
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--record", action="store_true", help="capture two independent identical original runs")
+    mode.add_argument("--validate-only", action="store_true", help="validate evidence without executing either app")
+    parser.add_argument("--force", action="store_true", help="explicitly replace existing evidence when recording")
+    parser.add_argument("--browser", action="store_true", help="optional rendered integration replay (menus suite only)")
+    parser.add_argument("--render-smoke", action="store_true", help="render a small selection covering real menu inputs")
+    parser.add_argument("--case", action="append", help="replay selected case IDs after validating their full reference")
+    parser.add_argument("--reference-python", default=os.environ.get("SMAC_REFERENCE_PYTHON", sys.executable))
+    parser.add_argument("--suite", action="append")
+    parser.add_argument("--assets", type=Path, default=os.environ.get("SMAC_ASSETS_DIR"))
+    parser.add_argument("--wine", default=os.environ.get("SMAC_WINE", "wine"))
+    parser.add_argument("--build", type=Path, default=Path(os.environ.get("WASM_APP_DIR", ROOT / "build/wasm-release/bin")))
+    parser.add_argument("--jobs", type=int, help="workers (default: browser 1, otherwise 2)")
+    parser.add_argument("--step-timeout", type=float, default=8)
+    parser.add_argument("--timeout", type=float, default=600)
+    parser.add_argument("--report", type=Path, default=DIRECTORY.parent / ".build/ui/parity.json")
+    args = parser.parse_args(argv)
+    if args.render_smoke:
+        if args.record or args.suite or args.case:
+            raise ProtocolError("--render-smoke selects its own replay suite and cases")
+        args.browser = True
+        args.suite = ["menus"]
+        args.case = compare.read_json(DIRECTORY / "render-smoke.json")["case_ids"]
+    if args.case and (args.record or not args.suite or len(args.suite) != 1):
+        raise ProtocolError("--case requires exactly one --suite and cannot replace evidence")
+    if args.jobs is None:
+        args.jobs = 1 if args.browser else 2
+    started = time.perf_counter()
+    if (not 1 <= args.jobs <= 4 or not 0 < args.step_timeout <= 120 or not 0 < args.timeout <= 1800
+            or args.force and not args.record):
+        raise ProtocolError("invalid worker/time budgets or --force without --record")
+    references = audit.load_references(DIRECTORY / "catalog.json")
+    if args.suite:
+        unknown = set(args.suite) - {reference["id"] for reference in references}
+        if unknown:
+            raise ProtocolError(f"unknown UI suites: {sorted(unknown)}")
+        references = [reference for reference in references if reference["id"] in args.suite]
+    command = None
+    if not args.validate_only and (args.record or args.browser):
+        if not args.assets or not args.assets.is_dir():
+            raise ProtocolError("set SMAC_ASSETS_DIR or --assets to a local original installation")
+        command = shlex.join([sys.executable, str(DIRECTORY / "probe.py"),
+                              "--target", "original" if args.record else "browser",
+                              "--assets", str(args.assets.resolve()), "--wine", args.wine,
+                              "--build", str(args.build.resolve()), "--jobs", str(args.jobs),
+                              "--timeout", str(args.step_timeout)])
+    elif not args.validate_only:
+        command = shlex.join([sys.executable, str(DIRECTORY / "headless.py"), "--jobs", str(args.jobs)])
+    # Reject missing/corrupt evidence or accidental overwrites before booting apps.
+    for reference in references:
+        if args.browser and reference["id"] != "menus":
+            raise ProtocolError("browser replay supports only --suite menus; use headless replay for custom-map")
+        suite = compare.read_json(DIRECTORY / reference["cases"])
+        if args.record:
+            if (DIRECTORY / reference["observations"]).exists() and not args.force:
+                raise ProtocolError("observation file already exists; choose --force explicitly to replace it")
+        else:
+            evidence = compare.read_json(DIRECTORY / reference["observations"])
+            compare.validate_observations(evidence, suite)
+            if args.case:
+                compare.select_cases(suite, evidence, args.case)
+    results = []
+    for reference in references:
+        if args.record:
+            suite = compare.read_json(DIRECTORY / reference["cases"])
+            reference_command = command
+            if reference["id"] == "custom-map":
+                reference_command = shlex.join([args.reference_python, str(DIRECTORY / "original_headless.py"),
+                                                "--exe", str(args.assets.resolve() / "terranx.exe")])
+            record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
+            compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
+            print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
+        else:
+            result = audit.check_reference(reference, command, args.timeout, directory=DIRECTORY, case_ids=args.case)
+            results.append(result)
+            counts = result.get("comparison", {}).get("summary")
+            print(f"{reference['id']}: {counts if counts is not None else 'evidence valid; apps not executed'}", flush=True)
+    if args.record:
+        return 0
+    summary = {"reference_cases": sum(result["cases"] for result in results),
+               "candidate_executed": command is not None}
+    if command is not None:
+        for status in ("matched", "mismatched", "unsupported", "errors"):
+            summary[status] = sum(result["comparison"]["summary"][status] for result in results)
+    compare.write_json(args.report, {
+        "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
+        "scope": "Sliding menus/input traces and bounded custom-planet defaults, outcomes and parameters; not full-game parity",
+        "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
+        "summary": summary, "results": results,
+    }, overwrite=True)
+    if command is None:
+        return 0
+    return 2 if summary["errors"] else int(summary["mismatched"] > 0 or summary["unsupported"] > 0)
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (OSError, ProtocolError) as error:
+        print(f"UI campaign failed: {error}", file=sys.stderr)
+        sys.exit(2)

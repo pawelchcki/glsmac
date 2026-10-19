@@ -15,7 +15,7 @@ return (i) => {
 				i.glsmac.start_game();
 			}],
 			['Scenario', () => {
-				i.steps.notimpl(i);
+				i.steps.scenario(i);
 			}],
 			['Load Game', () => {
 				i.steps.notimpl(i);

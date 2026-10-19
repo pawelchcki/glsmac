@@ -2,6 +2,9 @@ const start_game = #include('../default/ui/parts/mainmenu/steps/start_game');
 const select_difficulty = #include('../default/ui/parts/mainmenu/steps/select_difficulty_level');
 const select_rules = #include('../default/ui/parts/mainmenu/steps/select_rules');
 const main_menu = #include('../default/ui/parts/mainmenu/steps/main');
+const scenario = #include('../default/ui/parts/mainmenu/steps/scenario');
+const select_mapsize = #include('../default/ui/parts/mainmenu/steps/select_mapsize');
+const customize_mapsize = #include('../default/ui/parts/mainmenu/steps/customize_mapsize');
 
 // Capture the real menu callbacks without constructing a graphical UI.
 const create_menu = () => {
@@ -23,6 +26,7 @@ const create_menu = () => {
 			deinit: () => { state.deinitialized = state.deinitialized + 1; },
 		},
 		steps: {
+			scenario: scenario,
 			select_difficulty_level: select_difficulty,
 			select_rules: select_rules,
 			select_faction: (current) => { state.factions = state.factions + 1; },
@@ -64,6 +68,110 @@ for (choice of [[2, 'The Map of Planet', 'planet'], [3, 'Huge Map of Planet', 'h
 	test.assert(menu.state.factions == 1);
 	test.assert(menu.state.randomized == 0);
 }
+
+// The recorded Scenario screen offers navigation before unsupported actions.
+const scenario_menu = create_menu();
+main_menu(scenario_menu.i);
+const open_scenario = scenario_menu.state.menu.entries[2][1];
+open_scenario();
+test.assert(scenario_menu.state.menu.title == 'Scenario');
+test.assert(scenario_menu.state.menu.entries[0][0] == 'Play Scenario');
+test.assert(scenario_menu.state.menu.entries[1][0] == 'Create Scenario');
+test.assert(scenario_menu.state.menu.entries[2][0] == 'Load Map File');
+test.assert(scenario_menu.state.menu.entries[3][0] == 'Edit Scenario');
+test.assert(scenario_menu.state.notimpl == 0);
+const scenario_map = scenario_menu.state.menu.entries[2][1];
+scenario_map();
+test.assert(scenario_menu.state.files == 1);
+test.assert(scenario_menu.state.initialized == 1);
+test.assert(scenario_menu.i.settings.local.game_mode == 'single');
+
+// Existing preset dimensions retain both random/custom routes. The added entry
+// opens dimension controls without prematurely committing map settings.
+for (map_type of ['random', 'custom']) {
+	for (preset of [[0, 68, 34], [1, 88, 44], [2, 112, 56], [3, 140, 70], [4, 180, 90]]) {
+		const menu = create_menu();
+		let customized = 0;
+		menu.i.settings.global.map.type = map_type;
+		menu.i.steps.customize_ocean_coverage = (current) => { customized++; };
+		select_mapsize(menu.i);
+		test.assert(menu.state.menu.selected == 2);
+		test.assert(menu.state.menu.entries[5][0] == 'Custom Size');
+		const choose = menu.state.menu.entries[preset[0]][1];
+		choose();
+		test.assert(menu.i.settings.global.map.size_x == preset[1]);
+		test.assert(menu.i.settings.global.map.size_y == preset[2]);
+		if (map_type == 'random') {
+			test.assert(menu.state.menu.title == 'Pick a difficulty level');
+			test.assert(customized == 0);
+		} else {
+			test.assert(customized == 1);
+		}
+	}
+}
+
+const custom_size_picker = (map_type) => {
+	const state = { popup: null, inputs: [], error: null, events: '' };
+	const i = {
+		settings: {global: {map: {type: map_type, size_x: 112, size_y: 56}}},
+		popup: {
+			show: (data) => { state.popup = data; },
+			back: () => { state.events = state.events + 'back;'; },
+		},
+		steps: {
+			select_difficulty_level: (current) => { state.events = state.events + 'difficulty;'; },
+			customize_ocean_coverage: (current) => { state.events = state.events + 'ocean;'; },
+		},
+	};
+	customize_mapsize(i);
+	state.popup.generator({
+		input: (props) => {
+			const input = {value: props.value};
+			state.inputs :+ input;
+			return input;
+		},
+		text: (props) => {
+			const label = {text: props.text};
+			state.error = label;
+			return label;
+		},
+	});
+	const result = {};
+	result.i = i;
+	result.state = state;
+	return result;
+};
+
+for (map_type of ['random', 'custom']) {
+	const picker = custom_size_picker(map_type);
+	test.assert(picker.state.inputs[0].value == '112');
+	test.assert(picker.state.inputs[1].value == '56');
+	picker.state.inputs[0].value = '120';
+	picker.state.inputs[1].value = '80';
+	const confirm = picker.state.popup.buttons[0].onclick;
+	confirm({});
+	test.assert(picker.i.settings.global.map.size_x == 120);
+	test.assert(picker.i.settings.global.map.size_y == 80);
+	test.assert(picker.state.events == (map_type == 'random' ? 'back;difficulty;' : 'back;ocean;'));
+}
+
+for (invalid of [['nonsense', '80'], ['121', '80'], ['120', '0'], ['4098', '80'], ['120junk', '80'], ['120', '2.5'], ['2', '80']]) {
+	const picker = custom_size_picker('random');
+	picker.state.inputs[0].value = invalid[0];
+	picker.state.inputs[1].value = invalid[1];
+	const confirm = picker.state.popup.buttons[0].onclick;
+	confirm({});
+	test.assert(picker.state.events == '');
+	test.assert(picker.i.settings.global.map.size_x == 112);
+	test.assert(picker.i.settings.global.map.size_y == 56);
+	test.assert(picker.state.error.text == 'Use even whole numbers within the displayed ranges.');
+}
+const cancelled_size = custom_size_picker('custom');
+cancelled_size.state.inputs[0].value = '120';
+const cancel_size = cancelled_size.state.popup.buttons[1].onclick;
+cancel_size({});
+test.assert(cancelled_size.state.events == 'back;');
+test.assert(cancelled_size.i.settings.global.map.size_x == 112);
 
 // Random and custom retain their routes; Load Map File opens the map picker.
 const random_menu = create_menu();

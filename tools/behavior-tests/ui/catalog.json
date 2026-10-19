@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "references": [
+    {"id": "menus", "cases": "cases/menus.json", "observations": "observations/smacx-gog-2.0-menus.json"},
+    {"id": "custom-map", "cases": "cases/custom-map.json", "observations": "observations/smacx-gog-2.0-custom-map.json"}
+  ]
+}

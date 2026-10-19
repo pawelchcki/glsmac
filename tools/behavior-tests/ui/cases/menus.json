@@ -1,0 +1,658 @@
+{
+  "version": 1,
+  "name": "original-menus-and-controls",
+  "description": "Main, map type, scenario, planet-size, difficulty and rules menus; real click, arrow and Escape sequences.",
+  "cases": [
+    {
+      "id": "menu-4f53cda18c2b",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": []
+      }
+    },
+    {
+      "id": "menu-d9948fe95e6f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-a3900cbc6a8a",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-68f3cbd2bd99",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-e08e6ff7fcac",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-537d9d2e1574",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-a8805298bca3",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-13da1212b602",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "CUSTOMIZE RANDOM MAP"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-ce38f737ed12",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-8b37ba8c476f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "HUGE MAP OF PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-52542504341f",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-82f6e170cc10",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-a3eb9ea13026",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-05f8474287c9",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-52df1b563167",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-73163e858a82",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-3dbd0a88eb53",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-eeb9ba2ab362",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "SCENARIO"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-20eae6c29ea5",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "TINY PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-95f56354df12",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "SMALL PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-4dae4bafdbef",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "STANDARD PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-662b93c6ccff",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "LARGE PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-b8431e86249d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "HUGE PLANET"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-0ccc89368087",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-6a201f8142cf",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-57c3c88a298d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-102c287a10e3",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-bf84d1d9b274",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-eb08ea64a0a0",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "SPECIALIST"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-d4bb86438f52",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "TALENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-fd0968951634",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "LIBRARIAN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-0e7af4c8e118",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "THINKER"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-30a826424196",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "TRANSCEND"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-7bea93364a12",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-b0df4c2d9073",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-8c14a63b486d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-40acca2ad804",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-14aca4dcf46d",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-53f7b1d33de9",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-41a7d73330ae",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "ArrowDown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "menu-636b52d34873",
+      "algorithm": "ui.menu_trace.v1",
+      "input": {
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "THE MAP OF PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    }
+  ]
+}

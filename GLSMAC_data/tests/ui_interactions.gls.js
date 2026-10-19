@@ -291,6 +291,34 @@ scenario('clearing a sliding popup stops its owned entry animation', () => {
 });
 
 const create_menu_popup = mocks.menu_popup;
+const create_sliding_menu = () => {
+	const f = create_menu_popup();
+	f.m.glsmac.ui = f.view.ui;
+	f.sliding = #include('../default/ui/parts/mainmenu/sliding')(f.m);
+	return f;
+};
+scenario('sliding menu uses its explicit default and Up wraps to its last entry', () => {
+	const f = create_sliding_menu();
+	f.sliding.show({ selected: 1, entries: [['First', () => {}], ['Second', () => {}], ['Third', () => {}]] });
+	expect(f.view.find('button', 'text', 'Second').class == 'menublock-item-active', 'explicit default highlighted');
+	const areas = f.view.live('area');
+	areas[0].emit('keydown', key('UP'));
+	areas[0].emit('keydown', key('UP'));
+	expect(f.view.find('button', 'text', 'Third').class == 'menublock-item-active', 'Up from first wraps to last');
+	expect(f.view.find('button', 'text', 'First').class != 'menublock-item-active', 'previous highlight cleared');
+});
+scenario('canceling grouped questions destroys each question and restores caller selection', () => {
+	const f = create_sliding_menu();
+	let destroyed = [];
+	f.sliding.show({ entries: [['Tiny', () => {}], ['Standard', () => {}]], destructor: () => { destroyed :+ 'caller'; } });
+	f.manager.select(1);
+	f.sliding.show({ cancel_group: 'customize_map', entries: [['Ocean', () => {}]], destructor: () => { destroyed :+ 'ocean'; } });
+	f.sliding.show({ cancel_group: 'customize_map', entries: [['Erosion', () => {}]], destructor: () => { destroyed :+ 'erosion'; } });
+	f.sliding.back();
+	expect(destroyed == ['erosion', 'ocean'], 'question cleanup follows reverse entry order');
+	expect(f.view.find('button', 'text', 'Standard').class == 'menublock-item-active', 'size caller restored with its selection');
+	expect(#sizeof(f.manager.data_stack) == 1, 'only caller remains on stack');
+});
 scenario('mainmenu popup Escape removes its window and resets empty stack', () => {
 	const f = create_menu_popup();
 	f.popup.show({ title: 'Test', width: 100, height: 100 });
@@ -583,4 +611,4 @@ scenario('native faction rejection is recoverable through real error back naviga
 	expect(f.state.attempts == 2 && f.state.started == ['HIVE'], 'retry uses fresh choice');
 });
 
-expect(cases == 54, 'all interaction scenarios executed');
+expect(cases == 56, 'all interaction scenarios executed');

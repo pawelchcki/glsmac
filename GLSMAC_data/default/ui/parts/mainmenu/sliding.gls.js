@@ -167,6 +167,8 @@ return (m) => {
 					case 'UP': {
 						if (active_entry_index > 0) {
 							this.select(active_entry_index - 1);
+						} else if (#sizeof(current_entries) > 0) {
+							this.select(#sizeof(current_entries) - 1);
 						}
 						return true;
 					}
@@ -216,7 +218,7 @@ return (m) => {
 				index++;
 			}
 			if (#sizeof(data.entries) > 0) {
-				this.select(0);
+				this.select(#is_defined(data.selected) ? data.selected : 0);
 			}
 
 			current_menublock.right = -354;
