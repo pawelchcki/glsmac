@@ -18,13 +18,22 @@ from ui.drivers import ROOT
 DIRECTORY = Path(__file__).resolve().parent
 
 
+def size_keyboard_command(args):
+    target = "original" if args.record else "browser" if args.browser else "headless"
+    command = [sys.executable, str(DIRECTORY / "size_keyboard.py"), "--target", target]
+    if target != "headless":
+        command += ["--assets", str(args.assets.resolve()), "--wine", args.wine,
+                    "--build", str(args.build.resolve()), "--timeout", str(args.step_timeout)]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--record", action="store_true", help="capture two independent identical original runs")
     mode.add_argument("--validate-only", action="store_true", help="validate evidence without executing either app")
     parser.add_argument("--force", action="store_true", help="explicitly replace existing evidence when recording")
-    parser.add_argument("--browser", action="store_true", help="optional rendered integration replay (menu-trace contracts)")
+    parser.add_argument("--browser", action="store_true", help="optional rendered integration replay")
     parser.add_argument("--render-smoke", action="store_true", help="render a small selection covering real menu inputs")
     parser.add_argument("--case", action="append", help="replay selected case IDs after validating their full reference")
     parser.add_argument("--reference-python", default=os.environ.get("SMAC_REFERENCE_PYTHON", sys.executable))
@@ -74,8 +83,8 @@ def main(argv=None):
     # Reject missing/corrupt evidence or accidental overwrites before booting apps.
     for reference in references:
         suite = compare.read_json(DIRECTORY / reference["cases"])
-        if args.browser and any(case["algorithm"] != "ui.menu_trace.v1" for case in suite["cases"]):
-            raise ProtocolError("browser replay supports menu traces only; use headless replay for custom-map")
+        if args.browser and any(case["algorithm"] not in ("ui.menu_trace.v1", "ui.map_size_keyboard.v1") for case in suite["cases"]):
+            raise ProtocolError("browser replay supports menu traces and map-size keyboard; use headless replay for custom-map")
         if args.record:
             if (DIRECTORY / reference["observations"]).exists() and not args.force:
                 raise ProtocolError("observation file already exists; choose --force explicitly to replace it")
@@ -90,6 +99,8 @@ def main(argv=None):
         if args.record:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             reference_command = command
+            if reference["id"] == "size-keyboard":
+                reference_command = size_keyboard_command(args)
             if reference["id"] == "custom-map":
                 reference_command = shlex.join([args.reference_python, str(DIRECTORY / "original_headless.py"),
                                                 "--exe", str(args.assets.resolve() / "terranx.exe")])
@@ -98,7 +109,8 @@ def main(argv=None):
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
         else:
             case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
-            result = audit.check_reference(reference, command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
+            candidate_command = size_keyboard_command(args) if command is not None and reference["id"] == "size-keyboard" else command
+            result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
             print(f"{reference['id']}: {counts if counts is not None else 'evidence valid; apps not executed'}", flush=True)
@@ -111,7 +123,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Sliding menus/input traces and bounded custom-planet defaults, outcomes and parameters; not full-game parity",
+        "scope": "Sliding menus/input traces, custom-planet controller and custom-dimension keyboard navigation; not full-game parity",
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,
     }, overwrite=True)

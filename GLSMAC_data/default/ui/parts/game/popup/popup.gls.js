@@ -102,22 +102,6 @@ return {
 			height: p.ui.get_height() - parent.bottombar_height,
 		};
 
-		p.ui.on('resize', (e) => {
-			this.viewport_size = {
-				height: e.height - parent.bottombar_height,
-			};
-			const is_hiding = this.popup != null && this.popup_hiding;
-			this.sliding_stop();
-			for (data of this.popups) {
-				this.resize(data);
-			}
-			if (is_hiding) {
-				this.finish_hide();
-			} else if (this.popup != null) {
-				this.calculate_sliding_speed(this.popup.el.top);
-			}
-		});
-
 		const pp = {
 
 			game: p.game,
@@ -225,6 +209,24 @@ return {
 			this.popups[popup].id = popup;
 		}
 
+		const first_popup = this.available_popups[0];
+		const resize_owner = this.popups[first_popup];
+		resize_owner.el.listen(p.ui, 'resize', (e) => {
+			this.viewport_size = {
+				height: e.height - parent.bottombar_height,
+			};
+			const is_hiding = this.popup != null && this.popup_hiding;
+			this.sliding_stop();
+			for (data of this.popups) {
+				this.resize(data);
+			}
+			if (is_hiding) {
+				this.finish_hide();
+			} else if (this.popup != null) {
+				this.calculate_sliding_speed(this.popup.el.top);
+			}
+		});
+
 	},
 
 	sliding_stop: () => {
@@ -271,7 +273,7 @@ return {
 		if (this.no_sliding) {
 			f_done();
 		} else {
-			this.sliding_timer = this.p.ui.root.timer(this.sliding_interval, () => {
+			this.sliding_timer = data.el.timer(this.sliding_interval, () => {
 				const new_top = data.el.top + this.sliding_speed;
 				if (new_top >= this.target_top) {
 					f_done();
@@ -361,7 +363,7 @@ return {
 		if (this.no_sliding) {
 			f_done();
 		} else {
-			this.sliding_timer = this.p.ui.root.timer(this.sliding_interval, () => {
+			this.sliding_timer = this.popup.el.timer(this.sliding_interval, () => {
 				const new_top = this.popup.el.top - this.sliding_speed;
 				if (new_top <= this.target_top) {
 					f_done();

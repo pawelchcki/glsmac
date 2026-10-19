@@ -240,12 +240,12 @@ return {
 			return true;
 		});
 
-		p.map.on('unit_preview', (e) => {
+		this.frame.listen(p.map, 'unit_preview', (e) => {
 			this.show(e.unit);
 		});
-		p.map.on('base_preview', (e) => {
+		this.frame.listen(p.map, 'base_preview', (e) => {
 			this.show(e.base);
-		})
+		});
 
 	},
 

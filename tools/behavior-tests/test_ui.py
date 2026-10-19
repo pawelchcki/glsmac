@@ -28,8 +28,8 @@ class UiContractTests(unittest.TestCase):
             self.assertEqual(run.main(["--render-smoke", "--validate-only", "--report", str(report)]), 0)
             observed = json.loads(report.read_text())
         self.assertFalse(observed["summary"]["candidate_executed"])
-        self.assertEqual(observed["summary"]["reference_cases"], 9)
-        self.assertEqual({row["id"] for row in observed["results"]}, {"menus", "navigation", "reentry"})
+        self.assertEqual(observed["summary"]["reference_cases"], 13)
+        self.assertEqual({row["id"] for row in observed["results"]}, {"menus", "navigation", "reentry", "size-keyboard"})
         selected = [case for row in observed["results"] for case in row["selected_case_ids"]]
         self.assertIn("menu-8d46dd28eda8", selected)
         self.assertIn("menu-7d6423108e3b", selected)

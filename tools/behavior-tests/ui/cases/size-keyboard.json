@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "name": "custom-map-size-keyboard",
+  "description": "Final visible menus reached by untouched custom-dimension dialog Enter/Escape on random and custom routes; excludes dialog values, validation, layout and terrain.",
+  "cases": [
+    {
+      "id": "size-keyboard-random-enter",
+      "algorithm": "ui.map_size_keyboard.v1",
+      "input": {
+        "route": "random",
+        "key": "Enter"
+      }
+    },
+    {
+      "id": "size-keyboard-random-escape",
+      "algorithm": "ui.map_size_keyboard.v1",
+      "input": {
+        "route": "random",
+        "key": "Escape"
+      }
+    },
+    {
+      "id": "size-keyboard-custom-enter",
+      "algorithm": "ui.map_size_keyboard.v1",
+      "input": {
+        "route": "custom",
+        "key": "Enter"
+      }
+    },
+    {
+      "id": "size-keyboard-custom-escape",
+      "algorithm": "ui.map_size_keyboard.v1",
+      "input": {
+        "route": "custom",
+        "key": "Escape"
+      }
+    }
+  ]
+}

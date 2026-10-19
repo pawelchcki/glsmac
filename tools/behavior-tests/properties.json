@@ -9,7 +9,8 @@
       "status": "partial",
       "contracts": [
         "ui.menu_trace.v1",
-        "ui.custom_planet.v1"
+        "ui.custom_planet.v1",
+        "ui.map_size_keyboard.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -24,7 +25,8 @@
       "id": "controls",
       "status": "partial",
       "contracts": [
-        "ui.menu_trace.v1"
+        "ui.menu_trace.v1",
+        "ui.map_size_keyboard.v1"
       ],
       "remaining": [
         "Gameplay hotkeys",

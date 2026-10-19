@@ -85,13 +85,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 324)
+        self.assertEqual(count, 328)
 
     def test_runtime_success_is_not_itself_an_observation(self):
         for output in ("", "All tests passed.\n", "HUI_CASE|synthetic\nAll tests passed.\n"):

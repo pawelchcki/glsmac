@@ -91,15 +91,25 @@
       ],
       "status": "fixed-in-recorded-rendered-contract",
       "property": "Canceling difficulty after confirmed custom questions returns to map type in the original; reproduction reopens clouds."
+    },
+    {
+      "id": "custom-size-keyboard-cancel",
+      "suite": "size-keyboard",
+      "examples": [
+        "size-keyboard-random-escape",
+        "size-keyboard-custom-escape"
+      ],
+      "status": "fixed-in-recorded-rendered-contract",
+      "property": "Escape from original custom dimensions returns to map type with its route highlighted; reproduction reopens planet sizes."
     }
   ],
   "verification": {
-    "cases": 324,
-    "matched": 324,
+    "cases": 328,
+    "matched": 328,
     "mismatched": 0,
     "errors": 0,
-    "rendered_selected_cases": 9,
-    "rendered_matched": 9,
-    "scope": "headless menu/controller contracts and nine selected rendered paths; not full-game parity"
+    "rendered_selected_cases": 13,
+    "rendered_matched": 13,
+    "scope": "headless menu/controller/keyboard contracts and thirteen selected rendered paths; not full-game parity"
   }
 }

@@ -19,7 +19,10 @@ node.button = (properties) => {
 	state.button = button;
 	return button;
 };
-node.listen = (object, event, callback) => { state.listeners[event] = callback; };
+node.listen = (object, event, callback) => {
+	if (#is_defined(object.on)) { object.on(event, callback); }
+	else { state.listeners[event] = callback; }
+};
 node.timer = (interval, callback) => {
 	test.assert(interval == 100);
 	state.tick = callback;

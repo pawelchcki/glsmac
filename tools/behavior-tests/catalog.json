@@ -19,6 +19,8 @@
     {"id":"popup-resize-regression","script":"GLSMAC_data/tests/popup_resize_regression.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"turn-playability", "script":"GLSMAC_data/tests/turn_playability.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"world-startup", "script":"GLSMAC_data/tests/world_startup.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"game-modal-input", "script":"GLSMAC_data/tests/game_modal_input.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"map-size-keyboard", "script":"GLSMAC_data/tests/map_size_keyboard.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"}
   ],
   "references": [

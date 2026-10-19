@@ -53,6 +53,11 @@ return () => {
 			node.children :+ window;
 			return window;
 		};
+		node.input = (props) => {
+			const field = create('input', props);
+			node.children :+ field;
+			return field;
+		};
 		// Panels only group decorative drawing in these bounded menu scripts.
 		node.panel = (props) => { return node; };
 		node.surface = (props) => {};

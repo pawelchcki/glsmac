@@ -20,6 +20,11 @@ return (m) => {
 			this.manager.pop(m, true);
 		},
 
+		complete: () => {
+			remove_active_menublock();
+			this.manager.complete(m, true);
+		},
+
 		select: (index) => {
 			if (index != active_entry_index) {
 				if (active_entry_index != null) {

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Nine real input paths through ten menu screens, including custom previews, startup defaults and re-entry; original observations remain unchanged.",
+  "description": "Thirteen real input paths through ten menu screens and custom dimensions, including Enter/Escape, previews, startup defaults and re-entry; original observations remain unchanged.",
   "suites": {
     "menus": [
       "menu-68f3cbd2bd99",
@@ -16,6 +16,12 @@
     "reentry": [
       "menu-7d6423108e3b",
       "menu-d0f52cdd51e6"
+    ],
+    "size-keyboard": [
+      "size-keyboard-random-enter",
+      "size-keyboard-random-escape",
+      "size-keyboard-custom-enter",
+      "size-keyboard-custom-escape"
     ]
   }
 }

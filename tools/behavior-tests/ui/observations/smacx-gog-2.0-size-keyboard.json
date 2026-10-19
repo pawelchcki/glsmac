@@ -1,0 +1,101 @@
+{
+  "captured_at": "2026-10-19T01:10:33.792781+00:00",
+  "observations": [
+    {
+      "case_sha256": "48d6e26b0d47ae79f5453651869c0791605517b0bd8ffaaeeb144b65f9533aa5",
+      "id": "size-keyboard-random-enter",
+      "output": {
+        "after": {
+          "caption": "PICK A DIFFICULTY LEVEL",
+          "entries": [
+            "CITIZEN",
+            "SPECIALIST",
+            "TALENT",
+            "LIBRARIAN",
+            "THINKER",
+            "TRANSCEND"
+          ],
+          "kind": "sliding-menu",
+          "selected": [
+            "CITIZEN"
+          ]
+        }
+      }
+    },
+    {
+      "case_sha256": "f5ca23d20f1fbbfd355b565cb4483bc6100b37e45fe1758a04a1456b0a0503ea",
+      "id": "size-keyboard-random-escape",
+      "output": {
+        "after": {
+          "caption": null,
+          "entries": [
+            "MAKE RANDOM MAP",
+            "CUSTOMIZE RANDOM MAP",
+            "THE MAP OF PLANET",
+            "HUGE MAP OF PLANET",
+            "LOAD MAP FILE"
+          ],
+          "kind": "sliding-menu",
+          "selected": [
+            "MAKE RANDOM MAP"
+          ]
+        }
+      }
+    },
+    {
+      "case_sha256": "32cffe0a4111aab29d001df702ce0045b40bb3f0d5dfb2dad8ea9847941e7552",
+      "id": "size-keyboard-custom-enter",
+      "output": {
+        "after": {
+          "caption": "SELECT OCEAN COVERAGE",
+          "entries": [
+            "30-50% OF SURFACE",
+            "50-70% OF SURFACE",
+            "70-90% OF SURFACE"
+          ],
+          "kind": "sliding-menu",
+          "selected": [
+            "50-70% OF SURFACE"
+          ]
+        }
+      }
+    },
+    {
+      "case_sha256": "58028b34e6acc156b866cb108761d3634765f75348ff5f6ee51da45637c241cf",
+      "id": "size-keyboard-custom-escape",
+      "output": {
+        "after": {
+          "caption": null,
+          "entries": [
+            "MAKE RANDOM MAP",
+            "CUSTOMIZE RANDOM MAP",
+            "THE MAP OF PLANET",
+            "HUGE MAP OF PLANET",
+            "LOAD MAP FILE"
+          ],
+          "kind": "sliding-menu",
+          "selected": [
+            "CUSTOMIZE RANDOM MAP"
+          ]
+        }
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "39dc0e7a2ac591a0f96abf8d4e0f82ea4ecfcbe67179ce1b9e9f9a96b9110838",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.map_size_keyboard.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible final menu text and highlight after custom dimension keyboard action",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "bed5f59ba21b3a5b52eaa38866368edfe2801ed37f55d2c52fa463a63a37c1d8",
+  "version": 1
+}

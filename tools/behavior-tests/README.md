@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus without graphics against 324 recorded original cases. The original
+GSE menus without graphics against 328 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **245 scenarios and 1,765 assertions** across
-19 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **287 scenarios and 2,089 assertions** across
+21 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -53,6 +53,13 @@ real rendering/input and read-only backend telemetry. It checks terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
 opening the destination base. It does not validate normal world generation or
 original-game behavior. Browser failures and graphics errors remain failures.
+
+The `game-modal-input` suite initializes the production game UI and checks modal
+consumption, listener cleanup and popup timer cleanup on restart. The
+`map-size-keyboard` suite checks both inputs, validation/correction, completion
+versus cancellation and the real setup stack. Only the four recorded keyboard
+navigation cases establish original agreement; dimension values and limits
+remain reproduction regressions.
 
 The worker uses the actual WASM GSE parser/interpreter and production scripts.
 Only native managers, display nodes, input events, animation completion and

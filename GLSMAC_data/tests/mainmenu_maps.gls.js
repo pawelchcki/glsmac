@@ -1,3 +1,4 @@
+const ui_mocks = #include('./_ui_mocks');
 const start_game = #include('../default/ui/parts/mainmenu/steps/start_game');
 const select_difficulty = #include('../default/ui/parts/mainmenu/steps/select_difficulty_level');
 const select_rules = #include('../default/ui/parts/mainmenu/steps/select_rules');
@@ -156,6 +157,7 @@ const custom_size_picker = (map_type) => {
 		popup: {
 			show: (data) => { state.popup = data; },
 			back: () => { state.events = state.events + 'back;'; },
+			complete: () => { state.events = state.events + 'back;'; },
 		},
 		steps: {
 			select_difficulty_level: (current) => { state.events = state.events + 'difficulty;'; },
@@ -165,7 +167,8 @@ const custom_size_picker = (map_type) => {
 	customize_mapsize(i);
 	state.popup.generator({
 		input: (props) => {
-			const input = {value: props.value};
+			const input = ui_mocks.events();
+			input.value = props.value;
 			state.inputs :+ input;
 			return input;
 		},
