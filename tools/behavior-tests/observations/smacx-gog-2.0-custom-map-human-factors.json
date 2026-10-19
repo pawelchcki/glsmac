@@ -1,0 +1,203 @@
+{
+  "captured_at": "2026-10-19T22:17:56.541841+00:00",
+  "observations": [
+    {
+      "case_sha256": "5324b679bdddafacc40980ae62db4490ce5422dcd96b2ca5c905753b9035bded",
+      "id": "custom-nutrient-rule-1-growth--3",
+      "output": {
+        "factor": 2
+      }
+    },
+    {
+      "case_sha256": "d95e6a6c6189eea3a759c8566be53da2d2756484236b592c197f993f0c3d732f",
+      "id": "custom-nutrient-rule-1-growth-0",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "98bb365d2b6b5596bb6f040bfe97485b63c899763d738db4450f50806836d34a",
+      "id": "custom-nutrient-rule-1-growth-3",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "5096146142a0bec8ef0a8c1a5e7d9780aacdc4231276a1a392c3201af49aca6d",
+      "id": "custom-nutrient-rule-10-growth--3",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "16b7b4cf5ca141f81559a4007d6209496401d2c69d254d27fd431ad016c558cf",
+      "id": "custom-nutrient-rule-10-growth-0",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "e29814fdebc39af5af0ec50a56ec64d9ff0b3128304fa58db55275d161c37c31",
+      "id": "custom-nutrient-rule-10-growth-3",
+      "output": {
+        "factor": 7
+      }
+    },
+    {
+      "case_sha256": "7e8b792781f9783eff51fc334ef88823955b2278b1e3fab76b7be0c602dcb9b1",
+      "id": "custom-nutrient-rule-13-growth--3",
+      "output": {
+        "factor": 17
+      }
+    },
+    {
+      "case_sha256": "55d5de08f16cedb160e45c176660eb08a47bc6fbbd142b17403da4275810ca19",
+      "id": "custom-nutrient-rule-13-growth-0",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "ed2cfb32ba27e7f0bced3edfdb79cf0ee4a0f1297ea1853205d0127e3ef82843",
+      "id": "custom-nutrient-rule-13-growth-3",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "7c21496cb438641489acf02b88b2dba4d5aae338c8050b88f44c1430fa7127e1",
+      "id": "custom-nutrient-rule-100-growth--3",
+      "output": {
+        "factor": 130
+      }
+    },
+    {
+      "case_sha256": "776e71faed674a5623f8ddd2be75d841137716f3d582f6e76eae21579dc01d3d",
+      "id": "custom-nutrient-rule-100-growth-0",
+      "output": {
+        "factor": 100
+      }
+    },
+    {
+      "case_sha256": "75987b325475dec6b9d40b6f530ab9a5d2c25115c8c9b91ad8d5185ce5f7530c",
+      "id": "custom-nutrient-rule-100-growth-3",
+      "output": {
+        "factor": 70
+      }
+    },
+    {
+      "case_sha256": "de630c152c4eebedadfc3511d702a7e390ba6e27d2349c827733c689fafd8549",
+      "id": "custom-mineral-rule-1-industry--3",
+      "output": {
+        "factor": 2
+      }
+    },
+    {
+      "case_sha256": "8da1c6fdac35b44af9009f837089a68a9e8e76b65cf5ac15f7c035246ff20cc7",
+      "id": "custom-mineral-rule-1-industry-0",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "64a3b3838cd39b61a6ae42c3c93a403ffb8baa27314b66edef548ace4e67a91c",
+      "id": "custom-mineral-rule-1-industry-3",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "2317e4132e80a5e808bb96c7b5fb759fdef96f99e527ea079e82ebe0d0dc618a",
+      "id": "custom-mineral-rule-10-industry--3",
+      "output": {
+        "factor": 12
+      }
+    },
+    {
+      "case_sha256": "6c55cd75c0cbf69d4f176670f8264ed5261654f48653fd5285ab68f74f0ee417",
+      "id": "custom-mineral-rule-10-industry-0",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "d6464f336024e29e8c2bce32e5960deb1f9d98757984c2c7139af0b5c293af44",
+      "id": "custom-mineral-rule-10-industry-3",
+      "output": {
+        "factor": 7
+      }
+    },
+    {
+      "case_sha256": "798c27f9a8d040c18fa41e2481b2eb4266bdfd68e05f78d71bcfd85247ac9648",
+      "id": "custom-mineral-rule-13-industry--3",
+      "output": {
+        "factor": 16
+      }
+    },
+    {
+      "case_sha256": "45588a27455fc1addc1be3825d6189987d26ca371181861d22edb1ec3d7f37bb",
+      "id": "custom-mineral-rule-13-industry-0",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "50a47d06b07963fe51094d0249765538c51d418296a427dd08e7339fdd4fa1cd",
+      "id": "custom-mineral-rule-13-industry-3",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "43752dd4155c118234c572c8af116cd08b20143e09077de13de6dac9ece49602",
+      "id": "custom-mineral-rule-100-industry--3",
+      "output": {
+        "factor": 120
+      }
+    },
+    {
+      "case_sha256": "32be24929324c352b0a640f5919db2fb6cfe1790122b80210c5888057e6b563c",
+      "id": "custom-mineral-rule-100-industry-0",
+      "output": {
+        "factor": 100
+      }
+    },
+    {
+      "case_sha256": "4c1de8691221411101881858ac9b5177da2b4059882683b86701a3ddf9e3f8ee",
+      "id": "custom-mineral-rule-100-industry-3",
+      "output": {
+        "factor": 70
+      }
+    }
+  ],
+  "reference": {
+    "adapter_version": 5,
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.custom_map_mineral_factor.v1",
+        "function": "cost_factor (human/mineral, custom kind 99, no base)"
+      },
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.custom_map_nutrient_factor.v1",
+        "function": "cost_factor (human/nutrient, custom kind 99, no base)"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original",
+    "readonly_original_tables": [
+      {
+        "address": "0x004E46C4",
+        "name": "cost_factor nutrient switch",
+        "size": 48
+      }
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "11dc21039a2fd80d382ba74c1954b9a61d51a5edda9856144da62b665bcc7b11",
+  "version": 1
+}

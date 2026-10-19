@@ -26,12 +26,12 @@ const make_picker = (map_type) => {
 };
 
 const assert_settings = (f, width, height, map_type, preset) => {
-	const expected = #is_defined(preset) ? preset : 2;
+	const expected = #is_defined(preset) ? preset : 99;
 	test.assert(f.m.settings.global.map == { type: map_type, size_x: width, size_y: height, filename: 'retained.GSM', preset_level: expected });
 };
 
 const assert_submitted = (f, width, height, map_type) => {
-	assert_settings(f, width, height, map_type, 0 - 1);
+	assert_settings(f, width, height, map_type, 99);
 	test.assert(f.state.routes == [map_type == 'random' ? 'difficulty' : 'ocean']);
 	test.assert(#sizeof(f.view.live('input')) == 0 && #sizeof(f.view.live('window')) == 1);
 	test.assert(f.view.find('window', 'title', 'Map Size').title == 'Map Size');
@@ -222,9 +222,9 @@ for (map_type of ['random', 'custom']) {
 	});
 }
 
-behavior.scenario('confirming untouched displayed defaults clears previous named preset provenance', () => {
+behavior.scenario('opening and confirming untouched defaults declares Custom size kind', () => {
 	const f = make_picker('random');
-	test.assert(f.m.settings.global.map.preset_level == 2);
+	test.assert(f.m.settings.global.map.preset_level == 99);
 	f.view.find('button', 'text', 'OK').emit('click', {});
 	assert_submitted(f, 80, 80, 'random');
 });

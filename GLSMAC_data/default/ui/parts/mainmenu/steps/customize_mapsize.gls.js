@@ -2,6 +2,7 @@
 // Validation and conversion to backend parity coordinates are application rules.
 return (i) => {
 	const definition = i.smac_data.dimension_dialog();
+	i.settings.global.map.preset_level = 99;
 	let width_input = null;
 	let height_input = null;
 	let error_text = null;
@@ -31,7 +32,7 @@ return (i) => {
 		}
 		i.settings.global.map.size_x = horizontal * 2;
 		i.settings.global.map.size_y = height;
-		i.settings.global.map.preset_level = 0 - 1;
+		i.settings.global.map.preset_level = 99;
 		i.popup.complete();
 		if (i.settings.global.map.type == 'random') {
 			i.steps.select_difficulty_level(i);

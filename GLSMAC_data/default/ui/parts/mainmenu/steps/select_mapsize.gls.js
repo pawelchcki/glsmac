@@ -18,6 +18,7 @@ return (i) => {
 			}
 		}
 	}
+	if (#is_defined(i.remembered_world_size)) { selected = i.remembered_world_size; }
 	const next = () => {
 		if (i.settings.global.map.type == 'random') {
 			i.steps.select_difficulty_level(i);
@@ -28,6 +29,7 @@ return (i) => {
 	const make_entry = (size) => {
 		return [size.name, () => {
 			rules.select_world_size(map, size.level);
+			i.remembered_world_size = size.level;
 			next();
 		}];
 	};

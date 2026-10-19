@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit controls without graphics against 373 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 393 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **889 scenarios and 6,566 assertions** across
-72 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **907 scenarios and 6,636 assertions** across
+73 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -96,7 +96,7 @@ clears the project and retains overflow. Idle bases do not accumulate minerals.
 The shipped project is Recycling Tanks, using four declared mineral rows when an
 explicit named map preset is known: 32
 minerals for Tiny, 36 for Small, and 40 for Standard/Large/Huge under the modeled
-human rule10/INDUSTRY0 setting. Unknown or custom dimensions and imported maps retain its
+human rule10/INDUSTRY0 setting. Explicit Custom kind 99 uses 40 minerals. Unknown dimensions and imported maps retain its
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
 A bounded land Colony Pod project is described below. Other unit construction,
@@ -245,7 +245,7 @@ mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
 reference set also includes **5,531 ability-free prototype cost cases** and
 **5,679 human nutrient-factor cases** and **2,528 basic production switch-loss
-cases**, making **15,520 cases** in total. These probes cover small rule helpers; they do
+cases**, plus **24 fixed-Custom nutrient/mineral factor cases**, making **15,544 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -253,7 +253,7 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-15,520 native/WASM C++ helper cases. Run it with
+15,544 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
 All eleven bounded C++ contracts are implemented by shared production GLSMAC helpers.
@@ -270,7 +270,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **15,520 cases**. It runs independent reference suites in
+This checks all **15,544 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -463,7 +463,7 @@ boundaries, selected weapon modes and table-slot independence. A further 1,024
 of these cases were recorded after the implementation was frozen.
 
 See [contracts.md](contracts.md) for exact bounds and evidence. The full
-C++ helper lane also includes nutrient factors and totals 15,520 original cases; resource callback and UI traces remain
+C++ helper lane also includes nutrient factors and totals 15,544 original cases; resource callback and UI traces remain
 separate. This arithmetic transfer does not establish full design, ability or
 production parity; the bounded Colony Pod application lifecycle below is separate.
 
@@ -577,7 +577,7 @@ cases do not establish population booms or whole-base growth behavior.
 actual per-base query, shipped growth/reset callbacks and food-grid cells.
 Supported human owners with explicit named presets use the recorded factor at
 modeled rule10/GROWTH0; procedural custom climate still supports a named size.
-Unknown/custom dimensions, imported maps and unmodeled owner roles retain the
+Explicit Custom kind 99 also uses the loaded rule multiplier. Unknown dimensions, imported maps and unmodeled owner roles retain the
 existing area-based fallback. Growth thresholds and food-grid capacity share
 the same factor. Population row counts, events and UI checks are GLSMAC
 application coverage, separate from original factor observations; faction

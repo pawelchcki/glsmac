@@ -21,13 +21,14 @@ const fixture = (route, profile) => {
 };
 
 behavior.scenario('actual controls use the loaded common caption labels and observed untouched defaults', () => {
-	const f = fixture('random', 'both'); const before = f.native.map_settings_snapshot('current');
+	const f = fixture('random', 'both'); const previous_x = f.m.settings.global.map.size_x; const previous_y = f.m.settings.global.map.size_y;
 	f.open();
 	test.assert(f.view.find('window', 'title', 'Core Dimensions').title == 'Core Dimensions');
 	test.assert(f.view.find('text', 'text', 'Meridian').text == 'Meridian');
 	test.assert(f.view.find('text', 'text', 'Parallel').text == 'Parallel');
 	test.assert(f.fields[0].value == '40' && f.fields[1].value == '80');
-	test.assert(f.native.map_settings_snapshot('current') == before, 'Opening must not commit dimensions');
+	const map = f.m.settings.global.map;
+	test.assert(map.size_x == previous_x && map.size_y == previous_y && map.preset_level == 99, 'Opening declares Custom without committing edited dimensions');
 });
 
 for (route of ['random', 'custom']) {
@@ -37,7 +38,7 @@ for (route of ['random', 'custom']) {
 			f.fields[0].value = '30'; f.fields[1].value = '24';
 			test.assert(f.fields[field].emit('input', {}) == true);
 			const map = f.m.settings.global.map;
-			test.assert(map.size_x == 60 && map.size_y == 24 && map.preset_level == (0 - 1));
+			test.assert(map.size_x == 60 && map.size_y == 24 && map.preset_level == 99);
 			test.assert(map.type == route && f.state.routes == [route == 'random' ? 'difficulty' : 'ocean']);
 			test.assert(#sizeof(f.view.live('input')) == 0 && #sizeof(f.view.live('window')) == 1);
 			f.fields[field].emit('input', {}); test.assert(#sizeof(f.state.routes) == 1);
@@ -79,7 +80,7 @@ behavior.scenario('successful custom confirmation updates assigned retained nati
 	alias.size_x = 200; alias.size_y = 100; alias.preset_level = 1;
 	f.open(); f.fields[0].value = '30'; f.fields[1].value = '24';
 	f.fields[0].emit('input', {});
-	test.assert(alias.size_x == 60 && alias.size_y == 24 && alias.preset_level == (0 - 1), 'Retained assigned wrappers must observe the committed dimensions');
+	test.assert(alias.size_x == 60 && alias.size_y == 24 && alias.preset_level == 99, 'Retained assigned wrappers must observe the committed dimensions');
 });
 
 behavior.scenario('a map imported after opening cannot accept a stale custom-size submission', () => {
@@ -100,7 +101,7 @@ behavior.scenario('retained imported wrappers observe both restored generated-ma
 		test.assert(map.type == route, 'A retained imported wrapper must observe the restored generated route');
 		f.open(); f.fields[0].value = '30'; f.fields[1].value = '24';
 		f.fields[0].emit('input', {});
-		test.assert(map.size_x == 60 && map.size_y == 24 && map.preset_level == (0 - 1));
+		test.assert(map.size_x == 60 && map.size_y == 24 && map.preset_level == 99);
 		test.assert(f.state.routes == [route == 'random' ? 'difficulty' : 'ocean']);
 	}
 });

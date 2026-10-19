@@ -50,6 +50,8 @@ TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
 HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
 HUMAN_NUTRIENT_FACTOR = "economy.human_nutrient_factor.v1"
+CUSTOM_NUTRIENT_FACTOR = "economy.custom_map_nutrient_factor.v1"
+CUSTOM_MINERAL_FACTOR = "economy.custom_map_mineral_factor.v1"
 BASIC_SWITCH_LOSS = "economy.basic_production_switch_loss.v1"
 BASE_SQUARE_RESOURCES = "economy.base_square_resources.v1"
 PROTOTYPE_BASE_COST = "unit.prototype_base_cost.v1"
@@ -72,6 +74,8 @@ EXPANSION_ENABLED = 0x009A6488
 FUNCTIONS = {
     BASIC_SWITCH_LOSS: ("base_lose_minerals (human/basic, default retool rules)", 0x004E4810, 0x004E48B0),
     HUMAN_NUTRIENT_FACTOR: ("cost_factor (human/nutrient, no base)", 0x004E4430, 0x004E46C2),
+    CUSTOM_NUTRIENT_FACTOR: ("cost_factor (human/nutrient, custom kind 99, no base)", 0x004E4430, 0x004E46C2),
+    CUSTOM_MINERAL_FACTOR: ("cost_factor (human/mineral, custom kind 99, no base)", 0x004E4430, 0x004E45B3),
     PROTOTYPE_BASE_COST: ("proto_cost (no abilities)", 0x005A5A60, 0x005A5CE1),
     BASE_SQUARE_RESOURCES: BASE_RESOURCE_FUNCTIONS["NUTRIENTS"],
     ALGORITHM: ("x_dist", X_DIST, 0x005797C7),
@@ -168,16 +172,20 @@ def validate_input(algorithm, values):
         _integer(values["previous_item"], -64, 511, "previous_item")
         _integer(values["current_item"], -64, 511, "current_item")
         _integer(values["minerals"], 0, 1_000_000, "minerals")
-    elif algorithm == HUMAN_NUTRIENT_FACTOR:
-        _fields(values, {"faction_id", "map_size_level", "nutrient_rule_factor", "growth"})
+    elif algorithm in (HUMAN_NUTRIENT_FACTOR, CUSTOM_NUTRIENT_FACTOR):
+        required = {"faction_id", "nutrient_rule_factor", "growth"}
+        _fields(values, required | ({"map_size_level"} if algorithm == HUMAN_NUTRIENT_FACTOR else set()))
         _integer(values["faction_id"], 1, 7, "faction_id")
-        _integer(values["map_size_level"], 0, 4, "map_size_level")
+        if algorithm in (HUMAN_NUTRIENT_FACTOR, HUMAN_MINERAL_FACTOR):
+            _integer(values["map_size_level"], 0, 4, "map_size_level")
         _integer(values["nutrient_rule_factor"], 1, 100, "nutrient_rule_factor")
         _integer(values["growth"], -8, 10, "growth")
-    elif algorithm == HUMAN_MINERAL_FACTOR:
-        _fields(values, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
+    elif algorithm in (HUMAN_MINERAL_FACTOR, CUSTOM_MINERAL_FACTOR):
+        required = {"faction_id", "mineral_rule_factor", "industry"}
+        _fields(values, required | ({"map_size_level"} if algorithm == HUMAN_MINERAL_FACTOR else set()))
         _integer(values["faction_id"], 1, 7, "faction_id")
-        _integer(values["map_size_level"], 0, 4, "map_size_level")
+        if algorithm in (HUMAN_NUTRIENT_FACTOR, HUMAN_MINERAL_FACTOR):
+            _integer(values["map_size_level"], 0, 4, "map_size_level")
         _integer(values["mineral_rule_factor"], 1, 100, "mineral_rule_factor")
         _integer(values["industry"], -8, 10, "industry")
 
@@ -285,7 +293,7 @@ class OriginalOracle:
             ]
         if PROTOTYPE_BASE_COST in algorithms:
             result["adapter_version"] = 4
-        if HUMAN_NUTRIENT_FACTOR in algorithms:
+        if HUMAN_NUTRIENT_FACTOR in algorithms or CUSTOM_NUTRIENT_FACTOR in algorithms:
             result["adapter_version"] = 5
             result["readonly_original_tables"] = [
                 {"name": "cost_factor nutrient switch", "address": "0x004E46C4", "size": 48}
@@ -389,13 +397,13 @@ class OriginalOracle:
             )
             return {"lost": self.execute(algorithm, (values["base_id"], values["current_item"]), fixture,
                                          dependencies=((0x004E4700, 0x004E4802), (0x0050BA00, 0x0050BA27)))}
-        if algorithm == HUMAN_NUTRIENT_FACTOR:
+        if algorithm in (HUMAN_NUTRIENT_FACTOR, CUSTOM_NUTRIENT_FACTOR):
             table_start, table_end = 0x004E46C4, 0x004E46F4
             fixture = (
                 (HUMAN_FACTIONS, struct.pack("<I", 1 << values["faction_id"])),
                 (MINERAL_RULE_FACTOR, struct.pack("<i", 10)),
                 (0x00949754, struct.pack("<i", values["nutrient_rule_factor"])),
-                (MAP_SIZE_LEVEL, struct.pack("<i", values["map_size_level"])),
+                (MAP_SIZE_LEVEL, struct.pack("<i", 99 if algorithm in (CUSTOM_NUTRIENT_FACTOR, CUSTOM_MINERAL_FACTOR) else values["map_size_level"])),
                 (0x0096CC50 + values["faction_id"] * FACTION_STRIDE, struct.pack("<i", values["growth"])),
                 # Preserve the pinned executable's own switch table verbatim.
                 # These bytes are read only from the local verified image;
@@ -436,14 +444,14 @@ class OriginalOracle:
             if result not in (0, 1):
                 raise ProbeError("original technology predicate returned a non-boolean value")
             return {"has_tech": bool(result)}
-        if algorithm == HUMAN_MINERAL_FACTOR:
+        if algorithm in (HUMAN_MINERAL_FACTOR, CUSTOM_MINERAL_FACTOR):
             # Human status bypasses AI/difficulty dependencies. Mineral mode
             # and base=-1 exclude nutrient and per-base effects. Every data
             # read on this bounded path has an explicit synthetic fixture.
             fixture = (
                 (HUMAN_FACTIONS, struct.pack("<I", 1 << values["faction_id"])),
                 (MINERAL_RULE_FACTOR, struct.pack("<i", values["mineral_rule_factor"])),
-                (MAP_SIZE_LEVEL, struct.pack("<i", values["map_size_level"])),
+                (MAP_SIZE_LEVEL, struct.pack("<i", 99 if algorithm in (CUSTOM_NUTRIENT_FACTOR, CUSTOM_MINERAL_FACTOR) else values["map_size_level"])),
                 (FACTION_INDUSTRY + values["faction_id"] * FACTION_STRIDE,
                  struct.pack("<i", values["industry"])),
             )

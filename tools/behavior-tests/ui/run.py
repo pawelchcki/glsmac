@@ -62,6 +62,15 @@ def dimension_dialog_command(args):
     return shlex.join(command)
 
 
+def size_kind_command(args):
+    if args.browser:
+        raise ProtocolError("custom-size-kind uses pixel-free replay; actual browser integration is separate")
+    command = [sys.executable, str(DIRECTORY / ("size_kind_original.py" if args.record else "size_kind_headless.py"))]
+    if args.record:
+        command += ["--assets", str(args.assets.resolve()), "--wine", args.wine, "--timeout", str(args.step_timeout)]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -151,6 +160,8 @@ def main(argv=None):
                 reference_command = unit_orders_command(args)
             if reference["id"] in ("dimension-dialog", "dimension-caption-sources"):
                 reference_command = dimension_dialog_command(args)
+            if reference["id"] == "custom-size-kind":
+                reference_command = size_kind_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -163,6 +174,8 @@ def main(argv=None):
                 candidate_command = unit_orders_command(args)
             if command is not None and reference["id"] in ("dimension-dialog", "dimension-caption-sources"):
                 candidate_command = dimension_dialog_command(args)
+            if command is not None and reference["id"] == "custom-size-kind":
+                candidate_command = size_kind_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

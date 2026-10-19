@@ -12,7 +12,8 @@
         "ui.custom_planet.v1",
         "ui.map_size_keyboard.v1",
         "ui.citizen_job.v1",
-        "ui.map_dimension_dialog.v1"
+        "ui.map_dimension_dialog.v1",
+        "ui.custom_size_kind.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -20,7 +21,8 @@
         "Custom rules",
         "File dialogs",
         "Credits",
-        "Setting combinations and side effects outside custom-planet controller"
+        "Setting combinations and side effects outside custom-planet controller",
+        "Edited custom dimensions, normalization and large-map warning behavior"
       ]
     },
     {
@@ -126,7 +128,9 @@
         "economy.human_nutrient_factor.v1",
         "economy.base_square_resources.v1",
         "economy.basic_production_switch_loss.v1",
-        "ui.citizen_job.v1"
+        "ui.citizen_job.v1",
+        "economy.custom_map_nutrient_factor.v1",
+        "economy.custom_map_mineral_factor.v1"
       ],
       "remaining": [
         "Tile yields",
@@ -246,7 +250,7 @@
       "contracts": [
         "ui.map_dimension_dialog.v1"
       ],
-      "coverage": "Shared native/WASM parsing, native GSE queries and three static menu dialogs consume installed SMACX data. Installed nutrient and mineral multipliers reach native rules and both startup paths, growth/food display and declared facility/unit prices. Native rules and GlobalSettings transfer, copies/lifetime, legacy records, overflow and zero-price handling have regression coverage. This is data-import/application coverage, separate from original-executable arithmetic parity. The complete ordered world-size table now supplies native startup defaults, size-picker and lobby choices, with copy/codec/alias and menu-controller regressions. Descriptions are preserved as data; coordinate conversion and generated-world checks are application coverage. Custom-size controls additionally consume common Script.txt CUSTOMMAP and labels.txt ordinals, with 18 original visible-dialog comparisons covering raw defaults and controlled source precedence. Native alias, validation, cancel and generated custom-world checks are separate application coverage; original edited-input behavior remains unobserved.",
+      "coverage": "Shared native/WASM parsing, native GSE queries and three static menu dialogs consume installed SMACX data. Installed nutrient and mineral multipliers reach native rules and both startup paths, growth/food display and declared facility/unit prices. Native rules and GlobalSettings transfer, copies/lifetime, legacy records, overflow and zero-price handling have regression coverage. This is data-import/application coverage, separate from original-executable arithmetic parity. The complete ordered world-size table now supplies native startup defaults, size-picker and lobby choices, with copy/codec/alias and menu-controller regressions. Descriptions are preserved as data; coordinate conversion and generated-world checks are application coverage. Custom-size controls additionally consume common Script.txt CUSTOMMAP and labels.txt ordinals, with 18 original visible-dialog comparisons covering raw defaults and controlled source precedence. Native alias, validation, cancel and generated custom-world checks are separate application coverage; original edited-input behavior remains unobserved. Twenty additional original setup traces now transfer immediate Custom kind 99 and independent remembered named-size choice. Twenty-four fixed-Custom factor witnesses support native food and declared mineral-price integration; native construction/codec and actual browser generation remain application coverage.",
       "remaining": [
         "Rule table integration into technology, unit, facility and economy systems",
         "Difficulty and other dynamic setup choices from rules tables",

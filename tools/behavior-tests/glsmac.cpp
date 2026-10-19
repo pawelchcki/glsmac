@@ -95,18 +95,18 @@ int Evaluate( std::istringstream& input ) {
 		const auto minerals = ReadInteger( input, 0, 1000000 );
 		return game::backend::base::BasicProductionSwitchLoss( previous, current, minerals );
 	}
-	if ( algorithm == "human_nutrient_factor" ) {
+	if ( algorithm == "human_nutrient_factor" || algorithm == "custom_map_nutrient_factor" ) {
 		ReadInteger( input, 1, 7 ); // original human fixture faction identity
-		const auto level = ReadInteger( input, 0, 4 );
+		const auto level = algorithm == "custom_map_nutrient_factor" ? ReadInteger( input, 99, 99 ) : ReadInteger( input, 0, 4 );
 		const auto rule = ReadInteger( input, 1, 100 );
 		const auto growth = ReadInteger( input, -8, 10 );
 		return game::backend::base::HumanNutrientFactor( level, rule, growth );
 	}
-	if ( algorithm == "human_mineral_factor" ) {
+	if ( algorithm == "human_mineral_factor" || algorithm == "custom_map_mineral_factor" ) {
 		// Faction identity controls the original human fixture. GLSMAC's pure
 		// helper receives the corresponding faction's explicit industry rating.
 		ReadInteger( input, 1, 7 );
-		const auto size = ReadInteger( input, 0, 4 );
+		const auto size = algorithm == "custom_map_mineral_factor" ? ReadInteger( input, 99, 99 ) : ReadInteger( input, 0, 4 );
 		const auto rule = ReadInteger( input, 1, 100 );
 		const auto industry = ReadInteger( input, -8, 10 );
 		return game::backend::base::HumanMineralFactor( size, rule, industry );

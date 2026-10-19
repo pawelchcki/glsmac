@@ -45,6 +45,11 @@
       "id": "dimension-caption-sources",
       "cases": "cases/dimension-caption-sources.json",
       "observations": "observations/smacx-gog-2.0-dimension-caption-sources.json"
+    },
+    {
+      "id": "custom-size-kind",
+      "cases": "cases/custom-size-kind.json",
+      "observations": "observations/smacx-gog-2.0-custom-size-kind.json"
     }
   ]
 }

@@ -33,12 +33,12 @@ WRAPIMPL_DYNAMIC_GETTERS( MapSettings )
 			WRAPIMPL_GET_PTR( "cloud_cover", cloud_cover )
 WRAPIMPL_DYNAMIC_SETTERS( MapSettings )
 	if ( key == "preset_level" ) {
-		if ( value->type != gse::VT_INT || ( (gse::value::Int*)value )->value < -1 || ( (gse::value::Int*)value )->value > 4 ) {
-			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Map preset level must be -1 or an integer from 0 through 4" );
+		if ( value->type != gse::VT_INT || ( ( (gse::value::Int*)value )->value != -1 && !MapSettings::IsKnownSizeKind( ( (gse::value::Int*)value )->value ) ) ) {
+			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Map size kind must be -1, 0 through 4, or 99" );
 		}
 		const auto requested = ( (gse::value::Int*)value )->value;
 		if ( requested != -1 && obj->type != MapSettings::MT_RANDOM && obj->type != MapSettings::MT_CUSTOM ) {
-			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Imported maps cannot declare named preset provenance" );
+			GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Imported maps cannot declare generated-map size provenance" );
 		}
 		obj->preset_level = requested;
 		obj->RefreshPresetWrappers();
@@ -133,7 +133,7 @@ void MapSettings::Deserialize( types::Buffer buf ) {
 	// Older settings lack provenance and remain explicitly unknown. Validate
 	// the complete record before replacing any live settings.
 	auto decoded_preset = buf.lenr == buf.lenw ? -1 : buf.ReadInt();
-	if ( decoded_preset < -1 || decoded_preset > 4 || buf.lenr != buf.lenw ) { THROW( "invalid map preset provenance" ); }
+	if ( ( decoded_preset != -1 && !IsKnownSizeKind( decoded_preset ) ) || buf.lenr != buf.lenw ) { THROW( "invalid map preset provenance" ); }
 	if ( decoded_type != MT_RANDOM && decoded_type != MT_CUSTOM ) { decoded_preset = -1; }
 	type = (type_t)decoded_type; filename = decoded_filename;
 	size_x = decoded_size_x; size_y = decoded_size_y;

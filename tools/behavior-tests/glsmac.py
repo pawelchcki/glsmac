@@ -22,6 +22,8 @@ ALGORITHMS = {
     "technology.prerequisite.v1": ("prerequisite", "is_prerequisite", bool),
     "economy.human_mineral_factor.v1": ("human_mineral_factor", "factor", int),
     "economy.human_nutrient_factor.v1": ("human_nutrient_factor", "factor", int),
+    "economy.custom_map_nutrient_factor.v1": ("custom_map_nutrient_factor", "factor", int),
+    "economy.custom_map_mineral_factor.v1": ("custom_map_mineral_factor", "factor", int),
     "economy.basic_production_switch_loss.v1": ("basic_production_switch_loss", "lost", int),
     "unit.prototype_base_cost.v1": ("prototype_base_cost", "rows", int),
 }
@@ -115,13 +117,15 @@ def encode_input(algorithm, data):
         values = [integer(data["base_id"], 0, 7), integer(data["faction_id"], 1, 7),
                   integer(data["previous_item"], -64, 511), integer(data["current_item"], -64, 511),
                   integer(data["minerals"], 0, 1_000_000)]
-    elif operation == "human_nutrient_factor":
-        fields(data, {"faction_id", "map_size_level", "nutrient_rule_factor", "growth"})
-        values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
+    elif operation in ("human_nutrient_factor", "custom_map_nutrient_factor"):
+        custom = algorithm == "economy.custom_map_nutrient_factor.v1"
+        fields(data, {"faction_id", "nutrient_rule_factor", "growth"} | (set() if custom else {"map_size_level"}))
+        values = [integer(data["faction_id"], 1, 7), 99 if custom else integer(data["map_size_level"], 0, 4),
                   integer(data["nutrient_rule_factor"], 1, 100), integer(data["growth"], -8, 10)]
-    elif operation == "human_mineral_factor":
-        fields(data, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
-        values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
+    elif operation in ("human_mineral_factor", "custom_map_mineral_factor"):
+        custom = algorithm == "economy.custom_map_mineral_factor.v1"
+        fields(data, {"faction_id", "mineral_rule_factor", "industry"} | (set() if custom else {"map_size_level"}))
+        values = [integer(data["faction_id"], 1, 7), 99 if custom else integer(data["map_size_level"], 0, 4),
                   integer(data["mineral_rule_factor"], 1, 100), integer(data["industry"], -8, 10)]
     else:
         fields(data, {"ancestor_id", "tech_id", "max_depth", "technologies"})

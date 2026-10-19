@@ -39,7 +39,7 @@ bool HasDeclaredMineralCost( const Game* game, const Player* player, const int64
 	const auto role = player->GetRole();
 	if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return false; }
 	const auto& map = game->GetState()->m_settings.global.map;
-	return ( map.type == settings::MapSettings::MT_RANDOM || map.type == settings::MapSettings::MT_CUSTOM ) && map.preset_level >= 0 && map.preset_level <= 4;
+	return map.HasKnownSizeKind();
 }
 
 int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {

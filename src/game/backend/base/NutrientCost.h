@@ -5,7 +5,7 @@
 namespace game::backend::base {
 
 // Human nutrient factor with no base effects. Inputs use the raw map preset
-// level (0..4), integer nutrient rule multiplier (1..100), and signed faction
+// kind (named 0..4 or Custom 99), integer nutrient rule multiplier (1..100), and signed faction
 // GROWTH rating (-8..10). Multiply separately by the population growth rows.
 inline int HumanNutrientFactor( const int map_size_level, const int nutrient_rule_factor, const int growth ) {
 	// Apply the small-map reduction before rounding the growth adjustment.

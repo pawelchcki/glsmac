@@ -13,7 +13,7 @@ int64_t DeclaredMineralCost( const Game* game, const Player* player, int64_t fal
 bool HasDeclaredMineralCost( const Game* game, const Player* player, int64_t rows );
 
 // Human mineral cost factor with no base effects. Inputs use the raw map
-// preset level (0..4), integer mineral rule multiplier (1..100), and signed
+// size kind (named 0..4 or Custom 99), integer mineral rule multiplier (1..100), and signed
 // social INDUSTRY rating (-8..10). This is a factor, not a facility/unit cost.
 inline int HumanMineralFactor( const int map_size_level, const int mineral_rule_factor, const int industry ) {
 	// Small maps reduce the rule multiplier, truncating before INDUSTRY applies.

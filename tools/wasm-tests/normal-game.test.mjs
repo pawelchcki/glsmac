@@ -25,9 +25,13 @@ function recordedNormalFactors(level = 0, nutrientRule = 10, mineralRule = 10) {
     return output;
   };
   const rows = witness('starting-unit-components', ({ id }) => id === 'colony-pod-fission-infantry').rows;
-  const mineral = witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
+  const mineral = level === 99 ? witness('custom-map-human-factors', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_mineral_factor.v1'
+    && i.faction_id === 1 && i.mineral_rule_factor === mineralRule && i.industry === 0).factor
+    : witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
     && i.mineral_rule_factor === mineralRule && i.industry === 0).factor;
-  const nutrient = witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
+  const nutrient = level === 99 ? witness('custom-map-human-factors', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_nutrient_factor.v1'
+    && i.faction_id === 1 && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor
+    : witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
     && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor;
   assert.equal(rows, 3);
   if (level === 0 && nutrientRule === 10 && mineralRule === 10) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
@@ -259,7 +263,7 @@ return (i) => {
 };
 `;
 
-async function overrideDimensionAssets(page) {
+async function overrideDimensionAssets(page, rulesSource) {
   const sources = new Map();
   for (const name of ['script.txt', 'xscript.txt', 'labels.txt']) {
     const names = readdirSync(assets).filter((item) => item.toLowerCase() === name);
@@ -279,6 +283,8 @@ async function overrideDimensionAssets(page) {
     const bytes = Buffer.from(text, 'latin1');
     sources.set(name, { bytes, reads: 0, sha256: createHash('sha256').update(bytes).digest('hex') });
   }
+  const rulesBytes = Buffer.from(rulesSource, 'utf8');
+  sources.set('alphax.txt', { bytes: rulesBytes, reads: 0, sha256: createHash('sha256').update(rulesBytes).digest('hex') });
   await page.route('**/assets/manifest.json', async (route) => {
     const response = await route.fetch(); assert.equal(response.status(), 200);
     const manifest = await response.json();
@@ -288,7 +294,7 @@ async function overrideDimensionAssets(page) {
     }
     await route.fulfill({ json: manifest });
   });
-  await page.route(/\/assets\/(?:x?script|labels)\.txt$/i, async (route) => {
+  await page.route(/\/assets\/(?:x?script|labels|alphax)\.txt$/i, async (route) => {
     const name = new URL(route.request().url()).pathname.split('/').at(-1).toLowerCase();
     const source = sources.get(name); source.reads++;
     await route.fulfill({ status: 200, contentType: 'application/octet-stream', body: source.bytes });
@@ -320,7 +326,7 @@ async function clickCanvas(page, x, y) {
 for (const profile of [
   ...['random', 'custom'].map((route) => ({
     name: `custom dimensions load installed text and generate a playable ${route} world`,
-    dimension: route, alternateText: route === 'custom', level: 0, size: [60, 48], rule: 10, lifecycle: false,
+    dimension: route, alternateText: route === 'custom', level: 0, size: [60, 48], rule: route === 'custom' ? 13 : 10, mineralRule: 13, lifecycle: false,
   })),
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
@@ -335,7 +341,7 @@ test(profile.name, {
   skip: (!assets || (!profile.lifecycle && process.env.WASM_SITE_URL)) && 'Requires SMAC_ASSETS_DIR; synthetic rules require the local asset server',
   timeout: 180000,
 }, async (t) => {
-  const factors = recordedNormalFactors(profile.level, profile.rule, profile.mineralRule ?? 10);
+  const factors = recordedNormalFactors(profile.dimension ? 99 : profile.level, profile.rule, profile.mineralRule ?? 10);
   const artifactPrefix = profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
@@ -583,8 +589,9 @@ test(profile.name, {
       && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual idle or selected production policy, growth stage and any population child have committed');
   };
 
-  const dimensionAssets = profile.alternateText ? await overrideDimensionAssets(page) : null;
-  const rulesAsset = profile.lifecycle || profile.dimension ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined));
+  const rulesSource = syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined);
+  const dimensionAssets = profile.alternateText ? await overrideDimensionAssets(page, rulesSource) : null;
+  const rulesAsset = profile.lifecycle || dimensionAssets ? null : await overrideRulesAsset(page, rulesSource);
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -646,7 +653,7 @@ test(profile.name, {
       await chooseMenu(3, 1, 'erosion'); await chooseMenu(3, 1, 'life');
       await chooseMenu(3, 1, 'cloud'); await chooseMenu(3, 1, 'difficulty');
     } else { await menuReady('difficulty'); }
-    await waitLog('NORMAL_DIMENSION_CONFIRMED|60|48|-1');
+    await waitLog('NORMAL_DIMENSION_CONFIRMED|60|48|99');
   } else { await chooseMenu(6, profile.level, 'difficulty'); }
 
   await chooseMenu(6, 0, 'rules'); // Citizen
@@ -685,8 +692,9 @@ test(profile.name, {
   await screenshot('headquarters');
   if (profile.dimension) {
     const customLog = await page.locator('#log').textContent();
-    assert.ok(customLog.includes(`NORMAL_NATIVE_NUTRIENT_FACTOR|${headquarters.id}|undefined`), 'Custom coordinates retain the explicit unknown-preset native boundary');
-    assert.ok(initial.economies.find((entry) => entry.id === headquarters.id).factor > 0, 'Production growth resolves its existing custom-map fallback');
+    assert.ok(customLog.includes(`NORMAL_NATIVE_NUTRIENT_FACTOR|${headquarters.id}|${factors.nutrient}`), 'Custom worlds use the recorded native rule factor');
+    assert.equal(initial.economies.find((entry) => entry.id === headquarters.id).factor, factors.nutrient, 'Production growth uses the loaded Custom factor');
+    assert.ok(customLog.includes(`NORMAL_RECIPE|COLONY_POD|ColonyPod|${factors.cost}|1`), 'The real Custom world uses the loaded mineral rule for its unit descriptor');
     await closeBase(headquarters.id);
     const next = await advanceProductionTurn(headquarters.id);
     assert.equal(next.turn, initial.turn + 1);

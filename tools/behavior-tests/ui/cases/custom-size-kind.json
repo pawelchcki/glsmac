@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "name": "original-custom-size-kind-and-reentry",
+  "description": "Read-only native setup kind after entering and closing untouched custom dimensions, plus actual setup navigation and remembered size highlight. Excludes edited dimensions, map coordinate units and generated terrain.",
+  "cases": [
+    {
+      "id": "kind-random-wait",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "close": "wait",
+        "reenter": false
+      }
+    },
+    {
+      "id": "kind-random-enter",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-ok",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "close": "OK",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-escape",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-cancel",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": null,
+        "close": "Cancel",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-prior-0",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 0,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-prior-1",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 1,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-prior-2",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 2,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-prior-3",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 3,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-random-prior-4",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "random",
+        "prior_preset": 4,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-wait",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "close": "wait",
+        "reenter": false
+      }
+    },
+    {
+      "id": "kind-custom-enter",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "close": "Enter",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-ok",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "close": "OK",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-escape",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-cancel",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": null,
+        "close": "Cancel",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-prior-0",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 0,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-prior-1",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 1,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-prior-2",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 2,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-prior-3",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 3,
+        "close": "Escape",
+        "reenter": true
+      }
+    },
+    {
+      "id": "kind-custom-prior-4",
+      "algorithm": "ui.custom_size_kind.v1",
+      "input": {
+        "route": "custom",
+        "prior_preset": 4,
+        "close": "Escape",
+        "reenter": true
+      }
+    }
+  ]
+}

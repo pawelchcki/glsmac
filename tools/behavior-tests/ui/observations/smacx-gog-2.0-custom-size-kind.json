@@ -1,0 +1,1224 @@
+{
+  "captured_at": "2026-10-19T22:20:15.234749+00:00",
+  "observations": [
+    {
+      "case_sha256": "85b06980eef497227b8b90f6aa6288d8ec007548b2e5e150131e3604f14964b8",
+      "id": "kind-random-wait",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0aacffb83758186406a43feba075b5be2814291c0802ebec0a8284a20f37af78",
+      "id": "kind-random-enter",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "078552ed81569c412c5068a5c09668ad2e7583531adc1628cc1081f44d5c76ef",
+      "id": "kind-random-ok",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ef6b0a42f2a7bd1b7edd72926d55415e83485c4664176183d7dd6e071485d55d",
+      "id": "kind-random-escape",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a37d876fff7f61a5b31fa05d52e7afa29cfb760bb3518612e233015bf23d8d77",
+      "id": "kind-random-cancel",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "27af0e2335654cc0aa32e17ca050be33ff3bb81f933291f061e9e1b4e0676cd2",
+      "id": "kind-random-prior-0",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "TINY PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0099f9d0ab052178dc51e0a8dd8f700575d4b222124fa4262ad7e53fb2ccd14a",
+      "id": "kind-random-prior-1",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "SMALL PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "77f4c977316176f6aab86f585f1f93a6161f227e318fea6f58dd815844d36fad",
+      "id": "kind-random-prior-2",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "751979a761c7bd80ef52977171632f404de706be42c05e37bf4e5339c6739ccb",
+      "id": "kind-random-prior-3",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "LARGE PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a858873672e0c9ed1f4abd9578557ecb5c2e9958c774b748b2ec0dcc726f1dbd",
+      "id": "kind-random-prior-4",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "HUGE PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "32df19cfa6f41c536462f4328e16cd42ec50185358bdc0695ad4549f658f0931",
+      "id": "kind-custom-wait",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c45d25a457873b0389b63aa46464290051d6c8b72924abc6ab474aa051b39de9",
+      "id": "kind-custom-enter",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d4e875643e029f692837031f1149768efc998277dce4f7017ec18265d30d62be",
+      "id": "kind-custom-ok",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "back"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "59507df45f638f9f674c121941193a6ed01886ac504ecdb8688ff549bc60d9dc",
+      "id": "kind-custom-escape",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3736ed1383509982805b851eeefeb698f58388c246ed61043d5fb57125ec6819",
+      "id": "kind-custom-cancel",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ce3c9303f6223728be493b6de11861fc7642db227d19067fa190dcd6739aacd5",
+      "id": "kind-custom-prior-0",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "TINY PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "61983bb805bd089fce066ef3d07a32533f62c861bdc041ef952b3e71c89919d7",
+      "id": "kind-custom-prior-1",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "SMALL PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "29f7bf17720f033aeba91cf93193170f634ddf835a24850a836a6d4820dda6ec",
+      "id": "kind-custom-prior-2",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "STANDARD PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "198fc655e90bbe708cf25915cd696510fbb0c3a8cdce9519afc7ef981ee18c18",
+      "id": "kind-custom-prior-3",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "LARGE PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e3628c84ff27b564cf2ecabad92f0e7812a4668dae5126c6e831c1b2b053baec",
+      "id": "kind-custom-prior-4",
+      "output": {
+        "trace": [
+          {
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "40",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "open"
+          },
+          {
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "close"
+          },
+          {
+            "screen": {
+              "caption": "SELECT SIZE OF PLANET",
+              "entries": [
+                "TINY PLANET",
+                "SMALL PLANET",
+                "STANDARD PLANET",
+                "LARGE PLANET",
+                "HUGE PLANET",
+                "CUSTOM SIZE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "HUGE PLANET"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "reentry"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "98c11e78a57879b6cef2450ccd39cb56a03268da3f0bdd8f0acee7be43108c12",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.custom_size_kind.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual untouched custom dialog, setup kind, navigation and highlighted reentry choice",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "readonly_fields": [
+      {
+        "bytes": 4,
+        "name": "setup size kind",
+        "rva": "0x54a2a0"
+      }
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "a0dcc150a6a6a75ccff021d078be892435d27d667521e267456452157fc06f3d",
+  "version": 1
+}

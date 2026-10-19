@@ -447,7 +447,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			const auto role = player->GetRole();
 			if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return VALUE( gse::value::Undefined ); }
 			const auto& map = state->m_settings.global.map;
-			if ( ( map.type != settings::MapSettings::MT_RANDOM && map.type != settings::MapSettings::MT_CUSTOM ) || map.preset_level < 0 || map.preset_level > 4 ) { return VALUE( gse::value::Undefined ); }
+			if ( !map.HasKnownSizeKind() ) { return VALUE( gse::value::Undefined ); }
 			// Model only the recorded human/no-base factor at GROWTH0. The
 			// installed multiplier is typed rules state; growth rows are script policy.
 			return VALUE( gse::value::Int,, HumanNutrientFactor( map.preset_level, int( state->m_settings.global.rules.GetNutrientCostFactor() ), 0 ) );

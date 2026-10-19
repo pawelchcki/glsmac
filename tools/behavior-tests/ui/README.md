@@ -30,6 +30,7 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `ui.custom_size_kind.v1` | 20 | Untouched Custom dialog, native setup kind, cancel/back and remembered named-size highlight | Real original application in Wine/Xvfb; recorded twice |
 | `ui.menu_trace.v1` | 41 | Captions, ordered choices, selected choice and intermediate screens after clicks, arrows and Escape | Real original application in Wine/Xvfb; recorded twice |
 | `ui.custom_planet.v1` | 215 | Question order, selected defaults, cancel/confirm/wait status, consumed responses and confirmed map parameters | Original x86 custom-planet controller in Unicorn; recorded twice without graphics |
 | `ui.menu_trace.v1` (navigation) | 54 | Both full navigation cycles, Home/End, Enter and Escape across ten menu screens; 425 checkpoints | Real original application in Wine/Xvfb; recorded twice |
@@ -240,3 +241,12 @@ The [pending catalog](pending-catalog.json) is currently empty after promotion.
 no execution and no matches. It does not establish complete game parity. The
 successful original recorder normalized indexed screenshots to RGB before OCR;
 prior observer/setup failures remain local research artifacts.
+
+The [Custom size kind contract](custom-size-kind-contract.md) adds 20 original
+traces. Production controls now declare Custom kind 99 when the dialog opens,
+retain it through cancellation/confirmation and remember the last named size
+independently. Candidate replay uses actual native settings and GSE controls
+without pixels; original capture reads one verified four-byte setup field and
+observes visible controls. Edited bounds and large-map warnings remain outside
+this contract. `npm --prefix tools/wasm-tests run test:dimensions` separately
+checks real browser input, loaded rule factors, terrain, Headquarters and a turn.

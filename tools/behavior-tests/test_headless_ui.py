@@ -88,13 +88,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources", "custom-size-kind"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 373)
+        self.assertEqual(count, 393)
 
     def test_promoted_order_evidence_stays_bound_to_all_original_checkpoints(self):
         reference = next(row for row in audit.load_references(DIRECTORY / "catalog.json") if row['id'] == 'unit-orders')

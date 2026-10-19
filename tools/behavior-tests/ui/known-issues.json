@@ -183,11 +183,25 @@
           "additional_first_failure": "A retained imported wrapper must observe the restored random route"
         }
       ]
+    },
+    {
+      "id": "custom-size-kind-and-cost-context",
+      "suite": "custom-size-kind",
+      "status": "fixed-in-recorded-contract",
+      "property": "All 20 original traces require Custom kind 99 immediately on dialog entry, including cancel/back, while the last named-size highlight is remembered independently. First strict candidate replay mismatched all 20; four non-Standard prior choices also exposed the highlight discrepancy. Dedicated original nutrient/mineral factor records fix kind 99; native integration previously treated custom worlds as unknown. Rebuilt candidate now matches all 20; the additional 18 native scenarios pass.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite custom-size-kind",
+      "candidate_probes": [
+        {
+          "script": "GLSMAC_data/tests/custom_size_context.gls.js",
+          "status": "fixed-regression",
+          "scope": "Native known-custom factors, declared facility/unit prices, receiving settings, aliases, unknown/imported guards and actual construction"
+        }
+      ]
     }
   ],
   "verification": {
-    "cases": 373,
-    "matched": 373,
+    "cases": 393,
+    "matched": 393,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,

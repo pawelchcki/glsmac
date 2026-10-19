@@ -41,8 +41,11 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 	int64_t size_x = 112;
 	int64_t size_y = 56;
 
-	// Explicit named-preset provenance. Dimensions alone never imply a level.
-	// -1 is custom, imported, legacy or otherwise unspecified.
+	// Explicit setup kind: named 0..4, custom 99, or unknown -1.
+	// Dimensions alone never imply a kind.
+	static constexpr int64_t CUSTOM_SIZE = 99;
+	static bool IsKnownSizeKind( const int64_t kind ) { return ( kind >= 0 && kind <= 4 ) || kind == CUSTOM_SIZE; }
+	bool HasKnownSizeKind() const { return ( type == MT_RANDOM || type == MT_CUSTOM ) && IsKnownSizeKind( preset_level ); }
 	int64_t preset_level = -1;
 
 	/*

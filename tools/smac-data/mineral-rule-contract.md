@@ -38,7 +38,9 @@ Declared facility and Colony Pod rows use the loaded mineral multiplier in the
 existing human/named-preset/INDUSTRY-zero resolver. For Standard and rule eleven,
 four facility rows cost 44 and three Colony Pod rows cost 33. Descriptor,
 selection preview, selection, completion and food/mineral displays must agree.
-Existing explicit fallback costs remain for unknown/custom/imported provenance,
+Explicit Custom kind 99 also uses the loaded multiplier, supported by the
+separate fixed-Custom original factor observations. Existing explicit fallback
+costs remain for unknown/imported provenance,
 unmodeled roles and definitions without row declarations. These row declarations
 and construction semantics are GLSMAC application policy, not additional
 original-executable evidence. Check multiplication against the actual factor

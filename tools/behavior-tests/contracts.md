@@ -295,5 +295,24 @@ code/read/write boundaries and execution budgets remain guarded.
 
 Replay uses the real WASM GSE interpreter and shipped resource handler with
 controlled native inputs, without assets or pixels. It is not included in the
-15,520-case native/WASM C++ helper totals and does not establish native application
+15,544-case native/WASM C++ helper totals and does not establish native application
 execution, worked-tile yields, construction costs or complete base economy.
+
+## Fixed Custom map factors
+
+`economy.custom_map_nutrient_factor.v1` and
+`economy.custom_map_mineral_factor.v1` fix the original setup kind at **99**.
+Inputs omit `map_size_level`; faction 1..7, rule factor 1..100 and the existing
+GROWTH/INDUSTRY bounds otherwise match the named contracts. The original adapter
+executes the same pinned original functions with human status and no base.
+It preserves the existing guarded memory, stack, register and instruction limits.
+The named contracts continue to reject kinds outside 0..4.
+
+`cases/custom-map-human-factors.json` has 24 independently repeated observations
+in `observations/smacx-gog-2.0-custom-map-human-factors.json`: both resources,
+rule factors 1/10/13/100 and ratings -3/0/3 at faction 1. This is a sample of
+the bounded input domain. `ui.custom_size_kind.v1` separately observes that
+ordinary Custom Size dialogs actually select kind 99. These contracts establish
+neither edited-input limits nor full base economy or item construction rules.
+Native/WASM helpers replay the 24 outputs; `custom-size-context` checks their
+integration into native settings, nutrient queries and declared item prices.
