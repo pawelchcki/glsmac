@@ -10,18 +10,23 @@
 #include "Base.h"
 #include "PopDef.h"
 #include "FacilityDef.h"
+#include "production/Facility.h"
 
 #include "gse/context/Context.h"
 #include "gse/callable/Native.h"
 #include "gse/value/Bool.h"
 #include "gse/value/Array.h"
+#include <memory>
 
 namespace game {
 namespace backend {
 namespace base {
 
 BaseManager::BaseManager( Game* game )
-	: gse::GCWrappable( game->GetGCSpace() )
+	: BaseManager( game, true ) {}
+
+BaseManager::BaseManager( Game* game, const bool register_with_gc )
+	: gse::GCWrappable( register_with_gc ? game->GetGCSpace() : nullptr )
 	, m_game( game ) {
 	//
 }
@@ -31,6 +36,8 @@ BaseManager::~BaseManager() {
 }
 
 void BaseManager::Clear() {
+	for ( auto& it : m_base_facilitydefs ) { delete it.second; }
+	m_base_facilitydefs.clear();
 	for ( auto& it : m_base_popdefs ) {
 		delete it.second;
 	}
@@ -39,6 +46,9 @@ void BaseManager::Clear() {
 		delete it.second;
 	}
 	m_bases.clear();
+	m_unprocessed_bases.clear();
+	m_registered_base_names.clear();
+	m_updated_bases.clear();
 
 	m_base_updates.clear();
 }
@@ -105,7 +115,7 @@ FacilityDef* BaseManager::GetFacilityDef( const std::string& id ) const {
 void BaseManager::DefineFacility( FacilityDef* facility_def ) {
 	Log( "Defining base facility ('" + facility_def->m_id + "')" );
 
-	ASSERT( m_base_popdefs.find( facility_def->m_id ) == m_base_popdefs.end(), "Base facility def '" + facility_def->m_id + "' already exists" );
+	ASSERT( m_base_facilitydefs.find( facility_def->m_id ) == m_base_facilitydefs.end(), "Base facility def '" + facility_def->m_id + "' already exists" );
 
 	m_base_facilitydefs.insert(
 		{
@@ -120,11 +130,21 @@ void BaseManager::DefineFacility( FacilityDef* facility_def ) {
 	m_game->AddFrontendRequest( fr );*/
 }
 
-void BaseManager::UndefineFacility( const std::string& id ) {
+void BaseManager::UndefineFacility( GSE_CALLABLE, const std::string& id ) {
 	Log( "Undefining base facility ('" + id + "')" );
 
-	ASSERT( m_base_facilitydefs.find( id ) != m_base_facilitydefs.end(), "Base facility def '" + id + "' does not exist" );
+	if ( !m_base_facilitydefs.count( id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown facility definition: " + id ); }
+	if ( !m_unprocessed_bases.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Cannot remove facility definitions while restoring bases" ); }
+	for ( const auto& entry : m_bases ) {
+		const auto* base = entry.second;
+		if ( base->m_facilities.count( id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Cannot remove a facility definition installed at a base" ); }
+		const auto* choice = base->m_owner->GetPlayer()->GetProductionChoice( base->GetProductionState().choice_id );
+		if ( choice && choice->GetType() == production::Production::PT_FACILITY && static_cast< const production::Facility* >( choice )->GetFacilityId() == id ) {
+			GSE_ERROR( gse::EC.GAME_ERROR, "Cannot remove a facility definition used by active production" );
+		}
+	}
 
+	delete m_base_facilitydefs.at( id );
 	m_base_facilitydefs.erase( id );
 
 	/* TODO
@@ -388,6 +408,7 @@ WRAPIMPL_BEGIN( BaseManager )
 				N_GETPROP( name, def, "name", String );
 				N_GETPROP( description, def, "description", String );
 				N_GETPROP( cost, def, "cost", Int );
+				if ( cost < 0 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility cost cannot be negative" ); }
 
 				N_GETPROP( render, def, "render", Object );
 				const auto r = RenderInfo::FromValue( GSE_CALL, render );
@@ -406,7 +427,7 @@ WRAPIMPL_BEGIN( BaseManager )
 				N_EXPECT_ARGS( 1 );
 				N_GETVALUE( id, 0, String );
 
-				UndefineFacility( id );
+				UndefineFacility( GSE_CALL, id );
 
 				return VALUE( gse::value::Undefined );
 			} )
@@ -517,13 +538,18 @@ void BaseManager::TriggerUpdates( GSE_CALLABLE ) {
 }
 
 void BaseManager::Serialize( types::Buffer& buf ) const {
+	buf.WriteString( "GLSMAC_BASES_V1" );
 
 	Log( "Serializing " + std::to_string( m_base_popdefs.size() ) + " base pop defs" );
 	buf.WriteInt( m_base_popdefs.size() );
-	for ( const auto& it : m_base_popdefs ) {
+	const std::map< std::string, PopDef* > sorted_popdefs( m_base_popdefs.begin(), m_base_popdefs.end() );
+	for ( const auto& it : sorted_popdefs ) {
 		buf.WriteString( it.first );
 		buf.WriteString( PopDef::Serialize( it.second ).ToString() );
 	}
+	buf.WriteInt( m_base_facilitydefs.size() );
+	const std::map< std::string, FacilityDef* > sorted_facilities( m_base_facilitydefs.begin(), m_base_facilitydefs.end() );
+	for ( const auto& it : sorted_facilities ) { buf.WriteString( FacilityDef::Serialize( it.second ).ToString() ); }
 
 	Log( "Serializing " + std::to_string( m_bases.size() ) + " bases" );
 	buf.WriteInt( m_bases.size() );
@@ -539,23 +565,44 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 	ASSERT( m_base_popdefs.empty(), "base pop defs not empty" );
 	ASSERT( m_bases.empty(), "bases not empty" );
 	ASSERT( m_unprocessed_bases.empty(), "unprocessed bases not empty" );
+	ASSERT( m_base_facilitydefs.empty(), "facility defs not empty" );
+	if ( buf.ReadString() != "GLSMAC_BASES_V1" ) { THROW( "unsupported base snapshot version" ); }
+	const auto read_count = [ &buf ]() {
+		const auto count = buf.ReadInt();
+		if ( count < 0 || uint64_t( count ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid base snapshot count" ); }
+		return size_t( count );
+	};
+	std::map< std::string, std::unique_ptr< PopDef > > pops;
+	std::map< std::string, std::unique_ptr< FacilityDef > > facilities;
+	std::vector< std::string > bases;
 
-	size_t sz = buf.ReadInt();
-	m_base_popdefs.reserve( sz );
-	Log( "Unserializing " + std::to_string( sz ) + " base pop defs" );
+	size_t sz = read_count();
 	for ( size_t i = 0 ; i < sz ; i++ ) {
 		const auto name = buf.ReadString();
 		auto b = types::Buffer( buf.ReadString() );
-		DefinePop( PopDef::Deserialize( b ) );
+		auto def = std::unique_ptr< PopDef >( PopDef::Deserialize( b ) );
+		if ( name != def->m_id || pops.count( name ) || b.lenr != b.lenw ) { THROW( "invalid duplicate pop definition" ); }
+		pops.emplace( name, std::move( def ) );
 	}
-
-	sz = buf.ReadInt();
-	Log( "Unserializing " + std::to_string( sz ) + " bases" );
+	sz = read_count();
+	for ( size_t i = 0; i < sz; ++i ) {
+		auto b = types::Buffer( buf.ReadString() );
+		auto def = std::unique_ptr< FacilityDef >( FacilityDef::Deserialize( b ) );
+		if ( facilities.count( def->m_id ) || b.lenr != b.lenw ) { THROW( "invalid duplicate facility definition" ); }
+		facilities.emplace( def->m_id, std::move( def ) );
+	}
+	sz = read_count();
+	for ( size_t i = 0; i < sz; ++i ) { bases.push_back( buf.ReadString() ); }
+	const auto next_id = buf.ReadInt();
+	if ( next_id <= 0 || buf.lenr != buf.lenw ) { THROW( "invalid base snapshot id or trailing data" ); }
+	// Parse the complete framing and definitions before publishing any registry.
+	for ( auto& def : pops ) { DefinePop( def.second.release() ); }
+	for ( auto& def : facilities ) { DefineFacility( def.second.release() ); }
 	if ( !m_game->IsRunning() ) {
 		m_unprocessed_bases.reserve( sz );
 	}
-	for ( size_t i = 0 ; i < sz ; i++ ) {
-		auto b = types::Buffer( buf.ReadString() );
+	for ( const auto& bytes : bases ) {
+		auto b = types::Buffer( bytes );
 		if ( m_game->IsRunning() ) {
 			SpawnBase( GSE_CALL, Base::Deserialize( b, m_game ) );
 		}
@@ -564,7 +611,7 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 		}
 	}
 
-	Base::SetNextId( buf.ReadInt() );
+	Base::SetNextId( next_id );
 	Log( "Restored next base id: " + std::to_string( Base::GetNextId() ) );
 }
 

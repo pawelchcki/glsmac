@@ -25,6 +25,8 @@
 
 class GLSMAC;
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace types {
 namespace texture {
 class Texture;
@@ -434,6 +436,7 @@ private:
 	void ProcessEvents();
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
 	friend class map::tile::TileManager;
 	friend class resource::ResourceManager;
 	friend class unit::UnitManager;

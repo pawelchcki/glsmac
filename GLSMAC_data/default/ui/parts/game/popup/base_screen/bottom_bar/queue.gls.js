@@ -11,25 +11,8 @@ return {
 			width: 106,
 		});
 
-		this.frame.button({
-			class: 'game-popup-button',
-			text: 'QUEUE',
-			align: 'top',
-			top: 2,
-			left: 2,
-			right: 2,
-		});
-
-		this.items = this.frame.listview({
-			class: 'default-panel-inner',
-			top: 24,
-			bottom: 45,
-			left: 3,
-			right: 3,
-			itemsize: 14,
-			padding: 5,
-			has_hscroll: false,
-			has_vscroll: false,
+		this.status = this.frame.text({
+			class: 'base-screen-frame-text', align: 'top center', top: 14,
 		});
 
 		this.frame.button({
@@ -39,41 +22,16 @@ return {
 			bottom: 23,
 			left: 2,
 			right: 2,
-		});
-		this.frame.button({
-			class: 'game-popup-button',
-			text: 'HURRY',
-			align: 'bottom',
-			bottom: 2,
-			left: 2,
-			right: 2,
+		}).on('click', (e) => {
+			p.utils.show_production_selection();
+			return true;
 		});
 
 	},
 
 	set: (data) => {
 
-		this.items.clear();
-
-		let i = 0;
-		for (item of data) {
-			this.items.text({
-				class: 'base-screen-frame-text',
-				text: item,
-			});
-			i++;
-			if (i == 8) {
-				break;
-			}
-		}
-		while (i < 8) {
-			this.items.text({
-				class: 'base-screen-frame-text',
-				text: 'Empty Slot',
-			});
-			i++;
-		}
-		
+		this.status.text = data.base.get_production().choice_id == '' ? 'No project' : 'Facility project';
 	},
 
 };

@@ -13,7 +13,9 @@ namespace production {
 class Facility : public Production {
 public:
 	Facility( const FacilityDef* const def );
+	Facility( const std::string& facility_id );
 	virtual ~Facility() = default;
+	const std::string& GetFacilityId() const { return m_facility_id; }
 
 private:
 	friend class Production;
@@ -23,7 +25,7 @@ protected:
 	void SerializeImpl( types::Buffer& buf ) const override;
 
 private:
-	const FacilityDef* const m_def;
+	const std::string m_facility_id;
 
 };
 

@@ -10,6 +10,9 @@
 #include "types/Buffer.h"
 
 #include "Pop.h"
+#include "ProductionState.h"
+
+namespace gse::tests::mocks { struct ProductionFixture; }
 
 namespace gse::value {
 class Object;
@@ -57,6 +60,11 @@ public:
 	virtual ~Base() = default;
 
 	const Game* const GetGame() const;
+	const ProductionState& GetProductionState() const { return m_production; }
+	ProductionState SelectProduction( GSE_CALLABLE, const std::string& choice_id );
+	struct ProductionResult { ProductionState previous; std::string added_facility; };
+	ProductionResult ProcessProduction( GSE_CALLABLE, const int64_t turn, const int64_t minerals );
+	void RestoreProduction( GSE_CALLABLE, const ProductionState& previous, const std::string& added_facility );
 
 	Pop* const AddPop( const Pop& pop );
 	void RemovePop( const size_t pop_id );
@@ -79,7 +87,10 @@ public:
 	void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
 	Game* const m_game;
+	ProductionState m_production;
+	void ProductionChanged();
 
 	std::unordered_set< map::tile::Tile* > m_worked_tiles = {};
 

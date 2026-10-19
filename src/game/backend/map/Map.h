@@ -14,6 +14,8 @@
 
 #include "types/Buffer.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace types {
 namespace texture {
 class Texture;
@@ -135,6 +137,11 @@ CLASS2( Map, types::Serializable, gse::GCWrappable )
 	void GetReachableObjects( std::unordered_set< Object* >& reachable_objects ) override;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	// The native fixture exercises terrain coordinates and snapshot decoding
+	// without constructing texture/generation resources. Ordinary maps always
+	// initialize their rendering resources through the public constructor.
+	Map( Game* game, const bool initialize_rendering );
 	friend class module::Finalize;
 	friend class backend::Game;
 

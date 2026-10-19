@@ -26,13 +26,14 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **287 scenarios and 2,089 assertions** across
-21 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **336 scenarios and 2,343 assertions** across
+24 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
-bindings, and technology snapshots. Older assertion-only scripts count as one
-file scenario; the remaining scenarios have individual names. This is current
+bindings, facility production and technology/production snapshots. Older
+assertion-only scripts count as one file scenario; the remaining scenarios have
+individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
 
 The `turn-playability` suite exercises consecutive production event sequences,
@@ -51,8 +52,27 @@ SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:g
 This uses a synthetic map and starting world, current host production scripts,
 real rendering/input and read-only backend telemetry. It checks terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
-opening the destination base. It does not validate normal world generation or
-original-game behavior. Browser failures and graphics errors remain failures.
+opening the destination base. It also cancels and confirms the facility picker,
+then constructs Recycling Tanks through real turn controls, checking each mineral
+credit, completion, overflow and the refreshed base screen. It does not validate
+normal world generation or original-game behavior. Browser failures and graphics
+errors remain failures.
+
+The production suites cover a bounded GLSMAC facility-building policy, separate
+from original-game economy comparisons. An owner selects an available unique
+facility; subsequent turns credit the nonnegative mineral surplus captured before
+growth changes workers. Each turn credits once. Completion installs the facility,
+clears the project and retains overflow. Idle bases do not accumulate minerals.
+The shipped project is Recycling Tanks, using its existing declared cost of 32;
+its resource bonus, unit production, queues, switching and hurrying remain absent.
+
+`base-production-native` uses real Base, Player and registry code with a synthetic
+asset-free native world. It checks write guards, integer validation, notifications,
+rollback and production snapshots restored into a fresh receiving world. The
+fixture supplies graphics and event-loop boundaries and contains no population;
+these tests do not establish complete populated-world save/load. `base-production`
+checks production events and turn integration; `base-production-ui` checks the
+actual picker and base-screen scripts with controlled display/native boundaries.
 
 The `game-modal-input` suite initializes the production game UI and checks modal
 consumption, listener cleanup and popup timer cleanup on restart. The

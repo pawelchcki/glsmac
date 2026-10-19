@@ -24,8 +24,11 @@ return {
 		this.p = p;
 		this.is_open = false;
 		this.base_id = null;
+		this.base = null;
 
 		this.production_selection = null;
+		this.production_choices = null;
+		this.production_selection_base_id = null;
 
 		p.ui.class('base-screen-frame').set({
 			border: 'rgb(35,59,34),2',
@@ -126,13 +129,12 @@ return {
 		const faction = owner.get_faction();
 
 		this.base_id = base.id;
+		this.base = base;
 
 		const intake = base.get_intake();
 		const consumption = base.get_consumption();
 
 		this.hide_production_selection();
-
-		// dummy data for now
 
 		this.sections.nutrients.set({
 			rows: base.get_size() + 1,
@@ -278,6 +280,8 @@ return {
 		if (this.production_selection != null) {
 			this.production_selection.remove();
 			this.production_selection = null;
+			this.production_choices = null;
+			this.production_selection_base_id = null;
 			this.sections.buttons.show_default();
 			for (s in this.sections) {
 				if (!#is_defined(this.production_selection_no_hiding[s])) {
@@ -287,8 +291,22 @@ return {
 		}
 	},
 
+	get_production_choices: () => {
+		const choices = [];
+		if (this.base == null || this.base.get_owner().id != this.p.game.get_player().id) {
+			return choices;
+		}
+		for (choice of this.base.get_owner().get_production_choices()) {
+			if (choice.type == 'facility' && choice.cost > 0 && !this.base.has_facility(choice.facility_id)) {
+				choices :+choice;
+			}
+		}
+		return choices;
+	},
+
 	show_production_selection: () => {
-		if (this.production_selection == null) {
+		if (this.production_selection == null && this.is_open && this.base != null && this.base.get_owner().id == this.p.game.get_player().id) {
+			this.production_selection_base_id = this.base_id;
 			for (s in this.sections) {
 				if (!#is_defined(this.production_selection_no_hiding[s])) {
 					this.sections[s].body.hide();
@@ -301,16 +319,83 @@ return {
 				right: 0,
 				bottom: 0,
 			});
+			const choices = this.get_production_choices();
+			const items = [];
+			let selected = '';
+			const active = this.base.get_production().choice_id;
+			for (choice of choices) {
+				items :+[choice.id, choice.name + ' (' + #to_string(choice.cost) + ' minerals)'];
+				if (selected == '' || choice.id == active) { selected = choice.id; }
+			}
+			this.production_selection.text({
+				class: 'base-screen-frame-title',
+				align: 'top center',
+				top: 18,
+				text: 'CHOOSE FACILITY PRODUCTION',
+			});
+			this.production_selection.text({
+				class: 'base-screen-frame-text',
+				align: 'top center',
+				top: 52,
+				text: 'Build one facility, then stop production.',
+			});
+			if (#sizeof(items) > 0) {
+				const list = this.production_selection.scrollview({
+					left: 24, right: 24, top: 90, bottom: 110,
+					has_hscroll: false, vscroll_class: 'default-scroll-v',
+				});
+				this.production_choices = list.choicelist({
+					left: 0, right: 0, top: 0, height: #sizeof(items) * 29,
+					itemclass: 'popup-list-button', itemheight: 27, itempadding: 2,
+					items: items, value: selected,
+					// Native keyboard=true consumes Escape/Enter too. The pane
+					// routes those keys and arrow navigation explicitly below.
+					keyboard: false,
+				});
+				this.production_choices.on('select', (e) => { return true; });
+			} else {
+				this.production_selection.text({
+					class: 'base-screen-frame-text', align: 'center',
+					text: 'No facilities available to build.',
+				});
+			}
+			this.production_selection.on('keydown', (e) => {
+				if (e.modifiers == {}) {
+					if (e.code == 'ESCAPE') { this.hide_production_selection(); return true; }
+					if (e.code == 'ENTER') { this.update_production_selection(); return true; }
+					if (this.production_choices != null && (e.code == 'UP' || e.code == 'DOWN')) {
+						for (let i = 0; i < #sizeof(items); i++) {
+							if (items[i][0] == this.production_choices.value) {
+								const next = i + (e.code == 'UP' ? 0 - 1 : 1);
+								if (next >= 0 && next < #sizeof(items)) { this.production_choices.value = items[next][0]; }
+								break;
+							}
+						}
+					}
+				}
+				return true;
+			});
 			this.sections.buttons.show_production_selection();
 		}
 	},
 
 	update_production_selection: () => {
 		if (this.production_selection != null) {
-
-			// TODO: update selection to selected item
-
+			const base = this.base;
+			const same_base = base != null && base.id == this.production_selection_base_id;
+			const selected = this.production_choices == null ? '' : this.production_choices.value;
+			let valid = false;
+			if (same_base && this.is_open) {
+				for (choice of this.get_production_choices()) {
+					if (choice.id == selected) { valid = true; }
+				}
+			}
+			// Remove the draft before an event can synchronously refresh the
+			// screen or a second click can submit its old controls.
 			this.hide_production_selection();
+			if (valid && base.get_production().choice_id != selected) {
+				this.p.game.event('set_base_production', { base: base, choice_id: selected });
+			}
 		}
 	},
 

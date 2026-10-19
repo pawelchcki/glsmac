@@ -1346,7 +1346,8 @@ const types::Vec3 Game::GetTileRenderCoords( const map::tile::Tile* tile ) {
 
 void Game::WithRW( const std::function< void() >& f ) {
 	m_rw_counter++;
-	f();
+	try { f(); }
+	catch ( ... ) { m_rw_counter--; throw; }
 	m_rw_counter--;
 }
 

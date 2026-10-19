@@ -1,4 +1,6 @@
 #include "Test.h"
+#include "ProductionFixture.h"
+#include "gse/value/Array.h"
 
 #include <unordered_map>
 #include <chrono>
@@ -85,7 +87,14 @@ static Value* MakeRulesFixture( GSE_CALLABLE, const std::shared_ptr< RulesFixtur
 
 void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, const test_info_t& test_info ) {
 	const auto rules_fixtures = std::make_shared< std::vector< std::shared_ptr< RulesFixture > > >();
+	auto* production_roots = VALUE( value::Array,, value::array_elements_t{} );
 	value::object_properties_t mocks = {
+		{ "production_fixture", NATIVE_CALL( production_roots ) {
+			N_EXPECT_ARGS( 0 );
+			auto* fixture = MakeProductionFixture( GSE_CALL );
+			production_roots->value.push_back( fixture );
+			return fixture;
+		} ) },
 		{
 			"default_map_settings",
 			NATIVE_CALL() {
@@ -178,6 +187,7 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 	};
 	{
 		ExecutionPointer ep;
+		ctx->CreateConst( "__production_fixture_lifetimes", production_roots, {}, ep );
 		// Native callbacks retain their context. Pin fixture ownership there too,
 		// so detached production table callbacks cannot outlive their Game.
 		ctx->CreateConst( "__rules_fixture_lifetimes", NATIVE_CALL( rules_fixtures ) {

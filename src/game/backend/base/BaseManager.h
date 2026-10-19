@@ -13,6 +13,8 @@
 
 #include "RenderInfo.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace game {
 namespace backend {
 
@@ -52,7 +54,7 @@ public:
 
 	FacilityDef* GetFacilityDef( const std::string& id ) const;
 	void DefineFacility( FacilityDef* facility_def );
-	void UndefineFacility( const std::string& id );
+	void UndefineFacility( GSE_CALLABLE, const std::string& id );
 
 	Base* GetBase( const size_t id ) const;
 	void SpawnBase( GSE_CALLABLE, Base* base );
@@ -78,6 +80,8 @@ public:
 	void GetReachableObjects( std::unordered_set< Object* >& reachable_objects ) override;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	BaseManager( Game* game, const bool register_with_gc );
 	Game* m_game = nullptr;
 
 	popdefs_t m_base_popdefs = {};

@@ -16,6 +16,7 @@ public:
 
 	Production( const production_type_t type );
 	virtual ~Production() = default;
+	production_type_t GetType() const { return m_type; }
 
 	void Serialize( types::Buffer& buf ) const;
 	static const Production* const Deserialize( types::Buffer& buf );

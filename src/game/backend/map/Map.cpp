@@ -51,9 +51,12 @@ static inline unsigned char S_to_binary_( const char* s ) {
 	return i;
 }
 
-Map::Map( Game* game )
+Map::Map( Game* game ) : Map( game, true ) {}
+
+Map::Map( Game* game, const bool initialize_rendering )
 	: gse::GCWrappable( nullptr )
 	, m_game( game ) {
+	if ( !initialize_rendering ) { return; }
 	// add texture variant bitmap maps
 	CalculateTextureVariants(
 		TVT_TILES, {

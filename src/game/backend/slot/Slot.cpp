@@ -41,6 +41,8 @@ Player* Slot::GetPlayer() const {
 	return m_player_data.player;
 }
 
+Game* Slot::GetGame() const { return m_state->GetGame(); }
+
 const size_t Slot::GetIndex() const {
 	return m_index;
 }

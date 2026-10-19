@@ -7,11 +7,17 @@
 
 #include "gse/value/String.h"
 #include "gse/value/Bool.h"
+#include "gse/value/Array.h"
+#include <algorithm>
+#include <memory>
+#include <limits>
 
 #include "engine/Engine.h"
 #include "Game.h"
 
 #include "game/backend/base/BaseManager.h"
+#include "game/backend/base/Base.h"
+#include "game/backend/base/FacilityDef.h"
 #include "game/backend/base/production/Facility.h"
 #include "game/backend/base/production/Custom.h"
 
@@ -115,6 +121,7 @@ void Player::UncompleteTurn() {
 }
 
 void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse::value::object_properties_t& data ) {
+	if ( id.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Production choice id is empty" ); }
 	if ( m_production_choices.find( id ) != m_production_choices.end() ) {
 		GSE_ERROR( gse::EC.GAME_ERROR, "Production choice '" + id + "' is already defined" );
 	}
@@ -130,7 +137,7 @@ void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse
 			GSE_ERROR( gse::EC.GAME_ERROR, "Production choice data - facility id is not specified or is not string" );
 		}
 		const auto& facility_id = ((gse::value::String*)facility_id_it->second)->value;
-		const auto* const facility = g_engine->GetGame()->GetBM()->GetFacilityDef( facility_id );
+		const auto* const facility = GetGame()->GetBM()->GetFacilityDef( facility_id );
 		if ( !facility ) {
 			GSE_ERROR( gse::EC.GAME_ERROR, "Production choice data - facility id not found: " + facility_id );
 		}
@@ -151,8 +158,58 @@ void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse
 	m_production_choices.insert({ id, production });
 }
 
+Game* Player::GetGame() const {
+	// A slotted player belongs to its State's receiving Game. Lobby players
+	// without a game retain the existing application's wrapper context.
+	if ( m_slot && m_slot->GetGame() ) { return m_slot->GetGame(); }
+	return g_engine->GetGame();
+}
+
+const base::production::Production* Player::GetProductionChoice( const std::string& id ) const {
+	const auto it = m_production_choices.find( id );
+	return it == m_production_choices.end() ? nullptr : it->second;
+}
+
+gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
+	gse::value::array_elements_t choices;
+	std::vector< std::string > ids;
+	for ( const auto& choice : m_production_choices ) { ids.push_back( choice.first ); }
+	std::sort( ids.begin(), ids.end() );
+	const auto* bm = GetGame()->GetBM();
+	for ( const auto& id : ids ) {
+		const auto* choice = m_production_choices.at( id );
+		if ( choice->GetType() != base::production::Production::PT_FACILITY || !bm ) { continue; }
+		const auto& facility_id = static_cast< const base::production::Facility* >( choice )->GetFacilityId();
+		const auto* def = bm->GetFacilityDef( facility_id );
+		if ( !def || def->m_cost == 0 || def->m_cost > uint64_t( std::numeric_limits< int64_t >::max() ) ) { continue; }
+		choices.push_back( VALUEEXT( gse::value::Object, GSE_CALL, {
+			{ "id", VALUE( gse::value::String,, id ) },
+			{ "type", VALUE( gse::value::String,, "facility" ) },
+			{ "facility_id", VALUE( gse::value::String,, facility_id ) },
+			{ "name", VALUE( gse::value::String,, def->m_name ) },
+			{ "description", VALUE( gse::value::String,, def->m_description ) },
+			{ "cost", VALUE( gse::value::Int,, def->m_cost ) },
+		} ) );
+	}
+	return VALUE( gse::value::Array,, choices );
+}
+
+void Player::RemoveProductionChoice( GSE_CALLABLE, const std::string& id ) {
+	const auto it = m_production_choices.find( id );
+	if ( it == m_production_choices.end() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown production choice: " + id ); }
+	if ( const auto* bm = GetGame()->GetBM() ) {
+		for ( const auto& base : bm->GetBases() ) {
+			if ( base.second->m_owner == m_slot && base.second->GetProductionState().choice_id == id ) {
+				GSE_ERROR( gse::EC.GAME_ERROR, "Production choice is active at a base" );
+			}
+		}
+	}
+	delete it->second;
+	m_production_choices.erase( it );
+}
+
 WRAPIMPL_BEGIN( Player )
-	auto* const game = g_engine->GetGame();
+	auto* const game = GetGame();
 	WRAPIMPL_PROPS
 			{
 				"id",
@@ -253,10 +310,20 @@ WRAPIMPL_BEGIN( Player )
 				} )
 			},
 			{
+				"get_production_choices",
+				NATIVE_CALL( this ) {
+					N_EXPECT_ARGS( 0 );
+					return GetProductionChoices( GSE_CALL );
+				} )
+			},
+			{
 				"remove_production_choice",
 				NATIVE_CALL( this, game ) {
 
 					game->CheckRW( GSE_CALL );
+					N_EXPECT_ARGS( 1 );
+					N_GETVALUE( id, 0, String );
+					RemoveProductionChoice( GSE_CALL, id );
 
 					return VALUE( gse::value::Undefined );
 				} )
@@ -278,9 +345,12 @@ const types::Buffer Player::Serialize() const {
 	buf.WriteString( m_difficulty_level );
 
 	buf.WriteInt( m_production_choices.size() );
-	for ( const auto& it : m_production_choices ) {
-		buf.WriteString( it.first );
-		it.second->Serialize( buf );
+	std::vector< std::string > ids;
+	for ( const auto& choice : m_production_choices ) { ids.push_back( choice.first ); }
+	std::sort( ids.begin(), ids.end() );
+	for ( const auto& id : ids ) {
+		buf.WriteString( id );
+		m_production_choices.at( id )->Serialize( buf );
 	}
 
 	return buf;
@@ -298,11 +368,16 @@ void Player::Deserialize( types::Buffer buf ) {
 	m_difficulty_level = buf.ReadString();
 
 	ASSERT( m_production_choices.empty(), "production choices not empty" );
-	const size_t sz = buf.ReadInt();
-	for ( size_t i = 0 ; i < sz ; i++ ) {
+	const auto sz = buf.ReadInt();
+	if ( sz < 0 || uint64_t( sz ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid production choice count" ); }
+	std::map< std::string, std::unique_ptr< const base::production::Production > > choices;
+	for ( int64_t i = 0 ; i < sz ; i++ ) {
 		const auto id = buf.ReadString();
-		m_production_choices.insert({ id, base::production::Production::Deserialize( buf ) });
+		if ( id.empty() || choices.count( id ) ) { THROW( "invalid or duplicate production choice id" ); }
+		choices.emplace( id, base::production::Production::Deserialize( buf ) );
 	}
+	if ( buf.lenr != buf.lenw ) { THROW( "trailing player snapshot data" ); }
+	for ( auto& choice : choices ) { m_production_choices.emplace( choice.first, choice.second.release() ); }
 
 }
 

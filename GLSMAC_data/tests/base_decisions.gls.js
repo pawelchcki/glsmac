@@ -33,6 +33,7 @@ const make_base = () => {
 	const state = result.state;
 	state.center = make_tile(0, 0, 2, 1, 1);
 	base.get_owner = () => { return { id: 7 }; };
+	base.get_production = () => { return { choice_id: '', minerals: 0, last_processed_turn: 0 }; };
 	base.get_size = () => { return state.size; };
 	base.get_tile = () => { return state.center; };
 	base.get_pops = () => { return state.pops; };

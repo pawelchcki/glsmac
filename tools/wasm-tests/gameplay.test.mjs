@@ -61,6 +61,29 @@ const mainScript = String.raw`
   };
   const base_screen = #include('ui/parts/game/popup/base_screen');
   const popups = #include('ui/parts/game/popup/popup');
+  const production_panel = #include('ui/parts/game/popup/base_screen/bottom_bar/production');
+  const set_production_panel = production_panel.set;
+  production_panel.set = (data) => {
+    set_production_panel(data);
+    #print('SMOKE_PRODUCTION_RENDER|' + #to_string(data.base.id) + '|' + production_panel.production_title.text + '|' + production_panel.production_amount.text + '|' + production_panel.production_pending.text + '|' + production_panel.production_label.text);
+  };
+  const facility_panel = #include('ui/parts/game/popup/base_screen/facilities');
+  const set_facility_panel = facility_panel.set;
+  facility_panel.set = (names) => {
+    set_facility_panel(names);
+    for (name of names) { #print('SMOKE_FACILITY_RENDER|' + name); }
+  };
+  const show_production_picker = base_screen.show_production_selection;
+  base_screen.show_production_selection = () => {
+    show_production_picker();
+    if (base_screen.production_selection != null) { #print('SMOKE_PICKER_OPEN|' + #to_string(base_screen.base_id)); }
+  };
+  const hide_production_picker = base_screen.hide_production_selection;
+  base_screen.hide_production_selection = () => {
+    const was_open = base_screen.production_selection != null;
+    hide_production_picker();
+    if (was_open) { #print('SMOKE_PICKER_CLOSED'); }
+  };
   const show_base_screen = base_screen.on_show;
   base_screen.on_show = () => {
     show_base_screen();
@@ -76,10 +99,29 @@ const mainScript = String.raw`
   base_screen.on_hide = () => {
     hide_base_screen();
     #print('SMOKE_BASE_CLOSED');
+    #async(10, () => {
+      if (popups.sliding_timer == null && !popups.is_shown()) {
+        #print('SMOKE_BASE_HIDDEN');
+        return false;
+      }
+      return true;
+    });
   };
 
   glsmac.on('configure_game', (e) => {
     const game = e.game;
+    const report_production = (base) => {
+      const state = base.get_production();
+      const pending = game.get('f_base_get_pending_production');
+      let surplus = 0;
+      if (#typeof(pending) == 'Callable') { surplus = pending(base); }
+      let cost = 0;
+      for (choice of base.get_owner().get_production_choices()) {
+        if (choice.id == state.choice_id) { cost = choice.cost; }
+      }
+      #print('SMOKE_PRODUCTION|' + #to_string(base.id) + '|' + state.choice_id + '|' + #to_string(state.minerals) + '|' + #to_string(state.last_processed_turn) + '|' + #to_string(base.has_facility('RECYCLING_TANKS')) + '|' + #to_string(surplus) + '|' + #to_string(cost));
+    };
+    game.on('update_base', (e) => { report_production(e.base); });
     game.on('base_select', (e) => {
       #print('SMOKE_BASE|' + #to_string(e.base.id) + '|' + #to_string(e.base.get_owner().id));
     });
@@ -102,6 +144,8 @@ const mainScript = String.raw`
             const unit = game.get_um().get_unit(1);
             #print('SMOKE_MOVEMENT|' + #to_string(unit.movement));
             #print('SMOKE_POSITION|' + #to_string(unit.tile.x) + '|' + #to_string(unit.tile.y));
+            for (base of game.get_bm().get_bases()) { report_production(base); }
+            #print('SMOKE_PROBE_DONE');
             return true;
           }
           return false;
@@ -165,7 +209,7 @@ async function clickCanvas(page, x, y) {
   await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
-test('owned base navigation, skipping, next turn and movement use the real browser game', {
+test('owned bases, turns, movement and facility production use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
   timeout: 180000,
 }, async (t) => {
@@ -212,6 +256,9 @@ test('owned base navigation, skipping, next turn and movement use the real brows
   });
   const screenshot = async (name) => {
     assert.deepEqual(errors, [], 'No browser runtime or graphics errors');
+    // UI event telemetry precedes the engine worker's next canvas draw. Allow
+    // that draw to reach the artifact; gameplay assertions use state/events.
+    await page.waitForTimeout(250);
     return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`gameplay-${name}.png`, artifacts)) });
   };
   const waitForLog = async (text, minimum = 1) => {
@@ -239,9 +286,9 @@ test('owned base navigation, skipping, next turn and movement use the real brows
     selectedBases.push(id);
   };
   const probeUnit = async () => {
-    const previous = ((await page.locator('#log').textContent()).match(/SMOKE_POSITION\|/g) || []).length;
+    const previous = ((await page.locator('#log').textContent()).match(/SMOKE_PROBE_DONE/g) || []).length;
     await page.keyboard.press('p');
-    await waitForLog('SMOKE_POSITION|', previous + 1);
+    await waitForLog('SMOKE_PROBE_DONE', previous + 1);
     const log = await page.locator('#log').textContent();
     const movements = [...log.matchAll(/SMOKE_MOVEMENT\|([0-9.]+)/g)];
     const positions = [...log.matchAll(/SMOKE_POSITION\|(\d+)\|(\d+)/g)];
@@ -249,6 +296,20 @@ test('owned base navigation, skipping, next turn and movement use the real brows
       movement: Number(movements.at(-1)[1]),
       position: positions.at(-1).slice(1).map(Number),
     };
+  };
+  const productionState = async (id) => {
+    const log = await page.locator('#log').textContent();
+    const states = [...log.matchAll(/SMOKE_PRODUCTION\|(\d+)\|([^|\n]*)\|(\d+)\|(\d+)\|(true|false)\|(\d+)\|(\d+)/g)]
+      .filter((match) => Number(match[1]) === id);
+    assert.ok(states.length > 0, `Read actual production state for base ${id}`);
+    const latest = states.at(-1);
+    return { choice: latest[2], minerals: Number(latest[3]), turn: Number(latest[4]),
+      installed: latest[5] === 'true', pending: Number(latest[6]), cost: Number(latest[7]) };
+  };
+  const closeBase = async () => {
+    const previous = ((await page.locator('#log').textContent()).match(/SMOKE_BASE_HIDDEN/g) || []).length;
+    await page.keyboard.press('Escape');
+    await waitForLog('SMOKE_BASE_HIDDEN', previous + 1);
   };
 
   await page.goto(address);
@@ -358,8 +419,75 @@ test('owned base navigation, skipping, next turn and movement use the real brows
   await waitForBase(2);
   await waitForLog('SMOKE_BASE_OPEN', 2);
   await screenshot('base-after-next-turn');
+
+  // The same production picker must support cancellation and an explicit
+  // owner choice. These are canvas clicks and real popup keyboard routing.
+  await clickCanvas(page, 188, 726); // CHANGE in the base production panel.
+  await waitForLog('SMOKE_PICKER_OPEN|2');
+  await screenshot('production-picker');
+  await page.keyboard.press('Escape');
+  await waitForLog('SMOKE_PICKER_CLOSED');
+  assert.equal((await productionState(2)).choice, '', 'Canceling the picker leaves the backend idle');
+  await clickCanvas(page, 74, 630); // The production area opens the same picker.
+  await waitForLog('SMOKE_PICKER_OPEN|2', 2);
+  await clickCanvas(page, 500, 150); // Select the declared Recycling Tanks row.
+  await clickCanvas(page, 565, 505); // Picker OK, not the outer base-screen OK.
+  await waitForLog('SMOKE_PRODUCTION|2|RECYCLING_TANKS|0|');
+  await waitForLog('SMOKE_PRODUCTION_RENDER|2|Recycling Tanks|0 / 32 minerals|');
+  let production = await productionState(2);
+  assert.equal(production.cost, 32, 'The selected facility uses its existing declared cost');
+  assert.ok(production.pending > 0, 'The real fixture base has a positive mineral surplus');
+  await screenshot('production-selected');
+  await closeBase();
+
+  let productionTurns = 0;
+  let expectedMinerals = production.minerals;
+  const requiredMinerals = production.cost;
+  while (!production.installed && productionTurns < requiredMinerals) {
+    const previous = production;
+    const unit = await probeUnit();
+    if (unit.movement > 0) {
+      await page.keyboard.press('Tab');
+      const statuses = ((await page.locator('#log').textContent()).match(/SMOKE_STATUS\|turn_complete\|0/g) || []).length;
+      await page.keyboard.press('Space');
+      await waitForLog('SMOKE_STATUS|turn_complete|0', statuses + 1);
+    }
+    const turns = [...(await page.locator('#log').textContent()).matchAll(/SMOKE_TURN\|(\d+)\|(\d+)/g)];
+    const nextTurn = Number(turns.at(-1)[1]) + 1;
+    const nextYear = Number(turns.at(-1)[2]) + 1;
+    await clickCanvas(page, 899, 585);
+    await waitForLog(`SMOKE_TURN|${nextTurn}|${nextYear}`);
+    await probeUnit();
+    production = await productionState(2);
+    assert.equal(production.turn, nextTurn, 'The current production turn committed before reading progress');
+    expectedMinerals += previous.pending;
+    const completed = expectedMinerals >= requiredMinerals;
+    assert.equal(production.minerals, completed ? expectedMinerals - requiredMinerals : expectedMinerals,
+      'Actual production credits the previous visible surplus and preserves declared overflow');
+    assert.equal(production.installed, completed, 'The facility installs exactly at its declared threshold');
+    assert.equal(production.choice, completed ? '' : 'RECYCLING_TANKS', 'Completion clears the unique facility project');
+    ++productionTurns;
+    const render = completed
+      ? `SMOKE_PRODUCTION_RENDER|2|IDLE|Stored: ${production.minerals} minerals|`
+      : `SMOKE_PRODUCTION_RENDER|2|Recycling Tanks|${production.minerals} / 32 minerals|`;
+    const beforeOpenLog = await page.locator('#log').textContent();
+    const previousRenders = beforeOpenLog.split(render).length - 1;
+    const previousOpens = (beforeOpenLog.match(/SMOKE_BASE_OPEN/g) || []).length;
+    await clickCanvas(page, 280, 733);
+    await waitForBase(2);
+    await waitForLog('SMOKE_BASE_OPEN', previousOpens + 1);
+    await waitForLog(render, previousRenders + 1);
+    if (completed) {
+      await waitForLog('SMOKE_FACILITY_RENDER|Recycling Tanks');
+      await screenshot('production-complete');
+    } else {
+      if (productionTurns === 1) await screenshot('production-progress');
+      await closeBase();
+    }
+  }
+  assert.ok(production.installed, 'Real browser turns finish the chosen facility');
   const finalLog = await page.locator('#log').textContent();
   assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(/);
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running', finalLog.slice(-3000));
-  t.diagnostic(`Imported synthetic 16x16 map; real base selection ${selectedBases.join(' -> ')}; turn ${initialTurn} -> ${initialTurn + 1}; unit movement ${initialMovement} -> 0 -> ${replenishedUnit.movement} -> ${movedUnit.movement}; unit moved (8,8) -> (10,8) and opened its destination base.`);
+  t.diagnostic(`Imported synthetic 16x16 map; base navigation, skip, turn advance and move (8,8) -> (10,8) passed; canceled facility picker, selected declared 32-mineral Recycling Tanks, and completed it through ${productionTurns} real turns with ${production.minerals} overflow minerals.`);
 });

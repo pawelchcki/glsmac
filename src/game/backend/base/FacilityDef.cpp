@@ -47,6 +47,7 @@ FacilityDef* FacilityDef::Deserialize( types::Buffer& buf ) {
 	const auto name = buf.ReadString();
 	const auto description = buf.ReadString();
 	const auto cost = buf.ReadInt();
+	if ( cost < 0 ) { THROW( "negative facility snapshot cost" ); }
 	const auto r = RenderInfo::FromBuffer( buf );
 	return new FacilityDef( id, name, description, cost, r );
 }

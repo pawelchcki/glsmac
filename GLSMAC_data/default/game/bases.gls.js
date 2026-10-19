@@ -13,6 +13,24 @@ const get_pending_growth = (base) => {
 	return intake.NUTRIENTS - consumption.NUTRIENTS;
 };
 
+const get_pending_production = (base) => {
+	const intake = base.get_intake();
+	const consumption = base.get_consumption();
+	return #max(0, intake.MINERALS - consumption.MINERALS);
+};
+
+const process_production = (game, base) => {
+	const production = base.get_production();
+	if (production.choice_id != '') {
+		// Capture this turn's minerals before growth changes workers.
+		game.event('process_base_production', {
+			base: base,
+			turn_id: game.get_turn(),
+			minerals: get_pending_production(base),
+		});
+	}
+};
+
 const reset_nutrients = (game, base) => {
 	const nfg = get_nutrients_for_growth(game, base);
 	let accumulated = base.get('accumulated_nutrients');
@@ -262,6 +280,7 @@ return (game) => {
 		// set bases-related globals
 		// TODO: prettier way to do this? needs to be callable from events
 		game.set('f_base_get_pending_growth', get_pending_growth);
+		game.set('f_base_get_pending_production', get_pending_production);
 		game.set('f_base_reset_nutrients', reset_nutrients);
 		game.set('f_base_pop_work_tile', pop_work_tile);
 		game.set('f_base_pop_unwork_tile', pop_unwork);
@@ -270,7 +289,7 @@ return (game) => {
 		// new turn, process all bases
 		game.on('turn', (e) => {
 			for (base of bm.get_bases()) {
-
+				process_production(game, base);
 				process_growth(game, base);
 
 			}

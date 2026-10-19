@@ -11,6 +11,7 @@ namespace backend {
 
 class State;
 class Player;
+class Game;
 
 namespace slot {
 
@@ -37,6 +38,7 @@ CLASS2( Slot, types::Serializable, gse::Wrappable )
 	void UnsetPlayerFlag( const player_flag_t flag );
 
 	Player* GetPlayer() const;
+	Game* GetGame() const;
 	Player* GetPlayerAndClose();
 	void SetPlayer( Player* player, const network::cid_t cid, const std::string& remote_address );
 

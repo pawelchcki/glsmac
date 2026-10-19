@@ -78,17 +78,8 @@ return {
 
 	set: (data) => {
 
-		this.parts.production.set({
-			rows: 3,
-			columns: 10,
-			filled: 8,
-			pending: 4,
-		});
-
-		this.parts.queue.set([
-			'Mind Worms',
-			'Recreation Commons',
-		]);
+		this.parts.production.set(data);
+		this.parts.queue.set(data);
 
 		this.parts.middle_area.set({
 			base: data.base,

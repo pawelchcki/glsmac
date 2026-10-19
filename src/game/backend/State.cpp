@@ -13,7 +13,10 @@ namespace game {
 namespace backend {
 
 State::State( gc::Space* const gc_space, gse::context::Context* const ctx, GLSMAC* glsmac )
-	: gse::GCWrappable( gc_space )
+	: State( gc_space, ctx, glsmac, true ) {}
+
+State::State( gc::Space* const gc_space, gse::context::Context* const ctx, GLSMAC* glsmac, const bool register_with_gc )
+	: gse::GCWrappable( register_with_gc ? gc_space : nullptr )
 	, m_gc_space( gc_space )
 	, m_ctx( ctx )
 	, m_glsmac( glsmac )

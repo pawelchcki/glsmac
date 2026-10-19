@@ -9,6 +9,7 @@ const make_world = (size, nutrients, available_tile) => {
 	const base = {
 		get_size: () => { return size; },
 		get_owner: () => { return { id: 1 }; },
+		get_production: () => { return { choice_id: '', minerals: 0, last_processed_turn: 0 }; },
 		get_intake: () => { return { NUTRIENTS: 0 }; },
 		get_consumption: () => { return { NUTRIENTS: 0 }; },
 		get_unworked_tiles: () => { return state.tiles; },

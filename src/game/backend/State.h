@@ -13,6 +13,8 @@
 
 class GLSMAC;
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace game {
 namespace backend {
 
@@ -90,6 +92,8 @@ CLASS( State, gse::GCWrappable )
 	connection::Connection* m_connection = nullptr;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	State( gc::Space* const gc_space, gse::context::Context* const ctx, GLSMAC* glsmac, const bool register_with_gc );
 
 	GLSMAC* m_glsmac = nullptr;
 
