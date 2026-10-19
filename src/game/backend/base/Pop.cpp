@@ -25,7 +25,7 @@ void Pop::Serialize( types::Buffer& buf ) const {
 	ASSERT( m_def, "pop def is null" );
 
 	buf.WriteInt( m_id );
-	buf.WriteString( m_def->m_name );
+	buf.WriteString( m_def->m_id );
 	buf.WriteInt( m_variant );
 }
 

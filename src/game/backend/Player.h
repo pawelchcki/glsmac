@@ -7,6 +7,7 @@
 #include "gse/Wrappable.h"
 
 namespace gse::value { class Array; }
+namespace gse::tests::mocks { struct ProductionFixture; }
 
 namespace game {
 namespace backend {
@@ -82,6 +83,7 @@ CLASS2( Player, types::Serializable, gse::Wrappable )
 	WRAPDEF_SERIALIZABLE;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
 
 	bool m_is_connected = false;
 

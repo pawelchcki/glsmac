@@ -24,6 +24,8 @@
     {"id":"base-production-native", "script":"GLSMAC_data/tests/base_production_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production", "script":"GLSMAC_data/tests/base_production.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
+    {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"pop-snapshot-native", "script":"GLSMAC_data/tests/pop_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"}
   ],
   "references": [

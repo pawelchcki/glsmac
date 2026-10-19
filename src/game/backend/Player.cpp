@@ -39,8 +39,29 @@ Player::Player(
 	, m_faction( faction )
 	, m_difficulty_level( difficulty_level ) {}
 
-Player::Player( const Player* const other ) {
-	*this = *other;
+Player::Player( const Player* const other )
+	: m_is_connected( other->m_is_connected )
+	, m_name( other->m_name )
+	, m_role( other->m_role )
+	, m_slot( other->m_slot )
+	, m_slotnum( other->m_slotnum )
+	, m_faction( other->m_faction )
+	, m_difficulty_level( other->m_difficulty_level )
+	, m_is_turn_completed( other->m_is_turn_completed ) {
+	// Notification copies borrow their slot/faction context, but own every
+	// production payload. Avoid Serializable assignment followed by memberwise
+	// copying, which discarded decoded payloads and aliased the source pointers.
+	std::map< std::string, std::unique_ptr< const base::production::Production > > choices;
+	for ( const auto& choice : other->m_production_choices ) {
+		types::Buffer bytes;
+		choice.second->Serialize( bytes );
+		auto copy = std::unique_ptr< const base::production::Production >( base::production::Production::Deserialize( bytes ) );
+		if ( bytes.lenr != bytes.lenw ) { THROW( "incomplete production choice copy" ); }
+		choices.emplace( choice.first, std::move( copy ) );
+	}
+	// Keep staged ownership until every destination map allocation succeeds.
+	for ( const auto& choice : choices ) { m_production_choices.emplace( choice.first, choice.second.get() ); }
+	for ( auto& choice : choices ) { choice.second.release(); }
 }
 
 Player::~Player() {

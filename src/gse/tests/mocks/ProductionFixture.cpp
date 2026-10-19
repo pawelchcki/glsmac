@@ -3,6 +3,7 @@
 #include <memory>
 #include "gc/Space.h"
 #include "gse/value/Array.h"
+#include "gse/value/Bool.h"
 #include "gse/value/Callable.h"
 #include "gse/value/Int.h"
 #include "gse/value/Object.h"
@@ -15,6 +16,7 @@
 #include "game/backend/base/Base.h"
 #include "game/backend/base/BaseManager.h"
 #include "game/backend/base/FacilityDef.h"
+#include "game/backend/base/PopDef.h"
 #include "game/backend/base/production/Facility.h"
 #include "game/backend/base/production/Custom.h"
 #include "game/backend/faction/Faction.h"
@@ -110,6 +112,93 @@ struct ProductionFixture : gc::Object {
 		updates += game.m_bm->m_updated_bases.size();
 		game.m_bm->TriggerUpdates( GSE_CALL );
 	}
+	void AddWorker( GSE_CALLABLE, int64_t variant ) {
+		if ( variant < 0 || variant > 1 ) { GSE_ERROR( EC.INVALID_CALL, "fixture worker variant must be 0 or 1" ); }
+		WithWrite( [ & ]() {
+			auto* def = game.m_bm->GetPopDef( "WORKER" );
+			if ( !def ) {
+				const backend::base::RenderInfo render { "synthetic.pcx", 0, 0, 1, 1 };
+				def = new backend::base::PopDef( "WORKER", "Worker", { render, render }, { render }, backend::base::PopDef::PF_TILE_WORKER );
+				game.m_bm->DefinePop( def );
+			}
+			base->AddPop( backend::base::Pop( base, base->m_next_pop_id++, def, variant ) );
+		} );
+		Flush( GSE_CALL );
+	}
+
+	// Old broken copies borrow their source's owned payloads. Record that
+	// strict-red observation, then discard only those borrowed entries before
+	// cleanup so a test failure does not itself double-delete the source.
+	static void DiscardBorrowedChoices( backend::Player& copy, const backend::Player& source ) {
+		for ( auto it = copy.m_production_choices.begin(); it != copy.m_production_choices.end(); ) {
+			bool borrowed = false;
+			for ( const auto& choice : source.m_production_choices ) { if ( choice.second == it->second ) { borrowed = true; break; } }
+			if ( borrowed ) { it = copy.m_production_choices.erase( it ); }
+			else { ++it; }
+		}
+	}
+	static std::string ChoiceBytes( const backend::Player& player, const std::string& id ) {
+		const auto* choice = player.GetProductionChoice( id );
+		if ( !choice ) { return ""; }
+		types::Buffer bytes;
+		choice->Serialize( bytes );
+		return bytes.ToString();
+	}
+	value::Object* CopyProbe( GSE_CALLABLE, const std::string& kind ) {
+		if ( kind != "ownership" && kind != "mutation" && kind != "copy_destroyed" && kind != "source_destroyed" ) { GSE_ERROR( EC.INVALID_CALL, "unknown Player copy probe" ); }
+		if ( !owner->IsConnected() ) { owner->Connect(); }
+		owner->CompleteTurn();
+		owner->SetDifficultyLevel( "Transcend" );
+		const auto before = owner->Serialize().ToString();
+		const auto custom = ChoiceBytes( *owner, "STOCKPILE_ENERGY" );
+		auto copy = std::make_unique< backend::Player >( owner.get() );
+		const bool facility_independent = copy->GetProductionChoice( "RECYCLING_TANKS" ) && copy->GetProductionChoice( "RECYCLING_TANKS" ) != owner->GetProductionChoice( "RECYCLING_TANKS" );
+		const bool custom_independent = copy->GetProductionChoice( "STOCKPILE_ENERGY" ) && copy->GetProductionChoice( "STOCKPILE_ENERGY" ) != owner->GetProductionChoice( "STOCKPILE_ENERGY" );
+		const bool scalars_match = copy->GetPlayerName() == owner->GetPlayerName() && copy->GetRole() == owner->GetRole() && copy->GetSlot() == owner->GetSlot() && copy->m_slotnum == owner->m_slotnum && copy->GetFaction() == owner->GetFaction() && copy->GetDifficultyLevel() == owner->GetDifficultyLevel() && copy->IsConnected() == owner->IsConnected() && copy->IsTurnCompleted() == owner->IsTurnCompleted();
+		const bool serialized_equal = copy->Serialize().ToString() == before;
+		const bool custom_preserved = ChoiceBytes( *copy, "STOCKPILE_ENERGY" ) == custom;
+		bool lifetime_ok = false;
+		value::object_properties_t result {
+			{ "facility_independent", VALUE( value::Bool,, facility_independent ) },
+			{ "custom_independent", VALUE( value::Bool,, custom_independent ) },
+			{ "scalars_match", VALUE( value::Bool,, scalars_match ) },
+			{ "serialized_equal", VALUE( value::Bool,, serialized_equal ) },
+			{ "custom_payload_preserved", VALUE( value::Bool,, custom_preserved ) },
+			{ "choices", copy->GetProductionChoices( GSE_CALL ) },
+			{ "name", VALUE( value::String,, copy->GetPlayerName() ) },
+			{ "full_name", VALUE( value::String,, copy->GetFullName() ) },
+			{ "role", VALUE( value::Int,, copy->GetRole() ) },
+			{ "slot", VALUE( value::Int,, copy->m_slotnum ) },
+			{ "difficulty", VALUE( value::String,, copy->GetDifficultyLevel() ) },
+			{ "connected", VALUE( value::Bool,, copy->IsConnected() ) },
+			{ "turn_completed", VALUE( value::Bool,, copy->IsTurnCompleted() ) },
+		};
+		if ( facility_independent && custom_independent ) {
+			if ( kind == "ownership" ) { lifetime_ok = true; }
+			else if ( kind == "mutation" ) {
+				WithWrite( [ & ]() {
+					copy->RemoveProductionChoice( GSE_CALL, "RECYCLING_TANKS" );
+					copy->RemoveProductionChoice( GSE_CALL, "STOCKPILE_ENERGY" );
+				} );
+				lifetime_ok = !copy->GetProductionChoice( "RECYCLING_TANKS" ) && !copy->GetProductionChoice( "STOCKPILE_ENERGY" ) && owner->GetProductionChoice( "RECYCLING_TANKS" ) && ChoiceBytes( *owner, "STOCKPILE_ENERGY" ) == custom;
+			} else if ( kind == "copy_destroyed" ) {
+				copy.reset();
+				lifetime_ok = owner->Serialize().ToString() == before && ChoiceBytes( *owner, "STOCKPILE_ENERGY" ) == custom;
+			} else {
+				auto survivor = std::make_unique< backend::Player >( copy.get() );
+				const bool independent = survivor->GetProductionChoice( "RECYCLING_TANKS" ) != copy->GetProductionChoice( "RECYCLING_TANKS" ) && survivor->GetProductionChoice( "STOCKPILE_ENERGY" ) != copy->GetProductionChoice( "STOCKPILE_ENERGY" );
+				if ( independent ) {
+					copy.reset();
+					lifetime_ok = survivor->Serialize().ToString() == before && ChoiceBytes( *survivor, "STOCKPILE_ENERGY" ) == custom;
+				} else { DiscardBorrowedChoices( *survivor, *copy ); }
+			}
+		}
+		if ( copy ) { DiscardBorrowedChoices( *copy, *owner ); }
+		copy.reset();
+		result.emplace( "lifetime_ok", VALUE( value::Bool,, lifetime_ok ) );
+		result.emplace( "original_unchanged", VALUE( value::Bool,, owner->Serialize().ToString() == before ) );
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
 	std::string Snapshot() {
 		types::Buffer result;
 		result.WriteString( "GLSMAC_PRODUCTION_FIXTURE_V1" );
@@ -150,6 +239,16 @@ struct ProductionFixture : gc::Object {
 		else if ( kind == "negative_minerals" ) { base->m_production.minerals = -1; }
 		else if ( kind == "negative_turn" ) { base->m_production.last_processed_turn = -1; }
 		else if ( kind == "unknown_facility" ) { base->m_facilities.emplace( "MISSING", game.m_bm->GetFacilityDef( "HEADQUARTERS" ) ); }
+		else if ( kind == "unknown_pop" ) {
+			if ( base->m_pops.empty() ) { THROW( "unknown-pop corruption requires a populated base" ); }
+			auto& pop = base->m_pops.begin()->second;
+			const auto* def = pop.m_def;
+			const backend::base::PopDef missing( "MISSING", "Missing", {}, {}, 0 );
+			pop.m_def = &missing;
+			const auto bytes = Snapshot();
+			pop.m_def = def;
+			return bytes;
+		}
 		else { THROW( "unknown fixture corruption" ); }
 		const auto bytes = Snapshot();
 		base->m_production = before;
@@ -202,6 +301,15 @@ Value* MakeProductionFixture( GSE_CALLABLE ) {
 	object->Set( "update_count", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); session->current->Flush( GSE_CALL );
 		return VALUE( value::Int,, session->current->updates );
+	} ), GSE_CALL );
+	object->Set( "add_worker", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( variant, 0, Int );
+		session->current->AddWorker( GSE_CALL, variant );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "player_copy_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );
+		return session->current->CopyProbe( GSE_CALL, kind );
 	} ), GSE_CALL );
 	object->Set( "snapshot", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->Snapshot() );

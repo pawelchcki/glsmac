@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **336 scenarios and 2,343 assertions** across
-24 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **345 scenarios and 2,382 assertions** across
+26 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -69,10 +69,17 @@ its resource bonus, unit production, queues, switching and hurrying remain absen
 `base-production-native` uses real Base, Player and registry code with a synthetic
 asset-free native world. It checks write guards, integer validation, notifications,
 rollback and production snapshots restored into a fresh receiving world. The
-fixture supplies graphics and event-loop boundaries and contains no population;
-these tests do not establish complete populated-world save/load. `base-production`
+fixture supplies graphics and event-loop boundaries. `base-production`
 checks production events and turn integration; `base-production-ui` checks the
 actual picker and base-screen scripts with controlled display/native boundaries.
+
+`player-copy-native` checks independent native production payload ownership,
+descriptor values and removal/destruction lifetimes for the player copies used
+by connection notifications. `pop-snapshot-native` restores populated bases with
+definition IDs different from display names, checks receiving parent bindings,
+variants, next population IDs and production state, and rejects an unknown type
+without replacing the receiving world. These bounded codec tests do not establish
+complete world save/load or restore script-managed worker assignments.
 
 The `game-modal-input` suite initializes the production game UI and checks modal
 consumption, listener cleanup and popup timer cleanup on restart. The
