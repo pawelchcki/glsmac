@@ -236,6 +236,43 @@
         "artifact": "/tmp/glsmac-pop-membership-focused.json",
         "scope": "Actual same-world/cross-world Pop identity, unchanged snapshots/RNG/IDs/worker links and valid local wrapper acceptance; no original-game comparison claim."
       }
+    },
+    {
+      "id": "worker-assignment-receipt-rollback",
+      "contract": "glsmac.base_work_events.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "GLSMAC native worker-event and receipt invariants; separate from original-game evidence.",
+      "property": "Undoing Doctor-to-Worker assignment leaves the citizen as Worker; reassignment undo loses the previous worked tile.",
+      "before": {
+        "artifact": "/tmp/glsmac-worker-events-first.json",
+        "error": "Doctor type is not restored after actual work receipt rollback",
+        "script": "GLSMAC_data/tests/_base_work_events_native.gls.js"
+      },
+      "verification": {
+        "artifact": "/tmp/glsmac-worker-events-fixed-second.json",
+        "native_scenarios": 17,
+        "native_assertions": 436,
+        "scope": "Actual native Worker/Doctor transitions, previous tile/type, three-way links, intake and receipt undo; rejection checks share this suite."
+      }
+    },
+    {
+      "id": "foreign-worker-event-acceptance",
+      "contract": "glsmac.base_work_events.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "GLSMAC live entity ownership/world identity and worker-graph invariants; no original-game comparison claim.",
+      "property": "Work validation accepts a citizen belonging to another base before a helper can mutate incompatible worker links.",
+      "before": {
+        "artifact": "/tmp/glsmac-worker-validation-first.json",
+        "snapshot": "/tmp/glsmac-worker-validation-first-snapshot.json",
+        "error": "Invalid native worker command must reject before apply",
+        "revision": "16c7c64b0f4f74ca92c33281753bba4f0e73b67e"
+      },
+      "verification": {
+        "artifact": "/tmp/glsmac-worker-events-fixed-second.json",
+        "native_scenarios": 17,
+        "native_assertions": 436,
+        "scope": "Foreign caller/base/citizen/world/tile and stale citizen, center/outside/occupied/free target rejection with unchanged native snapshots, RNG, IDs and notifications."
+      }
     }
   ]
 }

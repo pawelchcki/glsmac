@@ -3,6 +3,8 @@
   "suites": [
     {"id":"ui-interactions", "script":"GLSMAC_data/tests/ui_interactions.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"base-decisions", "script":"GLSMAC_data/tests/base_decisions.gls.js", "domains":["economy","decision-logic","gameplay"], "evidence":"glsmac-regression"},
+    {"id":"base-worker-ui", "script":"GLSMAC_data/tests/base_worker_ui.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"base-work-events-native", "script":"GLSMAC_data/tests/base_work_events_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"gameplay-events", "script":"GLSMAC_data/tests/gameplay_events.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
     {"id":"base-square-resources", "script":"GLSMAC_data/tests/base_square_resources.gls.js", "domains":["economy"], "evidence":"glsmac-regression"},
     {"id":"resources", "script":"GLSMAC_data/tests/resources.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},

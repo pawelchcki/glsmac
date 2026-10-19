@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **650 scenarios and 4,093 assertions** across
-47 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **677 scenarios and 4,583 assertions** across
+49 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -49,7 +49,7 @@ For the actual browser lifecycle, supply your installed original assets:
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:gameplay
 ```
 
-The three synthetic-world cases use current host production scripts,
+The four synthetic-world cases use current host production scripts,
 real rendering/input and read-only backend telemetry. They check terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
 opening the destination base. The production case cancels and confirms the facility picker,
@@ -59,6 +59,12 @@ raises actual base-square nutrients, minerals and energy by one each and pending
 mineral production by one in this reproduction fixture. Two separate paths
 move a Colony Pod, check modal blocking, found via B or FOUND BASE, open the new
 base and advance another turn after consumption.
+
+The worker-assignment case clicks the actual resource-map diamonds to turn a
+Worker into a Doctor, assigns a different productive tile, checks the refreshed
+resource labels and all three native worker links, closes/reopens the screen,
+and advances a real turn to verify the new food and mineral income. Its declared
+imported terrain and normal base initialization are controlled GLSMAC fixtures.
 
 The additional `normal-game.test.mjs` case uses the real New Game menus to
 choose Tiny and Gaians, generates terrain through the production world path,
@@ -577,3 +583,13 @@ unchanged; a fresh wrapper for the actual local citizen remains accepted. The
 queued turn suite additionally grows and starves a genuine worker while idle,
 checking successful host removal and the surviving worker graph. These are
 GLSMAC API/lifecycle invariants, separate from original-game helper evidence.
+
+`base-work-events-native` checks actual shipped work/unwork handlers using real
+Base/Pop/Tile objects: owner and world membership, eligible noncenter tiles,
+Worker/Doctor transitions and receipt undo restoring the previous job and tile.
+Rejected requests preserve snapshots, RNG, IDs and native notifications.
+`base-worker-ui` executes the real resource-panel mouse handler and weighted
+selector without graphics, covering request ordering, diamond hit tests, empty
+populations, refresh to another base and panel removal. Its local display
+boundary models native Container.clear handler cleanup. These are application
+regressions; they do not transfer original specialist rules or job-dialog UX.

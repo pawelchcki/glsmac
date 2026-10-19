@@ -251,6 +251,110 @@ return (game) => {
 };
 `;
 
+// A separate declared fixture leaves population initialization to the normal
+// base lifecycle. Only imported terrain differs: the northern nutrient square
+// is initially best; the eastern mineral square provides a distinct real yield.
+function workerMap() {
+  const bytes = smokeMap();
+  const offset = (x, y) => 15 + 0xaa4 + (y * 8 + x / 2) * 44;
+  bytes.writeUInt32LE(0x400 | 0x20000000, offset(8, 6) + 8); // nutrient bonus
+  bytes.writeUInt32LE(0x4, offset(8, 6) + 12); // jungle
+  bytes[offset(10, 8) + 5] = 1 << 6; // rolling
+  bytes.writeUInt32LE(0x400 | 0x20000000 | 0x20000, offset(10, 8) + 8); // minerals
+  return bytes;
+}
+
+const workerWorldScript = String.raw`
+return (game) => {
+  const owner = game.get_player();
+  const tile = game.get_tm().get_tile(8, 8);
+  game.event('add_production_choice', { player: owner, id: 'RECYCLING_TANKS',
+    data: { type: 'facility', id: 'RECYCLING_TANKS' } });
+  game.event('spawn_base', { owner: owner, tile: tile, facilities: ['HEADQUARTERS'] });
+  game.event('spawn_unit', { owner: owner, tile: tile, type: 'MindWorms', health: 1.0, morale: 1 });
+};
+`;
+
+// Read-only observers chain actual event/UI callbacks and preserve their return
+// values. No probe or observer sends an assignment, changes a pop, or sets food.
+const workerMainScript = mainScript.replace("  #include('game/game')(glsmac);", String.raw`
+  const worker_growth = #include('game/event/process_base_growth');
+  const apply_worker_growth = worker_growth.apply;
+  worker_growth.apply = (e) => {
+    const result = apply_worker_growth(e);
+    #print('WORK_GROWTH_DONE|' + #to_string(e.data.base.id) + '|' + #to_string(e.data.turn_id));
+    return result;
+  };
+  #include('game/game')(glsmac);
+`).replace('  glsmac.run();', String.raw`
+  let worker_game = null;
+  let worker_sequence = 0;
+  const worker_resources = #include('ui/parts/game/popup/base_screen/resources');
+  const report_workers = (base) => {
+    worker_sequence += 1;
+    const seq = #to_string(worker_sequence);
+    const intake = base.get_intake(); const consumption = base.get_consumption();
+    const project = base.get_production();
+    let cost = 0;
+    for (choice of base.get_owner().get_production_choices()) {
+      if (choice.id == project.choice_id) { cost = choice.cost; }
+    }
+    const nutrient_factor = worker_game.get('f_base_get_nutrient_factor')(base);
+    let facility_count = 0;
+    for (id in base.get_facilities()) { facility_count += 1; }
+    let food = base.get('accumulated_nutrients'); if (!#is_defined(food)) { food = 0; }
+    #print('WORK_BEGIN|' + seq);
+    #print('WORK_BASE|' + seq + '|' + #to_string(base.id) + '|' + #to_string(base.get_owner().id) + '|' + #to_string(worker_game.get_turn()) + '|' + #to_string(base.get_size()) + '|' + #to_string(food) + '|' + project.choice_id + '|' + #to_string(project.minerals) + '|' + #to_string(project.last_processed_turn) + '|' + #to_string(intake.NUTRIENTS) + '|' + #to_string(intake.MINERALS) + '|' + #to_string(intake.ENERGY) + '|' + #to_string(consumption.NUTRIENTS) + '|' + #to_string(consumption.MINERALS) + '|' + #to_string(consumption.ENERGY) + '|' + #to_string(facility_count) + '|' + #to_string(nutrient_factor) + '|' + #to_string(cost));
+    for (pop of base.get_pops()) {
+      let x = (0 - 1); let y = (0 - 1);
+      const tile = pop.get('worked_tile');
+      if (#is_defined(tile)) { x = tile.x; y = tile.y; }
+      #print('WORK_POP|' + seq + '|' + #to_string(pop.id) + '|' + pop.get_type() + '|' + #to_string(pop.get_base().id) + '|' + #to_string(x) + '|' + #to_string(y));
+    }
+    for (tile of base.get_worked_tiles()) {
+      #print('WORK_WORKED|' + seq + '|' + #to_string(tile.x) + '|' + #to_string(tile.y));
+    }
+    const tiles = base.get_workable_tiles(); const center = base.get_tile(); tiles :+ center;
+    for (tile of tiles) {
+      let pop_id = (0 - 1); let pop_base = (0 - 1);
+      const pop = tile.get('working_pop');
+      if (#is_defined(pop)) { pop_id = pop.id; pop_base = pop.get_base().id; }
+      const yield = tile.get_resources(base.get_owner());
+      #print('WORK_TILE|' + seq + '|' + #to_string(tile.x) + '|' + #to_string(tile.y) + '|' + #to_string(base.is_tile_worked(tile)) + '|' + #to_string(pop_id) + '|' + #to_string(pop_base) + '|' + #to_string(yield.NUTRIENTS) + '|' + #to_string(yield.MINERALS) + '|' + #to_string(yield.ENERGY));
+    }
+    const labels = worker_resources.labels;
+    #print('WORK_RENDER|' + seq + '|' + labels.nutrients.left.text + '|' + labels.nutrients.right.text + '|' + labels.minerals.left.text + '|' + labels.minerals.right.text + '|' + labels.energy.left.text + '|' + labels.energy.right.text);
+    #print('WORK_DONE|' + seq);
+  };
+  const set_worker_screen = base_screen.set;
+  base_screen.set = (data) => {
+    const result = set_worker_screen(data);
+    if (worker_game != null) { report_workers(data.base); }
+    return result;
+  };
+  const show_worker_picker = base_screen.show_production_selection;
+  base_screen.show_production_selection = () => {
+    const result = show_worker_picker();
+    if (base_screen.production_selection != null) {
+      let index = 0;
+      for (choice of base_screen.get_production_choices()) {
+        #print('WORK_PICKER_ROW|' + #to_string(index) + '|' + choice.id);
+        index += 1;
+      }
+    }
+    return result;
+  };
+  glsmac.on('configure_game', (e) => {
+    worker_game = e.game;
+    e.game.on('error', (e) => { #print('WORK_GAME_ERROR'); });
+    e.game.on('event_result', (e) => {
+      #print('WORK_EVENT|' + e.name + '|' + #to_string(e.success));
+      if (!e.success) { #print('WORK_EVENT_REJECTED|' + e.name); }
+    });
+  });
+  glsmac.run();
+`);
+
 async function serveAssets(t) {
   const server = spawn('python3', ['tools/serve-wasm.py', build, '--port', '0', '--assets', assets], { cwd: root });
   t.after(() => server.kill());
@@ -275,7 +379,8 @@ async function clickCanvas(page, x, y) {
   await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
-async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gameplay') {
+async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gameplay', options = {}) {
+  const fatal = options.fatal || /worker sent an error!|RuntimeError:|Aborted\(/;
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -327,18 +432,18 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   };
   const waitForLog = async (text, minimum = 1, timeout = 60000) => {
     try {
-      await page.waitForFunction(({ text, minimum }) => (
+      await page.waitForFunction(({ text, minimum, fatalSource }) => (
         globalThis.__gameplayError || document.body.dataset.state === 'failed'
-        || /worker sent an error!|RuntimeError:|Aborted\(/.test(document.querySelector('#log').textContent)
+        || new RegExp(fatalSource).test(document.querySelector('#log').textContent)
         || document.querySelector('#log').textContent.split(text).length - 1 >= minimum
-      ), { text, minimum }, { timeout });
+      ), { text, minimum, fatalSource: fatal.source }, { timeout });
     } catch (error) {
       const log = await page.locator('#log').textContent({ timeout: 1000 }).catch(() => 'No engine log available');
       throw new Error(`Waiting for ${text} (${minimum} occurrences) failed.\n${log.slice(-12000)}`, { cause: error });
     }
     assert.deepEqual(errors, [], 'No browser runtime or graphics errors');
     const log = await page.locator('#log').textContent();
-    assert.doesNotMatch(log, /worker sent an error!|RuntimeError:|Aborted\(/, 'No fatal worker error in the engine log');
+    assert.doesNotMatch(log, fatal, 'No fatal worker error in the engine log');
     assert.ok(log.split(text).length - 1 >= minimum,
       `The running engine emitted ${text}`);
   };
@@ -393,7 +498,7 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   await page.locator('#custom-maps').setInputFiles({
-    name: 'browser-smoke.MP', mimeType: 'application/octet-stream', buffer: smokeMap(),
+    name: 'browser-smoke.MP', mimeType: 'application/octet-stream', buffer: options.map || smokeMap(),
   });
   await page.locator('#import-maps').click();
   await page.waitForFunction(() => document.querySelector('#custom-map-list').textContent.includes('browser-smoke.MP'));
@@ -424,7 +529,7 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/browser-smoke.MP',
       '--quickstart-faction', 'GAIANS',
     ]);
-  }, { mainScript, worldScript: fixtureWorld, scripts });
+  }, { mainScript: options.mainScript || mainScript, worldScript: fixtureWorld, scripts });
   await page.locator('#start').click();
   await waitForLog('SMOKE_UI_READY');
   await waitForLog('SMOKE_UNIT|1|0');
@@ -683,3 +788,160 @@ for (const action of ['keyboard', 'button']) {
     t.diagnostic(`Actual ${action} founding consumed ColonyPod1 at (10,8), created owned base2 with one citizen, opened its screen and continued to turn3.`);
   });
 }
+
+test('resource-map clicks reassign a real worker through Doctor and preserve the new yield next turn', {
+  skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+  timeout: 180000,
+}, async (t) => {
+  const { page, waitForLog, screenshot, waitForBase, closeBase } = await startGame(t,
+    workerWorldScript, 'worker-assignment', {
+      mainScript: workerMainScript, map: workerMap(),
+      fatal: /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|WORK_GAME_ERROR|WORK_EVENT_REJECTED/,
+    });
+  const logText = () => page.locator('#log').textContent();
+  const occurrences = async (marker) => (await logText()).split(marker).length - 1;
+  const snapshot = async () => {
+    const log = await logText();
+    const done = [...log.matchAll(/WORK_DONE\|(\d+)/g)].at(-1);
+    assert.ok(done, 'A complete read-only worker snapshot was emitted after real base rendering');
+    const sequence = done[1];
+    const rows = (kind) => [...log.matchAll(new RegExp(`WORK_${kind}\\|([^\\r\\n]*)`, 'g'))]
+      .map((m) => m[1].split('|')).filter((r) => r[0] === sequence).map((r) => r.slice(1));
+    const [b] = rows('BASE');
+    assert.ok(b, 'The rendered snapshot includes actual native base state');
+    return {
+      id: +b[0], owner: +b[1], turn: +b[2], size: +b[3], food: +b[4],
+      project: { choice: b[5], minerals: +b[6], processed: +b[7] },
+      intake: b.slice(8, 11).map(Number), consumption: b.slice(11, 14).map(Number), facilities: +b[14],
+      nutrientFactor: +b[15], cost: +b[16],
+      pops: rows('POP').map((p) => ({ id: +p[0], type: p[1], base: +p[2], tile: p.slice(3, 5).map(Number) })),
+      worked: rows('WORKED').map((p) => p.map(Number)),
+      tiles: rows('TILE').map((p) => ({ xy: p.slice(0, 2).map(Number), worked: p[2] === 'true',
+        pop: +p[3], base: +p[4], yield: p.slice(5, 8).map(Number) })),
+      labels: rows('RENDER')[0],
+    };
+  };
+  const tileAt = (state, xy) => {
+    const tile = state.tiles.find((entry) => entry.xy[0] === xy[0] && entry.xy[1] === xy[1]);
+    assert.ok(tile, `The actual radius contains tile ${xy}`);
+    return tile;
+  };
+  const assertRenderedIntake = (state) => {
+    assert.equal(state.labels.length, 6, 'The real resource section rendered all three intake/consumption/surplus labels');
+    const pad = (n) => String(n).padStart(3, '0');
+    for (let i = 0; i < 3; ++i) {
+      const surplus = state.intake[i] - state.consumption[i];
+      assert.equal(state.labels[i * 2], `${pad(state.intake[i])} - ${pad(state.consumption[i])}`);
+      assert.equal(state.labels[i * 2 + 1], `${surplus > 0 ? '+' : surplus < 0 ? '-' : ''}${pad(Math.abs(surplus))}`);
+    }
+  };
+  const assertLinks = (state, citizen, target) => {
+    assert.equal(state.pops.length, 1); assert.equal(state.size, 1);
+    assert.deepEqual(state.pops[0], { id: citizen, type: target ? 'WORKER' : 'DOCTOR', base: state.id,
+      tile: target || [-1, -1] }, 'The same native citizen has the requested type, base and worked-tile backlink');
+    assert.deepEqual(state.worked, target ? [target] : [], 'The base worked-tile set agrees with the citizen');
+    for (const tile of state.tiles) {
+      const selected = target !== null && tile.xy[0] === target[0] && tile.xy[1] === target[1];
+      assert.equal(tile.worked, selected, `Base membership for tile ${tile.xy}`);
+      assert.equal(tile.pop, selected ? citizen : -1, `Tile-to-citizen backlink for tile ${tile.xy}`);
+      assert.equal(tile.base, selected ? state.id : -1, `Tile's citizen belongs to this base at ${tile.xy}`);
+    }
+    const center = tileAt(state, [8, 8]).yield;
+    const worked = target ? tileAt(state, target).yield : [0, 0, 0];
+    assert.deepEqual(state.intake, center.map((value, i) => value + worked[i]),
+      'Actual intake is the center plus the actual assigned tile yield');
+    assertRenderedIntake(state);
+  };
+  const assertNoAssignmentSideEffects = (before, after) => {
+    for (const field of ['id', 'owner', 'turn', 'size', 'food', 'facilities', 'nutrientFactor', 'cost']) assert.equal(after[field], before[field], field);
+    assert.deepEqual(after.project, before.project, 'Assignment preserves project, stored minerals and processing marker');
+    assert.deepEqual(after.consumption, before.consumption, 'Assignment preserves population consumption');
+  };
+  const selectScout = async () => {
+    const previous = await occurrences('SMOKE_UNIT|1|0');
+    await page.keyboard.press('Tab');
+    await waitForLog('SMOKE_UNIT|1|0', previous + 1);
+  };
+  const openBase = async () => {
+    const previous = await occurrences('SMOKE_BASE_OPEN');
+    await page.keyboard.press('Enter');
+    await waitForBase(1);
+    await waitForLog('SMOKE_BASE_OPEN', previous + 1);
+    return snapshot();
+  };
+  let initial = await openBase();
+  const citizen = initial.pops[0].id;
+  assertLinks(initial, citizen, [8, 6]);
+  assert.notDeepEqual(tileAt(initial, [8, 6]).yield, tileAt(initial, [10, 8]).yield,
+    'The declared northern and eastern terrain produce distinct actual yields');
+
+  // Start a real project so reassignment must preserve more than an idle state.
+  await clickCanvas(page, 188, 726);
+  await waitForLog('SMOKE_PICKER_OPEN|1');
+  await waitForLog('WORK_PICKER_ROW|');
+  const tanks = [...(await logText()).matchAll(/WORK_PICKER_ROW\|(\d+)\|RECYCLING_TANKS/g)].at(-1);
+  assert.ok(tanks, 'The actual picker exposes the declared facility by stable id');
+  const projectRender = await occurrences('WORK_DONE|');
+  await clickCanvas(page, 500, 150 + Number(tanks[1]) * 29);
+  await clickCanvas(page, 565, 505);
+  await waitForLog('SMOKE_PRODUCTION|1|RECYCLING_TANKS|0|');
+  await waitForLog('WORK_DONE|', projectRender + 1);
+  initial = await snapshot();
+  assert.equal(initial.project.choice, 'RECYCLING_TANKS');
+  assertLinks(initial, citizen, [8, 6]);
+  await screenshot('initial-worker');
+
+  let renders = await occurrences('WORK_DONE|');
+  await clickCanvas(page, 512, 130); // North diamond in the actual 100x50 resource map.
+  await waitForLog('WORK_EVENT|unwork_base_tile|true');
+  await waitForLog('WORK_DONE|', renders + 1);
+  const doctor = await snapshot();
+  assertLinks(doctor, citizen, null);
+  assertNoAssignmentSideEffects(initial, doctor);
+  assert.notDeepEqual(doctor.intake, initial.intake, 'Removing the worker changes actual intake and its rendered labels');
+  await screenshot('doctor');
+
+  renders = await occurrences('WORK_DONE|');
+  await clickCanvas(page, 612, 180); // East diamond, not the base center.
+  await waitForLog('WORK_EVENT|work_base_tile|true');
+  await waitForLog('WORK_DONE|', renders + 1);
+  const assigned = await snapshot();
+  assertLinks(assigned, citizen, [10, 8]);
+  assertNoAssignmentSideEffects(initial, assigned);
+  assert.notDeepEqual(assigned.intake, initial.intake, 'Reassignment uses the distinct eastern yield');
+  await screenshot('reassigned-worker');
+  await closeBase();
+  await selectScout();
+  const reopened = await openBase();
+  assert.deepEqual(reopened, assigned, 'Closing and reopening preserves native links, project, storage and rendered intake');
+  await screenshot('reopened');
+  await closeBase();
+  await selectScout();
+
+  const pendingMinerals = Math.max(0, assigned.intake[1] - assigned.consumption[1]);
+  const pendingFood = assigned.intake[0] - assigned.consumption[0];
+  assert.ok(pendingMinerals > initial.intake[1] - initial.consumption[1], 'The eastern worker raises actual mineral surplus');
+  assert.ok(assigned.nutrientFactor > 0);
+  assert.ok(assigned.food + pendingFood < assigned.nutrientFactor * (assigned.size + 1),
+    'This one-turn fixture remains below its actual application growth threshold');
+  assert.ok(assigned.cost > 0);
+  assert.ok(assigned.project.minerals + pendingMinerals < assigned.cost, 'This one-turn fixture cannot finish the facility');
+  await clickCanvas(page, 100, 741);
+  await waitForLog('SMOKE_STATUS|turn_complete|0');
+  await clickCanvas(page, 899, 585);
+  await waitForLog(`SMOKE_TURN|${assigned.turn + 1}|`);
+  await waitForLog(`WORK_GROWTH_DONE|1|${assigned.turn + 1}`);
+  await waitForLog('SMOKE_STATUS|active|1.0');
+  await selectScout();
+  const next = await openBase();
+  assertLinks(next, citizen, [10, 8]);
+  assert.equal(next.turn, assigned.turn + 1);
+  assert.equal(next.food, assigned.food + pendingFood, 'The real next-turn growth stage uses reassigned nutrient intake');
+  assert.deepEqual(next.project, { choice: assigned.project.choice,
+    minerals: assigned.project.minerals + pendingMinerals, processed: next.turn },
+  'The real next turn credits exactly the reassigned mineral surplus');
+  assert.equal(next.facilities, assigned.facilities);
+  assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
+  await screenshot('next-turn');
+  t.diagnostic(`Actual resource-map mouse input changed citizen ${citizen} from northern Worker to Doctor to eastern Worker, refreshed real intake labels, preserved all three native links across reopening, and credited ${pendingMinerals} minerals/${pendingFood} food on turn ${next.turn}. No assignment commands or resource/population writes were injected; this is GLSMAC application coverage.`);
+});
