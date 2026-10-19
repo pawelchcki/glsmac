@@ -55,7 +55,8 @@ public:
 		const std::string& name,
 		const facilities_t& facilities,
 		const pops_t& pops,
-		const size_t next_pop_id = 1
+		const size_t next_pop_id = 1,
+		const bool attach_tile = true
 	);
 	virtual ~Base() = default;
 
@@ -79,7 +80,7 @@ public:
 	pops_t m_pops;
 
 	static const types::Buffer Serialize( const Base* base );
-	static Base* Deserialize( types::Buffer& buf, Game* game );
+	static Base* Deserialize( GSE_CALLABLE, types::Buffer& buf, Game* game, const bool attach = true );
 
 	WRAPDEFS_DYNAMIC( Base );
 
@@ -89,7 +90,11 @@ public:
 
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
+	friend class BaseManager;
 	friend class game::backend::Game;
+	// Incoming snapshots stay detached until every center and worker claim is valid.
+	static void AttachSnapshots( GSE_CALLABLE, const std::vector< Base* >& bases );
+	std::vector< std::pair< size_t, map::tile::Tile* > > m_snapshot_work;
 	Game* const m_game;
 	ProductionState m_production;
 	void ProductionChanged();

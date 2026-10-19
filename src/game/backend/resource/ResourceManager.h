@@ -8,6 +8,8 @@
 #include "game/backend/map/tile/Types.h"
 #include "Types.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace game {
 namespace backend {
 
@@ -47,6 +49,8 @@ CLASS( ResourceManager, gse::GCWrappable )
 	void Deserialize( types::Buffer& buf );
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	ResourceManager( Game* game, const bool register_with_gc );
 	Game* m_game;
 
 	std::vector< std::string > m_resources_order = {};

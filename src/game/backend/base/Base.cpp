@@ -24,6 +24,8 @@
 #include "game/backend/Player.h"
 #include "production/Facility.h"
 #include <limits>
+#include <memory>
+#include <set>
 
 namespace game {
 namespace backend {
@@ -46,7 +48,8 @@ Base::Base(
 	const std::string& name,
 	const facilities_t& facilities,
 	const pops_t& pops,
-	const size_t next_pop_id
+	const size_t next_pop_id,
+	const bool attach_tile
 )
 	: MapObject( game->GetMap(), tile )
 	, m_game( game )
@@ -60,8 +63,10 @@ Base::Base(
 	if ( next_id <= id ) {
 		next_id = id + 1;
 	}
-	ASSERT( !tile->base, "tile already has base" );
-	tile->base = this;
+	if ( attach_tile ) {
+		ASSERT( !tile->base, "tile already has base" );
+		tile->base = this;
+	}
 	m_tile = tile;
 	for ( auto& it : m_pops ) {
 		it.second.SetBase( this );
@@ -213,21 +218,56 @@ const types::Buffer Base::Serialize( const Base* base ) {
 	}
 	buf.WriteInt( base->m_next_pop_id );
 	base->m_production.Serialize( buf );
+	buf.WriteString( "GLSMAC_BASE_WORK_V1" );
+	auto* nutrients = const_cast< Base* >( base )->CustomGet( "accumulated_nutrients" );
+	if ( nutrients && ( nutrients->type != gse::VT_INT || ( (gse::value::Int*)nutrients )->value < 0 ) ) { THROW( "invalid stored base nutrients" ); }
+	buf.WriteBool( nutrients != nullptr );
+	if ( nutrients ) { buf.WriteInt( ( (gse::value::Int*)nutrients )->value ); }
+	std::map< size_t, map::tile::Tile* > work;
+	std::unordered_set< map::tile::Tile* > tiles;
+	for ( const auto& entry : base->m_pops ) {
+		auto* value = const_cast< Pop& >( entry.second ).CustomGet( "worked_tile" );
+		if ( !value ) { continue; }
+		if ( value->type != gse::VT_OBJECT ) { THROW( "invalid population worked tile" ); }
+		auto* object = (gse::value::Object*)value;
+		if ( object->object_class != "Tile" || !object->wrapobj ) { THROW( "invalid population worked tile" ); }
+		auto* tile = (map::tile::Tile*)object->wrapobj;
+		auto* backlink = tile->CustomGet( "working_pop" );
+		if ( !( entry.second.m_def->m_flags & PopDef::PF_TILE_WORKER ) || tile == base->m_tile || tile->base ||
+			tile->coord.x >= base->m_game->GetMap()->GetWidth() || tile->coord.y >= base->m_game->GetMap()->GetHeight() ||
+			base->m_game->GetMap()->GetTile( tile->coord.x, tile->coord.y ) != tile || !tiles.insert( tile ).second ||
+			!backlink || backlink->type != gse::VT_OBJECT || ( (gse::value::Object*)backlink )->object_class != "Pop" ||
+			( (gse::value::Object*)backlink )->wrapobj != &entry.second ) { THROW( "inconsistent population worker links" ); }
+		work.emplace( entry.first, tile );
+	}
+	if ( tiles != base->m_worked_tiles ) { THROW( "inconsistent base worked tiles" ); }
+	buf.WriteInt( work.size() );
+	for ( const auto& entry : work ) {
+		buf.WriteInt( entry.first ); buf.WriteInt( entry.second->coord.x ); buf.WriteInt( entry.second->coord.y );
+	}
 	return buf;
 }
 
-Base* Base::Deserialize( types::Buffer& buf, Game* game ) {
+Base* Base::Deserialize( GSE_CALLABLE, types::Buffer& buf, Game* game, const bool attach ) {
 	ASSERT( game, "game is null" );
 	const auto id = buf.ReadInt();
-	auto* slot = &game->GetState()->m_slots->GetSlot( buf.ReadInt() );
+	const auto owner = buf.ReadInt();
+	if ( id <= 0 || owner < 0 || uint64_t( owner ) >= game->GetState()->m_slots->GetCount() ) { THROW( "invalid base identity or owner" ); }
+	auto* slot = &game->GetState()->m_slots->GetSlot( owner );
+	if ( slot->GetState() != game::backend::slot::Slot::SS_PLAYER ) { THROW( "invalid base owner slot" ); }
 	const auto faction_id = buf.ReadString();
 	auto* faction = game->GetFaction( faction_id );
 	const auto pos_x = buf.ReadInt();
 	const auto pos_y = buf.ReadInt();
-	auto* tile = game->GetMap()->GetTile( pos_x, pos_y );
+	const auto get_tile = [ game ]( int64_t x, int64_t y ) {
+		if ( x < 0 || y < 0 || uint64_t( x ) >= game->GetMap()->GetWidth() || uint64_t( y ) >= game->GetMap()->GetHeight() || x % 2 != y % 2 ) { THROW( "invalid base snapshot tile coordinate" ); }
+		return game->GetMap()->GetTile( x, y );
+	};
+	auto* tile = get_tile( pos_x, pos_y );
 	const auto name = buf.ReadString();
 	facilities_t facilities = {};
 	const auto facilities_count = buf.ReadInt();
+	if ( facilities_count < 0 || uint64_t( facilities_count ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid base facility count" ); }
 	if ( facilities_count > 0 ) {
 		const auto& bm = game->GetBM();
 		for ( size_t i = 0 ; i < facilities_count ; i++ ) {
@@ -241,23 +281,72 @@ Base* Base::Deserialize( types::Buffer& buf, Game* game ) {
 	}
 	pops_t pops = {};
 	const auto pops_count = buf.ReadInt();
+	if ( pops_count < 0 || uint64_t( pops_count ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid base population count" ); }
 	for ( size_t i = 0 ; i < pops_count ; i++ ) {
 		const auto pop_id = buf.ReadInt();
 		Pop pop = {};
 		pop.Deserialize( buf, game );
-		pops.insert_or_assign( pop_id, pop );
+		if ( pop_id <= 0 || pop.m_id != uint64_t( pop_id ) || !pops.emplace( pop_id, pop ).second ) { THROW( "invalid duplicate population identity" ); }
 	}
 	const auto next_pop_id = buf.ReadInt();
+	if ( next_pop_id <= 0 || ( !pops.empty() && uint64_t( next_pop_id ) <= pops.rbegin()->first ) ) { THROW( "invalid next population identity" ); }
 	const auto production = ProductionState::Deserialize( buf );
 	if ( !production.choice_id.empty() ) {
 		const auto* def = ResolveProduction( game, slot, production.choice_id );
 		if ( !def || facilities.count( def->m_id ) ) { THROW( "invalid or installed base production choice" ); }
 	}
+	if ( buf.ReadString() != "GLSMAC_BASE_WORK_V1" ) { THROW( "unsupported base work snapshot" ); }
+	const auto has_nutrients = buf.ReadBool();
+	const auto nutrients = has_nutrients ? buf.ReadInt() : 0;
+	if ( nutrients < 0 ) { THROW( "invalid stored base nutrients" ); }
+	const auto work_count = buf.ReadInt();
+	if ( work_count < 0 || uint64_t( work_count ) > pops.size() ) { THROW( "invalid base worker count" ); }
+	std::vector< std::pair< size_t, map::tile::Tile* > > work;
+	std::set< size_t > workers;
+	for ( int64_t i = 0; i < work_count; ++i ) {
+		const auto pop_id = buf.ReadInt();
+		const auto x = buf.ReadInt(); const auto y = buf.ReadInt();
+		auto it = pops.find( pop_id );
+		if ( it == pops.end() || !( it->second.m_def->m_flags & PopDef::PF_TILE_WORKER ) || !workers.insert( pop_id ).second ) { THROW( "invalid base worker population reference" ); }
+		work.emplace_back( pop_id, get_tile( x, y ) );
+	}
 	if ( buf.lenr != buf.lenw ) { THROW( "trailing base snapshot data" ); }
-	if ( tile->base ) { THROW( "base snapshot tile is occupied" ); }
-	auto* base = new Base( game, id, slot, faction, tile, name, facilities, pops, next_pop_id );
+	const auto previous_next_id = GetNextId();
+	auto base = std::make_unique< Base >( game, id, slot, faction, tile, name, facilities, pops, next_pop_id, false );
 	base->m_production = production;
-	return base;
+	base->m_snapshot_work = std::move( work );
+	try {
+		if ( has_nutrients ) { base->CustomSet( "accumulated_nutrients", VALUE( gse::value::Int,, nutrients ) ); }
+		if ( attach ) { AttachSnapshots( GSE_CALL, { base.get() } ); }
+	} catch ( ... ) { SetNextId( previous_next_id ); throw; }
+	return base.release();
+}
+
+
+void Base::AttachSnapshots( GSE_CALLABLE, const std::vector< Base* >& bases ) {
+	std::unordered_set< map::tile::Tile* > centers, claims;
+	for ( auto* base : bases ) {
+		if ( base->m_tile->base || base->m_tile->CustomHas( "working_pop" ) || !centers.insert( base->m_tile ).second ) { THROW( "base snapshot center is occupied or duplicated" ); }
+	}
+	struct link_t { map::tile::Tile* tile; Pop* pop; gse::Value* wrapper; };
+	std::vector< link_t > links;
+	for ( auto* base : bases ) {
+		for ( const auto& work : base->m_snapshot_work ) {
+			auto* tile = work.second;
+			if ( tile->base || centers.count( tile ) || tile->CustomHas( "working_pop" ) || !claims.insert( tile ).second ) { THROW( "base snapshot worker tile is occupied or duplicated" ); }
+			auto* pop = &base->m_pops.at( work.first );
+			pop->CustomSet( "worked_tile", tile->Wrap( GSE_CALL ) );
+			base->m_worked_tiles.insert( tile );
+			links.push_back( { tile, pop, pop->Wrap( GSE_CALL ) } );
+		}
+	}
+	try {
+		for ( const auto& link : links ) { link.tile->CustomSet( "working_pop", link.wrapper ); }
+	} catch ( ... ) {
+		for ( const auto& link : links ) { link.tile->CustomUnset( "working_pop" ); }
+		throw;
+	}
+	for ( auto* base : bases ) { base->m_tile->base = base; base->m_snapshot_work.clear(); }
 }
 
 WRAPIMPL_SERIALIZE( Base )

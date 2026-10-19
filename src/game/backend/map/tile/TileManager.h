@@ -9,6 +9,8 @@
 #include "Types.h"
 #include "TileLock.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace game {
 namespace backend {
 
@@ -43,6 +45,8 @@ public:
 	WRAPDEFS_PTR( TileManager )
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	TileManager( Game* game, const bool register_with_gc );
 	Game* m_game = nullptr;
 
 	// server-side lock tracking

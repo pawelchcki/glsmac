@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
 
 #include "gse/GCWrappable.h"
 
@@ -83,6 +84,7 @@ private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class game::backend::Game;
 	BaseManager( Game* game, const bool register_with_gc );
+	std::vector< std::unique_ptr< Base > > DecodeSnapshotBases( GSE_CALLABLE, std::vector< types::Buffer >& records, const size_t next_id );
 	Game* m_game = nullptr;
 
 	popdefs_t m_base_popdefs = {};
@@ -90,6 +92,7 @@ private:
 
 	std::map< size_t, Base* > m_bases = {};
 	std::vector< types::Buffer > m_unprocessed_bases = {};
+	size_t m_unprocessed_next_id = 0;
 
 	std::unordered_set< std::string > m_registered_base_names = {};
 

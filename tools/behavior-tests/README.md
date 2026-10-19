@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **433 scenarios and 2,678 assertions** across
-33 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **451 scenarios and 2,762 assertions** across
+34 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -84,7 +84,18 @@ by connection notifications. `pop-snapshot-native` restores populated bases with
 definition IDs different from display names, checks receiving parent bindings,
 variants, next population IDs and production state, and rejects an unknown type
 without replacing the receiving world. These bounded codec tests do not establish
-complete world save/load or restore script-managed worker assignments.
+complete world save/load.
+
+`base-work-snapshot-native` runs shipped growth, worker and production callbacks
+over real native bases, populations, tiles and resource managers with controlled
+terrain yields. Fresh deferred decoding preserves accumulated nutrients, pending
+production, population IDs and receiving worker/backlink identities. Complete
+base batches validate centers and worker claims before attaching them; malformed
+references and conflicting later records leave no partial tile assignments.
+Ordinary startup preserves IDs, while an explicit empty snapshot restores its
+next ID once. These checks cover the current internal snapshot format, not
+original save files, old-format migration, complete world replacement, graphical
+spawn callbacks or a save/load menu.
 
 The colony suites add functional land expansion: one starting Colony Pod,
 shared FOUND BASE/B eligibility, immediate worker assignment or doctor fallback,

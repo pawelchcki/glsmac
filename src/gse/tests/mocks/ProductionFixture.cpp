@@ -34,6 +34,9 @@
 #include "game/backend/faction/FactionManager.h"
 #include "game/backend/map/Map.h"
 #include "game/backend/map/tile/Tiles.h"
+#include "game/backend/map/tile/TileManager.h"
+#include "game/backend/resource/ResourceManager.h"
+#include "game/backend/resource/Resource.h"
 #include "game/backend/slot/Slots.h"
 
 namespace gse::tests::mocks {
@@ -56,6 +59,7 @@ struct ProductionFixture : gc::Object {
 	backend::Game game;
 	backend::State* state = nullptr;
 	std::unique_ptr< backend::Player > owner;
+	std::unique_ptr< backend::Player > local_player;
 	backend::base::Base* base = nullptr;
 	bool destroying = false;
 	bool stopped = false;
@@ -118,6 +122,8 @@ struct ProductionFixture : gc::Object {
 		if ( stopped ) { return; }
 		auto* bm = game.m_bm;
 		auto* um = game.m_um;
+		auto* tm = game.m_tm;
+		auto* rm = game.m_rm;
 		if ( um ) { um->Clear(); }
 		bm->Clear();
 		state->m_connection = nullptr;
@@ -125,9 +131,12 @@ struct ProductionFixture : gc::Object {
 		state->UnsetGame();
 		game.Stop();
 		owner.reset();
+		local_player.reset();
 		stopped = true;
 		delete bm;
 		delete um;
+		delete tm;
+		delete rm;
 		delete state;
 		state = nullptr;
 	}
@@ -156,6 +165,20 @@ struct ProductionFixture : gc::Object {
 	}
 
 
+	size_t NextPopId() const { return base->m_next_pop_id; }
+	void EnableEconomy() {
+		if ( game.m_rm ) { THROW( "fixture economy already enabled" ); }
+		game.m_rm = new backend::resource::ResourceManager( &game, false );
+		game.m_tm = new backend::map::tile::TileManager( &game, false );
+		local_player = std::make_unique< backend::Player >( "Fixture Host", backend::Player::PR_SINGLE, owner->GetFaction(), "Citizen" );
+		state->m_slots->GetSlot( 0 ).SetPlayer( local_player.get(), 0, "" );
+		game.m_player = local_player.get();
+		game.m_game_state = backend::Game::GS_RUNNING;
+		const backend::resource::render_info_t render { "synthetic.pcx", { { { 0, 0 }, { 1, 1 } } } };
+		for ( const auto& id : { "NUTRIENTS", "MINERALS", "ENERGY" } ) {
+			game.m_rm->DefineResource( new backend::resource::Resource( id, id, render ) );
+		}
+	}
 	void SetupFounding( GSE_CALLABLE ) {
 		game.m_um = new backend::unit::UnitManager( &game, false );
 		game.m_slot_num = 1;
@@ -361,16 +384,131 @@ struct ProductionFixture : gc::Object {
 		// Production deferral is a native-manager boundary. Decode actual Base
 		// records after the receiving registry has been reconstructed, without
 		// dispatching graphical spawn callbacks in this asset-free fixture.
-		for ( auto& record : game.m_bm->m_unprocessed_bases ) {
-			auto* restored = backend::base::Base::Deserialize( record, &game );
-			if ( game.m_bm->m_bases.count( restored->m_id ) ) { THROW( "duplicate fixture base" ); }
-			game.m_bm->m_bases.emplace( restored->m_id, restored );
+		auto staged = game.m_bm->DecodeSnapshotBases( GSE_CALL, game.m_bm->m_unprocessed_bases, game.m_bm->m_unprocessed_next_id );
+		for ( auto& restored : staged ) {
+			const auto id = restored->m_id;
+			game.m_bm->m_bases.emplace( id, restored.release() );
 		}
 		game.m_bm->m_unprocessed_bases.clear();
-		if ( game.m_bm->m_bases.size() != 1 ) { THROW( "fixture requires one base" ); }
+		game.m_bm->m_unprocessed_next_id = 0;
+		if ( game.m_bm->m_bases.empty() ) { THROW( "fixture requires a base" ); }
 		base = game.m_bm->m_bases.begin()->second;
 	}
+	void AddSnapshotBase( GSE_CALLABLE, int64_t x, int64_t y ) {
+		if ( x < 0 || y < 0 || x >= 4 || y >= 4 || x % 2 != y % 2 ) { GSE_ERROR( EC.INVALID_CALL, "invalid fixture base coordinate" ); }
+		auto* tile = game.GetMap()->GetTile( x, y );
+		if ( tile->base ) { GSE_ERROR( EC.INVALID_CALL, "fixture base tile occupied" ); }
+		auto* added = new backend::base::Base( &game, backend::base::Base::GetNextId(), owner->GetSlot(), owner->GetFaction(), tile, "Second Base", {}, {} );
+		game.m_bm->m_bases.emplace( added->m_id, added );
+	}
+	// Rewrite typed tokens from a genuine snapshot; never reproduce decoding
+	// behavior or construct a parallel simulated world in the probe.
+	static std::string CorruptWorkRecord( const std::string& bytes, const std::string& kind, bool later ) {
+		types::Buffer record( bytes );
+		record.ReadInt(); record.ReadInt(); record.ReadString();
+		const auto center_offset = record.lenr;
+		record.ReadInt(); record.ReadInt();
+		const auto center_end = record.lenr;
+		if ( later && kind == "worker_later_center" ) {
+			types::Buffer changed; changed.WriteInt( 2 ); changed.WriteInt( 0 );
+			return bytes.substr( 0, center_offset ) + changed.ToString() + bytes.substr( center_end );
+		}
+		record.ReadString();
+		const auto facilities = record.ReadInt();
+		for ( int64_t i = 0; i < facilities; ++i ) { record.ReadString(); }
+		const auto pops = record.ReadInt();
+		for ( int64_t i = 0; i < pops; ++i ) { record.ReadInt(); record.ReadInt(); record.ReadString(); record.ReadInt(); }
+		record.ReadInt(); record.ReadString(); record.ReadInt(); record.ReadInt();
+		record.ReadString();
+		if ( record.ReadBool() ) { record.ReadInt(); }
+		const auto work_offset = record.lenr;
+		const auto count = record.ReadInt();
+		if ( count != 1 ) { THROW( "worker corruption requires one assigned population" ); }
+		auto id = record.ReadInt(); auto x = record.ReadInt(); auto y = record.ReadInt();
+		if ( kind == "worker_unknown_pop" ) { id = 999; }
+		else if ( kind == "worker_out_of_map" ) { x = 4; }
+		else if ( kind == "worker_bad_parity" ) { x = 1; y = 0; }
+		else if ( kind == "worker_center" ) { x = 0; y = 0; }
+		else if ( kind == "worker_nonworker" ) { id = 2; }
+		else if ( kind == "worker_later_claim" ) { x = 2; y = 0; }
+		types::Buffer changed;
+		const bool duplicate = kind == "worker_duplicate_tile" || kind == "worker_duplicate_pop";
+		changed.WriteInt( duplicate ? 2 : 1 ); changed.WriteInt( id ); changed.WriteInt( x ); changed.WriteInt( y );
+		if ( duplicate ) { changed.WriteInt( kind == "worker_duplicate_pop" ? id : 2 ); changed.WriteInt( x ); changed.WriteInt( y ); }
+		return bytes.substr( 0, work_offset ) + changed.ToString();
+	}
+	std::string CorruptWorkerSnapshot( const std::string& kind ) {
+		types::Buffer incoming( Snapshot() ), result;
+		result.WriteString( incoming.ReadString() ); result.WriteInt( incoming.ReadInt() ); result.WriteString( incoming.ReadString() );
+		types::Buffer bases( incoming.ReadString() ), changed;
+		changed.WriteString( bases.ReadString() );
+		const auto pops = bases.ReadInt(); changed.WriteInt( pops );
+		for ( int64_t i = 0; i < pops; ++i ) { changed.WriteString( bases.ReadString() ); changed.WriteString( bases.ReadString() ); }
+		const auto facilities = bases.ReadInt(); changed.WriteInt( facilities );
+		for ( int64_t i = 0; i < facilities; ++i ) { changed.WriteString( bases.ReadString() ); }
+		const auto count = bases.ReadInt(); changed.WriteInt( count );
+		for ( int64_t i = 0; i < count; ++i ) {
+			auto bytes = bases.ReadString();
+			if ( kind == "truncated_later_base" && i == 1 ) { bytes.resize( bytes.size() - 1 ); }
+			else if ( kind == "worker_later_center" || kind == "worker_later_claim" ) {
+				if ( i == 1 ) { bytes = CorruptWorkRecord( bytes, kind, true ); }
+			} else if ( i == 0 ) { bytes = CorruptWorkRecord( bytes, kind, false ); }
+			changed.WriteString( bytes );
+		}
+		changed.WriteInt( bases.ReadInt() );
+		result.WriteString( changed.ToString() );
+		return result.ToString();
+	}
+	void ProcessPendingBases( GSE_CALLABLE ) { game.m_bm->ProcessUnprocessed( GSE_CALL ); }
+	value::Object* ProbeEmptySnapshot( GSE_CALLABLE, int64_t next_id ) {
+		if ( next_id <= 0 ) { GSE_ERROR( EC.INVALID_CALL, "invalid empty fixture next ID" ); }
+		auto receiving = std::make_shared< ProductionFixture >( GSE_CALL, false );
+		const auto previous = backend::base::Base::GetNextId();
+		try {
+			// Generate the actual empty BM snapshot with an independently chosen
+			// next ID, then return the source process counter to its prior value.
+			backend::base::Base::SetNextId( next_id );
+			types::Buffer snapshot; receiving->game.m_bm->Serialize( snapshot );
+			backend::base::Base::SetNextId( previous );
+			receiving->game.m_bm->Deserialize( GSE_CALL, snapshot );
+			const bool deferred_preserved = backend::base::Base::GetNextId() == previous;
+			receiving->ProcessPendingBases( GSE_CALL );
+			const auto first = backend::base::Base::GetNextId();
+			receiving->ProcessPendingBases( GSE_CALL );
+			const auto second = backend::base::Base::GetNextId();
+			backend::base::Base::SetNextId( previous );
+			const value::object_properties_t result {
+				{ "deferred_preserved", VALUE( value::Bool,, deferred_preserved ) },
+				{ "first", VALUE( value::Int,, first ) }, { "second", VALUE( value::Int,, second ) },
+				{ "bases", VALUE( value::Int,, receiving->game.m_bm->GetBases().size() ) },
+			};
+			return VALUEEXT( value::Object, GSE_CALL, result );
+		} catch ( ... ) { backend::base::Base::SetNextId( previous ); throw; }
+	}
+	value::Object* ProbeSnapshotDecode( GSE_CALLABLE, const std::string& bytes ) {
+		auto receiving = std::make_shared< ProductionFixture >( GSE_CALL, false );
+		bool rejected = false;
+		const auto next_id = backend::base::Base::GetNextId();
+		try { receiving->Load( GSE_CALL, bytes ); } catch ( const std::exception& ) { rejected = true; }
+		size_t centers = 0, claims = 0;
+		for ( int64_t y = 0; y < 4; ++y ) {
+			for ( int64_t x = y % 2; x < 4; x += 2 ) {
+				auto* tile = receiving->game.GetMap()->GetTile( x, y );
+				if ( tile->base ) { centers++; }
+				auto* wrapper = (value::Object*)tile->Wrap( GSE_CALL );
+				auto* has = (value::Callable*)wrapper->value.at( "has" );
+				if ( ( (value::Bool*)has->Run( GSE_CALL, { VALUE( value::String,, "working_pop" ) } ) )->value ) { claims++; }
+			}
+		}
+		const value::object_properties_t result {
+			{ "rejected", VALUE( value::Bool,, rejected ) }, { "centers", VALUE( value::Int,, centers ) },
+			{ "claims", VALUE( value::Int,, claims ) }, { "bases", VALUE( value::Int,, receiving->game.m_bm->GetBases().size() ) },
+			{ "next_id_preserved", VALUE( value::Bool,, backend::base::Base::GetNextId() == next_id ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
 	std::string Corrupt( const std::string& kind ) {
+		if ( kind.rfind( "worker_", 0 ) == 0 || kind == "truncated_later_base" ) { return CorruptWorkerSnapshot( kind ); }
 		if ( kind == "truncated" ) { auto bytes = Snapshot(); return bytes.substr( 0, bytes.size() - 1 ); }
 		if ( kind == "trailing" ) { return Snapshot() + "trailing"; }
 		const auto before = base->m_production;
@@ -446,6 +584,39 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( variant, 0, Int );
 		session->current->AddWorker( GSE_CALL, variant );
 		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "enable_economy", NATIVE_CALL( session, object ) {
+		N_EXPECT_ARGS( 0 ); session->current->EnableEconomy();
+		UpdateWrappers( GSE_CALL, object );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "tile_at", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int );
+		if ( x < 0 || y < 0 || x >= 4 || y >= 4 || x % 2 != y % 2 ) { GSE_ERROR( EC.INVALID_CALL, "invalid fixture tile coordinate" ); }
+		return session->current->game.GetMap()->GetTile( x, y )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "next_ids", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		const value::object_properties_t result {
+			{ "base", VALUE( value::Int,, backend::base::Base::GetNextId() ) },
+			{ "pop", VALUE( value::Int,, session->current->NextPopId() ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	} ), GSE_CALL );
+	object->Set( "process_pending_bases", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->ProcessPendingBases( GSE_CALL ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "probe_empty_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( next_id, 0, Int );
+		return session->current->ProbeEmptySnapshot( GSE_CALL, next_id );
+	} ), GSE_CALL );
+	object->Set( "add_snapshot_base", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int );
+		session->current->AddSnapshotBase( GSE_CALL, x, y ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "probe_snapshot_decode", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( bytes, 0, String );
+		return session->current->ProbeSnapshotDecode( GSE_CALL, bytes );
 	} ), GSE_CALL );
 	object->Set( "player_copy_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );

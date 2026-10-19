@@ -16,7 +16,10 @@ namespace backend {
 namespace resource {
 
 ResourceManager::ResourceManager( Game* game )
-	: gse::GCWrappable( game->GetGCSpace() )
+	: ResourceManager( game, true ) {}
+
+ResourceManager::ResourceManager( Game* game, const bool register_with_gc )
+	: gse::GCWrappable( register_with_gc ? game->GetGCSpace() : nullptr )
 	, m_game( game ) {
 	//
 }

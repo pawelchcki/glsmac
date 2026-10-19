@@ -17,7 +17,10 @@ namespace map {
 namespace tile {
 
 TileManager::TileManager( Game* game )
-	: gse::GCWrappable( game->GetGCSpace() )
+	: TileManager( game, true ) {}
+
+TileManager::TileManager( Game* game, const bool register_with_gc )
+	: gse::GCWrappable( register_with_gc ? game->GetGCSpace() : nullptr )
 	, m_game( game ) {
 	//
 }

@@ -47,6 +47,7 @@ void BaseManager::Clear() {
 	}
 	m_bases.clear();
 	m_unprocessed_bases.clear();
+	m_unprocessed_next_id = 0;
 	m_registered_base_names.clear();
 	m_updated_bases.clear();
 
@@ -252,11 +253,33 @@ const BaseManager::popdefs_t& BaseManager::GetBasePopDefs() const {
 	return m_base_popdefs;
 }
 
+std::vector< std::unique_ptr< Base > > BaseManager::DecodeSnapshotBases( GSE_CALLABLE, std::vector< types::Buffer >& records, const size_t next_id ) {
+	const auto previous_next_id = Base::GetNextId();
+	std::vector< std::unique_ptr< Base > > staged;
+	std::vector< Base* > bases;
+	std::unordered_set< size_t > ids;
+	try {
+		for ( auto& record : records ) {
+			auto copy = types::Buffer( record.ToString() );
+			auto base = std::unique_ptr< Base >( Base::Deserialize( GSE_CALL, copy, m_game, false ) );
+			if ( base->m_id >= next_id || m_bases.count( base->m_id ) || !ids.insert( base->m_id ).second ) { THROW( "duplicate base snapshot identity" ); }
+			bases.push_back( base.get() );
+			staged.push_back( std::move( base ) );
+		}
+		Base::AttachSnapshots( GSE_CALL, bases );
+		Base::SetNextId( next_id );
+	} catch ( ... ) { Base::SetNextId( previous_next_id ); throw; }
+	return staged;
+}
+
 void BaseManager::ProcessUnprocessed( GSE_CALLABLE ) {
-	for ( auto& it : m_unprocessed_bases ) {
-		SpawnBase( GSE_CALL, Base::Deserialize( it, m_game ) );
-	}
+	// Zero means no snapshot was loaded. An explicit empty snapshot still has
+	// a positive next ID and must commit that value exactly once.
+	if ( !m_unprocessed_next_id ) { return; }
+	auto staged = DecodeSnapshotBases( GSE_CALL, m_unprocessed_bases, m_unprocessed_next_id );
 	m_unprocessed_bases.clear();
+	m_unprocessed_next_id = 0;
+	for ( auto& base : staged ) { SpawnBase( GSE_CALL, base.release() ); }
 }
 
 void BaseManager::PushUpdates() {
@@ -537,7 +560,7 @@ void BaseManager::TriggerUpdates( GSE_CALLABLE ) {
 }
 
 void BaseManager::Serialize( types::Buffer& buf ) const {
-	buf.WriteString( "GLSMAC_BASES_V1" );
+	buf.WriteString( "GLSMAC_BASES_V2" );
 
 	Log( "Serializing " + std::to_string( m_base_popdefs.size() ) + " base pop defs" );
 	buf.WriteInt( m_base_popdefs.size() );
@@ -565,7 +588,7 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 	ASSERT( m_bases.empty(), "bases not empty" );
 	ASSERT( m_unprocessed_bases.empty(), "unprocessed bases not empty" );
 	ASSERT( m_base_facilitydefs.empty(), "facility defs not empty" );
-	if ( buf.ReadString() != "GLSMAC_BASES_V1" ) { THROW( "unsupported base snapshot version" ); }
+	if ( buf.ReadString() != "GLSMAC_BASES_V2" ) { THROW( "unsupported base snapshot version" ); }
 	const auto read_count = [ &buf ]() {
 		const auto count = buf.ReadInt();
 		if ( count < 0 || uint64_t( count ) > ( buf.lenw - buf.lenr ) / 6 ) { THROW( "invalid base snapshot count" ); }
@@ -573,7 +596,7 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 	};
 	std::map< std::string, std::unique_ptr< PopDef > > pops;
 	std::map< std::string, std::unique_ptr< FacilityDef > > facilities;
-	std::vector< std::string > bases;
+	std::vector< types::Buffer > bases;
 
 	size_t sz = read_count();
 	for ( size_t i = 0 ; i < sz ; i++ ) {
@@ -591,27 +614,18 @@ void BaseManager::Deserialize( GSE_CALLABLE, types::Buffer& buf ) {
 		facilities.emplace( def->m_id, std::move( def ) );
 	}
 	sz = read_count();
-	for ( size_t i = 0; i < sz; ++i ) { bases.push_back( buf.ReadString() ); }
+	for ( size_t i = 0; i < sz; ++i ) { bases.emplace_back( buf.ReadString() ); }
 	const auto next_id = buf.ReadInt();
 	if ( next_id <= 0 || buf.lenr != buf.lenw ) { THROW( "invalid base snapshot id or trailing data" ); }
 	// Parse the complete framing and definitions before publishing any registry.
 	for ( auto& def : pops ) { DefinePop( def.second.release() ); }
 	for ( auto& def : facilities ) { DefineFacility( def.second.release() ); }
-	if ( !m_game->IsRunning() ) {
-		m_unprocessed_bases.reserve( sz );
-	}
-	for ( const auto& bytes : bases ) {
-		auto b = types::Buffer( bytes );
-		if ( m_game->IsRunning() ) {
-			SpawnBase( GSE_CALL, Base::Deserialize( b, m_game ) );
-		}
-		else {
-			m_unprocessed_bases.push_back( b );
-		}
-	}
+	if ( m_game->IsRunning() ) {
+		auto staged = DecodeSnapshotBases( GSE_CALL, bases, next_id );
+		for ( auto& base : staged ) { SpawnBase( GSE_CALL, base.release() ); }
+	} else { m_unprocessed_bases = std::move( bases ); m_unprocessed_next_id = next_id; }
 
-	Base::SetNextId( next_id );
-	Log( "Restored next base id: " + std::to_string( Base::GetNextId() ) );
+	Log( "Loaded next base id: " + std::to_string( next_id ) );
 }
 
 void BaseManager::RefreshBase( const Base* base ) {
