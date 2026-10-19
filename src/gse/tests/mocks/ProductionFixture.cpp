@@ -196,6 +196,8 @@ struct ProductionFixture : gc::Object {
 		local_player = std::make_unique< backend::Player >( "Fixture Host", backend::Player::PR_SINGLE, owner->GetFaction(), "Citizen" );
 		state->m_slots->GetSlot( 0 ).SetPlayer( local_player.get(), 0, "" );
 		game.m_player = local_player.get();
+		game.m_slot_num = 0;
+		game.m_slot = local_player->GetSlot();
 		game.m_game_state = backend::Game::GS_RUNNING;
 		const backend::resource::render_info_t render { "synthetic.pcx", { { { 0, 0 }, { 1, 1 } } } };
 		for ( const auto& id : { "NUTRIENTS", "MINERALS", "ENERGY" } ) {

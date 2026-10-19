@@ -1,9 +1,10 @@
 // Growth must choose a specialist when the base has exhausted workable tiles.
 const behavior = #include('./_behavior');
 const initialize_bases = #include('../default/game/bases');
+const growth_stage = #include('../default/game/event/process_base_growth');
 
 const make_world = (size, nutrients, available_tile) => {
-	const state = { values: {}, handlers: {}, events: [], tiles: [] };
+	const state = { values: {}, globals: {}, handlers: {}, events: [], tiles: [] };
 	if (#is_defined(available_tile)) { state.tiles :+ available_tile; }
 	if (#is_defined(nutrients)) { state.values.accumulated_nutrients = nutrients; }
 	const base = {
@@ -21,16 +22,26 @@ const make_world = (size, nutrients, available_tile) => {
 		get_bases: () => { return [base]; },
 	};
 	const game = {
+		get_turn: () => { return 2; },
+		is_master: () => { return true; },
 		get_bm: () => { return bm; },
 		get_tm: () => { return {
 			get_map_width: () => { return 20; },
 			get_map_height: () => { return 20; },
 		}; },
 		on: (name, callback) => { state.handlers[name] = callback; },
-		set: (key, value) => {},
-		event: (name, data) => {
-			if (name == 'add_base_pop') { state.events :+ data; }
-		},
+		set: (key, value) => { state.globals[key] = value; },
+		get: (key) => { return state.globals[key]; },
+	};
+	// GSE binds this callback after game exists, so its stage event can retain
+	// the same receiving game object instead of an unbound literal reference.
+	game.event = (name, data) => {
+		if (name == 'process_base_growth') {
+			const e = { caller: 0 }; e.game = game; e.data = data;
+			test.assert(!#is_defined(growth_stage.validate(e))); growth_stage.apply(e);
+			return;
+		}
+		if (name == 'add_base_pop') { state.events :+ data; }
 	};
 	initialize_bases(game);
 	state.handlers.start({});

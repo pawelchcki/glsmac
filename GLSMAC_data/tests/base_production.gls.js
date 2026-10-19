@@ -3,6 +3,7 @@
 // boundaries below prove event ordering without reproducing native production.
 const behavior = #include('./_behavior');
 const configure_bases = #include('../default/game/bases');
+const growth_stage = #include('../default/game/event/process_base_growth');
 
 const callback_fixture = () => {
 	const f = {};
@@ -17,10 +18,17 @@ const callback_fixture = () => {
 		get_map_height: () => { return 20; },
 	}; };
 	f.game.get_turn = () => { return f.state.turn; };
+	f.game.is_master = () => { return true; };
 	f.game.on = (name, callback) => { f.state.handlers[name] = callback; };
 	f.game.get = (key) => { return f.state.globals[key]; };
 	f.game.set = (key, value) => { f.state.globals[key] = value; };
 	f.game.event = (name, data) => {
+		if (name == 'process_base_growth') {
+			const e = { caller: 0 }; e.game = f.game; e.data = data;
+			test.assert(!#is_defined(growth_stage.validate(e)));
+			growth_stage.apply(e); return;
+		}
+		if (name == 'process_base_production') { data.base.record_production_turn(data.turn_id); }
 		const record = { name: name }; record.data = data;
 		f.state.events :+ record;
 		f.state.trace :+ name;
@@ -30,6 +38,7 @@ const callback_fixture = () => {
 		b.state = { minerals: 8, consumed: 1, nutrients: 0, accumulated: 0, size: 1, last_turn: 1, choice: choice };
 		b.base = {};
 		b.base.id = id;
+		b.base.record_production_turn = (turn) => { b.state.last_turn = turn; };
 		b.base.get_production = () => { return { choice_id: b.state.choice, minerals: 0, last_processed_turn: b.state.last_turn }; };
 		b.base.get_intake = () => { return { NUTRIENTS: b.state.nutrients, MINERALS: b.state.minerals, ENERGY: 0 }; };
 		b.base.get_consumption = () => { return { NUTRIENTS: 0, MINERALS: b.state.consumed, ENERGY: 0 }; };
@@ -101,6 +110,7 @@ behavior.scenario('default game registry installs both production event handlers
 	#include('../default/game/events')(game);
 	test.assert(#typeof(registered.set_base_production.validate) == 'Callable');
 	test.assert(#typeof(registered.process_base_production.apply) == 'Callable');
+	test.assert(#typeof(registered.process_base_growth.apply) == 'Callable');
 });
 
 // Actual native Base/Player wrappers own selection, accumulation, completion,

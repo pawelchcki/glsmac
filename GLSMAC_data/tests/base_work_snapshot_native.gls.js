@@ -4,6 +4,7 @@
 const behavior = #include('./_behavior');
 const configure_bases = #include('../default/game/bases');
 const production_event = #include('../default/game/event/process_base_production');
+const growth_stage = #include('../default/game/event/process_base_growth');
 
 const attach_rules = (f) => {
 	f.enable_economy();
@@ -19,6 +20,7 @@ const attach_rules = (f) => {
 	rules.get_bm = () => { return f.game.bm; };
 	rules.get_tm = () => { return f.game.tm; };
 	rules.get_turn = () => { return f.game.get_turn(); };
+	rules.is_master = () => { return f.game.is_master(); };
 	rules.get = (key) => { return globals[key]; };
 	rules.set = (key, value) => { globals[key] = value; };
 	rules.on = (name, callback) => { handlers[name] = callback; };
@@ -27,6 +29,10 @@ const attach_rules = (f) => {
 		if (name == 'define_base_pop' || name == 'define_base_facility') { return; }
 		const e = { caller: 0 };
 		e.game = f.game; e.data = data;
+		if (name == 'process_base_growth') {
+			e.game = rules;
+			test.assert(!#is_defined(growth_stage.validate(e))); growth_stage.apply(e); return;
+		}
 		if (name == 'process_base_production') {
 			test.assert(!#is_defined(production_event.validate(e)));
 			production_event.apply(e);

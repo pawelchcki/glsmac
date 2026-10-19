@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **629 scenarios and 3,311 assertions** across
-42 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **646 scenarios and 3,950 assertions** across
+46 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -63,8 +63,14 @@ base and advance another turn after consumption.
 The additional `normal-game.test.mjs` case uses the real New Game menus to
 choose Tiny and Gaians, generates terrain through the production world path,
 opens Headquarters, skips both owned starting units, advances a turn, verifies
-movement replenishment and reopens the base. Its injected entry adds read-only
-telemetry; it supplies no world/map/RNG override. Run it separately with
+movement replenishment and reopens the base. It then selects a Colony Pod at
+size one and follows naturally earned food and minerals through actual growth
+and construction, with a fixed 32-turn ceiling. Every credit, population charge,
+project clearing and retained overflow is checked. Read-only stage/child-event
+observations require growth to settle before the next turn. Both original
+starting units survive and a distinct new owned pod appears. Its injected entry
+adds read-only telemetry; it supplies no world/map/RNG, population or mineral
+override. Run it separately with
 `npm --prefix tools/wasm-tests run test:normal-game`. These browser regressions
 do not establish original-game agreement. The additional
 `colony-production.test.mjs` case starts with three actual workers on controlled
@@ -105,6 +111,16 @@ rollback and production snapshots restored into a fresh receiving world. The
 fixture supplies graphics and event-loop boundaries. `base-production`
 checks production events and turn integration; `base-production-ui` checks the
 actual picker and base-screen scripts with controlled display/native boundaries.
+
+`growth-production-sequence` follows an actual native Tiny base from one
+worker and zero stored food/minerals through idle food accumulation, growth,
+Colony Pod completion and same-turn regrowth. It checks pre-growth mineral
+credits, consumed citizen identity and worker links released before reclamation.
+Synthetic terrain yields and manual turn delivery are controlled boundaries.
+The worker and doctor undo cases execute the shipped growth event against
+native objects, restoring food storage and worker links while preserving the
+existing monotonic allocation counters. These are GLSMAC application checks,
+separate from recorded original factor observations.
 
 `player-copy-native` checks independent native production payload ownership,
 descriptor values and removal/destruction lifetimes for the player copies used
@@ -529,3 +545,27 @@ This application policy, including installed Headquarters, rollback and UI,
 is separate from the original helper observations. It does not establish whole
 original switching behavior, AI/social modifiers, projects, orbitals, Stockpile
 Energy, queues or hurrying.
+
+## Deferred growth and population event lifecycle
+
+`queued-base-turn-native` sends commands through the actual native host event
+queue with shipped handlers and validation. Its natural Tiny sequence reaches
+a population-constrained pod project, then grows into a food deficit. On the
+following turn, production consumes the new worker before growth decides whether
+starvation is needed. The separate `process_base_growth` event reads this updated
+state, retaining 43 minerals and one nutrient with no stale population removal.
+Terrain yields and manual turn delivery remain controlled fixture boundaries.
+
+The native fixture now consistently identifies its economy host as slot zero
+for the player, slot and event caller. No authorization validator is replaced.
+Controlled immediate-dispatch fixtures remain separate from native queue tests.
+The growth stage validates host, current turn and completed active production;
+only the master queues population child events. Its undo restores nutrient
+storage; population children retain their independent event lifecycle. Manual
+production receipts are unchanged. This does not provide atomic whole-turn undo
+or complete multiplayer synchronization.
+
+`remove-base-pop-native` checks actual worker/doctor removal and undo. Surviving
+citizens retain their identity and links; undo recreates the removed citizen
+through the existing monotonic allocator. It does not rewind citizen identity,
+variant randomness or allocation counters.

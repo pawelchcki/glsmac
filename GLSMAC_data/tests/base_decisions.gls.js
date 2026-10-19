@@ -4,6 +4,7 @@
 // yields, facilities, factions, manager mutation and graphics are not simulated.
 const behavior = #include('./_behavior');
 const initialize_bases = #include('../default/game/bases');
+const growth_stage = #include('../default/game/event/process_base_growth');
 
 const make_tile = (x, y, nutrients, minerals, energy) => {
 	const tile = { x: x, y: y };
@@ -65,8 +66,14 @@ const make_game = (width, height) => {
 	}; };
 	game.on = (name, callback) => { state.handlers[name] = callback; };
 	game.get = (key) => { return state.values[key]; };
+	game.get_turn = () => { return 2; };
+	game.is_master = () => { return true; };
 	game.set = (key, value) => { state.values[key] = value; };
 	game.event = (name, data) => {
+		if (name == 'process_base_growth') {
+			const e = { caller: 0 }; e.game = game; e.data = data;
+			test.assert(!#is_defined(growth_stage.validate(e))); growth_stage.apply(e); return;
+		}
 		const event = { name: name };
 		event.data = data;
 		state.events :+ event;

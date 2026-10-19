@@ -158,6 +158,66 @@
         "artifact": "/tmp/glsmac-production-switch-focused.json",
         "scope": "Recorded helper loss only; actual Tanks/land Colony Pod switching, native rollback and UI are separate GLSMAC application tests. No whole-original switching agreement claim."
       }
+    },
+    {
+      "id": "worker-growth-event-rollback",
+      "contract": "glsmac.growth_production_sequence.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Actual native worker growth undo and growth/production ordering; separate from original helper observations.",
+      "property": "Undoing shipped worker growth calls native Game.get with three arguments and cannot restore the consumed nutrient storage or worker links.",
+      "before": {
+        "error": "GSEInvalidCall: Expected 1 arguments, found 3",
+        "artifact": "/tmp/glsmac-growth-production-first-red.json",
+        "script": "GLSMAC_data/tests/_growth_production_sequence.gls.js"
+      },
+      "verification": {
+        "native_scenarios": 4,
+        "native_assertions": 243,
+        "artifact": "/tmp/glsmac-queued-growth-full-fast.json",
+        "scope": "Actual native worker/doctor growth undo plus natural waiting/completion/regrowth ordering through controlled turn delivery; original arithmetic comparisons remain separate."
+      }
+    },
+    {
+      "id": "queued-production-growth-conflict",
+      "contract": "glsmac.queued_base_turn.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Actual native event queue and normal generated-game application flow; no whole-original turn-order claim.",
+      "property": "The normal base turn queues production and immediately decides starvation using pre-production population; on turn 18 a pod completes and a queued population removal is rejected.",
+      "before": {
+        "artifact": "/tmp/normal-natural-production-first-browser.txt",
+        "turn": 18,
+        "project_minerals_before": 60,
+        "actual_credit": 7,
+        "minerals_after_completion": 43,
+        "rejected_event": "remove_base_pop",
+        "native_artifact": "/tmp/glsmac-queued-growth-first-red.json"
+      },
+      "verification": {
+        "native_scenarios": 1,
+        "native_assertions": 195,
+        "artifact": "/tmp/glsmac-queued-growth-focused.json",
+        "scope": "Genuine native host event queue with shipped validation and naturally accumulated fixture resources; no original whole-turn ordering claim.",
+        "browser_artifact": "/tmp/normal-natural-settled-browser.txt",
+        "browser_scope": "Unmodified normal NewGame/Tiny/Gaians, actual production/growth-stage/child boundaries and naturally grown citizen/pod; 16 production turns on the recorded generated world, separate from fixed native 43-mineral witness."
+      }
+    },
+    {
+      "id": "worker-starvation-event-lifecycle",
+      "contract": "glsmac.queued_base_turn.v1",
+      "status": "fixed-in-application-contract",
+      "scope": "Actual native worker removal/undo application lifecycle, separate from original resource helper observations.",
+      "property": "Removing a worker calls Game.get with three arguments and an unregistered helper name; the undo path also references an undefined base.",
+      "before": {
+        "error": "GSEInvalidCall: Expected 1 arguments, found 3",
+        "artifact": "/tmp/glsmac-queued-growth-first-red.json",
+        "script": "GLSMAC_data/tests/_remove_base_pop_native.gls.js"
+      },
+      "verification": {
+        "native_scenarios": 2,
+        "native_assertions": 45,
+        "artifact": "/tmp/glsmac-queued-growth-focused.json",
+        "scope": "Actual native worker and doctor removal/undo; recreation retains existing monotonic allocation policy, not exact citizen identity or RNG rollback."
+      }
     }
   ]
 }

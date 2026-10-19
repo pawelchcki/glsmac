@@ -102,6 +102,8 @@ const process_growth = (game, base) => {
 	}
 	accumulated += get_pending_growth(base);
 	if (accumulated < 0) {
+		// The stage is replicated; only the actual host emits population events.
+		if (!game.is_master()) { return; }
 		let pop = null;
 		// try to remove non-worker pop first
 		for (p of base.get_pops()) {
@@ -140,7 +142,7 @@ const process_growth = (game, base) => {
 		}
 	}
 
-	if (grow) {
+	if (grow && game.is_master()) {
 		const best_tile = (find_best_or_worst_tiles(base, base.get_unworked_tiles(), 1, 1))[0];
 		if (#is_defined(best_tile)) {
 			// found tile to work, spawn worker
@@ -294,6 +296,7 @@ return (game) => {
 		game.set('f_base_get_nutrient_factor', get_nutrient_factor);
 		game.set('f_base_get_pending_growth', get_pending_growth);
 		game.set('f_base_get_pending_production', get_pending_production);
+		game.set('f_base_process_growth', process_growth);
 		game.set('f_base_reset_nutrients', reset_nutrients);
 		game.set('f_base_pop_work_tile', pop_work_tile);
 		game.set('f_base_pop_unwork_tile', pop_unwork);
@@ -303,7 +306,9 @@ return (game) => {
 		game.on('turn', (e) => {
 			for (base of bm.get_bases()) {
 				process_production(game, base);
-				process_growth(game, base);
+				// Production is queued, so population decisions must be queued
+				// after it and inspect the state after its native completion.
+				game.event('process_base_growth', { base: base, turn_id: game.get_turn() });
 
 			}
 		});

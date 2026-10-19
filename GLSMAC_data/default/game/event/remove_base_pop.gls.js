@@ -19,7 +19,7 @@ return {
 		e.game.get('f_base_reset_nutrients')(e.game, base);
 
 		if (#is_defined(old_worked_tile)) {
-			e.game.get('f_base_pop_unwork', base, pop);
+			e.game.get('f_base_pop_unwork_tile')(base, pop);
 		}
 
 		// remove population
@@ -34,6 +34,7 @@ return {
 	},
 
 	rollback: (e) => {
+		const base = e.data.base;
 		const pop = base.create_pop({
 			type: e.applied.old_pop_type,
 			worked_tile: e.applied.old_worked_tile,

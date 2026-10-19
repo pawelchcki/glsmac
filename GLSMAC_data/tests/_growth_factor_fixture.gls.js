@@ -2,6 +2,7 @@
 // Only terrain yields, event delivery and display nodes are supplied boundaries.
 const configure_bases = #include('../default/game/bases');
 const add_pop = #include('../default/game/event/add_base_pop');
+const growth_stage = #include('../default/game/event/process_base_growth');
 
 return (level) => {
 	const f = test.production_fixture();
@@ -18,14 +19,18 @@ return (level) => {
 	rules.get_tm = () => { return f.game.tm; };
 	rules.get_year = () => { return 2101; };
 	rules.get_turn = () => { return f.game.get_turn(); };
+	rules.is_master = () => { return f.game.is_master(); };
 	rules.get = (key) => { return values[key]; };
 	rules.set = (key, value) => { values[key] = value; };
 	rules.on = (name, callback) => { handlers[name] = callback; };
 	rules.event = (name, data) => {
 		// Fixture declarations replace artwork only; population changes are real.
 		if (name == 'define_base_pop' || name == 'define_base_facility') { return; }
-		test.assert(name == 'add_base_pop', 'Unexpected growth event: ' + name);
 		const e = { caller: 0 }; e.game = rules; e.data = data;
+		if (name == 'process_base_growth') {
+			test.assert(!#is_defined(growth_stage.validate(e))); growth_stage.apply(e); return;
+		}
+		test.assert(name == 'add_base_pop', 'Unexpected growth event: ' + name);
 		test.assert(!#is_defined(add_pop.validate(e)));
 		add_pop.apply(e);
 	};

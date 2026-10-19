@@ -28,6 +28,7 @@ return (game) => {
 		'add_production_choice',
 		'set_base_production',
 		'process_base_production',
+		'process_base_growth',
 		'found_base',
 	]) {
 		game.register_event(e, #include('event/' + e));
