@@ -7,6 +7,11 @@ for (name of step_names) {
 	steps[name] = #include('../default/ui/parts/mainmenu/steps/' + name);
 }
 
+// Declared installed-data boundary: these synthetic definitions reproduce the
+// existing candidate fixture labels/action slots, not an original data file.
+// Native parsing and the shipped consumer decorate real controls on each path.
+const fixture_dialogs = '#TOPMENU\n#itemlist\nStart Game\nQuick Start\nScenario\nLoad Game\nMultiplayer\nView Credits\nExit Game\n#MAPMENU\n#itemlist\nMake Random Map\nCustomize Random Map\nThe Map of Planet\nHuge Map of Planet\nLoad Map File\n#SCENARIOMENU\n#caption Scenario\n#itemlist\nPlay Scenario\nCreate Scenario\nLoad Map File\nEdit Scenario\n#END\n';
+
 const fixture = () => {
 	const view = create_display();
 	const state = { completed: false, canceled: false };
@@ -20,6 +25,13 @@ const fixture = () => {
 		game: { get_fm: () => { return { list: () => { return []; } }; } },
 	};
 	m.glsmac.ui = view.ui;
+	m.glsmac.load_smac_text = (filename, format) => {
+		if (filename == 'xscript.txt' && format == 'dialogs') { return test.parse_smac_text(fixture_dialogs, format); }
+		if (filename == 'alphax.txt' && format == 'rules') { return test.parse_smac_text('#RULES\nSynthetic rule, 1\n#END\n', format); }
+		if (filename == 'menu.txt' && format == 'menus') { return test.parse_smac_text('#GAME\nSynthetic in-game menu\nUnknown action|Ctrl+Z\n#END\n', format); }
+		throw Error('Unexpected synthetic installed-data request: ' + filename + '/' + format);
+	};
+	m.smac_data = #include('../default/smac_data')(m.glsmac);
 	const sliding = #include('../default/ui/parts/mainmenu/sliding')(m);
 	const popup = #include('../default/ui/parts/mainmenu/popup')(m);
 	const manager = #include('../default/ui/parts/mainmenu/manager')('sliding', sliding);

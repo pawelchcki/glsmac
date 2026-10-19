@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **691 scenarios and 4,888 assertions** across
-51 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **708 scenarios and 5,001 assertions** across
+53 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -628,3 +628,40 @@ native Window does not forward the ChoiceList factory. The shared mock now
 models its actual forwarded factories; the same recorded replay fails without
 an inner panel, preserving this as a display-free regression. The chooser uses
 that supported panel and an explicit zero-height header for its own layout.
+
+
+## Installed rules, menu and dialog data
+
+The production main-menu controller now loads `alphax.txt`, `xscript.txt` and
+`menu.txt` through the native asset resolver and shared cached parser. TOPMENU,
+MAPMENU and SCENARIOMENU labels/captions decorate their existing callbacks.
+The parsed rules and in-game definitions are available to further consumers;
+loading data does not implement their unmodeled mechanics or commands.
+
+`smac-text-loader` adds eight asset-free native binding scenarios with 72
+assertions. `smac-data-menu` adds nine production UI scenarios with 41 assertions,
+using alternate synthetic labels to verify actual callbacks, strict malformed
+input handling and loading once per controller. The existing original menu lane
+also executes the consumer with explicitly declared synthetic data. Actual
+installed-file startup remains a separate rendered integration check.
+
+See [the shared-parser tests and installed-file audit](../smac-data/README.md).
+Its nine C++ synthetic scenarios/67 assertions run on native and WASM in CI.
+The optional audit compares installed source records and projections without
+running the original executable; those counts are never original-game parity.
+
+## Recorded orders awaiting transfer
+
+There are additionally 13 frozen original `ui.unit_orders.v1` traces and 45
+checkpoints, recorded twice in fresh original processes with paused turns.
+Hold/Activate/Skip effects, exhausted-unit selection, two explicit turns and
+idle Space opening a base are observed. They are in the separate pending catalog:
+
+```sh
+python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders
+```
+
+This strict replay currently fails on missing actual unit order labels. Pending
+failures remain failures and are excluded from all passing totals. Their native
+order/control implementation follows the data-import batch; see the
+[bounded contract](ui/unit-orders-contract.md) and [known issues](ui/known-issues.json).

@@ -1,5 +1,6 @@
 return (i) => {
 	i.sliding.show({
+		smac_dialog: 'SCENARIOMENU',
 		title: 'Scenario',
 		entries: [
 			['Play Scenario', () => { i.steps.notimpl(i); }],

@@ -1,0 +1,396 @@
+{
+  "captured_at": "2026-10-19T16:15:10.899722+00:00",
+  "observations": [
+    {
+      "case_sha256": "91eaeda1338c5c80f184c8103cf124b6834b213feeb544b77711afa119db60ac",
+      "id": "initial",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "10ed692d3e952172a297d0230f1b55d1a0f85fed21e5eedbdbe30170575a1ae8",
+      "id": "activate-idempotent",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b5cf37ab20ae7443e7b1b1d31584254025b011e25ed9785d849c6e6d344918f2",
+      "id": "hold",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4cad31309e4beea8114b8f144117b099c3f5dcdb60f9453ce467191390d8fe31",
+      "id": "hold-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f7fa517d57d7beb63da866c3476cbf9d5352396b0f4377745689d5361d8d42b9",
+      "id": "hold-repeat",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "924756d190330c98af0522bb4eb7183dfe7387e518c1d7bb8a80be621c7c9c55",
+      "id": "skip",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7af6dabe9b78c9259fa263a2175166a977c167e8b9f2fd522a5764f07b52533d",
+      "id": "skip-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "15fcf849f3fd01ed0f22bd99e529fbf4ceb0283166455c468dd0531c1d1dda59",
+      "id": "skip-hold-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9e834613641aeeaebd7f2960bef67a005e0ed96d45b9ea89c3ebdb2a6ac1fccf",
+      "id": "hold-two-turns",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 1
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 2
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 2
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "061b058c9012439f38e57c33e57c1973697d13133d306fd5e00c950b2c51f1bb",
+      "id": "skip-next-turn",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9b7b11194059ff346016ed37d896b2fc95001aa4ece76f58c2e4e54a796c9390",
+      "id": "hold-skip-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "screen": "base",
+            "year_delta": 0
+          },
+          {
+            "screen": "base",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a31dbcf5d7de69abb85aa92bbf9f308b9ca5eff279aba4e64edfe4841863e789",
+      "id": "skip-activate-hold-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "ALREADY MOVED",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a58f78e08a61ebecdeb21c516ddc9c004c79f11db2bccb14177034e74220f459",
+      "id": "held-space-close-activate",
+      "output": {
+        "trace": [
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "screen": "base",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "HOLD",
+            "screen": "world",
+            "year_delta": 0
+          },
+          {
+            "movement_label": "MOVES: 1",
+            "order_label": "NO ORDERS",
+            "screen": "world",
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "819f981e853a07f1209f42490994b8d73b9ee9bd301f49ea61cb5da12ff73f58",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.unit_orders.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Quick Start first Scout at MY 2101; pause at end enabled; tutorials disabled",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "visible-order-movement-labels-and-mission-year",
+    "ocr": "tesseract",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "viewport": [
+      1024,
+      768
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "3d0f2dde0fe824bc7086d9ba21e963db3ab829ef77fa82a3683488d72a7c1511",
+  "version": 1
+}

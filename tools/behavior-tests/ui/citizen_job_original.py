@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Observe the first original base's Worker/Doctor chooser in Wine/Xvfb.
 
-The bounded fixture is a fresh Quick Start, its first size-one base, no turns
-advanced and no changed research or allocation. Only visible chooser state and
+The bounded fixture is a fresh Quick Start and its first size-one base at
+MY 2101, with no changed research or allocation.
+Only visible chooser state and
 the specialist Psych bonus are outputs. No original memory/code is patched.
 """
 
@@ -154,8 +155,10 @@ def enter_first_base(driver, vision, directory, timeout):
     driver.key("Enter")
     wait(lambda image: vision.require_text(image, (40, 724, 220, 749), "TOUR"), "tour.png")
     driver.click(365, 735)
-    # The actual new Scout is active in its base. Enter opens that base;
-    # world-map screen coordinates change with the generated terrain/viewport.
+    # The actual new Scout is active in its base at MY 2101. Enter opens the
+    # base without advancing the year. The world HUD can briefly retain 2100
+    # during setup; wait for a settled display before inferring a turn change.
+    # World-map coordinates change with the generated terrain/viewport.
     driver.key("Enter")
     return wait(vision.psych_bonus, "base.png")
 

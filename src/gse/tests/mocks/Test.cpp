@@ -22,6 +22,7 @@
 #include "game/backend/settings/Settings.h"
 #include "game/backend/technology/Bindings.h"
 #include "game/backend/technology/Serialization.h"
+#include "loader/txt/SmacTextLoader.h"
 
 namespace gse {
 namespace tests {
@@ -90,6 +91,10 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 	const auto rules_fixtures = std::make_shared< std::vector< std::shared_ptr< RulesFixture > > >();
 	auto* production_roots = VALUE( value::Array,, value::array_elements_t{} );
 	value::object_properties_t mocks = {
+		{ "parse_smac_text", NATIVE_CALL() {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( source, 0, String ); N_GETVALUE( format, 1, String );
+			return ::loader::txt::ParseSmacText( GSE_CALL, source, format );
+		} ) },
 		{ "async_probe", NATIVE_CALL() { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); return ProbeAsyncTimers( GSE_CALL, kind ); } ) },
 		{ "founding_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 0 );

@@ -115,6 +115,19 @@
       "example": "confirm-doctor-selection",
       "status": "fixed-in-recorded-contract",
       "property": "Confirming the original starting Doctor changes the visible Psych bonus from zero to two; reproduction previously displayed zero for an actual native Doctor."
+    },
+    {
+      "id": "paused-turn-scout-orders",
+      "suite": "unit-orders",
+      "catalog": "pending-catalog.json",
+      "examples": [
+        "initial",
+        "hold-two-turns",
+        "held-space-close-activate"
+      ],
+      "status": "recorded-awaiting-transfer",
+      "property": "Two original passes record Hold/Activate/Skip, visible order/movement labels, two explicit paused turns, and idle Space opening a base with modal key blocking. Strict candidate replay currently errors on all 13 cases because its actual unit preview has no order label; persistent Hold and Activate controls/state are also absent. These failures are not included in passing totals.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders"
     }
   ],
   "verification": {

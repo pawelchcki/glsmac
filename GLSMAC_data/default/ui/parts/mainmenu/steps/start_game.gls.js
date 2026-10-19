@@ -1,5 +1,6 @@
 return (i) => {
 	i.sliding.show({
+		smac_dialog: 'MAPMENU',
 		entries: [
 			['Make Random Map', () => {
 				i.settings.global.map.type = 'random';

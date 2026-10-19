@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"smac-text-loader", "script":"GLSMAC_data/tests/smac_text_loader.gls.js", "domains":["gameplay","ui"], "evidence":"glsmac-regression"},
+    {"id":"smac-data-menu", "script":"GLSMAC_data/tests/smac_data_menu.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"citizen-job-lifecycle", "script":"GLSMAC_data/tests/citizen_job_lifecycle.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"base-specialist-bonus-native", "script":"GLSMAC_data/tests/base_specialist_bonus_native.gls.js", "domains":["gameplay","economy","ui"], "evidence":"glsmac-regression"},
     {"id":"ui-interactions", "script":"GLSMAC_data/tests/ui_interactions.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},

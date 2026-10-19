@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "description": "Fresh Quick Start first Scout after first-base setup at MY 2101. Actual Pause at end of turn enabled and tutorials disabled. Visible movement/order labels and mission-year delta after Hold (H), Activate (A), Skip (Space), and explicit advance (Enter). At most two advances. Excludes default automatic end-turn, other stances, terrain/movement costs, combat, other unit types and selection among multiple units. Trace also identifies the actual base screen opened by Space without an active unit; close_base clicks its actual OK control. Order keys while it is open are observed without assuming delivery to the world.",
+  "cases": [
+    {
+      "id": "initial",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": []
+      }
+    },
+    {
+      "id": "activate-idempotent",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "activate",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "hold",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold"
+        ]
+      }
+    },
+    {
+      "id": "hold-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "hold-repeat",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold",
+          "hold",
+          "activate",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "skip",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "skip"
+        ]
+      }
+    },
+    {
+      "id": "skip-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "skip",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "skip-hold-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "skip",
+          "hold",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "hold-two-turns",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold",
+          "advance",
+          "advance",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "skip-next-turn",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "skip",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "hold-skip-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold",
+          "skip",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "skip-activate-hold-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "skip",
+          "activate",
+          "hold",
+          "activate"
+        ]
+      }
+    },
+    {
+      "id": "held-space-close-activate",
+      "algorithm": "ui.unit_orders.v1",
+      "input": {
+        "actions": [
+          "hold",
+          "skip",
+          "close_base",
+          "activate"
+        ]
+      }
+    }
+  ]
+}

@@ -2,6 +2,7 @@ return (m) => {
 
 	let background = null;
 	let music = null;
+	let smac_data = null;
 
 	const sliding = #include('sliding')(m);
 	const popup = #include('popup')(m);
@@ -10,6 +11,11 @@ return (m) => {
 	let mainmenu_allowed = true;
 
 	m.glsmac.on('mainmenu_show', (e) => {
+
+		// S_Init resolves installed assets before mainmenu_show. Keep the parsed
+		// rules/menu/dialog bundle available to later UI consumers as well.
+		if (smac_data == null) { smac_data = #include('../../../smac_data')(m.glsmac); }
+		m.smac_data = smac_data;
 
 		m.root.clear();
 

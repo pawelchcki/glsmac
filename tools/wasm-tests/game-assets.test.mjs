@@ -292,6 +292,10 @@ test('original game assets stream into the main menu and restart from browser st
   await startGame(page);
   const manifest = await (await manifestResponse).json();
   const streamed = await menuScreenshot(page, 'game-assets-menu.png');
+  const loadedText = new Set(streamed.map((path) => path.toLowerCase()));
+  for (const filename of ['alphax.txt', 'xscript.txt', 'menu.txt']) {
+    assert.ok(loadedText.has(filename), `The production menu loaded installed ${filename}`);
+  }
   logs.push(await page.locator('#log').textContent());
   assert.ok(manifest.files.length > 100, 'The server indexed the original installation');
   const downloaded = assetRequests.filter((url) => !url.endsWith('/manifest.json'));

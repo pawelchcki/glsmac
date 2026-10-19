@@ -62,6 +62,10 @@ available. Clicking its portrait opens the actual original chooser. Doctor shows
 two. Drafting or canceling preserves the prior job. Arrows clamp at the two ends;
 Home/End leave the highlight unchanged. Enter confirms and Escape cancels.
 Every case starts in a fresh original process, and both recorded passes agree.
+The setup has reached MY 2101 before the final Enter, which opens the base
+without changing the year. A brief stale HUD label must not be used to infer a
+turn change; see the [evidence scope clarification](evidence-errata.md). The
+recordings are unchanged.
 Original text and highlight are read from rendered controls by OCR consensus;
 the reference does not calculate the Doctor bonus.
 
@@ -204,3 +208,24 @@ Screenshots stay in ignored `.build/ui/{original,browser}/run-*` or
 `.build/ui/discovery-artifacts` directories. Only behavioral observations and
 synthetic inputs belong in version control. The current rendered observer
 supports sliding menus; other modal styles need dedicated observers.
+
+
+## Pending original order controls
+
+[The pending catalog](pending-catalog.json) retains 13 independently repeated
+starting-Scout order sequences and 45 checkpoints under `ui.unit_orders.v1`.
+It checks actual order/movement labels, paused turn progression, idle Space
+opening a base, closing its actual OK control and modal command blocking.
+The production candidate currently fails all 13 cases on its missing order
+label. These are known failures, not additional passing UI comparisons.
+
+```sh
+python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders
+python3 tools/behavior-tests/ui/run.py --pending --validate-only
+```
+
+The first command executes the strict candidate and returns nonzero on current
+failures. The second only validates immutable evidence. The successful recorder
+normalized indexed screenshots to RGB before OCR and kept a fresh observer per
+case; prior observer/setup failures remain local research artifacts. See the
+[precise input/output scope](unit-orders-contract.md).

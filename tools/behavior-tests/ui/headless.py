@@ -195,8 +195,8 @@ def main():
                     "rendering": False, "assets_required": False,
                     "runtime_sha256": hashlib.sha256(runtime.with_suffix(".wasm").read_bytes()).hexdigest(),
                     "scripts_sha256": source_hash,
-                    "mocked": ["display nodes", "audio", "timer delivery", "native services outside menu contract"],
-                    "executed": ["production menu steps", "production sliding controls", "production menu back-stack"]}, results)
+                    "mocked": ["display nodes", "audio", "timer delivery", "synthetic installed-text fixtures using existing candidate labels/action slots", "native services outside menu contract"],
+                    "executed": ["native SMAC text parser/document binding", "production installed-data consumer for static menu labels/captions", "production menu steps", "production sliding controls", "production menu back-stack"]}, results)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 return (i) => {
 	i.glsmac.deinit();
 	i.sliding.show({
+		smac_dialog: 'TOPMENU',
 		entries: [
 			['Start Game', () => {
 				i.glsmac.init();

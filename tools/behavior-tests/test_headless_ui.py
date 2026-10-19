@@ -93,6 +93,15 @@ class HeadlessContractTests(unittest.TestCase):
             count += len(suite["cases"])
         self.assertEqual(count, 342)
 
+    def test_pending_order_evidence_is_bound_but_not_counted_as_passing_parity(self):
+        references = audit.load_references(DIRECTORY / "pending-catalog.json")
+        self.assertEqual([reference["id"] for reference in references], ["unit-orders"])
+        suite = compare.read_json(DIRECTORY / references[0]["cases"])
+        evidence = compare.read_json(DIRECTORY / references[0]["observations"])
+        compare.validate_observations(evidence, suite)
+        self.assertEqual(len(suite["cases"]), 13)
+        self.assertEqual(sum(len(case["input"]["actions"]) + 1 for case in suite["cases"]), 45)
+
     def test_runtime_success_is_not_itself_an_observation(self):
         for output in ("", "All tests passed.\n", "HUI_CASE|synthetic\nAll tests passed.\n"):
             with self.subTest(output=output), self.assertRaises(ProtocolError):

@@ -135,6 +135,12 @@ return (m) => {
 
 		show: (data) => {
 
+			// Isolated step fixtures can retain their declared legacy labels.
+			// The actual mainmenu_show route always loads a validated bundle.
+			if (#is_defined(data.smac_dialog) && #is_defined(m.smac_data)) {
+				m.smac_data.apply_dialog(data.smac_dialog, data);
+			}
+
 			this.manager.push('sliding', data);
 
 			remove_active_menublock();

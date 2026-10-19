@@ -38,6 +38,19 @@ def citizen_job_command(args):
     return shlex.join(command)
 
 
+def unit_orders_command(args):
+    if args.browser:
+        raise ProtocolError("unit-orders uses the pixel-free adapter; rendered order transfer is still pending")
+    if args.record:
+        command = [sys.executable, str(DIRECTORY / "unit_orders_original.py"),
+                   "--assets", str(args.assets.resolve()), "--wine", args.wine,
+                   "--artifacts", str(DIRECTORY.parent / ".build/unit-orders-original"),
+                   "--timeout", str(args.step_timeout)]
+    else:
+        command = [sys.executable, str(DIRECTORY / "unit_orders_headless.py")]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -49,6 +62,7 @@ def main(argv=None):
     parser.add_argument("--case", action="append", help="replay selected case IDs after validating their full reference")
     parser.add_argument("--reference-python", default=os.environ.get("SMAC_REFERENCE_PYTHON", sys.executable))
     parser.add_argument("--suite", action="append")
+    parser.add_argument("--pending", action="store_true", help="strictly replay recorded contracts still awaiting transfer; failures remain failures")
     parser.add_argument("--assets", type=Path, default=os.environ.get("SMAC_ASSETS_DIR"))
     parser.add_argument("--wine", default=os.environ.get("SMAC_WINE", "wine"))
     parser.add_argument("--build", type=Path, default=Path(os.environ.get("WASM_APP_DIR", ROOT / "build/wasm-release/bin")))
@@ -74,7 +88,9 @@ def main(argv=None):
     if (not 1 <= args.jobs <= 4 or not 0 < args.step_timeout <= 120 or not 0 < args.timeout <= 1800
             or args.force and not args.record):
         raise ProtocolError("invalid worker/time budgets or --force without --record")
-    references = audit.load_references(DIRECTORY / "catalog.json")
+    if args.pending and args.render_smoke:
+        raise ProtocolError("pending contracts are separate from the rendered passing profile")
+    references = audit.load_references(DIRECTORY / ("pending-catalog.json" if args.pending else "catalog.json"))
     if args.suite:
         unknown = set(args.suite) - {reference["id"] for reference in references}
         if unknown:
@@ -117,6 +133,8 @@ def main(argv=None):
                                                 "--exe", str(args.assets.resolve() / "terranx.exe")])
             if reference["id"] == "citizen-job":
                 reference_command = citizen_job_command(args)
+            if reference["id"] == "unit-orders":
+                reference_command = unit_orders_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -125,6 +143,8 @@ def main(argv=None):
             candidate_command = size_keyboard_command(args) if command is not None and reference["id"] == "size-keyboard" else command
             if command is not None and reference["id"] == "citizen-job":
                 candidate_command = citizen_job_command(args)
+            if command is not None and reference["id"] == "unit-orders":
+                candidate_command = unit_orders_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -138,7 +158,8 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation and bounded citizen-job choices/Psych bonus; not full-game parity",
+        "scope": "Paused-turn starting Scout orders and modal base opening; transfer pending, not full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation and bounded citizen-job choices/Psych bonus; not full-game parity",
+        "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,
     }, overwrite=True)

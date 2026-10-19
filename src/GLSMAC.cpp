@@ -9,6 +9,8 @@
 #include "gc/Space.h"
 #include "console/Console.h"
 #include "ui/UI.h"
+#include "loader/txt/TXTLoaders.h"
+#include "loader/txt/SmacTextLoader.h"
 
 #include "gse/GSE.h"
 #include "gse/ExecutionPointer.h"
@@ -279,6 +281,18 @@ WRAPIMPL_BEGIN( GLSMAC )
 					} ) ) );
 				}
 				return VALUE( gse::value::Array,, maps );
+			} )
+		},
+		{
+			"load_smac_text",
+			NATIVE_CALL() {
+				N_EXPECT_ARGS( 2 ); N_GETVALUE( filename, 0, String ); N_GETVALUE( format, 1, String );
+				const auto* loaders = g_engine->GetTXTLoaders();
+				if ( !loaders ) { GSE_ERROR( gse::EC.LOADER_ERROR, "SMAC text loaders are unavailable" ); }
+				try {
+					return loader::txt::WrapSmacTextDocument( GSE_CALL, loaders->smac_text->Load( filename, format ) );
+				}
+				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
 			} )
 		},
 		{
