@@ -267,14 +267,18 @@ void Connection::IfServer( std::function< void( Server* ) > cb ) {
 }
 
 void Connection::SendGameEvent( backend::event::Event* event ) {
+	SendSerializedGameEvent( event->GetCaller(), event->GetEventName(), event->Serialize().ToString() );
+}
+
+void Connection::SendSerializedGameEvent( size_t caller, const std::string& name, const std::string& data ) {
 	if ( m_pending_game_events.size() >= PENDING_GAME_EVENTS_LIMIT ) {
 		SendGameEvents( m_pending_game_events );
 		m_pending_game_events.clear();
 	}
 	m_pending_game_events.push_back({
-		event->GetCaller(),
-		event->GetEventName(),
-		event->Serialize().ToString()
+		caller,
+		name,
+		data
 	});
 }
 

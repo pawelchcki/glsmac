@@ -1,7 +1,43 @@
+const colony = #include('../../../../game/colony');
+
 return {
 
+	get_found_unit: () => {
+		if (this.selected_unit_id == null || this.founding_pending_id != null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
+			return null;
+		}
+		if (!this.um.has_unit(this.selected_unit_id)) {
+			this.selected_unit_id = null;
+			return null;
+		}
+		const unit = this.um.get_unit(this.selected_unit_id);
+		const player_id = this.p.game.get_player().id;
+		if (unit.owner != player_id || unit.def != 'ColonyPod') { return null; }
+		if (colony.validate(this.p.game, unit.id, player_id) != #undefined) { return null; }
+		return unit;
+	},
+
+	found_selected_base: () => {
+		const unit = this.get_found_unit();
+		if (unit != null) {
+			this.founding_pending_id = unit.id;
+			this.update_found_button();
+			// Only the authoritative event can consume the pod and create a base.
+			this.p.game.event('found_base', { unit_id: unit.id });
+		}
+		return true;
+	},
+
+	update_found_button: () => {
+		const available = this.get_found_unit() != null;
+		if (available != this.found_available) {
+			this.found_available = available;
+			this.found_button.class = available ? 'unit-found-button-enabled' : 'unit-found-button-disabled';
+		}
+	},
+
 	get_skip_unit: () => {
-		if (this.selected_unit_id == null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
+		if (this.selected_unit_id == null || this.selected_unit_id == this.founding_pending_id || !this.is_turn_active || this.p.modules.popup.is_shown()) {
 			return null;
 		}
 		if (!this.um.has_unit(this.selected_unit_id)) {
@@ -122,9 +158,12 @@ return {
 
 				f_line(def.name, 16, 'center');
 
-				f_line(this.p.get_stats_str(object), 14, 'center');
-
-				f_line(this.get_morale('NATIVE', object.morale), 14, 'left');
+				if (def.id == 'ColonyPod') {
+					f_line('Civilian', 14, 'left');
+				} else {
+					f_line(this.p.get_stats_str(object), 14, 'center');
+					f_line(this.get_morale('NATIVE', object.morale), 14, 'left');
+				}
 
 				if (!object.is_immovable) {
 					f_line('Moves: ' + this.format_movement(object.movement), 14, 'left');
@@ -159,6 +198,8 @@ return {
 		this.selected_unit_id = null;
 		this.is_turn_active = true;
 		this.skip_available = false;
+		this.founding_pending_id = null;
+		this.found_available = false;
 
 		this.p = p;
 		this.um = p.game.get_um();
@@ -183,12 +224,12 @@ return {
 		});
 
 		p.ui.class('unit-skip-button').set({
-			left: 3,
+			left: 63,
 			right: 3,
 			bottom: 3,
 			height: 21,
 			align: 'bottom',
-			font: 'arialnb.ttf:14',
+			font: 'arialnb.ttf:11',
 			border: 'rgb(49,78,44),1',
 		});
 		p.ui.class('unit-skip-button-enabled').extend('unit-skip-button').set({
@@ -218,25 +259,60 @@ return {
 			this.update_skip_button();
 			return true;
 		});
+		p.ui.class('unit-found-button').extend('unit-skip-button').set({
+			left: 3,
+			right: 63,
+		});
+		p.ui.class('unit-found-button-enabled').extend('unit-found-button').set({
+			color: 'rgb(164,196,132)',
+			background: 'interface.pcx:crop(47,587,70,610)',
+			sound: 'ok.wav', volume: 0.5,
+			_hover: { border: 'rgb(120,164,212),1' },
+			_active: { color: 'white' },
+		});
+		p.ui.class('unit-found-button-disabled').extend('unit-found-button').set({
+			color: 'rgb(80,95,90)', background: 'rgb(22,36,30)',
+		});
+		this.found_button = this.frame.button({ class: 'unit-found-button-disabled', text: 'FOUND BASE' });
+		this.found_button.on('click', (e) => { return this.found_selected_base(); });
+		// A panel-local listener is removed with this DOM owner. Child-first
+		// routing lets modal windows consume keys before this command panel.
+		this.frame.on('keydown', (e) => {
+			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
+				return this.found_selected_base();
+			}
+			return false;
+		});
+		this.frame.listen(p.game, 'event_result', (e) => {
+			if (e.name == 'found_base' && e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id) {
+				this.founding_pending_id = null;
+				this.update_found_button();
+				this.update_skip_button();
+			}
+		});
 
 		this.frame.listen(p.game, 'unit_select', (e) => {
 			this.selected_unit_id = e.unit.id;
 			this.update_skip_button();
+			this.update_found_button();
 		});
 		for (event of ['tile_select', 'base_select', 'turn']) {
 			this.frame.listen(p.game, event, (e) => {
 				this.selected_unit_id = null;
 				this.update_skip_button();
+				this.update_found_button();
 			});
 		}
 		this.frame.listen(p.game, 'turn_status', (e) => {
 			this.is_turn_active = e.status == 'active';
 			this.update_skip_button();
+			this.update_found_button();
 		});
 		// Movement and temporary tile locks change without a scripted UI update
 		// event. This timer belongs to the panel and stops when the UI is removed.
 		this.frame.timer(100, () => {
 			this.update_skip_button();
+			this.update_found_button();
 			return true;
 		});
 

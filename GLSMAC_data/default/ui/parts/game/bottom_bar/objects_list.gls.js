@@ -1,5 +1,87 @@
 return {
 
+	resolve_object: (type, id) => {
+		if (type == 'Unit') {
+			const um = this.p.game.get_um();
+			return um.has_unit(id) ? um.get_unit(id) : null;
+		}
+		if (type == 'Base') {
+			for (base of this.p.game.get_bm().get_bases()) {
+				if (base.id == id) { return base; }
+			}
+		}
+		return null;
+	},
+
+	get_selected_object: () => {
+		return this.selected_type == null ? null : this.resolve_object(this.selected_type, this.selected_id);
+	},
+
+	clear_selection: () => {
+		this.selected_type = null;
+		this.selected_id = null;
+		this.set_active_item(null);
+	},
+
+	bind_object_input: (item, type, id) => {
+		// Delayed input retains scalar identity, never an entity wrapper that
+		// native despawn or rollback can invalidate between frames.
+		item.on('mousedown', (e) => {
+			const object = this.resolve_object(type, id);
+			if (object != null) {
+				this.set_active_item(null);
+				if (type == 'Unit') {
+					this.p.modules.popup.hide('base_screen');
+					this.p.game.select_unit(object);
+				} else if (this.selected_type != type || this.selected_id != id) {
+					this.p.game.select_base(object);
+				}
+			}
+			return true;
+		});
+		item.on('mouseover', (e) => {
+			this.p.sections.object_preview.show(this.resolve_object(type, id));
+			return true;
+		});
+		item.on('mouseout', (e) => {
+			this.p.sections.object_preview.show(this.get_selected_object());
+			return true;
+		});
+	},
+
+	base_close_callback: (unit_id) => {
+		return (result) => {
+			this.clear_selection();
+			const unit = unit_id == null ? null : this.resolve_object('Unit', unit_id);
+			if (unit != null) {
+				this.p.game.select_unit(unit);
+			} else if (this.selected_tile != null) {
+				this.p.game.select_tile(this.selected_tile);
+			}
+		};
+	},
+
+	schedule_base_selection: (id) => {
+		this.selection_epoch = this.selection_epoch + 1;
+		const epoch = this.selection_epoch;
+		const previous_unit_id = this.selected_type == 'Unit' ? this.selected_id : null;
+		this.set_active_item(null);
+		// Own the deferred callback so removed panels cannot open old dialogs.
+		this.frame.timer(0, () => {
+			if (epoch != this.selection_epoch) { return false; }
+			const base = this.resolve_object('Base', id);
+			if (base == null) { return false; }
+			this.refresh_tile(base.get_tile());
+			const key = #to_string(id);
+			if (#is_defined(this.bases[key])) { this.set_active_item(this.bases[key].item); }
+			this.selected_type = 'Base'; this.selected_id = id;
+			const data = {}; data.base = base;
+			this.p.modules.popup.set('base_screen', data);
+			this.p.modules.popup.show('base_screen', this.base_close_callback(previous_unit_id));
+			return false;
+		});
+	},
+
 	set_active_item: (item) => {
 		if (this.active_item == item) {
 			return;
@@ -50,50 +132,49 @@ return {
 			top: top,
 		});
 		const key = #to_string(object.id);
+		const entry = { id: object.id };
+		entry.item = item;
 		switch (cls) {
 			case 'Unit': {
-				this.units[key] = {
-					item: item,
-					object: object
-				};
+				this.units[key] = entry;
 				item.text({
 					class: 'bottombar-objects-list-item-text',
 					text: parent.p.get_stats_str(object),
 				});
-				item.on('mousedown', (e) => {
-					this.p.modules.popup.hide('base_screen');
-					this.set_active_item(null);
-					this.p.game.select_unit(object);
-					return true;
-				});
 				break;
 			}
 			case 'Base': {
-				this.bases[key] = {
-					item: item,
-					object: object
-				};
-				item.on('mousedown', (e) => {
-					if (this.selected_object != object) {
-						this.set_active_item(null);
-						this.p.game.select_base(object);
-					}
-					return true;
-				});
+				this.bases[key] = entry;
 				break;
 			}
 		}
-		item.on('mouseover', (e) => {
-			this.p.sections.object_preview.show(object);
-			return true;
-		});
-		item.on('mouseout', (e) => {
-			this.p.sections.object_preview.show(this.selected_object);
-			return true;
-		});
-		if (object == this.selected_object) {
+		this.bind_object_input(item, cls, object.id);
+		if (cls == this.selected_type && object.id == this.selected_id) {
 			this.set_active_item(item);
 		}
+	},
+
+	refresh_tile: (tile) => {
+		let changed = tile != this.selected_tile;
+		const base = tile.get_base();
+		let previous_bases = 0;
+		for (key in this.bases) { previous_bases++; }
+		if (base == null) {
+			if (previous_bases != 0) { changed = true; }
+		} else {
+			const key = #to_string(base.id);
+			if (previous_bases != 1 || !#is_defined(this.bases[key])) { changed = true; }
+		}
+		let current_units = 0;
+		for (unit of tile.get_units()) {
+			current_units++;
+			const key = #to_string(unit.id);
+			if (!#is_defined(this.units[key])) { changed = true; }
+		}
+		let previous_units = 0;
+		for (key in this.units) { previous_units++; }
+		if (current_units != previous_units) { changed = true; }
+		if (changed) { this.update_tile(tile); }
 	},
 
 	update_tile: (tile) => {
@@ -136,7 +217,9 @@ return {
 	init: (p) => {
 
 		this.selected_tile = null;
-		this.selected_object = null;
+		this.selected_type = null;
+		this.selected_id = null;
+		this.selection_epoch = 0;
 		this.units = {};
 		this.bases = {};
 		this.active_item = null;
@@ -184,76 +267,40 @@ return {
 		this.frame.listen(p.map, 'unit_preview', (e) => {
 			if (e.unit != null) {
 				const tile = e.unit.get_tile();
-				if (tile != this.selected_tile) {
-					this.update_tile(tile);
-				}
-				const key = #to_string(e.unit.id);
-				if (!#is_defined(this.units[key])) {
-					this.add_object(e.unit, this.list_width);
-					this.list_width = this.list_width + this.object_width;
-				}
+				this.refresh_tile(tile);
 			}
 		});
 
 		this.frame.listen(p.map, 'base_preview', (e) => {
 			const tile = e.base.get_tile();
-			if (tile != this.selected_tile) {
-				this.update_tile(tile);
-			}
+			this.refresh_tile(tile);
 		});
 
 		this.frame.listen(p.map, 'tile_preview', (e) => {
-			if (e.tile != this.selected_tile) {
-				this.update_tile(e.tile);
-			}
+			this.refresh_tile(e.tile);
 		});
 
 		this.frame.listen(p.game, 'unit_select', (e) => {
+			this.selection_epoch = this.selection_epoch + 1;
 			this.p.modules.popup.hide('base_screen');
+			this.refresh_tile(e.unit.get_tile());
 			const key = #to_string(e.unit.id);
-			this.set_active_item(this.units[key].item);
-			this.selected_object = e.unit;
+			if (#is_defined(this.units[key])) { this.set_active_item(this.units[key].item); }
+			this.selected_type = 'Unit'; this.selected_id = e.unit.id;
 		});
 
 		this.frame.listen(p.game, 'base_select', (e) => {
-			this.set_active_item(null);
-			#async(0, () => { // workaround for objects list active border getting messed up, TODO: investigate and fix properly
-				const key = #to_string(e.base.id);
-				this.set_active_item(this.bases[key].item);
-				const last_selected_object = this.selected_object;
-				this.selected_object = e.base;
-				this.p.modules.popup.set('base_screen', {
-					base: e.base,
-				});
-				this.p.modules.popup.show('base_screen', (result) => {
-					this.selected_object = null;
-					if (last_selected_object != null) {
-						switch (#classof(last_selected_object)) {
-							case 'Unit': {
-								this.set_active_item(null);
-								this.p.game.select_unit(last_selected_object);
-								break;
-							}
-						}
-					} else {
-						this.p.game.select_tile(this.selected_tile);
-					}
-				});
-			});
+			this.schedule_base_selection(e.base.id);
 		});
 
 		this.frame.listen(p.game, 'tile_select', (e) => {
-			if (this.selected_object != null) {
-				this.selected_object = null;
-				this.set_active_item(null);
-			}
+			this.selection_epoch = this.selection_epoch + 1;
+			this.clear_selection();
 		});
 
 		this.frame.listen(p.game, 'turn', (e) => {
-			if (this.selected_object != null) {
-				this.selected_object = null;
-				this.set_active_item(null);
-			}
+			this.selection_epoch = this.selection_epoch + 1;
+			this.clear_selection();
 		});
 
 		this.frame.listen(p.game, 'turn_status', (e) => {
@@ -269,16 +316,14 @@ return {
 			) {
 				// open base screen if base is present
 				for (base of this.bases) {
-					this.set_active_item(null);
-					this.p.game.select_base(base.object);
-					return true;
+					const current = this.resolve_object('Base', base.id);
+					if (current != null) { this.set_active_item(null); this.p.game.select_base(current); return true; }
 				}
-				if (this.selected_object == null) {
+				if (this.get_selected_object() == null) {
 					// select first unit if nothing is selected
 					for (unit of this.units) {
-						this.set_active_item(null);
-						this.p.game.select_unit(unit.object);
-						return true;
+						const current = this.resolve_object('Unit', unit.id);
+						if (current != null) { this.set_active_item(null); this.p.game.select_unit(current); return true; }
 					}
 				}
 				return true;

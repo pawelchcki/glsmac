@@ -3,11 +3,14 @@
 #include <map>
 #include <vector>
 #include <atomic>
+#include <functional>
 
 #include "gc/Object.h"
 
 #include "Value.h"
 #include "Types.h"
+
+namespace gse::tests::mocks { struct AsyncFixture; }
 
 namespace gse {
 
@@ -36,6 +39,7 @@ CLASS( Async, gc::Object )
 	void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override;
 
 private:
+	friend struct tests::mocks::AsyncFixture;
 
 	gc::Space* const m_gc_space = nullptr;
 	std::atomic< bool > m_is_stopping = false;
@@ -52,6 +56,7 @@ private:
 	timers_t m_timers = {};
 	std::map< timer_id_t, uint64_t > m_timers_ms = {};
 
+	void WithTimerState( const std::function< void() >& callback );
 	void ValidateMs( const int64_t ms, GSE_CALLABLE ) const;
 	void ProcessTimers( const timers_t::const_iterator& it, ExecutionPointer& ep );
 };

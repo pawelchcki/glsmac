@@ -19,6 +19,14 @@ Event::Event( Game* game, const source_t source, const size_t caller, GSE_CALLAB
 	)
 	, m_name( name )
 	, m_original_data( data ) {
+	for ( const auto& entry : data ) {
+		switch ( entry.second->type ) {
+			case gse::VT_UNDEFINED: case gse::VT_NULL: case gse::VT_BOOL:
+			case gse::VT_INT: case gse::VT_FLOAT: case gse::VT_STRING:
+				m_scalar_data.emplace( entry.first, entry.second->Clone() ); break;
+			default: break;
+		}
+	}
 	UpdateData( GSE_CALL );
 }
 
@@ -72,6 +80,8 @@ void Event::GetReachableObjects( std::unordered_set< gc::Object* >& reachable_ob
 
 	GC_DEBUG_BEGIN( "Event" );
 
+	for ( const auto& it : m_original_data ) { GC_REACHABLE( it.second ); }
+	for ( const auto& it : m_scalar_data ) { GC_REACHABLE( it.second ); }
 	GC_DEBUG_BEGIN( "data" );
 	for ( const auto& it : m_data ) {
 		GC_REACHABLE( it.second );

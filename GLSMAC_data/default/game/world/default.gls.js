@@ -126,6 +126,16 @@ return (game) => {
 			morale: 1,
 		});
 
+		if (!faction.is_naval) {
+			game.event('spawn_unit', {
+				owner: player,
+				tile: tile,
+				type: 'ColonyPod',
+				health: 1.0,
+				morale: 1,
+			});
+		}
+
 	}
 
 };

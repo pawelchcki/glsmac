@@ -14,11 +14,12 @@ node.button = (properties) => {
 	button.class = properties.class;
 	button.on = (event, callback) => {
 		test.assert(event == 'click');
-		state.click = callback;
+		if (properties.text == 'SKIP TURN') { state.click = callback; }
 	};
-	state.button = button;
+	if (properties.text == 'SKIP TURN') { state.button = button; }
 	return button;
 };
+node.on = (event, callback) => {};
 node.listen = (object, event, callback) => {
 	if (#is_defined(object.on)) { object.on(event, callback); }
 	else { state.listeners[event] = callback; }

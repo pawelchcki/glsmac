@@ -24,8 +24,10 @@ namespace game {
 namespace backend {
 namespace unit {
 
-UnitManager::UnitManager( Game* game )
-	: gse::GCWrappable( game->GetGCSpace() )
+UnitManager::UnitManager( Game* game ) : UnitManager( game, true ) {}
+
+UnitManager::UnitManager( Game* game, const bool register_with_gc )
+	: gse::GCWrappable( register_with_gc ? game->GetGCSpace() : nullptr )
 	, m_game( game ) {
 	//
 }
@@ -125,7 +127,7 @@ void UnitManager::SpawnUnit( GSE_CALLABLE, Unit* unit ) {
 
 	auto* state = m_game->GetState();
 	if ( state->IsMaster() ) {
-		state->TriggerObject( this, "unit_spawn", ARGS_F( &unit, this ) {
+		Trigger( GSE_CALL, "unit_spawn", ARGS_F( &unit, this ) {
 			{
 				"unit",
 				unit->Wrap( GSE_CALL )
@@ -135,6 +137,10 @@ void UnitManager::SpawnUnit( GSE_CALLABLE, Unit* unit ) {
 }
 
 void UnitManager::DespawnUnit( GSE_CALLABLE, const size_t unit_id ) {
+	delete DetachUnit( GSE_CALL, unit_id );
+}
+
+Unit* UnitManager::DetachUnit( GSE_CALLABLE, const size_t unit_id ) {
 
 	const auto& it = m_units.find( unit_id );
 	if ( it == m_units.end() ) {
@@ -144,8 +150,6 @@ void UnitManager::DespawnUnit( GSE_CALLABLE, const size_t unit_id ) {
 	auto* unit = it->second;
 
 	Log( "Despawning unit #" + std::to_string( unit->m_id ) + " (" + unit->m_def->m_id + ") at " + unit->GetTile()->ToString() );
-
-	QueueUnitUpdate( unit, UUO_DESPAWN );
 
 	auto* tile = unit->GetTile();
 	ASSERT( tile, "unit tile not set" );
@@ -157,7 +161,7 @@ void UnitManager::DespawnUnit( GSE_CALLABLE, const size_t unit_id ) {
 
 	auto* state = m_game->GetState();
 	if ( state->IsMaster() ) {
-		state->TriggerObject( this, "unit_despawn", ARGS_F( &unit ) {
+		Trigger( GSE_CALL, "unit_despawn", ARGS_F( &unit ) {
 			{
 				"unit",
 				unit->Wrap( GSE_CALL )
@@ -165,7 +169,9 @@ void UnitManager::DespawnUnit( GSE_CALLABLE, const size_t unit_id ) {
 		}; } );
 	}
 
-	delete unit;
+	// A lifecycle listener may have refreshed this soon-to-be-deleted unit.
+	QueueUnitUpdate( unit, UUO_DESPAWN );
+	return unit;
 }
 
 MoraleSet* UnitManager::GetMoraleSet( const std::string& name ) const {

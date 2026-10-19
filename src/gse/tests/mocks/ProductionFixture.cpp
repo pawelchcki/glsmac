@@ -1,11 +1,22 @@
 #include "ProductionFixture.h"
 
 #include <memory>
+#include <set>
 #include "gc/Space.h"
 #include "gse/value/Array.h"
 #include "gse/value/Bool.h"
 #include "gse/value/Callable.h"
 #include "gse/value/Int.h"
+#include "gse/value/Float.h"
+#include "game/backend/unit/UnitManager.h"
+#include "game/backend/unit/Unit.h"
+#include "game/backend/unit/StaticDef.h"
+#include "game/backend/unit/MoraleSet.h"
+#include "game/backend/unit/SpriteRender.h"
+#include "game/backend/Random.h"
+#include "game/backend/event/Event.h"
+#include "game/backend/connection/Connection.h"
+#include "game/backend/event/EventHandler.h"
 #include "gse/value/Object.h"
 #include "gse/value/String.h"
 #include "gse/value/Undefined.h"
@@ -28,6 +39,17 @@
 namespace gse::tests::mocks {
 namespace backend = game::backend;
 
+// No socket setup is supplied. The actual Connection outgoing queue/codec is
+// inspected to exercise publish ordering and wrapper lifetime at that boundary.
+class ProbeConnection : public backend::connection::Connection {
+public:
+	ProbeConnection() : Connection( nullptr, network::CM_SERVER, nullptr ) {}
+	void UpdateSlot( const size_t, backend::slot::Slot*, const bool ) override {}
+	void SendMessage( const std::string& ) override {}
+protected:
+	void SendGameEvents( const game_events_t& ) override {}
+};
+
 // Only native lifecycle, map coordinates, event authorization and event-loop
 // delivery are supplied. The actual managers, wrappers and codecs are used.
 struct ProductionFixture : gc::Object {
@@ -38,6 +60,8 @@ struct ProductionFixture : gc::Object {
 	bool destroying = false;
 	bool stopped = false;
 	int64_t updates = 0;
+	size_t colony_id = 0;
+	std::unique_ptr< ProbeConnection > transport;
 
 	ProductionFixture( GSE_CALLABLE, bool defaults = true ) : gc::Object( nullptr ) {
 		game.Start();
@@ -93,12 +117,17 @@ struct ProductionFixture : gc::Object {
 	void Retire() {
 		if ( stopped ) { return; }
 		auto* bm = game.m_bm;
+		auto* um = game.m_um;
+		if ( um ) { um->Clear(); }
 		bm->Clear();
+		state->m_connection = nullptr;
+		transport.reset();
 		state->UnsetGame();
 		game.Stop();
 		owner.reset();
 		stopped = true;
 		delete bm;
+		delete um;
 		delete state;
 		state = nullptr;
 	}
@@ -124,6 +153,116 @@ struct ProductionFixture : gc::Object {
 			base->AddPop( backend::base::Pop( base, base->m_next_pop_id++, def, variant ) );
 		} );
 		Flush( GSE_CALL );
+	}
+
+
+	void SetupFounding( GSE_CALLABLE ) {
+		game.m_um = new backend::unit::UnitManager( &game, false );
+		game.m_slot_num = 1;
+		game.m_slot = owner->GetSlot();
+		game.m_player = owner.get();
+		game.m_game_state = backend::Game::GS_RUNNING;
+		owner->GetFaction()->m_base_names.land = { "Expansion", "Settlement" };
+		game.m_bm->m_registered_base_names.insert( base->m_name );
+		auto* morale = new backend::unit::MoraleSet( "SYNTHETIC", { { "One" }, { "Two" }, { "Three" }, { "Four" }, { "Five" }, { "Six" }, { "Seven" } } );
+		game.m_um->DefineMoraleSet( morale );
+		for ( const auto& id : { "ColonyPod", "Scout" } ) {
+			game.m_um->m_unit_defs.emplace( id, new backend::unit::StaticDef( id, morale, id, backend::unit::MT_LAND, 1.0f, new backend::unit::SpriteRender( "synthetic.pcx", 0, 0, 1, 1, 0, 0, 0 ) ) );
+		}
+		const backend::base::RenderInfo render { "synthetic.pcx", 0, 0, 1, 1 };
+		game.m_bm->DefinePop( new backend::base::PopDef( "WORKER", "Worker", { render, render }, { render }, backend::base::PopDef::PF_TILE_WORKER ) );
+		game.m_bm->DefinePop( new backend::base::PopDef( "DOCTOR", "Doctor", { render, render }, { render }, 0 ) );
+		colony_id = backend::unit::Unit::GetNextId();
+		auto* colony = new backend::unit::Unit( GSE_CALL, game.m_um, colony_id, game.m_um->GetUnitDef( "ColonyPod" ), owner->GetSlot(), game.m_map->GetTile( 2, 2 ), 0.75f, 3, 0.625f, true );
+		game.m_um->m_units.emplace( colony_id, colony );
+	}
+	size_t AdditionalColony( GSE_CALLABLE, size_t x, size_t y ) {
+		const auto id = backend::unit::Unit::GetNextId();
+		auto* unit = new backend::unit::Unit( GSE_CALL, game.m_um, id, game.m_um->GetUnitDef( "ColonyPod" ), owner->GetSlot(), game.m_map->GetTile( x, y ), 1.0f, 2, 1.0f, false );
+		game.m_um->m_units.emplace( id, unit );
+		return id;
+	}
+	value::Object* InspectFounding( GSE_CALLABLE ) {
+		value::array_elements_t base_ids, unit_ids, names;
+		for ( const auto& entry : game.m_bm->GetBases() ) { base_ids.push_back( VALUE( value::Int,, entry.first ) ); }
+		for ( const auto& entry : game.m_um->GetUnits() ) { unit_ids.push_back( VALUE( value::Int,, entry.first ) ); }
+		std::set< std::string > ordered_names( game.m_bm->m_registered_base_names.begin(), game.m_bm->m_registered_base_names.end() );
+		for ( const auto& name : ordered_names ) { names.push_back( VALUE( value::String,, name ) ); }
+		size_t dangling_unit_updates = 0;
+		for ( const auto& entry : game.m_um->m_unit_updates ) {
+			if ( ( entry.second.ops & ( backend::unit::UnitManager::UUO_SPAWN | backend::unit::UnitManager::UUO_REFRESH ) ) && game.m_um->GetUnit( entry.first ) != entry.second.unit ) { dangling_unit_updates++; }
+		}
+		const value::object_properties_t result {
+			{ "dangling_unit_updates", VALUE( value::Int,, dangling_unit_updates ) },
+			{ "base_ids", VALUE( value::Array,, base_ids ) }, { "unit_ids", VALUE( value::Array,, unit_ids ) },
+			{ "names", VALUE( value::Array,, names ) }, { "next_base_id", VALUE( value::Int,, backend::base::Base::GetNextId() ) },
+			{ "next_unit_id", VALUE( value::Int,, backend::unit::Unit::GetNextId() ) },
+			{ "rng", VALUE( value::String,, game.GetRandom()->GetStateString() ) },
+			{ "updates", VALUE( value::Int,, game.m_bm->m_updated_bases.size() ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
+	size_t AddScout( GSE_CALLABLE, size_t owner_index ) {
+		const auto id = backend::unit::Unit::GetNextId();
+		auto* unit = new backend::unit::Unit( GSE_CALL, game.m_um, id, game.m_um->GetUnitDef( "Scout" ), &state->m_slots->GetSlot( owner_index ), game.m_map->GetTile( 2, 2 ), 0.5f, 2, 1.0f, false );
+		game.m_um->m_units.emplace( id, unit );
+		return id;
+	}
+	void EnableTransport() { transport = std::make_unique< ProbeConnection >(); state->m_connection = transport.get(); }
+	value::Object* InspectTransport( GSE_CALLABLE ) {
+		const auto& queue = transport->m_pending_game_events;
+		value::object_properties_t result { { "count", VALUE( value::Int,, queue.size() ) } };
+		if ( !queue.empty() ) {
+			types::Buffer wire( queue.back().serialized_data );
+			wire.ReadString(); wire.ReadString(); wire.ReadInt();
+			const auto fields = wire.ReadInt();
+			if ( fields == 1 ) {
+				wire.ReadString();
+				const auto type = wire.ReadInt();
+				if ( type == VT_OBJECT ) {
+					result.emplace( "wrapper_class", VALUE( value::String,, wire.ReadString() ) );
+					result.emplace( "wrapper_id", VALUE( value::Int,, wire.ReadInt() ) );
+				}
+			}
+		}
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
+	void Process() { game.ProcessEvents(); }
+	void Response( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data, bool accepted, bool applied ) {
+		auto* event = new backend::event::Event( &game, backend::event::Event::ES_LOCAL, game.m_slot_num, GSE_CALL, name, data );
+		Value* rollback = nullptr;
+		if ( applied ) {
+			auto* obj = VALUEEXT( value::Object, GSE_CALL, event->GetData() );
+			game.WithRW( [ & ]() { rollback = game.m_event_handlers.at( name )->Apply( GSE_CALL, { obj } ); } );
+		}
+		game.m_events_waiting_for_responses.emplace( event->GetId(), backend::Game::event_waiting_for_response_t { event, rollback, applied } );
+		game.AddEventResponse( event->GetId(), accepted, nullptr );
+		game.ProcessEventResponses();
+	}
+	std::string FoundingSnapshot() {
+		types::Buffer bytes;
+		game.m_bm->Serialize( bytes );
+		for ( const auto& entry : game.m_um->GetUnits() ) { bytes.WriteString( backend::unit::Unit::Serialize( entry.second ).ToString() ); }
+		bytes.WriteString( game.GetRandom()->GetStateString() );
+		bytes.WriteInt( backend::base::Base::GetNextId() );
+		bytes.WriteInt( backend::unit::Unit::GetNextId() );
+		std::set< std::string > names( game.m_bm->m_registered_base_names.begin(), game.m_bm->m_registered_base_names.end() );
+		for ( const auto& name : names ) { bytes.WriteString( name ); }
+		return bytes.ToString();
+	}
+	void ConfigureFounding( const std::string& kind ) {
+		auto* unit = game.m_um->GetUnit( colony_id );
+		if ( !unit ) { THROW( "fixture colony no longer live" ); }
+		if ( kind == "no_moves" ) { unit->m_movement = 0; }
+		else if ( kind == "dead" ) { unit->m_health = 0; }
+		else if ( kind == "wrong_def" ) { unit->m_def = game.m_um->GetUnitDef( "Scout" ); }
+		else if ( kind == "water" ) { unit->GetTile()->is_water_tile = true; }
+		else if ( kind == "locked" ) { unit->GetTile()->Lock( 1 ); }
+		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
+		else if ( kind == "completed" ) { owner->CompleteTurn(); }
+		else if ( kind == "inactive" ) { game.m_game_state = backend::Game::GS_NONE; }
+		else if ( kind == "animating" ) { unit->m_animation_id = 1; }
+		else { THROW( "unknown founding fixture configuration" ); }
 	}
 
 	// Old broken copies borrow their source's owned payloads. Record that
@@ -280,9 +419,10 @@ static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	object->Set( "owner", f->owner->Wrap( GSE_CALL ), GSE_CALL );
 }
 
-Value* MakeProductionFixture( GSE_CALLABLE ) {
+Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	const auto session = std::make_shared< ProductionSession >();
 	session->current = std::make_shared< ProductionFixture >( GSE_CALL );
+	if ( founding ) { session->current->SetupFounding( GSE_CALL ); }
 	auto* object = new FixtureObject( GSE_CALL, session );
 	UpdateWrappers( GSE_CALL, object );
 	object->Set( "with_write", NATIVE_CALL( session ) {
@@ -337,6 +477,29 @@ Value* MakeProductionFixture( GSE_CALLABLE ) {
 		session->retired.push_back( session->current );
 		session->current = std::move( fresh );
 		UpdateWrappers( GSE_CALL, object );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	if ( founding ) {
+		object->Set( "unit_id", VALUE( value::Int,, session->current->colony_id ), GSE_CALL );
+		object->Set( "tile", session->current->game.GetMap()->GetTile( 2, 2 )->Wrap( GSE_CALL ), GSE_CALL );
+		object->Set( "worker_tile", session->current->game.GetMap()->GetTile( 0, 2 )->Wrap( GSE_CALL ), GSE_CALL );
+		object->Set( "add_scout", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( owner, 0, Int ); return VALUE( value::Int,, session->current->AddScout( GSE_CALL, owner ) ); } ), GSE_CALL );
+		object->Set( "add_colony", NATIVE_CALL( session ) { N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int ); return VALUE( value::Int,, session->current->AdditionalColony( GSE_CALL, x, y ) ); } ), GSE_CALL );
+		object->Set( "inspect", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectFounding( GSE_CALL ); } ), GSE_CALL );
+		object->Set( "snapshot", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->FoundingSnapshot() ); } ), GSE_CALL );
+		object->Set( "configure", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); session->current->ConfigureFounding( kind ); return VALUE( value::Undefined ); } ), GSE_CALL );
+	}
+	object->Set( "enable_transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->EnableTransport(); return VALUE( value::Undefined ); } ), GSE_CALL );
+	object->Set( "transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectTransport( GSE_CALL ); } ), GSE_CALL );
+	object->Set( "process_events", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->Process(); return VALUE( value::Undefined ); } ), GSE_CALL );
+	object->Set( "response_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 4 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object ); N_GETVALUE( accepted, 2, Bool ); N_GETVALUE( applied, 3, Bool );
+		session->current->Response( GSE_CALL, name, data, accepted, applied );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "remote_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( name, 0, String ); N_GET( data, 1, Object );
+		session->current->game.AddEvent( new backend::event::Event( &session->current->game, backend::event::Event::ES_CLIENT, 1, GSE_CALL, name, data->value ) );
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	return object;

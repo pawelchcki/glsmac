@@ -9,6 +9,8 @@
 #include "game/backend/slot/Types.h"
 #include "network/Types.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace gc {
 class Space;
 }
@@ -86,6 +88,7 @@ public:
 	void IfServer( std::function< void( Server* server ) > cb ); // call cb if server
 
 	void SendGameEvent( backend::event::Event* event );
+	void SendSerializedGameEvent( size_t caller, const std::string& name, const std::string& data );
 
 	const bool IsConnected() const;
 	const bool IsServer() const;
@@ -134,6 +137,7 @@ protected:
 	virtual void SendGameEvents( const game_events_t& game_events ) = 0;
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
 	const network::connection_mode_t m_connection_mode = network::CM_NONE;
 	struct {
 		common::mt_id_t connect = 0;

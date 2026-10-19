@@ -26,6 +26,7 @@
 class GLSMAC;
 
 namespace gse::tests::mocks { struct ProductionFixture; }
+namespace gse::value { class Callable; }
 
 namespace types {
 namespace texture {
@@ -308,6 +309,9 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 	void AddEventResponse( const std::string& event_id, const bool result, gse::Value* const resolved );
 
 	void ClearEvents();
+	std::string ValidateFoundBase( int64_t unit_id, int64_t caller ) const;
+	gse::Value* FoundBase( GSE_CALLABLE, int64_t unit_id, int64_t caller, gse::value::Callable* chooser );
+	void RollbackFoundBase( GSE_CALLABLE, int64_t token, int64_t base_id );
 
 	WRAPDEFS_PTR( Game )
 
@@ -411,6 +415,7 @@ private:
 	struct event_waiting_for_response_t {
 		event::Event* event;
 		gse::Value* rollback_data;
+		bool applied = false;
 	};
 	std::unordered_map< std::string, event_waiting_for_response_t > m_events_waiting_for_responses = {};
 	common::Mutex m_events_waiting_for_responses_mutex;
@@ -434,6 +439,18 @@ private:
 	void SetTurnStatus( const backend::turn::turn_status_t status );
 
 	void ProcessEvents();
+	void ProcessEventResponses();
+	void NotifyEventResult( GSE_CALLABLE, const event::Event* event, bool success );
+	struct FoundingRecord {
+		size_t unit_id = 0, base_id = 0, owner = 0, x = 0, y = 0;
+		std::string def, name, previous_rng, expected_rng, base_snapshot;
+		float movement = 0, health = 0;
+		int64_t morale = 0, worked_x = -1, worked_y = -1;
+		bool moved = false;
+		size_t previous_base_id = 0, next_base_id = 0, next_unit_id = 0;
+	};
+	std::map< int64_t, FoundingRecord > m_founding_records;
+	int64_t m_next_founding_id = 0;
 
 private:
 	friend struct gse::tests::mocks::ProductionFixture;

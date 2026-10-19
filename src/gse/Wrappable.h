@@ -19,6 +19,8 @@
 
 #include "util/Struct.h"
 
+namespace game::backend { class Game; namespace base { class Base; } }
+
 namespace gse {
 
 namespace ui::dom {
@@ -124,6 +126,8 @@ protected:
 
 	bool m_catchall = false;
 
+	friend class game::backend::Game;
+	friend class game::backend::base::Base;
 	void CustomSet( const std::string& key, Value* const value );
 	void CustomUnset( const std::string& key );
 	const bool CustomHas( const std::string& key );

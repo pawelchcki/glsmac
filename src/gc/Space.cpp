@@ -98,6 +98,10 @@ void Space::Accumulate( gc::Object* const owner, const f_accum_t& f, const f_acc
 	}
 }
 
+bool Space::IsOwnerThread() const {
+	return m_thread_id.has_value() && *m_thread_id == std::this_thread::get_id();
+}
+
 const bool Space::IsAccumulating() {
 	std::lock_guard guard( m_accumulations_mutex );
 	return m_accumulations.find( std::this_thread::get_id() ) != m_accumulations.end();

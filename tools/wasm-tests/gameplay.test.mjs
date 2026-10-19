@@ -61,6 +61,18 @@ const mainScript = String.raw`
   };
   const base_screen = #include('ui/parts/game/popup/base_screen');
   const popups = #include('ui/parts/game/popup/popup');
+  const command_panel = #include('ui/parts/game/bottom_bar/object_preview');
+  const show_popup = popups.show;
+  popups.show = (id, cb) => {
+    show_popup(id, cb);
+    #print('SMOKE_POPUP_SHOW|' + id);
+  };
+  const clear_popup = popups.clear;
+  popups.clear = () => {
+    const id = popups.popup == null ? '' : popups.popup.id;
+    clear_popup();
+    if (id != '') { #print('SMOKE_POPUP_HIDDEN|' + id); }
+  };
   const production_panel = #include('ui/parts/game/popup/base_screen/bottom_bar/production');
   const set_production_panel = production_panel.set;
   production_panel.set = (data) => {
@@ -110,6 +122,17 @@ const mainScript = String.raw`
 
   glsmac.on('configure_game', (e) => {
     const game = e.game;
+    const report_base = (base) => {
+      const tile = base.get_tile();
+      #print('SMOKE_BASE_STATE|' + #to_string(base.id) + '|' + #to_string(base.get_owner().id) + '|' + #to_string(tile.x) + '|' + #to_string(tile.y) + '|' + #to_string(base.get_size()));
+    };
+    game.on('event_result', (e) => {
+      if (e.name == 'found_base') {
+        #print('SMOKE_FOUND_RESULT|' + #to_string(e.data.unit_id) + '|' + #to_string(e.success));
+        for (base of game.get_bm().get_bases()) { report_base(base); }
+        #print('SMOKE_FOUND_UNIT_EXISTS|' + #to_string(game.get_um().has_unit(e.data.unit_id)));
+      }
+    });
     const report_production = (base) => {
       const state = base.get_production();
       const pending = game.get('f_base_get_pending_production');
@@ -135,20 +158,30 @@ const mainScript = String.raw`
       const um = game.get_um();
       if (um.has_unit(1)) {
         #print('SMOKE_STATUS|' + e.status + '|' + #to_string(um.get_unit(1).movement));
+      } else {
+        #print('SMOKE_STATUS|' + e.status + '|missing');
       }
     });
     game.on('start_ui', (e) => {
       #async(0, () => {
         glsmac.ui.root.on('keydown', (e) => {
           if (e.code == 'P' && e.modifiers == {}) {
-            const unit = game.get_um().get_unit(1);
-            #print('SMOKE_MOVEMENT|' + #to_string(unit.movement));
-            #print('SMOKE_POSITION|' + #to_string(unit.tile.x) + '|' + #to_string(unit.tile.y));
-            for (base of game.get_bm().get_bases()) { report_production(base); }
+            if (game.get_um().has_unit(1)) {
+              const unit = game.get_um().get_unit(1);
+              #print('SMOKE_MOVEMENT|' + #to_string(unit.movement));
+              #print('SMOKE_POSITION|' + #to_string(unit.tile.x) + '|' + #to_string(unit.tile.y));
+            } else {
+              #print('SMOKE_UNIT_MISSING|1');
+            }
+            for (base of game.get_bm().get_bases()) { report_production(base); report_base(base); }
+            #print('SMOKE_FOUND_CONTROL|' + command_panel.found_button.class);
             #print('SMOKE_PROBE_DONE');
             return true;
           }
           return false;
+        });
+        game.get_map().on('base_preview', (e) => {
+          #print('SMOKE_BASE_PREVIEW|' + #to_string(e.base.id));
         });
         #print('SMOKE_UI_READY');
         return false;
@@ -157,6 +190,7 @@ const mainScript = String.raw`
   });
   glsmac.run();
 });
+
 `;
 
 const worldScript = String.raw`
@@ -185,6 +219,15 @@ return (game) => {
 };
 `;
 
+const colonyWorldScript = String.raw`
+return (game) => {
+  const owner = game.get_player();
+  const tile = game.get_tm().get_tile(8, 8);
+  game.event('spawn_base', { owner: owner, tile: tile, facilities: ['HEADQUARTERS'] });
+  game.event('spawn_unit', { owner: owner, tile: tile, type: 'ColonyPod', health: 1.0, morale: 1 });
+};
+`;
+
 async function serveAssets(t) {
   const server = spawn('python3', ['tools/serve-wasm.py', build, '--port', '0', '--assets', assets], { cwd: root });
   t.after(() => server.kill());
@@ -209,10 +252,7 @@ async function clickCanvas(page, x, y) {
   await page.mouse.click(box.x + box.width * x / 1024, box.y + box.height * y / 768);
 }
 
-test('owned bases, turns, movement and facility production use the real browser game', {
-  skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
-  timeout: 180000,
-}, async (t) => {
+async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gameplay') {
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -229,24 +269,25 @@ test('owned bases, turns, movement and facility production use the real browser 
   const errors = [];
   const selectedBases = [];
   const recordError = (kind, error) => {
-    errors.push(String(error));
-    console.error(`Browser ${kind} error: ${error}`);
+    const detail = error?.stack || String(error);
+    errors.push(detail);
+    console.error(`Browser ${kind} error: ${detail}`);
     // Wake pending telemetry waits when a worker stops. The original error is
     // still asserted below; a graphics failure never becomes a timeout/retry.
     page.evaluate(() => { globalThis.__gameplayError = true; }).catch(() => {});
   };
   page.on('pageerror', (error) => recordError('runtime', error));
   page.on('console', (message) => {
-    if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)/i.test(message.text())) {
+    if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)|RuntimeError:|worker sent an error!/i.test(message.text())) {
       recordError('graphics', message.text());
     }
   });
   t.after(async () => {
     try {
       const log = await page.locator('#log').textContent({ timeout: 1000 });
-      writeFileSync(new URL('gameplay-log.txt', artifacts), log || '');
+      writeFileSync(new URL(`${artifactPrefix}-log.txt`, artifacts), log || '');
       await page.locator('#canvas').screenshot({
-        path: fileURLToPath(new URL('gameplay-final.png', artifacts)), timeout: 3000,
+        path: fileURLToPath(new URL(`${artifactPrefix}-final.png`, artifacts)), timeout: 3000,
       }).catch(() => {});
       if (log) t.diagnostic(log.slice(-12000));
       if (errors.length) t.diagnostic(errors.join('\n'));
@@ -259,20 +300,23 @@ test('owned bases, turns, movement and facility production use the real browser 
     // UI event telemetry precedes the engine worker's next canvas draw. Allow
     // that draw to reach the artifact; gameplay assertions use state/events.
     await page.waitForTimeout(250);
-    return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`gameplay-${name}.png`, artifacts)) });
+    return page.locator('#canvas').screenshot({ path: fileURLToPath(new URL(`${artifactPrefix}-${name}.png`, artifacts)) });
   };
-  const waitForLog = async (text, minimum = 1) => {
+  const waitForLog = async (text, minimum = 1, timeout = 60000) => {
     try {
       await page.waitForFunction(({ text, minimum }) => (
         globalThis.__gameplayError || document.body.dataset.state === 'failed'
+        || /worker sent an error!|RuntimeError:|Aborted\(/.test(document.querySelector('#log').textContent)
         || document.querySelector('#log').textContent.split(text).length - 1 >= minimum
-      ), { text, minimum });
+      ), { text, minimum }, { timeout });
     } catch (error) {
       const log = await page.locator('#log').textContent({ timeout: 1000 }).catch(() => 'No engine log available');
       throw new Error(`Waiting for ${text} (${minimum} occurrences) failed.\n${log.slice(-12000)}`, { cause: error });
     }
     assert.deepEqual(errors, [], 'No browser runtime or graphics errors');
-    assert.ok((await page.locator('#log').textContent()).split(text).length - 1 >= minimum,
+    const log = await page.locator('#log').textContent();
+    assert.doesNotMatch(log, /worker sent an error!|RuntimeError:|Aborted\(/, 'No fatal worker error in the engine log');
+    assert.ok(log.split(text).length - 1 >= minimum,
       `The running engine emitted ${text}`);
   };
   const currentBases = async () => {
@@ -285,11 +329,14 @@ test('owned bases, turns, movement and facility production use the real browser 
     await waitForLog(`SMOKE_BASE_RENDER|${id}`, count);
     selectedBases.push(id);
   };
-  const probeUnit = async () => {
-    const previous = ((await page.locator('#log').textContent()).match(/SMOKE_PROBE_DONE/g) || []).length;
+  const probeUnit = async (timeout = 60000) => {
+    const before = await page.locator('#log').textContent();
+    const previous = (before.match(/SMOKE_PROBE_DONE/g) || []).length;
+    const missing = (before.match(/SMOKE_UNIT_MISSING\|1/g) || []).length;
     await page.keyboard.press('p');
-    await waitForLog('SMOKE_PROBE_DONE', previous + 1);
+    await waitForLog('SMOKE_PROBE_DONE', previous + 1, timeout);
     const log = await page.locator('#log').textContent();
+    if ((log.match(/SMOKE_UNIT_MISSING\|1/g) || []).length > missing) return null;
     const movements = [...log.matchAll(/SMOKE_MOVEMENT\|([0-9.]+)/g)];
     const positions = [...log.matchAll(/SMOKE_POSITION\|(\d+)\|(\d+)/g)];
     return {
@@ -346,10 +393,18 @@ test('owned bases, turns, movement and facility production use the real browser 
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/browser-smoke.MP',
       '--quickstart-faction', 'GAIANS',
     ]);
-  }, { mainScript, worldScript, scripts });
+  }, { mainScript, worldScript: fixtureWorld, scripts });
   await page.locator('#start').click();
   await waitForLog('SMOKE_UI_READY');
   await waitForLog('SMOKE_UNIT|1|0');
+  return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, currentBases, selectedBases };
+}
+
+test('owned bases, turns, movement and facility production use the real browser game', {
+  skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+  timeout: 180000,
+}, async (t) => {
+  const { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, currentBases } = await startGame(t);
   for (const label of ['Supply Pod', 'Volcano', 'Road', 'Farm']) await waitForLog(`SMOKE_LABEL|${label}`);
   const initialUnit = await probeUnit();
   const initialMovement = initialUnit.movement;
@@ -382,7 +437,7 @@ test('owned bases, turns, movement and facility production use the real browser 
   await page.keyboard.press('Tab'); // Re-select the owned unit after closing the popup.
   await waitForLog('SMOKE_UNIT|1|0', 2);
   await screenshot('skip-available');
-  await clickCanvas(page, 74, 741); // Visible Skip Turn command, not its keyboard shortcut.
+  await clickCanvas(page, 100, 741); // Visible Skip Turn command beside FOUND BASE.
   await waitForLog('SMOKE_STATUS|turn_complete|0');
   assert.equal((await probeUnit()).movement, 0, 'Clicking Skip Turn exhausted actual backend movement');
   await screenshot('skipped');
@@ -487,7 +542,96 @@ test('owned bases, turns, movement and facility production use the real browser 
   }
   assert.ok(production.installed, 'Real browser turns finish the chosen facility');
   const finalLog = await page.locator('#log').textContent();
-  assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(/);
+  assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(|Event result listener failed/);
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running', finalLog.slice(-3000));
   t.diagnostic(`Imported synthetic 16x16 map; base navigation, skip, turn advance and move (8,8) -> (10,8) passed; canceled facility picker, selected declared 32-mineral Recycling Tanks, and completed it through ${productionTurns} real turns with ${production.minerals} overflow minerals.`);
 });
+
+for (const action of ['keyboard', 'button']) {
+  test(`Colony Pod moves off Headquarters and founds an owned base through ${action}`, {
+    skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+    timeout: 180000,
+  }, async (t) => {
+    const { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase } =
+      await startGame(t, colonyWorldScript, `founding-${action}`);
+    const initialUnit = await probeUnit();
+    assert.deepEqual(initialUnit.position, [8, 8]);
+    assert.ok(initialUnit.movement > 0);
+
+    await page.keyboard.press('b'); // Headquarters already occupies this tile.
+    await clickCanvas(page, 40, 741);
+    await probeUnit();
+    assert.doesNotMatch(await page.locator('#log').textContent(), /SMOKE_FOUND_RESULT\|/,
+      'Founding at Headquarters does not even submit a command');
+
+    await page.keyboard.press('ArrowRight');
+    let moved;
+    for (let attempt = 0; attempt < 30; ++attempt) {
+      moved = await probeUnit();
+      if (moved.position[0] === 10 && moved.position[1] === 8 && moved.movement < initialUnit.movement) break;
+      await page.waitForTimeout(100);
+    }
+    assert.deepEqual(moved.position, [10, 8], 'Real keyboard movement leaves Headquarters');
+    assert.equal(moved.movement, 0, 'The pod spent its current movement');
+    await screenshot('moved');
+
+    await clickCanvas(page, 899, 585); // The exhausted pod completes this turn.
+    await waitForLog('SMOKE_TURN|2|2102');
+    // Frontend selection follows backend turn telemetry asynchronously. Probe
+    // the actual current control until the selection/availability update lands.
+    let replenished;
+    const readyDeadline = Date.now() + 60000;
+    while (Date.now() < readyDeadline) {
+      const before = await page.locator('#log').textContent();
+      replenished = await probeUnit(Math.max(1, readyDeadline - Date.now()));
+      const latest = (await page.locator('#log').textContent()).slice(before.length);
+      if (latest.includes('SMOKE_FOUND_CONTROL|unit-found-button-enabled')) break;
+      await page.waitForTimeout(100);
+    }
+    assert.equal(replenished.movement, initialUnit.movement);
+    assert.match((await page.locator('#log').textContent()), /SMOKE_FOUND_CONTROL\|unit-found-button-enabled/,
+      'The real selected pod has an enabled founding control');
+    await screenshot('ready');
+
+    // A real modal window must consume B before the unit panel can act.
+    await page.keyboard.press('Escape');
+    await waitForLog('SMOKE_POPUP_SHOW|please_dont_go');
+    await page.keyboard.press('b');
+    await page.keyboard.press('Escape');
+    await waitForLog('SMOKE_POPUP_HIDDEN|please_dont_go');
+    await probeUnit();
+    assert.doesNotMatch(await page.locator('#log').textContent(), /SMOKE_FOUND_RESULT\|/,
+      'B inside the quit popup cannot found a base');
+
+    if (action === 'keyboard') await page.keyboard.press('b');
+    else await clickCanvas(page, 40, 741); // Visible FOUND BASE command.
+    await waitForLog('SMOKE_FOUND_RESULT|1|true');
+    await waitForLog('SMOKE_FOUND_UNIT_EXISTS|false');
+    await waitForLog('SMOKE_BASE_STATE|2|0|10|8|1');
+    assert.equal(await probeUnit(), null, 'The authoritative transaction consumed the pod');
+    const foundedLog = await page.locator('#log').textContent();
+    const founded = [...foundedLog.matchAll(/SMOKE_BASE_STATE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)/g)];
+    const latest = new Map(founded.map((match) => [Number(match[1]), match.slice(2).map(Number)]));
+    assert.equal(latest.size, 2, 'One additional base exists');
+    assert.deepEqual(latest.get(2), [0, 10, 8, 1], 'The new base has the owner, pod tile and one citizen');
+
+    await waitForLog('SMOKE_BASE_PREVIEW|2');
+    await clickCanvas(page, 280, 733); // Open the new base's actual preview.
+    await waitForBase(2);
+    await waitForLog('SMOKE_BASE_OPEN');
+    await screenshot('new-base');
+    await closeBase();
+
+    await page.keyboard.press('b');
+    await clickCanvas(page, 899, 585);
+    await waitForLog('SMOKE_TURN|3|2103');
+    assert.equal(await probeUnit(), null);
+    const finalLog = await page.locator('#log').textContent();
+    assert.equal((finalLog.match(/SMOKE_FOUND_RESULT\|1\|true/g) || []).length, 1,
+      'Repeated B after consumption cannot create a duplicate base');
+    assert.doesNotMatch(finalLog, /GSEParseError|GSETypeError|FATAL ERROR|Aborted\(|Event result listener failed/);
+    assert.equal(await page.locator('body').getAttribute('data-state'), 'running', finalLog.slice(-3000));
+    await screenshot('next-turn');
+    t.diagnostic(`Actual ${action} founding consumed ColonyPod1 at (10,8), created owned base2 with one citizen, opened its screen and continued to turn3.`);
+  });
+}

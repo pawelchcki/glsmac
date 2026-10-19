@@ -23,66 +23,59 @@ Async::Async( gc::Space* const gc_space )
 	: gc::Object( gc_space )
 	, m_gc_space( gc_space ) {}
 
-void Async::Iterate( ExecutionPointer& ep ) {
-	if ( !m_is_stopping ) {
-		while ( !m_timers.empty() && util::Time::Now() >= m_timers.begin()->first ) {
-			ProcessTimers( m_timers.begin(), ep );
-		}
-	}
+void Async::WithTimerState( const std::function< void() >& callback ) {
+	// These operations return synchronously. Never enqueue captures of their
+	// stack locals on a foreign interpreter thread, including Release builds.
+	if ( !m_gc_space->IsOwnerThread() ) { THROW( "Async timer operations require their owning interpreter thread" ); }
+	m_gc_space->Accumulate( this, callback, nullptr, true );
 }
 
-static timer_id_t s_next_id = 0;
+void Async::Iterate( ExecutionPointer& ep ) {
+	WithTimerState( [ & ]() {
+		if ( !m_is_stopping ) {
+			while ( !m_timers.empty() && util::Time::Now() >= m_timers.begin()->first ) {
+				ProcessTimers( m_timers.begin(), ep );
+			}
+		}
+	} );
+}
+
+static std::atomic< timer_id_t > s_next_id = 0;
 
 const timer_id_t Async::StartTimer( const size_t ms, gse::value::Callable* const f, GSE_CALLABLE_NOGC ) {
-	ASSERT( f->type == VT_CALLABLE, "invalid callable type: " + f->GetTypeString() );
-	if ( s_next_id == SIZE_MAX - 1 ) {
-		s_next_id = 0;
-	}
-	s_next_id++;
-	{
+	timer_id_t result = 0;
+	WithTimerState( [ & ]() {
+		ASSERT( f->type == VT_CALLABLE, "invalid callable type: " + f->GetTypeString() );
 		ValidateMs( ms, m_gc_space, ctx, si, ep );
+		auto previous = s_next_id.load( std::memory_order_relaxed );
+		do { result = previous >= SIZE_MAX - 1 ? 1 : previous + 1; }
+		while ( !s_next_id.compare_exchange_weak( previous, result, std::memory_order_relaxed ) );
 		const auto time = util::Time::Now() + ms;
-		m_timers[ time ].insert(
-			{
-				s_next_id,
-				{
-					ms,
-					f,
-					ctx,
-					si
-				}
-			}
-		);
-		m_timers_ms.insert(
-			{
-				s_next_id,
-				time
-			}
-		);
-	}
-	return s_next_id;
+		m_timers[ time ].emplace( result, timer_t { ms, f, ctx, si } );
+		m_timers_ms.emplace( result, time );
+	} );
+	return result;
 }
 
 const bool Async::StopTimer( const gse::timer_id_t id ) {
-	const auto& it = m_timers_ms.find( id );
-	if ( it == m_timers_ms.end() ) {
-		return false;
-	}
-	const auto& time = it->second;
-	ASSERT( m_timers.find( time ) != m_timers.end(), "timers not found" );
-	auto& timers = m_timers.at( time );
-	ASSERT( timers.find( id ) != timers.end(), "timer not found" );
-	timers.erase( id );
-	if ( timers.empty() ) {
-		m_timers.erase( time );
-	}
-	m_timers_ms.erase( id );
-	return true;
+	bool result = false;
+	WithTimerState( [ & ]() {
+		const auto it = m_timers_ms.find( id );
+		if ( it == m_timers_ms.end() ) { return; }
+		const auto time = it->second;
+		ASSERT( m_timers.find( time ) != m_timers.end(), "timers not found" );
+		auto& timers = m_timers.at( time );
+		ASSERT( timers.find( id ) != timers.end(), "timer not found" );
+		timers.erase( id );
+		if ( timers.empty() ) { m_timers.erase( time ); }
+		m_timers_ms.erase( it );
+		result = true;
+	} );
+	return result;
 }
 
 void Async::StopTimers() {
-	m_timers.clear();
-	m_timers_ms.clear();
+	WithTimerState( [ this ]() { m_timers.clear(); m_timers_ms.clear(); } );
 }
 
 gse::Value* const Async::CreateTimer( const size_t ms, gse::value::Callable* const f, GSE_CALLABLE_NOGC, timer_id_t* const out_timer_id ) {
@@ -109,24 +102,17 @@ gse::Value* const Async::CreateTimer( const size_t ms, gse::value::Callable* con
 }
 
 void Async::ProcessAndExit( ExecutionPointer& ep ) {
-	m_is_stopping = true;
-	m_process_timers_mutex.lock(); // wait for anything processing timers to finish
-	m_process_timers_mutex.unlock();
-	{
+	WithTimerState( [ & ]() {
+		m_is_stopping = true;
+		m_process_timers_mutex.lock();
+		m_process_timers_mutex.unlock();
 		while ( !m_timers.empty() ) {
-			const auto& it = m_timers.begin();
+			const auto it = m_timers.begin();
 			const auto now = util::Time::Now();
-			const auto sleep_for = it->first > now
-				? it->first - now
-				: 0;
-
-			//Log( "Waiting for " + std::to_string( sleep_for ) + "ms" );
-			if ( sleep_for > 0 ) {
-				std::this_thread::sleep_for( std::chrono::milliseconds( sleep_for ) );
-			}
+			if ( it->first > now ) { std::this_thread::sleep_for( std::chrono::milliseconds( it->first - now ) ); }
 			ProcessTimers( it, ep );
 		}
-	}
+	} );
 }
 
 void Async::GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) {
@@ -157,89 +143,48 @@ void Async::ValidateMs( const int64_t ms, GSE_CALLABLE ) const {
 }
 
 void Async::ProcessTimers( const timers_t::const_iterator& it, ExecutionPointer& ep ) {
-	std::lock_guard guard( m_process_timers_mutex );
-
-	std::map< uint64_t, std::map< timer_id_t, timer_t > > timers_new = {};
-
-	const auto timers = it->second;
-
-	for ( const auto& it2 : timers ) {
-		const auto& timer = it2.second;
-
-		auto* ctx = timer.ctx;
-		const auto f = timer.callable;
-		const auto si = timer.si;
-
-		size_t ms = 0;
-		bool repeat = false;
-		m_gc_space->Accumulate(
-			this,
-			[ this, &ctx, &ep, &si, &f, &timer, &repeat, &ms ]() {
-
-				const auto result = f->Run( m_gc_space, GSE_CALL_NOGC, {} );
-
-				const auto& r = result;
-				if ( r ) {
-					switch ( r->type ) {
-						case VT_UNDEFINED:
-						case VT_NULL:
-							break;
-						case VT_BOOL: {
-							if ( ( (value::Bool*)r )->value ) {
-								repeat = true;
-								ms = timer.ms;
-							}
-							break;
-						}
-						case VT_INT: {
-							ms = ( (value::Int*)r )->value;
-							ValidateMs( ms, m_gc_space, GSE_CALL_NOGC );
-							repeat = true;
-							break;
-						}
-						default:
-							GSE_ERROR( EC.INVALID_HANDLER, "Unexpected async return type. Expected: Nothing, Undefined, Null, Bool or Int,, got: " + result->GetTypeString() );
+	WithTimerState( [ & ]() {
+		std::lock_guard guard( m_process_timers_mutex );
+		const auto due_time = it->first;
+		const auto timers = it->second;
+		for ( const auto& entry : timers ) {
+			const auto id = entry.first;
+			auto active = m_timers_ms.find( id );
+			if ( active == m_timers_ms.end() || active->second != due_time ) { continue; }
+			const auto timer = entry.second;
+			auto* ctx = timer.ctx;
+			const auto& si = timer.si;
+			const auto* result = timer.callable->Run( m_gc_space, GSE_CALL_NOGC, {} );
+			bool repeat = false;
+			size_t ms = 0;
+			if ( result ) {
+				switch ( result->type ) {
+					case VT_UNDEFINED: case VT_NULL: break;
+					case VT_BOOL:
+						repeat = static_cast< const value::Bool* >( result )->value;
+						ms = timer.ms;
+						break;
+					case VT_INT: {
+						const auto requested_ms = static_cast< const value::Int* >( result )->value;
+						ValidateMs( requested_ms, m_gc_space, GSE_CALL_NOGC );
+						ms = requested_ms; repeat = true;
+						break;
 					}
+					default: GSE_ERROR( EC.INVALID_HANDLER, "Unexpected async return type: " + result->GetTypeString() );
 				}
 			}
-		);
-
-		if ( repeat ) {
-			timers_new[ util::Time::Now() + ms ].insert(
-				{
-					it2.first,
-					{
-						ms,
-						f,
-						ctx,
-						si,
-					}
-				}
-			);
-		}
-
-		if ( m_timers_ms.find( it2.first ) == m_timers_ms.end() ) {
-			// timer was deleted in its own handler, should restart the whole cycle
-			return;
-		}
-
-		m_timers_ms.erase( it2.first );
-	}
-
-	{
-		m_timers.erase( it );
-		for ( const auto& it_new : timers_new ) {
-			for ( const auto& timer : it_new.second ) {
-				m_timers[ it_new.first ].insert( timer );
-				m_timers_ms.insert(
-					{
-						timer.first,
-						it_new.first
-					}
-				);
+			// Cancellation in this callback wins over a repeat request. The
+			// copied due bucket may also contain siblings cancelled earlier.
+			active = m_timers_ms.find( id );
+			if ( active == m_timers_ms.end() || active->second != due_time ) { continue; }
+			StopTimer( id );
+			if ( repeat ) {
+				const auto time = util::Time::Now() + ms;
+				m_timers[ time ].emplace( id, timer_t { ms, timer.callable, ctx, si } );
+				m_timers_ms.emplace( id, time );
 			}
 		}
-	}
+	} );
 }
 
 }

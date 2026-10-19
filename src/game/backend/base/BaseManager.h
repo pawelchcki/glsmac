@@ -81,6 +81,7 @@ public:
 
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
+	friend class game::backend::Game;
 	BaseManager( Game* game, const bool register_with_gc );
 	Game* m_game = nullptr;
 

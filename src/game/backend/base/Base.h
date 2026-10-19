@@ -68,6 +68,7 @@ public:
 
 	Pop* const AddPop( const Pop& pop );
 	void RemovePop( const size_t pop_id );
+	void ClearWorkedTiles();
 	void ChangePopType( GSE_CALLABLE, const size_t pop_id, const std::string& def_id );
 
 	const size_t m_id;
@@ -88,6 +89,7 @@ public:
 
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
+	friend class game::backend::Game;
 	Game* const m_game;
 	ProductionState m_production;
 	void ProductionChanged();

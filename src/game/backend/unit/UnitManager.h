@@ -6,6 +6,8 @@
 
 #include "Types.h"
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 namespace game {
 namespace backend {
 
@@ -64,6 +66,10 @@ public:
 	void RefreshUnit( GSE_CALLABLE, const Unit* unit );
 
 private:
+	friend struct gse::tests::mocks::ProductionFixture;
+	friend class game::backend::Game;
+	UnitManager( Game* game, const bool register_with_gc );
+	Unit* DetachUnit( GSE_CALLABLE, size_t unit_id );
 	Game* m_game = nullptr;
 
 	std::unordered_map< std::string, MoraleSet* > m_unit_moralesets = {};

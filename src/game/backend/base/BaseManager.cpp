@@ -195,7 +195,7 @@ void BaseManager::SpawnBase( GSE_CALLABLE, Base* base ) {
 
 	auto* state = m_game->GetState();
 	if ( state->IsMaster() ) {
-		state->TriggerObject( this, "base_spawn", ARGS_F( &base ) {
+		Trigger( GSE_CALL, "base_spawn", ARGS_F( &base ) {
 			{
 				"base",
 				base->Wrap( GSE_CALL )
@@ -217,13 +217,6 @@ void BaseManager::DespawnBase( GSE_CALLABLE, const size_t base_id ) {
 
 	Log( "Despawning base #" + std::to_string( base->m_id ) + " at " + base->GetTile()->ToString() );
 
-	{
-		std::lock_guard guard( m_updated_bases_mutex );
-		m_updated_bases.erase( base );
-	}
-
-	QueueBaseUpdate( base, BUO_DESPAWN );
-
 	auto* tile = base->GetTile();
 	ASSERT( tile, "base tile not set" );
 	ASSERT( tile->base, "base not found in tile" );
@@ -234,7 +227,7 @@ void BaseManager::DespawnBase( GSE_CALLABLE, const size_t base_id ) {
 
 	auto* state = m_game->GetState();
 	if ( state->IsMaster() ) {
-		state->TriggerObject( this, "base_despawn", ARGS_F( &base ) {
+		Trigger( GSE_CALL, "base_despawn", ARGS_F( &base ) {
 			{
 				"base",
 				base->Wrap( GSE_CALL )
@@ -242,6 +235,12 @@ void BaseManager::DespawnBase( GSE_CALLABLE, const size_t base_id ) {
 		}; } );
 	}
 
+	// Lifecycle callbacks may have added citizens or refreshed this base.
+	// Perform final cleanup after those callbacks, before releasing memory.
+	base->ClearWorkedTiles();
+	m_registered_base_names.erase( base->m_name );
+	{ std::lock_guard guard( m_updated_bases_mutex ); m_updated_bases.erase( base ); }
+	QueueBaseUpdate( base, BUO_DESPAWN );
 	delete base;
 }
 

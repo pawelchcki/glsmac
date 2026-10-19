@@ -35,6 +35,7 @@ public:
 	const std::string& GetId() const;
 	const std::string& GetEventName() const;
 	const gse::value::object_properties_t& GetData() const;
+	const gse::value::object_properties_t& GetScalarData() const { return m_scalar_data; }
 
 	void SetResolved( gse::Value* const resolved );
 	gse::Value* GetResolved();
@@ -46,6 +47,7 @@ private:
 	std::string m_id = 0;
 	std::string m_name = "";
 	gse::value::object_properties_t m_original_data = {};
+	gse::value::object_properties_t m_scalar_data = {};
 	gse::value::object_properties_t m_data = {};
 	gse::value::function_arguments_t m_args = {};
 

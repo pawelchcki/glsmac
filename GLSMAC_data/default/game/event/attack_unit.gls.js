@@ -83,6 +83,9 @@ return {
 		}
 
 		let attacker_def = e.data.attacker.get_def();
+		if (attacker_def.id == 'ColonyPod') {
+			return 'Civilian colony pods can\'t attack';
+		}
 		if (attacker_def.id == 'SporeLauncher') {
 			// TODO: bombardments
 			return 'Artillery units can\'t attack directly';

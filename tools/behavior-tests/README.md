@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **345 scenarios and 2,382 assertions** across
-26 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **429 scenarios and 2,647 assertions** across
+32 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -54,7 +54,9 @@ real rendering/input and read-only backend telemetry. It checks terrain labels,
 base navigation, Skip Turn, next-turn movement restoration, a keyboard move and
 opening the destination base. It also cancels and confirms the facility picker,
 then constructs Recycling Tanks through real turn controls, checking each mineral
-credit, completion, overflow and the refreshed base screen. It does not validate
+credit, completion, overflow and the refreshed base screen. Two separate paths
+move a Colony Pod, check modal blocking, found via B or FOUND BASE, open the new
+base and advance another turn after consumption. It does not validate
 normal world generation or original-game behavior. Browser failures and graphics
 errors remain failures.
 
@@ -80,6 +82,31 @@ definition IDs different from display names, checks receiving parent bindings,
 variants, next population IDs and production state, and rejects an unknown type
 without replacing the receiving world. These bounded codec tests do not establish
 complete world save/load or restore script-managed worker assignments.
+
+The colony suites add functional land expansion: one starting Colony Pod,
+shared FOUND BASE/B eligibility, immediate worker assignment or doctor fallback,
+and a native transaction that consumes the pod after base initialization. Native
+tests check exact pod state, worker links, names, RNG and IDs through failure and
+guarded rollback, plus rejection of stale commands, foreign stacks and civilian
+attacks. The prototype uses an existing static portrait; authentic vehicle models,
+naval pods, renewable pod production and original founding/movement rules remain
+outside this feature's coverage.
+
+`objects-list-lifecycle` uses native entities and the shipped tile list to check
+same-tile founding updates, queued input after removal, live ID resolution and
+owned deferred base-screen callbacks.
+
+`async-lifecycle-native` exercises the actual scheduler with controlled equal
+deadlines: sibling/self cancellation, replacement, repeat, stop-all and handle
+isolation. It does not force concurrent collection. The browser founding flow
+exposed an Async GC race; queue processing and rescheduling now share the existing
+collection guard, and synchronous timer operations enforce interpreter ownership.
+
+`event-result-native` checks local acceptance/rejection notifications, immutable
+scalar request identity, optimistic/deferred response handling and safe outgoing
+serialization before commands delete their payload objects. It exercises actual
+event processing and connection queues with a synthetic transport; it does not
+establish complete multiplayer synchronization.
 
 The `game-modal-input` suite initializes the production game UI and checks modal
 consumption, listener cleanup and popup timer cleanup on restart. The

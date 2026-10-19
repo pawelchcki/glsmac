@@ -64,6 +64,13 @@ behavior.scenario('artillery direct attack rejected', () => {
 	e.data.attacker.definition.id = 'SporeLauncher';
 	test.assert(combat.validate(e) == 'Artillery units can\'t attack directly');
 });
+behavior.scenario('civilian colony pod cannot initiate combat', () => {
+	const e = mocks.event([]);
+	e.data.attacker.definition.id = 'ColonyPod';
+	test.assert(combat.validate(e) == 'Civilian colony pods can\'t attack');
+	test.assert(e.data.attacker.movement == 1.0 && !e.data.attacker.moved_this_turn);
+	test.assert(e.game.random.state.draws == [] && e.data.attacker.moves == []);
+});
 for (domain of ['land', 'sea', 'air']) {
 	behavior.scenario('valid ' + domain + ' attack', () => {
 		const e = mocks.event([]);

@@ -159,6 +159,20 @@ Pop* const Base::AddPop( const Pop& pop ) {
 	return &m_pops.at( pop.m_id );
 }
 
+void Base::ClearWorkedTiles() {
+	for ( auto& entry : m_pops ) {
+		auto& pop = entry.second;
+		auto* value = pop.CustomGet( "worked_tile" );
+		if ( value && value->type == gse::VT_OBJECT && static_cast< gse::value::Object* >( value )->object_class == "Tile" ) {
+			auto* tile = map::tile::Tile::Unwrap( value );
+			auto* assignment = tile->CustomGet( "working_pop" );
+			if ( assignment && assignment->type == gse::VT_OBJECT && static_cast< gse::value::Object* >( assignment )->wrapobj == &pop ) { tile->CustomUnset( "working_pop" ); }
+		}
+		pop.CustomUnset( "worked_tile" );
+	}
+	m_worked_tiles.clear();
+}
+
 void Base::RemovePop( const size_t pop_id ) {
 	ASSERT( m_pops.find( pop_id ) != m_pops.end(), "pop id not found" );
 	m_pops.erase( pop_id );

@@ -36,6 +36,7 @@ CLASS( Space, common::Class )
 
 	void Accumulate( gc::Object* const owner, const f_accum_t& f, const f_accum_t& f_cleanup = nullptr, const bool need_now = false );
 	const bool IsAccumulating();
+	bool IsOwnerThread() const;
 
 	void SetThreadId( const std::thread::id& thread_id );
 	void ProcessAccumulations(); // scripts will actually execute here

@@ -39,6 +39,19 @@ const units = [
 	native_lifeform('MindWorms', 'Mind Worms', 'land', 1, 233),
 	native_lifeform('SeaLurk', 'Sea Lurk', 'water', 4, 310),
 	native_lifeform('SporeLauncher', 'Spore Launcher', 'land', 1, 387),
+	// Functional civilian prototype using the existing citizen portrait. This
+	// static sprite does not reproduce the original human vehicle model.
+	{
+		id: 'ColonyPod',
+		data: {
+			name: 'Colony Pod', morale: 'NATIVE', type: 'static',
+			movement_type: 'land', movement_per_turn: 1,
+			render: {
+				type: 'sprite', file: 'newicons.pcx',
+				x: 79, y: 501, w: 38, h: 48, cx: 98, cy: 549,
+			},
+		},
+	},
 ];
 
 const result = {

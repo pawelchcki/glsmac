@@ -1,5 +1,6 @@
 #include "Test.h"
 #include "ProductionFixture.h"
+#include "AsyncFixture.h"
 #include "gse/value/Array.h"
 
 #include <unordered_map>
@@ -89,6 +90,13 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 	const auto rules_fixtures = std::make_shared< std::vector< std::shared_ptr< RulesFixture > > >();
 	auto* production_roots = VALUE( value::Array,, value::array_elements_t{} );
 	value::object_properties_t mocks = {
+		{ "async_probe", NATIVE_CALL() { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); return ProbeAsyncTimers( GSE_CALL, kind ); } ) },
+		{ "founding_fixture", NATIVE_CALL( production_roots ) {
+			N_EXPECT_ARGS( 0 );
+			auto* fixture = MakeProductionFixture( GSE_CALL, true );
+			production_roots->value.push_back( fixture );
+			return fixture;
+		} ) },
 		{ "production_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 0 );
 			auto* fixture = MakeProductionFixture( GSE_CALL );

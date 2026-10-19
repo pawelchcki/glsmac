@@ -26,6 +26,12 @@
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
     {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
     {"id":"pop-snapshot-native", "script":"GLSMAC_data/tests/pop_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
+    {"id":"colony-founding", "script":"GLSMAC_data/tests/colony_founding.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"colony-founding-native", "script":"GLSMAC_data/tests/colony_founding_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"colony-founding-ui", "script":"GLSMAC_data/tests/colony_founding_ui.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"event-result-native", "script":"GLSMAC_data/tests/event_result_native.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"objects-list-lifecycle", "script":"GLSMAC_data/tests/objects_list_lifecycle.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"async-lifecycle-native", "script":"GLSMAC_data/tests/async_lifecycle_native.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"}
   ],
   "references": [

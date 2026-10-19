@@ -157,19 +157,29 @@ void UnitManager::DespawnUnit( const size_t unit_id ) {
 	ASSERT( it != m_units.end(), "unit id not found" );
 
 	auto* unit = it->second;
+	const bool was_selected = m_selected_unit == unit;
+	if ( was_selected ) {
+		DeselectUnit();
+	}
+	if ( m_previously_deselected_unit == unit ) {
+		m_previously_deselected_unit = nullptr;
+	}
 
+	// Replacement selection reads tile membership. Detach the removed unit
+	// while it is alive so selection cannot pick its consumed backend id.
 	m_units.erase( it );
-
+	unit->GetTile()->RemoveUnit( unit );
 	if ( unit->IsOwned() ) {
 		RemoveSelectable( unit );
 	}
 
 	ASSERT( m_selected_unit != unit, "unit still selected" );
-
 	delete unit;
 
+	if ( was_selected ) {
+		SelectNextUnitOrSwitchToTileSelection();
+	}
 	m_game->RefreshSelectedTile( m_selected_unit );
-
 }
 
 void UnitManager::RefreshUnit( Unit* unit ) {
