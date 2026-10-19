@@ -1,6 +1,6 @@
 # Bounded original behavior contracts
 
-The seven contracts below have original executable observations and production
+The eight contracts below have original executable observations and production
 GLSMAC implementations exercised by the native and WASM candidate adapter.
 Agreement is bounded to the recorded cases and fixtures described here.
 Each reference probe executes only its
@@ -149,6 +149,45 @@ this contract. The GLSMAC helper is independently replayed on native and WASM;
 this transfer does not yet change the shipped Recycling Tanks cost or implement
 social engineering.
 
+## `unit.prototype_base_cost.v1`
+
+Input: `{chassis_id, weapon_id, armor_id, triad, chassis_cost, missile,
+offense, weapon_mode, weapon_cost, armor_cost, reactor}`.
+
+- Table slots: chassis ID 0 through 8, weapon ID 0 through 25, armor ID 0
+  through 13. These select synthetic original table records; they are not
+  semantic component types supplied by the candidate.
+- `triad`: integer 0 (land), 1 (sea), or 2 (air).
+- Each component cost: integer 1 through 32.
+- `missile`: boolean; `offense`: signed integer -1 through 127.
+- `weapon_mode`: integer 0 through 14; `reactor`: integer 1 through 4.
+
+Output: `{rows: integer}`, the original `proto_cost` result at `0x005A5A60`
+with ability mask fixed to zero. Rows precede map/faction mineral factors and
+prototype surcharges; they are not the final mineral cost of a built unit.
+
+Every case resets the selected chassis, weapon and armor records in a fresh
+emulator. Only the declared component fixture bytes may be read. Original
+instructions may reuse argument stack slots; the return address, stack balance,
+preserved registers, code/data boundaries and execution budgets remain checked.
+The executable image remains read-only and no original dependencies are replaced.
+
+The 5,528 observations include component matrices, cost/reactor boundaries,
+missile offense boundaries, slot independence, dense chassis and sea mode11
+sweeps, and 1,024 independently seeded samples captured after the candidate
+source was frozen. Every suite was recorded twice. These samples do not exhaust
+the valid input domain. Native and WASM replay call the same production header,
+`src/game/backend/unit/PrototypeCost.h`.
+The actual unit manager exposes the same read-only helper as
+`get_prototype_base_cost(chassis_cost, triad, missile, offense, weapon_mode,
+weapon_cost, armor_cost, reactor)`. The binding rejects out-of-contract values,
+types and argument counts before computation; the native regression suite also
+checks unchanged world snapshots after recorded witness queries.
+
+Abilities, design legality and availability, the shipped component database,
+full prototype surcharges, actual construction, and design UI remain outside
+this contract.
+
 ## Evidence files
 
 | Suite | Contracts | Cases | Original observations |
@@ -156,6 +195,10 @@ social engineering.
 | `cases/map-vector.json` | Both vector helpers | 296 | `observations/smacx-gog-2.0-map-vector.json` |
 | `cases/technology.json` | Four technology helpers | 632 | `observations/smacx-gog-2.0-technology.json` |
 | `cases/human-mineral-factor.json` | Human mineral cost factor without a base | 764 | `observations/smacx-gog-2.0-human-mineral-factor.json` |
+| `cases/prototype-base-cost.json` | Ability-free prototype mineral rows | 2,456 | `observations/smacx-gog-2.0-prototype-base-cost.json` |
+| `cases/prototype-cost-chassis-sweep.json` | Ability-free prototype mineral rows | 1,536 | `observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json` |
+| `cases/prototype-cost-sea-mode11.json` | Ability-free prototype mineral rows | 512 | `observations/smacx-gog-2.0-prototype-cost-sea-mode11.json` |
+| `cases/prototype-cost-held-out.json` | Ability-free prototype mineral rows | 1,024 | `observations/smacx-gog-2.0-prototype-cost-held-out.json` |
 
 All files are captured with `compare.py record`, requiring two identical runs
 and binding every case and its input hash. No expected output is calculated by
@@ -174,5 +217,5 @@ code/read/write boundaries and execution budgets remain guarded.
 
 Replay uses the real WASM GSE interpreter and shipped resource handler with
 controlled native inputs, without assets or pixels. It is not included in the
-1,782-case native/WASM C++ helper totals and does not establish native application
+7,310-case native/WASM C++ helper totals and does not establish native application
 execution, worked-tile yields, construction costs or complete base economy.

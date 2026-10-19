@@ -4,6 +4,7 @@
 #include "Def.h"
 #include "StaticDef.h"
 #include "Unit.h"
+#include "PrototypeCost.h"
 
 #include "game/backend/Game.h"
 #include "game/backend/animation/AnimationManager.h"
@@ -273,6 +274,26 @@ void UnitManager::PushUpdates() {
 WRAPIMPL_BEGIN( UnitManager )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
+		{
+			"get_prototype_base_cost", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 8 );
+				N_GETVALUE( chassis_cost, 0, Int );
+				N_GETVALUE( triad, 1, Int );
+				N_GETVALUE( missile, 2, Bool );
+				N_GETVALUE( offense, 3, Int );
+				N_GETVALUE( weapon_mode, 4, Int );
+				N_GETVALUE( weapon_cost, 5, Int );
+				N_GETVALUE( armor_cost, 6, Int );
+				N_GETVALUE( reactor, 7, Int );
+				if ( chassis_cost < 1 || chassis_cost > 32 || triad < 0 || triad > 2 ||
+					offense < -1 || offense > 127 || weapon_mode < 0 || weapon_mode > 14 ||
+					weapon_cost < 1 || weapon_cost > 32 || armor_cost < 1 || armor_cost > 32 ||
+					reactor < 1 || reactor > 4 ) {
+					GSE_ERROR( gse::EC.INVALID_CALL, "Prototype component query is outside supported bounds" );
+				}
+				return VALUE( gse::value::Int,, PrototypeBaseCost( chassis_cost, triad, missile, offense, weapon_mode, weapon_cost, armor_cost, reactor ) );
+			} )
+		},
 		{
 			"define_moraleset",
 			NATIVE_CALL( this ) {

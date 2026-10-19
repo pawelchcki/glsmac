@@ -81,6 +81,17 @@ class CandidateInputTests(unittest.TestCase):
             with self.subTest(algorithm=algorithm, key=key, value=value), self.assertRaises(ProtocolError):
                 glsmac.encode_input(algorithm, changed)
 
+    def test_prototype_inputs_reject_invalid_flags_and_component_bounds(self):
+        algorithm = "unit.prototype_base_cost.v1"
+        for key, value in (("chassis_id", 9), ("weapon_id", 26), ("armor_id", 14), ("triad", 3),
+                           ("chassis_cost", 0), ("weapon_cost", 33), ("armor_cost", 0),
+                           ("reactor", 0), ("reactor", 5), ("offense", -2), ("offense", 128),
+                           ("weapon_mode", 15), ("missile", 0), ("abilities", 0)):
+            changed = deepcopy(self.examples[algorithm])
+            changed[key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(ProtocolError):
+                glsmac.encode_input(algorithm, changed)
+
     def test_sparse_rows_reject_duplicates_extras_and_invalid_nested_values(self):
         row = {"id": 0, "prerequisites": [-1, -1], "owners": 0}
         invalid = [[row, row], [row] * 90, None]

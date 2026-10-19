@@ -21,6 +21,7 @@ ALGORITHMS = {
     "technology.available.v1": ("available", "available", bool),
     "technology.prerequisite.v1": ("prerequisite", "is_prerequisite", bool),
     "economy.human_mineral_factor.v1": ("human_mineral_factor", "factor", int),
+    "unit.prototype_base_cost.v1": ("prototype_base_cost", "rows", int),
 }
 DIRECTORY = Path(__file__).resolve().parent
 ROOT = DIRECTORY.parent.parent
@@ -96,6 +97,17 @@ def encode_input(algorithm, data):
             raise ProtocolError("expected boolean expansion_enabled flag")
         values = [integer(data["tech_id"], 0, 88), integer(data["faction_id"], 0, 7),
                   int(data["expansion_enabled"]), *technologies(data["technologies"])]
+    elif operation == "prototype_base_cost":
+        fields(data, {"chassis_id", "weapon_id", "armor_id", "triad", "chassis_cost", "missile",
+                      "offense", "weapon_mode", "weapon_cost", "armor_cost", "reactor"})
+        if type(data["missile"]) is not bool:
+            raise ProtocolError("expected boolean missile flag")
+        values = [integer(data["chassis_id"], 0, 8), integer(data["weapon_id"], 0, 25),
+                  integer(data["armor_id"], 0, 13), integer(data["triad"], 0, 2),
+                  integer(data["chassis_cost"], 1, 32), int(data["missile"]),
+                  integer(data["offense"], -1, 127), integer(data["weapon_mode"], 0, 14),
+                  integer(data["weapon_cost"], 1, 32), integer(data["armor_cost"], 1, 32),
+                  integer(data["reactor"], 1, 4)]
     elif operation == "human_mineral_factor":
         fields(data, {"faction_id", "map_size_level", "mineral_rule_factor", "industry"})
         values = [integer(data["faction_id"], 1, 7), integer(data["map_size_level"], 0, 4),
@@ -164,9 +176,9 @@ def main():
     write_response({
         "name": "glsmac", "kind": "candidate", "target": args.target,
         "sources": ["src/game/backend/map/tile/Geometry.h", "src/game/backend/technology/Table.cpp",
-                    "src/game/backend/base/ProductionCost.h"],
+                    "src/game/backend/base/ProductionCost.h", "src/game/backend/unit/PrototypeCost.h"],
         "algorithms": list(ALGORITHMS),
-        "scope": "Bounded geometry, technology and human mineral-factor helpers; excludes complete economy",
+        "scope": "Bounded geometry, technology, human mineral factors and no-ability prototype base costs; excludes complete economy",
     }, results)
 
 

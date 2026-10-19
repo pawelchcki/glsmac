@@ -49,6 +49,18 @@ class FixtureContractTests(unittest.TestCase):
             with self.subTest(update=update), self.assertRaises(original.ProtocolError):
                 original.validate_input(original.HUMAN_MINERAL_FACTOR, dict(valid, **update))
 
+    def test_prototype_fixture_rejects_abilities_and_out_of_scope_components(self):
+        valid = dict(chassis_id=0, weapon_id=8, armor_id=0, triad=0, chassis_cost=1,
+                     missile=False, offense=0, weapon_mode=8, weapon_cost=8, armor_cost=1, reactor=1)
+        original.validate_input(original.PROTOTYPE_BASE_COST, valid)
+        for update in ({"chassis_id": 9}, {"weapon_id": 26}, {"armor_id": 14}, {"triad": 3},
+                       {"chassis_cost": 0}, {"weapon_cost": 33}, {"armor_cost": 0},
+                       {"reactor": 0}, {"reactor": 5}, {"offense": -2}, {"offense": 128},
+                       {"weapon_mode": 15}, {"missile": 0}, {"abilities": 1},
+                       {"chassis_id": True}, {"weapon_cost": 8.0}):
+            with self.subTest(update=update), self.assertRaises(original.ProtocolError):
+                original.validate_input(original.PROTOTYPE_BASE_COST, dict(valid, **update))
+
     def test_base_square_fixture_rejects_unrecorded_shapes_and_nonbooleans(self):
         valid = dict(faction_id=1, base_id=0, x=0, y=0, land=True, river=False,
                      headquarters=False, recycling_tanks=False)
@@ -190,6 +202,27 @@ class EmulatorGuardTests(unittest.TestCase):
         tiles = fixture[0x009F0000]
         self.assertEqual(tiles[(2 * 2 + 1) * 44 + 2], 7)
         self.assertEqual(struct.unpack_from("<I", tiles, (2 * 2 + 1) * 44 + 8)[0], 0x81)
+
+    def test_prototype_fixture_supplies_selected_record_and_resets_costs(self):
+        entry = original.FUNCTIONS[original.PROTOTYPE_BASE_COST][1]
+        for chassis, weapon, armor in ((0, 0, 0), (4, 8, 6), (8, 25, 13)):
+            address = 0x0094AE60 + weapon * 16 + 11
+            # movzx eax,byte [weapon.cost]; ret: synthetic fixture guard only.
+            oracle = synthetic_oracle(b"\x0F\xB6\x05" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            for cost in (1, 32, 8):
+                values = dict(chassis_id=chassis, weapon_id=weapon, armor_id=armor, triad=0,
+                              chassis_cost=1, missile=False, offense=0, weapon_mode=8,
+                              weapon_cost=cost, armor_cost=1, reactor=1)
+                self.assertEqual(oracle.probe(original.PROTOTYPE_BASE_COST, values), {"rows": cost})
+
+    def test_prototype_fixture_rejects_uninitialized_neighbor_and_global_reads(self):
+        entry = original.FUNCTIONS[original.PROTOTYPE_BASE_COST][1]
+        values = dict(chassis_id=0, weapon_id=8, armor_id=0, triad=0, chassis_cost=1,
+                      missile=False, offense=0, weapon_mode=8, weapon_cost=8, armor_cost=1, reactor=1)
+        for address in (0x0094AE60 + 8 * 16 + 12, 0x00949750, 0x009AB538):
+            oracle = synthetic_oracle(b"\xA1" + struct.pack("<I", address) + b"\xC3", entry=entry)
+            with self.subTest(address=address), self.assertRaises(original.ProbeError):
+                oracle.probe(original.PROTOTYPE_BASE_COST, values)
 
     def test_fresh_memory_for_every_case(self):
         scratch = struct.pack("<I", original.STACK_BASE + 16)

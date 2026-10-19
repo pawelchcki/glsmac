@@ -50,6 +50,7 @@ TECH_AVAILABLE = "technology.available.v1"
 TECH_PREREQUISITE = "technology.prerequisite.v1"
 HUMAN_MINERAL_FACTOR = "economy.human_mineral_factor.v1"
 BASE_SQUARE_RESOURCES = "economy.base_square_resources.v1"
+PROTOTYPE_BASE_COST = "unit.prototype_base_cost.v1"
 BASE_RESOURCE_FUNCTIONS = {
     "NUTRIENTS": ("crop_yield (base square)", 0x004E6E50, 0x004E7306),
     "MINERALS": ("mine_yield (base square)", 0x004E7310, 0x004E7748),
@@ -67,6 +68,7 @@ TECH_STRIDE = 44
 TECH_OWNERS = 0x009A6670
 EXPANSION_ENABLED = 0x009A6488
 FUNCTIONS = {
+    PROTOTYPE_BASE_COST: ("proto_cost (no abilities)", 0x005A5A60, 0x005A5CE1),
     BASE_SQUARE_RESOURCES: BASE_RESOURCE_FUNCTIONS["NUTRIENTS"],
     ALGORITHM: ("x_dist", X_DIST, 0x005797C7),
     VECTOR_DISTANCE: ("vector_dist_2", 0x005A5910, 0x005A5987),
@@ -162,6 +164,17 @@ def validate_input(algorithm, values):
         _integer(values["mineral_rule_factor"], 1, 100, "mineral_rule_factor")
         _integer(values["industry"], -8, 10, "industry")
 
+    elif algorithm == PROTOTYPE_BASE_COST:
+        _fields(values, {"chassis_id", "weapon_id", "armor_id", "triad", "chassis_cost",
+                         "missile", "offense", "weapon_mode", "weapon_cost", "armor_cost", "reactor"})
+        for name, low, high in (("chassis_id", 0, 8), ("weapon_id", 0, 25), ("armor_id", 0, 13),
+                                ("triad", 0, 2), ("offense", -1, 127), ("weapon_mode", 0, 14),
+                                ("reactor", 1, 4)):
+            _integer(values[name], low, high, name)
+        for name in ("chassis_cost", "weapon_cost", "armor_cost"):
+            _integer(values[name], 1, 32, name)
+        if type(values["missile"]) is not bool:
+            raise ProtocolError("missile must be boolean")
     elif algorithm == BASE_SQUARE_RESOURCES:
         _fields(values, {"faction_id", "base_id", "x", "y", "land", "river", "headquarters", "recycling_tanks"})
         _integer(values["faction_id"], 1, 7, "faction_id")
@@ -253,6 +266,8 @@ class OriginalOracle:
                  "function": function[0], "address": f"0x{function[1]:08X}"}
                 for resource, function in BASE_RESOURCE_FUNCTIONS.items()
             ]
+        if PROTOTYPE_BASE_COST in algorithms:
+            result["adapter_version"] = 4
         return result
 
     def distance(self, values):
@@ -316,8 +331,24 @@ class OriginalOracle:
             (BASE_RESOURCE_CACHE, struct.pack("<i", 0)),
         )
 
+    @staticmethod
+    def prototype_fixture(values):
+        # Only the selected component records are initialized. Names, techs,
+        # abilities, world/faction state and non-read fields are outside scope.
+        return (
+            (0x0094A330 + values["chassis_id"] * 144 + 73,
+             bytes((values["triad"], 0, 0, values["chassis_cost"], int(values["missile"])))),
+            (0x0094AE60 + values["weapon_id"] * 16 + 8,
+             bytes((values["offense"] & 255, 0, values["weapon_mode"], values["weapon_cost"]))),
+            (0x0094F278 + values["armor_id"] * 16 + 10, bytes((values["armor_cost"],))),
+        )
+
     def probe(self, algorithm, values):
         validate_input(algorithm, values)
+        if algorithm == PROTOTYPE_BASE_COST:
+            arguments = tuple(values[name] for name in ("chassis_id", "weapon_id", "armor_id")) + (0, values["reactor"])
+            return {"rows": self.execute(algorithm, arguments, self.prototype_fixture(values),
+                                         allow_argument_writes=True)}
         if algorithm == BASE_SQUARE_RESOURCES:
             arguments = tuple(values[name] for name in ("faction_id", "base_id", "x", "y")) + (0,)
             return {resource: self.execute(

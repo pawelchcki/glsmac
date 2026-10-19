@@ -1,6 +1,7 @@
 #include "game/backend/map/tile/Geometry.h"
 #include "game/backend/technology/Table.h"
 #include "game/backend/base/ProductionCost.h"
+#include "game/backend/unit/PrototypeCost.h"
 
 #include <array>
 #include <cstdint>
@@ -69,6 +70,20 @@ int Evaluate( std::istringstream& input ) {
 			throw std::invalid_argument( "Invalid vector coordinates" );
 		}
 		return geometry::GetVectorDistance( x1, y1, x2, y2, width, flat );
+	}
+	if ( algorithm == "prototype_base_cost" ) {
+		// Record IDs place original fixture data; the production helper receives
+		// the explicit component properties stored in those selected records.
+		ReadInteger( input, 0, 8 ); ReadInteger( input, 0, 25 ); ReadInteger( input, 0, 13 );
+		const auto triad = ReadInteger( input, 0, 2 );
+		const auto chassis = ReadInteger( input, 1, 32 );
+		const auto missile = ReadInteger( input, 0, 1 );
+		const auto offense = ReadInteger( input, -1, 127 );
+		const auto mode = ReadInteger( input, 0, 14 );
+		const auto weapon = ReadInteger( input, 1, 32 );
+		const auto armor = ReadInteger( input, 1, 32 );
+		const auto reactor = ReadInteger( input, 1, 4 );
+		return game::backend::unit::PrototypeBaseCost( chassis, triad, missile, offense, mode, weapon, armor, reactor );
 	}
 	if ( algorithm == "human_mineral_factor" ) {
 		// Faction identity controls the original human fixture. GLSMAC's pure

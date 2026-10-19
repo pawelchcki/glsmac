@@ -26,6 +26,7 @@
     {"id":"base-production", "script":"GLSMAC_data/tests/base_production.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-production-ui", "script":"GLSMAC_data/tests/base_production_ui.gls.js", "domains":["ui","ux","economy"], "evidence":"glsmac-regression"},
     {"id":"player-copy-native", "script":"GLSMAC_data/tests/player_copy_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"prototype-cost-native", "script":"GLSMAC_data/tests/prototype_cost_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"base-work-snapshot-native", "script":"GLSMAC_data/tests/base_work_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"pop-snapshot-native", "script":"GLSMAC_data/tests/pop_snapshot_native.gls.js", "domains":["gameplay","economy"], "evidence":"glsmac-regression"},
     {"id":"colony-founding", "script":"GLSMAC_data/tests/colony_founding.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
@@ -40,6 +41,10 @@
     {"id":"same-row-distance", "cases":"cases/map-distance.json", "observations":"observations/smacx-gog-2.0-map-distance.json"},
     {"id":"vector-distance", "cases":"cases/map-vector.json", "observations":"observations/smacx-gog-2.0-map-vector.json"},
     {"id":"technology", "cases":"cases/technology.json", "observations":"observations/smacx-gog-2.0-technology.json"},
-    {"id":"human-mineral-factor", "cases":"cases/human-mineral-factor.json", "observations":"observations/smacx-gog-2.0-human-mineral-factor.json"}
+    {"id":"human-mineral-factor", "cases":"cases/human-mineral-factor.json", "observations":"observations/smacx-gog-2.0-human-mineral-factor.json"},
+    {"id": "prototype-base-cost", "cases": "cases/prototype-base-cost.json", "observations": "observations/smacx-gog-2.0-prototype-base-cost.json"},
+    {"id": "prototype-cost-chassis-sweep", "cases": "cases/prototype-cost-chassis-sweep.json", "observations": "observations/smacx-gog-2.0-prototype-cost-chassis-sweep.json"},
+    {"id": "prototype-cost-sea-mode11", "cases": "cases/prototype-cost-sea-mode11.json", "observations": "observations/smacx-gog-2.0-prototype-cost-sea-mode11.json"},
+    {"id": "prototype-cost-held-out", "cases": "cases/prototype-cost-held-out.json", "observations": "observations/smacx-gog-2.0-prototype-cost-held-out.json"}
   ]
 }

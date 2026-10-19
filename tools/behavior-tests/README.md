@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **451 scenarios and 2,762 assertions** across
-34 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **480 scenarios and 2,802 assertions** across
+35 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -193,7 +193,8 @@ contracts: raw/coordinate vector distance, technology possession, weight
 category, research availability, bounded prerequisite queries and the human
 mineral cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
-reference set contains **1,782 cases**. These probes cover small rule helpers; they do
+reference set also includes **5,528 ability-free prototype cost cases**, making
+**7,310 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -201,10 +202,10 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-1,782 native/WASM C++ helper cases. Run it with
+7,310 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
-All eight bounded C++ contracts are implemented by shared production GLSMAC helpers.
+All nine bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
@@ -217,7 +218,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **1,782 cases**. It runs independent reference suites in
+This checks all **7,310 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -399,3 +400,25 @@ With the optional dependencies installed, use the virtual environment's Python
 to also run emulator guard tests. Those tests contain explicitly synthetic x86
 instructions and need no original executable; without Unicorn they report
 skips. They are separate from the genuine game observations.
+
+## Ability-free prototype base costs
+
+The original-game replay additionally checks **5,528** synthetic unit component
+cases against `src/game/backend/unit/PrototypeCost.h`, on native C++ and WASM.
+The output is mineral rows before map/faction factors and prototype surcharges.
+The fixtures cover land, sea, air, reactor and component ranges, missile offense
+boundaries, selected weapon modes and table-slot independence. A further 1,024
+of these cases were recorded after the implementation was frozen.
+
+See [contracts.md](contracts.md) for exact bounds and evidence. This raises the
+C++ helper lane to 7,310 original cases; resource callback and UI traces remain
+separate. This arithmetic transfer does not yet make units constructible or
+establish full design, ability or production parity.
+
+`prototype-cost-native` also exercises the real unit manager's read-only
+`get_prototype_base_cost` binding with recorded witnesses, unchanged-world
+checks and invalid bounds/types/argument counts. The public query accepts eight
+component properties; original table slot IDs belong only to the reference
+fixture. Regenerate synthetic inputs with
+`python3 tools/behavior-tests/generate_prototype_cost.py --suite all`;
+observations require separate repeated original execution.

@@ -161,8 +161,8 @@
     },
     {
       "id": "unit-design",
-      "status": "unobserved",
-      "contracts": [],
+      "status": "partial",
+      "contracts": ["unit.prototype_base_cost.v1"],
       "remaining": [
         "Design components",
         "Abilities",
