@@ -26,6 +26,9 @@ const fixture = () => {
 		const unit = {};
 		unit.id = id; unit.owner = owner; unit.def = def;
 		unit.movement = 1.0; unit.health = 1.0; unit.is_land = true; unit.is_immovable = false;
+		// Declared native readiness boundary, not founding rules. Actual native
+		// order/turn behavior is checked by unit_orders_native/events suites.
+		unit.needs_orders = () => { return unit.movement > 0.0; };
 		unit.tile = { is_land: true, locked: false, base: null, units: [] };
 		unit.tile.is_locked = () => { return unit.tile.locked; };
 		unit.tile.get_base = () => { return unit.tile.base; };

@@ -119,24 +119,54 @@
     {
       "id": "paused-turn-scout-orders",
       "suite": "unit-orders",
-      "catalog": "pending-catalog.json",
+      "catalog": "catalog.json",
       "examples": [
         "initial",
         "hold-two-turns",
         "held-space-close-activate"
       ],
-      "status": "recorded-awaiting-transfer",
-      "property": "Two original passes record Hold/Activate/Skip, visible order/movement labels, two explicit paused turns, and idle Space opening a base with modal key blocking. Strict candidate replay currently errors on all 13 cases because its actual unit preview has no order label; persistent Hold and Activate controls/state are also absent. These failures are not included in passing totals.",
-      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders"
+      "status": "fixed-in-recorded-contract",
+      "property": "All 13 independently repeated original traces match real native units and shipped controls: Hold/Activate/Skip, movement/order labels, two explicit paused turns, idle Space opening a base, actual OK close and modal key blocking. Frontend browser integration is separate synthetic-world coverage.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite unit-orders",
+      "candidate_probes": [
+        {
+          "script": "GLSMAC_data/tests/unit_orders_controls.gls.js",
+          "status": "fixed-regression",
+          "first_failure": "Display node not found: button/text/HOLD"
+        },
+        {
+          "script": "GLSMAC_data/tests/unit_orders_native.gls.js",
+          "status": "fixed-regression",
+          "first_failure": "Native unit.get_order callable is missing"
+        },
+        {
+          "script": "GLSMAC_data/tests/unit_orders_events.gls.js",
+          "status": "fixed-regression",
+          "scope": "Authoritative validation, real movement rollback and exact live identity"
+        }
+      ]
+    },
+    {
+      "id": "rendered-exhausted-unit-focus",
+      "suite": "unit-orders",
+      "example": "skip-activate-hold-activate",
+      "lane": "synthetic-world-browser-integration",
+      "status": "fixed-in-browser-regression",
+      "property": "A frontend refresh cleared explicit exhausted-unit focus even when readiness stayed false. Removal now advances only for actual readiness-list membership; real SDL input checks focus and unchanged movement across repeated Activate.",
+      "strict_replay": "SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:unit-orders",
+      "first_failure": "Activate selects the real native unit, including when exhausted: null !== 1",
+      "scope": "Five selected paths in a declared synthetic one-Scout world; no added original-input parity cases."
     }
   ],
   "verification": {
-    "cases": 342,
-    "matched": 342,
+    "cases": 355,
+    "matched": 355,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "headless menu/controller/keyboard/citizen-job contracts and thirteen selected rendered menu paths; not full-game parity"
+    "scope": "Headless menu/controller/keyboard/citizen-job/paused-Scout contracts; selected rendered menu and synthetic-world gameplay checks are separate; not full-game parity",
+    "rendered_order_integration_cases": 5,
+    "rendered_order_integration_matched": 5
   }
 }

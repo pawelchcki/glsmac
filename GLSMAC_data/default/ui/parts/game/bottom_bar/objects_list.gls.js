@@ -49,12 +49,15 @@ return {
 		});
 	},
 
-	base_close_callback: (unit_id) => {
+	base_close_callback: (unit_id, base_id) => {
 		return (result) => {
 			this.clear_selection();
 			const unit = unit_id == null ? null : this.resolve_object('Unit', unit_id);
-			if (unit != null) {
+			const base = this.resolve_object('Base', base_id);
+			if (unit != null && base != null && unit.owner == this.p.game.get_player().id && unit.get_tile() == base.get_tile()) {
 				this.p.game.select_unit(unit);
+			} else if (base != null) {
+				this.p.game.select_tile(base.get_tile());
 			} else if (this.selected_tile != null) {
 				this.p.game.select_tile(this.selected_tile);
 			}
@@ -64,7 +67,10 @@ return {
 	schedule_base_selection: (id) => {
 		this.selection_epoch = this.selection_epoch + 1;
 		const epoch = this.selection_epoch;
-		const previous_unit_id = this.selected_type == 'Unit' ? this.selected_id : null;
+		let previous_unit_id = this.selected_type == 'Unit' ? this.selected_id : null;
+		if (previous_unit_id == null && #is_defined(this.p.sections.object_preview.order_focus_id)) {
+			previous_unit_id = this.p.sections.object_preview.order_focus_id;
+		}
 		this.set_active_item(null);
 		// Own the deferred callback so removed panels cannot open old dialogs.
 		this.frame.timer(0, () => {
@@ -77,7 +83,7 @@ return {
 			this.selected_type = 'Base'; this.selected_id = id;
 			const data = {}; data.base = base;
 			this.p.modules.popup.set('base_screen', data);
-			this.p.modules.popup.show('base_screen', this.base_close_callback(previous_unit_id));
+			this.p.modules.popup.show('base_screen', this.base_close_callback(previous_unit_id, id));
 			return false;
 		});
 	},
@@ -224,6 +230,7 @@ return {
 		this.bases = {};
 		this.active_item = null;
 		this.is_turn_active = true;
+		this.turn_status = 'active';
 
 		this.p = p;
 
@@ -304,7 +311,8 @@ return {
 		});
 
 		this.frame.listen(p.game, 'turn_status', (e) => {
-			this.is_turn_active = e.status == 'active';
+			this.turn_status = e.status;
+			this.is_turn_active = e.status == 'active' || e.status == 'turn_complete';
 		});
 
 		this.frame.on('keydown', (e) => {
@@ -312,13 +320,18 @@ return {
 				!this.p.modules.popup.is_shown() && // TODO: make universal key overrides in popups
 				this.is_turn_active && // TODO: override by turn complete button
 				e.modifiers == {} &&
-				e.code == 'ENTER'
+				(e.code == 'ENTER' || e.code == 'SPACE')
 			) {
+				// Enter at the paused ready boundary belongs to the real turn
+				// control. Space with no command-selected unit opens its base.
+				if (e.code == 'ENTER' && this.turn_status == 'turn_complete') { return false; }
+				if (e.code == 'SPACE' && this.p.sections.object_preview.selected_unit_id != null) { return false; }
 				// open base screen if base is present
 				for (base of this.bases) {
 					const current = this.resolve_object('Base', base.id);
-					if (current != null) { this.set_active_item(null); this.p.game.select_base(current); return true; }
+					if (current != null && (e.code != 'SPACE' || current.get_owner().id == this.p.game.get_player().id)) { this.set_active_item(null); this.p.game.select_base(current); return true; }
 				}
+				if (e.code == 'SPACE') { return true; }
 				if (this.get_selected_object() == null) {
 					// select first unit if nothing is selected
 					for (unit of this.units) {

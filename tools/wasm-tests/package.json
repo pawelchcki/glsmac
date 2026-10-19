@@ -6,8 +6,9 @@
     "node": ">=22.16"
   },
   "scripts": {
-    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node asset-bridge-build.mjs && node texture-upload-build.mjs && node smac-map-build.mjs",
-    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs texture-upload.test.mjs platform.test.mjs thread-runtime.test.mjs smac-map.test.mjs",
+    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node asset-bridge-build.mjs && node texture-upload-build.mjs && node smac-map-build.mjs && node buffer-copy-build.mjs",
+    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs texture-upload.test.mjs platform.test.mjs thread-runtime.test.mjs smac-map.test.mjs buffer-copy.test.mjs",
+    "test:buffers": "node buffer-copy-build.mjs && node --test buffer-copy.test.mjs",
     "test:app": "node --test app.test.mjs",
     "test:gse": "node gse.test.mjs",
     "test:fast": "python3 ../behavior-tests/fast.py",
@@ -20,6 +21,7 @@
     "test:assets": "node --test assets.test.mjs asset-bridge.test.mjs",
     "test:custom-maps": "node --test custom-maps.test.mjs",
     "test:gameplay": "node --test --test-concurrency=1 gameplay.test.mjs normal-game.test.mjs colony-production.test.mjs",
+    "test:unit-orders": "node --test --test-name-pattern=\"paused Scout orders\" gameplay.test.mjs",
     "test:normal-game": "node --test normal-game.test.mjs",
     "test:colony-production": "node --test colony-production.test.mjs",
     "test:game": "node --test game-assets.test.mjs",

@@ -18,12 +18,12 @@ from protocol import ProtocolError, probe_request
 DIRECTORY = Path(__file__).resolve().parent
 
 
-def load_references(catalog):
+def load_references(catalog, *, allow_empty=False):
     value = compare.read_json(catalog)
     if not isinstance(value, dict) or type(value.get("version")) is not int or value["version"] != 1:
         raise ProtocolError("invalid reference catalog version")
     references = value.get("references")
-    if not isinstance(references, list) or not references:
+    if not isinstance(references, list) or (not references and not allow_empty):
         raise ProtocolError("catalog requires a nonempty references array")
     ids = set()
     files = set()

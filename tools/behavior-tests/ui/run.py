@@ -90,7 +90,7 @@ def main(argv=None):
         raise ProtocolError("invalid worker/time budgets or --force without --record")
     if args.pending and args.render_smoke:
         raise ProtocolError("pending contracts are separate from the rendered passing profile")
-    references = audit.load_references(DIRECTORY / ("pending-catalog.json" if args.pending else "catalog.json"))
+    references = audit.load_references(DIRECTORY / ("pending-catalog.json" if args.pending else "catalog.json"), allow_empty=args.pending)
     if args.suite:
         unknown = set(args.suite) - {reference["id"] for reference in references}
         if unknown:
@@ -107,6 +107,9 @@ def main(argv=None):
                               "--timeout", str(args.step_timeout)])
     elif not args.validate_only:
         command = shlex.join([sys.executable, str(DIRECTORY / "headless.py"), "--jobs", str(args.jobs)])
+    if not references:
+        command = None
+        print("No recorded contracts are currently pending transfer; apps not executed.", flush=True)
     # Reject missing/corrupt evidence or accidental overwrites before booting apps.
     for reference in references:
         suite = compare.read_json(DIRECTORY / reference["cases"])
@@ -158,7 +161,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Paused-turn starting Scout orders and modal base opening; transfer pending, not full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation and bounded citizen-job choices/Psych bonus; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation, bounded citizen-job choices/Psych bonus and paused-turn Scout orders; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

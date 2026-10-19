@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen controls without graphics against 342 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 355 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **708 scenarios and 5,001 assertions** across
-53 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **744 scenarios and 5,318 assertions** across
+56 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -650,18 +650,38 @@ Its nine C++ synthetic scenarios/67 assertions run on native and WASM in CI.
 The optional audit compares installed source records and projections without
 running the original executable; those counts are never original-game parity.
 
-## Recorded orders awaiting transfer
+## Recorded unit orders
 
-There are additionally 13 frozen original `ui.unit_orders.v1` traces and 45
-checkpoints, recorded twice in fresh original processes with paused turns.
-Hold/Activate/Skip effects, exhausted-unit selection, two explicit turns and
-idle Space opening a base are observed. They are in the separate pending catalog:
+The default UI replay includes 13 frozen original `ui.unit_orders.v1` traces and
+45 checkpoints, recorded twice in fresh original processes with paused turns.
+They verify visible Hold/Activate/Skip effects, exhausted-unit selection, two
+explicit turns, idle Space opening a base, actual OK closing and modal key
+blocking. The candidate executes native units, actual turn advancement and
+shipped controls/events without pixels or original assets:
 
 ```sh
-python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders
+python3 tools/behavior-tests/ui/run.py --suite unit-orders
 ```
 
-This strict replay currently fails on missing actual unit order labels. Pending
-failures remain failures and are excluded from all passing totals. Their native
-order/control implementation follows the data-import batch; see the
-[bounded contract](ui/unit-orders-contract.md) and [known issues](ui/known-issues.json).
+Three additional regression suites provide 36 scenarios and 320 assertions for
+native order persistence/readiness, strict command validation, exact rollback,
+legacy/corrupt snapshot handling, frontend request propagation, pending controls,
+modal guards, focus restoration and callable/DOM lifetime. They are GLSMAC
+application invariants, separate from original-executable parity.
+
+Five optional browser paths replay recorded expectations through SDL, actual
+frontend selection and event transport on a declared synthetic one-Scout world:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:unit-orders
+```
+
+They add no original-input parity cases. The companion `test:buffers` command
+checks independent copied-buffer reads and appends under native AddressSanitizer
+and WASM. The allocator regression was found by the actual unit-codec probe.
+The browser checks caught a separate frontend refresh defect that cleared
+explicit exhausted-unit focus; the selected unit must now settle along with
+the native order and visible labels before another command is sent.
+See the [bounded order contract](ui/unit-orders-contract.md) and
+[transfer inventory](properties.json) for exclusions. The pending catalog is
+currently empty; future red probes remain separate and never count as matches.

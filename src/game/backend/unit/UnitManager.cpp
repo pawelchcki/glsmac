@@ -34,6 +34,7 @@ UnitManager::UnitManager( Game* game, const bool register_with_gc )
 }
 
 UnitManager::~UnitManager() {
+	*m_ready_handle = nullptr;
 	Clear();
 }
 
@@ -213,6 +214,13 @@ void UnitManager::ProcessUnprocessed( GSE_CALLABLE ) {
 	m_unprocessed_units.clear();
 }
 
+bool UnitManager::HasReadyUnit( const size_t owner_id ) const {
+	for ( const auto& entry : m_units ) {
+		if ( entry.second->m_owner->GetIndex() == owner_id && entry.second->NeedsOrders() ) { return true; }
+	}
+	return false;
+}
+
 void UnitManager::PushUpdates() {
 	if ( m_game->IsRunning() && !m_unit_updates.empty() ) {
 		for ( const auto& it : m_unit_updates ) {
@@ -240,6 +248,7 @@ void UnitManager::PushUpdates() {
 				fr.data.unit_spawn.morale = unit->m_morale;
 				NEW( fr.data.unit_spawn.morale_string, std::string, unit->GetMoraleString() );
 				fr.data.unit_spawn.health = unit->m_health;
+				fr.data.unit_spawn.order = unit->GetOrder();
 				m_game->AddFrontendRequest( fr );
 			}
 			if ( uu.ops & UUO_REFRESH ) {
@@ -247,6 +256,7 @@ void UnitManager::PushUpdates() {
 				fr.data.unit_update.unit_id = unit->m_id;
 				fr.data.unit_update.movement = unit->m_movement;
 				fr.data.unit_update.health = unit->m_health;
+				fr.data.unit_update.order = unit->GetOrder();
 				const auto* tile = unit->GetTile();
 				fr.data.unit_update.tile_coords = {
 					tile->coord.x,
@@ -274,6 +284,15 @@ void UnitManager::PushUpdates() {
 WRAPIMPL_BEGIN( UnitManager )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
+		{
+			"has_ready_unit", NATIVE_CALL( handle = m_ready_handle ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( owner_id, 0, Int );
+				auto* manager = *handle;
+				if ( !manager ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit manager no longer exists" ); }
+				if ( owner_id < 0 || static_cast< uint64_t >( owner_id ) >= manager->m_game->GetState()->m_slots->GetSlots().size() ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unknown unit owner" ); }
+				return VALUE( gse::value::Bool,, manager->HasReadyUnit( static_cast< size_t >( owner_id ) ) );
+			} )
+		},
 		{
 			"get_prototype_base_cost", NATIVE_CALL( this ) {
 				N_EXPECT_ARGS( 8 );

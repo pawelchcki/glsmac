@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "gse/Wrappable.h"
 #include "game/backend/MapObject.h"
@@ -42,7 +43,7 @@ public:
 		const health_t health,
 		const bool moved_this_turn
 	);
-	virtual ~Unit() = default;
+	virtual ~Unit();
 
 	const size_t m_id;
 	Def* m_def;
@@ -58,6 +59,9 @@ public:
 	static const movement_t MINIMUM_MOVEMENT_TO_KEEP;
 	static const movement_t MINIMUM_HEALTH_TO_KEEP;
 	const bool HasMovesLeft() const;
+	const bool NeedsOrders() const;
+	order_t GetOrder() const;
+	void SetOrder( order_t order );
 
 	const std::string& GetMoraleString() const;
 
@@ -72,6 +76,10 @@ public:
 
 private:
 	UnitManager* const m_um;
+	order_t m_order = order_t::NO_ORDERS;
+	// Native callables can outlive their wrapper and even their manager.
+	const std::shared_ptr< Unit* > m_order_handle = std::make_shared< Unit* >( this );
+	void CheckLive( GSE_CALLABLE ) const;
 
 };
 

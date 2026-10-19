@@ -2,8 +2,49 @@ const colony = #include('../../../../game/colony');
 
 return {
 
+	get_order_unit: (activate) => {
+		if (!this.is_turn_active || this.order_pending != null || this.founding_pending_id != null || this.p.modules.popup.is_shown()) { return null; }
+		const id = activate && this.selected_unit_id == null ? this.order_focus_id : this.selected_unit_id;
+		if (id == null || !this.um.has_unit(id)) { return null; }
+		const unit = this.um.get_unit(id);
+		if (unit.owner != this.p.game.get_player().id || unit.is_immovable || unit.health <= 0.0 || unit.get_tile().is_locked()) { return null; }
+		return unit;
+	},
+
+	update_order_buttons: () => {
+		this.hold_button.class = this.get_order_unit(false) == null ? 'unit-hold-button-disabled' : 'unit-hold-button-enabled';
+		this.activate_button.class = this.get_order_unit(true) == null ? 'unit-activate-button-disabled' : 'unit-activate-button-enabled';
+	},
+
+	submit_unit_order: (name) => {
+		const unit = name == 'unit_skip_turn' ? this.get_skip_unit() : this.get_order_unit(name == 'unit_activate');
+		if (unit == null) { return name != 'unit_skip_turn' || this.selected_unit_id != null; }
+		this.order_pending = { name: name, unit_id: unit.id };
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		this.p.game.event(name, { unit_id: unit.id });
+		return true;
+	},
+
+	finish_unit_order: (e) => {
+		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id || e.data.unit_id != this.order_pending.unit_id) { return false; }
+		const pending = this.order_pending; this.order_pending = null;
+		if (e.success && this.um.has_unit(pending.unit_id)) {
+			const unit = this.um.get_unit(pending.unit_id);
+			if (this.rendered_unit_id == unit.id) { this.set_lines(unit); }
+			if (pending.name == 'unit_activate') {
+				if (this.selected_unit_id == unit.id || (this.selected_unit_id == null && this.order_focus_id == unit.id)) { this.p.game.select_unit(unit); }
+			} else if (this.selected_unit_id == unit.id) {
+				this.selected_unit_id = null;
+				// Retain the real frontend's next-unit selection when other units
+				// need orders. With none left, explicitly select this actual tile.
+				if (!this.um.has_ready_unit(this.p.game.get_player().id)) { this.p.game.select_tile(unit.get_tile()); }
+			}
+		}
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+	},
+
 	get_found_unit: () => {
-		if (this.selected_unit_id == null || this.founding_pending_id != null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
+		if (this.selected_unit_id == null || this.founding_pending_id != null || this.order_pending != null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
 			return null;
 		}
 		if (!this.um.has_unit(this.selected_unit_id)) {
@@ -37,7 +78,7 @@ return {
 	},
 
 	get_skip_unit: () => {
-		if (this.selected_unit_id == null || this.selected_unit_id == this.founding_pending_id || !this.is_turn_active || this.p.modules.popup.is_shown()) {
+		if (this.selected_unit_id == null || this.selected_unit_id == this.founding_pending_id || this.order_pending != null || !this.is_turn_active || this.p.modules.popup.is_shown()) {
 			return null;
 		}
 		if (!this.um.has_unit(this.selected_unit_id)) {
@@ -45,7 +86,7 @@ return {
 			return null;
 		}
 		const unit = this.um.get_unit(this.selected_unit_id);
-		if (unit.owner != this.p.game.get_player().id || unit.is_immovable || unit.movement <= 0.0 || unit.get_tile().is_locked()) {
+		if (unit.owner != this.p.game.get_player().id || unit.is_immovable || unit.health <= 0.0 || !unit.needs_orders() || unit.get_tile().is_locked()) {
 			return null;
 		}
 		return unit;
@@ -71,7 +112,9 @@ return {
 	},
 
 	format_movement: (movement) => {
-		return #to_string(#to_float(#round(movement * 100.0)) / 100.0);
+		const rounded = #to_float(#round(movement * 100.0)) / 100.0;
+		const integral = #round(rounded);
+		return rounded == #to_float(integral) ? #to_string(integral) : #to_string(rounded);
 	},
 
 	set_image: (object) => {
@@ -120,6 +163,9 @@ return {
 	},
 
 	set_lines: (object) => {
+		this.rendered_unit_id = null;
+		this.movement_label = null;
+		this.order_label = null;
 
 		if (#is_defined(this.lines)) {
 			this.lines.remove(); // TODO: fix this.lines.clear();
@@ -133,9 +179,9 @@ return {
 		this.lines = this.frame.listview({
 			left: 3,
 			right: 3,
-			top: 86,
-			bottom: 30,
-			itemsize: 17,
+			top: 75,
+			bottom: 48,
+			itemsize: 13,
 		});
 
 		const f_line = (text, size, align) => {
@@ -143,7 +189,7 @@ return {
 			if (align == 'left') {
 				left = 3;
 			}
-			this.lines.text({
+			return this.lines.text({
 				align: 'top ' + align,
 				color: 'rgb(116,156,56)',
 				font: 'arialnb.ttf:' + #to_string(size),
@@ -155,19 +201,24 @@ return {
 		switch (#classof(object)) {
 			case 'Unit': {
 				const def = object.get_def();
+				this.rendered_unit_id = object.id;
+				this.rendered_movement = object.movement + 0.0;
+				this.rendered_order = object.get_order();
 
-				f_line(def.name, 16, 'center');
+				f_line(def.name, 13, 'center');
 
 				if (def.id == 'ColonyPod') {
-					f_line('Civilian', 14, 'left');
+					f_line('Civilian', 12, 'left');
 				} else {
-					f_line(this.p.get_stats_str(object), 14, 'center');
-					f_line(this.get_morale('NATIVE', object.morale), 14, 'left');
+					f_line(this.p.get_stats_str(object), 12, 'center');
+					f_line(this.get_morale('NATIVE', object.morale), 12, 'left');
 				}
 
 				if (!object.is_immovable) {
-					f_line('Moves: ' + this.format_movement(object.movement), 14, 'left');
+					this.movement_label = f_line(object.movement > 0.0 ? 'Moves: ' + this.format_movement(object.movement) : 'ALREADY MOVED', 12, 'left');
 				}
+				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD') { throw Error('Unknown unit order: ' + this.rendered_order); }
+				this.order_label = f_line(this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS', 12, 'left');
 
 				break;
 			}
@@ -196,6 +247,9 @@ return {
 		this.last_object_class = null;
 		this.moralesets = {};
 		this.selected_unit_id = null;
+		this.order_focus_id = null;
+		this.order_pending = null;
+		this.rendered_unit_id = null;
 		this.is_turn_active = true;
 		this.skip_available = false;
 		this.founding_pending_id = null;
@@ -206,7 +260,7 @@ return {
 
 		p.ui.class('bottombar-object-preview').set({
 			align: 'top center',
-			top: 12,
+			top: 1,
 			width: 100,
 			height: 75,
 		});
@@ -248,17 +302,17 @@ return {
 			class: 'unit-skip-button-disabled',
 			text: 'SKIP TURN',
 		});
-		this.skip_button.on('click', (e) => {
-			const unit = this.get_skip_unit();
-			if (unit != null) {
-				const data = {};
-				data.unit = unit;
-				// The existing event owns validation and consumes the remaining moves.
-				this.p.game.event('unit_skip_turn', data);
-			}
-			this.update_skip_button();
-			return true;
-		});
+		this.skip_button.on('click', (e) => { this.submit_unit_order('unit_skip_turn'); return true; });
+		for (name of ['hold', 'activate']) {
+			const command = name;
+			const left = command == 'hold';
+			const cls = 'unit-' + command + '-button';
+			p.ui.class(cls + '-enabled').extend('unit-skip-button-enabled').set({ bottom: 27, height: 18, font: 'arialnb.ttf:10', left: left ? 3 : 63, right: left ? 63 : 3 });
+			p.ui.class(cls + '-disabled').extend('unit-skip-button-disabled').set({ bottom: 27, height: 18, font: 'arialnb.ttf:10', left: left ? 3 : 63, right: left ? 63 : 3 });
+			const button = this.frame.button({ class: cls + '-disabled', text: #uppercase(command) });
+			button.on('click', (e) => { this.submit_unit_order('unit_' + command); return true; });
+			if (left) { this.hold_button = button; } else { this.activate_button = button; }
+		}
 		p.ui.class('unit-found-button').extend('unit-skip-button').set({
 			left: 3,
 			right: 63,
@@ -278,12 +332,18 @@ return {
 		// A panel-local listener is removed with this DOM owner. Child-first
 		// routing lets modal windows consume keys before this command panel.
 		this.frame.on('keydown', (e) => {
+			if (e.modifiers == {} && !this.p.modules.popup.is_shown() && this.is_turn_active) {
+				if (e.code == 'H') { return this.submit_unit_order('unit_hold'); }
+				if (e.code == 'A') { return this.submit_unit_order('unit_activate'); }
+				if (e.code == 'SPACE') { return this.submit_unit_order('unit_skip_turn'); }
+			}
 			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
 				return this.found_selected_base();
 			}
 			return false;
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
+			this.finish_unit_order(e);
 			if (e.name == 'found_base' && e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id) {
 				this.founding_pending_id = null;
 				this.update_found_button();
@@ -293,26 +353,42 @@ return {
 
 		this.frame.listen(p.game, 'unit_select', (e) => {
 			this.selected_unit_id = e.unit.id;
+			this.order_focus_id = e.unit.id;
+			this.update_order_buttons();
 			this.update_skip_button();
 			this.update_found_button();
 		});
 		for (event of ['tile_select', 'base_select', 'turn']) {
+			const kind = event;
 			this.frame.listen(p.game, event, (e) => {
 				this.selected_unit_id = null;
+				let tile = null;
+				if (kind == 'tile_select' && #is_defined(e.tile)) { tile = e.tile; }
+				if (kind == 'base_select' && #is_defined(e.base)) { tile = e.base.get_tile(); }
+				if (tile != null && this.order_focus_id != null && this.um.has_unit(this.order_focus_id)) {
+					if (this.um.get_unit(this.order_focus_id).get_tile() != tile) { this.order_focus_id = null; }
+				}
+				this.update_order_buttons();
 				this.update_skip_button();
 				this.update_found_button();
 			});
 		}
 		this.frame.listen(p.game, 'turn_status', (e) => {
-			this.is_turn_active = e.status == 'active';
+			this.is_turn_active = e.status == 'active' || e.status == 'turn_complete';
+			this.update_order_buttons();
 			this.update_skip_button();
 			this.update_found_button();
 		});
 		// Movement and temporary tile locks change without a scripted UI update
 		// event. This timer belongs to the panel and stops when the UI is removed.
 		this.frame.timer(100, () => {
+			this.update_order_buttons();
 			this.update_skip_button();
 			this.update_found_button();
+			if (this.rendered_unit_id != null && this.um.has_unit(this.rendered_unit_id)) {
+				const unit = this.um.get_unit(this.rendered_unit_id);
+				if (unit.movement != this.rendered_movement || unit.get_order() != this.rendered_order) { this.set_lines(unit); }
+			}
 			return true;
 		});
 

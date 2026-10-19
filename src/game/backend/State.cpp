@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "GLSMAC.h"
 #include "gc/Space.h"
+#include "gse/ExecutionPointer.h"
+#include "gse/context/Context.h"
 
 namespace game {
 namespace backend {
@@ -186,9 +188,12 @@ faction::FactionManager* State::GetFM() const {
 }
 
 gse::Value* const State::TriggerObject( gse::GCWrappable* object, const std::string& event, const gse::f_args_t& f_args ) {
-	ASSERT( m_glsmac, "glsmac not set" );
 	CHECKACCUM( m_gc_space );
-	return m_glsmac->TriggerObject( object, event, f_args );
+	// State already owns the script context used by WithGSE. Dispatch here
+	// rather than requiring the application's UI/singleton just to call the
+	// same native Wrappable dispatcher (including in asset-free fixtures).
+	gse::ExecutionPointer ep;
+	return object->Trigger( m_gc_space, m_ctx, {}, ep, event, f_args );
 }
 
 WRAPIMPL_BEGIN( State )
@@ -221,6 +226,9 @@ void State::GetReachableObjects( std::unordered_set< Object* >& reachable_object
 	gse::GCWrappable::GetReachableObjects( reachable_objects );
 
 	GC_DEBUG_BEGIN( "State" );
+	GC_DEBUG_BEGIN( "context" );
+	GC_REACHABLE( m_ctx );
+	GC_DEBUG_END();
 
 	if ( m_game ) {
 		GC_DEBUG_BEGIN( "game" );

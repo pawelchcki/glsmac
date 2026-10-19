@@ -1,24 +1,20 @@
+const orders = #include('../unit_orders');
 return {
 
 	validate: (e) => {
-		const unit = e.data.unit;
-		if (unit.owner != e.caller) {
-			return 'Unit can only be moved by it\'s owner';
-		}
-		if (unit.get_tile().is_locked()) {
-			return 'Unit tile is locked';
-		}
-		if (unit.movement <= 0.0) {
-			return 'Unit is out of moves';
-		}
+		return orders.validate(e, true);
 	},
 
 	apply: (e) => {
-		const unit = e.data.unit;
+		const unit = orders.apply_unit(e, true);
 
 		const result = {
-			original_movement: unit.movement,
+			// Numeric native fields are live Ptr values. Materialize a value
+			// before mutation so rollback does not retain a reference to zero.
+			original_movement: unit.movement + 0.0,
+			owner: unit.owner,
 		};
+		result.unit = unit;
 
 		unit.movement = 0.0;
 
@@ -26,7 +22,7 @@ return {
 	},
 
 	rollback: (e) => {
-		const unit = e.data.unit;
+		const unit = orders.rollback_unit(e);
 		unit.movement = e.applied.original_movement;
 	},
 

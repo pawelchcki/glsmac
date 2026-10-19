@@ -36,8 +36,9 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `ui.menu_trace.v1` (re-entry) | 14 | Remembered size, nondefault difficulty return paths, partial custom answers and completed custom cancellation; 104 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 | `ui.map_size_keyboard.v1` | 4 | Final menu after Enter/Escape in untouched custom dimensions, on random/custom routes | Real original application in Wine/Xvfb; recorded twice |
 | `ui.citizen_job.v1` | 14 | Starting Worker/Doctor choices, highlight, draft/confirm/cancel, keyboard behavior and visible Psych bonus; 67 checkpoints | Real original application in Wine/Xvfb; recorded twice |
+| `ui.unit_orders.v1` | 13 | Paused-turn Scout Hold/Activate/Skip, two advances, idle Space base opening, actual OK close and modal key blocking; 45 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 
-There are 342 recorded cases in total. `generate_navigation.py` generates only
+There are 355 recorded cases in total. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -139,9 +140,10 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 342 recorded cases now agree after production fixes to choices,
-selection, wrapping and cancellation. This does not cover Scenario child actions
-or custom-dimension values, units and validation limits. These totals remain separate from the
+any failures. All 355 recorded cases now agree after production fixes to choices,
+selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
+does not cover Scenario child actions, custom-dimension limits or other unit
+types/orders. These totals remain separate from the
 regression and helper-comparison catalogs. CI validates evidence and requires
 the strict headless parity check.
 
@@ -210,22 +212,23 @@ synthetic inputs belong in version control. The current rendered observer
 supports sliding menus; other modal styles need dedicated observers.
 
 
-## Pending original order controls
+## Original order controls
 
-[The pending catalog](pending-catalog.json) retains 13 independently repeated
-starting-Scout order sequences and 45 checkpoints under `ui.unit_orders.v1`.
-It checks actual order/movement labels, paused turn progression, idle Space
-opening a base, closing its actual OK control and modal command blocking.
-The production candidate currently fails all 13 cases on its missing order
-label. These are known failures, not additional passing UI comparisons.
+The default catalog includes 13 independently repeated starting-Scout order
+sequences and 45 checkpoints under `ui.unit_orders.v1`. Candidate replay uses
+actual native units/turns and shipped command controls without pixels or assets:
 
 ```sh
-python3 tools/behavior-tests/ui/run.py --pending --suite unit-orders
-python3 tools/behavior-tests/ui/run.py --pending --validate-only
+python3 tools/behavior-tests/ui/run.py --suite unit-orders
 ```
 
-The first command executes the strict candidate and returns nonzero on current
-failures. The second only validates immutable evidence. The successful recorder
-normalized indexed screenshots to RGB before OCR and kept a fresh observer per
-case; prior observer/setup failures remain local research artifacts. See the
-[precise input/output scope](unit-orders-contract.md).
+Display, initial selection and event notification delivery are declared boundaries;
+commands and turn effects are executed by production code. Optional synthetic-world
+browser paths additionally check the actual frontend and SDL input. These do not
+add original-input parity cases. See the [precise scope](unit-orders-contract.md).
+
+The [pending catalog](pending-catalog.json) is currently empty after promotion.
+`--pending` remains a strict replay of future recorded gaps; an empty queue reports
+no execution and no matches. It does not establish complete game parity. The
+successful original recorder normalized indexed screenshots to RGB before OCR;
+prior observer/setup failures remain local research artifacts.

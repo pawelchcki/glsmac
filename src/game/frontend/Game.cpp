@@ -1044,7 +1044,7 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 		}
 		case FrontendRequest::FR_UNIT_SELECT: {
 			auto* const unit = m_um->GetUnitById( request->data.unit_select.unit_id );
-			if ( unit && unit->IsActive() ) {
+			if ( unit && unit->IsOwned() ) {
 				m_um->SelectUnit( unit, true );
 				ScrollToTile( unit->GetTile(), true );
 			}
@@ -1089,7 +1089,8 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 				d.movement,
 				d.morale,
 				*d.morale_string,
-				d.health
+				d.health,
+				d.order
 			);
 			break;
 		}
@@ -1103,6 +1104,7 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 			ASSERT( unit, "unit is null" );
 			unit->SetMovement( d.movement );
 			unit->SetHealth( d.health );
+			unit->SetOrder( d.order );
 			const auto& c = unit->GetTile()->GetCoords();
 			if ( d.tile_coords.x != c.x || d.tile_coords.y != c.y ) {
 				/*MoveUnit(

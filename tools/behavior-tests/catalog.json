@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"unit-orders-events", "script":"GLSMAC_data/tests/unit_orders_events.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
+    {"id":"unit-orders-controls", "script":"GLSMAC_data/tests/unit_orders_controls.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"unit-orders-native", "script":"GLSMAC_data/tests/unit_orders_native.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
     {"id":"smac-text-loader", "script":"GLSMAC_data/tests/smac_text_loader.gls.js", "domains":["gameplay","ui"], "evidence":"glsmac-regression"},
     {"id":"smac-data-menu", "script":"GLSMAC_data/tests/smac_data_menu.gls.js", "domains":["ui","ux"], "evidence":"glsmac-regression"},
     {"id":"citizen-job-lifecycle", "script":"GLSMAC_data/tests/citizen_job_lifecycle.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},

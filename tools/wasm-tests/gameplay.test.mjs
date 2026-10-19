@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
+import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
 
@@ -250,6 +251,56 @@ return (game) => {
   game.event('spawn_unit', { owner: owner, tile: tile, type: 'ColonyPod', health: 1.0, morale: 1 });
 };
 `;
+
+// Declared one-move land Scout and synthetic terrain, with installed artwork.
+// This exercises real frontend selection/transport; it adds no original-input
+// parity count. The exact recorded Scout commands are replayed headlessly too.
+const ordersWorldScript = String.raw`
+return (game) => {
+  const owner = game.get_player();
+  const tile = game.get_tm().get_tile(8, 8);
+  game.event('define_unit', { id: 'Scout', data: {
+    name: 'Scout', morale: 'NATIVE', type: 'static',
+    movement_type: 'land', movement_per_turn: 1,
+    render: { type: 'sprite', file: 'units.pcx', x: 2, y: 233,
+      w: 100, h: 75, cx: 53, cy: 284, morale_based_xshift: 102 },
+  } });
+  game.event('spawn_base', { owner: owner, tile: tile, facilities: ['HEADQUARTERS'] });
+  game.event('spawn_unit', { owner: owner, tile: tile, type: 'Scout', health: 1.0, morale: 2 });
+};
+`;
+
+// Read-only timer observes real text nodes, native state, modal completion and
+// command selection. It never supplies events, selects a unit or advances time.
+// Emit every tick so a no-op key has a fresh post-input observation as well.
+const ordersMainScript = mainScript.replace('  glsmac.run();', String.raw`
+  glsmac.on('configure_game', (e) => {
+    const game = e.game;
+    let order_status = 'none';
+    let order_seen_unit = false;
+    game.on('turn_status', (e) => { order_status = e.status; });
+    game.on('event_result', (e) => {
+      if (!e.success) { #print('ORDER_REJECTED|' + e.name); }
+    });
+    game.on('start_ui', (e) => {
+      glsmac.ui.root.timer(100, () => {
+        if (!game.get_um().has_unit(1)) {
+          if (order_seen_unit) { #print('ORDER_UNIT_MISSING'); }
+          return true;
+        }
+        order_seen_unit = true;
+        const unit = game.get_um().get_unit(1);
+        let movement_text = 'MISSING'; let order_text = 'MISSING';
+        if (#is_defined(command_panel.movement_label) && command_panel.movement_label != null) { movement_text = command_panel.movement_label.text; }
+        if (#is_defined(command_panel.order_label) && command_panel.order_label != null) { order_text = command_panel.order_label.text; }
+        const screen = popups.is_shown() ? 'base' : 'world';
+        #print('ORDER_STATE|' + #to_string(game.get_year()) + '|' + #to_string(unit.movement) + '|' + unit.get_order() + '|' + movement_text + '|' + order_text + '|' + screen + '|' + #to_string(popups.sliding_timer == null) + '|' + #to_string(command_panel.selected_unit_id) + '|' + order_status);
+        return true;
+      });
+    });
+  });
+  glsmac.run();
+`);
 
 // A separate declared fixture leaves population initialization to the normal
 // base lifecycle. Only imported terrain differs: the northern nutrient square
@@ -1167,3 +1218,89 @@ test('citizen portraits open the real job chooser and commit Worker Doctor chang
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running');
   t.diagnostic('Actual portrait/mouse/keyboard controls preserved Worker and Doctor drafts through clamp/Home/End and cancellation, committed one real Doctor with visible +2 Psych, then restored the same Worker and native links without changing food, minerals, project or turn. Rendered choices/effect/bonus use public citizen-job witnesses; this synthetic-world application flow adds no original-input parity case.');
 });
+
+for (const witness of ['hold-two-turns', 'skip-hold-activate', 'skip-activate-hold-activate',
+  'held-space-close-activate', 'hold-skip-activate']) {
+  test(`paused Scout orders use real browser controls: ${witness}`, {
+    skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
+    timeout: 120000,
+  }, async (t) => {
+    const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/cases/unit-orders.json`, 'utf8')).cases;
+    const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/observations/smacx-gog-2.0-unit-orders.json`, 'utf8')).observations;
+    const item = cases.find(({ id }) => id === witness);
+    const record = observations.find(({ id }) => id === witness);
+    assert.ok(item && record, 'Public original order witness exists');
+    const { page, waitForLog, screenshot } = await startGame(t, ordersWorldScript, `orders-${witness}`, {
+      mainScript: ordersMainScript,
+      fatal: /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|ORDER_REJECTED|ORDER_UNIT_MISSING/,
+    });
+    const states = async () => {
+      const log = await page.locator('#log').textContent();
+      return [...log.matchAll(/ORDER_STATE\|([^\r\n]*)/g)].map((match) => {
+        const p = match[1].split('|');
+        assert.equal(p.length, 9, 'Complete read-only order observation');
+        return { year: +p[0], movement: +p[1], order: p[2], movementText: p[3].toUpperCase(),
+          orderText: p[4].toUpperCase(), screen: p[5], settled: p[6] === 'true', selected: p[7], status: p[8] };
+      });
+    };
+    const checkpoint = async (expected, initialYear, previousCount, selected) => {
+      const deadline = Date.now() + 20000;
+      let last = null, matching = 0, seen = previousCount;
+      while (Date.now() < deadline) {
+        await waitForLog('ORDER_STATE|', seen + 1, Math.max(1, deadline - Date.now()));
+        const samples = await states();
+        seen = samples.length;
+        const actual = samples.at(-1);
+        const trace = { screen: actual.screen, year_delta: actual.year - initialYear };
+        if (actual.screen === 'world') {
+          trace.movement_label = actual.movementText; trace.order_label = actual.orderText;
+        }
+        last = { actual, trace };
+        // Native event results update text before the frontend delivers its
+        // unit_select notification. Require both effects before the next key.
+        if (actual.settled && isDeepStrictEqual(trace, expected)
+          && (selected === undefined || actual.selected === selected)) {
+          matching += 1;
+          if (matching >= 2) {
+            if (actual.screen === 'world') {
+              assert.equal(actual.order, expected.order_label === 'HOLD' ? 'HOLD' : 'NO_ORDERS', 'Native order agrees with visible text');
+              assert.equal(actual.movement, expected.movement_label === 'ALREADY MOVED' ? 0 : 1, 'Native movement agrees with visible text');
+            }
+            return actual;
+          }
+        } else { matching = 0; }
+      }
+      assert.deepEqual(last?.trace, expected, `Real rendered command checkpoint; native state ${JSON.stringify(last?.actual)}`);
+      assert.fail('The rendered checkpoint did not settle twice');
+    };
+    await waitForLog('ORDER_STATE|');
+    const initialYear = (await states()).at(-1).year;
+    const expectedTrace = record.output.trace.map((row) => {
+      const result = { screen: row.screen, year_delta: row.year_delta };
+      if (row.screen === 'world') { result.movement_label = row.movement_label; result.order_label = row.order_label; }
+      return result;
+    });
+    await checkpoint(expectedTrace[0], initialYear, 0, '1');
+    const keys = { hold: 'h', activate: 'a', skip: 'Space', advance: 'Enter' };
+    for (let index = 0; index < item.input.actions.length; ++index) {
+      const action = item.input.actions[index];
+      const before = (await states()).length;
+      if (action === 'close_base') { await clickCanvas(page, 620, 505); }
+      else if (witness === 'hold-two-turns' && action === 'hold') { await clickCanvas(page, 40, 724); }
+      else if (witness === 'hold-two-turns' && action === 'activate') { await clickCanvas(page, 100, 724); }
+      else { await page.keyboard.press(keys[action]); }
+      let selected;
+      if (action === 'hold' && expectedTrace[index].screen === 'world') { selected = 'null'; }
+      if (action === 'activate' && expectedTrace[index + 1].screen === 'world') { selected = '1'; }
+      const actual = await checkpoint(expectedTrace[index + 1], initialYear, before, selected);
+      if (action === 'hold' && expectedTrace[index].screen === 'world') {
+        assert.equal(actual.selected, 'null', 'Hold removes active command selection while retaining the actual preview');
+      }
+      if (action === 'activate' && actual.screen === 'world') {
+        assert.equal(actual.selected, '1', 'Activate selects the real native unit, including when exhausted');
+      }
+    }
+    await screenshot('completed');
+    t.diagnostic('Synthetic one-Scout world replayed frozen original command effects through SDL, native frontend selection, real event transport and actual popup controls; adds no original-input parity cases.');
+  });
+}

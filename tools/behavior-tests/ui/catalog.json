@@ -30,6 +30,11 @@
       "id": "citizen-job",
       "cases": "cases/citizen-job.json",
       "observations": "observations/smacx-gog-2.0-citizen-job.json"
+    },
+    {
+      "id": "unit-orders",
+      "cases": "cases/unit-orders.json",
+      "observations": "observations/smacx-gog-2.0-unit-orders.json"
     }
   ]
 }

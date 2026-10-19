@@ -1,5 +1,7 @@
 #include "Unit.h"
 
+#include <memory>
+
 #include "gse/context/Context.h"
 #include "gse/value/Object.h"
 #include "gse/value/Int.h"
@@ -59,8 +61,25 @@ Unit::Unit(
 const movement_t Unit::MINIMUM_MOVEMENT_TO_KEEP = 0.025f;
 const movement_t Unit::MINIMUM_HEALTH_TO_KEEP = 0.025f;
 
+Unit::~Unit() { *m_order_handle = nullptr; }
+
 const bool Unit::HasMovesLeft() const {
 	return m_movement >= unit::Unit::MINIMUM_MOVEMENT_TO_KEEP;
+}
+
+const bool Unit::NeedsOrders() const {
+	return HasMovesLeft() && m_order == order_t::NO_ORDERS;
+}
+
+order_t Unit::GetOrder() const { return m_order; }
+
+void Unit::SetOrder( const order_t order ) {
+	ASSERT( order == order_t::NO_ORDERS || order == order_t::HOLD, "Invalid native unit order" );
+	m_order = order;
+}
+
+void Unit::CheckLive( GSE_CALLABLE ) const {
+	if ( m_um->GetUnit( m_id ) != this ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer belongs to its manager" ); }
 }
 
 const std::string& Unit::GetMoraleString() const {
@@ -92,6 +111,7 @@ const types::Buffer Unit::Serialize( const Unit* unit ) {
 	buf.WriteInt( unit->m_morale );
 	buf.WriteFloat( unit->m_health );
 	buf.WriteBool( unit->m_moved_this_turn );
+	buf.WriteInt( static_cast< uint8_t >( unit->GetOrder() ) );
 	return buf;
 }
 
@@ -99,7 +119,7 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	ASSERT( um, "um is null" );
 	const auto id = buf.ReadInt();
 	auto defbuf = types::Buffer( buf.ReadString() );
-	auto* def = Def::Deserialize( defbuf, um );
+	std::unique_ptr< Def > def( Def::Deserialize( defbuf, um ) );
 	auto* slot = um->GetSlot( buf.ReadInt() );
 	const auto pos_x = buf.ReadInt();
 	const auto pos_y = buf.ReadInt();
@@ -108,7 +128,20 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	const auto morale = (morale_t)buf.ReadInt();
 	const auto health = (health_t)buf.ReadFloat();
 	const auto moved_this_turn = buf.ReadBool();
-	return new Unit( GSE_CALL, um, id, def, slot, tile, movement, morale, health, moved_this_turn );
+	// UnitManager stores each unit in its own length-delimited string. Older
+	// candidate snapshots end here; only those exact legacy payloads default
+	// to no orders. A present extension must be complete and recognized.
+	auto order = order_t::NO_ORDERS;
+	if ( buf.lenr != buf.lenw ) {
+		const auto encoded = buf.ReadInt();
+		if ( encoded != static_cast< int64_t >( order_t::NO_ORDERS ) && encoded != static_cast< int64_t >( order_t::HOLD ) ) { THROW( "Invalid serialized unit order" ); }
+		order = static_cast< order_t >( encoded );
+		if ( buf.lenr != buf.lenw ) { THROW( "Trailing data after serialized unit order" ); }
+	}
+	auto* unit = new Unit( GSE_CALL, um, id, def.get(), slot, tile, movement, morale, health, moved_this_turn );
+	def.release();
+	unit->SetOrder( order );
+	return unit;
 }
 
 WRAPIMPL_SERIALIZE( Unit )
@@ -141,6 +174,40 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 	WRAPIMPL_LINK( "get_def", m_def )
 	WRAPIMPL_LINK( "get_owner", m_owner )
 	WRAPIMPL_LINK( "get_tile", m_tile )
+	{
+		"get_order", NATIVE_CALL( handle = m_order_handle ) {
+			N_EXPECT_ARGS( 0 );
+			auto* unit = *handle;
+			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+			unit->CheckLive( GSE_CALL );
+			return VALUE( gse::value::String,, unit->GetOrder() == order_t::HOLD ? "HOLD" : "NO_ORDERS" );
+		} )
+	},
+	{
+		"needs_orders", NATIVE_CALL( handle = m_order_handle ) {
+			N_EXPECT_ARGS( 0 );
+			auto* unit = *handle;
+			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+			unit->CheckLive( GSE_CALL );
+			return VALUE( gse::value::Bool,, unit->NeedsOrders() );
+		} )
+	},
+	{
+		"set_order", NATIVE_CALL( handle = m_order_handle ) {
+			auto* unit = *handle;
+			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+			unit->CheckLive( GSE_CALL );
+			unit->m_um->m_game->CheckRW( GSE_CALL );
+			unit->CheckCustomMutation( GSE_CALL );
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( name, 0, String );
+			order_t order;
+			if ( name == "NO_ORDERS" ) { order = order_t::NO_ORDERS; }
+			else if ( name == "HOLD" ) { order = order_t::HOLD; }
+			else { GSE_ERROR( gse::EC.INVALID_CALL, "Unsupported unit order: " + name ); }
+			if ( unit->GetOrder() != order ) { unit->SetOrder( order ); unit->m_um->RefreshUnit( GSE_CALL, unit ); }
+			return VALUE( gse::value::Undefined );
+		} )
+	},
 	{
 		"move_to_tile",
 		NATIVE_CALL( this ) {

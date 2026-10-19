@@ -22,6 +22,9 @@ const fixture = (master) => {
 	f.units = [];
 	f.game.random = gameplay.random([]);
 	f.game.get_um = () => { return f.um; };
+	f.game.is_started = () => { return true; };
+	f.um.has_unit = (id) => { return id > 0 && id <= #sizeof(f.units); };
+	f.um.get_unit = (id) => { return f.units[id - 1]; };
 	f.game.is_master = () => { return master; };
 	f.game.get_players = () => { return [{ id: 0 }, { id: 1 }]; };
 	f.game.get_turn = () => { return f.state.turn; };
@@ -78,7 +81,11 @@ const fixture = (master) => {
 	f.sound = f.view.find('sound', 'sound', 'cpu turn complete.wav');
 	f.add_unit = () => {
 		const unit = gameplay.unit(gameplay.tile(0, 0));
+		unit.id = #sizeof(f.units) + 1;
 		unit.owner = 0;
+		// Existing manager boundary for this turn-delivery fixture. Live native
+		// identities and readiness are covered separately by the native suites.
+		unit.needs_orders = () => { return unit.movement > 0.0; };
 		unit.definition = { id: 'MindWorms', health_max: 1.0, health_per_turn: 0.1, movement_per_turn: 1.0, is_immovable: false };
 		f.units :+ unit;
 		return unit;
@@ -144,7 +151,7 @@ behavior.scenario('skip rollback and next-turn reset preserve resting healing', 
 	const f = fixture(true);
 	const unit = f.add_unit();
 	unit.health = 0.5;
-	const data = {}; data.unit = unit;
+	const data = { unit_id: unit.id };
 	const skipped = f.dispatch('unit_skip_turn', 0, data);
 	test.assert(unit.movement == 0.0 && !unit.moved_this_turn);
 	handlers.unit_skip_turn.rollback(skipped);
@@ -259,7 +266,7 @@ for (kind of ['owner', 'locked', 'zero', 'negative']) {
 		if (kind == 'zero') { unit.movement = 0.0; }
 		if (kind == 'negative') { unit.movement = 0.0 - 0.1; }
 		const before = unit.movement;
-		const data = {}; data.unit = unit;
+		const data = { unit_id: unit.id };
 		const result = f.dispatch('unit_skip_turn', 0, data);
 		test.assert(#typeof(result) == 'String');
 		test.assert(unit.movement == before && !unit.moved_this_turn);

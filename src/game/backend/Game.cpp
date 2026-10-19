@@ -753,6 +753,7 @@ WRAPIMPL_BEGIN( Game )
 			NATIVE_CALL( this ) {
 				N_EXPECT_ARGS( 1 );
 				N_GETVALUE_UNWRAP( unit, 0, unit::Unit );
+				if ( !m_um || m_um->GetUnit( unit->m_id ) != unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Only a live unit from this game can be explicitly selected" ); }
 				auto fr = FrontendRequest( FrontendRequest::FR_UNIT_SELECT );
 				fr.data.unit_select.unit_id = unit->m_id;
 				AddFrontendRequest( fr );
@@ -2011,14 +2012,7 @@ const technology::Table& Game::GetTechnologyTable() const {
 
 void Game::CheckTurnComplete() {
 
-	bool is_turn_complete = true;
-
-	for ( const auto& unit : m_um->GetUnits() ) {
-		if ( unit.second->m_owner == m_slot && unit.second->HasMovesLeft() ) {
-			is_turn_complete = false;
-			break;
-		}
-	}
+	const bool is_turn_complete = !m_um->HasReadyUnit( m_slot_num );
 
 	if ( m_is_turn_complete != is_turn_complete ) {
 		m_is_turn_complete = is_turn_complete;

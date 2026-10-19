@@ -31,7 +31,8 @@ Unit::Unit(
 	const backend::unit::movement_t movement,
 	const backend::unit::morale_t morale,
 	const std::string& morale_string,
-	const backend::unit::health_t health
+	const backend::unit::health_t health,
+	const backend::unit::order_t order
 )
 	: TileObject( TOT_UNIT, tile )
 	, m_um( um )
@@ -52,7 +53,8 @@ Unit::Unit(
 	, m_movement( movement )
 	, m_morale( morale )
 	, m_morale_string( morale_string )
-	, m_health( health ) {
+	, m_health( health )
+	, m_order( order ) {
 	m_is_active = ShouldBeActive();
 	m_render.badge.def = m_slot_badges->GetUnitBadgeSprite( m_morale, m_is_active );
 	m_render.badge.healthbar.def = m_badge_defs->GetBadgeHealthbarSprite( m_health );
@@ -315,6 +317,10 @@ const bool Unit::CanMove() const {
 	return m_movement >= backend::unit::Unit::MINIMUM_MOVEMENT_TO_KEEP;
 }
 
+void Unit::SetOrder( const backend::unit::order_t order ) {
+	if ( order != m_order ) { m_order = order; m_need_refresh = true; }
+}
+
 void Unit::SetTile( tile::Tile* dst_tile ) {
 	ASSERT( m_tile, "source tile not set" );
 	ASSERT( dst_tile, "destination tile not set" );
@@ -352,7 +358,7 @@ const Unit::render_data_t& Unit::GetRenderData() const {
 }
 
 const bool Unit::ShouldBeActive() const {
-	return m_is_owned && CanMove();
+	return m_is_owned && CanMove() && m_order == backend::unit::order_t::NO_ORDERS;
 }
 
 void Unit::UpdateMeshTex( meshtex_t& meshtex, const sprite::InstancedSprite* sprite ) {

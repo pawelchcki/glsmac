@@ -28,12 +28,13 @@
       "contracts": [
         "ui.menu_trace.v1",
         "ui.map_size_keyboard.v1",
-        "ui.citizen_job.v1"
+        "ui.citizen_job.v1",
+        "ui.unit_orders.v1"
       ],
       "remaining": [
-        "Gameplay hotkeys",
+        "Gameplay hotkeys beyond bounded Scout Hold/Activate/Skip",
         "Mouse gestures",
-        "Focus and modal input blocking",
+        "Focus and modal input blocking beyond recorded Scout/base sequences",
         "Selection cycling",
         "Action availability"
       ]
@@ -72,20 +73,20 @@
     },
     {
       "id": "unit-actions",
-      "status": "recorded-awaiting-transfer",
+      "status": "partial",
       "contracts": [
         "ui.unit_orders.v1"
       ],
       "remaining": [
         "Movement and terrain costs",
-        "Skip and end turn",
-        "Sentry, hold and wake",
-        "Orders and cancellation",
+        "Skip/activation across other unit types, terrain and multi-unit selection",
+        "Sentry, Alert and other persistent orders",
+        "Orders and cancellation beyond the bounded starting Scout",
         "Transport and stacking",
         "Terraforming",
         "Founding bases"
       ],
-      "pending": "13 paused-turn starting-Scout sequences have immutable original observations and a strict failing candidate replay; not passing parity."
+      "coverage": "13 starting-Scout traces match recorded visible order/movement effects, two paused advances and base-modal behavior; native control/codec/lifetime invariants are separate application coverage."
     },
     {
       "id": "combat",
@@ -137,18 +138,18 @@
     },
     {
       "id": "turn-lifecycle",
-      "status": "recorded-awaiting-transfer",
+      "status": "partial",
       "contracts": [
         "ui.unit_orders.v1"
       ],
       "remaining": [
-        "Unit activation order",
-        "End-turn prompts",
-        "Turn advancement",
-        "Per-turn effects",
+        "Selection order among multiple units",
+        "Default automatic end-turn and preference UI",
+        "End-turn prompts beyond the recorded paused Scout",
+        "Per-turn effects beyond movement replenishment",
         "Notifications and interruptions"
       ],
-      "pending": "13 paused-turn starting-Scout sequences have immutable original observations and a strict failing candidate replay; not passing parity."
+      "coverage": "13 starting-Scout traces match recorded visible order/movement effects, two paused advances and base-modal behavior; native control/codec/lifetime invariants are separate application coverage."
     },
     {
       "id": "diplomacy",

@@ -34,7 +34,8 @@ Buffer::Buffer( const Buffer& other ) {
 	lenw = other.lenw;
 	lenr = other.lenr;
 	if ( other.data ) {
-		data_t* newptr = (data_t*)malloc( lenw );
+		// Alloc() trusts allocated_len when deciding whether an append fits.
+		data_t* newptr = (data_t*)malloc( allocated_len );
 		data = newptr;
 		memcpy( ptr( data, 0, lenw ), ptr( other.data, 0, other.lenw ), lenw );
 	}

@@ -18,6 +18,11 @@ enum movement_type_t {
 	MT_AIR
 };
 
+enum class order_t : uint8_t {
+	NO_ORDERS = 0,
+	HOLD = 1,
+};
+
 typedef float movement_t;
 
 typedef float health_t;

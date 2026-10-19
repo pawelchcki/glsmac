@@ -34,6 +34,7 @@
 #include "game/backend/faction/Faction.h"
 #include "game/backend/faction/FactionManager.h"
 #include "game/backend/map/Map.h"
+#include "game/backend/map/MapState.h"
 #include "game/backend/map/tile/Tiles.h"
 #include "game/backend/map/tile/TileManager.h"
 #include "game/backend/resource/ResourceManager.h"
@@ -299,6 +300,119 @@ struct ProductionFixture : gc::Object {
 		auto* unit = new backend::unit::Unit( GSE_CALL, game.m_um, id, game.m_um->GetUnitDef( "Scout" ), &state->m_slots->GetSlot( owner_index ), game.m_map->GetTile( 2, 2 ), 0.5f, 2, 1.0f, false );
 		game.m_um->m_units.emplace( id, unit );
 		return id;
+	}
+	value::Object* UnitOrderCodecProbe( GSE_CALLABLE, size_t id ) {
+		auto* source = game.m_um->GetUnit( id );
+		if ( !source ) { GSE_ERROR( EC.INVALID_CALL, "Unknown fixture unit" ); }
+		const auto old_base_id = backend::base::Base::GetNextId();
+		const auto old_unit_id = backend::unit::Unit::GetNextId();
+		struct RestoreIds {
+			size_t base, unit;
+			~RestoreIds() { backend::base::Base::SetNextId( base ); backend::unit::Unit::SetNextId( unit ); }
+		} restore_ids { old_base_id, old_unit_id };
+		const auto source_before = FoundingSnapshot();
+		auto receiving = std::make_unique< ProductionFixture >( GSE_CALL, false );
+		receiving->game.m_um = new backend::unit::UnitManager( &receiving->game, false );
+		receiving->game.m_game_state = backend::Game::GS_RUNNING;
+		types::Buffer units; game.m_um->Serialize( units );
+		receiving->game.m_um->Deserialize( GSE_CALL, units );
+		const auto* received = receiving->game.m_um->GetUnit( id );
+		const bool roundtrip = received && backend::unit::Unit::Serialize( received ).ToString() == backend::unit::Unit::Serialize( source ).ToString();
+		const bool held = received && received->GetOrder() == backend::unit::order_t::HOLD && !received->NeedsOrders();
+		const bool receiving_owner = received && received->m_owner == receiving->owner->GetSlot() && received->m_def->m_moraleset == receiving->game.m_um->GetMoraleSet( "SYNTHETIC" );
+		// This is the exact pre-order candidate Unit payload, not an original
+		// savefile. The enclosing manager length-delimits each such payload.
+		types::Buffer legacy;
+		legacy.WriteInt( source->m_id );
+		legacy.WriteString( backend::unit::Def::Serialize( source->m_def ).ToString() );
+		legacy.WriteInt( source->m_owner->GetIndex() );
+		legacy.WriteInt( source->GetTile()->coord.x ); legacy.WriteInt( source->GetTile()->coord.y );
+		legacy.WriteFloat( source->m_movement ); legacy.WriteInt( source->m_morale );
+		legacy.WriteFloat( source->m_health ); legacy.WriteBool( source->m_moved_this_turn );
+		receiving->game.m_um->DespawnUnit( GSE_CALL, id );
+		auto legacy_bytes = legacy;
+		auto* legacy_unit = backend::unit::Unit::Deserialize( GSE_CALL, legacy_bytes, receiving->game.m_um );
+		receiving->game.m_um->SpawnUnit( GSE_CALL, legacy_unit );
+		const bool legacy_default = legacy_unit->GetOrder() == backend::unit::order_t::NO_ORDERS && legacy_unit->m_movement == source->m_movement && legacy_unit->NeedsOrders();
+		// Keep the tested ID/tile slot genuinely free: acceptance of corrupt
+		// bytes must not be hidden by a later duplicate-unit assertion.
+		receiving->game.m_um->DespawnUnit( GSE_CALL, id );
+		const auto receiver_before = receiving->FoundingSnapshot();
+		const auto next_before = backend::unit::Unit::GetNextId();
+		types::Buffer invalid = legacy; invalid.WriteInt( 99 );
+		auto trailing = backend::unit::Unit::Serialize( source ); trailing.WriteInt( 0 );
+		const auto full = backend::unit::Unit::Serialize( source ).ToString();
+		types::Buffer truncated( full.substr( 0, full.size() - 1 ) );
+		auto rejects = [ & ]( types::Buffer& bytes ) {
+			try {
+				auto* unexpected = backend::unit::Unit::Deserialize( GSE_CALL, bytes, receiving->game.m_um );
+				unexpected->GetTile()->units.erase( unexpected->m_id ); delete unexpected;
+				return false;
+			} catch ( const std::exception& ) { return true; }
+		};
+		const bool invalid_rejected = rejects( invalid );
+		const bool trailing_rejected = rejects( trailing );
+		const bool truncated_rejected = rejects( truncated );
+		const bool receiver_unchanged = receiving->FoundingSnapshot() == receiver_before && backend::unit::Unit::GetNextId() == next_before;
+		backend::base::Base::SetNextId( old_base_id ); backend::unit::Unit::SetNextId( old_unit_id );
+		const value::object_properties_t result {
+			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "held", VALUE( value::Bool,, held ) },
+			{ "receiving_owner", VALUE( value::Bool,, receiving_owner ) }, { "legacy_default", VALUE( value::Bool,, legacy_default ) },
+			{ "invalid_rejected", VALUE( value::Bool,, invalid_rejected ) }, { "trailing_rejected", VALUE( value::Bool,, trailing_rejected ) },
+			{ "truncated_rejected", VALUE( value::Bool,, truncated_rejected ) }, { "receiver_unchanged", VALUE( value::Bool,, receiver_unchanged ) },
+			{ "source_unchanged", VALUE( value::Bool,, FoundingSnapshot() == source_before ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
+	void EnableRenderCoordinates() {
+		if ( game.m_map->m_map_state ) { return; }
+		// Frontend queue serialization needs MapObject's real coordinate
+		// lookup, but no terrain mesh, texture generation or graphics. Supply
+		// only a linked native MapState with synthetic tile-center coordinates.
+		auto render = std::make_unique< backend::map::MapState >();
+		const auto* tiles = game.m_map->GetTilesPtr();
+		render->dimensions = { tiles->GetWidth(), tiles->GetHeight() };
+		render->first_run = false; render->coord = { 0.0f, 0.0f };
+		render->variables.texture_scaling = { 0.0f, 0.0f };
+		render->terrain_texture = nullptr; render->ter1_pcx = nullptr;
+		const common::mt_flag_t canceled { false };
+		render->LinkTileStates( canceled );
+		for ( size_t y = 0; y < render->dimensions.y; ++y ) {
+			for ( size_t x = y % 2; x < render->dimensions.x; x += 2 ) {
+				auto* tile_state = render->At( x, y );
+				for ( auto& layer : tile_state->layers ) {
+					layer.coords.center = { static_cast< float >( x ), static_cast< float >( y ), 0.0f };
+				}
+			}
+		}
+		game.m_map->m_map_state = render.release();
+	}
+	value::Object* UnitOrderSyncProbe( GSE_CALLABLE, size_t id ) {
+		auto* unit = game.m_um->GetUnit( id );
+		if ( !unit ) { GSE_ERROR( EC.INVALID_CALL, "Unknown fixture unit" ); }
+		EnableRenderCoordinates();
+		game.m_um->QueueUnitUpdate( unit, backend::unit::UnitManager::UUO_SPAWN );
+		game.m_um->RefreshUnit( GSE_CALL, unit );
+		game.m_um->PushUpdates();
+		bool spawn = false, update = false, copied = true;
+		for ( const auto& request : *game.m_pending_frontend_requests ) {
+			if ( request.type == ::game::FrontendRequest::FR_UNIT_SPAWN && request.data.unit_spawn.unit_id == id ) {
+				spawn = request.data.unit_spawn.order == unit->GetOrder();
+				const ::game::FrontendRequest copy( request ); copied = copied && copy.data.unit_spawn.order == unit->GetOrder();
+			}
+			if ( request.type == ::game::FrontendRequest::FR_UNIT_UPDATE && request.data.unit_update.unit_id == id ) {
+				update = request.data.unit_update.order == unit->GetOrder();
+				const ::game::FrontendRequest copy( request ); copied = copied && copy.data.unit_update.order == unit->GetOrder();
+			}
+		}
+		const value::object_properties_t result {
+			{ "spawn", VALUE( value::Bool,, spawn ) }, { "update", VALUE( value::Bool,, update ) }, { "copied", VALUE( value::Bool,, copied ) },
+		};
+		return VALUEEXT( value::Object, GSE_CALL, result );
+	}
+	bool CheckUnitReadiness() {
+		game.CheckTurnComplete();
+		return game.m_is_turn_complete;
 	}
 	void EnableTransport() { transport = std::make_unique< ProbeConnection >(); state->m_connection = transport.get(); }
 	value::Object* InspectTransport( GSE_CALLABLE ) {
@@ -741,6 +855,9 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		object->Set( "add_colony", NATIVE_CALL( session ) { N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int ); return VALUE( value::Int,, session->current->AdditionalColony( GSE_CALL, x, y ) ); } ), GSE_CALL );
 		object->Set( "inspect", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectFounding( GSE_CALL ); } ), GSE_CALL );
 		object->Set( "unit_recipe_codec_probe", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->UnitRecipeCodecProbe( GSE_CALL ); } ), GSE_CALL );
+		object->Set( "unit_order_codec_probe", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int ); return session->current->UnitOrderCodecProbe( GSE_CALL, id ); } ), GSE_CALL );
+		object->Set( "unit_order_sync_probe", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int ); return session->current->UnitOrderSyncProbe( GSE_CALL, id ); } ), GSE_CALL );
+		object->Set( "check_unit_readiness", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->CheckUnitReadiness() ); } ), GSE_CALL );
 		object->Set( "snapshot", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->FoundingSnapshot() ); } ), GSE_CALL );
 		object->Set( "configure", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); session->current->ConfigureFounding( kind ); return VALUE( value::Undefined ); } ), GSE_CALL );
 	}

@@ -160,6 +160,7 @@ public:
 			backend::unit::morale_t morale;
 			const std::string* morale_string;
 			backend::unit::health_t health;
+			backend::unit::order_t order;
 		} unit_spawn;
 		struct {
 			size_t unit_id;
@@ -168,6 +169,7 @@ public:
 			size_t unit_id;
 			backend::unit::movement_t movement;
 			backend::unit::health_t health;
+			backend::unit::order_t order;
 			struct {
 				size_t x;
 				size_t y;

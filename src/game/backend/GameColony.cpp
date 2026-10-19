@@ -51,6 +51,7 @@ gse::Value* Game::FoundBase( GSE_CALLABLE, const int64_t unit_id, const int64_t 
 	FoundingRecord record;
 	record.unit_id = unit_id; record.owner = caller; record.x = tile->coord.x; record.y = tile->coord.y;
 	record.def = unit->m_def->m_id; record.movement = unit->m_movement; record.morale = unit->m_morale; record.health = unit->m_health; record.moved = unit->m_moved_this_turn;
+	record.order = unit->GetOrder();
 	record.previous_rng = m_random->GetStateString(); record.previous_base_id = base::Base::GetNextId(); record.next_unit_id = unit::Unit::GetNextId();
 	record.base_id = record.previous_base_id;
 	const auto old_names = m_bm->m_registered_base_names;
@@ -129,6 +130,7 @@ gse::Value* Game::FoundBase( GSE_CALLABLE, const int64_t unit_id, const int64_t 
 		detached.release();
 		unit->m_movement = record.movement; unit->m_morale = record.morale;
 		unit->m_health = record.health; unit->m_moved_this_turn = record.moved;
+		unit->SetOrder( record.order );
 		m_um->m_units.insert_or_assign( unit_id, unit ); tile->units.insert_or_assign( unit_id, unit );
 		m_bm->m_registered_base_names = old_names;
 		m_bm->m_base_updates = old_base_updates;
@@ -157,6 +159,7 @@ void Game::RollbackFoundBase( GSE_CALLABLE, const int64_t token, const int64_t b
 	auto* def = m_um->GetUnitDef( record.def );
 	if ( !def ) { GSE_ERROR( gse::EC.GAME_ERROR, "Colony prototype no longer exists" ); }
 	auto restored = std::make_unique< unit::Unit >( GSE_CALL, m_um, record.unit_id, def, &m_state->m_slots->GetSlot( record.owner ), m_map->GetTile( record.x, record.y ), record.movement, record.morale, record.health, record.moved );
+	restored->SetOrder( record.order );
 	// Undo emits frontend changes, but does not invoke extensible callbacks on
 	// a half-removed object. The journal has already validated the whole undo.
 	base->ClearWorkedTiles();

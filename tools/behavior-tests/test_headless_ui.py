@@ -2,9 +2,11 @@
 
 import importlib.util
 import itertools
+import io
 import json
 from pathlib import Path
 import struct
+import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -14,6 +16,7 @@ import compare
 import original
 from protocol import ProtocolError
 from ui import generate_custom, generate_navigation, generate_reentry, headless, original_headless as controller
+from ui import run as ui_run
 from ui.probe import validate_input as validate_navigation
 
 
@@ -85,22 +88,35 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 342)
+        self.assertEqual(count, 355)
 
-    def test_pending_order_evidence_is_bound_but_not_counted_as_passing_parity(self):
-        references = audit.load_references(DIRECTORY / "pending-catalog.json")
-        self.assertEqual([reference["id"] for reference in references], ["unit-orders"])
-        suite = compare.read_json(DIRECTORY / references[0]["cases"])
-        evidence = compare.read_json(DIRECTORY / references[0]["observations"])
+    def test_promoted_order_evidence_stays_bound_to_all_original_checkpoints(self):
+        reference = next(row for row in audit.load_references(DIRECTORY / "catalog.json") if row['id'] == 'unit-orders')
+        suite = compare.read_json(DIRECTORY / reference["cases"])
+        evidence = compare.read_json(DIRECTORY / reference["observations"])
         compare.validate_observations(evidence, suite)
         self.assertEqual(len(suite["cases"]), 13)
         self.assertEqual(sum(len(case["input"]["actions"]) + 1 for case in suite["cases"]), 45)
+
+    def test_empty_pending_queue_never_claims_candidate_execution_or_matches(self):
+        path = DIRECTORY / "pending-catalog.json"
+        self.assertEqual(audit.load_references(path, allow_empty=True), [])
+        with self.assertRaises(ProtocolError):
+            audit.load_references(path)
+        with tempfile.TemporaryDirectory() as temporary:
+            report = Path(temporary) / "report.json"
+            with patch.object(compare, "run_probe", side_effect=AssertionError("must not run")), \
+                    patch("sys.stdout", new=io.StringIO()):
+                self.assertEqual(ui_run.main(["--pending", "--report", str(report)]), 0)
+            result = compare.read_json(report)
+            self.assertEqual(result["summary"], {"reference_cases": 0, "candidate_executed": False})
+            self.assertEqual(result["results"], [])
 
     def test_runtime_success_is_not_itself_an_observation(self):
         for output in ("", "All tests passed.\n", "HUI_CASE|synthetic\nAll tests passed.\n"):

@@ -48,6 +48,7 @@ public:
 	Unit* GetUnit( const size_t id ) const;
 	Def* GetUnitDef( const std::string& name ) const;
 	const std::map< size_t, Unit* >& GetUnits() const;
+	bool HasReadyUnit( size_t owner_id ) const;
 
 	void ProcessUnprocessed( GSE_CALLABLE );
 	void PushUpdates();
@@ -78,6 +79,7 @@ private:
 	std::unordered_map< std::string, Def* > m_unit_defs = {};
 	std::map< size_t, Unit* > m_units = {};
 	std::vector< Unit* > m_unprocessed_units = {};
+	const std::shared_ptr< UnitManager* > m_ready_handle = std::make_shared< UnitManager* >( this );
 
 	enum unit_update_op_t : uint8_t {
 		UUO_NONE = 0,

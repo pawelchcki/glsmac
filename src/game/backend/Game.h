@@ -447,6 +447,7 @@ private:
 		float movement = 0, health = 0;
 		int64_t morale = 0, worked_x = -1, worked_y = -1;
 		bool moved = false;
+		unit::order_t order = unit::order_t::NO_ORDERS;
 		size_t previous_base_id = 0, next_base_id = 0, next_unit_id = 0;
 	};
 	std::map< int64_t, FoundingRecord > m_founding_records;

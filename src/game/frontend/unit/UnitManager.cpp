@@ -104,7 +104,8 @@ void UnitManager::SpawnUnit(
 	const backend::unit::movement_t movement,
 	const backend::unit::morale_t morale,
 	const std::string& morale_string,
-	const backend::unit::health_t health
+	const backend::unit::health_t health,
+	const backend::unit::order_t order
 ) {
 
 	ASSERT( m_unitdefs.find( unitdef_id ) != m_unitdefs.end(), "unitdef not found" );
@@ -137,7 +138,8 @@ void UnitManager::SpawnUnit(
 				movement,
 				morale,
 				morale_string,
-				health
+				health,
+				order
 			)
 		}
 	).first->second;
@@ -243,12 +245,14 @@ void UnitManager::SelectUnit( Unit* unit, const bool actually_select_unit ) {
 		m_game->SetSelectedTile( m_selected_unit->GetTile() );
 		m_game->RefreshSelectedTile( m_selected_unit );
 	}
-	if ( actually_select_unit && m_selected_unit->IsActive() && m_game->IsTurnActive() ) {
+	// Explicit owned-unit focus is independent of the automatic readiness
+	// list. Activate can focus a held/exhausted unit without giving it moves.
+	if ( actually_select_unit && m_selected_unit->IsOwned() && m_game->IsTurnActive() ) {
 		auto* most_important_unit = m_game->GetSelectedTileMostImportantUnit();
 		if ( most_important_unit && m_selected_unit != most_important_unit ) {
 			most_important_unit->Hide();
 		}
-		m_selected_unit->StartBadgeBlink();
+		if ( m_selected_unit->IsActive() ) { m_selected_unit->StartBadgeBlink(); }
 		const auto id = m_selected_unit->GetId();
 		Log( "Selected unit " + std::to_string( id ) );
 		auto* game = m_game->GetGame();
@@ -340,10 +344,10 @@ void UnitManager::UpdateSelectable( Unit* unit ) {
 			AddSelectable( unit );
 		}
 		else {
+			// Removal advances selection only when the unit was previously in
+			// the readiness list. Keep explicit exhausted-unit focus when an
+			// update leaves that unit inactive and outside the list.
 			RemoveSelectable( unit );
-			if ( m_selected_unit == unit ) {
-				SelectNextUnitOrSwitchToTileSelection();
-			}
 		}
 	}
 }

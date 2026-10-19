@@ -1,10 +1,4 @@
 {
   "version": 1,
-  "references": [
-    {
-      "id": "unit-orders",
-      "cases": "cases/unit-orders.json",
-      "observations": "observations/smacx-gog-2.0-unit-orders.json"
-    }
-  ]
+  "references": []
 }
