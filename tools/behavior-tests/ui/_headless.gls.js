@@ -51,6 +51,7 @@ const fixture = () => {
 		randomize_map: () => {},
 	};
 	i.glsmac = m.glsmac;
+	#include('./_world_size_fixture')(i.settings);
 	i.sliding = sliding;
 	i.popup = popup;
 	i.steps = steps;

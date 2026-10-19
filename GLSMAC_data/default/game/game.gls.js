@@ -6,12 +6,14 @@ return (glsmac) => {
 	const units = #include('../units');
 	const nutrient_rules = #include('nutrient_rules');
 	const mineral_rules = #include('mineral_rules');
+	const world_sizes = #include('world_sizes');
 
 	// Native asset initialization supplies the parsed document on both ordinary
 	// and command-line Quick Start paths. Return a validated scalar; native code
 	// commits it only after this complete parse succeeds.
 	glsmac.on('configure_rules', (e) => { return nutrient_rules.parse(e.document); });
 	glsmac.on('configure_mineral_rules', (e) => { return mineral_rules.parse(e.document); });
+	glsmac.on('configure_world_sizes', (e) => { return world_sizes.parse(e.document); });
 
 	const modules = ['bases'];
 	let m = {};

@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"world-size-consumer", "script":"GLSMAC_data/tests/world_size_consumer.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"world-size-native", "script":"GLSMAC_data/tests/world_size_native.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"world-size-menus", "script":"GLSMAC_data/tests/world_size_menus.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"mineral-rule-picker-native","script":"GLSMAC_data/tests/mineral_rule_picker_native.gls.js","domains":["gameplay","economy","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"mineral-rule-native","script":"GLSMAC_data/tests/mineral_rule_native.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"mineral-rule-consumer","script":"GLSMAC_data/tests/mineral_rule_consumer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},

@@ -189,6 +189,24 @@ struct ProductionFixture : gc::Object {
 		if ( kind == "legacy_nutrient" ) {
 			types::Buffer legacy; legacy.WriteInt( state->m_settings.global.rules.GetNutrientCostFactor() ); return legacy.ToString();
 		}
+		if ( kind == "legacy_costs" ) {
+			types::Buffer legacy; legacy.WriteInt( state->m_settings.global.rules.GetNutrientCostFactor() );
+			legacy.WriteInt( state->m_settings.global.rules.GetMineralCostFactor() ); return legacy.ToString();
+		}
+		if ( kind.rfind( "world_", 0 ) == 0 ) {
+			const auto& rules = state->m_settings.global.rules;
+			types::Buffer invalid; invalid.WriteInt( rules.GetNutrientCostFactor() ); invalid.WriteInt( rules.GetMineralCostFactor() );
+			invalid.WriteString( kind == "world_tag" ? "unknown-world-version" : "world-sizes-v1" );
+			invalid.WriteInt( kind == "world_count" ? 6 : 5 );
+			for ( size_t level = 0; level < rules.GetWorldSizes().size(); ++level ) {
+				const auto& size = rules.GetWorldSizes()[level]; const bool last = level == 4;
+				invalid.WriteString( last && kind == "world_name" ? "" : size.name ); invalid.WriteString( size.description );
+				if ( last && kind == "world_type" ) { invalid.WriteString( "28" ); }
+				else { invalid.WriteInt( last && kind == "world_width" ? 3 : size.size_x ); }
+				invalid.WriteInt( last && kind == "world_height" ? 3 : size.size_y );
+			}
+			return invalid.ToString();
+		}
 		if ( kind == "truncated" ) { return bytes.substr( 0, bytes.size() - 1 ); }
 		if ( kind == "trailing" ) { return bytes + "trailing"; }
 		types::Buffer invalid;
@@ -233,6 +251,7 @@ struct ProductionFixture : gc::Object {
 		else if ( kind == "invalid_mineral_rules" ) {
 			types::Buffer invalid; invalid.WriteInt( settings.rules.GetNutrientCostFactor() ); invalid.WriteInt( 101 ); result.WriteString( invalid.ToString() );
 		}
+		else if ( kind == "invalid_world_rules" ) { result.WriteString( RulesSettingsSnapshot( "world_width" ) ); }
 		else if ( kind == "truncated_name" || kind == "invalid_difficulty" || kind == "invalid_difficulty_wide" ) { result.WriteString( settings.rules.Serialize().ToString() ); }
 		else { THROW( "unknown fixture global settings snapshot kind" ); }
 		result.WriteInt( kind == "invalid_difficulty" ? 999 : kind == "invalid_difficulty_wide" ? 4294967293LL : settings.difficulty_level );
@@ -253,6 +272,8 @@ struct ProductionFixture : gc::Object {
 		auto& to = target->m_settings.global;
 		from.map.size_x = 68; from.map.size_y = 34; from.map.preset_level = 0;
 		from.rules.SetNutrientCostFactor( 17 ); from.rules.SetMineralCostFactor( 19 ); from.game_name = "Source wire";
+		const auto worlds_before = state->m_settings.global.rules.GetWorldSizes();
+		if ( state->m_settings.global.rules.HasWorldSizes() ) { from.rules.SetWorldSizes( worlds_before ); }
 		to.map.size_x = 112; to.map.size_y = 56; to.map.preset_level = 2;
 		to.rules.SetNutrientCostFactor( 23 ); to.rules.SetMineralCostFactor( 31 ); to.game_name = "Previous target";
 		source->GetFM()->Add( new backend::faction::Faction( "WIRE_SOURCE", "Wire Source" ) );
@@ -260,6 +281,7 @@ struct ProductionFixture : gc::Object {
 		auto* wrapper = static_cast< value::Object* >( to.rules.Wrap( GSE_CALL ) );
 		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
 		auto* mineral_read = static_cast< value::Callable* >( wrapper->Get( "get_mineral_cost_factor" ) );
+		auto* worlds_read = static_cast< value::Callable* >( wrapper->Get( "get_world_sizes" ) );
 		const auto wire = source->Serialize().ToString();
 		target->Deserialize( types::Buffer( wire ) );
 		auto* read_value = read->Run( GSE_CALL, {} );
@@ -267,12 +289,15 @@ struct ProductionFixture : gc::Object {
 		auto* mineral_read_value = mineral_read->Run( GSE_CALL, {} );
 		const bool mineral_aliases = mineral_read_value->type == VT_INT && static_cast< value::Int* >( mineral_read_value )->value == 19;
 		const bool mineral_received = to.rules.GetMineralCostFactor() == 19;
+		const bool worlds_received = to.rules.GetWorldSizes() == worlds_before && to.rules.HasWorldSizes() == from.rules.HasWorldSizes();
+		const bool worlds_aliases = backend::rules::Rules::DecodeWorldSizes( GSE_CALL, worlds_read->Run( GSE_CALL, {} ) ) == worlds_before;
 		const bool received = to.map.size_x == 68 && to.map.size_y == 34 && to.map.preset_level == 0 &&
 			to.rules.GetNutrientCostFactor() == 17 && to.game_name == "Source wire";
 		const bool factions = target->GetFM()->Get( "WIRE_SOURCE" ) && !target->GetFM()->Get( "WIRE_OLD" ) &&
 			target->GetFM()->Get( "WIRE_SOURCE" ) != source->GetFM()->Get( "WIRE_SOURCE" );
 		const bool roundtrip = target->Serialize().ToString() == wire;
 		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.rules.SetMineralCostFactor( 37 ); from.game_name = "Changed sender";
+		auto changed_worlds = worlds_before; changed_worlds[0].name = "Changed sender world"; from.rules.SetWorldSizes( changed_worlds );
 		const bool independent = target->Serialize().ToString() == wire && to.rules.GetNutrientCostFactor() == 17;
 		const bool mineral_independent = target->Serialize().ToString() == wire && to.rules.GetMineralCostFactor() == 19;
 		return VALUEEXT( value::Object, GSE_CALL, {
@@ -282,6 +307,32 @@ struct ProductionFixture : gc::Object {
 			{ "mineral_received", VALUE( value::Bool,, mineral_received ) },
 			{ "mineral_aliases", VALUE( value::Bool,, mineral_aliases ) },
 			{ "mineral_independent", VALUE( value::Bool,, mineral_independent ) },
+			{ "worlds_received", VALUE( value::Bool,, worlds_received ) }, { "worlds_aliases", VALUE( value::Bool,, worlds_aliases ) },
+			{ "worlds_independent", VALUE( value::Bool,, to.rules.GetWorldSizes() == worlds_before && target->Serialize().ToString() == wire ) },
+		} );
+	}
+	Value* WorldSizesCopyProbe( GSE_CALLABLE ) {
+		const auto& source = state->m_settings.global.rules; const auto before = source.GetWorldSizes();
+		auto constructed = std::make_unique< backend::rules::Default >( source );
+		backend::rules::Default assigned;
+		auto* alias = static_cast< value::Object* >( assigned.Wrap( GSE_CALL ) );
+		auto* read = static_cast< value::Callable* >( alias->Get( "get_world_sizes" ) );
+		assigned = *constructed;
+		const bool copied = constructed->GetWorldSizes() == before && assigned.GetWorldSizes() == before &&
+			constructed->Serialize().ToString() == source.Serialize().ToString() && assigned.Serialize().ToString() == source.Serialize().ToString();
+		const bool aliases = backend::rules::Rules::DecodeWorldSizes( GSE_CALL, read->Run( GSE_CALL, {} ) ) == before;
+		auto changed = before; changed[0].name = "Constructed copy"; constructed->SetWorldSizes( changed );
+		changed[0].name = "Assigned copy"; assigned.SetWorldSizes( changed );
+		const bool independent = source.GetWorldSizes() == before && constructed->GetWorldSizes()[0].name == "Constructed copy" &&
+			assigned.GetWorldSizes()[0].name == "Assigned copy";
+		const bool live = backend::rules::Rules::DecodeWorldSizes( GSE_CALL, read->Run( GSE_CALL, {} ) ) == assigned.GetWorldSizes();
+		auto* wrapper = static_cast< value::Object* >( constructed->Wrap( GSE_CALL ) );
+		auto* saved = static_cast< value::Callable* >( wrapper->Get( "get_world_sizes" ) );
+		constructed.reset(); bool rejected = false;
+		try { saved->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { rejected = true; }
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "copied", VALUE( value::Bool,, copied ) }, { "aliases", VALUE( value::Bool,, aliases && live ) },
+			{ "independent", VALUE( value::Bool,, independent ) }, { "lifetime", VALUE( value::Bool,, rejected ) },
 		} );
 	}
 	Value* RulesCopyProbe( GSE_CALLABLE ) {
@@ -952,6 +1003,9 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	} ), GSE_CALL );
 	object->Set( "rules_record_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->RulesRecordProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "world_sizes_copy_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->WorldSizesCopyProbe( GSE_CALL );
 	} ), GSE_CALL );
 	object->Set( "global_settings_snapshot", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );

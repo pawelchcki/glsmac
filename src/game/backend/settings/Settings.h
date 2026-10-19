@@ -72,6 +72,7 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 		{ settings::MAP_CONFIG_CLOUDS_DENSE,   0.75f }, // 'dense'
 	 */
 	float cloud_cover = 0.5f;
+	void SelectWorldSize( int64_t width, int64_t height, int64_t level );
 
 	WRAPDEFS_DYNAMIC( MapSettings );
 

@@ -19,7 +19,9 @@ document once on ordinary and Quick Start routes, validates both cost
 multipliers completely before committing either, and does not reload local
 values over authoritative receiving settings.
 
-Current Rules records carry nutrient then mineral typed integers. An exact old
+Rules records carry nutrient then mineral typed integers; a configured
+[world-size table](world-size-contract.md) follows as a tagged typed extension.
+An exact old
 empty record defaults both to ten. An exact nutrient-only record from b17ee4ad
 retains its nutrient value and defaults mineral to ten. Any present mineral
 extension must be complete, valid and consume the record exactly before either

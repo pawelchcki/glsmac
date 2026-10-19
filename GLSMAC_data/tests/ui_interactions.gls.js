@@ -328,6 +328,7 @@ const create_map_setup = (type) => {
 	const f = create_sliding_menu();
 	f.m.sliding = f.sliding;
 	f.m.settings = { global: { map: { type: type, size_x: 112, size_y: 56, ocean_coverage: 0.6, erosive_forces: 0.75, native_lifeforms: 0.5, cloud_cover: 0.5 }, rules: { difficulty_levels: ['Citizen', 'Specialist'] } } };
+	#include('./_world_size_fixture')(f.m.settings);
 	f.m.customize_preview_defaults = { ocean_coverage_type: 3, erosive_forces_type: 0, native_lifeforms_type: 1, cloud_cover_type: 2 };
 	f.m.set_customize_preview = (data) => {};
 	f.m.steps = {};

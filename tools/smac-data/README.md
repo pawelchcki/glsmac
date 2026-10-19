@@ -74,8 +74,9 @@ directives must be preserved by the parser and rejected by this bounded consumer
 until supported. Blank separators/comments are not executable options.
 
 `WORLDSIZE` and `DIFFICULTY` are not static item lists in the installed dialog
-file: their choices need rule-table integration. Their current action/value
-mapping must not be replaced with an empty list from a dialog definition.
+file. World-size choices now use the native installed rules table described
+below; difficulty still needs its separate rules-table integration. Neither
+control may be replaced with an empty list from a dialog definition.
 
 The asset-free binding `test.parse_smac_text(source, format)` must use the same
 production parser and GSE document wrapper. Invalid argument types/counts,
@@ -127,6 +128,37 @@ SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:m
 
 Recorded factor arithmetic remains separate from these application construction
 and UI checks; this integration adds no original-executable parity cases.
+
+## Installed world-size table
+
+The [world-size contract](world-size-contract.md) transfers all five ordered
+names, descriptions and dimensions into native Rules. Source horizontal
+half-widths become backend parity-coordinate widths. Ordinary and CLI Quick
+Start initialize the loaded Standard size; explicit subsequent selections keep
+their dimensions. The size picker and lobby use native values and stable preset
+ordinals, including distinct choices that happen to have equal dimensions.
+
+Configured tables survive native copies, Rules/GlobalSettings codecs and valid
+pre-world State transfer. Exact historical records keep their historical
+reproduction table; configured current records add a tagged extension after
+the two cost values. Complete validation precedes mutation, including malformed
+later entries and nested aggregate records. Named selection refreshes retained
+map wrappers as one operation. Descriptions remain available as data; their
+conditional display and original custom-dimension input units are separate gaps.
+
+Three asset-free suites exercise parser/source validation, strict native APIs,
+copies and transfer, actual picker callbacks, the full animated menu controller,
+cancel/re-entry, lobby command application/rollback and slave control guards.
+With installed assets, verify both startup paths and all five alternate
+generated dimensions through real menus, faction selection and real turns:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:world-sizes
+```
+
+These are data/application tests, separate from existing original-executable
+menu observations and recorded factor arithmetic. Original terrain generation,
+full multiplayer synchronization and conditional dialog execution remain gaps.
 
 ## Integration and remaining work
 

@@ -1,13 +1,22 @@
 return (i) => {
-	const sizes = [[68, 34], [88, 44], [112, 56], [140, 70], [180, 90]];
+	const rules = i.settings.global.rules;
+	const sizes = rules.get_world_sizes();
+	const map = i.settings.global.map;
 	let selected = 2;
-	let index = 0;
-	for (size of sizes) {
-		if (i.settings.global.map.size_x == size[0] && i.settings.global.map.size_y == size[1]) {
-			selected = index;
-			break;
+	let remembered = false;
+	if (#is_defined(map.preset_level) && map.preset_level >= 0 && map.preset_level < #sizeof(sizes)) {
+		const previous = sizes[map.preset_level];
+		if (map.size_x == previous.size_x && map.size_y == previous.size_y) {
+			selected = previous.level; remembered = true;
 		}
-		index++;
+	}
+	if (!remembered) {
+		for (size of sizes) {
+			if (map.size_x == size.size_x && map.size_y == size.size_y) {
+				selected = size.level;
+				break;
+			}
+		}
 	}
 	const next = () => {
 		if (i.settings.global.map.type == 'random') {
@@ -16,45 +25,20 @@ return (i) => {
 			i.steps.customize_ocean_coverage(i);
 		}
 	};
+	const make_entry = (size) => {
+		return [size.name, () => {
+			rules.select_world_size(map, size.level);
+			next();
+		}];
+	};
+	const entries = [];
+	for (size of sizes) { entries :+ make_entry(size); }
+	entries :+ ['Custom Size', () => { i.steps.customize_mapsize(i); }];
 	i.sliding.show({
 		title: 'Select size of planet',
 		cancel_scope: 'map_setup',
 		cancel_group: i.settings.global.map.type == 'random' ? 'random_map' : undefined,
 		selected: selected,
-		entries: [
-			['Tiny Planet', () => {
-				i.settings.global.map.size_x = 68;
-				i.settings.global.map.size_y = 34;
-				i.settings.global.map.preset_level = 0;
-				next();
-			}],
-			['Small Planet', () => {
-				i.settings.global.map.size_x = 88;
-				i.settings.global.map.size_y = 44;
-				i.settings.global.map.preset_level = 1;
-				next();
-			}],
-			['Standard Planet', () => {
-				i.settings.global.map.size_x = 112;
-				i.settings.global.map.size_y = 56;
-				i.settings.global.map.preset_level = 2;
-				next();
-			}],
-			['Large Planet', () => {
-				i.settings.global.map.size_x = 140;
-				i.settings.global.map.size_y = 70;
-				i.settings.global.map.preset_level = 3;
-				next();
-			}],
-			['Huge Planet', () => {
-				i.settings.global.map.size_x = 180;
-				i.settings.global.map.size_y = 90;
-				i.settings.global.map.preset_level = 4;
-				next();
-			}],
-			['Custom Size', () => {
-				i.steps.customize_mapsize(i);
-			}],
-		],
+		entries: entries,
 	});
 };

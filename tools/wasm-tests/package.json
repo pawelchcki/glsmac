@@ -34,7 +34,8 @@
     "test:maps": "node smac-map-build.mjs && node --test smac-map.test.mjs",
     "test:regressions": "python3 ../behavior-tests/fast.py --suite base-growth-regression --suite combat-rollback-regression --suite faction-retry-regression --suite popup-sound-regression --suite popup-resize-regression",
     "test:nutrient-rules": "node --test --test-concurrency=1 --test-name-pattern=\"Quick Start loads the installed nutrient rule|ordinary startup consumes installed nutrient rules\" gameplay.test.mjs normal-game.test.mjs",
-    "test:mineral-rules": "node --test --test-concurrency=1 --test-name-pattern=\"Quick Start loads installed mineral|ordinary startup consumes installed mineral\" gameplay.test.mjs normal-game.test.mjs"
+    "test:mineral-rules": "node --test --test-concurrency=1 --test-name-pattern=\"Quick Start loads installed mineral|ordinary startup consumes installed mineral\" gameplay.test.mjs normal-game.test.mjs",
+    "test:world-sizes": "node --test --test-concurrency=1 --test-name-pattern=\"Quick Start loads installed world sizes|ordinary startup consumes installed world sizes\" gameplay.test.mjs normal-game.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

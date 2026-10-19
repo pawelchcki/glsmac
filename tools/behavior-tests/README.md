@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **838 scenarios and 6,114 assertions** across
-67 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **867 scenarios and 6,417 assertions** across
+70 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -474,6 +474,30 @@ component properties; original table slot IDs belong only to the reference
 fixture. Regenerate synthetic inputs with
 `python3 tools/behavior-tests/generate_prototype_cost.py --suite all`;
 observations require separate repeated original execution.
+
+## Installed world-size integration
+
+Three additional suites add 29 scenarios and 303 assertions. Complete synthetic
+world-size tables pass through the production parser into native ordered
+choices, with names, descriptions, dimensions and stable preset identities.
+Native selection updates dimensions and provenance together, refreshing retained
+map wrappers. Copies, historical/current codecs, malformed aggregate records,
+saved callable lifetime and actual valid pre-world State transfer are covered.
+
+The shipped picker and full animated menu controller use native labels and
+dimensions on both random/custom routes, including cancellation and remembered
+selection. Lobby controls use ordinal IDs so equal dimensions remain distinct;
+real settings application/rollback and receiving-control updates are exercised.
+Display-only legacy fixtures explicitly declare their native-rules boundary.
+
+With installed assets, `npm --prefix tools/wasm-tests run test:world-sizes`
+checks loaded Standard defaults on CLI Quick Start and all five alternate
+generated worlds through real setup/faction controls, production and turns.
+These source-data/application checks add no original terrain observations;
+existing original menu, economy and helper comparisons remain separately gated.
+Descriptions are preserved as data; original custom-dimension units and
+conditional dialog formatting remain gaps. See the
+[world-size contract](../smac-data/world-size-contract.md).
 
 ## Installed mineral rule and settings transfer
 

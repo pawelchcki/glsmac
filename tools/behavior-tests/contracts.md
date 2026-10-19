@@ -147,7 +147,9 @@ AI/difficulty modifiers, nutrient/growth factors, per-base effects, facilities,
 the shipped rules database, complete item costs and turn production are outside
 this contract. The GLSMAC helper is independently replayed on native and WASM;
 the shipped Recycling Tanks declaration now supplies four row units to the
-shared native resolver for explicit named presets at rule10/INDUSTRY0. Absent preset provenance, custom dimensions,
+shared native resolver for explicit named presets with the installed mineral
+multiplier at INDUSTRY0. Source-data integration has separate application tests.
+Absent preset provenance, custom dimensions,
 or imported maps retain the explicit 32-mineral fallback. Descriptor
 and completion tests exercise that application integration, not original
 whole-item construction. Social engineering remains unimplemented.

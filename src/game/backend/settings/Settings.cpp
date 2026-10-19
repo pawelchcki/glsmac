@@ -60,6 +60,8 @@ WRAPIMPL_DYNAMIC_ON_SET( MapSettings )
 	}
 WRAPIMPL_DYNAMIC_END()
 
+UNWRAPIMPL_PTR( MapSettings )
+
 void MapSettings::RefreshPresetWrappers() {
 	// Dynamic assignment caches a scalar in the assigning wrapper. Restore the
 	// native pointer on all retained wrappers when another field or a native
@@ -92,6 +94,15 @@ void MapSettings::RefreshWrappers() {
 			wrapper->Assign( "cloud_cover", new gse::value::Ptr< float >( space, cloud_cover ) );
 		}, nullptr, true );
 	}
+}
+
+void MapSettings::SelectWorldSize( const int64_t width, const int64_t height, const int64_t level ) {
+	if ( ( type != MT_RANDOM && type != MT_CUSTOM ) || level < 0 || level > 4 ||
+		width < 4 || width > 4096 || width % 2 || height < 2 || height > 4096 || height % 2 ) {
+		THROW( "Invalid named world size or imported map context" );
+	}
+	size_x = width; size_y = height; preset_level = level;
+	RefreshWrappers();
 }
 
 const types::Buffer MapSettings::Serialize() const {

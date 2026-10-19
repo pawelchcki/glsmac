@@ -160,11 +160,11 @@ behavior.scenario('actual lobby named choices carry preset provenance and native
 	i.make_section = (title, style, callback) => { callback(body, {}); };
 	configure_lobby(i);
 	let sizes = null;
-	for (select of selects) { if (select.items[0][0] == '68x34') { sizes = select; } }
+	for (select of selects) { if (select.items[0][0] == '0' && select.items[0][1] == 'Tiny Planet') { sizes = select; } }
 	test.assert(sizes != null);
 	for (entry of [['68x34', 0, 68, 34, 32], ['88x44', 1, 88, 44, 36], ['112x56', 2, 112, 56, 40], ['140x70', 3, 140, 70, 40], ['180x90', 4, 180, 90, 40]]) {
 		const before = f.map_settings_snapshot('current');
-		test.assert(sizes.emit('select', { value: entry[0] }) == true);
+		test.assert(sizes.emit('select', { value: #to_string(entry[1]) }) == true);
 		test.assert(sent == [['planet_size', entry[0]], ['preset_level', entry[1]]]);
 		const map = f.game.get_settings().global.map;
 		test.assert(map.size_x == entry[2] && map.size_y == entry[3] && map.preset_level == entry[1] && cost(f) == entry[4]);

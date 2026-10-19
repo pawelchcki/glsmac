@@ -163,6 +163,7 @@ const make_setup = (map_type) => {
 		map: { type: map_type, size_x: 112, size_y: 56, filename: 'retained.GSM', ocean_coverage: 0.6 },
 		rules: { difficulty_levels: ['Citizen', 'Specialist'] },
 	} };
+	#include('./_world_size_fixture')(f.m.settings);
 	f.m.randomize_map = () => {};
 	f.m.set_customize_preview = (data) => {};
 	f.m.customize_preview_defaults = { ocean_coverage_type: 3 };

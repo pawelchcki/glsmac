@@ -490,10 +490,23 @@ void GLSMAC::S_Init( GSE_CALLABLE, const std::optional< std::string >& path ) {
 	if ( !mineral_factor || mineral_factor->type != gse::VT_INT ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_mineral_rules must return an integer mineral multiplier" ); }
 	const auto mineral_value = static_cast< gse::value::Int* >( mineral_factor )->value;
 	if ( mineral_value < 1 || mineral_value > 100 ) { GSE_ERROR( gse::EC.INVALID_HANDLER, "configure_mineral_rules mineral multiplier must be from 1 through 100" ); }
-	// Both pure callbacks and both native bounds checks finish before either
-	// field changes. Invalid mineral data cannot partially commit nutrient data.
+	auto* world_sizes = TriggerObject( this, "configure_world_sizes", ARGS_F( &document ) {
+		{ "document", loader::txt::WrapSmacTextDocument( GSE_CALL, document ) },
+	}; } );
+	const auto decoded_sizes = game::backend::rules::Rules::DecodeWorldSizes( GSE_CALL, world_sizes );
+	const bool first_sizes = !m_state->m_settings.global.rules.HasWorldSizes();
+	// All pure callbacks and native validation finish before any rule changes.
 	m_state->m_settings.global.rules.SetNutrientCostFactor( value );
 	m_state->m_settings.global.rules.SetMineralCostFactor( mineral_value );
+	m_state->m_settings.global.rules.SetWorldSizes( decoded_sizes );
+	if ( first_sizes ) {
+		auto& map = m_state->m_settings.global.map;
+		// Startup owns an untouched default map. Receiving or explicitly chosen
+		// settings keep their dimensions when scripts are reinitialized.
+		if ( map.type == game::backend::settings::MapSettings::MT_RANDOM && map.preset_level == -1 && map.size_x == 112 && map.size_y == 56 ) {
+			map.SelectWorldSize( decoded_sizes[2].size_x, decoded_sizes[2].size_y, 2 );
+		}
+	}
 	Reset( GSE_CALL );
 }
 

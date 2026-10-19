@@ -5,13 +5,23 @@ return (i) => {
 	const settings = game.get_settings().global;
 
 	const readonly = game.is_slave();
-	// These are IDs of the explicit named choices below, not inferred map sizes.
-	const planet_levels = {};
-	planet_levels['68x34'] = 0;
-	planet_levels['88x44'] = 1;
-	planet_levels['112x56'] = 2;
-	planet_levels['140x70'] = 3;
-	planet_levels['180x90'] = 4;
+	const planets = settings.rules.get_world_sizes();
+	const planet_choices = [];
+	const planet_ids = {};
+	for (planet of planets) {
+		const id = #to_string(planet.level);
+		planet_choices :+ [id, planet.name];
+		planet_ids[id] = planet;
+	}
+	const selected_planet = () => {
+		const id = #to_string(settings.map.preset_level);
+		if (#is_defined(planet_ids[id])) {
+			const planet = planet_ids[id];
+			if (settings.map.size_x == planet.size_x && settings.map.size_y == planet.size_y) { return id; }
+		}
+		return 'custom';
+	};
+	const imported = () => { return settings.map.type != 'random' && settings.map.type != 'custom'; };
 
 	return i.make_section(settings.game_name, {
 		width: 296,
@@ -64,13 +74,8 @@ return (i) => {
 			return v;
 		});
 
-		make_line('planet_size', 'Planet Size', [
-			['68x34', 'Tiny planet'],
-			['88x44', 'Small planet'],
-			['112x56', 'Standard planet'],
-			['140x70', 'Large planet'],
-			['180x90', 'Huge planet'],
-		], #to_string(settings.map.size_x) + 'x' + #to_string(settings.map.size_y), (v) => {
+		const initial_planet = selected_planet();
+		make_line('planet_size', 'Planet Size', planet_choices + (initial_planet == 'custom' ? [['custom', 'Custom size']] : []), initial_planet, (v) => {
 			return v; // parsed in event
 		});
 
@@ -109,10 +114,20 @@ return (i) => {
 		const line_height = 28;
 
 		body.listen(game, 'game_settings', (e) => {
+			let planet_changed = false;
 			for (s of e.settings) {
-				if (#is_defined(line_keys[s[0]])) {
+				if (s[0] == 'planet_size' || s[0] == 'preset_level' || s[0] == 'size_x' || s[0] == 'size_y' || s[0] == 'type') {
+					planet_changed = true;
+				} else if (#is_defined(line_keys[s[0]])) {
 					lines[line_keys[s[0]]].select.value = #to_string(s[1]);
 				}
+			}
+			if (planet_changed) {
+				const id = selected_planet();
+				const select = lines[line_keys.planet_size].select;
+				select.items = planet_choices + (id == 'custom' ? [['custom', 'Custom size']] : []);
+				select.value = id;
+				select.readonly = readonly || imported();
 			}
 		});
 
@@ -135,14 +150,19 @@ return (i) => {
 					right: 10,
 					items: line.choices,
 					value: line.initial_choice,
-					readonly: readonly,
+					readonly: readonly || (line.key == 'planet_size' && imported()),
 				});
 				line.select.on('select', (e) => {
+					if (readonly || (line.key == 'planet_size' && imported())) { return true; }
 					const changes = [];
-					changes :+[line.key, line.converter(e.value)];
 					if (line.key == 'planet_size') {
-						const level = planet_levels[e.value];
-						changes :+['preset_level', #is_defined(level) ? level : (0 - 1)];
+						if (e.value == 'custom') { return true; }
+						if (!#is_defined(planet_ids[e.value])) { throw Error('Unknown world-size choice'); }
+						const planet = planet_ids[e.value];
+						changes :+['planet_size', #to_string(planet.size_x) + 'x' + #to_string(planet.size_y)];
+						changes :+['preset_level', planet.level];
+					} else {
+						changes :+[line.key, line.converter(e.value)];
 					}
 					game.event('game_settings', { changes: changes });
 					return true;

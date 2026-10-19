@@ -72,6 +72,7 @@ const create_menu = () => {
 			notimpl: (current) => { state.notimpl = state.notimpl + 1; },
 		},
 	};
+	#include('./_world_size_fixture')(i.settings);
 	start_game(i);
 	// GSE object literals clone existing object-valued fields. Assign references
 	// after construction so assertions inspect the state captured by callbacks.

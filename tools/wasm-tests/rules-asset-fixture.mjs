@@ -1,10 +1,21 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
-// Synthetic source-data fixture with both cost scalars and distinct earlier
-// rows. No installed text is copied; the asset store verifies size and hash.
-export function syntheticNutrientRules(value, mineralValue = 10) {
-  return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n${mineralValue},\n#END\n`;
+// Existing cost fixtures declare their historical reproduction dimensions.
+// Separate alternate rows below prove the table reaches actual generated maps.
+const legacyWorldRows = [
+  ['Tiny Planet', 34, 34], ['Small Planet', 44, 44], ['Standard Planet', 56, 56],
+  ['Large Planet', 70, 70], ['Huge Planet', 90, 90],
+];
+export const alternateWorldRows = [
+  ['Amber|Swift', 26, 44], ['Birch', 34, 58], ['Cedar', 44, 74],
+  ['Dune', 54, 92], ['Elm|Patient', 66, 114],
+];
+
+// Synthetic source only; the normal asset store verifies its size and hash.
+export function syntheticNutrientRules(value, mineralValue = 10, worldRows = legacyWorldRows) {
+  return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n${mineralValue},\n#END\n`
+    + `#WORLDSIZE\n${worldRows.length}\n${worldRows.map((row) => row.join(',')).join('\n')}\n#END\n`;
 }
 
 export async function overrideRulesAsset(page, source) {

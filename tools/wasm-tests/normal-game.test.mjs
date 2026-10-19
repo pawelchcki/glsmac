@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
-import { overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
+import { alternateWorldRows, overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
@@ -84,6 +84,13 @@ const normalMain = String.raw`
   };
   #include('game/game')(glsmac);
   #include('ui/ui')(glsmac);
+  glsmac.on('mainmenu_show', (e) => {
+    const settings = e.settings.global;
+    #print('NORMAL_SETUP_DEFAULT|' + #to_string(settings.map.size_x) + '|' + #to_string(settings.map.size_y) + '|' + #to_string(settings.map.preset_level));
+    for (size of settings.rules.get_world_sizes()) {
+      #print('NORMAL_WORLD_SIZE|' + #to_string(size.level) + '|' + size.name + '|' + size.description + '|' + #to_string(size.size_x) + '|' + #to_string(size.size_y));
+    }
+  });
   let report_base = null;
   const nutrients = #include('ui/parts/game/popup/base_screen/nutrients');
   const middle = #include('ui/parts/game/popup/base_screen/bottom_bar/middle_area');
@@ -243,17 +250,21 @@ async function clickCanvas(page, x, y) {
 }
 
 for (const profile of [
-  { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [68, 34], rule: 10, lifecycle: true },
+  { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules for zero-price Tiny projects', level: 0, size: [68, 34], rule: 10, mineralRule: 1, lifecycle: false },
+  ...[[52, 44], [68, 58], [88, 74], [108, 92], [132, 114]].map((size, level) => ({
+    name: `ordinary startup consumes installed world sizes at preset ${level}`, level, size,
+    rule: 11, mineralRule: 13, worldRules: true, threshold: [16, 18, 22, 22, 22][level], lifecycle: false,
+  })),
 ]) {
 test(profile.name, {
   skip: (!assets || (!profile.lifecycle && process.env.WASM_SITE_URL)) && 'Requires SMAC_ASSETS_DIR; synthetic rules require the local asset server',
   timeout: 180000,
 }, async (t) => {
   const factors = recordedNormalFactors(profile.level, profile.rule, profile.mineralRule ?? 10);
-  const artifactPrefix = profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  const artifactPrefix = profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -472,7 +483,7 @@ test(profile.name, {
       && s.growth.some((g) => g.baseId === baseId && g.settled), 'Actual production, growth stage and any population child have committed');
   };
 
-  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10));
+  const rulesAsset = profile.lifecycle ? null : await overrideRulesAsset(page, syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined));
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -498,6 +509,15 @@ test(profile.name, {
   await menuReady('main');
   await chooseMenu(7, 0, 'map-type'); // Start Game
   await chooseMenu(5, 0, 'map-size'); // Make Random Map
+  if (profile.worldRules) {
+    const setupLog = await page.locator('#log').textContent();
+    assert.equal(setupLog.match(/NORMAL_SETUP_DEFAULT\|([^\r\n]*)/)?.[1], '88|74|2');
+    assert.deepEqual([...setupLog.matchAll(/NORMAL_WORLD_SIZE\|(\d+)\|([^|\r\n]*)\|([^|\r\n]*)\|(\d+)\|(\d+)/g)]
+      .map((row) => [+row[1], row[2], row[3], +row[4], +row[5]]), [
+        [0, 'Amber', 'Swift', 52, 44], [1, 'Birch', '', 68, 58], [2, 'Cedar', '', 88, 74],
+        [3, 'Dune', '', 108, 92], [4, 'Elm', 'Patient', 132, 114],
+      ]);
+  }
   await chooseMenu(6, profile.level, 'difficulty'); // Actual named preset
   await chooseMenu(6, 0, 'rules'); // Citizen
   await chooseMenu(3, 0, 'faction'); // Play with Standard Rules
@@ -537,7 +557,7 @@ test(profile.name, {
     const economy = initial.economies.find((entry) => entry.id === headquarters.id);
     assert.equal(economy.factor, factors.nutrient, 'The installed multiplier reaches the actual native factor');
     const threshold = factors.nutrient * (economy.size + 1);
-    assert.equal(threshold, profile.level === 0 ? 16 : 22, 'Population one uses the imported named-preset nutrient factor');
+    assert.equal(threshold, profile.threshold ?? (profile.level === 0 ? 16 : 22), 'Population one uses the imported named-preset nutrient factor');
     const turns = economy.pendingFood > 0 ? Math.ceil((threshold - economy.food) / economy.pendingFood) : 0;
     const expectedLabel = economy.pendingFood > 0
       ? `Growth: ${turns} ${turns === 1 ? 'turn' : 'turns'}`
@@ -609,7 +629,7 @@ test(profile.name, {
       }
 
       assert.equal(rulesAsset.reads(), 1);
-      t.diagnostic(`Loaded nutrient ${profile.rule} and mineral ${profile.mineralRule} through real ${profile.level === 0 ? 'Tiny' : 'Standard'} menus. Actual picker showed Tanks ${4 * factors.mineral}, Pod ${factors.cost}; selected project and first real credit agreed.${factors.cost === 0 ? ' The free Pod held at size one; free Tanks then completed through actual turn controls with every earned mineral retained.' : ''} Whole-item flow is application coverage, beyond recorded factor witnesses.`);
+      t.diagnostic(`Loaded nutrient ${profile.rule} and mineral ${profile.mineralRule} through real ${profile.worldRules ? ('preset ' + profile.level) : profile.level === 0 ? 'Tiny' : 'Standard'} menus. Actual picker showed Tanks ${4 * factors.mineral}, Pod ${factors.cost}; selected project and first real credit agreed.${factors.cost === 0 ? ' The free Pod held at size one; free Tanks then completed through actual turn controls with every earned mineral retained.' : ''} Whole-item flow is application coverage, beyond recorded factor witnesses.`);
       await healthy();
       return;
     }

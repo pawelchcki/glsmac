@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
-import { overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
+import { alternateWorldRows, overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
@@ -647,6 +647,51 @@ async function startGame(t, fixtureWorld = worldScript, artifactPrefix = 'gamepl
   await waitForLog('SMOKE_UNIT|1|0');
   return { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases, selectedBases, rulesAsset };
 }
+
+test('Quick Start loads installed world sizes and the Standard startup dimensions', {
+  skip: (!assets || site) && 'Requires SMAC_ASSETS_DIR and the local asset server',
+  timeout: 120000,
+}, async (t) => {
+  const observer = mainScript.replace('  glsmac.run();', String.raw`
+  glsmac.on('configure_state', (e) => {
+    const settings = glsmac.game.get_settings().global;
+    #print('LOADED_WORLD_DEFAULT|' + #to_string(settings.map.size_x) + '|' + #to_string(settings.map.size_y) + '|' + #to_string(settings.map.preset_level));
+  });
+  glsmac.on('configure_game', (e) => {
+    const game = e.game;
+    const settings = e.game.get_settings().global;
+    #print('LOADED_WORLD_AFTER_IMPORT|' + #to_string(settings.map.size_x) + '|' + #to_string(settings.map.size_y) + '|' + #to_string(settings.map.preset_level));
+    if (#typeof(settings.rules.get_world_sizes) == 'Callable') {
+      for (size of settings.rules.get_world_sizes()) {
+        #print('LOADED_WORLD_SIZE|' + #to_string(size.level) + '|' + size.name + '|' + size.description + '|' + #to_string(size.size_x) + '|' + #to_string(size.size_y));
+      }
+    } else { #print('LOADED_WORLD_SIZE|MISSING'); }
+    game.on('start_ui', (e) => {
+      for (base of game.get_bm().get_bases()) {
+        #print('LOADED_WORLD_IMPORTED_FACTOR|' + #to_string(base.get_nutrient_factor()));
+      }
+    });
+  });
+  glsmac.run();
+`);
+  const { page, waitForLog, screenshot, rulesAsset } = await startGame(t, ordersWorldScript, 'world-size-quickstart', {
+    mainScript: observer, rulesText: syntheticNutrientRules(11, 13, alternateWorldRows),
+  });
+  await waitForLog('LOADED_WORLD_SIZE|');
+  const log = await page.locator('#log').textContent();
+  assert.equal(log.match(/LOADED_WORLD_DEFAULT\|([^\r\n]*)/)?.[1], '88|74|2', 'Actual CLI Quick Start receives loaded Standard dimensions before world creation');
+  assert.equal(log.match(/LOADED_WORLD_AFTER_IMPORT\|([^\r\n]*)/)?.[1], '88|74|-1', 'Frontend import setup clears the named preset before configure_game');
+  assert.deepEqual([...log.matchAll(/LOADED_WORLD_SIZE\|(\d+)\|([^|\r\n]*)\|([^|\r\n]*)\|(\d+)\|(\d+)/g)]
+    .map((row) => [+row[1], row[2], row[3], +row[4], +row[5]]), [
+      [0, 'Amber', 'Swift', 52, 44], [1, 'Birch', '', 68, 58], [2, 'Cedar', '', 88, 74],
+      [3, 'Dune', '', 108, 92], [4, 'Elm', 'Patient', 132, 114],
+    ]);
+  assert.equal(rulesAsset.reads(), 1);
+  await waitForLog('LOADED_WORLD_IMPORTED_FACTOR|');
+  assert.equal((await page.locator('#log').textContent()).match(/LOADED_WORLD_IMPORTED_FACTOR\|([^\r\n]*)/)?.[1], 'undefined',
+    'A CLI-imported map clears named-preset provenance after observing the startup default');
+  await screenshot('loaded');
+});
 
 test('Quick Start loads the installed nutrient rule before configuring gameplay', {
   skip: (!assets || site) && 'Requires SMAC_ASSETS_DIR and the local asset server',

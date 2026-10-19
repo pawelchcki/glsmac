@@ -36,6 +36,21 @@ CLASS2( Rules, types::Serializable, gse::Wrappable )
 	void SetNutrientCostFactor( int64_t factor );
 	int64_t GetMineralCostFactor() const;
 	void SetMineralCostFactor( int64_t factor );
+	struct world_size_t {
+		std::string name;
+		std::string description;
+		int64_t size_x;
+		int64_t size_y;
+		bool operator==( const world_size_t& other ) const {
+			return name == other.name && description == other.description && size_x == other.size_x && size_y == other.size_y;
+		}
+	};
+	using world_sizes_t = std::vector< world_size_t >;
+	const world_sizes_t& GetWorldSizes() const;
+	bool HasWorldSizes() const;
+	void SetWorldSizes( const world_sizes_t& sizes );
+	static world_sizes_t DecodeWorldSizes( GSE_CALLABLE, gse::Value* value );
+	gse::Value* WrapWorldSizes( GSE_CALLABLE ) const;
 
 	WRAPDEFS_DYNAMIC( Rules );
 
@@ -49,6 +64,12 @@ private:
 	bool m_is_initialized = false;
 	int64_t m_nutrient_cost_factor = 10;
 	int64_t m_mineral_cost_factor = 10;
+	// Exact historical records retain the earlier reproduction's dimensions.
+	// Actual startup replaces this table with the complete installed definition.
+	static const world_sizes_t& LegacyWorldSizes();
+	world_sizes_t m_world_sizes = LegacyWorldSizes();
+	bool m_has_world_sizes = false;
+	static void ValidateWorldSizes( const world_sizes_t& sizes );
 	// Saved native callables may outlive a settings wrapper or its world.
 	// Each copy owns a distinct handle; assignment preserves destination readers.
 	const std::shared_ptr< Rules* > m_nutrient_handle = std::make_shared< Rules* >( this );

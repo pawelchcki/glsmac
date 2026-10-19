@@ -127,6 +127,13 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			} )
 		},
 		{
+			"default_world_sizes", NATIVE_CALL() {
+				N_EXPECT_ARGS( 0 );
+				const game::backend::rules::Default rules;
+				return rules.WrapWorldSizes( GSE_CALL );
+			} )
+		},
+		{
 			"rules_fixture",
 			NATIVE_CALL( rules_fixtures ) {
 				N_EXPECT_ARGS( 0 );
