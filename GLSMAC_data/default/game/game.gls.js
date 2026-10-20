@@ -53,6 +53,7 @@ return (glsmac) => {
 			units.configure(game);
 			const document = glsmac.load_smac_text('alphax.txt', 'rules');
 			game.set('terraforming_rules', terraforming_rules.parse(document));
+			#include('terraforming').configure(game);
 			resources.configure(game, land_resource_rules.parse(document));
 
 			resources.define(game);

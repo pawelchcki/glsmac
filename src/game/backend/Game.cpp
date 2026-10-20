@@ -1185,6 +1185,11 @@ void Game::AdvanceTurn( const size_t turn_id ) {
 				}; }
 			);
 			unit->m_moved_this_turn = false;
+			// Work consumes restored movement and completes improvements before
+			// base income, with the new turn's movement-history flag in place.
+			m_state->TriggerObject( m_um, "unit_turn_ready", ARGS_F( &unit ) {
+				{ "unit", unit->Wrap( GSE_CALL ) },
+			}; } );
 			m_um->RefreshUnit( GSE_CALL, unit );
 		}
 

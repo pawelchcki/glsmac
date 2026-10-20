@@ -1,9 +1,8 @@
-# Former work observations awaiting transfer
+# Bounded Former work transfer
 
-`game.former_work.v1` currently has **two independently repeated original
-cases** in `pending-catalog.json`. Strict candidate replay reports **zero
-matches and two unsupported cases**. They are excluded from the passing
-609-case catalog.
+`game.former_work.v1` has **two independently repeated original cases** in
+`catalog.json`. Both match strict native display-free candidate replay. They
+are included in the 611-case catalog; the original observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
 40×80 flat arid land map, chooses Gaians/Citizen/standard rules, and adds a
@@ -32,18 +31,28 @@ for every terrain or worker ability.
 The source consumer, native work-state persistence and native terrain-edit
 bridge have separate application tests. Browser checks exercise real tile
 edits, resource queries, world and preview redraws, and clean shutdown under
-two source profiles. Those fixture edits do not simulate Former work. Actual
-candidate work commands and automatic progress are still missing. These
-observations establish no parity for rocky/moist/sea
+two source profiles. Those fixture edits do not simulate Former work.
+Production scripts now implement work commands, automatic fresh-turn progress,
+completion before base income and cancellation with retained progress. Replay
+uses actual native units, tiles and `Game::AdvanceTurn`; only synthetic equivalent
+installed inputs, initial placement and explicit turn acknowledgements are fixture
+boundaries. It loads no original assets, evidence answers or original adapter.
+The application also exposes four buttons, F/M/Shift+F/R and Activate cancellation.
+The optional `test:former-work` browser command replays both frozen checkpoint
+sequences through the actual shortcuts, event transport, turns and terrain
+renderer on a declared synthetic 16×16 arid world. Both profiles also verify
+source-based active order labels and clean engine exit. This adds application
+integration coverage, not original UI-label or map-generation observations.
+These observations establish no parity for rocky/moist/sea
 terrain, fungus, multiple Formers, advanced abilities, injured workers, other
 factions, AI, research behavior, rendered work labels or the full game.
 
 ```sh
 # Evidence integrity; does not execute either application.
-python3 tools/behavior-tests/ui/run.py --pending --validate-only
+python3 tools/behavior-tests/ui/run.py --suite former-work-core --validate-only
 
-# Strict replay currently exits nonzero with two unsupported cases.
-python3 tools/behavior-tests/ui/run.py --pending
+# Strict native candidate replay of the original checkpoints.
+python3 tools/behavior-tests/ui/run.py --suite former-work-core
 ```
 
 `generate_former_work.py` declares eleven input sequences in `former-work.json`

@@ -298,31 +298,31 @@
       "status": "fixed-in-native-regression",
       "probe": "GLSMAC_data/tests/unit_work_state.gls.js",
       "first_failure": "Unsupported unit order: TERRAFORM",
-      "scope": "Production Hold/Activate receipts preserve and restore complete active native work metadata; the 13 recorded Scout traces remain unchanged. Actual Former work commands remain pending."
+      "scope": "Production Hold/Activate receipts preserve and restore complete active native work metadata; the 13 recorded Scout traces remain unchanged. Activate cancellation now restores the current work tick; its rollback restores the complete prior state."
     },
     {
       "id": "former-work-core",
       "suite": "former-work-core",
       "property": "Original Former work progresses, completes terrain improvements, and cancels/resumes with retained native work units; the reproduction has no playable work commands yet.",
-      "status": "recorded-awaiting-transfer",
+      "status": "fixed-in-recorded-native-and-browser-contract",
       "examples": [
         "former-mine-source",
         "former-farm-cancel-resume"
       ],
       "verification": {
-        "matched": 0,
+        "matched": 2,
         "mismatched": 0,
-        "unsupported": 2,
+        "unsupported": 0,
         "errors": 0
       },
-      "scope": "One healthy normal Former on flat arid non-base land; native order, movement spent in thirds, work units and road/farm/mine/forest flags. No complete terraforming or UI-label claim."
+      "scope": "One healthy normal Former on flat arid non-base land; native order, movement spent in thirds, work units and road/farm/mine/forest flags. No complete terraforming or UI-label claim. Source-driven production commands, native fresh-turn progress, completion and cancellation/resume match both frozen traces. Additional controls and other action regression tests do not broaden original coverage. Both optional browser traces also match every checkpoint through actual shortcuts, event transport and native turns on a declared small arid world, then exit cleanly."
     },
     {
       "id": "native-terrain-edit-bridge",
       "status": "fixed-in-native-and-browser-regression",
       "probe": "GLSMAC_data/tests/terraforming_native.gls.js",
       "first_failure": "get_terraforming is undefined on the native tile manager",
-      "scope": "19 native scenarios verify guarded edits, detached state, owned frontend packets, sprite cleanup and RNG preservation. Two browser rule profiles exercise four live terrain edits, resource income, world and preview redraws, and clean shutdown. Actual Former controls and automatic work progress remain pending."
+      "scope": "19 native scenarios verify guarded edits, detached state, owned frontend packets, sprite cleanup and RNG preservation. Two browser rule profiles exercise four live terrain edits, resource income, world and preview redraws, and clean shutdown. Bounded Former controls and automatic work progress now use this bridge."
     }
   ],
   "verification": {

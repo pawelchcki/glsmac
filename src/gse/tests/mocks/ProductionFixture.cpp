@@ -876,6 +876,11 @@ struct ProductionFixture : gc::Object {
 		else if ( kind == "water" ) { unit->GetTile()->is_water_tile = true; }
 		else if ( kind == "locked" ) { unit->GetTile()->Lock( 1 ); }
 		else if ( kind == "sensor" ) { unit->GetTile()->terraforming |= backend::map::tile::TERRAFORMING_SENSOR; }
+		else if ( kind == "arid" ) {
+			auto* tile = unit->GetTile(); tile->moisture = backend::map::tile::MOISTURE_ARID; tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+			for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
+			tile->Update();
+		}
 		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
 		else if ( kind == "completed" ) { owner->CompleteTurn(); }
 		else if ( kind == "inactive" ) { game.m_game_state = backend::Game::GS_NONE; }

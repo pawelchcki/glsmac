@@ -16,6 +16,7 @@ return (game) => {
 		'unit_skip_turn',
 		'unit_hold',
 		'unit_activate',
+		'unit_terraform',
 		'define_base_pop',
 		'define_base_facility',
 		'spawn_base',

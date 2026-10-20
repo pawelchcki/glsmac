@@ -279,3 +279,18 @@ execution, worked-tile yields, construction costs or complete base economy.
 selected signed ratings and multipliers, including exact zero factors. These
 exclude ordinary custom-dialog navigation, terrain, AI and per-base effects.
 Their historical v1 predecessors remain only in the provenance catalog.
+
+## Bounded Former work state
+
+`game.former_work.v1` compares native work orders, movement spent in thirds,
+work counters and four improvement flags at every action checkpoint. Two
+independently repeated original traces cover edited mine completion and normal
+farm cancellation/resume on flat arid non-base land with one healthy ordinary
+Former. Both match the production work scripts, actual native unit/tile state
+and native turn advancement without graphics or original assets. Synthetic
+equivalent installed declarations, initial placement and explicit turn
+acknowledgements are fixture inputs. They do not compute work effects.
+
+This is separate from the C++ helper totals and establishes no parity for
+other terrain, partial movement, advanced abilities, multiple workers,
+replacement dialogs or UI labels. See [the exact contract](ui/former-work-contract.md).

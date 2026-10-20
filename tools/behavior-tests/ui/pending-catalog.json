@@ -1,10 +1,4 @@
 {
   "version": 1,
-  "references": [
-    {
-      "id": "former-work-core",
-      "cases": "cases/former-work-core.json",
-      "observations": "observations/smacx-gog-2.0-former-work-core.json"
-    }
-  ]
+  "references": []
 }

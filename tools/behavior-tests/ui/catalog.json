@@ -100,6 +100,11 @@
       "id": "startup-inventory-sources",
       "cases": "cases/startup-inventory-sources.json",
       "observations": "observations/smacx-gog-2.0-startup-inventory-sources.json"
+    },
+    {
+      "id": "former-work-core",
+      "cases": "cases/former-work-core.json",
+      "observations": "observations/smacx-gog-2.0-former-work-core.json"
     }
   ]
 }

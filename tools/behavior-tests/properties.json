@@ -105,9 +105,9 @@
         "Terraforming",
         "Founding bases",
         "Other factions/difficulties and starting-unit bonuses beyond the two recorded land starts",
-        "Faction morale bonuses, reactor damage, authentic conventional unit graphics and terraforming commands"
+        "Faction morale bonuses, reactor damage, authentic conventional unit graphics and terraforming beyond one healthy Former on flat arid non-base land"
       ],
-      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Installed TERRAIN metadata, native work-state persistence and live terrain edits now have separate headless and browser checks, including world/preview redraws under two rule profiles. Actual Former work commands and automatic progression remain pending. Original combat odds and complete research/terraforming/AI remain unimplemented. Two independently repeated original Former traces are frozen in the pending catalog (edited mine completion and farm cancellation/resume); candidate replay reports both unsupported."
+      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Installed TERRAIN metadata, native work-state persistence and live terrain edits now have separate headless and browser checks, including world/preview redraws under two rule profiles. Production work commands and fresh-turn progress now support one healthy normal Former on flat arid non-base land; two frozen work traces match native replay. Original combat odds and complete research/terraforming/AI remain unimplemented. Two independently repeated original Former traces are frozen (edited mine completion and farm cancellation/resume); candidate replay matches both; they are promoted into the passing catalog."
     },
     {
       "id": "combat",
@@ -160,7 +160,7 @@
         "Hurrying",
         "Energy and commerce"
       ],
-      "coverage": "576 independent original non-base land resource queries cover all declared rainfall/rockiness pairs, eight improvement states, two rule profiles and owned/unowned synthetic resource-cap technology. Production source consumption, native faction starting-tech ownership, actual browser base/turn integration and live native terrain edits under two rule profiles are separate application checks. Solar, fungus, sea, bonuses, special terrain, facilities and terraforming work progress remain outside the contract."
+      "coverage": "576 independent original non-base land resource queries cover all declared rainfall/rockiness pairs, eight improvement states, two rule profiles and owned/unowned synthetic resource-cap technology. Production source consumption, native faction starting-tech ownership, actual browser base/turn integration and live native terrain edits under two rule profiles are separate application checks. Solar, fungus, sea, bonuses, special terrain, facilities and work progress beyond the separate two-case Former contract remain outside this resource contract."
     },
     {
       "id": "turn-lifecycle",

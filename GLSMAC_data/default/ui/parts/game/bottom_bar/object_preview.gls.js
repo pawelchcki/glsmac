@@ -1,4 +1,5 @@
 const colony = #include('../../../../game/colony');
+const work = #include('../../../../game/terraforming');
 
 return {
 
@@ -14,6 +15,26 @@ return {
 	update_order_buttons: () => {
 		this.hold_button.class = this.get_order_unit(false) == null ? 'unit-hold-button-disabled' : 'unit-hold-button-enabled';
 		this.activate_button.class = this.get_order_unit(true) == null ? 'unit-activate-button-disabled' : 'unit-activate-button-enabled';
+		for (action of ['farm', 'mine', 'forest', 'road']) {
+			const button = this.work_buttons[action];
+			button.class = 'unit-work-' + action + (this.get_work_unit(action) == null ? '-disabled' : '-enabled');
+		}
+	},
+
+	get_work_unit: (action) => {
+		const unit = this.get_order_unit(false);
+		if (unit == null || unit.def != 'Formers') { return null; }
+		const player = this.p.game.get_player();
+		const e = {caller: player.id, data: {unit_id: unit.id, action: action}}; e.game = this.p.game;
+		return #is_defined(work.validate(e)) ? null : unit;
+	},
+
+	submit_work: (action) => {
+		const unit = this.get_work_unit(action); if (unit == null) { return false; }
+		this.order_pending = {name: 'unit_terraform', unit_id: unit.id};
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		this.p.game.event('unit_terraform', {unit_id: unit.id, action: action});
+		return true;
 	},
 
 	submit_unit_order: (name) => {
@@ -217,8 +238,13 @@ return {
 				if (!object.is_immovable) {
 					this.movement_label = f_line(object.movement > 0.0 ? 'Moves: ' + this.format_movement(object.movement) : 'ALREADY MOVED', 12, 'left');
 				}
-				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD') { throw Error('Unknown unit order: ' + this.rendered_order); }
-				this.order_label = f_line(this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS', 12, 'left');
+				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD' && this.rendered_order != 'TERRAFORM') { throw Error('Unknown unit order: ' + this.rendered_order); }
+				let label = this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS';
+				if (this.rendered_order == 'TERRAFORM') {
+					const state = object.get_terraforming(); const rules = this.p.game.get('terraforming_rules'); const rule = rules[state.action];
+					label = rule.order;
+				}
+				this.order_label = f_line(label, 12, 'left');
 
 				break;
 			}
@@ -313,6 +339,17 @@ return {
 			button.on('click', (e) => { this.submit_unit_order('unit_' + command); return true; });
 			if (left) { this.hold_button = button; } else { this.activate_button = button; }
 		}
+		this.work_buttons = {}; let work_index = 0;
+		for (name of ['farm', 'mine', 'forest', 'road']) {
+			const action = name; const cls = 'unit-work-' + action;
+			for (state of ['enabled', 'disabled']) {
+				p.ui.class(cls + '-' + state).extend('unit-skip-button-' + state).set({bottom: 46, height: 14,
+					left: 2 + work_index * 30, right: 92 - work_index * 30, font: 'arialnb.ttf:8'});
+			}
+			const button = this.frame.button({class: cls + '-disabled', text: #uppercase(action)});
+			button.on('click', (e) => { this.submit_work(action); return true; });
+			this.work_buttons[action] = button; work_index++;
+		}
 		p.ui.class('unit-found-button').extend('unit-skip-button').set({
 			left: 3,
 			right: 63,
@@ -336,7 +373,11 @@ return {
 				if (e.code == 'H') { return this.submit_unit_order('unit_hold'); }
 				if (e.code == 'A') { return this.submit_unit_order('unit_activate'); }
 				if (e.code == 'SPACE') { return this.submit_unit_order('unit_skip_turn'); }
+				if (e.code == 'F') { return this.submit_work('farm'); }
+				if (e.code == 'M') { return this.submit_work('mine'); }
+				if (e.code == 'R') { return this.submit_work('road'); }
 			}
+			if (e.code == 'F' && e.modifiers == {shift: true} && !this.p.modules.popup.is_shown() && this.is_turn_active) { return this.submit_work('forest'); }
 			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
 				return this.found_selected_base();
 			}

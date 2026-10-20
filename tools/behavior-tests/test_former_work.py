@@ -13,6 +13,41 @@ from ui.former_work_contract import ALGORITHM, RATE_PROFILES, RATE_ROWS, validat
 from ui.former_work_sources import arid_map, block_rows, free_former, profiles, work_rates
 from ui.generate_former_work import suite
 from ui import former_work_original as recorder
+from ui.former_work_headless import parse_candidate
+
+
+class FormerCandidateProtocolTests(unittest.TestCase):
+    def setUp(self):
+        self.cases = [{'id': 'shape-witness', 'algorithm': ALGORITHM, 'input': {'profile': 'normal', 'actions': []}}]
+        self.text = 'WORK_CASE|shape-witness\nWORK_STATE|0|0|none|0|0|false|false|false|false\nWORK_DONE\nAll tests passed.\n'
+
+    def test_observes_complete_native_state(self):
+        row, = parse_candidate(self.text, self.cases)
+        self.assertEqual(row['id'], 'shape-witness')
+        self.assertEqual(row['output'], FormerWorkContractTests.output())
+
+    def test_rejects_missing_duplicate_and_orphan_checkpoints(self):
+        for value in (self.text.replace('WORK_DONE\n', ''), self.text.replace('WORK_STATE|0', 'WORK_STATE|1'),
+                      self.text.replace('WORK_DONE', 'WORK_DONE\nWORK_DONE'), self.text.replace('WORK_STATE|0', 'WORK_STATE|00'),
+                      self.text.replace('WORK_DONE', 'WORK_STATE|1|0|none|0|0|false|false|false|false\nWORK_DONE')):
+            with self.subTest(value=value), self.assertRaises(ProtocolError):
+                parse_candidate(value, self.cases)
+
+    def test_rejects_invalid_native_values_and_missing_success(self):
+        for before, after in (('none|0|0', 'invented|0|0'), ('none|0|0', 'none|4|0'),
+                              ('none|0|0', 'none|0|129'), ('false', '0'), ('All tests passed.', 'TEST FAILED')):
+            with self.subTest(after=after), self.assertRaises(ProtocolError):
+                parse_candidate(self.text.replace(before, after), self.cases)
+
+    def test_preserves_command_failure_as_error(self):
+        row, = parse_candidate('WORK_CASE|shape-witness\nWORK_ERROR|rejected by native state\nAll tests passed.\n', self.cases)
+        self.assertEqual(row['status'], 'error')
+        self.assertEqual(row['reason'], 'rejected by native state')
+
+    def test_rejects_reordered_cases_and_unknown_markers(self):
+        for value in (self.text.replace('shape-witness', 'another-case'), self.text.replace('WORK_DONE', 'WORK_UNKNOWN')):
+            with self.assertRaises(ProtocolError):
+                parse_candidate(value, self.cases)
 
 
 class FormerWorkContractTests(unittest.TestCase):
