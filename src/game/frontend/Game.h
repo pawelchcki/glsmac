@@ -9,6 +9,8 @@
 #include "common/MTTypes.h"
 #include "game/backend/turn/Types.h"
 #include "game/backend/map/Types.h"
+#include "game/backend/map/RenderResources.h"
+#include <memory>
 #include "game/backend/unit/Types.h"
 #include "game/backend/Types.h"
 #include "rr/Types.h"
@@ -370,6 +372,7 @@ private:
 		std::unordered_map< ::resource::resource_t, types::texture::Texture* > source;
 		types::texture::Texture* terrain = nullptr;
 	} m_textures;
+	std::shared_ptr< backend::map::RenderResources > m_render_resources;
 
 	struct {
 		actor::TileSelection* tile_selection = nullptr;

@@ -4,6 +4,7 @@
 #include "game/frontend/base/Base.h"
 #include "game/backend/map/tile/Tile.h"
 #include "game/backend/map/tile/TileState.h"
+#include "game/backend/map/tile/VisualState.h"
 #include "types/mesh/Render.h"
 
 namespace game {
@@ -274,6 +275,11 @@ const Tile::render_data_t& Tile::GetRenderData() const {
 }
 
 void Tile::Update( const backend::map::tile::Tile& tile, const backend::map::tile::TileState& ts ) {
+	Update( backend::map::tile::VisualState( tile, ts ) );
+}
+
+void Tile::Update( const backend::map::tile::VisualState& tile ) {
+	const auto& ts = tile;
 
 	m_is_water = tile.is_water_tile;
 
@@ -321,16 +327,16 @@ void Tile::Update( const backend::map::tile::Tile& tile, const backend::map::til
 #undef x
 
 	if ( !tile.is_water_tile && ts.is_coastline_corner ) {
-		if ( tile.W->is_water_tile ) {
+		if ( tile.west_water ) {
 			selection_coords.left = ts.layers[ backend::map::tile::LAYER_WATER ].coords.left;
 		}
-		if ( tile.N->is_water_tile ) {
+		if ( tile.north_water ) {
 			selection_coords.top = ts.layers[ backend::map::tile::LAYER_WATER ].coords.top;
 		}
-		if ( tile.E->is_water_tile ) {
+		if ( tile.east_water ) {
 			selection_coords.right = ts.layers[ backend::map::tile::LAYER_WATER ].coords.right;
 		}
-		if ( tile.S->is_water_tile ) {
+		if ( tile.south_water ) {
 			selection_coords.bottom = ts.layers[ backend::map::tile::LAYER_WATER ].coords.bottom;
 		}
 	}
@@ -410,7 +416,7 @@ void Tile::Update( const backend::map::tile::Tile& tile, const backend::map::til
 
 	std::vector< std::string > info_lines = {};
 
-	auto e = *tile.elevation.center;
+	auto e = tile.elevation;
 	if ( tile.is_water_tile ) {
 		if ( e < backend::map::tile::ELEVATION_LEVEL_TRENCH ) {
 			info_lines.push_back( "Ocean Trench" );
@@ -559,6 +565,7 @@ void Tile::Update( const backend::map::tile::Tile& tile, const backend::map::til
 
 	m_render_data.coords = layer.coords.center;
 	m_render_data.selection_coords = selection_coords;
+	for ( const auto* mesh : m_render_data.preview_meshes ) { delete mesh; }
 	m_render_data.preview_meshes = preview_meshes;
 	m_render_data.preview_lines = preview_lines;
 	m_render_data.sprites = sprites;

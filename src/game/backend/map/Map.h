@@ -3,6 +3,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <set>
+#include <memory>
+#include "RenderResources.h"
 
 #include "types/Serializable.h"
 #include "gse/GCWrappable.h"
@@ -122,6 +125,8 @@ CLASS2( Map, types::Serializable, gse::GCWrappable )
 
 	// be careful using this
 	tile::Tiles* GetTilesPtr() const;
+	void SetTerraforming( tile::Tile* tile, tile::terraforming_t flags );
+	void PushUpdates();
 
 	const types::Buffer SerializeSpriteActor( const sprite_actor_t& sprite_actor ) const;
 	const sprite_actor_t DeserializeSpriteActor( types::Buffer buf ) const;
@@ -156,6 +161,7 @@ private:
 		} source;
 		types::texture::Texture* terrain = nullptr;
 	} m_textures;
+	std::shared_ptr< RenderResources > m_frontend_resources;
 
 	// proxying because we can't create actors in this thread
 	std::unordered_map< std::string, sprite_actor_t > m_sprite_actors = {};
@@ -175,6 +181,8 @@ private:
 	tile::Tiles* m_tiles = nullptr;
 	tile::Tile* m_selected_tile = nullptr;
 	MapState* m_map_state = nullptr;
+	std::set< std::pair< size_t, size_t > > m_dirty_tiles;
+	bool m_refreshing_terrain = false;
 
 	typedef std::vector< tile::Tile* > tiles_t;
 

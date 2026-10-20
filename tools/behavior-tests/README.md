@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,089 scenarios and 7,439 assertions** across
-87 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,108 scenarios and 7,464 assertions** across
+88 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -49,9 +49,18 @@ profiles verify the actual configured values. The `unit-work-state` suite
 checks native progress ownership, inactive retained work, write authorization,
 stale methods, frontend order delivery, receiving-world serialization and
 malformed-record rejection. Hold/Activate rollback restores the complete prior
-work state. These are application prerequisites, not original
-work-time parity. Terraforming commands, automatic work and terrain changes
-remain unimplemented.
+work state. These are application prerequisites, not original work-time parity.
+
+The `terraforming-native` suite checks actual tile edits, detached reads,
+unrelated improvement preservation, write/lock/coordinate guards, retired-world
+methods, copied frontend packets, sprite-cache removal and random-state
+restoration on success and failure. Runtime edits regenerate affected terrain
+and neighbours, update sprites and selected previews, and preserve frontend
+ownership through shutdown. The two asset-backed browser profiles apply four
+declared edits, verify native resource income and unchanged stored food/minerals,
+compare image regions in the map and preview, reject unexpected loading modals,
+and exit the engine. These fixture edits do not simulate Former work.
+Playable Former commands and automatic work progress remain unimplemented.
 
 The `unit-source-transfer` suite mutates synthetic installed component records and
 executes shipped consumers, definition events and startup against native managers.

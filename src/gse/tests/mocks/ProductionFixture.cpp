@@ -3,6 +3,7 @@
 #include <memory>
 #include <set>
 #include <atomic>
+#include <stdexcept>
 #include "gc/Space.h"
 #include "gse/value/Array.h"
 #include "gse/value/Bool.h"
@@ -765,6 +766,15 @@ struct ProductionFixture : gc::Object {
 			{ "invalid_rejected", VALUE( value::Bool,, rejected ) }, { "source_unchanged", VALUE( value::Bool,, FoundingSnapshot() == before ) },
 		} );
 	}
+	bool TerrainSpriteCacheProbe() {
+		std::unique_ptr< backend::map::Map > source( new backend::map::Map( &game, false ) );
+		const auto key = source->GetTerrainSpriteActor( "synthetic", { 0, 0 }, 0.5f );
+		const auto first = source->AddTerrainSpriteActorInstance( key, { 1, 2, 3 } );
+		source->RemoveTerrainSpriteActorInstance( key, first );
+		const bool removed = source->m_sprite_instances.empty() && source->m_sprite_instances_to_add.empty() && source->m_sprite_instances_to_remove.empty();
+		const auto second = source->AddTerrainSpriteActorInstance( key, { 4, 5, 6 } );
+		return removed && second != first && source->m_sprite_instances.size() == 1 && source->m_sprite_instances_to_add.count( second ) == 1;
+	}
 	void EnableRenderCoordinates() {
 		if ( game.m_map->m_map_state ) { return; }
 		// Frontend queue serialization needs MapObject's real coordinate
@@ -865,6 +875,7 @@ struct ProductionFixture : gc::Object {
 		else if ( kind == "wrong_def" ) { unit->m_def = game.m_um->GetUnitDef( "Scout" ); }
 		else if ( kind == "water" ) { unit->GetTile()->is_water_tile = true; }
 		else if ( kind == "locked" ) { unit->GetTile()->Lock( 1 ); }
+		else if ( kind == "sensor" ) { unit->GetTile()->terraforming |= backend::map::tile::TERRAFORMING_SENSOR; }
 		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
 		else if ( kind == "completed" ) { owner->CompleteTurn(); }
 		else if ( kind == "inactive" ) { game.m_game_state = backend::Game::GS_NONE; }
@@ -1247,6 +1258,47 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 			{ "pop", VALUE( value::Int,, session->current->NextPopId() ) },
 		};
 		return VALUEEXT( value::Object, GSE_CALL, result );
+	} ), GSE_CALL );
+	object->Set( "terrain_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		return VALUE( value::String,, session->current->game.GetMap()->GetTilesPtr()->Serialize().ToString() );
+	} ), GSE_CALL );
+	object->Set( "terrain_patch_copy_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); auto& f = *session->current; f.EnableRenderCoordinates();
+		std::unique_ptr< ::game::FrontendRequest > copy;
+		{
+			::game::FrontendRequest source( ::game::FrontendRequest::FR_UPDATE_TILES );
+			auto* patch = new ::game::FrontendRequest::terrain_patch_t(); source.data.update_tiles.patch = patch;
+			patch->tiles.emplace_back( *f.game.GetMap()->GetTile( 2, 2 ), *f.game.GetMap()->GetTileState( 2, 2 ) );
+			patch->tiles[ 0 ].terraforming = backend::map::tile::TERRAFORMING_FOREST;
+			patch->tiles[ 0 ].layers[ 0 ].coords.center.x = 17.0f;
+			patch->tiles[ 0 ].sprites.push_back( { "actor", 1, "name", {} } );
+			patch->actors.emplace( "key", backend::map::sprite_actor_t { "actor", { 1, 2 }, 0.5f } );
+			patch->removed.emplace( 1, "actor" ); patch->added.emplace( 2, std::make_pair( "actor", types::Vec3 { 1, 2, 3 } ) );
+			copy = std::make_unique< ::game::FrontendRequest >( source );
+			patch->tiles[ 0 ].terraforming = 0; patch->tiles[ 0 ].layers[ 0 ].coords.center.x = 99.0f;
+			patch->tiles[ 0 ].sprites[ 0 ].actor = "changed"; patch->actors.at( "key" ).name = "changed";
+			patch->removed.at( 1 ) = "changed"; patch->added.at( 2 ).first = "changed";
+		}
+		const auto& patch = *copy->data.update_tiles.patch;
+		return VALUE( value::Bool,, patch.tiles[ 0 ].terraforming == backend::map::tile::TERRAFORMING_FOREST &&
+			patch.tiles[ 0 ].layers[ 0 ].coords.center.x == 17.0f && patch.tiles[ 0 ].sprites[ 0 ].actor == "actor" &&
+			patch.actors.at( "key" ).name == "actor" && patch.removed.at( 1 ) == "actor" && patch.added.at( 2 ).first == "actor" );
+	} ), GSE_CALL );
+	object->Set( "terrain_random_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( fail, 0, Bool );
+		auto& random = *session->current->game.GetRandom(); const auto before = random.GetStateString();
+		bool consumed = false, caught = false;
+		try {
+			const util::random::Random::ScopedState preserve_random( random );
+			for ( size_t i = 0; i < 16; ++i ) { random.GetInt64( 0, 1000 ); random.GetFloat( 0.0f, 1.0f ); }
+			consumed = random.GetStateString() != before;
+			if ( fail ) { throw std::runtime_error( "Synthetic artwork failure" ); }
+		} catch ( const std::runtime_error& ) { caught = true; }
+		return VALUE( value::Bool,, consumed && random.GetStateString() == before && caught == fail );
+	} ), GSE_CALL );
+	object->Set( "terrain_sprite_cache_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->TerrainSpriteCacheProbe() );
 	} ), GSE_CALL );
 	object->Set( "process_pending_bases", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); session->current->ProcessPendingBases( GSE_CALL ); return VALUE( value::Undefined );

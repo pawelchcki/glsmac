@@ -126,6 +126,7 @@ public:
 	gse::value::Object* const GetResourcesAsValue( GSE_CALLABLE, slot::Slot* const slot );
 
 private:
+	friend class TileManager;
 	bool m_has_imported_elevation = false;
 	elevation_t m_imported_elevation = 0;
 	bool m_imported_water = false;

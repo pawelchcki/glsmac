@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_set>
+#include <memory>
 
 #include "gse/GCWrappable.h"
 
@@ -48,6 +49,8 @@ private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	TileManager( Game* game, const bool register_with_gc );
 	Game* m_game = nullptr;
+	const std::shared_ptr< TileManager* > m_live_handle = std::make_shared< TileManager* >( this );
+	Tile* GetTileAt( GSE_CALLABLE, int64_t x, int64_t y ) const;
 
 	// server-side lock tracking
 	struct tile_lock_request_t {

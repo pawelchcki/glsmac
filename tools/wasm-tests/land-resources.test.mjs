@@ -5,6 +5,7 @@ import {mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {test} from 'node:test';
 import {chromium} from 'playwright';
+import {PNG} from 'pngjs';
 import {overrideRulesAsset, syntheticNutrientRules} from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -46,7 +47,8 @@ return (game) => {
 };
 `;
 
-// Read-only observations; the normal input handlers issue every test command.
+// Read-only observations plus declared terrain fixture edits. These exercise
+// native editing/render delivery, without simulating Former work or its timing.
 const main = String.raw`
 #main((glsmac) => {
   #include('game/game')(glsmac); #include('ui/ui')(glsmac);
@@ -77,14 +79,41 @@ const main = String.raw`
   };
   glsmac.on('configure_game', (e) => {
     const game = e.game; let status = 'none';
+    let exiting = false;
+    let editing = false;
+    let edit_phase = 0;
+    game.register_event('fixture_terrain_edit', {
+      validate: (e) => { if (e.caller != e.game.get_player().id) { return 'Fixture requires its owner'; } },
+      apply: (e) => {
+        const tm = e.game.get_tm(); const old = tm.get_terraforming(8, 6);
+        const receipt = {road: old.road, farm: old.farm, mine: old.mine, forest: old.forest};
+        tm.set_terraforming(8, 6, {road: e.data.phase == 3, farm: e.data.phase == 4, mine: e.data.phase == 3, forest: e.data.phase == 2});
+        return receipt;
+      },
+      rollback: (e) => { e.game.get_tm().set_terraforming(8, 6, e.applied); },
+    });
     game.on('turn_status', (e) => { status = e.status; });
     game.on('event_result', (e) => { if (!e.success) { #print('LR_REJECT|' + e.name); } });
     game.on('error', (e) => { #print('LR_ERROR'); });
     game.on('start_ui', (e) => {
+      glsmac.ui.on('loader_show', (e) => { if (editing && !exiting) { #print('LR_UNEXPECTED_LOADER'); } });
+      game.get_map().on('tile_preview', (e) => {
+        if (e.tile.x == 8 && e.tile.y == 6) { #print('LR_TARGET_PREVIEW'); }
+      });
       const rules = game.get('terraforming_rules');
       #print('LR_TERRAFORM|' + #to_string(rules.farm.turns) + '|' + #to_string(rules.road.turns) + '|' + rules.farm.order + '|' + rules.farm.prerequisite);
       #async(0, () => {
         glsmac.ui.root.on('keydown', (e) => {
+          if (e.code == 'K' && e.modifiers == {}) {
+            if (edit_phase == 4) { exiting = true; #print('LR_EXITING'); glsmac.exit(); }
+            else { game.select_tile(game.get_tm().get_tile(8, 6)); }
+            return true;
+          }
+          if (e.code == 'J' && e.modifiers == {}) {
+            editing = true;
+            edit_phase = edit_phase % 4 + 1;
+            game.event('fixture_terrain_edit', {phase: edit_phase}); return true;
+          }
           if (e.code != 'P' || e.modifiers != {}) { return false; }
           #print('LR_BEGIN'); #print('LR_TURN|' + #to_string(game.get_turn()) + '|' + status);
           for (position of [[8, 6], [9, 9], [9, 7]]) {
@@ -133,6 +162,7 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, {recursive: true})
     .filter((name) => name.endsWith('.gls.js')).sort().map((name) => [`GLSMAC_data/default/${name}`, readFileSync(`${root}GLSMAC_data/default/${name}`, 'utf8')]));
   t.diagnostic(`Production scripts SHA-256: ${createHash('sha256').update(JSON.stringify(scripts)).digest('hex')}`);
+  t.diagnostic(`Runtime WASM SHA-256: ${createHash('sha256').update(readFileSync(`${build}/GLSMAC.wasm`)).digest('hex')}`);
   const address = await serve(t);
   const browser = await chromium.launch({headless: true, executablePath: process.env.WASM_BROWSER_EXECUTABLE || undefined,
     args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
@@ -152,7 +182,7 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
       .replace('Road,None,Road,Disable,1,Build $STR0', 'Road,None,Road,Disable,3,Build $STR0');
   }
   const override = await overrideRulesAsset(page, source);
-  const fatal = /LR_REJECT|LR_ERROR|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
+  const fatal = /LR_REJECT|LR_ERROR|LR_UNEXPECTED_LOADER|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
   const wait = async (marker, count = 1) => {
     try {
       await page.waitForFunction(({marker, count, fatal}) => new RegExp(fatal).test(document.querySelector('#log').textContent)
@@ -222,4 +252,38 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
   assert.equal(state.base[5], intake[1], 'The next native production event credits actual improved mineral income once');
   assert.equal(state.base[7] - before.base[7], intake[0] - 4, 'Actual food storage uses the improved intake minus two workers consumption');
   assert.deepEqual(state.tiles, before.tiles); assert.deepEqual(state.worked, before.worked); assert.deepEqual(errors, []);
+  const selected = (await page.locator('#log').textContent()).split('LR_TARGET_PREVIEW').length - 1;
+  await page.keyboard.press('k'); await wait('LR_TARGET_PREVIEW', selected + 1);
+  const saved = state.base.slice(5);
+  const images = [];
+  for (const improvement of ['bare', 'forest', 'mine-road', 'farm']) {
+    const previews = (await page.locator('#log').textContent()).split('LR_TARGET_PREVIEW').length - 1;
+    await page.keyboard.press('j'); await wait('LR_TARGET_PREVIEW', previews + 1);
+    const changed = await probe();
+    const edited = expected(profile, improvement, 0);
+    assert.deepEqual(changed.tiles[0], [8, 6, ...edited], 'A real native terrain edit changes subsequent resource queries');
+    assert.deepEqual(changed.base.slice(2, 5), edited.map((value, i) => value + forest[i] + [2, 1, 2][i]));
+    assert.deepEqual(changed.base.slice(5), saved, 'Terrain queries do not advance production food storage or turns');
+    assert.deepEqual(changed.worked, before.worked);
+    await page.waitForTimeout(100);
+    const screenshot = await page.locator('#canvas').screenshot();
+    writeFileSync(new URL(`terrain-edit-${profile}-${improvement}.png`, artifacts), screenshot);
+    const rendered = PNG.sync.read(screenshot);
+    assert.equal(rendered.width, 1024); assert.ok(rendered.height >= 768 && rendered.height <= 769);
+    const crop = (left, top, width, height) => {
+      const pixels = Buffer.alloc(width * height * 4);
+      for (let row = 0; row < height; ++row) rendered.data.copy(pixels, row * width * 4,
+        ((top + row) * rendered.width + left) * 4, ((top + row) * rendered.width + left + width) * 4);
+      return pixels;
+    };
+    images.push({preview: crop(140, 576, 100, 60), world: crop(440, 180, 110, 60)});
+  }
+  for (let i = 1; i < images.length; ++i) {
+    assert.ok(!images[i].preview.equals(images[i - 1].preview), 'The real tile preview redraws its image beyond changing labels');
+    assert.ok(!images[i].world.equals(images[i - 1].world), 'The edited square redraws in the actual world');
+  }
+  await page.keyboard.press('k');
+  await wait('LR_EXITING');
+  await page.waitForFunction(() => document.body.dataset.state === 'exited');
+  assert.deepEqual(errors, []);
 });

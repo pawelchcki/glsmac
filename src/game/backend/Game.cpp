@@ -342,6 +342,7 @@ void Game::Iterate() {
 		);
 
 	}
+	if ( m_map ) { m_map->PushUpdates(); }
 	if ( m_um ) {
 		m_um->PushUpdates();
 	}
@@ -933,6 +934,10 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 				response.data.get_map_data = m_response_map_data;
 				m_response_map_data = nullptr;
 				// ownership transferred to frontend
+				auto resources = std::make_shared< map::RenderResources >();
+				resources->terrain = m_map->m_meshes.terrain; resources->terrain_data = m_map->m_meshes.terrain_data; resources->texture = m_map->m_textures.terrain;
+				m_map->m_frontend_resources = resources;
+				response.data.get_map_data->render_resources = resources;
 				m_map->m_textures.terrain = nullptr;
 				m_map->m_meshes.terrain = nullptr;
 				m_map->m_meshes.terrain_data = nullptr;

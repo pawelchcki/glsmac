@@ -16,6 +16,7 @@ class Render;
 namespace game::backend::map::tile {
 class Tile;
 class TileState;
+struct VisualState;
 }
 
 namespace game {
@@ -85,6 +86,7 @@ public:
 	const render_data_t& GetRenderData() const;
 
 	void Update( const backend::map::tile::Tile& tile, const backend::map::tile::TileState& ts );
+	void Update( const backend::map::tile::VisualState& tile );
 
 private:
 

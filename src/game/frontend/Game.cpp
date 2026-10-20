@@ -280,6 +280,8 @@ void Game::Iterate() {
 					response.data.get_map_data->terrain_texture = nullptr;
 					response.data.get_map_data->terrain_mesh = nullptr;
 					response.data.get_map_data->terrain_data_mesh = nullptr;
+					m_render_resources = response.data.get_map_data->render_resources;
+					if ( m_render_resources ) { m_render_resources->active.store( true ); }
 
 					UpdateCameraRange();
 					UpdateMapInstances();
@@ -947,17 +949,21 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 			);
 		}
 		case FrontendRequest::FR_UPDATE_TILES: {
-			const auto& tiles_data = *request->data.update_tiles.tile_updates;
-			for ( const auto& tile_data : tiles_data ) {
-				const auto& t = tile_data.first;
-				ASSERT( t, "tile not found" );
-				const auto& ts = tile_data.second;
-				ASSERT( ts, "tile state not found" );
-				auto* tile = m_tm->GetTile( t->coord.x, t->coord.y );
+			const auto& patch = *request->data.update_tiles.patch;
+			for ( const auto& actor : patch.actors ) { GetTerrainInstancedSprite( actor.second ); }
+			for ( const auto& instance : patch.removed ) {
+				m_ism->GetInstancedSpriteByKey( instance.second )->actor->RemoveInstance( instance.first );
+			}
+			for ( const auto& instance : patch.added ) {
+				m_ism->GetInstancedSpriteByKey( instance.second.first )->actor->SetInstance( instance.first, instance.second.second );
+			}
+			for ( const auto& tile_data : patch.tiles ) {
+				auto* tile = m_tm->GetTile( tile_data.coord.x, tile_data.coord.y );
 				ASSERT( tile, "matching tile not found" );
 
 				Log( "Updating tile: " + tile->GetCoords().ToString() );
-				tile->Update( *t, *ts );
+				tile->Update( tile_data );
+				if ( m_tm->GetSelectedTile() == tile ) { UpdateTilePreview( tile ); }
 			}
 			break;
 		}
@@ -1736,6 +1742,10 @@ void Game::Deinitialize() {
 	ASSERT( m_is_initialized, "not initialized" );
 
 	m_is_initialized = false;
+	if ( m_render_resources ) {
+		g_engine->GetGraphics()->NoRender( [ this ]() { m_render_resources->active.store( false ); } );
+		m_render_resources.reset();
+	}
 
 	DeselectTileOrUnit();
 

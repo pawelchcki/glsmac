@@ -6,6 +6,9 @@
 
 #include "backend/unit/Types.h"
 #include "backend/turn/Types.h"
+#include "backend/map/Types.h"
+#include "backend/map/tile/VisualState.h"
+#include "types/Vec3.h"
 
 namespace game {
 
@@ -71,7 +74,13 @@ public:
 	};
 	typedef std::vector< slot_define_t > slot_defines_t;
 
-	typedef std::vector< std::pair< backend::map::tile::Tile*, backend::map::tile::TileState* > > tile_updates_t;
+	typedef std::vector< backend::map::tile::VisualState > tile_updates_t;
+	struct terrain_patch_t {
+		tile_updates_t tiles;
+		std::unordered_map< std::string, backend::map::sprite_actor_t > actors;
+		std::unordered_map< size_t, std::string > removed;
+		std::unordered_map< size_t, std::pair< std::string, types::Vec3 > > added;
+	};
 
 	struct base_pop_t {
 		std::string type;
@@ -90,7 +99,7 @@ public:
 			const std::string* stacktrace;
 		} error;
 		struct {
-			const tile_updates_t* tile_updates;
+			const terrain_patch_t* patch;
 		} update_tiles;
 		struct {
 			size_t tile_x;

@@ -29,9 +29,12 @@ and movement spent returning from three to zero. Resuming in the same year
 restores four work units. These are recorded checkpoints, not a general rule
 for every terrain or worker ability.
 
-The source consumer and native work-state tests are separate application
-checks. Actual candidate work commands, automatic progress and terrain mutation
-are still missing. These observations establish no parity for rocky/moist/sea
+The source consumer, native work-state persistence and native terrain-edit
+bridge have separate application tests. Browser checks exercise real tile
+edits, resource queries, world and preview redraws, and clean shutdown under
+two source profiles. Those fixture edits do not simulate Former work. Actual
+candidate work commands and automatic progress are still missing. These
+observations establish no parity for rocky/moist/sea
 terrain, fungus, multiple Formers, advanced abilities, injured workers, other
 factions, AI, research behavior, rendered work labels or the full game.
 

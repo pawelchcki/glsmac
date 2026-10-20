@@ -22,6 +22,9 @@
 #include "types/texture/Texture.h"
 #include "types/mesh/Render.h"
 #include "types/mesh/Data.h"
+#include "graphics/Graphics.h"
+#include "game/FrontendRequest.h"
+#include <memory>
 #include "game/backend/State.h"
 #include "MapState.h"
 #include "SMACMap.h"
@@ -251,6 +254,7 @@ void Map::Deserialize( types::Buffer buf ) {
 	m_sprite_actors_to_add.clear();
 	m_sprite_instances_to_remove.clear();
 	m_sprite_instances_to_add.clear();
+	m_dirty_tiles.clear();
 }
 
 const std::string& Map::GetErrorString( const error_code_t& code ) {
@@ -286,6 +290,91 @@ tile::TileState* Map::GetTileState( const tile::Tile* tile ) const {
 const MapState* Map::GetMapState() const {
 	ASSERT( m_map_state, "map state not set" );
 	return m_map_state;
+}
+
+void Map::SetTerraforming( tile::Tile* tile, const tile::terraforming_t flags ) {
+	if ( tile->terraforming == flags ) { return; }
+	if ( m_map_state ) {
+		const bool frontend_ready = m_frontend_resources && m_frontend_resources->active.load();
+		if ( m_map_state->first_run ) { THROW( "Terrain is still being initialized" ); }
+		if ( !m_meshes.terrain && !frontend_ready ) { THROW( "Terrain render mesh is missing" ); }
+		if ( !m_meshes.terrain_data && !frontend_ready ) { THROW( "Terrain data mesh is missing" ); }
+		if ( !m_textures.terrain && !frontend_ready ) { THROW( "Terrain texture is missing" ); }
+	}
+	tile->terraforming = flags;
+	tile->Update();
+	if ( m_map_state ) { m_dirty_tiles.emplace( tile->coord.y, tile->coord.x ); }
+}
+
+void Map::PushUpdates() {
+	if ( m_dirty_tiles.empty() ) { return; }
+	std::set< std::pair< size_t, size_t > > region = m_dirty_tiles;
+	// Include neighbours of blended neighbours, with stable coordinate order.
+	for ( size_t ring = 0; ring < 2; ++ring ) {
+		const auto before = region;
+		for ( const auto& position : before ) {
+			for ( auto* neighbour : GetTile( position.second, position.first )->neighbours ) {
+				region.emplace( neighbour->coord.y, neighbour->coord.x );
+			}
+		}
+	}
+	tiles_t tiles;
+	for ( const auto& position : region ) { tiles.push_back( GetTile( position.second, position.first ) ); }
+	auto patch = std::make_unique< FrontendRequest::terrain_patch_t >();
+	const auto random_before = GetRandom()->GetStateString();
+	const auto meshes_before = m_meshes; auto* const texture_before = m_textures.terrain;
+	const common::mt_flag_t canceled { false };
+	bool publish = false;
+	g_engine->GetGraphics()->NoRender( [ & ]() {
+		const bool frontend_ready = m_frontend_resources && m_frontend_resources->active.load();
+		if ( !m_meshes.terrain && !frontend_ready ) { return; }
+		publish = frontend_ready;
+		const util::random::Random::ScopedState preserve_random( *GetRandom() );
+		const auto owned_meshes = m_meshes; auto* const owned_texture = m_textures.terrain;
+		if ( !m_meshes.terrain ) { m_meshes.terrain = m_frontend_resources->terrain; }
+		if ( !m_meshes.terrain_data ) { m_meshes.terrain_data = m_frontend_resources->terrain_data; }
+		if ( !m_textures.terrain ) { m_textures.terrain = m_frontend_resources->texture; }
+		auto* previous_tile = m_current_tile; auto* previous_state = m_current_ts;
+		m_refreshing_terrain = true;
+		// Initial map delivery already installed its full actor/instance set.
+		m_sprite_actors_to_add.clear(); m_sprite_instances_to_remove.clear(); m_sprite_instances_to_add.clear();
+		try {
+			LoadTiles( tiles, canceled );
+			FixNormals( tiles, canceled );
+			for ( const auto* tile : tiles ) {
+				const auto* state = GetTileState( tile );
+				patch->tiles.emplace_back( *tile, *state );
+				// Texture writers track updates too; these complete rectangles
+				// include their final pixel and the horizontal wrap column.
+				for ( size_t layer = 0; layer < tile::LAYER_MAX; ++layer ) {
+					const size_t offset = layer * m_map_state->dimensions.y * s_consts.tc.texture_pcx.dimensions.y;
+					m_textures.terrain->Update( { static_cast< size_t >( state->tex_coord.x1 ), static_cast< size_t >( state->tex_coord.y1 ) + offset,
+						static_cast< size_t >( state->tex_coord.x2 ), static_cast< size_t >( state->tex_coord.y2 ) + offset } );
+					if ( tile->coord.x < 2 ) {
+						m_textures.terrain->Update( { m_map_state->dimensions.x * s_consts.tc.texture_pcx.dimensions.x,
+							static_cast< size_t >( state->tex_coord.y1 ) + offset, m_textures.terrain->GetWidth(), static_cast< size_t >( state->tex_coord.y2 ) + offset } );
+					}
+				}
+			}
+			patch->actors = m_sprite_actors_to_add; patch->removed = m_sprite_instances_to_remove; patch->added = m_sprite_instances_to_add;
+		} catch ( ... ) {
+			m_meshes = owned_meshes; m_textures.terrain = owned_texture;
+			m_refreshing_terrain = false; m_current_tile = previous_tile; m_current_ts = previous_state;
+			throw;
+		}
+		m_meshes = owned_meshes; m_textures.terrain = owned_texture;
+		m_refreshing_terrain = false; m_current_tile = previous_tile; m_current_ts = previous_state;
+	} );
+	ASSERT( GetRandom()->GetStateString() == random_before, "Terrain rendering changed gameplay random state" );
+	ASSERT( m_meshes.terrain == meshes_before.terrain && m_meshes.terrain_data == meshes_before.terrain_data && m_textures.terrain == texture_before,
+		"Terrain rendering changed resource ownership" );
+	if ( publish ) {
+		FrontendRequest update( FrontendRequest::FR_UPDATE_TILES );
+		update.data.update_tiles.patch = patch.release();
+		m_game->AddFrontendRequest( update );
+	}
+	m_dirty_tiles.clear();
+	m_sprite_actors_to_add.clear(); m_sprite_instances_to_remove.clear(); m_sprite_instances_to_add.clear();
 }
 
 void Map::ClearTexture() {
@@ -608,7 +697,12 @@ const size_t Map::AddTerrainSpriteActorInstance( const std::string& key, const t
 
 void Map::RemoveTerrainSpriteActorInstance( const std::string& key, const size_t instance_id ) {
 	ASSERT( m_sprite_actors.find( key ) != m_sprite_actors.end(), "actor not found" );
+	const auto instance = m_sprite_instances.find( instance_id );
+	ASSERT( instance != m_sprite_instances.end() && instance->second.first == key, "sprite instance does not belong to actor" );
 	ASSERT( m_sprite_instances_to_remove.find( instance_id ) == m_sprite_instances_to_remove.end(), "instance already pending removal" );
+	m_sprite_instances.erase( instance );
+	// An instance added and removed before delivery never existed in frontend.
+	if ( m_sprite_instances_to_add.erase( instance_id ) ) { return; }
 	m_sprite_instances_to_remove.insert(
 		{
 			instance_id,
@@ -919,7 +1013,7 @@ void Map::ProcessTiles( module_passes_t& module_passes, const tiles_t& tiles, MT
 				tile_i++;
 				percent = (uint8_t)ceil( ( (float)tile_i * 100.0f / total ) ) - 1;
 
-				if ( percent != last_percent ) {
+				if ( !m_refreshing_terrain && percent != last_percent ) {
 					last_percent = percent;
 					sp = std::to_string( percent );
 					if ( sp.size() < percent_len ) {
@@ -932,7 +1026,7 @@ void Map::ProcessTiles( module_passes_t& module_passes, const tiles_t& tiles, MT
 				MT_RETIF();
 			}
 
-			if ( !--state_iterate_eta ) {
+			if ( !m_refreshing_terrain && !--state_iterate_eta ) {
 				// keep processing state (i.e. network events) while loading
 				m_game->GetState()->Iterate();
 				state_iterate_eta = ITERATE_STATE_EVERY_N_TILES;
@@ -961,7 +1055,7 @@ void Map::LoadTiles( const tiles_t& tiles, MT_CANCELABLE ) {
 void Map::FixNormals( const tiles_t& tiles, MT_CANCELABLE ) {
 	Log( "Fixing normals" );
 
-	m_game->SetLoaderText( "Fixing normals" );
+	if ( !m_refreshing_terrain ) { m_game->SetLoaderText( "Fixing normals" ); }
 
 	std::vector< types::mesh::surface_id_t > surfaces = {};
 

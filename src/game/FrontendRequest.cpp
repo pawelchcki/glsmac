@@ -29,7 +29,7 @@ FrontendRequest::FrontendRequest( const FrontendRequest& other )
 			break;
 		}
 		case FR_UPDATE_TILES: {
-			NEW( data.update_tiles.tile_updates, tile_updates_t, *other.data.update_tiles.tile_updates );
+			NEW( data.update_tiles.patch, terrain_patch_t, *other.data.update_tiles.patch );
 			break;
 		}
 		case FR_FACTION_DEFINE: {
@@ -121,7 +121,7 @@ FrontendRequest::~FrontendRequest() {
 			break;
 		}
 		case FR_UPDATE_TILES: {
-			DELETE( data.update_tiles.tile_updates );
+			DELETE( data.update_tiles.patch );
 			break;
 		}
 		case FR_FACTION_DEFINE: {

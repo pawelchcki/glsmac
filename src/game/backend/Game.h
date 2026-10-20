@@ -5,12 +5,14 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
 
 #include "common/MTModule.h"
 #include "gse/GCWrappable.h"
 
 #include "Types.h"
 #include "game/backend/map/Types.h"
+#include "game/backend/map/RenderResources.h"
 
 #include "types/Exception.h"
 #include "gse/Exception.h"
@@ -204,6 +206,7 @@ struct vertices_t {
 };
 
 struct response_map_data_t {
+	std::shared_ptr< map::RenderResources > render_resources;
 	size_t map_width;
 	size_t map_height;
 	types::texture::Texture* terrain_texture;
@@ -456,6 +459,7 @@ private:
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class map::tile::TileManager;
+	friend class map::Map;
 	friend class resource::ResourceManager;
 	friend class unit::UnitManager;
 	friend class base::BaseManager;

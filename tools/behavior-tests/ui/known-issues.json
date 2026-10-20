@@ -316,6 +316,13 @@
         "errors": 0
       },
       "scope": "One healthy normal Former on flat arid non-base land; native order, movement spent in thirds, work units and road/farm/mine/forest flags. No complete terraforming or UI-label claim."
+    },
+    {
+      "id": "native-terrain-edit-bridge",
+      "status": "fixed-in-native-and-browser-regression",
+      "probe": "GLSMAC_data/tests/terraforming_native.gls.js",
+      "first_failure": "get_terraforming is undefined on the native tile manager",
+      "scope": "19 native scenarios verify guarded edits, detached state, owned frontend packets, sprite cleanup and RNG preservation. Two browser rule profiles exercise four live terrain edits, resource income, world and preview redraws, and clean shutdown. Actual Former controls and automatic work progress remain pending."
     }
   ],
   "verification": {

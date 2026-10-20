@@ -10,6 +10,8 @@
 #include "gse/context/Context.h"
 #include "gse/callable/Native.h"
 #include "gse/ExecutionPointer.h"
+#include "gse/value/Bool.h"
+#include "gse/value/Int.h"
 
 namespace game {
 namespace backend {
@@ -26,7 +28,15 @@ TileManager::TileManager( Game* game, const bool register_with_gc )
 }
 
 TileManager::~TileManager() {
-	//
+	*m_live_handle = nullptr;
+}
+
+Tile* TileManager::GetTileAt( GSE_CALLABLE, const int64_t x, const int64_t y ) const {
+	const auto* map = GetMap( GSE_CALL );
+	if ( x < 0 || y < 0 || static_cast< uint64_t >( x ) >= map->GetWidth() || static_cast< uint64_t >( y ) >= map->GetHeight() || x % 2 != y % 2 ) {
+		GSE_ERROR( gse::EC.INVALID_CALL, "Invalid terraforming tile coordinates" );
+	}
+	return map->GetTile( x, y );
 }
 
 void TileManager::Clear() {
@@ -147,6 +157,32 @@ void TileManager::ReleaseTileLocks( const size_t initiator_slot ) {
 WRAPIMPL_BEGIN( TileManager )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
+		{
+			"get_terraforming", NATIVE_CALL( handle = m_live_handle ) {
+				N_EXPECT_ARGS( 2 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int );
+				auto* tm = *handle;
+				if ( !tm || tm->m_game->GetTM() != tm ) { GSE_ERROR( gse::EC.INVALID_CALL, "Tile manager no longer exists" ); }
+				return tm->GetTileAt( GSE_CALL, x, y )->GetTerraforming( GSE_CALL );
+			} )
+		},
+		{
+			"set_terraforming", NATIVE_CALL( handle = m_live_handle ) {
+				N_EXPECT_ARGS( 3 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int ); N_GETVALUE( data, 2, Object );
+				auto* tm = *handle;
+				if ( !tm || tm->m_game->GetTM() != tm ) { GSE_ERROR( gse::EC.INVALID_CALL, "Tile manager no longer exists" ); }
+				tm->m_game->CheckRW( GSE_CALL ); tm->CheckCustomMutation( GSE_CALL );
+				auto* tile = tm->GetTileAt( GSE_CALL, x, y );
+				if ( tile->IsLocked() ) { GSE_ERROR( gse::EC.INVALID_CALL, "Terraforming tile is locked" ); }
+				if ( data.size() != 4 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected road farm mine and forest flags" ); }
+				N_GETPROP( road, data, "road", Bool ); N_GETPROP( farm, data, "farm", Bool );
+				N_GETPROP( mine, data, "mine", Bool ); N_GETPROP( forest, data, "forest", Bool );
+				const auto mask = TERRAFORMING_ROAD | TERRAFORMING_FARM | TERRAFORMING_MINE | TERRAFORMING_FOREST;
+				const terraforming_t flags = ( tile->terraforming & ~mask ) | ( road ? TERRAFORMING_ROAD : 0 ) |
+					( farm ? TERRAFORMING_FARM : 0 ) | ( mine ? TERRAFORMING_MINE : 0 ) | ( forest ? TERRAFORMING_FOREST : 0 );
+				tm->m_game->GetMap()->SetTerraforming( tile, flags );
+				return VALUE( gse::value::Undefined );
+			} )
+		},
 		{
 			"get_map_width",
 			NATIVE_CALL( this ) {

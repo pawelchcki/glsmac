@@ -41,6 +41,18 @@ CLASS( Random, Util )
 
 	static const state_t GetStateFromString( std::string value );
 
+	// Artwork generation must not consume authoritative gameplay draws.
+	class ScopedState {
+	public:
+		explicit ScopedState( Random& random ) : m_random( random ), m_saved( random.GetState() ) {}
+		~ScopedState() { m_random.SetState( m_saved ); }
+		ScopedState( const ScopedState& ) = delete;
+		ScopedState& operator=( const ScopedState& ) = delete;
+	private:
+		Random& m_random;
+		const state_t m_saved;
+	};
+
 private:
 
 	state_t m_state = {};
