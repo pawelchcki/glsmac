@@ -1,0 +1,92 @@
+// Native application regressions for the recorded flat/arid road scope.
+// Only the base-road trace transfers game.road_network.v1 observations;
+// edited flags, rejection and rollback are additional GLSMAC invariants.
+const behavior = #include('./_behavior');
+const fixture = #include('./_road_network_fixture');
+const move = #include('../default/game/event/move_unit');
+
+const assert_network = (f) => {
+	const base_tile = f.game.tm.get_tile(0, 0);
+	const road_tile = f.game.tm.get_tile(2, 0);
+	test.assert(base_tile.get_base() != null && road_tile.get_base() == null);
+	test.assert(!f.game.tm.get_terraforming(0, 0).road && f.game.tm.get_terraforming(2, 0).road);
+};
+
+const assert_checkpoint = (f, x, spent, moved) => {
+	const unit = f.current_unit();
+	test.assert(unit.get_tile().x == x && unit.get_tile().y == 0);
+	test.assert(#round(unit.movement * 3.0) == 3 - spent && unit.moved_this_turn == moved);
+	assert_network(f);
+};
+
+behavior.scenario('flat arid forest roads retain three native steps per turn', () => {
+	const f = fixture('forest_roads'); let spent = 0;
+	for (other of [true, false, true]) {
+		f.move(other); spent++;
+		const unit = f.current_unit(); const tile = unit.get_tile();
+		test.assert(tile.x == (other ? 0 : 2) && tile.y == 2 && tile.get_base() == null);
+		test.assert(#round(unit.movement * 3.0) == 3 - spent && unit.moved_this_turn);
+		const flags = f.game.tm.get_terraforming(tile.x, tile.y);
+		test.assert(flags.road && flags.forest);
+	}
+	f.advance();
+	test.assert(f.current_unit().movement == 1.0 && !f.current_unit().moved_this_turn);
+	f.move(false); test.assert(#round(f.current_unit().movement * 3.0) == 2);
+});
+
+behavior.scenario('recorded implicit base road connects both ways without adding a road flag', () => {
+	const f = fixture('base_road'); const turn = f.game.get_turn();
+	assert_checkpoint(f, 2, 0, false);
+	f.move(true); assert_checkpoint(f, 0, 1, true);
+	f.move(false); assert_checkpoint(f, 2, 2, true);
+	f.move(true); assert_checkpoint(f, 0, 3, true);
+	test.assert(f.game.get_turn() == turn);
+	f.advance(); assert_checkpoint(f, 0, 0, false);
+	test.assert(f.game.get_turn() == turn + 1);
+	f.move(false); assert_checkpoint(f, 2, 1, true);
+});
+
+for (outbound of [false, true]) {
+	behavior.scenario('a base requires a road on the nonbase endpoint ' + (outbound ? 'outbound' : 'inbound'), () => {
+		const f = fixture('base_road');
+		if (outbound) { f.move(true); f.advance(); }
+		f.with_write(() => { f.game.tm.set_terraforming(2, 0, {road: false, farm: false, mine: false, forest: false}); });
+		const e = f.move(!outbound);
+		test.assert(e.resolved.is_movement_successful && f.current_unit().get_tile().x == (outbound ? 2 : 0));
+		test.assert(f.current_unit().movement == 0.0 && f.current_unit().moved_this_turn);
+		test.assert(!f.game.tm.get_terraforming(0, 0).road && !f.game.tm.get_terraforming(2, 0).road);
+	});
+}
+
+behavior.scenario('live nonbase road removal and restoration change implicit base connectivity', () => {
+	const f = fixture('base_road'); const held = f.current_unit().get_tile();
+	f.with_write(() => { f.game.tm.set_terraforming(2, 0, {road: false, farm: false, mine: false, forest: false}); });
+	f.move(true);
+	test.assert(held.x == 2 && f.current_unit().movement == 0.0);
+	f.advance();
+	f.with_write(() => { f.game.tm.set_terraforming(2, 0, {road: true, farm: false, mine: false, forest: false}); });
+	f.move(false); assert_checkpoint(f, 2, 1, true);
+	f.move(true); assert_checkpoint(f, 0, 2, true);
+});
+
+for (outbound of [false, true]) {
+	behavior.scenario('implicit base movement rollback restores exact native state ' + (outbound ? 'outbound with partial moves' : 'inbound with full moves'), () => {
+		const f = fixture('base_road');
+		if (outbound) { f.move(true); }
+		const before = f.snapshot(); const e = f.move(!outbound);
+		f.with_write(() => { move.rollback(e); }); f.finish_unit_move(f.former.id);
+		test.assert(f.snapshot() == before);
+		assert_checkpoint(f, outbound ? 0 : 2, outbound ? 1 : 0, outbound);
+		test.assert(!f.game.tm.get_tile(0, 0).is_locked() && !f.game.tm.get_tile(2, 0).is_locked());
+	});
+}
+
+behavior.scenario('exhausted implicit base road move is rejected unchanged and a real turn restores movement', () => {
+	const f = fixture('base_road'); f.move(true); f.move(false); f.move(true);
+	const before = f.snapshot(); let caught = false;
+	try { f.move(false); } catch { : (error) => { caught = true; } }
+	test.assert(caught && f.snapshot() == before);
+	assert_checkpoint(f, 0, 3, true);
+	f.advance(); assert_checkpoint(f, 0, 0, false);
+	f.move(false); assert_checkpoint(f, 2, 1, true);
+});

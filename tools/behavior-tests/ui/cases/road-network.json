@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "Original road network terrain and base entry",
+  "description": "Fresh healthy Gaian ordinary Former and held Scout on declared 40x80 synthetic land; Citizen/standard, unchanged installed RULES and UNIT1 input. The all-road arid forest profile starts east of the base at MY2102 after a real move and turn. The flat arid base profile instead builds the adjacent road through a real Road command and turn before recording at MY2103. Current-tile terrain and base flags are observed, never used as supplied outputs. Relative same-row position is tile steps; spent movement is thirds. No fungus, combat, ZOC, other units or changed movement rates.",
+  "cases": [
+    {
+      "id": "road-network-base-road",
+      "algorithm": "game.road_network.v1",
+      "input": {
+        "profile": "base-road",
+        "actions": [
+          "west",
+          "east",
+          "west",
+          "advance",
+          "east"
+        ]
+      }
+    },
+    {
+      "id": "road-network-forest-roads",
+      "algorithm": "game.road_network.v1",
+      "input": {
+        "profile": "forest-roads",
+        "actions": [
+          "east",
+          "west",
+          "east"
+        ]
+      }
+    }
+  ]
+}

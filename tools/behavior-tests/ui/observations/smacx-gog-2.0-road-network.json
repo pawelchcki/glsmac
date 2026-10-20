@@ -1,0 +1,161 @@
+{
+  "captured_at": "2026-10-20T13:57:14.995829+00:00",
+  "observations": [
+    {
+      "case_sha256": "807bce2fb6e01b80515101dbdb536bac246eb4553983577073e2670367192950",
+      "id": "road-network-base-road",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "position": 0,
+            "terrain": {
+              "base": false,
+              "forest": false,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 1,
+            "position": -1,
+            "terrain": {
+              "base": true,
+              "forest": false,
+              "moisture": 1,
+              "road": false,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 2,
+            "position": 0,
+            "terrain": {
+              "base": false,
+              "forest": false,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "position": -1,
+            "terrain": {
+              "base": true,
+              "forest": false,
+              "moisture": 1,
+              "road": false,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 0,
+            "position": -1,
+            "terrain": {
+              "base": true,
+              "forest": false,
+              "moisture": 1,
+              "road": false,
+              "rockiness": 1
+            },
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 1,
+            "position": 0,
+            "terrain": {
+              "base": false,
+              "forest": false,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1dd7b35017225064b9b67439a04cd9622afec5ca93484530415515116bb987aa",
+      "id": "road-network-forest-roads",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "position": 0,
+            "terrain": {
+              "base": false,
+              "forest": true,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 1,
+            "position": 1,
+            "terrain": {
+              "base": false,
+              "forest": true,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 2,
+            "position": 0,
+            "terrain": {
+              "base": false,
+              "forest": true,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "position": 1,
+            "terrain": {
+              "base": false,
+              "forest": true,
+              "moisture": 1,
+              "road": true,
+              "rockiness": 1
+            },
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "e92e41719f2837ac847668d142d51e8397b81a01ddf53c7f794f35d994bec707",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.road_network.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh healthy ordinary Former, held Scout, Gaians/Citizen/standard, synthetic 40x80 map, UNIT1 bonus; real initial move and turn; base profile also builds its non-base road; unchanged RULES",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native movement spent, position, turn and current-tile base/road/forest/moisture/rockiness after real input",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "d9faecb7f0bedffc2922a722e0207002212e4fe10d7071bbe1ac47ee2314336d",
+    "units": "Same-row tile displacement, movement spent in thirds, moisture/rockiness 1..3"
+  },
+  "repeat": 2,
+  "suite_sha256": "1feb66440e5751fc534118f32143efe4bca328257dad9a23f7579bc44091110b",
+  "version": 1
+}

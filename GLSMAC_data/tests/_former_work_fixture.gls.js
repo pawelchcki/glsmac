@@ -5,7 +5,9 @@ const turns = #include('../default/units/turns');
 const terrain_rules = #include('../default/game/terraforming_rules');
 const work = #include('../default/game/terraforming');
 return (profile) => {
-	const f = test.founding_fixture(); f.enable_economy(); f.configure(profile == 'road' ? 'arid_road_pair' : 'arid');
+	const f = test.founding_fixture(); f.enable_economy();
+	const networks = {base_road: 'network_base', forest_roads: 'network_forest'};
+	f.configure(#is_defined(networks[profile]) ? networks[profile] : (profile == 'road' ? 'arid_road_pair' : 'arid'));
 	f.with_write(() => {
 		f.game.um.despawn_unit(f.unit_id);
 		f.game.um.undefine_unit('ColonyPod'); f.game.um.undefine_unit('Scout');
@@ -29,7 +31,7 @@ return (profile) => {
 	f.game.set('movement_rules', #include('../default/game/movement_rules').parse(test.parse_smac_text('#RULES\n3,\n#END\n', 'rules')));
 	turns.configure(f.game); work.configure(f.game);
 	f.with_write(() => {
-		const data = {def: 'Formers', health: 1.0, morale: 2}; data.owner = f.owner; data.tile = f.game.tm.get_tile(2, 2);
+		const data = {def: 'Formers', health: 1.0, morale: 2}; data.owner = f.owner; data.tile = f.game.tm.get_tile(2, profile == 'base_road' ? 0 : 2);
 		f.former = f.game.um.spawn_unit(data);
 	});
 	f.command = (action) => {

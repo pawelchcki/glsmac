@@ -902,6 +902,26 @@ struct ProductionFixture : gc::Object {
 				tile->Update();
 			}
 		}
+		else if ( kind == "network_base" || kind == "network_forest" ) {
+			// Declared synthetic terrain inputs only. Base improvements are left
+			// to production construction in the initially unpaved base profile.
+			for ( int y = 0 ; y < 4 ; ++y ) {
+				for ( int x = y & 1 ; x < 4 ; x += 2 ) {
+					auto* tile = game.GetMap()->GetTile( x, y );
+					tile->moisture = backend::map::tile::MOISTURE_ARID;
+					tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+					for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
+					tile->features = 0;
+					if ( kind != "network_base" ) {
+						tile->terraforming = backend::map::tile::TERRAFORMING_ROAD |
+							( kind == "network_forest" ? backend::map::tile::TERRAFORMING_FOREST : 0 );
+					} else if ( !tile->base ) {
+						tile->terraforming = y == 0 && x == 2 ? backend::map::tile::TERRAFORMING_ROAD : 0;
+					}
+					tile->Update();
+				}
+			}
+		}
 		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
 		else if ( kind == "completed" ) { owner->CompleteTurn(); }
 		else if ( kind == "inactive" ) { game.m_game_state = backend::Game::GS_NONE; }

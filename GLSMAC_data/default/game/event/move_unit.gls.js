@@ -1,11 +1,12 @@
-// First recorded road scope: flat arid land without fungus. Read live flags
-// from the manager so roads constructed after selecting a tile take effect.
+// Recorded road scope: flat arid land without fungus. Bases connect to roads
+// without gaining a road flag. Read live state so later road edits take effect.
 const get_road_rate = (e, src_tile, dst_tile) => {
 	if (!e.data.unit.is_land || !src_tile.is_land || !dst_tile.is_land ||
 		src_tile.moisture != 1 || dst_tile.moisture != 1 || src_tile.rockiness != 1 || dst_tile.rockiness != 1 ||
 		src_tile.features.xenofungus || dst_tile.features.xenofungus) { return 0; }
 	const tm = e.game.get_tm();
-	if (!tm.get_terraforming(src_tile.x, src_tile.y).road || !tm.get_terraforming(dst_tile.x, dst_tile.y).road) { return 0; }
+	if ((src_tile.get_base() == null && !tm.get_terraforming(src_tile.x, src_tile.y).road) ||
+		(dst_tile.get_base() == null && !tm.get_terraforming(dst_tile.x, dst_tile.y).road)) { return 0; }
 	const rules = e.game.get('movement_rules');
 	return rules.road_rate;
 };

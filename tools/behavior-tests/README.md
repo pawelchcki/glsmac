@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 620 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 622 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,203 scenarios and 7,699 assertions** across
-94 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,211 scenarios and 7,776 assertions** across
+95 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -100,6 +100,12 @@ prior work. Installed `RULES` supplies the road rate. The `movement-rules` and
 rollback and exhausted-resume regressions. Alternate rates are application tests,
 separate from the unchanged-rate original observations. `test:former-work` also
 drives these three frozen traces through real browser arrows, F/A and turns.
+
+Two further [road-network comparisons](ui/road-network-contract.md) verify implicit
+base road entry/exit and flat arid forest roads. Bases connect without acquiring
+an explicit road flag. Native regressions check missing non-base roads, live
+edits, exact rollback, exhaustion and turn restoration; the browser lane drives
+both traces with actual arrows. Moisture and rockiness variation remain unobserved.
 
 The actual native/WASM thread probe deliberately holds collection and worker
 traversals in flight. Shutdown joins collection, drains background iterations,

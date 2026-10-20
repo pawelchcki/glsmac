@@ -12,12 +12,12 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const references = ['former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing', 'former-movement'];
+const references = ['former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing', 'former-movement', 'road-network'];
 const observations = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
 
-function terrain(roads = false) {
+function terrain(roads = false, network = '') {
   const width = 16, height = 16, count = width * height / 2, offset = 15 + 0xaa4;
   const aw = Math.ceil(width / 5), ah = Math.ceil(height / 5), ac = Math.floor((aw + 1) / 2) * ah;
   const bytes = Buffer.alloc(offset + count * 44 + ac);
@@ -25,6 +25,8 @@ function terrain(roads = false) {
   for (const [at, value] of [[0, width], [4, height], [20, count], [0xa24, aw], [0xa28, ah], [0xa2c, ac]]) bytes.writeUInt32LE(value, 15 + at);
   for (let i = 0; i < count; ++i) { bytes[offset + i * 44] = 3 * 32; bytes[offset + i * 44 + 1] = 64; }
   if (roads) for (const x of [8, 10]) bytes.writeUInt32LE(4, offset + (6 * width / 2 + x / 2) * 44 + 8);
+  if (network === 'base-road') bytes.writeUInt32LE(4, offset + (8 * width / 2 + 10 / 2) * 44 + 8);
+  if (network === 'forest-roads') for (const x of [8, 10]) bytes.writeUInt32LE(0x200004, offset + (6 * width / 2 + x / 2) * 44 + 8);
   return bytes;
 }
 
@@ -74,6 +76,9 @@ const main = String.raw`
           if (unit.def == 'Formers') {
             const state = unit.get_terraforming(); const tile = unit.get_tile();
             const flags = game.get_tm().get_terraforming(tile.x, tile.y); const order = unit.get_order();
+            #print('FW_NETWORK|' + #to_string(game.get_turn() - initial) + '|' + #to_string(tile.x) + '|' +
+              #to_string(#round((1.0 - unit.movement) * 3.0)) + '|' + #to_string(tile.get_base() != null) + '|' +
+              #to_string(flags.road) + '|' + #to_string(flags.forest) + '|' + #to_string(tile.moisture) + '|' + #to_string(tile.rockiness));
             #print('FW_STATE|' + #to_string(game.get_turn() - initial) + '|' + (order == 'TERRAFORM' ? state.action : (order == 'HOLD' ? 'hold' : 'none')) + '|' +
               #to_string(#round((1.0 - unit.movement) * 3.0)) + '|' + #to_string(state.work_units) + '|' +
               #to_string(flags.road) + '|' + #to_string(flags.farm) + '|' + #to_string(flags.mine) + '|' + #to_string(flags.forest) + '|' + status + '|' + #to_string(tile.x));
@@ -120,6 +125,8 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
   const roads = input.algorithm === 'game.former_road_movement.v1';
+  const network = input.algorithm === 'game.road_network.v1';
+  const baseNetwork = network && input.input.profile === 'base-road';
   mkdirSync(artifacts, {recursive: true});
   const progress = new URL(`former-work-${input.id}-progress.log`, artifacts);
   writeFileSync(progress, '');
@@ -174,7 +181,7 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     step(`observed ${marker} ${count}`);
   };
   await page.goto(address); await page.waitForFunction(() => document.body.dataset.state === 'ready');
-  await page.locator('#custom-maps').setInputFiles({name: 'former-arid.MP', mimeType: 'application/octet-stream', buffer: terrain(roads)});
+  await page.locator('#custom-maps').setInputFiles({name: 'former-arid.MP', mimeType: 'application/octet-stream', buffer: terrain(roads, network ? input.input.profile : '')});
   await page.locator('#import-maps').click(); await page.waitForFunction(() => document.querySelector('#custom-map-list').textContent.includes('former-arid.MP'));
   await page.locator('#asset-source').selectOption('remote'); await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
   await page.evaluate(({scripts, main, world}) => {
@@ -186,12 +193,21 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     const callMain = Module.callMain;
     Module.callMain = args => callMain([...args, '--datapath', '/former-snapshot/GLSMAC_data', '--mainscript', 'browser_former_main', '--worldscript', 'browser_former',
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/former-arid.MP', '--quickstart-faction', 'GAIANS']);
-  }, {scripts, main, world: roads ? world.replace("{type: 'Formers', owner: owner, tile: tm.get_tile(8, 6)", "{type: 'Formers', owner: owner, tile: tm.get_tile(10, 6)") : world});
+  }, {scripts, main: baseNetwork ? main.replaceAll('get_tile(x, 6)', 'get_tile(x, 8)') : main,
+    world: roads || baseNetwork ? world.replace("{type: 'Formers', owner: owner, tile: tm.get_tile(8, 6)",
+      `{type: 'Formers', owner: owner, tile: tm.get_tile(10, ${baseNetwork ? 8 : 6})`) : world});
   await page.locator('#start').click(); await wait('FW_READY'); assert.ok(override.reads() > 0);
   await press('k'); await wait('FW_SELECTED');
   const readState = async () => {
     const log = await page.locator('#log').textContent(); const m = [...log.matchAll(/FW_STATE\|(\d+)\|([^|]+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)\|(true|false)\|(true|false)\|([^|\r\n]+)\|(\d+)/g)].at(-1);
     const control = [...log.matchAll(/FW_CONTROL\|(ready|pending)/g)].at(-1);
+    if (network) {
+      const n = [...log.matchAll(/FW_NETWORK\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)\|(true|false)\|(\d+)\|(\d+)/g)].at(-1);
+      assert.ok(m && n && control);
+      return {state: {year_delta: +n[1], position: (+n[2] - (baseNetwork ? 10 : 8)) / 2, movement_spent: +n[3],
+        terrain: {base: n[4] === 'true', road: n[5] === 'true', forest: n[6] === 'true', moisture: +n[7], rockiness: +n[8]}},
+        status: m[9], ready: control[1] === 'ready'};
+    }
     assert.ok(m && control); return {state: {year_delta: +m[1], order: m[2], movement_spent: +m[3], work_units: +m[4],
       terrain: Object.fromEntries(['road', 'farm', 'mine', 'forest'].map((name, i) => [name, m[i + 5] === 'true'])),
       ...(roads ? {position: (+m[10] - 10) / 2} : {})}, status: m[9], ready: control[1] === 'ready'};

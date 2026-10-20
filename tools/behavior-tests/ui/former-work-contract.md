@@ -3,7 +3,7 @@
 `game.former_work.v1` has **eight independently repeated original cases** in
 `catalog.json`: two core cases, two held-out Road/Forest cases, two
 task-switch/replacement cases and two held-out timing cases. All match strict
-native display-free candidate replay and are included in the 620-case catalog.
+native display-free candidate replay and are included in the 622-case catalog.
 Existing observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
