@@ -18,6 +18,7 @@ const make_world = (size, nutrients, available_tile) => {
 		get_tile: () => { return null; },
 		is_tile_worked: (tile) => { return false; },
 		get: (key) => { return state.values[key]; },
+		has: (key) => { return #is_defined(state.values[key]); },
 		set: (key, value) => { state.values[key] = value; },
 	};
 	const bm = {

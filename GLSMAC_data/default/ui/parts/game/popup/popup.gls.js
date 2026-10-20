@@ -6,6 +6,7 @@ return {
 		'base_screen',
 		'terraforming_replacement',
 		'unit_activation',
+		'starvation',
 	],
 
 	no_sliding: false, // disable sliding until more optimizations
@@ -213,6 +214,7 @@ return {
 			this.popups[popup] = this.popup_defs[popup].init(pp);
 			this.popups[popup].id = popup;
 		}
+		if (#is_defined(this.popup_defs.starvation)) { this.popup_defs.starvation.attach(p, this); }
 
 		const first_popup = this.available_popups[0];
 		const resize_owner = this.popups[first_popup];

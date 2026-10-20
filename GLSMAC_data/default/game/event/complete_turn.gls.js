@@ -1,12 +1,15 @@
+const starvation = #include('../base_starvation');
 return {
 
 	validate: (e) => {
+		if (starvation.pending(e.game)) { return 'Confirm pending starvation before completing turn'; }
 		if (e.game.is_turn_complete(e.caller)) {
 			return 'Turn already completed by this player';
 		}
 	},
 
 	apply: (e) => {
+		if (starvation.pending(e.game)) { throw Error('Confirm pending starvation before completing turn'); }
 		e.game.complete_turn(e.caller);
 		if (e.game.is_master()) {
 			let everybody_completed_turn = true;

@@ -43,7 +43,8 @@ const callback_fixture = () => {
 		b.base.get_intake = () => { return { NUTRIENTS: b.state.nutrients, MINERALS: b.state.minerals, ENERGY: 0 }; };
 		b.base.get_consumption = () => { return { NUTRIENTS: 0, MINERALS: b.state.consumed, ENERGY: 0 }; };
 		b.base.get_size = () => { return b.state.size; };
-		b.base.get = (key) => { return b.state.accumulated; };
+		b.base.get = (key) => { return key == 'accumulated_nutrients' ? b.state.accumulated : undefined; };
+		b.base.has = (key) => { return key == 'accumulated_nutrients'; };
 		b.base.set = (key, value) => {
 			b.state.accumulated = value;
 			b.state.minerals = 99; // Expose a growth mutation after the snapshot.

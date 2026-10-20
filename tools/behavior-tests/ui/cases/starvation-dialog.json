@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "name": "First owned-city starvation notification",
+  "description": "Actual first starvation notification: installed text, keyboard selection, confirmation, citizens and Zoom. Mineral processing and raw nutrient counters excluded.",
+  "cases": [
+    {
+      "id": "starvation-default-proceed",
+      "algorithm": "ui.starvation_dialog.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "down",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "starvation-default-zoom",
+      "algorithm": "ui.starvation_dialog.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "confirm",
+          "close"
+        ]
+      }
+    },
+    {
+      "id": "starvation-common-navigation",
+      "algorithm": "ui.starvation_dialog.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "common",
+        "actions": [
+          "down",
+          "up",
+          "down",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "starvation-expansion-proceed",
+      "algorithm": "ui.starvation_dialog.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "expansion",
+        "actions": [
+          "down",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "starvation-both-zoom",
+      "algorithm": "ui.starvation_dialog.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "both",
+        "actions": [
+          "confirm",
+          "close"
+        ]
+      }
+    }
+  ]
+}

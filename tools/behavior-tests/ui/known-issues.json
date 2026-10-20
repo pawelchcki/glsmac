@@ -600,11 +600,52 @@
         "errors": 0,
         "rendered_matched": 2
       }
+    },
+    {
+      "id": "owned-city-starvation-notification",
+      "suite": "starvation-dialog",
+      "example": "starvation-default-proceed",
+      "status": "fixed",
+      "lane": "native-display-free-original-comparison",
+      "property": "The first owned two-Doctor city starvation turn must display the source-driven notification while population remains two, accept real selection/confirmation, then remove one citizen and continue to map or base management according to the actual choice.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 5
+      },
+      "baseline_wasm_sha256": "82a74f4ec8fde3cc81c1c0233ff48fbbbdd53f582d05f2f8617eddb06a40f2d8",
+      "scope": "Five source/navigation/continuation traces, each independently recorded twice, now match actual native turn/growth, mounted production controls and browser input. Population stays two until confirmation, then one Doctor is removed; Zoom opens complete management and Proceed returns to the map. Common Script.txt STARVE and indexed labels supply wording. Mineral processing/pricing, raw signed nutrient counter, artwork/audio, suppression-button activation, Escape on the notice and general economy remain excluded.",
+      "baseline_scripts_sha256": "6fc19ad955e1a018db9e0d6560288eb37d92aee23d0829d91da9ebf54e257309",
+      "verification": {
+        "matched": 5,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 5
+      }
+    },
+    {
+      "id": "starvation-readonly-observer-gate",
+      "suite": "starvation-dialog",
+      "status": "fixed",
+      "lane": "native-application-regression",
+      "property": "A read-only event observer must not bypass the mounted starvation confirmation gate or claim a nonexistent UI consumer through its return value.",
+      "baseline_verification": {
+        "scenarios": 1,
+        "errors": 1
+      },
+      "scope": "Actual native growth plus mounted production popup and a later read-only listener produced population1/pendingfalse/popuptrue. This is an application invariant, separate from the five original notification traces. Fixed with an explicit shared nested acknowledgement independent of listener return values. Eleven application scenarios check actual queued growth, read-only listeners, pending-turn guards, native identity/state validation, rollback, stale/rejected receipts, cleanup and malformed source rejection.",
+      "verification": {
+        "scenarios": 11,
+        "assertions": 87,
+        "errors": 0
+      }
     }
   ],
   "verification": {
-    "cases": 672,
-    "matched": 672,
+    "cases": 677,
+    "matched": 677,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -633,6 +674,8 @@
     "rendered_base_open_cases": 2,
     "rendered_base_open_matched": 2,
     "rendered_base_resource_hud_cases": 2,
-    "rendered_base_resource_hud_matched": 2
+    "rendered_base_resource_hud_matched": 2,
+    "rendered_starvation_cases": 5,
+    "rendered_starvation_matched": 5
   }
 }

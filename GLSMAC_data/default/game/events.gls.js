@@ -33,6 +33,7 @@ return (game) => {
 		'set_base_production',
 		'process_base_production',
 		'process_base_growth',
+		'confirm_base_starvation',
 		'found_base',
 		'join_base',
 		'reconcile_base_citizens',

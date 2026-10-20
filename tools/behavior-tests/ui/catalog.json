@@ -200,6 +200,11 @@
       "id": "base-resource-hud",
       "cases": "cases/base-resource-hud.json",
       "observations": "observations/smacx-gog-2.0-base-resource-hud.json"
+    },
+    {
+      "id": "starvation-dialog",
+      "cases": "cases/starvation-dialog.json",
+      "observations": "observations/smacx-gog-2.0-starvation-dialog.json"
     }
   ]
 }

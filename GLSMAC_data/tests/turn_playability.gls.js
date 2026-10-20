@@ -22,6 +22,8 @@ const fixture = (master) => {
 	f.units = [];
 	f.game.random = gameplay.random([]);
 	f.game.get_um = () => { return f.um; };
+	// This unit/turn-control boundary contains no cities or pending notices.
+	f.game.get_bm = () => { return {get_bases: () => { return []; }}; };
 	f.game.is_started = () => { return true; };
 	f.um.has_unit = (id) => { return id > 0 && id <= #sizeof(f.units); };
 	f.um.get_unit = (id) => { return f.units[id - 1]; };

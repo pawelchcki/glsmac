@@ -11,19 +11,25 @@ const fixture = (master, stored) => {
 	if (#is_defined(stored)) { f.values.accumulated_nutrients = stored; }
 	f.base = {};
 	f.base.get = (key) => { return f.values[key]; };
+	f.base.has = (key) => { return #is_defined(f.values[key]); };
 	f.base.set = (key, value) => { f.values[key] = value; };
 	f.base.unset = (key) => { f.values[key] = undefined; };
 	f.base.get_size = () => { return f.state.size; };
 	f.base.get_intake = () => { return { NUTRIENTS: f.state.intake }; };
 	f.base.get_consumption = () => { return { NUTRIENTS: f.state.size * 2 }; };
 	f.base.get_unworked_tiles = () => { return []; };
-	f.base.get_pops = () => { return [{ id: 3, has: (key) => { return false; } }]; };
+	f.base.id = 17;
+	f.base.get_owner = () => { return {id: 1}; };
+	f.base.get_tile = () => { return {x: 0, y: 0}; };
+	f.base.get_pops = () => { return [{ id: 3, has: (key) => { return false; }, get: (key) => { return undefined; }, get_type: () => { return 'DOCTOR'; } }]; };
 	f.base.get_production = () => { return { choice_id: f.state.project, minerals: 0, last_processed_turn: f.state.production_turn }; };
 	f.game = {};
 	f.game.get_turn = () => { return 7; };
 	f.game.is_master = () => { return master; };
 	f.game.get = (key) => { return f.globals[key]; };
 	f.game.set = (key, value) => { f.globals[key] = value; };
+	// This controlled stage fixture has no mounted notification consumer.
+	f.game.trigger = (name, data) => { return false; };
 	f.game.get_bm = () => { return { on: (name, callback) => {}, get_bases: () => { return []; } }; };
 	f.game.get_tm = () => { return { get_map_width: () => { return 20; }, get_map_height: () => { return 20; } }; };
 	const handlers = {};

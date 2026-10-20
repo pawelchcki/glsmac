@@ -33,6 +33,7 @@ const make_pop = (id, type) => {
 const make_base = () => {
 	const result = { base: {}, state: { pops: [], worked: [], unworked: [], values: {}, intake: 0, size: 1 } };
 	const base = result.base;
+	base.id = 77;
 	const state = result.state;
 	state.center = make_tile(0, 0, 2, 1, 1);
 	base.get_owner = () => { return { id: 7 }; };
@@ -45,6 +46,8 @@ const make_base = () => {
 	base.get_workable_tiles = () => { return state.unworked + state.worked; };
 	base.is_tile_worked = (tile) => { for (worked of state.worked) { if (worked == tile) { return true; } } return false; };
 	base.get = (key) => { return state.values[key]; };
+	base.has = (key) => { return #is_defined(state.values[key]); };
+	base.unset = (key) => { state.values[key] = undefined; };
 	base.set = (key, value) => { state.values[key] = value; };
 	base.get_intake = () => { return { NUTRIENTS: state.intake }; };
 	base.get_consumption = () => { return { NUTRIENTS: state.size * 2 }; };
@@ -80,6 +83,8 @@ const make_game = (width, height) => {
 	game.get_turn = () => { return 2; };
 	game.is_master = () => { return true; };
 	game.set = (key, value) => { state.values[key] = value; };
+	// This heuristic boundary has no mounted owned-city notification UI.
+	game.trigger = (name, data) => { return false; };
 	game.event = (name, data) => {
 		if (name == 'process_base_growth') {
 			const e = { caller: 0 }; e.game = game; e.data = data;

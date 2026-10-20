@@ -15,13 +15,20 @@ return (input) => {
 	const rules = {}; const callbacks = {};
 	rules.get_bm = () => { return f.game.bm; };
 	rules.get_tm = () => { return f.game.tm; };
+	rules.get_turn = () => { return f.game.get_turn(); };
+	rules.is_master = () => { return f.game.is_master(); };
+	rules.trigger = (name, data) => { return f.game.trigger(name, data); };
+	rules.get_player = (id) => { return f.game.get_player(id); };
 	rules.get = (key) => { return f.game.get(key); };
 	rules.set = (key, value) => { f.game.set(key, value); };
 	rules.on = (name, callback) => { callbacks[name] = callback; };
 	rules.event = (name, data) => {
-		if (name != 'define_base_pop' && name != 'define_base_facility') { throw Error('Unexpected base initialization event: ' + name); }
+		if (name == 'define_base_pop' || name == 'define_base_facility') { return; }
+		if (#is_defined(input.process_turns) && input.process_turns) { f.game.event(name, data); }
+		else { throw Error('Unexpected base initialization event: ' + name); }
 	};
 	configure_bases(rules); callbacks.start({});
+	if (#is_defined(input.process_turns) && input.process_turns) { f.game.on('turn', callbacks.turn); }
 	f.game.tm.on('get_tile_resources', (e) => { return {NUTRIENTS: 0, MINERALS: 0, ENERGY: 0}; });
 	f.events.get_tm = () => { return f.game.tm; };
 	f.events.get_year = () => { return f.game.get_year(); };
@@ -65,6 +72,7 @@ return (input) => {
 	f.p.modules.menu = {close_all: () => {}};
 	f.popup = #include('../default/ui/parts/game/popup/popup');
 	f.popup.available_popups = ['base_screen', 'turn_confirmation']; f.popup.no_sliding = true;
+	if (#is_defined(input.extra_popup)) { f.popup.available_popups :+ input.extra_popup; }
 	f.p.modules.popup = f.popup;
 	screen.available_sections = ['energy', 'bottom_bar'];
 	bottom_bar.available_parts = ['middle_area'];

@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 672 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 677 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,327 scenarios and 9,066 assertions** across
-103 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,338 scenarios and 9,153 assertions** across
+104 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -87,6 +87,16 @@ and real Enter/Escape/B browser controls on first opening and reopening.
 Result labels include the observed equals prefix and signed zero, status follows
 the displayed shortfall, and initial allocation is 50/50/0. These observations
 do not establish allocation editing, arbitrary rounding or general economy rules.
+
+The `starvation-dialog` suite adds 11 scenarios/87 assertions for queued native
+growth, pending confirmation, ownership/state guards, rollback and observer-safe
+acknowledgement. Five independently repeated [original notification traces](ui/starvation-dialog-contract.md)
+match display-free replay and actual browser controls. Common installed STARVE
+text and indexed labels drive the popup; population stays two until confirmation,
+then loses one citizen and continues to Zoom or the map. Run the browser lane
+with installed assets and `npm --prefix tools/wasm-tests run test:starvation-dialog`.
+Suppression activation, notice Escape, artwork/audio, mineral processing/order,
+raw nutrient counters and general economy remain outside these observations.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached

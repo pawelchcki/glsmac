@@ -1,0 +1,609 @@
+{
+  "captured_at": "2026-10-20T22:44:28.143828+00:00",
+  "observations": [
+    {
+      "case_sha256": "6d574d1fa519e306b2b8b07c3762595f17b36ebbacedcf941038a7fb441f4245",
+      "id": "starvation-default-proceed",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 1
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "695801f856c409a9e354b92b951f2d32d64c1153ad780d006f9de5db60dfa622",
+      "id": "starvation-default-zoom",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d3789dd90dc2e5af306ff3a107b8effbc98002630058041897f8a7f9a31f3385",
+      "id": "starvation-common-navigation",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "COMMON WARNING AT {BASE}! COMMON FACTORIES AWAIT.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "COMMON CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "COMMON WARNING AT {BASE}! COMMON FACTORIES AWAIT.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "COMMON CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 1
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "COMMON WARNING AT {BASE}! COMMON FACTORIES AWAIT.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "COMMON CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "COMMON WARNING AT {BASE}! COMMON FACTORIES AWAIT.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "COMMON CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 1
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bcd75b9ce4cddc3e60bf4040154d4fd9298f521eff0cc25deb51e16603785095",
+      "id": "starvation-expansion-proceed",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "SILENCE THIS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "INSPECT BASE CONTROL",
+                "CARRY ON"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "SILENCE THIS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "INSPECT BASE CONTROL",
+                "CARRY ON"
+              ],
+              "selected": 1
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6a1a253d0f3a85fba97bafef933b4e3136d2b6dcbf651d5aaf96c529a90c44e4",
+      "id": "starvation-both-zoom",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "COMMON WARNING AT {BASE}! COMMON FACTORIES AWAIT.",
+              "buttons": [
+                "SILENCE THIS POPUP",
+                "OK"
+              ],
+              "caption": "COMMON CHAPLAIN",
+              "choices": [
+                "INSPECT BASE CONTROL",
+                "CARRY ON"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "2bec0d45425b8cd87adadc774fde32fb37c798e689478d962f1938367d562012",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "First starvation notice only, one owned Headquarters and held companions. Raw nutrient counter, mineral income/price/order, audio, suppression button, Escape on notice, other sources/populations and general economy excluded. Map continuation uses absence of known notice paint/base title plus visible TURN COMPLETE, not year alone.",
+    "contract": "ui.starvation_dialog.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Gaians/Citizen/standard flat arid three-unit stack; declared initial one Doctor, food0/minerals9; visible incomplete Formers project; join and management create the observed two-Doctor pre-notice city",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Real W/W/B, complete Enter/Escape management, H/H, TURN COMPLETE, notification Up/Down/Enter and Escape; independent OCR caption/body/choices/buttons/selection; actual native citizen and companion records with identity/year guards",
+    "source_profiles_sha256": "8a208b6b162def4a3d03460e08c440680d15ffec9f0a45f8b283b2698eb4075c",
+    "units": "Role/order ordinal and spent movement thirds; native citizens/worked tiles; visible wording uppercase whitespace-normalized with typographic apostrophe folded to ASCII; actual native base-name substitution normalized to {BASE}; three-scale Lanczos OCR consensus"
+  },
+  "repeat": 2,
+  "suite_sha256": "78b147ff5f308bd298a3c00ef4da7a205da4e6b55f3491b6e7d98254b320a164",
+  "version": 1
+}

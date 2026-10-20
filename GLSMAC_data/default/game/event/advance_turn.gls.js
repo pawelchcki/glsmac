@@ -1,9 +1,11 @@
+const starvation = #include('../base_starvation');
 return {
 
 	validate: (e) => {
 		if (e.caller != 0) {
 			return 'Only host can advance turn';
 		}
+		if (starvation.pending(e.game)) { return 'Confirm pending starvation before advancing turn'; }
 		const current_turn = e.game.get_turn();
 		// FirstTurn initializes the native counter before dispatching turn one.
 		if (e.data.turn_id != current_turn + 1 && !(current_turn == 1 && e.data.turn_id == 1)) {
@@ -19,6 +21,7 @@ return {
 	},
 
 	apply: (e) => {
+		if (starvation.pending(e.game)) { throw Error('Confirm pending starvation before advancing turn'); }
 		e.game.advance_turn(e.data.turn_id);
 	},
 

@@ -1,6 +1,7 @@
 const pops = #include('pops');
 const facilities = #include('facilities');
 const base_work = #include('base_work');
+const starvation = #include('base_starvation');
 
 const globals = {};
 
@@ -95,6 +96,7 @@ const find_best_or_worst_tiles = (base, tiles, count, modifier) => { // modifier
 };
 
 const process_growth = (game, base) => {
+	if (base.has('pending_starvation')) { return; }
 	let grow = false;
 
 	let accumulated = base.get('accumulated_nutrients');
@@ -126,6 +128,7 @@ const process_growth = (game, base) => {
 				#print('bug: could not find worst tile for depopulation');
 			}
 		}
+		if (pop != null && starvation.offer(game, base, pop)) { return; }
 		game.event('remove_base_pop', {
 			base: base,
 			pop: pop,
