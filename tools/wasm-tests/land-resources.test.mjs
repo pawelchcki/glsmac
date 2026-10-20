@@ -81,6 +81,8 @@ const main = String.raw`
     game.on('event_result', (e) => { if (!e.success) { #print('LR_REJECT|' + e.name); } });
     game.on('error', (e) => { #print('LR_ERROR'); });
     game.on('start_ui', (e) => {
+      const rules = game.get('terraforming_rules');
+      #print('LR_TERRAFORM|' + #to_string(rules.farm.turns) + '|' + #to_string(rules.road.turns) + '|' + rules.farm.order + '|' + rules.farm.prerequisite);
       #async(0, () => {
         glsmac.ui.root.on('keydown', (e) => {
           if (e.code != 'P' || e.modifiers != {}) { return false; }
@@ -146,6 +148,8 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
   if (profile === 'altered') {
     source = source.replace('Forest Square,1,2,1,0', 'Forest Square,2,3,2,0').replace('Improved Land,1,*,*,0', 'Improved Land,2,*,*,0')
       .replace('\n0\n1\n-1\n', '\n0\n0\n0\n').replace('\nGene\nEcoEng\nEnvEcon\n', '\nNone\nNone\nNone\n');
+    source = source.replace('Farm,None,Kelp Farm,None,4,Cultivate $STR0', 'Synthetic crop,None,Kelp Farm,None,2,Sow $STR0')
+      .replace('Road,None,Road,Disable,1,Build $STR0', 'Road,None,Road,Disable,3,Build $STR0');
   }
   const override = await overrideRulesAsset(page, source);
   const fatal = /LR_REJECT|LR_ERROR|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
@@ -183,6 +187,9 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
       '--worldscript', 'browser_land', '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/improved-land.MP', '--quickstart-faction', 'GAIANS']);
   }, {scripts, main, world});
   await page.locator('#start').click(); await wait('LR_READY'); assert.ok(override.reads() > 0);
+  assert.ok((await page.locator('#log').textContent()).includes(profile === 'altered'
+    ? 'LR_TERRAFORM|2|3|Sow Synthetic crop|None' : 'LR_TERRAFORM|4|1|Cultivate Farm|None'),
+  'Normal game configuration imports installed action rates names and order templates');
   const before = await probe();
   const farm = expected(profile, 'farm', 0), forest = expected(profile, 'forest', 0), mine = expected(profile, 'mine-road', 2);
   assert.deepEqual(before.tiles, [[8, 6, ...farm], [9, 9, ...forest], [9, 7, ...mine]], 'Actual imported native tiles route through source-driven yields');

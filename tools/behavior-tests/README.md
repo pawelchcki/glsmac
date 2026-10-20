@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,059 scenarios and 7,386 assertions** across
-85 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,087 scenarios and 7,433 assertions** across
+87 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -40,8 +40,17 @@ The `land-resource-sources` suite checks installed forest/farm/mine coefficients
 independent cap prerequisite tokens, actual native faction ownership, detached
 configuration/results and invalid-source rejection before registering callbacks.
 A separate 576-case original executable contract checks bounded land-worker
-yields; see [the economy comparisons](economy/README.md). Terraforming orders
-and work progress remain unimplemented.
+yields; see [the economy comparisons](economy/README.md).
+
+The `terraforming-rules` suite checks installed `TERRAIN` action names, work
+rates, prerequisites and order templates for farm, mine, forest and road.
+Normal game configuration imports those declarations; two browser source
+profiles verify the actual configured values. The `unit-work-state` suite
+checks native progress ownership, inactive retained work, write authorization,
+stale methods, frontend order delivery, receiving-world serialization and
+malformed-record rejection. These are application prerequisites, not original
+work-time parity. Terraforming commands, automatic work and terrain changes
+remain unimplemented.
 
 The `unit-source-transfer` suite mutates synthetic installed component records and
 executes shipped consumers, definition events and startup against native managers.

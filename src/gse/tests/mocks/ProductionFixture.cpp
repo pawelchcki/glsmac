@@ -715,6 +715,13 @@ struct ProductionFixture : gc::Object {
 		const bool invalid_rejected = rejects( invalid );
 		const bool trailing_rejected = rejects( trailing );
 		const bool truncated_rejected = rejects( truncated );
+		types::Buffer missing_work = legacy; missing_work.WriteInt( static_cast< int64_t >( backend::unit::order_t::TERRAFORM ) );
+		types::Buffer unknown_work = legacy; unknown_work.WriteInt( 0 ); unknown_work.WriteString( "unknown-unit-work" );
+		types::Buffer invalid_work = legacy;
+		invalid_work.WriteInt( static_cast< int64_t >( backend::unit::order_t::TERRAFORM ) ); invalid_work.WriteString( "unit-work-v1" );
+		invalid_work.WriteString( "farm" ); invalid_work.WriteInt( 2 ); invalid_work.WriteInt( 2 ); invalid_work.WriteInt( 1 );
+		invalid_work.WriteInt( 0 ); invalid_work.WriteFloat( 1.0f ); invalid_work.WriteBool( false ); invalid_work.WriteInt( 0 ); invalid_work.WriteInt( 0 );
+		const bool invalid_work_rejected = rejects( missing_work ) && rejects( unknown_work ) && rejects( invalid_work );
 		const bool receiver_unchanged = receiving->FoundingSnapshot() == receiver_before && backend::unit::Unit::GetNextId() == next_before;
 		backend::base::Base::SetNextId( old_base_id ); backend::unit::Unit::SetNextId( old_unit_id );
 		const value::object_properties_t result {
@@ -723,6 +730,7 @@ struct ProductionFixture : gc::Object {
 			{ "combat_received", VALUE( value::Bool,, combat_received ) },
 			{ "invalid_rejected", VALUE( value::Bool,, invalid_rejected ) }, { "trailing_rejected", VALUE( value::Bool,, trailing_rejected ) },
 			{ "truncated_rejected", VALUE( value::Bool,, truncated_rejected ) }, { "receiver_unchanged", VALUE( value::Bool,, receiver_unchanged ) },
+			{ "invalid_work_rejected", VALUE( value::Bool,, invalid_work_rejected ) },
 			{ "source_unchanged", VALUE( value::Bool,, FoundingSnapshot() == source_before ) },
 		};
 		return VALUEEXT( value::Object, GSE_CALL, result );
@@ -1293,13 +1301,19 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		} catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
-	object->Set( "reset", NATIVE_CALL( session, object ) {
+	object->Set( "reset", NATIVE_CALL( session, object, founding ) {
 		N_EXPECT_ARGS( 0 );
 		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL );
+		if ( founding ) { fresh->SetupFounding( GSE_CALL ); }
 		session->current->Retire();
 		session->retired.push_back( session->current );
 		session->current = std::move( fresh );
 		UpdateWrappers( GSE_CALL, object );
+		if ( founding ) {
+			object->Set( "unit_id", VALUE( value::Int,, session->current->colony_id ), GSE_CALL );
+			object->Set( "tile", session->current->game.GetMap()->GetTile( 2, 2 )->Wrap( GSE_CALL ), GSE_CALL );
+			object->Set( "worker_tile", session->current->game.GetMap()->GetTile( 0, 2 )->Wrap( GSE_CALL ), GSE_CALL );
+		}
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	if ( founding ) {

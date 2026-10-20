@@ -62,6 +62,16 @@ public:
 	const bool NeedsOrders() const;
 	order_t GetOrder() const;
 	void SetOrder( order_t order );
+	// Script-owned work policy, stored with the native unit so progress survives
+	// wrapper recreation, synchronization and manager serialization.
+	struct work_state_t {
+		std::string action;
+		int64_t work_units = 0, required_work = 0, last_turn = 0;
+		int64_t previous_work_units = 0;
+		movement_t previous_movement = 0.0f;
+		bool previous_moved = false;
+		int64_t tile_x = 0, tile_y = 0;
+	};
 
 	const std::string& GetMoraleString() const;
 
@@ -77,6 +87,8 @@ public:
 private:
 	UnitManager* const m_um;
 	order_t m_order = order_t::NO_ORDERS;
+	work_state_t m_work;
+	static bool ValidWork( const work_state_t& work, const map::Map* map );
 	// Native callables can outlive their wrapper and even their manager.
 	const std::shared_ptr< Unit* > m_order_handle = std::make_shared< Unit* >( this );
 	void CheckLive( GSE_CALLABLE ) const;

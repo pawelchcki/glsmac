@@ -107,7 +107,7 @@
         "Other factions/difficulties and starting-unit bonuses beyond the two recorded land starts",
         "Faction morale bonuses, reactor damage, authentic conventional unit graphics and terraforming commands"
       ],
-      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Original combat odds and complete research/terraforming/AI remain unimplemented."
+      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Installed TERRAIN metadata and native work-state persistence now have separate headless and browser checks; actual work commands, progression and terrain changes remain pending. Original combat odds and complete research/terraforming/AI remain unimplemented."
     },
     {
       "id": "combat",

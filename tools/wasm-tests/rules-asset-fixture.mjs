@@ -46,6 +46,7 @@ export function syntheticNutrientRules(value, mineralValue = 10, worldRows = leg
   while (ruleRows.length < 53) ruleRows.push('0');
   ruleRows.push('Gene', 'EcoEng', 'EnvEcon');
   return `#RULES\n${ruleRows.join('\n')}\n#END\n`
+    + '#TERRAIN\nFarm,None,Kelp Farm,None,4,Cultivate $STR0,f,F\nSoil,None,Soil,Disable,8,Construct $STR0,f,F\nMine,None,Platform,None,8,Construct $STR0,M,M\nSolar,None,Harness,None,4,Construct $STR0,S,S\nForest,None,...,Disable,4,Plant $STR0,F,Shift+F\nRoad,None,Road,Disable,1,Build $STR0,R,R\n#END\n'
     + '#RESOURCEINFO\nOcean Square,1,0,0,0\nBase Square,2,1,1,0\nBonus Square,2,2,2,0\nForest Square,1,2,1,0\nRecycling Tanks,1,1,1,0\nImproved Land,1,*,*,0\n#END\n'
     + `#WORLDSIZE\n${worldRows.length}\n${worldRows.map((row) => row.join(',')).join('\n')}\n#END\n`
     // The ordinary setup fixture also enters the real faction source consumer.

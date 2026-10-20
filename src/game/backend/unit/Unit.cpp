@@ -1,6 +1,7 @@
 #include "Unit.h"
 
 #include <memory>
+#include <cmath>
 
 #include "gse/context/Context.h"
 #include "gse/value/Object.h"
@@ -74,8 +75,21 @@ const bool Unit::NeedsOrders() const {
 order_t Unit::GetOrder() const { return m_order; }
 
 void Unit::SetOrder( const order_t order ) {
-	ASSERT( order == order_t::NO_ORDERS || order == order_t::HOLD, "Invalid native unit order" );
+	ASSERT( order == order_t::NO_ORDERS || order == order_t::HOLD || ( order == order_t::TERRAFORM && !m_work.action.empty() ), "Invalid native unit order" );
 	m_order = order;
+}
+
+bool Unit::ValidWork( const work_state_t& work, const map::Map* map ) {
+	if ( work.action.empty() ) {
+		return work.work_units == 0 && work.required_work == 0 && work.last_turn == 0 && work.previous_work_units == 0 &&
+			work.previous_movement == 0.0f && !work.previous_moved && work.tile_x == 0 && work.tile_y == 0;
+	}
+	return ( work.action == "road" || work.action == "farm" || work.action == "mine" || work.action == "forest" ) &&
+		work.required_work >= 2 && work.required_work <= 128 && work.work_units >= 0 && work.work_units < work.required_work &&
+		work.last_turn >= 0 && work.previous_work_units >= 0 && work.previous_work_units <= work.work_units &&
+		std::isfinite( work.previous_movement ) && work.previous_movement >= 0.0f && work.previous_movement <= 64.0f &&
+		work.tile_x >= 0 && work.tile_y >= 0 && static_cast< uint64_t >( work.tile_x ) < map->GetWidth() &&
+		static_cast< uint64_t >( work.tile_y ) < map->GetHeight() && work.tile_x % 2 == work.tile_y % 2;
 }
 
 void Unit::CheckLive( GSE_CALLABLE ) const {
@@ -112,6 +126,13 @@ const types::Buffer Unit::Serialize( const Unit* unit ) {
 	buf.WriteFloat( unit->m_health );
 	buf.WriteBool( unit->m_moved_this_turn );
 	buf.WriteInt( static_cast< uint8_t >( unit->GetOrder() ) );
+	if ( !unit->m_work.action.empty() ) {
+		const auto& work = unit->m_work;
+		buf.WriteString( "unit-work-v1" ); buf.WriteString( work.action );
+		buf.WriteInt( work.work_units ); buf.WriteInt( work.required_work ); buf.WriteInt( work.last_turn );
+		buf.WriteInt( work.previous_work_units ); buf.WriteFloat( work.previous_movement ); buf.WriteBool( work.previous_moved );
+		buf.WriteInt( work.tile_x ); buf.WriteInt( work.tile_y );
+	}
 	return buf;
 }
 
@@ -132,14 +153,24 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	// candidate snapshots end here; only those exact legacy payloads default
 	// to no orders. A present extension must be complete and recognized.
 	auto order = order_t::NO_ORDERS;
+	work_state_t work;
 	if ( buf.lenr != buf.lenw ) {
 		const auto encoded = buf.ReadInt();
-		if ( encoded != static_cast< int64_t >( order_t::NO_ORDERS ) && encoded != static_cast< int64_t >( order_t::HOLD ) ) { THROW( "Invalid serialized unit order" ); }
+		if ( encoded < static_cast< int64_t >( order_t::NO_ORDERS ) || encoded > static_cast< int64_t >( order_t::TERRAFORM ) ) { THROW( "Invalid serialized unit order" ); }
 		order = static_cast< order_t >( encoded );
-		if ( buf.lenr != buf.lenw ) { THROW( "Trailing data after serialized unit order" ); }
+		if ( buf.lenr != buf.lenw ) {
+			if ( buf.ReadString() != "unit-work-v1" ) { THROW( "Unknown serialized unit work extension" ); }
+			work.action = buf.ReadString(); work.work_units = buf.ReadInt(); work.required_work = buf.ReadInt(); work.last_turn = buf.ReadInt();
+			work.previous_work_units = buf.ReadInt(); work.previous_movement = buf.ReadFloat(); work.previous_moved = buf.ReadBool();
+			work.tile_x = buf.ReadInt(); work.tile_y = buf.ReadInt();
+			if ( work.action.empty() || !ValidWork( work, um->GetMap() ) ) { THROW( "Invalid serialized unit work" ); }
+			if ( buf.lenr != buf.lenw ) { THROW( "Trailing data after serialized unit work" ); }
+		}
 	}
+	if ( order == order_t::TERRAFORM && ( work.action.empty() || work.last_turn == 0 ) ) { THROW( "Missing active unit work" ); }
 	auto* unit = new Unit( GSE_CALL, um, id, def.get(), slot, tile, movement, morale, health, moved_this_turn );
 	def.release();
+	unit->m_work = work;
 	unit->SetOrder( order );
 	return unit;
 }
@@ -180,7 +211,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 			auto* unit = *handle;
 			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
 			unit->CheckLive( GSE_CALL );
-			return VALUE( gse::value::String,, unit->GetOrder() == order_t::HOLD ? "HOLD" : "NO_ORDERS" );
+			return VALUE( gse::value::String,, unit->GetOrder() == order_t::TERRAFORM ? "TERRAFORM" : ( unit->GetOrder() == order_t::HOLD ? "HOLD" : "NO_ORDERS" ) );
 		} )
 	},
 	{
@@ -205,6 +236,47 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 			else if ( name == "HOLD" ) { order = order_t::HOLD; }
 			else { GSE_ERROR( gse::EC.INVALID_CALL, "Unsupported unit order: " + name ); }
 			if ( unit->GetOrder() != order ) { unit->SetOrder( order ); unit->m_um->RefreshUnit( GSE_CALL, unit ); }
+			return VALUE( gse::value::Undefined );
+		} )
+	},
+	{
+		"get_terraforming", NATIVE_CALL( handle = m_order_handle ) {
+			N_EXPECT_ARGS( 0 ); auto* unit = *handle;
+			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+			unit->CheckLive( GSE_CALL );
+			const auto& work = unit->m_work;
+			return VALUEEXT( gse::value::Object, GSE_CALL, {
+				{ "action", VALUE( gse::value::String,, work.action ) },
+				{ "work_units", VALUE( gse::value::Int,, work.work_units ) },
+				{ "required_work", VALUE( gse::value::Int,, work.required_work ) },
+				{ "last_turn", VALUE( gse::value::Int,, work.last_turn ) },
+				{ "previous_work_units", VALUE( gse::value::Int,, work.previous_work_units ) },
+				{ "previous_movement", VALUE( gse::value::Float,, work.previous_movement ) },
+				{ "previous_moved", VALUE( gse::value::Bool,, work.previous_moved ) },
+				{ "tile_x", VALUE( gse::value::Int,, work.tile_x ) }, { "tile_y", VALUE( gse::value::Int,, work.tile_y ) },
+				{ "active", VALUE( gse::value::Bool,, unit->GetOrder() == order_t::TERRAFORM ) },
+			} );
+		} )
+	},
+	{
+		"set_terraforming", NATIVE_CALL( handle = m_order_handle ) {
+			auto* unit = *handle;
+			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+			unit->CheckLive( GSE_CALL ); unit->m_um->m_game->CheckRW( GSE_CALL ); unit->CheckCustomMutation( GSE_CALL );
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( data, 0, Object );
+			if ( data.size() != 10 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete unit work state" ); }
+			N_GETPROP( action, data, "action", String ); N_GETPROP( work_units, data, "work_units", Int );
+			N_GETPROP( required_work, data, "required_work", Int ); N_GETPROP( last_turn, data, "last_turn", Int );
+			N_GETPROP( previous_work_units, data, "previous_work_units", Int ); N_GETPROP( previous_movement, data, "previous_movement", Float );
+			N_GETPROP( previous_moved, data, "previous_moved", Bool ); N_GETPROP( tile_x, data, "tile_x", Int ); N_GETPROP( tile_y, data, "tile_y", Int );
+			N_GETPROP( active, data, "active", Bool );
+			const work_state_t work { action, work_units, required_work, last_turn, previous_work_units, previous_movement, previous_moved, tile_x, tile_y };
+			if ( !ValidWork( work, unit->m_um->GetMap() ) || ( active && ( work.action.empty() || work.last_turn == 0 ) ) ) {
+				GSE_ERROR( gse::EC.INVALID_CALL, "Invalid native unit work state" );
+			}
+			unit->m_work = work;
+			unit->SetOrder( active ? order_t::TERRAFORM : order_t::NO_ORDERS );
+			unit->m_um->RefreshUnit( GSE_CALL, unit );
 			return VALUE( gse::value::Undefined );
 		} )
 	},
