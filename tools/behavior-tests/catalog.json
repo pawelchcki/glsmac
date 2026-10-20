@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"land-resource-sources","script":"GLSMAC_data/tests/land_resource_sources.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"unit-source-transfer","script":"GLSMAC_data/tests/unit_source_transfer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"unit-combat-model","script":"GLSMAC_data/tests/unit_combat_model.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"startup-rule-sources","script":"GLSMAC_data/tests/startup_rule_sources.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},

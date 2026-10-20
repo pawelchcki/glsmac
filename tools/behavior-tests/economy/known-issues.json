@@ -273,6 +273,32 @@
         "native_assertions": 436,
         "scope": "Foreign caller/base/citizen/world/tile and stale citizen, center/outside/occupied/free target rejection with unchanged native snapshots, RNG, IDs and notifications."
       }
+    },
+    {
+      "id": "land-worker-improvement-yields",
+      "contract": "economy.land_worker_resources.v1",
+      "status": "fixed-in-recorded-contract",
+      "property": "Shipped tile resource calculation ignores farms, mines, roads and forests, their installed coefficients and resource-cap technology gates.",
+      "scope": "576 independent original non-base land resource queries, two synthetic source profiles, all three rainfall/rockiness levels, owned/unowned cap technology; no special terrain, bonuses, river, sea, solar or terraforming work-time claim.",
+      "before": {
+        "matched": 132,
+        "mismatched": 444,
+        "unsupported": 0,
+        "errors": 0,
+        "artifact": "/tmp/glsmac-worker-resources-red.json"
+      },
+      "probes": [
+        "tools/behavior-tests/economy/worker_resources_headless.py",
+        "tools/behavior-tests/economy/_worker_resources.gls.js"
+      ],
+      "verification": {
+        "matched": 576,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "artifact": "/tmp/glsmac-worker-resources-green.json",
+        "scope": "Production GSE installed-data parser/consumer and resource callback; synthetic native descriptors, separate from browser/native application integration."
+      }
     }
   ]
 }

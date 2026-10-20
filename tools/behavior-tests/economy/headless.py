@@ -87,13 +87,16 @@ def runtime_hashes(runtime):
             "runtime_sha256": hashlib.sha256(runtime.with_suffix(".wasm").read_bytes()).hexdigest()}
 
 
-def replay(cases, runtime=DEFAULT_RUNTIME, jobs=2, batch_size=128, log_directory=None):
+def replay(cases, runtime=DEFAULT_RUNTIME, jobs=2, batch_size=128, log_directory=None, *,
+           algorithm=None, input_validator=None, template_path=None):
+    algorithm = ALGORITHM if algorithm is None else algorithm
+    input_validator = validate_input if input_validator is None else input_validator
     validate_cases({"version": 1, "cases": cases})
     if not 1 <= jobs <= 4 or not 1 <= batch_size <= 512:
         raise ProtocolError("jobs must be 1..4 and batch size 1..512")
-    supported = [case for case in cases if case["algorithm"] == ALGORITHM]
+    supported = [case for case in cases if case["algorithm"] == algorithm]
     for case in supported:
-        validate_input(case["input"])
+        input_validator(case["input"])
     metadata = {"name": "glsmac-headless-economy", "kind": "candidate", "target": "wasm-gse",
                 "rendering": False, "assets_required": False,
                 "mocked": ["tile-manager registration", "tile", "base", "player"],
@@ -103,7 +106,7 @@ def replay(cases, runtime=DEFAULT_RUNTIME, jobs=2, batch_size=128, log_directory
         runtime = Path(runtime).resolve()
         hashes = runtime_hashes(runtime)
         snapshot = fast.create_snapshot()
-        template = (DIRECTORY / "_headless.gls.js").read_text(encoding="utf-8")
+        template = Path(template_path or DIRECTORY / "_headless.gls.js").read_text(encoding="utf-8")
         metadata.update(hashes, scripts_sha256=hashlib.sha256((canonical(snapshot) + template).encode()).hexdigest())
         batches = [supported[index:index + batch_size] for index in range(0, len(supported), batch_size)]
         log_directory = Path(log_directory) if log_directory else DIRECTORY.parent / ".build/economy"
@@ -143,7 +146,7 @@ def replay(cases, runtime=DEFAULT_RUNTIME, jobs=2, batch_size=128, log_directory
             raise ProtocolError("economy runtime changed during replay")
         metadata["workers"] = min(jobs, len(batches))
     iterator = iter(observed)
-    results = [next(iterator) if case["algorithm"] == ALGORITHM else {
+    results = [next(iterator) if case["algorithm"] == algorithm else {
         "id": case["id"], "status": "unsupported", "reason": "unknown headless economy contract",
     } for case in cases]
     return metadata, results

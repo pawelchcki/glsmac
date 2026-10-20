@@ -1,3 +1,5 @@
+const land_rules = #include('game/land_resource_rules');
+const land_yields = #include('game/land_resource_yields');
 const define = (game, id, coords) => {
 
 	game.event('define_resource', {
@@ -32,7 +34,8 @@ const calculateXenoBonuses = (player) => {
 
 const result = {
 
-	configure: (game) => {
+	configure: (game, installed_rules) => {
+		const rules = #is_defined(installed_rules) ? #clone(installed_rules) : land_rules.defaults();
 
 		game.get_tm().on('get_tile_resources', (e) => {
 			let result = {
@@ -111,7 +114,7 @@ const result = {
 					result.ENERGY = result.ENERGY + 1;
 				}
 			} else {
-				// TODO: terraforming
+				result = land_yields.apply(e.tile, e.player, rules, result);
 			}
 
 			// TODO: tech-based limitations

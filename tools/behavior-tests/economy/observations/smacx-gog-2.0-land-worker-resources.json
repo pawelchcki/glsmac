@@ -1,0 +1,5238 @@
+{
+  "captured_at": "2026-10-20T07:04:54.184381+00:00",
+  "observations": [
+    {
+      "case_sha256": "2acb5160b8f81b28fb464a35b22c8f2bda23909f169d39ff6dc52210531b160f",
+      "id": "default-f1-rain0-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "af4546b51e76dce6a0f5d8367ab33e4fed751e3f301f6af5e7a80088af694a4f",
+      "id": "default-f1-rain0-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f21e234270ae8b2bae2d99f579a38bc3f2046ac15ad940cd430b7f56c49c94da",
+      "id": "default-f1-rain0-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "528d84a00b5e3bf8a092ac74d8a438de60e92039de4a80492e86f069912eb8c1",
+      "id": "default-f1-rain0-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "140af29c5057e7f27c4e322adc7eee5e50c7b04124dbc67dfb923ff7446a30e3",
+      "id": "default-f1-rain0-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "24d2c61331c9cd56fd5259bfee1c6572aa1d5788a3215d8d90c1549452796ee8",
+      "id": "default-f1-rain0-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cd269485567c37be95786151eeea641fa03c1fe3e65c59683f872ae44d3e5bd3",
+      "id": "default-f1-rain0-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c0b5be3dc5cd09a8c46e2eeb04cde12949b12c629a6f27ceb1412157b20dd0a2",
+      "id": "default-f1-rain0-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b147f4ebcba1084d08d50bbf814ffa35ee2222eee25772cf47323e0e95450893",
+      "id": "default-f1-rain0-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "2a2fdf065541acd48f7ee523c02808c55941314a7f44f2674bbc65c68c6743aa",
+      "id": "default-f1-rain0-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e296a5fe376596ffa76cc09885dbc28f2f62922f485293c545144a6a14735abf",
+      "id": "default-f1-rain0-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "5c1a2b42ffa956c7c88d6e2e20f8ac4b3bf949e0a7f29e777524ece937808642",
+      "id": "default-f1-rain0-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b2648dfdf8aa6002dd0d914c180748cd2bba4c008c017f15061867bd2411df64",
+      "id": "default-f1-rain0-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "62b0dc58ed75c0fcbff23de2bfa564d5ed91406cb4fdbf92063d08face51c9fe",
+      "id": "default-f1-rain0-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7b5a9f37b7880033ecb0359f9cb887c1478468b6b9dd7de9372489e755f379fd",
+      "id": "default-f1-rain0-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ad016f762d464380273ef4012614952f090c7b6cb632243f92024ffca590cfe2",
+      "id": "default-f1-rain0-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bd82d191f3c3e63a0bb2de486737a789172c5e470ed94cb3674fda49644973ec",
+      "id": "default-f1-rain0-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "493f0e5c115e77953be14de372ea9cd175f48207a6a0490d60b2567bee556eeb",
+      "id": "default-f1-rain0-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "143a02f21b378181aa27c1d82832eb2b94f383b9efe1246513020a065ef726f3",
+      "id": "default-f1-rain0-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "10a43dc57bf210e5123b04d19dcb541743d4897c66bb7b2e06e7435df4fee98e",
+      "id": "default-f1-rain0-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "9245f059a46e38983f1c8dcea6f9588a1359d79d24ab42db260c78a84618b85b",
+      "id": "default-f1-rain0-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "dd4e36006de4072028a20cdaed5759ed07446a880bacbe8cd34c4dc22bce46da",
+      "id": "default-f1-rain0-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "8cd44e373198fcb1454b05e98f266aaea8851f371632bc1099c1092279679835",
+      "id": "default-f1-rain0-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5ee83026081d865f15c27f3c5284aa3a16cf8d7c997a95c426490cf6c00f630c",
+      "id": "default-f1-rain0-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4a0d12abec0f8106bfa5c9dfb65fd922dceb9dd5df6f2f455c05896a773fbeb5",
+      "id": "default-f1-rain0-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "62d9f4aec9897375f58ea77d65b7250e8713ada83a3350a4b1fc3c57bd514971",
+      "id": "default-f1-rain0-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "70b440ae102ad5c6451c9fae6e606311c57fe687d7b4d397487fa9e973819660",
+      "id": "default-f1-rain0-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "505cd16e76dfa129a43443619fcd735702c25ddbef3ca923f4276318a293845b",
+      "id": "default-f1-rain0-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "616131277a79dfdc357daedc045dfe9093a80f731fc5712014423bcee23b7d71",
+      "id": "default-f1-rain0-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "38f3da641f32d07581108b9e8ed1cc84895bb3892cdd3cef1ad82691d1f092b1",
+      "id": "default-f1-rain0-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "13e52f1405b7dc88e81679a3856ee760d2e0e8206a54b73805ed80800716dd33",
+      "id": "default-f1-rain0-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b4c2a205e97c6ebf80568b1b08e9dbfa08df8966a6f0724575b0c09726e06251",
+      "id": "default-f1-rain0-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "c4b97dda7c0402cda38a3c3720f11d2d17d9efd7fbca72d692f821cec2b21e8e",
+      "id": "default-f1-rain0-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "375935047baf5998036edf2fc50ed3c5092b4c7bad72b834f64108d806851025",
+      "id": "default-f1-rain0-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a7f80b3d17cd4e56753a6f882909d7c3aa1d48cdc7041faac1598a2447780a18",
+      "id": "default-f1-rain0-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "03b5a6ef4a15efd84be7f434403ce00bfe6807cdb318ca3b0e5edfbf47c9baf4",
+      "id": "default-f1-rain0-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "6f25d498a8d3bc146539feb70b827ea524234d736a229d8cce52eb6a9174881b",
+      "id": "default-f1-rain0-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "32a6a4abaf02caaea3b2b8e06d9cf6af678be543a54ac1f77525b9ccc6a5aeba",
+      "id": "default-f1-rain0-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3a8d2d53ad21758e0ac6b9521ed12df778b743aa131e721c90d6469cdd0b7e71",
+      "id": "default-f1-rain0-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "231f14bc0796a98f4e8bb5decaa0356bc1aed7c6964a3bb3566ebd8906a62baa",
+      "id": "default-f1-rain0-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1c3bb69ccff5906daff7e63cf0114630ce5143f6ae65fc1117d0513ae94e8aab",
+      "id": "default-f1-rain0-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c7215529ce92d06b6790d71cfd39423159ad3daa7ba5e1778912c7055bb9a290",
+      "id": "default-f1-rain0-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cb4ea73e248002ed3a701babee8a7af769f1218a9846b81f8b6ed65405d83285",
+      "id": "default-f1-rain0-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a86570581e68f8f5a962e80c304fea9eea0c835687d53d252f6adfadf5bf95df",
+      "id": "default-f1-rain0-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e8d13f9eb4ef669d6bee2a160ac96b2b0adb81d68ef0f45f928b79d91e25aade",
+      "id": "default-f1-rain0-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "5ba83ce96b674abbd112a1540eb5df50661083e85856434a359da43bfe24e899",
+      "id": "default-f1-rain0-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "795b314b3ce74f96c4ae3c36db764a8698418266d27236410a8822926bfde26f",
+      "id": "default-f1-rain0-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ca06a93716b82956ed217cf6cab6adf3f05c8f925f8a960efff3194a725bd657",
+      "id": "default-f1-rain0-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "9927860c8596a8cb41586bca07de440866621f998f3aec025f18e3fd236df228",
+      "id": "default-f1-rain1-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "c45e60fa5c81c3eb10e7a700c6b22ab2b5c90ce46ffbf151c5db02a3ae0c237a",
+      "id": "default-f1-rain1-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f4b06a04aefe180f4499e0d3d011fe5ffff553faac09cf720b5e0200916f3699",
+      "id": "default-f1-rain1-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f543c9b5a861898d3c4892342ebdb33f97f60be50ec6c008fa5755f827f22aad",
+      "id": "default-f1-rain1-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3ed536824d833da111e0ca2d152c77582c40be8939d7eb38b153d44c94aff926",
+      "id": "default-f1-rain1-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "65116daf24028277d9d0a37f87282aa8438c3d906e67eacf741961c776b4210d",
+      "id": "default-f1-rain1-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "84ade3b2aedb009f35ad3b43e4fe513975a4e1ca6778209c191ac7e63e63ac0b",
+      "id": "default-f1-rain1-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f977e324a04ebe43bfb54b1ba987c8a1511499ce36ddbeb17cb3420e663ae047",
+      "id": "default-f1-rain1-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f6fac7d080441756ea0a61dae044ab2de0b96a4c6deb2c0892c3a3e9fe1e14a3",
+      "id": "default-f1-rain1-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "245fb843d9c6e44c4374eea2feb5c2493fa8dfbf926ef9c60d9cbf2035a3ef5d",
+      "id": "default-f1-rain1-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "dfcac95241262f20251d5221464454803ac768fb11c700fd93898595f77b0449",
+      "id": "default-f1-rain1-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e2f02583c1e6aefdae7c7dbe0684312c86857b4cafb77ff596ce9da0337e1e90",
+      "id": "default-f1-rain1-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e9d4b88ffd9304538e641b85bba4eb7033b39fd19c2b78bac03254d90b9d75d9",
+      "id": "default-f1-rain1-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1217df3f0bac819970dbaa9e02a57802299cf6d81c82c0fa52d06346dd11bd05",
+      "id": "default-f1-rain1-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "876ad8e3598b6a464d4cf09bb76ec20140e2e96968af5b3b510042624ba7ae1c",
+      "id": "default-f1-rain1-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a13a8d975d43f7db7b5c6e2f2919a6a2529a4288bfd96e8f5fec6ff5d8d8a452",
+      "id": "default-f1-rain1-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "abf2ce6197bd12ea16fcf6352085e6bf69d835dd9564a4f0244b58cd1c2edc88",
+      "id": "default-f1-rain1-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "06bdccd6b5e19b72ccc30b84a5558b4183b0440875d364dff3498f674e29e503",
+      "id": "default-f1-rain1-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "58b0349623b030c4eb99f93cd8901f1d61e662a476511c4d135454773ccdb8fd",
+      "id": "default-f1-rain1-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c7cfeef533b8b995d6a24bf6bd81267a96b0b8b493a784e2cb32f04f7bd3c0a9",
+      "id": "default-f1-rain1-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "50bdd7c40134ccd3f4c7c2005d9b0ecfb356fdc99ae38d0f8813898b6f12c560",
+      "id": "default-f1-rain1-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "55563f96f3c31649c53cfad8bb8f16ab53f8b4f672336964b4c99880f344d7b1",
+      "id": "default-f1-rain1-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "147757c9bf85f51d9c875ce3afcf00bff73353fc09df106a7a557228017aba6c",
+      "id": "default-f1-rain1-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bd3f688431e087609a9f8eea8b738b6af3db73c86263378dc8723174e9eb6dfa",
+      "id": "default-f1-rain1-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "313d8f6915dee8f07c249faf02c0c6cd3b57b3ee1114490db29a6201f0f75c28",
+      "id": "default-f1-rain1-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "867f811bfa83bd8da0f6b334c4af6c0cb63063a96bb59cf7de4520ff6762ca9b",
+      "id": "default-f1-rain1-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "0138ef56f8add1e8c437338131432d3a0f8dd2c72324fb53a25a0e4ad3b0c630",
+      "id": "default-f1-rain1-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "743b24f38765a45c7aad20af2cb14408890e19714f7faa8176ce0578a38b1a27",
+      "id": "default-f1-rain1-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "822a873a518ac90863778a350087df960f1a49d862b032fa1a8ab8f366a7b29f",
+      "id": "default-f1-rain1-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d418771df911f098ee480d78aeef04e3ac3cebc3c0826ea53c7e17f0a8c5c5f5",
+      "id": "default-f1-rain1-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e9f293610b9902e6be1ac92b51b0542dc9bf712783d44bec167e812bd65140a8",
+      "id": "default-f1-rain1-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6a63fb8ec452ae94fb8f3f30771acbc16dcb9ce6a22b343a37dab0c85d60da85",
+      "id": "default-f1-rain1-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "09fa502e97ae6d3ab621ade211881eb156a13890825b4064b78879a436c8932d",
+      "id": "default-f1-rain1-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "55e7d7cc097bd51b5d9d09642eba51f1564cd7f4f12e8c11f0d8cc04a7707b83",
+      "id": "default-f1-rain1-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c77d28c1da9998db9c1780853587dbbfaabb98071c332b824d88b77955cb0076",
+      "id": "default-f1-rain1-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e7d25347ec101c266d8068d3858f8d8eb492e51a3a3ccd8bda6f08b59b3d1876",
+      "id": "default-f1-rain1-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "fd0a7af1e20d4e6c425fa36a6e5dbaf2c3324a3dc4479580fdd3c974b092adde",
+      "id": "default-f1-rain1-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a5f5bf4f25dea09c0a14218ac90e10494b808b9944d3c15264c89cefcd8cfde4",
+      "id": "default-f1-rain1-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "0a11ad1f28f89f8aa503611e89b94391972d2c132ee45a9dc22989fb9ca4a70d",
+      "id": "default-f1-rain1-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d2bae7b5bfce1f7ef8512d5b37bb0d0c126a6ec7d52e57708c53aef3ec64c6de",
+      "id": "default-f1-rain1-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1caee35f040dea853da76df067a5fadf3333e6b84d747143b0a875d151ba9ae8",
+      "id": "default-f1-rain1-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "24e4b4f257731bf07215549085e11a7dd3e0a493a52f54ecae244b9670db4b12",
+      "id": "default-f1-rain1-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "adc524d548a263432559422b0978508136e6a844a43f4def0d527df154354f2f",
+      "id": "default-f1-rain1-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1e026e9b028890a694da886e2c70ab414efa6bf62fa646a56e8be7a9fae575d2",
+      "id": "default-f1-rain1-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ba82fdc2915b3759bf480a49101e6cb547e3c3ff9ff9417a7d91a422560ab0cc",
+      "id": "default-f1-rain1-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "14a446fa8e037176a5a44a22910016ce2d48f8ea6d795fe475bc668fb6a29891",
+      "id": "default-f1-rain1-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "48829836788d79b2754d218d2b5198dae87a446caa459256eca6350528c5ac48",
+      "id": "default-f1-rain1-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "4eb956435288a8c0383faa112fe6b882da28e595b4e74aec56ab48bdbd08985e",
+      "id": "default-f1-rain1-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "87889586ab65bf4b603dc378e3a18349863a760fca68b0e2955c03ed68ba492f",
+      "id": "default-f1-rain2-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "37d0cd08f2905ea72ecc3b6d2b86ac46f71439d630f814adf6eff58a8bc1e93f",
+      "id": "default-f1-rain2-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6a4447ac4928441029c1afaf5d0b67d6d156bddac01b9821b68535bf8f387d1c",
+      "id": "default-f1-rain2-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2d6804dc51bbfaafee33fb45d51a45ed811e8d39b77050d2758591aa70e754c8",
+      "id": "default-f1-rain2-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "5de18b3891a620f7428d398ba66fec5c59db4dcd2cfb69f43267945c069d3e66",
+      "id": "default-f1-rain2-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "c38fe6bc51e69ee7d782ab54d1b1418aeb7d96d66b4c6c5be9ab2ecea86b2887",
+      "id": "default-f1-rain2-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6bda8b739dbebfce5582877cead758bf1d903583670e971a773d15283168f6ad",
+      "id": "default-f1-rain2-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "16ead0d369763b6288394a210773200290f9df4300f84e680c5ebe5e54489f4e",
+      "id": "default-f1-rain2-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a407e6e6324cbaea62d8c284944b4e326edf0ce3559a9c5243d12d2bae988434",
+      "id": "default-f1-rain2-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "71cae23ac5ac6923ba04d8d9da5d7385731790ab78f12844a83bb32e2d36b885",
+      "id": "default-f1-rain2-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0d634fff3061092b68cc0612f20ae9ec471f739fe253f362abbb5ea5546e415e",
+      "id": "default-f1-rain2-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0f99724fd77cbf2453cd448674a2d3f41489a3655c7022a565e7abcbe049a3a2",
+      "id": "default-f1-rain2-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9d1f17b0ebbf23fa412dcbf3698feec6f3561b412fa6664ba0e4e21910dc6588",
+      "id": "default-f1-rain2-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a85770802ba059a4a08c29ef7b9bf856bc3ca53d36e711d77311ac3e1b0c118c",
+      "id": "default-f1-rain2-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6ce8806bdf3803d1d14acb08d9fd3787278dc91216f88ddeddb857452ed35f5b",
+      "id": "default-f1-rain2-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7b85875ee2afc5eccd72d7f5b95c0642ca22148fc4555a56869bde0cb15b2126",
+      "id": "default-f1-rain2-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "4166f7fc9002fecab0c6cdd46aafa36ede52f585b51b7c48cc0f3207e5a1d167",
+      "id": "default-f1-rain2-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8084e21f8408c6ddbaa77fa028068300844ee981d11317e8ba1a401abe01b040",
+      "id": "default-f1-rain2-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "671f3b496345277c69353d12d7ef3f5ec54be3057d48fddd07c846100a028889",
+      "id": "default-f1-rain2-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a8b4632bfd85c281ebdffaf02e988974fcf772d6c255e5c14e678099d1da24a3",
+      "id": "default-f1-rain2-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "432087c743511b75ae112e5c8a06bfc04d8078ea2372cfbfbb11a950b75d9ff4",
+      "id": "default-f1-rain2-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "232274cdd3a06322858331934fb214b39b1fd1e7761df08c747290dc998e2f9a",
+      "id": "default-f1-rain2-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "0d211a51b34846039606f9170d609a8390afd86dca4989408b5a5d10c0f511ec",
+      "id": "default-f1-rain2-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "0b6c2c9c68be03b86c00a037e4e36486a02867746e9d65e4d63a4e437aa393a2",
+      "id": "default-f1-rain2-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1f61b8adef8d17da3ab6bd952048badc8ec7724995eb167677c6ef10cf3429b5",
+      "id": "default-f1-rain2-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "adbc2f4d7f2725b473476e771eea0b76c0d648b971cb0fa4a3c64ee37f2cbdcd",
+      "id": "default-f1-rain2-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "176dbd2b869519c15cbf5a51e9d8736de51cb326268d7b9dd99dbe33aa44ee68",
+      "id": "default-f1-rain2-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b1e07933d3b6a2f5fb3bf0112fec1b8f9c9a1b18c97d63e8e13f50a054e457da",
+      "id": "default-f1-rain2-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "740fa46675357073d35207140674e1024b3b2351172df662ff9228c8f64d50f3",
+      "id": "default-f1-rain2-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6552799a60477de2e2d82d686ed98aa0d1fde0096e8f6109b47abafb11a11378",
+      "id": "default-f1-rain2-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e92496c04345c59d7c44cadb6db14f653f86bf5a621bbadcf6abad596dce9d12",
+      "id": "default-f1-rain2-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "5071fbcc83b8b235df457e35b939939f52e597055d3ac63780059ddf76a36b43",
+      "id": "default-f1-rain2-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a6fae24cc6542dda68990e366293a140db93b31dffd1c3281a31586e7f452516",
+      "id": "default-f1-rain2-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "6c4e1a3c54759d3ea17e88e1c514733f64a6b3fd9bca849a531a393a9ff52955",
+      "id": "default-f1-rain2-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "99a4265dc51f489bdaf4b19c7a7575c4232d60bfbec755907c58d919aaf0d0d0",
+      "id": "default-f1-rain2-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b64c4c0ae39d6d3fd3aa35829050e8c3a35085abe941ded22e89f414b03ebbf5",
+      "id": "default-f1-rain2-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "9b110dfaa44482f2ba8c15bb9ccdeda1e6436ce0e6601d0033f8b3c690ec4c61",
+      "id": "default-f1-rain2-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "01dfa689895835434550909fb810d99986244498368948b7ee20756ff4d0324b",
+      "id": "default-f1-rain2-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2d984a6530c83e2af1776734531f3aff282133af36585685ba5d1012e9572a3d",
+      "id": "default-f1-rain2-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f918456ae268960c1aa5a9eb42fc18bc02c6c4c311d718e617ffc3a8b01d30d0",
+      "id": "default-f1-rain2-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "66b980ab4c0ef02bab8c01909b3c942f93c32b5342e8d0739b707ed2883a2fcf",
+      "id": "default-f1-rain2-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cacb4c83a2b469113b020051364eeb7ac268126f21aa8bae2b5da202cd22f604",
+      "id": "default-f1-rain2-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "9c10d79f5e5716922b10caca6df827205a6e41dc905610a6d32d78e650833b3a",
+      "id": "default-f1-rain2-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "97072387f0d400c2501c5944707f4e02efb3ce4a7a6fe4c7a88abede35d26a9c",
+      "id": "default-f1-rain2-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c1a8bdb5dda1acb045663e92c50955e0a6c4eee4df7676d3ffc5240b70d9793e",
+      "id": "default-f1-rain2-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "64ea69fcf3636fdd7d523febcbd0c398764ba02789715908e48ab929a3f74c8f",
+      "id": "default-f1-rain2-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "dd7b664e81dce79d345435d925968bb607119f923ccce946a329a5f5e1ec2442",
+      "id": "default-f1-rain2-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "437dab82279ee887e4acb8f9c2ab7a73087e67929ca0eb799d79ba9f8ff10c5a",
+      "id": "default-f1-rain2-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "fc321f3fef7dd453e5d90cd25d2a0005489824e107b5ddf9f692ce7b2fd7eec7",
+      "id": "default-f7-rain0-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "338b5a158d1b585ed7e33bcdef3707bf70d91d4dbda7df86df41cae64b928866",
+      "id": "default-f7-rain0-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "bb9678c5bef840e327c3b06d4fabd0d6dad6d33f9e93aee8119ece27af6bc2a6",
+      "id": "default-f7-rain0-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f15c84592cfcc2358b44229442c482f1969581bd3eb15eadbb9b85fe37da8985",
+      "id": "default-f7-rain0-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7bbf52bacee293b909f3a12235f6ce8dfd767869a8593ce4f27775c3a49f4a9c",
+      "id": "default-f7-rain0-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "bb36596ecae255736bea0184384461e230497a27c884871001bebe6a464aa9e3",
+      "id": "default-f7-rain0-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b8f54439ed0259d8a471c31bb8bc2fe500ad73da0831d1ba4500068fdc612fb7",
+      "id": "default-f7-rain0-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cc331b93288fda8ce664a2766f00db67496626323cf51957fee7dd10c2e6b2e6",
+      "id": "default-f7-rain0-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "07c4ab67c3c4e31c8fee579e2d05cfb20f504b5a7d115dadb0a5f973785eac6a",
+      "id": "default-f7-rain0-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "428a64f915375ea0453a9255a7c4265f65888266fc3ed5b55a30b2039f0cb89f",
+      "id": "default-f7-rain0-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b9fff5d406a80f69c16b583caa5a25fd8442768c6b7ed93399f47120af5304fc",
+      "id": "default-f7-rain0-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "99a64c735690f888493abd364879d5649d7abe1a50ed354dce429212cc2f0ac7",
+      "id": "default-f7-rain0-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1994960e203a484d2c376113330d0c1aa309ebcb22c78de0e75440f2b901fa74",
+      "id": "default-f7-rain0-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "fa2af3b6de71a890ed26126f3e5153539ca3a4c0cb6eabc82b08e250a18b0795",
+      "id": "default-f7-rain0-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "fb1a76960b6869ce157534ef6baaa5ea317702ab76530a792634a9ecd9740452",
+      "id": "default-f7-rain0-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "38737a5f084933d393dd2d43e9402317452d42a7b8845af464ba0eabe4424eba",
+      "id": "default-f7-rain0-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b804b6f01f75f49a2309e651f5d463a4f98f2208a855bf2262583fb9e07f1f91",
+      "id": "default-f7-rain0-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "19359f34cc3d16707327cd08cb4a99212ac88e305f12fc82fc2c1a01a7d0539c",
+      "id": "default-f7-rain0-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d37ac1a1fb947baca49f071cab40e7e59a7b553b5d639dd5673f674bfbec3d77",
+      "id": "default-f7-rain0-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ea435cd8d8c9560214e0ecd96a52a52684a80f46d9d99645e5cc73a2500d9a02",
+      "id": "default-f7-rain0-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e81c15d3407b3ce9d3628f358fa9827838f6a096ca95a74ab7bd99fb34c284ed",
+      "id": "default-f7-rain0-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2d1dba523cc10b1263129c3b53e5bca81cdf2072c936678c99beb64cdb01e612",
+      "id": "default-f7-rain0-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b68f666cbf1a70b781ab3daeb5b803625b0e01da2ad669592095a47d4db3c63d",
+      "id": "default-f7-rain0-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a58d3cde79556fbe983503abd938d8ec521feb7384e22324586a5ab67656c3b9",
+      "id": "default-f7-rain0-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "eb47e6325b19bcb1d1f891b4170b5d4582b6e88a5858ad173b17c4441e8bdd86",
+      "id": "default-f7-rain0-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e83f3704d41af3e60933e91395755e44e115836fb3cc80a4813ee4b14b7ff691",
+      "id": "default-f7-rain0-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6c4ba5033813667ecc07f83c2fb8d64c36d4f780298e1335d11ef3254c562c42",
+      "id": "default-f7-rain0-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bcc65d486f66648d38f2d422aa1a8ab95ca75b09959edc4f8b5ffffa4b3c64f9",
+      "id": "default-f7-rain0-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "337a838ea830e662e18ec774fc9599f1d45bd8a8ea332b09046fbf9c1165a4ed",
+      "id": "default-f7-rain0-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f10b2046341191c8d244b4456889273b5d1d39e597f4da04495f61e06f158728",
+      "id": "default-f7-rain0-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "49923b85bc1e74e0e4a5e5b552538551de755f510c588be201ec653fe52c99a1",
+      "id": "default-f7-rain0-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7cb1cf0752c647a82fcbc32fb55dd06a0813f61de569bdd6f55337434c633c08",
+      "id": "default-f7-rain0-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f8448257425a120c18fdb0fd538539960d921b81b6ba6171951f1b01a1a47453",
+      "id": "default-f7-rain0-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "86c456b8008b9a6454e422d155c7a2af9631028e6c1a7e390444230a67a46402",
+      "id": "default-f7-rain0-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a4abefc51f88c5fde29e4bf5580f4e00a8e6f227bf3c32d1abb5711fc4f1e170",
+      "id": "default-f7-rain0-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e0d60732083e03ec48ff17e9d71f2f33b516783429a157bd29fc721b93a7c12e",
+      "id": "default-f7-rain0-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ff9a2d2e8d21495c3a1735eca02d8a2c7c45f562aee53e71476ee983f0961171",
+      "id": "default-f7-rain0-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a6b68c19b74de1d7891bd674da36ac0c01ebada0504cbe022a50d45c0ca4b2e1",
+      "id": "default-f7-rain0-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d6ef84939a07ac22c548a049658cca4d5bc76c60cb6fb8078d8e96f967253dba",
+      "id": "default-f7-rain0-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "02330ebcc3a1a913c20c39ecacea8419c97afd5b777fae87a5eac2264923e15f",
+      "id": "default-f7-rain0-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "7ce73fe2ef78484678ec4ee079658c823a388e4d2e99985a366213e27a627c08",
+      "id": "default-f7-rain0-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cf88afd546a83e91537f9ec69b3d47c5723ccb7fb8d57dcd01564a9f49943137",
+      "id": "default-f7-rain0-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "237c3c82d9544ee2c96c8346c0e7e0aa3e35a9b0cc347a7161331bbd11c4510d",
+      "id": "default-f7-rain0-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d7fc702bc21ef250ea4a364e822ba23c65366797341da6f1d87953e2463bae51",
+      "id": "default-f7-rain0-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ec3b17cb8dd49ff93ced186c1aba30a4ffd7b9fb13b8922cda25d12952679059",
+      "id": "default-f7-rain0-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bffc044e06c224f2c34c4cc86f224264da999192e87bf0adf2396cc4c60caf1a",
+      "id": "default-f7-rain0-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "22f6de20bbd5272ef89edc80d63e1846bc4c6b0f9e037f101c4c5aa2c6e79152",
+      "id": "default-f7-rain0-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f07e485068865f414662c8a86f90f889b8d84c851f8f87cc53e2a62b0ce8ff2c",
+      "id": "default-f7-rain0-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "3e8a26ef7cc041f66621fe6dd0e334e12f0fe1cc97685dab4dea1085c6d880b3",
+      "id": "default-f7-rain1-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b1f00276e39ed3fd5f922f283b928b09bb09c2a646409e40ca7b76c2e8a9f475",
+      "id": "default-f7-rain1-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "81a80ffcf1fe55ba114178c0c6b5fdebe5b5368bfd763a298d03d85579fbda99",
+      "id": "default-f7-rain1-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4875031d25b2ffa93d2f8513e4006723db460e1ff9db681836e0da762761b2ee",
+      "id": "default-f7-rain1-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "85ad7f96550a377fdde13477262bef9c4cf2bb56241372fac7bccd720adae8af",
+      "id": "default-f7-rain1-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6e5e974cf6792c91b0b8d7d7ed56ec2be1e6be385c046fe9ae78a6ffb66c4df2",
+      "id": "default-f7-rain1-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ca41e2974a0db75ea85e7fd05192d1bf0f0d7712cfcf1505e5b850ca1e14c656",
+      "id": "default-f7-rain1-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "028316cfd8df1a215b2967f99c45d88b177f090a9460f0eeffa0dc6edda1c429",
+      "id": "default-f7-rain1-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "090f2b3f7989e0b58cca0a76e2a1946d55983222a5c050de07c90c6d88f47e7d",
+      "id": "default-f7-rain1-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "168f553c6a82a195ff834872f3b4b8c09579b6f3eb294ff1d2d3e04795f5032a",
+      "id": "default-f7-rain1-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1eaca2aa7e935919f6f522d1afa2bdecf9743aab33a93b0d74b63c4754766d3a",
+      "id": "default-f7-rain1-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "acd95d9056831292553d8e64a986db9135e75a81f264c10c7d4c8301a1249cf6",
+      "id": "default-f7-rain1-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e7ada00e561973f77da069a76d45089bf0428aec5d2f578dc06809c431b0d9e5",
+      "id": "default-f7-rain1-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "8666387f2176195ccb1dd99989e7b3119a565b8913ffa6a2f2e7a80e46c6d9b1",
+      "id": "default-f7-rain1-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "34c165b1087ab3a434f4b2fbd7414a0eaeabd825770da7717284cbb597004eca",
+      "id": "default-f7-rain1-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "93245149234c4b87f77281d29ce5566c31032562760a35ef3058540a56736c27",
+      "id": "default-f7-rain1-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "03b08203f372b3bfdeb7ac98b076a88053df27247093dd6f99c3358a1894c70b",
+      "id": "default-f7-rain1-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d8ae75c5e0959facc3ccfc4f88706086a8d7ffc6ffa943130fe10e0382fd2160",
+      "id": "default-f7-rain1-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "4381e108637220e5bbde503bbeaf89471da5d017001dd851ea6b9e6e8a3aa19c",
+      "id": "default-f7-rain1-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cacd5b1bc3310aee8a3423a4123a3d4edb970c75b700ea5df8cd623f29f50876",
+      "id": "default-f7-rain1-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7b2934e188da4ba3d8ac074dbc6fca60484eb2847f58fbb58b0b821dfedf122a",
+      "id": "default-f7-rain1-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "57800ec5395a2d6f4cb6df28de7b0b2f6264c6a7af6cc504b2ffa549d34a43ba",
+      "id": "default-f7-rain1-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7b045b1f21e36ebd9901c5d002bbffafde3104f905505c4e432d2baddf271eb4",
+      "id": "default-f7-rain1-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "709a4d5aa50ed65dd276ecfc205d50d67ff7b28b6f535106ea56ac19ec1b0f8f",
+      "id": "default-f7-rain1-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "2e059f0365f3b3538a2985e913c907bf53e4c357f18c4ebefb2341ae92581b5c",
+      "id": "default-f7-rain1-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a7de7dce891e07df6e1553f0a005a30dabef8c82fdef8483cc3caa56602af31f",
+      "id": "default-f7-rain1-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a6aa4152372b4eead20c80d4cb108c16542ed265e054c23883a243ce5b68be9f",
+      "id": "default-f7-rain1-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "2fbbe8202c1894ce99b44a6d0c60514dba4b1a65fd1c4ed892bd2fe489441e84",
+      "id": "default-f7-rain1-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "57763a4d45a6ac7f7538f841ce026d23c6addfba4e28ab0bcd098b3bc384e3d0",
+      "id": "default-f7-rain1-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "0cd93cb2d14769efb61557941967dfad92973a546b7be7740ef2cbe20469ab1a",
+      "id": "default-f7-rain1-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "38f3224bc0b333855f84a747a8d924770f3ac01ada3c13685b5510b3f3a776fc",
+      "id": "default-f7-rain1-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "69df4727e4e2e5f0d304a5349aff0f1d98a97a096e87087bf574bacbab7bb8bc",
+      "id": "default-f7-rain1-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "973f6ffcce16e48d2e9fa15cdb55014a5d0f99090a197c66c50d0eb125ebd254",
+      "id": "default-f7-rain1-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5b368d6f333e36eb1aca0c819f8ab499cdc428c9766d1885f5b6baba6090846c",
+      "id": "default-f7-rain1-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d148f55259f34119b1606f5fa76350647d9ddc278d4b8fd90b4ba04f7a5c4618",
+      "id": "default-f7-rain1-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1b076f8546656c24b523c31df813e06fc6d89f946463cb6c1e9aa4d99113c4c0",
+      "id": "default-f7-rain1-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "afd512dd5e459183b3d8da899c371c76dc00cc2e4f560cc8acb9d611df61c370",
+      "id": "default-f7-rain1-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f379daa59003a09ca27fb7c053d48c74728d8081c978db9de222d07d12da7f5e",
+      "id": "default-f7-rain1-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "76f5793ea84bc00c1ad625114f1f864cea1dcb5f2f50098bea576c89f0d025ea",
+      "id": "default-f7-rain1-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5e94d8c1e0cbce02151a474bec392a6379009e307e70262a7f9a6b263bdc8872",
+      "id": "default-f7-rain1-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4229245c0e87fec197334bc28934fc3bb5605248bce18c9733c7318a8a8e0ba0",
+      "id": "default-f7-rain1-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "83d33fb09acd1f10af197007d3b59230e229aed0bbabb9a5eb7672ef4cdfd7a8",
+      "id": "default-f7-rain1-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "47e99e33566716eacc8790d3cc7b8234d758349d75a7bc92200d372a0acd938e",
+      "id": "default-f7-rain1-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ab7d64d46b1bdc081d2535c9d177aceefc95fb41535825c6893cca064b8e652b",
+      "id": "default-f7-rain1-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ff28d77bb1022238fa26367a740d4e791d1aca6fac0df8f82fcd004660c76887",
+      "id": "default-f7-rain1-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ebe856ae5866baef414b139af474e45445d7b78c8febe4db5e00019d6f320836",
+      "id": "default-f7-rain1-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "436b0c829cace48ec267cd4eaf9a596781e51277832a7d7bf40153c1fedc14b9",
+      "id": "default-f7-rain1-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "8259048927e806b49565261bd37cf94b0e30a88f7f1a95ed8294df3c3fc3b651",
+      "id": "default-f7-rain1-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1e44874f5cc1463e2d1406c4b5e5a3302f76aab5550da9d7fdf0c083a58fef70",
+      "id": "default-f7-rain2-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5362f4f309327e1ffc789e83e98c9c21a81dfc1a33730dff351b0898ca257afc",
+      "id": "default-f7-rain2-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a7dcd62c7e9c39c50cebb214bdaaaf5f6980df47a655816bdd9238ab6779089f",
+      "id": "default-f7-rain2-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e4b789aae8fe3d903aee57652f0f075c0c341e19fbc187cd922b0dc671d31263",
+      "id": "default-f7-rain2-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3423c83daebff81b642d1f1110409b485eabe8e8a351b58321e5be56755a2cff",
+      "id": "default-f7-rain2-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f86b8fe7688723d07a55a43629a6462155cc4a9152322cb8ea4ae0872c906882",
+      "id": "default-f7-rain2-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b17417f043d4d8443115ec12ff1c8d95c25c30963adf505e44c348f25ed4fe95",
+      "id": "default-f7-rain2-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ad2ac4844fedba10b88e930ca51f13d375dcdea7efa529007f6fad459a61970e",
+      "id": "default-f7-rain2-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e1cc91e1096d79a35eb94ad3b8069b1934ae6d129a7718e8a884c834d2028c99",
+      "id": "default-f7-rain2-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bd7e852c19768d277f761328d5acc52dfc5f85b632ac23cb7ac4845cfbece6d1",
+      "id": "default-f7-rain2-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9c6b36f8f78e822594cf311a4b1beaa5898948163cb83d80b73324823ee488c5",
+      "id": "default-f7-rain2-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b026395b3cd2477eb7f156036050db9628e6443dcd6c022e7a4d5a058cd4808d",
+      "id": "default-f7-rain2-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5bce7ec8e40a4d2f086cefeffaec22aa361e5a1c15b23f41a3e923ab856d35aa",
+      "id": "default-f7-rain2-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ef4ba845b65341aa8dd25db0de0f081a87969a3135a738fda6489d06730faeef",
+      "id": "default-f7-rain2-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6758c53b75ccce3cd7b0e0ea50da696d3198e8494783408c4e97bc7b16bda6f6",
+      "id": "default-f7-rain2-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "869c73cd13c02168ba27beaa7c6965e3b0951dd15ad9eb118de183c61b23ce6f",
+      "id": "default-f7-rain2-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f316e57c04c49a99e54a800d459d6e902513f0fbb342c5d573a41a3dabc9169c",
+      "id": "default-f7-rain2-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2ea75838fa7ca274966001c8c910b5ff8c8963c797f1c50b0b112e6830fe50fc",
+      "id": "default-f7-rain2-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a6d50a605b44a523a3443626f660b329836059beac39d1e127787109adf85319",
+      "id": "default-f7-rain2-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "62de6493ee85cd66c0b53e92572e799d3e8bc21fb48c667cdd555e71a0e99027",
+      "id": "default-f7-rain2-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "3461dbaa9daaac704ec23e034f2351d2ad63eec4c7ae232adf0abdbadcf4d3a6",
+      "id": "default-f7-rain2-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a388802a7e96ad4e748b08571c0a5d21e94b16ed939a2ca6ba45452157e038dd",
+      "id": "default-f7-rain2-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "82c5d639fe5e8eb5647c8fee2de0b74eafb7c36f5066992a32a4688f197285da",
+      "id": "default-f7-rain2-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d650a64a3d53901192ed5d12c402e5e58bf2e3f86e9e8cbe79a28cb52b4c8baa",
+      "id": "default-f7-rain2-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "a819e66cddb11f5defce3620bee96cbb8b048c6e8347a2ac91a1437638a806f0",
+      "id": "default-f7-rain2-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "574c6c72fb6313af9804214304f52ac2c5fd48dd7d3277c66662180e3514e23f",
+      "id": "default-f7-rain2-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0dd42536e0469e912a119f4304bd5161d69129f1abd7a5c635cfa47ebc408e77",
+      "id": "default-f7-rain2-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e5fae78aa76936034894ccd11f1bc15c4b829fba5936665e24451d51817a3c32",
+      "id": "default-f7-rain2-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "66fa10943cf8ff906971113ad03e5a49b56b52499b6725e6989940f27bf3b01d",
+      "id": "default-f7-rain2-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "00ed11e3dd4969f4fd0ae090247a86ee4f05c58bba425364e9fc3a1628920bc8",
+      "id": "default-f7-rain2-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "7507acec7407c4e8ca06fababc7db6d336031a753c97853b24ef2815010e45ab",
+      "id": "default-f7-rain2-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "884b45d630c52a7d3fb52392572b747e50770952b08ba74ba76d2c9cff89e850",
+      "id": "default-f7-rain2-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "57409854c79b10f3de0e1476782bea654d1b4c548f7434f9f238c28980b45493",
+      "id": "default-f7-rain2-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "af1e225bee5e86a1b466c67811317f5d8b2b298a19b04f7c020354ff019222e8",
+      "id": "default-f7-rain2-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e3c0bfe599069839e9567d0ad171aa65e753ed7a2a1d306a30bf1912cd7efb36",
+      "id": "default-f7-rain2-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4b48484244a9dbf656c3aca497e3f5b77be0a1b09c28fe664ec1d83ca010a291",
+      "id": "default-f7-rain2-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5c98255da4b15e8f920d0980398bdf69006c62208e9e4ae71708f96ec4c6b749",
+      "id": "default-f7-rain2-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4bb95c31e000cc3b677bbfe4ca5797cd14eeda28ff568ef43a7914b748d97a66",
+      "id": "default-f7-rain2-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "33050e224551fea6579b3f1e1404a88ad379584a61a34fcc63d6354d938338a1",
+      "id": "default-f7-rain2-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a72aee5b03969e7bb9a16271899910cfa87b029f93124beed49e3f3f1857d22c",
+      "id": "default-f7-rain2-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "92101550815273c476262a3d12b40f682bcc527c3581fee3ce920c7d296397db",
+      "id": "default-f7-rain2-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "8f01f6df16e5427160df4002fbea53f102e3f74a6958869bfc3139c3b41d2606",
+      "id": "default-f7-rain2-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 3,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "750ebbe8f6ae379286dff4e17e2928c80e690824aaa81a984b532b7306640989",
+      "id": "default-f7-rain2-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b6fb4cb8e294b480349061c85495e90e92b5b0f935778a5aeff709f0e3237faf",
+      "id": "default-f7-rain2-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "dada8fbbf1eb3ffce65ab91ad91090ed8f6fee598f29615939d51c415416d175",
+      "id": "default-f7-rain2-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1be12413c22e2af40bc0d637a613c8b88eef4675b607e97071554c2c0b0f02d6",
+      "id": "default-f7-rain2-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "6f7248d20ca0cf077cf6aef8ca7674f34bba64677eec99c3778111aff20bee63",
+      "id": "default-f7-rain2-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d5f8f39bccd295defee1169697f685aa17693d433fc198e3c35481b0596ec824",
+      "id": "default-f7-rain2-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 1,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "e179c8a9858e2fe910822718359437a6df24c954e7b9d0875b9d9377ae9e4f95",
+      "id": "altered-f1-rain0-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d209ac8d2455267693c1989cbb4e122f30b7876b47b9545ac79550a938a94e8d",
+      "id": "altered-f1-rain0-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "675c3ad78f5e2ec46bb7d25749deab4ac292329420a5f62d974f8e5340dfed64",
+      "id": "altered-f1-rain0-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1a104577862c0fb13f3f97f48208913a5a239e413a9901103a5c6ff279c93672",
+      "id": "altered-f1-rain0-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ff4c2a02fbb0546d3f05dd39658367f136371ff533e8257e8f45592c68ea7206",
+      "id": "altered-f1-rain0-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "af98871da6667f1a09da086778dfa02ce9c1af7fff3f7e4dd6969419af1d4015",
+      "id": "altered-f1-rain0-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "dac8eb612e71a4af1db992a80dbabf25096c8763d3fab0a456f1d4cd1c455748",
+      "id": "altered-f1-rain0-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "893cd2b7f4d5ee89db90aaeba4292100fcfb0f4325677e0059575d66b5c94b13",
+      "id": "altered-f1-rain0-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "26b5d55c9a805b298265a135a4dc4a556c24ecf111d340278ef6a45c9d64afee",
+      "id": "altered-f1-rain0-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "37f532fcc4cc7783d91e39dd37ec29dd8908f5ce248bb79348778502272bf90a",
+      "id": "altered-f1-rain0-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "18c8ff11fa04f068884cd182ee737c52d26d5c66a4e524795bc8a2f7dff1424a",
+      "id": "altered-f1-rain0-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "55d9f2874656fcda65e134b1a6e624958a18581bdd1781f9e0620d18e8e9286c",
+      "id": "altered-f1-rain0-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a5d2750a50570d3cc781e3cb2ce93ae1157eb158f822010ef85a858435ba5da2",
+      "id": "altered-f1-rain0-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d6a4c9fefae5c4a4372d4f61a966559755bf1f61f13d95be13fff48951c5d33a",
+      "id": "altered-f1-rain0-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "934f97b45075b0cecd033d6c7ca03be358bd3523a01d505678742b0401d660d5",
+      "id": "altered-f1-rain0-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cc33f4d4a544dd9cb28cbf7a0f35f07ec6fca19cebd9cc526ce2deb26984acd3",
+      "id": "altered-f1-rain0-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a9d2a2c84fba8e4b3af250ed7d2748b92b516329664346ed9ecd158fb646a251",
+      "id": "altered-f1-rain0-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "07e3aefa1a00566a2580bb92f4aed5aca54417a700a343196a82f6b4d7ebf617",
+      "id": "altered-f1-rain0-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "7895d888f05ea3bb5f4c93fff6580773bbc4bc226609abcf8d990ce7aa741e88",
+      "id": "altered-f1-rain0-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "95fe318e5df2220b4c30e74cf2c71b755fc40379020a21c6824b972fbe794d41",
+      "id": "altered-f1-rain0-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4d18f95b83f13a349eb3ef074efd81b25cea072fb6cbb9ccc5a1708c23e29bd4",
+      "id": "altered-f1-rain0-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3bd4a86a11284c0e3d2c65ed0fbe8a84403f21a432d4beb1e198e30c2ad238c8",
+      "id": "altered-f1-rain0-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cb54590e5ccca4e0f852c0060c7c98e45f9dfbe56b2f082a4473c5f74daeff34",
+      "id": "altered-f1-rain0-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4a7df64f52a6241cec5542752c2ce2cb27df64ee37a43e8295c4d12be8b274da",
+      "id": "altered-f1-rain0-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "8230691b5dc9d08baa5a602518f103c67609620c1e7892b65379ebd291aad2ff",
+      "id": "altered-f1-rain0-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "01b2f9b2e012aece995dbc2e53b65d889d8324ba6bb8ffcd0adce8c6b807e3ec",
+      "id": "altered-f1-rain0-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d501678eef2fc1b03c0e879bd588f407e7c0d6ea54f970becc6a985a7289154d",
+      "id": "altered-f1-rain0-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3484133671b0d9cf8c24824482478607724ba2c897117d3aa392761e4ef3ac76",
+      "id": "altered-f1-rain0-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5243751a7c0cd284922164241fff62b77e58b695b8baa8a25d6b551f78e4cd4e",
+      "id": "altered-f1-rain0-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d05e02537e93004d50e330f96646a7fb3edd9963b22b4f7b761b563e2184b1f8",
+      "id": "altered-f1-rain0-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "93759a6ecc8c52c256289a11fe5f78a50aee99f0dd4dc43332c220b5f9c7f50a",
+      "id": "altered-f1-rain0-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "392adc55e84bb1110775ad36dbba9d4f9807c3145a08c7a65c3c5c5479bd7169",
+      "id": "altered-f1-rain0-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e68b4336f729c29f15019af25f9ac3c3636d717770a1558bcf455056cb9f78d5",
+      "id": "altered-f1-rain0-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a9a1e47040938acc1783bbda8703017ac4e10580b7f53c28f29e272bb8f32593",
+      "id": "altered-f1-rain0-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ce28636663f2a26a479cde21b2437ea435ec752b65faa9a65416130c364ae401",
+      "id": "altered-f1-rain0-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ba7bee378d11083d12089f415c5fcf9278e4072b940a23415b0a2b920bb503c8",
+      "id": "altered-f1-rain0-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "975233c9b976b35bdb8e9fd2df41c876e3f06283737aac168000bbe5993a04e0",
+      "id": "altered-f1-rain0-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b6b481b44877eefe8e9a1008a4cb78005927e4295c156a328526f9b971c1472c",
+      "id": "altered-f1-rain0-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c5fa7f85b247156776244e4884f2b6819a678fad68727a065a22a6bb2590f93c",
+      "id": "altered-f1-rain0-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ad6436b98b07836a966ce64aafe2460e1736fd0c85582697f3329631eb61e638",
+      "id": "altered-f1-rain0-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4d77de27ac09b0f528ede393198a5b78ccd3c39e2e25451fbece50378520c53a",
+      "id": "altered-f1-rain0-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "91f1546ea45495d52d65579583828a9b452d2261ba40f0ac96d5f4e373c9e9d5",
+      "id": "altered-f1-rain0-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "0b960f6fb3c0fc4c386f91574b42027d7892d11ceb138707b2ff132298190772",
+      "id": "altered-f1-rain0-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "6ddeb832b66f4b9acaea0c2a04306fe0d762a779920bc7d002754c73f9e57e6a",
+      "id": "altered-f1-rain0-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3b03dd0ef818886a28d753deb5a2b329a873d1c18788cbf9e049cfbe405ce62c",
+      "id": "altered-f1-rain0-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f6c9d73cd052408995ca689452e0e68e92f1f6550e760bd56eb806cfeca8e9e1",
+      "id": "altered-f1-rain0-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "18b4f782f69b41b2df9cef7e212a64bcdf06ed65254e398a97d73e2e813c9162",
+      "id": "altered-f1-rain0-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d6e33813cb547ef9ad862780f4d299f3e88f4053977fb3be408b3456a282d2f0",
+      "id": "altered-f1-rain0-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b67336ab0c70c4bac25a594a0dad65a49102d5d71362395cb7322dc4087253bf",
+      "id": "altered-f1-rain1-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bd2f6a95088f5e95a7d01aa3b5bb7f44a17d411da5d71dc5dfef35f75057a6e6",
+      "id": "altered-f1-rain1-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "712c4c2e1ac8a20367f274a91cf5e3c8f24eb866603ca5bc0cc480ecb9b5df85",
+      "id": "altered-f1-rain1-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "26516a5b8bacf94744eed43bb46ff8e747590f8e4afc592134ee72a9d9dac75a",
+      "id": "altered-f1-rain1-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "40ac5ec727bd1f3e255f7332f8cc532acbab20c4ba0534855a618b643fa3fa29",
+      "id": "altered-f1-rain1-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "cb8644685e3530f8c659e46db2deccda335ec41407b6ec18b027ad5516e15e21",
+      "id": "altered-f1-rain1-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "aec51416d226d039da636c9bdb7fefa8a240a022c6ded6d25f2dd84cb640ab17",
+      "id": "altered-f1-rain1-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "9cfd135e7ea5a0f42e28ea6a2b4f3939caca121a6a511cae9ea4610a86e2a903",
+      "id": "altered-f1-rain1-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "0d616f07246dfc5cd84fae6f8cb3f8aa12daf94fb16a674450d33205f7be3ff8",
+      "id": "altered-f1-rain1-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7ee080a949fe71ad5f70b3e8a272553fca71b1677b89ac8429cbd8e0a66aadbe",
+      "id": "altered-f1-rain1-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "1803ec2b7778275a3161c5d1e56c1c1cc527c52b2f656bf45476c050adbe78e4",
+      "id": "altered-f1-rain1-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "52ae204a7d6a963194438bb45ac9d294d91c01a872c447053732d3e220676224",
+      "id": "altered-f1-rain1-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4fd684a427f0f66cf6c63883c926727a58fc4e09c41eb9b50f49abccc76ca212",
+      "id": "altered-f1-rain1-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "23eca7720147b2e7138df8440dd3a28103ae3b83cb98d66739658d5693297e93",
+      "id": "altered-f1-rain1-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "10e99e18c12db93c321fe03480eb0f8b91036ece6fd5e531204ca91e556a92b7",
+      "id": "altered-f1-rain1-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bf762d36bc38f7794a7d4ba5d846588e6ecc12343c4be0829b5d41d6095e5a19",
+      "id": "altered-f1-rain1-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "70f639b50a1266014799dc45e2ff2921698159b5601548511ef66948af929558",
+      "id": "altered-f1-rain1-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d0b29529df64b6fc386089cad94a3b06b4c3a2776ac31333b40987a12b422166",
+      "id": "altered-f1-rain1-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "44cfdea0546d6ec87bfc146ecd2435e377addd504841900532099eb67a3485a9",
+      "id": "altered-f1-rain1-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "92cd914f41349ef208479c8e337ae6b304e2f58193dbe4651a060a12ff804da9",
+      "id": "altered-f1-rain1-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fd261cea5b1d79b3c047e6442d960e7fa4aeb82a6bbc5fb9ffae2c3fda41767a",
+      "id": "altered-f1-rain1-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "5a7c6e1f53e30e4424492c7e8672d166cf186e8fe5271c8f0dcf0ba34b429132",
+      "id": "altered-f1-rain1-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bd75a49b677d79431653c20288f9e01c46a7a31ddbbbe4c6f29aadd6d7fc1a0e",
+      "id": "altered-f1-rain1-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f119dde7a6b66acadf847369eeeeac6bc5b30948dbc912c916fd7cb3a85c6aa3",
+      "id": "altered-f1-rain1-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "c63429155ebbad62eb2c43fad9dad6bbb7663de4d09255ce240200a863c677ff",
+      "id": "altered-f1-rain1-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5b30c375cffcf032e844621317f2fdddd870a6da6490d8e73e693d90b012c133",
+      "id": "altered-f1-rain1-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "fc7c01624f1178272684b0e4ff22c805224e5cc16f16ce2ea02b0825a64be156",
+      "id": "altered-f1-rain1-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f392a8861a84b6ee1c9c5dd2a0a58c2778b24cb9100cfa020e5dae8d380ae666",
+      "id": "altered-f1-rain1-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e8666c45bc7c619d5e69607f69829091879793493f587449af26da754c87b83e",
+      "id": "altered-f1-rain1-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c93126d50db6c9672d33460c24d3617fbc3b94cdf4a29359b7f790982b6e646d",
+      "id": "altered-f1-rain1-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f716145ec95d5312f61a41c4eb66cbb40da6f31a3a9ff4698ebc4404530678f0",
+      "id": "altered-f1-rain1-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9126455fe5b790b4e9f5f6556152662034dc9a233abf0feccda5fb78dcb7116f",
+      "id": "altered-f1-rain1-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "dfb532c172aaeaf18227d8d69e0b53595046e25e5a2b9a21bdbda161007e4880",
+      "id": "altered-f1-rain1-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "bff5acc64c6fb335af0cd0470364decbb68772df74e415c44370453e1fdd4d98",
+      "id": "altered-f1-rain1-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "67d01a5419091d76192c86512195b8c93524fa57b62a77b554e3af6b220e31ad",
+      "id": "altered-f1-rain1-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ca8e821d09495b277948ba8150288be4e4e4f88b6df4f222bbefd4397def9e77",
+      "id": "altered-f1-rain1-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4cdf1f33d0d99f5f3121ebfa2d4989c2cc41ff44c44d51053e02021ba62d2b4f",
+      "id": "altered-f1-rain1-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "224dee75f3ef7dcac15f2b7dc2dd98155be77829c69c2bf140ed8d6d05e093df",
+      "id": "altered-f1-rain1-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d06075b47d3453886881dc13348a125b19acd61d4f4c6e04ce5ed6bc3c3c6ed3",
+      "id": "altered-f1-rain1-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "907100fb0579a6120ba2db044e8d46a96df449f8e5ed376b28b7f0ae59ef190e",
+      "id": "altered-f1-rain1-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "39341643022a4684e215b528822f89e408c9c05d76259e0c8a8ee29486ab248c",
+      "id": "altered-f1-rain1-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e38d4a11589a1f7199bf5a76d186fe6a23f315eddfff0ab3b897e95c6131d694",
+      "id": "altered-f1-rain1-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1191c8be528d2e824cd15508fa506235ed35724cd4433fa6944cdd049541f5eb",
+      "id": "altered-f1-rain1-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "6d6e5c9bd1dae75c503136757d27fc08e7b488648f91129e05bb51787f312219",
+      "id": "altered-f1-rain1-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d80accfab1d30150495858b28b59ee0fdeda0e83f0be10b4e4e537cb89babe69",
+      "id": "altered-f1-rain1-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5d82b148117cca84d1d717888fc4107b2bc1cddbbca10f81412713a262c60871",
+      "id": "altered-f1-rain1-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e100e5ddc1b00917169ba1771646692e3070bdb0a54a38737211cc3edcbbc069",
+      "id": "altered-f1-rain1-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "edc9f8347814014564805109e14b8d2ba616f4e2a549d94d5e8c5aae3675075e",
+      "id": "altered-f1-rain1-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "dd27291abb96e90c1e61e5f963521e876456a114ccb44541bf4e064f6a99fdf6",
+      "id": "altered-f1-rain2-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d9ceef67837844be1a36c25a97b72309c03d831977bb418fe13a1b9fc44d2d4c",
+      "id": "altered-f1-rain2-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f92062624ac61bce0c4b12a93214c25952705219a8e8b8fb38483835429acd36",
+      "id": "altered-f1-rain2-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b22296f4f5d545ca6e93fe1232341c4e4e09128280ae1f00cd6e7d2f778ecbc9",
+      "id": "altered-f1-rain2-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "884a84b130cc8bfd110b02324a84217b999f27b64c9f5378eb1002b08a27cfb8",
+      "id": "altered-f1-rain2-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "de636fc7880bc8df74b9c04f3e712b3f077ee5151b2d2a1c8e1c66edc8de4503",
+      "id": "altered-f1-rain2-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fec3cbd31d03d186cd57a90143c936e4e91f2f01b104502c4dd2afc9ae40b6ed",
+      "id": "altered-f1-rain2-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ed95ce8034464d98c3507b15159340cb4bf324aa79953688ea842a76fcb81274",
+      "id": "altered-f1-rain2-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "690703547a27185f2575cdfd3abfe64784322fdadc3c0adf5e9b1bdd4e1d278d",
+      "id": "altered-f1-rain2-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d8cf3a17a5a4f2e591c378ced97205f18dede9190b1c59b48dd3d7b93cae93cf",
+      "id": "altered-f1-rain2-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "a2a23f68b2f7d1272f7928c92ddc992805f5b0be345eacddd2ea39dfb8de359a",
+      "id": "altered-f1-rain2-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c3d42e64277453b7c7f2e440f092019cc3bb6a3202a844e3f63491bb8aaf04e7",
+      "id": "altered-f1-rain2-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "b530c0233bf5b4724d34d7714a7dd366f1e3eaf4a707ec7de220b856c4ca31e8",
+      "id": "altered-f1-rain2-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "287571e03e09ab70aa05955cd624c271c309f466dcdb984a68de9272b5d66b2e",
+      "id": "altered-f1-rain2-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "873660afe8ff6a8704ef7d8ddb99ab6dfe5951d72059ebda397e5aa517f85483",
+      "id": "altered-f1-rain2-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3ce35d613702d0be00ca2ad2689f2c0d34fb79b89a516195b2c34262c1f33463",
+      "id": "altered-f1-rain2-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c18002b62a0d752a49d0f587cdf98d81bc1c167625ab378e586288b5739a6516",
+      "id": "altered-f1-rain2-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c03336fbc1e08a9a0cb9d8f6cc7210df166b3b69c8e913f0914efe0e3c92fffa",
+      "id": "altered-f1-rain2-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "552b79138621af306d571bff0314371646371393c32a926a58d4daefe6b3e618",
+      "id": "altered-f1-rain2-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0fe3e92de66d8d36a08948a6bd81dfe19b06b99db6ccf73c65a54bd0e922bdef",
+      "id": "altered-f1-rain2-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "c2d150b3568b208e14a31e8f03653549043bdbc21d5fe03240514d566599aa56",
+      "id": "altered-f1-rain2-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "06e89c7e44a1351cd519fe5a7ad987b325579c8e7c4a9cd3ad21074b1ccd2973",
+      "id": "altered-f1-rain2-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ef24b4175790d261cd4b6eca511eda11b6267be38dc981723b69c90fc90c8cc0",
+      "id": "altered-f1-rain2-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7f834bd872bddbf7b4aec4206a000cbb41e25158c890d191332201fd1d766b16",
+      "id": "altered-f1-rain2-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ac850d5789d07385100c533763ea348048054ad3afda9850ad2b743840e01f3f",
+      "id": "altered-f1-rain2-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f7be6059e53db341046d9ddaada5858ac694442a48dd0be2dfb51d4c45c5584b",
+      "id": "altered-f1-rain2-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "8b6d5b9ef1f617acc9fe3fedc182162799a8d2c0780f2d4f6f7a6f36aa8a6bf9",
+      "id": "altered-f1-rain2-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3002dd2b8007fb2206c0bbe77a526263e2c74597ddf77db7f6792c77860cd620",
+      "id": "altered-f1-rain2-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "dcf6d851faedef263b0bc314d878de381b4d8d65542e8f6fd93b458251d5c0f0",
+      "id": "altered-f1-rain2-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d2975249bafe6058e94873666a5cf761167e784e8f76efe7a4e52498271753c6",
+      "id": "altered-f1-rain2-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "09eac656b5113dbbf3591a876cf80f1b68260d21f631167f066c7f5ab9aa9592",
+      "id": "altered-f1-rain2-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "27b778aca43c80213ab61f90b4792c1206df5ec8ead63ed8fd0dd47ed689d2cc",
+      "id": "altered-f1-rain2-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6eb748b035752b14053381484061f2376a1b63a5d5a774afaf6962293e824316",
+      "id": "altered-f1-rain2-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "abd5ea669d6fdd82c34c18d8942c8f6ae0e002e434028acd4e2a7fa65f64f712",
+      "id": "altered-f1-rain2-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3e5aa969b2414ea4dc5fadb58b10346891c1b7552412cd862a976b279defa870",
+      "id": "altered-f1-rain2-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c69d57ec2b123274c055df3cc8e99bc99e9651d313c06143b497cb8f1f1aef89",
+      "id": "altered-f1-rain2-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "35ac20072ec67d1adc18cba3ba4f8e151c66c2a79e3e319499a4441d2830647c",
+      "id": "altered-f1-rain2-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "dac170f0096c0d52cf6e5c2df34157c18f3b4bb8913b611fa98b5b68842f1e5d",
+      "id": "altered-f1-rain2-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "7c64c9ee436895f4ea0332945d80cb2e3cda6da57967e2f3583a209f40b990ea",
+      "id": "altered-f1-rain2-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e9fda54fb68c6df7be48e19e702a6155f3d03c43bbeceed4f0f29288d47d247b",
+      "id": "altered-f1-rain2-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3f0e5bb908318a7bdef1a8899d619c81f10ba00e35a4ffbba4333fb4853633e7",
+      "id": "altered-f1-rain2-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "c6abd350c9a125440524268c5b2937571037159324bff4021cd4720520af3210",
+      "id": "altered-f1-rain2-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d30187af2470218200ccc18827c6ca3404a56251d7547881408f71703a05fc51",
+      "id": "altered-f1-rain2-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e2a3fb52e97055bbf87fbf1a5a896585178dcbc08495a4b3b5c82a4d89060f7f",
+      "id": "altered-f1-rain2-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2d275d750508d67fc92b9bff41b7d3e9cebe298eb906aacb90b935a975459c05",
+      "id": "altered-f1-rain2-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "58944aaba9d9e8d940281b5fbe9ef1d4c59643274614d4e166b11dceaed8006a",
+      "id": "altered-f1-rain2-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "53cba2deba91e37772d95d99158a1f64905ce7dde8b1b438c77ed3f71ee31c43",
+      "id": "altered-f1-rain2-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e400a554bb9156e97a70b98eda0b5fb33d4d5d02c8f53cedc63ed3e6d577bcbd",
+      "id": "altered-f1-rain2-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9d89babecf581963f7721d0dff6695a55535287abac4e5b86b63a0d85ab359c6",
+      "id": "altered-f7-rain0-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "215ee0cca1fd091fd6f2f6fc8c621432b5ec3d549211d2d3a08330149edeaf8e",
+      "id": "altered-f7-rain0-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d01a61177cfdc1317b25ea79f94945f618174449f2a5ec3a2f290d983a6d309d",
+      "id": "altered-f7-rain0-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ed6d4f6ae5a9a2943f06a9071e8d9a49feccfb07a7e509e64d011431a1b5f294",
+      "id": "altered-f7-rain0-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8c979cd8d1af59346fca44e6a1532afbbdc0678f2d6f48427ba384d67466b0a6",
+      "id": "altered-f7-rain0-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cf36f68686a2af5f743006fb23fb82db79605bf04f8abd5fe17b0b1cdf8e7cfe",
+      "id": "altered-f7-rain0-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "00b8255bd08e437738e6dea70a88861339d109921676ef4636fee6daf58948dd",
+      "id": "altered-f7-rain0-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2c68eb3d06c7b6474fdc41aaf13b187db907a2be58904b647f6f16ad9bb72352",
+      "id": "altered-f7-rain0-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "0a6c6b59d96a19dbd1d8f430aec111499b147da2d66dba8c2fde791537b670da",
+      "id": "altered-f7-rain0-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a2715e982f7d1f4e7505ef487f6cfcb683ccb98672ecf588a7d7110111bcbf01",
+      "id": "altered-f7-rain0-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b311cca4301ab2aeed2c52903eeceadaab407ee0089c1d6d63f568c814449c46",
+      "id": "altered-f7-rain0-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7e2b3b5aa3d49f76b49018eac35d4fa4f197a2da4ad4b59c3b2cc3c46a7b13e2",
+      "id": "altered-f7-rain0-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "4705d07edd8e86c6e0f2dacbb930ca3291d71933712520df149a58ccdfef3d95",
+      "id": "altered-f7-rain0-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a7e86cbb3347b001a11c06fbceef54d95c501ea09c7f0f392a28bd46a4597786",
+      "id": "altered-f7-rain0-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fdbd522d9740e4b1b6d8b23f815033ea73ebb1700deac3f4ecf63296b768164b",
+      "id": "altered-f7-rain0-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1f1f7da8d1e77f4d1b8f035e03e1abf1f2f352e586ae7cffa280ca634cf0b8c5",
+      "id": "altered-f7-rain0-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e379b58437ac7c3e6cea2741df1b9de5cc1272643d988c68ac87f8ece5de5992",
+      "id": "altered-f7-rain0-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "77c200c674ca46e3733c44fee33a4e901dabba3345df899fbe13fe0990313942",
+      "id": "altered-f7-rain0-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2628ec97a94a70c96ad95493b4c435609d316eef9b88a73e5fecd296ebfbb9b1",
+      "id": "altered-f7-rain0-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "514d322f2bf1de7da38577f064117c6e86a63a85987f4157d8ddfa3bd59b81a3",
+      "id": "altered-f7-rain0-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ba4420cd9ea181772a9d8bd6aa27c25bfe2edec824c9db7944d6b913092932b0",
+      "id": "altered-f7-rain0-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ea2288016ca90696b848f5a70da60f768be8bec46dd12be70d16b3b8498bccb4",
+      "id": "altered-f7-rain0-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "1196dd02576e9a1538d99eff1090937bd65613d2a49e60143b229195414ffb00",
+      "id": "altered-f7-rain0-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "d758eda5bf2f379f746db2cd1209d4c2923cc2668f1b12f1851922ec2b4b275e",
+      "id": "altered-f7-rain0-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2eb981f1cd386fa84ae29420f3f653fe400295740917031ef752ac36207f1ae5",
+      "id": "altered-f7-rain0-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "5f672beddd1746a78c7edf9eeff9a9c4aff1ae75f09e1305ab0b7f66b25591fe",
+      "id": "altered-f7-rain0-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "0aa90cea962ad104d5978d7dd9a4364daafe4d8a4f508a61a80d2c18cfa514ac",
+      "id": "altered-f7-rain0-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7e92360afd276ed48cd35ed2289c21044fff1c1910f92263de1c839511fcc80a",
+      "id": "altered-f7-rain0-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1750a5343422ba2b21191b07e96287dd0e33e3b2aa4ca5aec6fe261a79995ee4",
+      "id": "altered-f7-rain0-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "97819440adf7dc46991976c8c4f8a0c8e667b69e177a89d0d4c541df03fd65ef",
+      "id": "altered-f7-rain0-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "e02805a61c4e3dea1fda9d2df86c0b9931727dc337801e063ed1338af9086b1c",
+      "id": "altered-f7-rain0-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "60af07877697aad0f70cec1cba5408aa440d1089f917f7b1ca6d9d570cbdc704",
+      "id": "altered-f7-rain0-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "22b95724230e6defdfb06616df862b9629f0dc0ef3e1d256b39f3842ece58613",
+      "id": "altered-f7-rain0-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "2edd1d24ec63a7af5271b6a9bdc7ec45cf667266d2e602394bfed6b4c836f7d2",
+      "id": "altered-f7-rain0-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5af8e314627adafe123693f1a8eb8e717267a2105eeb03494f407c5dbaf9364a",
+      "id": "altered-f7-rain0-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e20198f03bb0a0c88933452d9c081773e9f2a60ab6ce8347aea22cc51b872250",
+      "id": "altered-f7-rain0-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "4be988d2da362053d641fa28f511787515baeb57c39853776ef947c5a2b49683",
+      "id": "altered-f7-rain0-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "aedcd7920c7e8a37118506c505e17ca15d7a4a68e64da0e42d16d5b4f35e27c1",
+      "id": "altered-f7-rain0-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "42bee1459c9108f59d79bf9ee095ed16aff13237f8c1dfb39ee966c3ab22de11",
+      "id": "altered-f7-rain0-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "6e0864d6ce2b2890399ed8311c3fcd77bb910fd164c86d42e8a2f2a562fab0f7",
+      "id": "altered-f7-rain0-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5c56bd86c7114c53d403af97242fcd373a850464e3d0d2149294722222491848",
+      "id": "altered-f7-rain0-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "a8107f7cb03fb1ba0f4d38ab61a640687ef70ae68299d994024dc429b2677b3d",
+      "id": "altered-f7-rain0-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f712fb91c36447b40cc6acf33103c270c888cd75786bad8ec09b69949daf0809",
+      "id": "altered-f7-rain0-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b94991cd58dd5b7ec7c53e43f941e2b70f5efba01b75efab7031de0ede8ed247",
+      "id": "altered-f7-rain0-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "393a9f4ca6d17347ae640d34a1f48d5d59bfca37862076b4b860586fb858bbc1",
+      "id": "altered-f7-rain0-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cd434b44854cc97e9fc810671b3c74d4c769ad3ba6b23a071476db227d94181f",
+      "id": "altered-f7-rain0-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "88e4abda9711b1dcf6ab4053be2178cdea45692a4202d1701b0394f74a8432ad",
+      "id": "altered-f7-rain0-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6b5beea854d6a5a0af9f98c512dec726a40fd963c42f6338483150bf61cc3620",
+      "id": "altered-f7-rain0-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "19f16fe2639a99f3a81d69a876511f83e4f330e299b32b2f1a8c1fadf8757393",
+      "id": "altered-f7-rain1-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "8ce2807da5d868d09d029bc97ae7558c605cc0529b079bab9aada70b78839d79",
+      "id": "altered-f7-rain1-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b4a47a74e4f1b0082cf2940c3cef8c006eed11aeaa5512821eb39f49ca5e5afd",
+      "id": "altered-f7-rain1-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "16cfab0367bc222c256a5a47a85ff6084431384a6938f8d0c28fd55a392d6def",
+      "id": "altered-f7-rain1-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "4291f115a5099656d60e4881b15277ae97d401d12cf40521045d411f7947fe36",
+      "id": "altered-f7-rain1-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ccf03d5213896420e25790266e3cb3abd3ac193a29116f63ce8160b2dae8f4cf",
+      "id": "altered-f7-rain1-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "ae03c8db2dc3f946c08ffa46e1ae3c9157eb351065d9cb5f12ac36db6cfe06ac",
+      "id": "altered-f7-rain1-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "b2b2abe9dd0a1d8779332a70d6235c76a94f24c997f54105e5caa7592d7c2695",
+      "id": "altered-f7-rain1-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "c1c9a5e7a12f56e02b06b4e0fb2e42384125df483014170bfeec670f4d9286b5",
+      "id": "altered-f7-rain1-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "7ec79871edda9477219aebd52d75bc3692d70102bfe51445ac2d6638c3c6de38",
+      "id": "altered-f7-rain1-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "160333d3a5d086a8e28d6aa64126e9854ce068ec5a5a05929f3de634cd58a9ba",
+      "id": "altered-f7-rain1-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6431d2056c28e807438a993ed0bfb2c3ebddc8564ea28a5336aff6c4cbe32ba0",
+      "id": "altered-f7-rain1-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "e7575833cc18a0b4529d3c9c004294246a768e7af89824bac7c137a938f15819",
+      "id": "altered-f7-rain1-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "567eafd57b35c66374c27b4daa4ae249193305b20a5ccd9af242bddb89b0eb47",
+      "id": "altered-f7-rain1-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fc46157f8b8ced14bbbf57dc7dc3989d61cab8b45d7b83358628ef40cf68f0f0",
+      "id": "altered-f7-rain1-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f567e92581e7cdf751784ae50e047ac76ed73d5d7a13777d0647d94c0fe8ffc4",
+      "id": "altered-f7-rain1-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "efc60348de7373de6b08997b212f6a761be642ba59b2f5e4fb164492ec5de8c2",
+      "id": "altered-f7-rain1-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "d9ebe1496021ab6a7e091818b491977ce508087c8453d03eca8b1e57c4e8be03",
+      "id": "altered-f7-rain1-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "81923f944380c406857fc6aa2ef3b0a19d16455d504e65dc6156d8fd8c1e0383",
+      "id": "altered-f7-rain1-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "9ff8e2b1ef68737d44e48409d78b389a5f98a9f853c0bb49e673e6abc7bc79b8",
+      "id": "altered-f7-rain1-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "efe7441a479840646afee68c774070ae4488a82cba6dc0a3b52dc2dd38d63a66",
+      "id": "altered-f7-rain1-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "f6cf4e4108eee856bbb75ab319de87a105a360e76b1ceaf5ecde8f346d2b84eb",
+      "id": "altered-f7-rain1-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "123aeed62278ad6371e1e08ad2084c8ee854410db74e3fb4ca0ce2c7d60c3327",
+      "id": "altered-f7-rain1-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "1ddc99b5bebe5d70cfd489749af07b6023ac40851b7000da09e23d42631c734a",
+      "id": "altered-f7-rain1-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 1
+      }
+    },
+    {
+      "case_sha256": "bf9f35f68c3ecc1355ede943cac293c9d807970a025b3caf746574c0a60e6d37",
+      "id": "altered-f7-rain1-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8a43b2addca6b134668d4991b33b503735ca7894bbf7f171bd08b1dcfceed58f",
+      "id": "altered-f7-rain1-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "038ba36eca18ad43ed9c0784bedd8a2bbc34795ad633f067848548e710373ed4",
+      "id": "altered-f7-rain1-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3f39e4ddfc6644f3cac5b2fd89ef674edcfd1d1c0576d820350b76a8b3cc1fd7",
+      "id": "altered-f7-rain1-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 3
+      }
+    },
+    {
+      "case_sha256": "acf34ee070f3a05ab82dff5d55c958f10bb4fe5a968293289c5169ecdf216d44",
+      "id": "altered-f7-rain1-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6da6725ba458a887781c63fd2eabde3c48fbaff9942d116f5834638da2dec5c9",
+      "id": "altered-f7-rain1-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "19a5215098a5b1ed1b922566bf7a2b6332b59590c024918cf6db99504b7b3036",
+      "id": "altered-f7-rain1-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "c195f917b153141e2ed16e0079fe6c8d926a68ebf240989650628ad7ec788fdd",
+      "id": "altered-f7-rain1-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b1b844be01abdcf83e7e76ee24cbbc8c0febb2b1549a08aab2143adfff45101e",
+      "id": "altered-f7-rain1-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b12d3a34b1cbbd24b676b94c632b73080424246cd305161ae1ce52ebc5eb4135",
+      "id": "altered-f7-rain1-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cd184f32c688e7384332efc3793cd2017c8a08d59d5983fb05289d9df1a577ad",
+      "id": "altered-f7-rain1-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "69d11b474812262a365075b9035b4af2b0d8a28c3f09f75a0867920306ccbeb4",
+      "id": "altered-f7-rain1-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "40f0fd32e457c5912874b83e3231de6b66c96f3068d0bebdacbdeda1ab7a0dae",
+      "id": "altered-f7-rain1-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "9e003ad865430794a51872ce7f5012a22286697953eb7a03263c73132f27da58",
+      "id": "altered-f7-rain1-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b3c21c0f57af4e89f34ea4f4e228e0eea13e1197ae834b2310751ae1acb80621",
+      "id": "altered-f7-rain1-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f3e74aa4158632beb26214c9f9c51757c04c0878228788e1c99992795b342f30",
+      "id": "altered-f7-rain1-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ea3f90fea66faa9027797994ec6cff57df02699395731a562f94c581288ef68a",
+      "id": "altered-f7-rain1-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "960176ec1eb2b063d90f8c2ded168e751bd03233e3b8bd5ba51d80ef46c8cdc1",
+      "id": "altered-f7-rain1-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "01fa4355fcbabdf8ac1ef09fb001453b634835eddc191132e107e0e8638f8c21",
+      "id": "altered-f7-rain1-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "e8f1fe531fe027af4cf9d86bfba4f4a3c3badb8f629754198631c9e22e7b5ed3",
+      "id": "altered-f7-rain1-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "feb68b9e74cbecd3dac4ed14aac744aeb71d5c7ceb9770908be59466253eb67e",
+      "id": "altered-f7-rain1-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a2a271d0861223d2c3d2e0bc0f5ed52acbd607b5759f76b40677e64268942779",
+      "id": "altered-f7-rain1-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "bc85f5f82c38fcb5ff1a39bae5bf674e878c49d0f5d5223935db0e70b6d4ed07",
+      "id": "altered-f7-rain1-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "d437e5c23457ce362bad0b67e70727fbf9dcd38d3136d8888546b45514f394fd",
+      "id": "altered-f7-rain1-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fb07f41b82eda0899ef944a19286a2c542e7d17a0a21c6b3300027e607eb73ee",
+      "id": "altered-f7-rain2-rock0-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a7c2a5518661471784a4515de0937da901211484b26a2ee922c05e0ff2d4ee7f",
+      "id": "altered-f7-rain2-rock0-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "43bdaf7d7e97048621fb4a89f91826582b8d271475103da6d7aab7a47635694a",
+      "id": "altered-f7-rain2-rock0-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3d94b977ca8968c9b48fbf85dcc2bcce5d61e97b8bcbd87ea4eb6b10fa0453b9",
+      "id": "altered-f7-rain2-rock0-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "dda0465ebb972e664721388d16712e98a63709361dc66f900e8d98098186f69c",
+      "id": "altered-f7-rain2-rock0-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "16cbcb4390006a7c70a50879527b033950739376c173632ac30d6ee3b0001d07",
+      "id": "altered-f7-rain2-rock0-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3b8a3dff59f9d6cbccb95c3b6bcba5617baf988946498d838b3c860359e21c4c",
+      "id": "altered-f7-rain2-rock0-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "a2636aa8d6af10ca5c63d9411b17456ae98e2ceb5731ec5d05220477f118c273",
+      "id": "altered-f7-rain2-rock0-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ed2032bbdfdb0feedb9cb3b2333338c083b1be17ec757aac2064caea184d952d",
+      "id": "altered-f7-rain2-rock0-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "f5dbf97b776163e139ea62eb5fda89a9399dc0bc7a95f7e97750a8763c8b3c75",
+      "id": "altered-f7-rain2-rock0-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 0,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "388aa25fec54596312cecd8b8524b54ab9e8f15bb4f19cff58067f8687b3189c",
+      "id": "altered-f7-rain2-rock0-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "2b27cf802af40af6a87e7484ba3e33a5826a208f65fc83a334d22cebbbdb7e24",
+      "id": "altered-f7-rain2-rock0-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "8daf0b11c4a444b18b7979b3dafe1ccc9845d98ac7a0460ba111529b7791c6ef",
+      "id": "altered-f7-rain2-rock0-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "14915c15af460f8a74080cdfafed05de6680ff56cdacb9b823762c2ed6215b21",
+      "id": "altered-f7-rain2-rock0-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8eb5a8493d2daa6dec28fabf79f703eaebad747e62e2045053a2b5b9b7fd55dd",
+      "id": "altered-f7-rain2-rock0-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cc44d534266750096d84e5bded2ac984785ccb954c025385816b57425062d311",
+      "id": "altered-f7-rain2-rock0-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "66ed271c4d1bf529885a3d0b8b0b40d03810561c85a8d89ccd7737f03bec51c1",
+      "id": "altered-f7-rain2-rock1-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ad58bd3d75bd9b203094652e87c826b8b28ca947ef99a22083b0e018bb593211",
+      "id": "altered-f7-rain2-rock1-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "486753596d7763ef030f8d4aef87360655efeb139ce6f25aece5ff192e0f3bdf",
+      "id": "altered-f7-rain2-rock1-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b55700d6648d5649218de8434436cb5df47356160d76ae5c01d105d85191da70",
+      "id": "altered-f7-rain2-rock1-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "338c14986d850a8a411a5989008526c0f780086e5e83672ee3643f18692edc2b",
+      "id": "altered-f7-rain2-rock1-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "1f69834720af15040e69324f3a16b1d166cf0a0d4427157376b7ea3ecab22eb8",
+      "id": "altered-f7-rain2-rock1-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cd3f472218eaa3a53817994bb9709adf864074c2d93d0c55f0e1d7aef20ea1ac",
+      "id": "altered-f7-rain2-rock1-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "cf2f26d3e2522cee9a24bb6f156a70f081ef9e1f50973309062dafef5c7dd332",
+      "id": "altered-f7-rain2-rock1-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "fac7a528f17a568e7b033a01189753e6275cc3872cce245b95fbba4061450b41",
+      "id": "altered-f7-rain2-rock1-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "423d6df40aa79e8aabed62e0262cbabba7767be5c025ae647b845121bf889f48",
+      "id": "altered-f7-rain2-rock1-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "a25799c64db1728f6f442319eac14e54e3a90a0ee6801e435766e0c55b846548",
+      "id": "altered-f7-rain2-rock1-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "3a68c64780a60832c1d34aa0fe96b6b789b38b8de1e1022dbeb58bca72ba6e01",
+      "id": "altered-f7-rain2-rock1-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 4
+      }
+    },
+    {
+      "case_sha256": "ef92943a1dc7b862dc8f9d0989bd30d25be4ac88445b3f49c94421e747d038f9",
+      "id": "altered-f7-rain2-rock1-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "b4c5087c34c3685ca58a8beeaf0b5f14bd739039626bddd3169fb743c34ccfd1",
+      "id": "altered-f7-rain2-rock1-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "ad78484a048ce97e656e6683c649b2b3b4a9b5257bc96564a5f99ff1cb6758a5",
+      "id": "altered-f7-rain2-rock1-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "eea78d1e4332680574eebca37522e48080a6f60e01f753050835ef816f005f92",
+      "id": "altered-f7-rain2-rock1-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "6244fb85717f03c6359397540487087b1824805795a628f97471f7501494cd46",
+      "id": "altered-f7-rain2-rock2-bare-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "99cba2073edf5d2d19a00d666d8e8798e45e3aa8b8e57a6f8f02432eeb6d2d5d",
+      "id": "altered-f7-rain2-rock2-bare-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "8351eac40f64e0a019cfa05d5a6f1ac77cb58a6e1432a205f59ddc7cd3640e50",
+      "id": "altered-f7-rain2-rock2-farm-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "63c16c8e61c694a9724208214c2b9f9922f8eba982966ebf664e0099956f6067",
+      "id": "altered-f7-rain2-rock2-farm-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 1,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "f5ad076c1872b3508ae63f63a403bf50ead89ed721145f5d4d17d517713bbef9",
+      "id": "altered-f7-rain2-rock2-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "ffe81e2514b159d3e2e65e8bcef0468a1a84d0b5828c566842713edc2a0f6bee",
+      "id": "altered-f7-rain2-rock2-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3287c6b2ec97a538fbe084823990c8f4547d5fb4bb5d28e878f30b8767d84e4e",
+      "id": "altered-f7-rain2-rock2-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "fcb40c9e355850f45473cc6b118f7e4a1d67117df05140f8d8c9581a472ad1f4",
+      "id": "altered-f7-rain2-rock2-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "cb0da8976896fae296fdd629fd5750cecf7c5a8130657737aca128b2b745ab99",
+      "id": "altered-f7-rain2-rock2-farm-mine-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "0572b9d005cb0ca2a3545ad44abdd018133ffef5ec028b3c4bbd642a1156343a",
+      "id": "altered-f7-rain2-rock2-farm-mine-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "b6220748c60122d2f25e70c96804ce9f2386ef218952b3c96b1ea58c1421b59c",
+      "id": "altered-f7-rain2-rock2-farm-mine-road-tech0",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 2,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "5ec9491186c6d26f9b7991ebb3b23da3e6ff8f90129b2a76b521f2c63c3e84c3",
+      "id": "altered-f7-rain2-rock2-farm-mine-road-tech1",
+      "output": {
+        "ENERGY": 0,
+        "MINERALS": 4,
+        "NUTRIENTS": 0
+      }
+    },
+    {
+      "case_sha256": "3c66383a61bc185b8972a4d784bdd28d604d462c028e1ab07562ef8bc5d58eee",
+      "id": "altered-f7-rain2-rock2-forest-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "8836a94336388ec113c18ba94598070b3bb3257e564cbfaac8f8b26d39cd96d1",
+      "id": "altered-f7-rain2-rock2-forest-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "dc19fd210639aee5874e15b997326f1d1eb0c489a5ff5a62de116489e6529ee8",
+      "id": "altered-f7-rain2-rock2-forest-road-tech0",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 2,
+        "NUTRIENTS": 2
+      }
+    },
+    {
+      "case_sha256": "14bf7c5f002658726aefa29a222cbbb8449d424d683a564350bf19874f215650",
+      "id": "altered-f7-rain2-rock2-forest-road-tech1",
+      "output": {
+        "ENERGY": 2,
+        "MINERALS": 3,
+        "NUTRIENTS": 2
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "03b39d8da8a3b50d1163335ee5405dec62593a4adad457e27a315b1a3ccca624",
+    "adapter_version": 3,
+    "contract": "economy.land_worker_resources.v1",
+    "dependencies": [
+      {
+        "end": "0x592135",
+        "start": "0x592030"
+      },
+      {
+        "end": "0x50ba27",
+        "start": "0x50ba00"
+      },
+      {
+        "end": "0x5b9f89",
+        "start": "0x5b9f20"
+      }
+    ],
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "4x4 map; one non-base land tile; empty context base elsewhere; no bonus, river, fungus, facilities, economy rating, events or projects",
+    "functions": [
+      {
+        "address": "0x004E6E50",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "crop_yield (base square)",
+        "resource": "NUTRIENTS"
+      },
+      {
+        "address": "0x004E7310",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "mine_yield (base square)",
+        "resource": "MINERALS"
+      },
+      {
+        "address": "0x004E7750",
+        "algorithm": "economy.base_square_resources.v1",
+        "function": "energy_yield (base square)",
+        "resource": "ENERGY"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-land-worker-resources",
+    "rules": "Explicit default/altered forest, farm and mine inputs; synthetic technology zero gates all three yield caps"
+  },
+  "repeat": 2,
+  "suite_sha256": "a8230d59968ca5128ff1310264bae442f5669400d2b0530de50fd841b64b4e6a",
+  "version": 1
+}

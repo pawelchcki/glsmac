@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,047 scenarios and 7,364 assertions** across
-84 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,059 scenarios and 7,386 assertions** across
+85 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -35,6 +35,13 @@ bindings, facility and Colony Pod production, and technology/production snapshot
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
+independent cap prerequisite tokens, actual native faction ownership, detached
+configuration/results and invalid-source rejection before registering callbacks.
+A separate 576-case original executable contract checks bounded land-worker
+yields; see [the economy comparisons](economy/README.md). Terraforming orders
+and work progress remain unimplemented.
 
 The `unit-source-transfer` suite mutates synthetic installed component records and
 executes shipped consumers, definition events and startup against native managers.

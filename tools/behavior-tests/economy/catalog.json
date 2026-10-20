@@ -2,6 +2,11 @@
   "version": 1,
   "references": [
     {
+      "id": "land-worker-resources",
+      "cases": "cases/land-worker-resources.json",
+      "observations": "observations/smacx-gog-2.0-land-worker-resources.json"
+    },
+    {
       "id": "base-square-resources",
       "cases": "cases/base-square-resources.json",
       "observations": "observations/smacx-gog-2.0-base-square-resources.json"

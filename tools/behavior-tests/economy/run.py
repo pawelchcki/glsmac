@@ -37,24 +37,26 @@ def main(argv=None):
         references = [reference for reference in references if reference["id"] in args.suite]
     if args.case and len(references) != 1:
         raise ProtocolError("--case requires exactly one selected economy suite")
-    command = None if args.validate_only else shlex.join([
-        sys.executable, str(DIRECTORY / "headless.py"), "--runtime", str(args.runtime.resolve()),
-        "--jobs", str(args.jobs),
-    ])
+    def command_for(reference):
+        if args.validate_only:
+            return None
+        adapter = 'worker_resources_headless.py' if reference['id'] == 'land-worker-resources' else 'headless.py'
+        return shlex.join([sys.executable, str(DIRECTORY / adapter), '--runtime', str(args.runtime.resolve()),
+                           '--jobs', str(args.jobs)])
     started = time.perf_counter()
-    results = [audit.check_reference(reference, command, args.timeout, directory=DIRECTORY, case_ids=args.case)
+    results = [audit.check_reference(reference, command_for(reference), args.timeout, directory=DIRECTORY, case_ids=args.case)
                for reference in references]
-    summary = {"reference_cases": sum(row["cases"] for row in results), "candidate_executed": command is not None}
-    if command is not None:
+    summary = {"reference_cases": sum(row["cases"] for row in results), "candidate_executed": not args.validate_only}
+    if not args.validate_only:
         for status in ("matched", "mismatched", "unsupported", "errors"):
             summary[status] = sum(row["comparison"]["summary"][status] for row in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-economy-evidence-validation" if args.validate_only else "original-economy-parity",
-        "scope": "Bounded base-square NUTRIENTS/MINERALS/ENERGY; not worker tiles or full base economy",
+        "scope": "Bounded base-square and non-base land-worker NUTRIENTS/MINERALS/ENERGY; not complete terrain or base economy",
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2), "summary": summary, "results": results,
     }, overwrite=True)
     print(summary)
-    return 0 if command is None else 2 if summary["errors"] else int(summary["mismatched"] > 0 or summary["unsupported"] > 0)
+    return 0 if args.validate_only else 2 if summary["errors"] else int(summary["mismatched"] > 0 or summary["unsupported"] > 0)
 
 
 if __name__ == "__main__":

@@ -149,16 +149,18 @@
         "ui.citizen_job.v1",
         "economy.custom_map_nutrient_factor.v2",
         "economy.custom_map_mineral_factor.v2",
-        "game.faction_social_ratings.v1"
+        "game.faction_social_ratings.v1",
+        "economy.land_worker_resources.v1"
       ],
       "remaining": [
-        "Tile yields",
+        "Tile yields beyond bounded non-base bare/farm/mine/road/forest land fixtures",
         "Support and upkeep",
         "Resource allocation",
         "Production and queues",
         "Hurrying",
         "Energy and commerce"
-      ]
+      ],
+      "coverage": "576 independent original non-base land resource queries cover all declared rainfall/rockiness pairs, eight improvement states, two rule profiles and owned/unowned synthetic resource-cap technology. Production source consumption, native faction starting-tech ownership and actual browser base/turn integration are separate application checks. Solar, fungus, sea, bonuses, special terrain, facilities and terraforming work progress remain outside the contract."
     },
     {
       "id": "turn-lifecycle",
@@ -273,7 +275,7 @@
       "contracts": [
         "ui.map_dimension_dialog.v1"
       ],
-      "coverage": "Shared native/WASM parsing, native GSE queries and three static menu dialogs consume installed SMACX data. Installed nutrient and mineral multipliers reach native rules and both startup paths, growth/food display and declared facility/unit prices. Native rules and GlobalSettings transfer, copies/lifetime, legacy records, overflow and zero-price handling have regression coverage. This is data-import/application coverage, separate from original-executable arithmetic parity. The complete ordered world-size table now supplies native startup defaults, size-picker and lobby choices, with copy/codec/alias and menu-controller regressions. Descriptions are preserved as data; coordinate conversion and generated-world checks are application coverage. Custom-size controls additionally consume common Script.txt CUSTOMMAP and labels.txt ordinals, with 18 original visible-dialog comparisons covering raw defaults and controlled source precedence. Native alias, validation, cancel and generated custom-world checks are separate application coverage; original edited-input behavior remains unobserved. Twenty additional original setup traces now transfer immediate Custom kind 99 and independent remembered named-size choice. Twenty-four fixed-Custom factor witnesses support native food and declared mineral-price integration; native construction/codec and actual browser generation remain application coverage.",
+      "coverage": "Shared native/WASM parsing, native GSE queries and three static menu dialogs consume installed SMACX data. Installed nutrient and mineral multipliers reach native rules and both startup paths, growth/food display and declared facility/unit prices. Native rules and GlobalSettings transfer, copies/lifetime, legacy records, overflow and zero-price handling have regression coverage. This is data-import/application coverage, separate from original-executable arithmetic parity. The complete ordered world-size table now supplies native startup defaults, size-picker and lobby choices, with copy/codec/alias and menu-controller regressions. Descriptions are preserved as data; coordinate conversion and generated-world checks are application coverage. Custom-size controls additionally consume common Script.txt CUSTOMMAP and labels.txt ordinals, with 18 original visible-dialog comparisons covering raw defaults and controlled source precedence. Native alias, validation, cancel and generated custom-world checks are separate application coverage; original edited-input behavior remains unobserved. Twenty additional original setup traces now transfer immediate Custom kind 99 and independent remembered named-size choice. Twenty-four fixed-Custom factor witnesses support native food and declared mineral-price integration; native construction/codec and actual browser generation remain application coverage. Installed RESOURCEINFO forest/farm values and RULES mine coefficients/cap tokens now reach the production resource callback. The land-worker oracle compares synthetic rule globals; it does not establish an original installed-file or whole-game flow.",
       "remaining": [
         "Rule table integration into technology, unit, facility and economy systems",
         "Difficulty and other dynamic setup choices from rules tables",

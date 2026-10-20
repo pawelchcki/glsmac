@@ -150,7 +150,7 @@ class EconomyCandidateTests(unittest.TestCase):
             observed = decode_json(report.read_text())
         self.assertFalse(observed["summary"]["candidate_executed"])
         self.assertNotIn("matched", observed["summary"])
-        self.assertEqual(observed["summary"]["reference_cases"], 504)
+        self.assertEqual(observed["summary"]["reference_cases"], 1080)
 
 
 if __name__ == "__main__":

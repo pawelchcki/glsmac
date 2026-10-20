@@ -8,6 +8,7 @@ return (glsmac) => {
 	const mineral_rules = #include('mineral_rules');
 	const world_sizes = #include('world_sizes');
 	const unit_rules = #include('unit_rules');
+	const land_resource_rules = #include('land_resource_rules');
 
 	// Native asset initialization supplies the parsed document on both ordinary
 	// and command-line Quick Start paths. Return a validated scalar; native code
@@ -49,10 +50,11 @@ return (glsmac) => {
 			});
 
 			units.configure(game);
-			resources.configure(game);
+			const document = glsmac.load_smac_text('alphax.txt', 'rules');
+			resources.configure(game, land_resource_rules.parse(document));
 
 			resources.define(game);
-			const starting_rules = unit_rules.parse(glsmac.load_smac_text('alphax.txt', 'rules'));
+			const starting_rules = unit_rules.parse(document);
 			game.set('starting_unit_rules', unit_rules.materialize(um, starting_rules));
 			units.define(game, starting_rules);
 

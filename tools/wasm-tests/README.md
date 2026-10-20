@@ -133,6 +133,15 @@ the visible Skip Turn button. Read-only GSE probes check actual base selection,
 remaining movement, and the terrain labels drawn by the production UI. The
 fixture scripts are injected into test memory and are not shipped with the app.
 
+`npm run test:land-resources` checks native imported farms, rocky road/mines and
+forests under default and altered installed resource inputs. Two genuinely
+assigned workers contribute to the actual base intake and rendered resource
+labels. Real Skip/Next Turn controls then advance food storage and mineral
+production using that income. Expected worker yields come from the bounded
+original economy observations; this larger-map application fixture adds no
+original comparison cases. The tests use current host scripts over the cached
+engine and are also included in `test:gameplay`.
+
 The optional `npm run test:setup` browser checks use a legally obtained original
 installation supplied through `SMAC_ASSETS_DIR`. They exercise both Planet maps
 through faction selection, then Credits and an installed-map flow including

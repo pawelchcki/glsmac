@@ -42,7 +42,11 @@ Elite,Demon Boil
 
 // Synthetic source only; the normal asset store verifies its size and hash.
 export function syntheticNutrientRules(value, mineralValue = 10, worldRows = legacyWorldRows) {
-  return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n${mineralValue},\n#END\n`
+  const ruleRows = ['31', '41', '51,61', '71', '81', String(value), String(mineralValue), '0', '1', '-1'];
+  while (ruleRows.length < 53) ruleRows.push('0');
+  ruleRows.push('Gene', 'EcoEng', 'EnvEcon');
+  return `#RULES\n${ruleRows.join('\n')}\n#END\n`
+    + '#RESOURCEINFO\nOcean Square,1,0,0,0\nBase Square,2,1,1,0\nBonus Square,2,2,2,0\nForest Square,1,2,1,0\nRecycling Tanks,1,1,1,0\nImproved Land,1,*,*,0\n#END\n'
     + `#WORLDSIZE\n${worldRows.length}\n${worldRows.map((row) => row.join(',')).join('\n')}\n#END\n`
     // The ordinary setup fixture also enters the real faction source consumer.
     // These are declared catalog inputs; identity headers remain real assets.
