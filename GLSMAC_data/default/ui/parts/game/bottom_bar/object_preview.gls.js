@@ -102,7 +102,7 @@ return {
 
 	get_morale: (type, value) => {
 		if (!#is_defined(this.moralesets[type])) {
-			this.moralesets[type] = this.um.get_moraleset('NATIVE');
+			this.moralesets[type] = this.um.get_moraleset(type);
 		}
 		if (value >= #sizeof(this.moralesets[type])) {
 			#print('Morale not found: ' + type + '/' + #to_string(value));
@@ -207,11 +207,11 @@ return {
 
 				f_line(def.name, 13, 'center');
 
-				if (def.id == 'ColonyPod') {
+				if (def.id == 'ColonyPod' || (#is_defined(def.combat) && def.combat.kind == 'civilian')) {
 					f_line('Civilian', 12, 'left');
 				} else {
 					f_line(this.p.get_stats_str(object), 12, 'center');
-					f_line(this.get_morale('NATIVE', object.morale), 12, 'left');
+					f_line(this.get_morale(#is_defined(def.morale) ? def.morale : 'NATIVE', object.morale), 12, 'left');
 				}
 
 				if (!object.is_immovable) {

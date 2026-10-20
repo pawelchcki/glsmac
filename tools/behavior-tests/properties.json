@@ -92,7 +92,9 @@
       "id": "unit-actions",
       "status": "partial",
       "contracts": [
-        "ui.unit_orders.v1"
+        "ui.unit_orders.v1",
+        "game.startup_inventory.v1",
+        "game.startup_inventory_sources.v1"
       ],
       "remaining": [
         "Movement and terrain costs",
@@ -102,12 +104,10 @@
         "Transport and stacking",
         "Terraforming",
         "Founding bases",
-        "Conventional starting Scout, faction/technology-selected initial project and no free extra Pod (two recorded inventory cases currently mismatch)"
+        "Other factions/difficulties and starting-unit bonuses beyond the two recorded land starts",
+        "Faction morale bonuses, reactor damage, authentic conventional unit graphics and terraforming commands"
       ],
-      "coverage": "13 starting-Scout traces match recorded visible order/movement effects, two paused advances and base-modal behavior; native control/codec/lifetime invariants are separate application coverage. Two independently repeated first-base inventory cases are strict red in ui/pending-catalog.json (0 matched, 2 mismatched, 0 unsupported/errors); they are excluded from passing parity totals.",
-      "pending_contracts": [
-        "game.startup_inventory.v1"
-      ]
+      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Original combat odds and complete research/terraforming/AI remain unimplemented."
     },
     {
       "id": "combat",

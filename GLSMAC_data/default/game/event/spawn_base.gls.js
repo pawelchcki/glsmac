@@ -11,6 +11,10 @@ return {
 			// name: e.data.name,
 			facilities: e.data.facilities,
 		});
+		if (#is_defined(e.data.production_choice)) {
+			try { base.select_production(e.data.production_choice); }
+			catch { : (error) => { e.game.bm.despawn_base(base); throw error; } }
+		}
 
 		return {
 			base: base,

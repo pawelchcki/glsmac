@@ -397,6 +397,12 @@ WRAPIMPL_BEGIN( UnitManager )
 				N_GETPROP( name, unit_def, "name", String );
 				N_GETPROP( morale, unit_def, "morale", String );
 				N_GETPROP( unit_type, unit_def, "type", String );
+				Def::combat_t combat;
+				const auto combat_it = unit_def.find( "combat" );
+				if ( combat_it != unit_def.end() ) {
+					if ( combat_it->second->type != gse::VT_OBJECT ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit combat attributes must be an object" ); }
+					combat = Def::ParseCombat( GSE_CALL, static_cast< const gse::value::Object* >( combat_it->second )->value );
+				}
 
 				if ( m_unit_defs.find( id ) != m_unit_defs.end() ) {
 					GSE_ERROR( gse::EC.GAME_ERROR, "Unit def '" + id + "' already exists");
@@ -454,6 +460,7 @@ WRAPIMPL_BEGIN( UnitManager )
 							)
 						);
 
+						def->SetCombat( combat );
 						DefineUnit( def );
 
 						return VALUE( gse::value::Undefined );

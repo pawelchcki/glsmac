@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"unit-combat-model","script":"GLSMAC_data/tests/unit_combat_model.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
+    {"id":"startup-rule-sources","script":"GLSMAC_data/tests/startup_rule_sources.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"conventional-combat","script":"GLSMAC_data/tests/conventional_combat.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"land-unit-production","script":"GLSMAC_data/tests/land_unit_production.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"large-map-source","script":"GLSMAC_data/tests/large_map_source.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"large-map-controls","script":"GLSMAC_data/tests/large_map_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

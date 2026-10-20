@@ -20,26 +20,45 @@ games and two complete identical runs. Failed navigation/font calibration
 attempts produced no reference evidence. Original assets and screenshots stay
 private. The reference file is immutable.
 
-Candidate replay executes the shipped unit definitions, world-start callback
-and event handlers over native unit/base/player managers. A 4x4 land map,
-coordinate draws, one synthetic selected-faction boundary, facility artwork,
-frontend delivery and base-initialization callbacks are controlled. Native live
-units and actual native project state supply the result. Lost is zero because
-this fresh fixture has no casualties. Conventional faction/technology startup
-handoff still needs implementation; the current synthetic faction cannot prove
-it. Original map generation, terrain placement, morale, detailed unit stats,
-combat and governor/research decisions are outside this inventory contract.
+Candidate replay executes production component/faction consumers, faction
+configuration, native technology storage, the recorded prototype-cost helper,
+shipped unit definitions, startup and event handlers. A 4x4 land map, coordinate
+draws, one selected native owner, equivalent source inputs, artwork/frontend
+delivery and base population initialization are controlled. Actual native live
+units and queued project state supply the result. Lost is zero in this fresh
+fixture. The actual configure-state and configure-game handoff, full installed
+component tables, terrain and population initialization run separately in browser
+checks. Native model tests verify conventional/civilian attributes, civilian
+attack rejection, codecs and construction rather than changing wildlife names.
 
-Initial strict replay: **0 matched, 2 mismatched, 0 unsupported, 0 errors**.
-GLSMAC has an active Colony Pod and Mind Worms, with no queued unit; the original
-has an active Scout Patrol and one queued Former (Gaians) or Colony Pod
-(Consciousness). This remains in the pending catalog and is excluded from
-passing totals. Run the strict red comparison with:
+Initial strict replay was **0 matched, 2 mismatched, 0 unsupported, 0 errors**:
+GLSMAC had an active Colony Pod and Mind Worms and no queued unit. The unchanged
+reference now matches a real Scout and a queued Former (Gaians) or Pod
+(Consciousness). The default passing catalog includes both cases. Run:
 
 ```sh
-python3 tools/behavior-tests/ui/run.py --pending --suite startup-inventory
+python3 tools/behavior-tests/ui/run.py --suite startup-inventory --suite startup-inventory-sources
 ```
 
-Do not promote it by changing only display names: actual conventional unit
-definitions, construction and faction/technology startup must support the
-result, with native and real browser validation.
+The companion source contract adds four fresh, independently repeated records.
+Only one TECH value changes: Gaian Ecology becomes Physics, or Consciousness
+Physics becomes Ecology. Actual original queues change to Pod and Former,
+respectively. Both default controls are recorded again. No unit name or queued
+project is supplied by the override. Its source-profile digest and observer
+fingerprint bind every case, and the earlier two-case evidence is unchanged.
+
+Real browser checks repeat both technology swaps. The Ecology-enabled
+Consciousness constructs a Former from naturally earned minerals, with no
+citizen charged and every credit/overflow checked. Ordinary generated Gaians
+consume the full installed component tables, start with one Scout and queued
+Former, advance a turn, switch to a Pod while preserving earned unit credit,
+grow and construct the Pod. These are application integration checks, not extra
+original completion observations. A separate regression prevents initial project
+selection from queuing an already-processed production event on the opening turn.
+
+Only the bounded first-page land inventories are original-game parity claims.
+Original terrain/placement, other factions/difficulties, morale bonuses, research
+choices/governor logic, terraforming and complete combat remain gaps. The
+conventional strength dispatch still uses GLSMAC's existing roll/damage/morale
+policy; reactor damage and original combat odds are unverified. Conventional
+unit artwork remains a static portrait until installed CVR models are supported.

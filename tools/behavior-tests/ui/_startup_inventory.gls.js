@@ -3,10 +3,23 @@
 // controlled boundaries. Observe native units/projects after emitted events.
 const definitions = #include('../default/units/defs');
 const start = #include('../default/game/world/default');
+const unit_rules = #include('../default/game/unit_rules');
+const factions = #include('../default/factions');
+const catalog = factions.source_catalog();
 let completed = 0;
 for (input of faction_inputs) {
 	const f = test.founding_fixture();
 	f.enable_economy();
+	const sources = #include('./_startup_faction_sources_fixture')(input);
+	const configured = {};
+	factions.configure({add: (id, data) => { configured[id] = data; },
+		import_colors: (name) => { return {}; }, import_base_names: (name) => { return {}; }}, sources.glsmac);
+	const selected = (input.preset == 'base' ? 0 : 7) + input.slot;
+	const selected_id = catalog[selected].id;
+	f.apply_faction_starting_technologies(configured[selected_id].starting_technologies);
+	f.apply_faction_ratings(configured[selected_id].social_ratings);
+	const rules = #include('./_startup_unit_rules_fixture').parse();
+	f.game.set('starting_unit_rules', unit_rules.materialize(f.game.um, rules));
 	f.with_write(() => {
 		f.game.um.despawn_unit(f.unit_id);
 		f.game.um.undefine_unit('ColonyPod');
@@ -21,6 +34,7 @@ for (input of faction_inputs) {
 	const players = []; players :+ owner;
 	game.get_players = () => { return players; };
 	game.get_tm = () => { return f.game.tm; };
+	game.get = (key) => { return f.game.get(key); };
 	game.random = { get_int: (low, high) => { return low; } };
 	game.event = (name, data) => {
 		if (#is_defined(data.player)) { data.player = f.owner; }
@@ -31,7 +45,7 @@ for (input of faction_inputs) {
 		if (#is_defined(error)) { throw Error('Startup event rejected: ' + error); }
 		f.with_write(() => { handler.apply(e); });
 	};
-	definitions.define(game);
+	definitions.define(game, rules);
 	start(game);
 	#print('INVENTORY_CASE|' + input.id);
 	for (id of f.inspect().unit_ids) {

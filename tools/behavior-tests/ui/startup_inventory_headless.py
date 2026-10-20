@@ -68,10 +68,11 @@ def main():
         runner.sources, runner.parse_candidate = sources, parse_candidate
         metadata, rows = runner.headless(supported, args.runtime.resolve(), args.jobs)
         metadata.update(name='glsmac-native-startup-inventory',
-                        executed=['production world startup callback', 'production unit definitions and event handlers',
-                                  'native unit/base/player managers and production state'],
-                        mocked=['4x4 land terrain and coordinate draws', 'one synthetic selected faction/owner',
-                                'facility artwork', 'frontend notifications and base initialization callbacks'])
+                        executed=['production faction source consumer and configure callback', 'native faction technology storage',
+                                  'production component consumer and unit definitions', 'native prototype cost helper',
+                                  'production world startup and event handlers', 'native live unit and queued-project state'],
+                        mocked=['4x4 land terrain and coordinate draws', 'one selected native owner', 'equivalent installed input records',
+                                'artwork/frontend notifications', 'base population initialization'])
     iterator = iter(rows)
     write_response(metadata, [next(iterator) if case['algorithm'] == ALGORITHM else
                              {'id': case['id'], 'status': 'unsupported', 'reason': 'unknown startup inventory contract'} for case in cases])

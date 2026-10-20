@@ -14,9 +14,13 @@ const get_spawn_descriptor = (unit) => {
 	};
 };
 
-const get_unit_attack_power = (unit) => {
-	const is_native = true; // TODO: non-native units
-	if (is_native) {
+const is_psi = (unit) => {
+	const def = unit.get_def();
+	return !#is_defined(def.combat) || def.combat.kind == 'psi';
+};
+
+const get_unit_attack_power = (unit, psi) => {
+	if (psi) {
 		// TODO: proper logic
 		let power = #to_float(unit.morale + 1) / 7.0;
 		if (unit.is_land) {
@@ -24,12 +28,14 @@ const get_unit_attack_power = (unit) => {
 		}
 		return power;
 	}
-	// TODO: non-native
+	// Conventional strength now comes from the actual unit definition. The
+	// existing roll/damage and morale policies still need original combat probes.
+	const def = unit.get_def();
+	return #to_float(def.combat.offense) * #to_float(unit.morale + 1) / 7.0;
 };
 
-const get_unit_defence_power = (unit) => {
-	const is_native = true; // TODO: non-native units
-	if (is_native) {
+const get_unit_defence_power = (unit, psi) => {
+	if (psi) {
 		// TODO: proper logic
 		let power = #to_float(unit.morale + 1) / 7.0;
 		if (unit.is_land) {
@@ -37,7 +43,8 @@ const get_unit_defence_power = (unit) => {
 		}
 		return power;
 	}
-	// TODO: non-native
+	const def = unit.get_def();
+	return #to_float(def.combat.defense) * #to_float(unit.morale + 1) / 7.0;
 };
 
 return {
@@ -86,6 +93,9 @@ return {
 		if (attacker_def.id == 'ColonyPod') {
 			return 'Civilian colony pods can\'t attack';
 		}
+		if (#is_defined(attacker_def.combat) && attacker_def.combat.kind == 'civilian') {
+			return 'Civilian units can\'t attack';
+		}
 		if (attacker_def.id == 'SporeLauncher') {
 			// TODO: bombardments
 			return 'Artillery units can\'t attack directly';
@@ -97,8 +107,9 @@ return {
 		const attacker = e.data.attacker;
 		const defender = e.data.defender;
 
-		let attack_power = get_unit_attack_power(attacker);
-		let defence_power = get_unit_defence_power(defender);
+		const psi = is_psi(attacker) || is_psi(defender);
+		let attack_power = get_unit_attack_power(attacker, psi);
+		let defence_power = get_unit_defence_power(defender, psi);
 
 		let attacker_health = attacker.health;
 		let defender_health = defender.health;

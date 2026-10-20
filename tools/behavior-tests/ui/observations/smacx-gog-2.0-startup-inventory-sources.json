@@ -1,0 +1,105 @@
+{
+  "captured_at": "2026-10-20T05:39:05.156206+00:00",
+  "observations": [
+    {
+      "case_sha256": "54870c648889db400628acbc6b746d51369b4380943ce3f20288ecd04406fafd",
+      "id": "inventory-source-gaian-default",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "FORMERS",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "50b9a37a90349906e74ac4e578084af326cc470aa62fc676cc333a93ee120d2c",
+      "id": "inventory-source-gaian-physics",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "COLONY POD",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b6f7bc482cd8da55b2c394fe7101f678a9924dd0d5e8c31342ef469b491fdfc0",
+      "id": "inventory-source-cyborg-default",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "COLONY POD",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "718614381a98357f49a5ff3145652d7e64f134b07261655cdf16b92e3f06ca7e",
+      "id": "inventory-source-cyborg-ecology",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "FORMERS",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "ea17de2d274881341f0b389467db28e7abd437a6c3c77dcbbe20a5d4852f3041",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.startup_inventory_sources.v1",
+    "controlled_inputs": "One TECH value exchanged in the selected faction source; all other bonus pairs retained",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Tiny/Citizen/standard; selected Gaian or Consciousness; first base founded; default research accepted; no turns advanced",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual first-page Military Command Nexus names and active/production/lost counts at MY2101",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "97ace8fa256f5ab6a9fefbcd84a5d6cd670076c52067ac1ed6663692bdd2e740"
+  },
+  "repeat": 2,
+  "suite_sha256": "44ce7683d7b2aca9bc57c51845890a9c67b94c950f4a670699e90a858d8d6287",
+  "version": 1
+}

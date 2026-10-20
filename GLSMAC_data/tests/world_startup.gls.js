@@ -3,6 +3,11 @@
 // controlled. Distances below are synthetic tile steps, not a map rule contract.
 const behavior = #include('./_behavior');
 const start_world = #include('../default/game/world/default');
+const starting_units = [
+	{id: 'ColonyPod', choice: 'COLONY_POD', prerequisite: 'None', rows: 3, population: 1},
+	{id: 'Formers', choice: 'FORMERS', prerequisite: 'Ecology', rows: 2, population: 0},
+	{id: 'ScoutPatrol', choice: 'SCOUT_PATROL', prerequisite: 'None', rows: 1, population: 0},
+];
 
 const make_fixture = (width, height, naval_players, tiles, draws, fallback) => {
 	const f = { game: {}, state: { draws: 0, ranges_valid: true, lookups: [], distances: [], events: [] } };
@@ -10,13 +15,14 @@ const make_fixture = (width, height, naval_players, tiles, draws, fallback) => {
 	const players = [];
 	let id = 0;
 	for (is_naval of naval_players) {
-		const faction = { is_naval: is_naval };
+		const faction = { is_naval: is_naval, starting_technologies: [] };
 		const player = { id: id };
 		player.get_faction = () => { return faction; };
 		players :+ player;
 		id++;
 	}
 	f.game.get_players = () => { return players; };
+	f.game.get = (key) => { test.assert(key == 'starting_unit_rules'); return starting_units; };
 	const tm = {
 		get_map_width: () => { return width; },
 		get_map_height: () => { return height; },
@@ -73,12 +79,15 @@ const assert_player_events = (events, offset, owner, x, y, type) => {
 	test.assert(events[offset + 1].data.id == 'STOCKPILE_ENERGY');
 	test.assert(events[offset + 1].data.data.type == 'custom' && events[offset + 1].data.data.hint == 'Minerals to Energy');
 	let next = offset + 2;
-	if (type == 'MindWorms') {
+	if (type == 'ScoutPatrol') {
 		const recipe = events[next];
 		test.assert(recipe.name == 'add_production_choice' && recipe.data.player.id == owner);
 		test.assert(recipe.data.id == 'COLONY_POD');
 		test.assert(recipe.data.data == { type: 'unit', id: 'ColonyPod', cost: 30, cost_rows: 3, population_cost: 1 });
-		next++;
+		const scout = events[next + 1];
+		test.assert(scout.name == 'add_production_choice' && scout.data.id == 'SCOUT_PATROL');
+		test.assert(scout.data.data == {type: 'unit', id: 'ScoutPatrol', cost: 10, cost_rows: 1, population_cost: 0});
+		next = next + 2;
 	}
 	const base = events[next];
 	test.assert(base.name == 'spawn_base' && base.data.owner.id == owner);
@@ -87,12 +96,7 @@ const assert_player_events = (events, offset, owner, x, y, type) => {
 	test.assert(unit.name == 'spawn_unit' && unit.data.owner.id == owner && unit.data.type == type);
 	test.assert(unit.data.tile.x == x && unit.data.tile.y == y);
 	test.assert(unit.data.health == 1.0 && unit.data.morale == 1);
-	if (type == 'MindWorms') {
-		const pod = events[next + 2];
-		test.assert(pod.name == 'spawn_unit' && pod.data.type == 'ColonyPod');
-		test.assert(pod.data.owner.id == owner && pod.data.tile.x == x && pod.data.tile.y == y);
-		test.assert(pod.data.health == 1.0 && pod.data.morale == 1);
-	}
+	if (type == 'ScoutPatrol') { test.assert(base.data.production_choice == 'COLONY_POD'); }
 };
 
 behavior.scenario('invalid coordinate parity exhausts the bounded attempt budget', () => {
@@ -110,7 +114,7 @@ behavior.scenario('land startup skips water and invalid parity before emitting t
 	test.assert(f.state.draws == 6 && f.state.ranges_valid);
 	test.assert(f.state.lookups == [[0, 0], [2, 0]] && f.state.distances == []);
 	test.assert(#sizeof(f.state.events) == 6);
-	assert_player_events(f.state.events, 0, 0, 2, 0, 'MindWorms');
+	assert_player_events(f.state.events, 0, 0, 2, 0, 'ScoutPatrol');
 });
 
 behavior.scenario('naval startup skips land and accepts an odd coordinate water tile', () => {
@@ -131,7 +135,7 @@ behavior.scenario('mixed land and naval players receive ordered loadouts on thei
 	start_world(f.game);
 	test.assert(f.state.draws == 4 && f.state.ranges_valid);
 	test.assert(#sizeof(f.state.events) == 10 && f.state.distances == [[4, 0, 0, 0]]);
-	assert_player_events(f.state.events, 0, 0, 0, 0, 'MindWorms');
+	assert_player_events(f.state.events, 0, 0, 0, 0, 'ScoutPatrol');
 	assert_player_events(f.state.events, 6, 1, 4, 0, 'SeaLurk');
 });
 
@@ -162,9 +166,9 @@ behavior.scenario('each candidate is checked against all previously selected bas
 	test.assert(f.state.draws == 8 && f.state.ranges_valid);
 	test.assert(f.state.distances == [[8, 0, 0, 0], [10, 0, 0, 0], [10, 0, 8, 0], [4, 0, 0, 0], [4, 0, 8, 0]]);
 	test.assert(#sizeof(f.state.events) == 18);
-	assert_player_events(f.state.events, 0, 0, 0, 0, 'MindWorms');
-	assert_player_events(f.state.events, 6, 1, 8, 0, 'MindWorms');
-	assert_player_events(f.state.events, 12, 2, 4, 0, 'MindWorms');
+	assert_player_events(f.state.events, 0, 0, 0, 0, 'ScoutPatrol');
+	assert_player_events(f.state.events, 6, 1, 8, 0, 'ScoutPatrol');
+	assert_player_events(f.state.events, 12, 2, 4, 0, 'ScoutPatrol');
 });
 
 behavior.scenario('crowded maps relax spacing until a legal two-step candidate is accepted', () => {
@@ -174,7 +178,7 @@ behavior.scenario('crowded maps relax spacing until a legal two-step candidate i
 	start_world(f.game);
 	test.assert(f.state.draws == 1006 && f.state.ranges_valid, 'spacing relaxes after the configured retries');
 	test.assert(#sizeof(f.state.distances) == 502 && #sizeof(f.state.events) == 12);
-	assert_player_events(f.state.events, 6, 1, 4, 0, 'MindWorms');
+	assert_player_events(f.state.events, 6, 1, 4, 0, 'ScoutPatrol');
 });
 
 for (x of [0, 2]) {
@@ -192,4 +196,16 @@ behavior.scenario('a later naval placement failure leaves no partially initializ
 	expect_exhaustion(f);
 	test.assert(f.state.draws == 2002 && #sizeof(f.state.lookups) == 1001);
 	test.assert(f.state.distances == [], 'wrong terrain is rejected before spacing checks');
+});
+
+behavior.scenario('an Ecology start registers and queues a Former while emitting only one Scout', () => {
+	const f = make_fixture(4, 4, [false], [{x: 0, y: 0, is_water: false}], [], [0, 0]);
+	const players = f.game.get_players(); const faction = players[0].get_faction();
+	faction.starting_technologies = ['Ecology'];
+	start_world(f.game);
+	const events = f.state.events;
+	test.assert(#sizeof(events) == 7);
+	test.assert(events[3].name == 'add_production_choice' && events[3].data.id == 'FORMERS');
+	test.assert(events[5].name == 'spawn_base' && events[5].data.production_choice == 'FORMERS');
+	test.assert(events[6].name == 'spawn_unit' && events[6].data.type == 'ScoutPatrol');
 });

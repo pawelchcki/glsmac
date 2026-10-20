@@ -124,6 +124,11 @@ WRAPIMPL_BEGIN( FactionManager )
 				N_GETVALUE( faction_def, 1, Object );
 				N_GETPROP( name, faction_def, "name", String );
 				std::array< int, 2 > social_ratings = { 0, 0 };
+				std::vector< std::string > starting_technologies;
+				if ( faction_def.find( "starting_technologies" ) != faction_def.end() ) {
+					N_GETPROP( technologies, faction_def, "starting_technologies", Array );
+					starting_technologies = Faction::ParseStartingTechnologies( GSE_CALL, technologies );
+				}
 				if ( faction_def.find( "social_ratings" ) != faction_def.end() ) {
 					N_GETPROP( ratings, faction_def, "social_ratings", Object );
 					social_ratings = Faction::ParseSocialRatings( GSE_CALL, ratings );
@@ -131,6 +136,7 @@ WRAPIMPL_BEGIN( FactionManager )
 
 				auto* faction = new Faction( id, name );
 				faction->SetSocialRatings( social_ratings[ 0 ], social_ratings[ 1 ] );
+				faction->SetStartingTechnologies( starting_technologies );
 
 				N_GETPROP( colors, faction_def, "colors", Object );
 				N_GETPROP_UNWRAP( colors_text, colors, "text", types::Color );

@@ -10,6 +10,7 @@
 #include "loader/texture/TextureLoader.h"
 #include "resource/ResourceManager.h"
 #include "util/String.h"
+#include <set>
 
 namespace game {
 namespace backend {
@@ -82,6 +83,30 @@ void Faction::SetSocialRatings( const int growth, const int industry ) {
 	m_industry = industry;
 }
 
+void Faction::SetStartingTechnologies( const std::vector< std::string >& technologies ) {
+	if ( technologies.size() > 128 ) { THROW( "Too many faction starting technologies" ); }
+	std::set< std::string > seen;
+	for ( const auto& token : technologies ) {
+		if ( token.empty() || token.size() > 32 || !seen.insert( token ).second ) { THROW( "Invalid or duplicate faction starting technology" ); }
+		for ( const unsigned char character : token ) {
+			if ( !( ( character >= 'A' && character <= 'Z' ) || ( character >= 'a' && character <= 'z' ) || ( character >= '0' && character <= '9' ) || character == '_' ) ) { THROW( "Invalid faction starting technology token" ); }
+		}
+	}
+	m_starting_technologies = technologies;
+}
+
+std::vector< std::string > Faction::ParseStartingTechnologies( GSE_CALLABLE, const std::vector< gse::Value* >& values ) {
+	std::vector< std::string > technologies;
+	for ( const auto* value : values ) {
+		if ( value->type != gse::VT_STRING ) { GSE_ERROR( gse::EC.INVALID_CALL, "Faction starting technologies must be strings" ); }
+		technologies.push_back( static_cast< const gse::value::String* >( value )->value );
+	}
+	Faction validator;
+	try { validator.SetStartingTechnologies( technologies ); }
+	catch ( const std::exception& error ) { GSE_ERROR( gse::EC.INVALID_CALL, error.what() ); }
+	return technologies;
+}
+
 const types::Buffer Faction::Serialize() const {
 	types::Buffer buf;
 
@@ -107,6 +132,9 @@ const types::Buffer Faction::Serialize() const {
 	}
 	buf.WriteInt( m_growth );
 	buf.WriteInt( m_industry );
+	buf.WriteString( "faction-starting-tech-v1" );
+	buf.WriteInt( m_starting_technologies.size() );
+	for ( const auto& token : m_starting_technologies ) { buf.WriteString( token ); }
 
 	return buf;
 }
@@ -139,6 +167,15 @@ void Faction::Deserialize( types::Buffer buf ) {
 	const auto industry = buf.ReadInt();
 	if ( growth < -8 || growth > 10 || industry < -8 || industry > 10 ) { THROW( "Invalid serialized faction social ratings" ); }
 	SetSocialRatings( int( growth ), int( industry ) );
+	std::vector< std::string > technologies;
+	if ( buf.lenr < buf.lenw ) {
+		if ( buf.ReadString() != "faction-starting-tech-v1" ) { THROW( "Unknown faction starting technology extension" ); }
+		const auto count = buf.ReadInt();
+		if ( count < 0 || count > 128 ) { THROW( "Invalid serialized faction starting technology count" ); }
+		for ( int64_t index = 0; index < count; ++index ) { technologies.push_back( buf.ReadString() ); }
+	}
+	if ( buf.lenr != buf.lenw ) { THROW( "Trailing faction data" ); }
+	SetStartingTechnologies( technologies );
 
 }
 
@@ -167,6 +204,11 @@ WRAPIMPL_BEGIN( Faction )
 					{ "industry", VALUE( gse::value::Int,, m_industry ) },
 				} )
 			},
+			{ "starting_technologies", [ & ]() {
+				std::vector< gse::Value* > tokens;
+				for ( const auto& token : m_starting_technologies ) { tokens.push_back( VALUE( gse::value::String,, token ) ); }
+				return VALUE( gse::value::Array,, tokens );
+			}() },
 			{
 				"text_color",
 				m_colors.text.Wrap( GSE_CALL ),

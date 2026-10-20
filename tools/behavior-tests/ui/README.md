@@ -30,6 +30,7 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `game.startup_inventory.v1` / `game.startup_inventory_sources.v1` | 6 | First-base unit names and separate active/queued/lost counts; two default land factions and controlled starting-TECH swaps | Actual Military Command Nexus at MY2101, independently recorded twice |
 | `game.faction_social_ratings.v1` | 18 | Fourteen initialized original factions and four source overrides; actual GROWTH/INDUSTRY labels and distinct nutrient/mineral globals | First-base setup and actual Social Engineering with guarded native cross-checks, recorded twice |
 | `game.faction_identity.v1` | 22 | Six selected-faction text fields after actual name confirmation/world generation; fourteen factions, custom edits, cancel/restore, empty/limited/space-preserving names and source overrides | Original native identity at the rendered opening dialog; recorded twice |
 | `ui.faction_setup.v1` | 82 | Seven roster slots, selected/random modes, all14 leader headers, seven editable fields, caps, source profiles and cancel/re-entry; 603 checkpoints | Real original application in Wine/Xvfb; native control reads and isolated-label OCR, recorded twice |
@@ -45,7 +46,7 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 603 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 609 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -241,12 +242,12 @@ commands and turn effects are executed by production code. Optional synthetic-wo
 browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
-The [pending catalog](pending-catalog.json) contains two strict red
-[startup inventory cases](startup-inventory-contract.md). They compare actual
-native units/projects against independently repeated original first-base reports,
-and currently mismatch both cases with zero unsupported results or runner errors.
-`--pending` exits unsuccessfully while these discrepancies remain; these cases are
-excluded from the passing totals. They do not establish complete game parity. The
+The [pending catalog](pending-catalog.json) is empty after promotion of the
+six [startup inventory cases](startup-inventory-contract.md). The two original
+red cases and four additional controlled-source cases now match actual native
+units and projects. `--pending` remains a strict lane for future discrepancies;
+an empty queue reports no execution and no matches. This does not establish
+complete game parity. The
 successful original recorder normalized indexed screenshots to RGB before OCR;
 prior observer/setup failures remain local research artifacts.
 

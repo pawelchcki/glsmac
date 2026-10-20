@@ -171,6 +171,9 @@ return {
 						let stats_str = '';
 						// tmp
 						const def = object.get_def();
+						if (#is_defined(def.combat) && def.combat.kind != 'psi') {
+							return #to_string(def.combat.offense) + ' - ' + #to_string(def.combat.defense) + ' - ' + #to_string(#round(def.movement_per_turn));
+						}
 						if (def.id == 'SporeLauncher') {
 							stats_str += '(?)';
 						} else {

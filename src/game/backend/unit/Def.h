@@ -33,6 +33,18 @@ public:
 	const MoraleSet* m_moraleset;
 	const def_type_t m_type;
 	const std::string m_name;
+	struct combat_t {
+		std::string kind = "psi";
+		int offense = 0;
+		int defense = 0;
+		int reactor = 1;
+		bool operator==( const combat_t& other ) const {
+			return kind == other.kind && offense == other.offense && defense == other.defense && reactor == other.reactor;
+		}
+	};
+	static combat_t ParseCombat( GSE_CALLABLE, const gse::value::object_properties_t& values );
+	void SetCombat( const combat_t& combat );
+	const combat_t& GetCombat() const { return m_combat; }
 
 	virtual const movement_type_t GetMovementType() const = 0;
 
@@ -42,6 +54,10 @@ public:
 	static Def* Deserialize( types::Buffer& buf, const UnitManager* manager );
 
 	WRAPDEFS_PTR( Def );
+
+private:
+	combat_t m_combat;
+	static bool ValidCombat( const combat_t& combat );
 
 };
 

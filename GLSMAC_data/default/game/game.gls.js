@@ -7,6 +7,7 @@ return (glsmac) => {
 	const nutrient_rules = #include('nutrient_rules');
 	const mineral_rules = #include('mineral_rules');
 	const world_sizes = #include('world_sizes');
+	const unit_rules = #include('unit_rules');
 
 	// Native asset initialization supplies the parsed document on both ordinary
 	// and command-line Quick Start paths. Return a validated scalar; native code
@@ -51,7 +52,9 @@ return (glsmac) => {
 			resources.configure(game);
 
 			resources.define(game);
-			units.define(game);
+			const starting_rules = unit_rules.parse(glsmac.load_smac_text('alphax.txt', 'rules'));
+			game.set('starting_unit_rules', unit_rules.materialize(um, starting_rules));
+			units.define(game, starting_rules);
 
 			const worldscript = #is_defined(glsmac.config.worldscript) ? glsmac.config.worldscript : 'default';
 			game.on('create_world', (e) => {

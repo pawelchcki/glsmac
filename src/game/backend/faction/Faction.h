@@ -28,6 +28,9 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 	void SetSocialRatings( int growth, int industry );
 	int m_growth = 0;
 	int m_industry = 0;
+	static std::vector< std::string > ParseStartingTechnologies( GSE_CALLABLE, const std::vector< gse::Value* >& values );
+	void SetStartingTechnologies( const std::vector< std::string >& technologies );
+	const std::vector< std::string >& GetStartingTechnologies() const { return m_starting_technologies; }
 
 	typedef uint8_t faction_flag_t;
 	static constexpr Faction::faction_flag_t FF_NONE = 0;
@@ -58,6 +61,7 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 
 private:
 	identity_t m_identity = {};
+	std::vector< std::string > m_starting_technologies;
 
 };
 

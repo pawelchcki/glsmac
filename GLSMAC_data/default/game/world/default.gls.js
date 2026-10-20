@@ -8,6 +8,8 @@ return (game) => {
 	const players = game.get_players();
 	const players_count = #sizeof(players);
 	const tm = game.get_tm();
+	const starting_units = game.get('starting_unit_rules');
+	if (!#is_defined(starting_units) || #sizeof(starting_units) != 3) { throw Error('Basic installed unit rules are required for startup'); }
 	const map_width = tm.get_map_width();
 	const map_height = tm.get_map_height();
 	const optimal_base_distance = #max((map_width + map_height) / 2 / players_count, 2);
@@ -103,16 +105,17 @@ return (game) => {
 				hint: 'Minerals to Energy',
 			},
 		});
+		let initial_project = #undefined;
 		if (!faction.is_naval) {
-			// Explicit GLSMAC construction policy; prototype helper costs alone
-			// do not establish an original-game Colony Pod recipe.
-			game.event('add_production_choice', {
-				player: player,
-				id: 'COLONY_POD',
-				data: {
-					type: 'unit', id: 'ColonyPod', cost: 30, cost_rows: 3, population_cost: 1,
-				},
-			});
+			for (unit of starting_units) {
+				let available = unit.prerequisite == 'None';
+				for (token of faction.starting_technologies) { if (token == unit.prerequisite) { available = true; } }
+				if (available) {
+					game.event('add_production_choice', {player: player, id: unit.choice,
+						data: {type: 'unit', id: unit.id, cost: unit.rows * 10, cost_rows: unit.rows, population_cost: unit.population}});
+					if (unit.id == 'ColonyPod' || unit.id == 'Formers') { initial_project = unit.choice + ''; }
+				}
+			}
 		}
 
 		// spawn headquarters base
@@ -121,11 +124,13 @@ return (game) => {
 			tile: tile,
 			facilities: [
 				'HEADQUARTERS',
-			]
+			],
+			production_choice: initial_project,
 		});
 
-		// spawn "scout patrol"
-		let type = 'MindWorms';
+		// The basic land inventory is one conventional Scout; expansion pods
+		// are constructed. Naval starting inventory remains uncalibrated.
+		let type = 'ScoutPatrol';
 		if (faction.is_naval) {
 			type = 'SeaLurk';
 		}
@@ -136,16 +141,6 @@ return (game) => {
 			health: 1.0,
 			morale: 1,
 		});
-
-		if (!faction.is_naval) {
-			game.event('spawn_unit', {
-				owner: player,
-				tile: tile,
-				type: 'ColonyPod',
-				health: 1.0,
-				morale: 1,
-			});
-		}
 
 	}
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { chromium } from 'playwright';
 import { PNG } from 'pngjs';
-import { alternateWorldRows, overrideRulesAsset, syntheticNutrientRules } from './rules-asset-fixture.mjs';
+import { alternateWorldRows, overrideRulesAsset, syntheticNutrientRules, replaceStartingTechnology } from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
@@ -212,6 +212,7 @@ const normalMain = String.raw`
           for (field of owner.get_faction().identity) { #print('NORMAL_IDENTITY|' + field); }
           const ratings = owner.get_faction().social_ratings;
           #print('NORMAL_RATINGS|' + #to_string(ratings.growth) + '|' + #to_string(ratings.industry));
+          for (token of owner.get_faction().starting_technologies) { #print('NORMAL_START_TECH|' + token); }
           #print('NORMAL_STATUS|' + status);
           #print('NORMAL_SELECTION|' + #to_string(objects.selected_type) + '|' + #to_string(objects.selected_id));
           for (base of game.get_bm().get_bases()) {
@@ -222,6 +223,8 @@ const normalMain = String.raw`
               for (unit of tile.get_units()) {
                 if (unit.owner == owner.id) {
                   #print('NORMAL_UNIT|' + #to_string(unit.id) + '|' + unit.def + '|' + #to_string(unit.owner) + '|' + #to_string(unit.movement) + '|' + #to_string(unit.tile.x) + '|' + #to_string(unit.tile.y));
+                  const definition = unit.get_def(); const model = definition.combat;
+                  #print('NORMAL_COMBAT|' + #to_string(unit.id) + '|' + model.kind + '|' + #to_string(model.offense) + '|' + #to_string(model.defense) + '|' + #to_string(model.reactor) + '|' + definition.morale);
                 }
               }
             }
@@ -409,6 +412,13 @@ for (const profile of [
   { name: 'ordinary startup consumes original Drone industry bonus', level: 0, size: [68, 34], rule: 10, lifecycle: false,
     faction: { id: 'DRONES', slot: 2, leader: 'Domai', growth: 0, industry: 2,
       identity: ['The Free Drones', 'Drones', 'Free Drone', 'Foreman', 'stalwart'] } },
+  { name: 'ordinary startup changes the Gaian project when its installed starting technology changes', level: 0, size: [68, 34], rule: 10, mineralRule: 10, lifecycle: false,
+    technology: {file: 'gaians.txt', block: 'GAIANS', previous: 'Ecology', replacement: 'Physic', project: 'COLONY_POD'} },
+  { name: 'ordinary startup changes the Consciousness project when its installed starting technology changes', level: 0, size: [68, 34], rule: 10, mineralRule: 10, lifecycle: false, threshold: 18,
+    constructInitial: true,
+    technology: {file: 'cyborg.txt', block: 'CYBORG', previous: 'Physic', replacement: 'Ecology', project: 'FORMERS'},
+    faction: {id: 'CONSCIOUSNESS', slot: 0, leader: 'Aki Zeta-5', growth: -1, industry: 0,
+      identity: ['The Cybernetic Consciousness', 'Consciousness', 'Cybernetic', 'Prime Function', 'analytical']} },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules for zero-price Tiny projects', level: 0, size: [68, 34], rule: 10, mineralRule: 1, lifecycle: false },
@@ -433,7 +443,7 @@ test(profile.name, {
     assert.deepEqual(profile.size, [original.width, original.height]);
     assert.equal(original.size_kind, 99);
   }
-  const artifactPrefix = profile.faction ? `faction-ratings-${profile.faction.id}` : profile.leaderName === '' ? 'empty-leader-name' : profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  const artifactPrefix = profile.technology ? `starting-tech-${profile.technology.block}` : profile.faction ? `faction-ratings-${profile.faction.id}` : profile.leaderName === '' ? 'empty-leader-name' : profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -662,6 +672,9 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
       bases: [...log.matchAll(/NORMAL_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)/g)]
         .map((m) => ({ id: +m[1], owner: +m[2], x: +m[3], y: +m[4], size: +m[5], hq: m[6] === 'true', land: m[7] === 'true' })),
       economies: economies(log),
+      startingTechnologies: [...log.matchAll(/NORMAL_START_TECH\|([^\r\n]+)/g)].map((m) => m[1]),
+      models: [...log.matchAll(/NORMAL_COMBAT\|(\d+)\|([^|\n]+)\|(\d+)\|(\d+)\|(\d+)\|([^|\r\n]+)/g)]
+        .map((m) => ({id: +m[1], kind: m[2], offense: +m[3], defense: +m[4], reactor: +m[5], morale: m[6]})),
       units: [...log.matchAll(/NORMAL_UNIT\|(\d+)\|([^|\n]+)\|(\d+)\|([0-9.]+)\|(\d+)\|(\d+)/g)]
         .map((m) => ({ id: +m[1], def: m[2], owner: +m[3], movement: +m[4], x: +m[5], y: +m[6] })),
       baseOpen: /NORMAL_POPUP\|base_screen\|true\|true/.test(log),
@@ -717,8 +730,15 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   };
 
   const rulesSource = syntheticNutrientRules(profile.rule, profile.mineralRule ?? 10, profile.worldRules ? alternateWorldRows : undefined);
+  const extraSources = {};
+  if (profile.technology) {
+    const {file, block, previous, replacement} = profile.technology;
+    const matches = readdirSync(assets).filter((name) => name.toLowerCase() === file);
+    assert.equal(matches.length, 1);
+    extraSources[file] = replaceStartingTechnology(readFileSync(`${assets}/${matches[0]}`), block, previous, replacement);
+  }
   const dimensionAssets = profile.alternateText ? await overrideDimensionAssets(page, rulesSource) : null;
-  const rulesAsset = profile.lifecycle || dimensionAssets ? null : await overrideRulesAsset(page, rulesSource);
+  const rulesAsset = profile.lifecycle || dimensionAssets ? null : await overrideRulesAsset(page, rulesSource, extraSources);
   await page.goto(address);
   await page.waitForFunction(() => document.body.dataset.state === 'ready');
   if (process.env.WASM_SITE_URL) {
@@ -883,7 +903,13 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];
   assert.ok(headquarters.hq && headquarters.land && headquarters.size === 1 && headquarters.owner === initial.owner);
-  assert.deepEqual(initial.units.map((u) => u.def).sort(), ['ColonyPod', 'MindWorms'], 'Normal world startup supplies the functional land pod and scout');
+  assert.deepEqual(initial.units.map((u) => u.def), ['ScoutPatrol'], 'Normal land startup has one real Scout and no free expansion Pod');
+  assert.deepEqual(initial.models, [{id: initial.units[0].id, kind: 'conventional', offense: 1, defense: 1, reactor: 1, morale: 'STANDARD'}]);
+  const initialProject = profile.technology?.project ?? (profile.faction ? 'COLONY_POD' : 'FORMERS');
+  assert.equal(initial.economies[0].choice, initialProject, 'Native startup queues the source-available initial unit');
+  assert.equal(initial.economies[0].minerals, 0, 'The initial project has no seeded mineral credit');
+  assert.equal(initial.startingTechnologies.includes('Ecology'), initialProject === 'FORMERS');
+  if (profile.technology) assert.equal(rulesAsset.sourceReads.get(profile.technology.file), 1, 'The modified faction input was hash-verified and loaded once');
   for (const unit of initial.units) {
     assert.ok(unit.movement > 0 && unit.owner === initial.owner);
     assert.deepEqual([unit.x, unit.y], [headquarters.x, headquarters.y]);
@@ -929,6 +955,39 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
     const labels = [...log.matchAll(/NORMAL_NUTRIENT_LABEL\|(\d+)\|([^\r\n]*)/g)]
       .filter((row) => +row[1] === headquarters.id);
     assert.equal(labels.at(-1)?.[2], expectedLabel, 'The actual displayed growth label uses the imported threshold');
+    if (profile.constructInitial) {
+      assert.equal(economy.choice, 'FORMERS');
+      await closeBase(headquarters.id);
+      const cost = 2 * factors.mineral;
+      let current = await probe(); let former;
+      const originalIds = new Set(current.units.map((unit) => unit.id));
+      for (let turn = 0; !former && turn < 32; ++turn) {
+        const before = current.economies.find((entry) => entry.id === headquarters.id);
+        current = await advanceProductionTurn(headquarters.id);
+        const after = current.economies.find((entry) => entry.id === headquarters.id);
+        const fullLog = await page.locator('#log').textContent();
+        const boundary = [...fullLog.matchAll(/NORMAL_PRODUCTION_BOUNDARY\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([^|\r\n]*)/g)]
+          .find((row) => +row[1] === headquarters.id && +row[2] === current.turn);
+        assert.ok(boundary, 'Actual Former production emitted a native before/after boundary');
+        assert.equal(+boundary[3], +boundary[4], 'Former construction charges no citizen, including its completion turn');
+        const complete = before.minerals + before.pendingMinerals >= cost;
+        assert.equal(+boundary[5], before.minerals);
+        assert.equal(+boundary[6], before.pendingMinerals);
+        assert.equal(after.minerals, before.minerals + before.pendingMinerals - (complete ? cost : 0));
+        assert.equal(after.choice, complete ? '' : 'FORMERS');
+        former = current.units.find((unit) => unit.def === 'Formers' && !originalIds.has(unit.id));
+        assert.equal(Boolean(former), complete);
+      }
+      assert.ok(former, 'Naturally earned minerals construct an actual native Former');
+      assert.equal(former.owner, initial.owner);
+      assert.deepEqual([former.x, former.y], [headquarters.x, headquarters.y]);
+      assert.deepEqual(current.models.find((model) => model.id === former.id),
+        {id: former.id, kind: 'civilian', offense: 0, defense: 1, reactor: 1, morale: 'STANDARD'});
+      assert.equal(current.units.length, initial.units.length + 1);
+      assert.equal(rulesAsset.sourceReads.get(profile.technology.file), 1);
+      await screenshot('source-former-completed'); await healthy();
+      return;
+    }
     if (profile.mineralRule !== undefined) {
       const recipe = [...log.matchAll(/NORMAL_RECIPE\|COLONY_POD\|ColonyPod\|(\d+)\|1/g)].at(-1);
       assert.ok(recipe, 'Actual generated gameplay exposes its native Colony Pod recipe');
@@ -948,7 +1007,9 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
       const rendered = await countLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`);
       await clickCanvas(page, 565, 505);
       await waitLog('NORMAL_PICKER_CLOSED', closed + 1);
-      await waitLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`, rendered + 1);
+      if (economy.choice !== 'COLONY_POD') await waitLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`, rendered + 1);
+      else assert.equal(await countLog(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`), rendered,
+        'Confirming the already selected unit preserves the native project without a redundant refresh');
       const project = (await page.locator('#log').textContent()).split(`NORMAL_PROJECT_RENDER|${headquarters.id}|Colony Pod|`).at(-1).split('\n')[0];
       assert.ok(project.startsWith(`0 / ${factors.cost} minerals|`), 'The actual selected project displays the imported native price');
       if (factors.cost === 0) assert.equal(project.split('|')[1], 'NEEDS POPULATION', 'A free size-one pod still needs its real population charge');
@@ -1056,7 +1117,8 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   const selectedProject = natural.economies.find((e) => e.id === headquarters.id);
   assert.equal(selectedProject.size, 1, 'The actual normal game selects the project before population growth');
   assert.equal(selectedProject.choice, 'COLONY_POD');
-  assert.equal(selectedProject.minerals, 0, 'Normal construction starts without seeded minerals');
+  assert.equal(selectedProject.minerals, next.economies.find((e) => e.id === headquarters.id).minerals,
+    'Switching between actual unit projects preserves the minerals earned by the initial project');
   assert.equal(selectedProject.factor, factors.nutrient, 'Actual Tiny nutrient factor agrees with the public no-base factor value');
   assert.ok(selectedProject.pendingMinerals > 0, 'The unmodified start has actual mineral production');
   assert.ok(selectedProject.pendingFood > 0, 'The unmodified start can grow naturally');
@@ -1122,7 +1184,7 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   assert.equal(natural.units.length, initial.units.length + 1);
   for (const starter of initial.units) {
     const current = natural.units.find((u) => u.id === starter.id);
-    assert.ok(current, 'Both original starting units survive natural construction');
+    assert.ok(current, 'The original starting Scout survives natural construction');
     assert.deepEqual([current.owner, current.x, current.y], [starter.owner, starter.x, starter.y]);
   }
   await openBase(headquarters.id);

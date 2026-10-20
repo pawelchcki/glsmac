@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit controls without graphics against 603 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 609 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **994 scenarios and 6,924 assertions** across
-80 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,024 scenarios and 7,012 assertions** across
+83 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -68,13 +68,14 @@ imported terrain and normal base initialization are controlled GLSMAC fixtures.
 
 The additional `normal-game.test.mjs` case uses the real New Game menus to
 choose Tiny and Gaians, generates terrain through the production world path,
-opens Headquarters, skips both owned starting units, advances a turn, verifies
-movement replenishment and reopens the base. It then selects a Colony Pod at
-size one and follows naturally earned food and minerals through actual growth
+opens Headquarters, verifies one conventional Scout and the Ecology-enabled
+initial Former project, skips the Scout, advances a turn, verifies
+movement replenishment and reopens the base. It then switches to a Colony Pod at
+size one while retaining the initial project's earned mineral credit and follows naturally earned food and minerals through actual growth
 and construction, with a fixed 32-turn ceiling. Every credit, population charge,
 project clearing and retained overflow is checked. Read-only stage/child-event
-observations require growth to settle before the next turn. Both original
-starting units survive and a distinct new owned pod appears. Its injected entry
+observations require growth to settle before the next turn. The original
+Scout survives and a distinct new owned Pod appears. Its injected entry
 adds read-only telemetry; it supplies no world/map/RNG, population or mineral
 override. Run it separately with
 `npm --prefix tools/wasm-tests run test:normal-game`. These browser regressions
@@ -100,12 +101,12 @@ human rule10/INDUSTRY0 setting. Explicit Custom kind 99 uses 40 minerals. Unknow
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
 A bounded land Colony Pod project is described below. The native construction path also accepts defined static land units with no
-population charge; ordinary shipped choices still offer only Colony Pods. The
+population charge; shipped land choices include Scouts, Colony Pods and Ecology-gated Formers. The
 `land-unit-production` suite checks size-one Scout/Former construction on
 synthetic declarations, worker preservation, rollback, actual codecs and guarded
-non-land rejection. These are application prerequisites for the two strict red
-[first-base inventory cases](ui/startup-inventory-contract.md), not new original
-construction observations. Queues and hurrying remain absent. Bounded active switching is described below.
+non-land rejection. These are application prerequisites for the six original
+[first-base inventory cases](ui/startup-inventory-contract.md); construction checks
+remain application coverage beyond the original inventory observations. Queues and hurrying remain absent. Bounded active switching is described below.
 
 `facility-cost-native` and `facility-cost-completion-native` check that actual
 Player descriptors and Base completion share the same effective cost. Declared
@@ -152,7 +153,9 @@ next ID once. These checks cover the current internal snapshot format, not
 original save files, old-format migration, complete world replacement, graphical
 spawn callbacks or a save/load menu.
 
-The colony suites add functional land expansion: one starting Colony Pod,
+The colony suites add land expansion through constructed Colony Pods. Dedicated
+command fixtures seed a Pod; ordinary startup now follows the recorded one-Scout
+inventory and initial project. They also check
 shared FOUND BASE/B eligibility, immediate worker assignment or doctor fallback,
 and a native transaction that consumes the pod after base initialization. Native
 tests check exact pod state, worker links, names, RNG and IDs through failure and
@@ -817,3 +820,25 @@ random and custom setup, plus warning rejection/re-entry/confirmation followed b
 checks; original terrain, RNG and full-game equivalence remain unproven. See the
 [warning contract](ui/large-map-warning-contract.md) and
 [generated-grid contract](ui/custom-grid-dimensions-contract.md) for exact scope.
+
+
+## Basic land startup and installed unit definitions
+
+Six independently repeated original first-base inventories now match native
+replay, including controlled TECH swaps that distinguish Ecology-enabled Formers
+from the default Pod project. The unchanged two-case reference preserves the
+initial red result. See the [precise contract](ui/startup-inventory-contract.md).
+
+Installed UNITS/CHASSIS/WEAPONS/DEFENSES/REACTORS and MORALE tables supply the
+three basic land definitions, component prices, combat attributes, movement and
+standard/native morale names. Concrete faction TECH tokens reach native storage
+and codecs and gate the starting choices. Numeric free-tech choices, broader
+technology progression and other starting bonuses remain unimplemented.
+
+Native tests distinguish conventional, civilian and psi definitions, validate
+receiving/legacy codecs, use actual conventional strength during the current
+combat policy and prevent civilian attacks. Real browser source swaps construct
+the queued Former without a population charge; normal installed-table gameplay
+grows and constructs a Pod. Static conventional portraits, faction morale bonuses,
+reactor damage, original combat odds, terraforming commands and computer players
+remain explicit gaps. This is not complete game parity.

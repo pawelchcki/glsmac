@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "name": "original-first-base-inventory-starting-technology-inputs",
+  "description": "Tiny/Citizen/standard first-base inventories under default and controlled single-TECH swaps. No expected project is supplied by the input profiles.",
+  "cases": [
+    {"id":"inventory-source-gaian-default","algorithm":"game.startup_inventory_sources.v1","input":{"preset":"base","slot":0,"profile":"default"}},
+    {"id":"inventory-source-gaian-physics","algorithm":"game.startup_inventory_sources.v1","input":{"preset":"base","slot":0,"profile":"gaian-physics"}},
+    {"id":"inventory-source-cyborg-default","algorithm":"game.startup_inventory_sources.v1","input":{"preset":"expansion","slot":0,"profile":"default"}},
+    {"id":"inventory-source-cyborg-ecology","algorithm":"game.startup_inventory_sources.v1","input":{"preset":"expansion","slot":0,"profile":"cyborg-ecology"}}
+  ]
+}

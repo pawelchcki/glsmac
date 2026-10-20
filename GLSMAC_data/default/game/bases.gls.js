@@ -33,7 +33,7 @@ const get_pending_production = (base) => {
 
 const process_production = (game, base) => {
 	const production = base.get_production();
-	if (production.choice_id != '') {
+	if (production.choice_id != '' && production.last_processed_turn < game.get_turn()) {
 		// Capture this turn's minerals before growth changes workers.
 		game.event('process_base_production', {
 			base: base,

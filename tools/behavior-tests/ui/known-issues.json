@@ -252,27 +252,43 @@
     {
       "id": "first-base-conventional-inventory",
       "suite": "startup-inventory",
-      "catalog": "pending-catalog.json",
-      "status": "strict-red-recorded-contract",
+      "catalog": "catalog.json",
+      "status": "fixed-in-recorded-contract-and-browser-regression",
       "examples": [
         "inventory-gaians",
         "inventory-consciousness"
       ],
-      "property": "Two independently repeated original first-base reports require one active Scout Patrol and one queued Former (Gaians) or Colony Pod (Consciousness). Initial native startup replay mismatches both: active Mind Worms plus free Colony Pod, no queued unit. Zero unsupported cases or runner errors.",
-      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite startup-inventory",
+      "property": "The two unchanged original first-base records now match one actual native Scout and a queued Former or Pod. Four additional repeated original records exchange only a TECH token: losing Ecology changes the Gaian queue to Pod; gaining Ecology changes the Consciousness queue to Former. All six match production source consumers, native faction fields, component costs, definitions, startup events and native live unit/project state. Real browser source swaps, zero-citizen Former completion and normal installed-table growth/Pod construction pass.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite startup-inventory --suite startup-inventory-sources",
       "first_replay": {
         "matched": 0,
         "mismatched": 2,
         "unsupported": 0,
         "errors": 0
       },
-      "scope": "First visible unit report at MY2101 only; conventional definitions/construction and faction/technology handoff remain missing. Not a combat/morale/governor parity claim.",
+      "scope": "Initial bounded land inventory only. Art remains a static portrait; original morale bonuses, combat odds, all starting factions, governor/research and terraforming remain gaps.",
       "candidate_probes": [
         {
           "script": "GLSMAC_data/tests/land_unit_production.gls.js",
           "status": "fixed-application-prerequisite",
           "first_failure": "Only a defined static land Colony Pod is supported",
           "scope": "Ten native synthetic-recipe scenarios cover zero-charge static land-unit construction, preservation of citizens/worker links, codec replay, rollback and non-land rejection. Does not fix the recorded startup mismatch."
+        },
+        {
+          "script": "GLSMAC_data/tests/unit_combat_model.gls.js",
+          "status": "fixed-application-prerequisite",
+          "scope": "Typed native conventional/civilian/psi metadata, detached exports, receiving codecs, legacy definition defaults and malformed payload guards."
+        },
+        {
+          "script": "GLSMAC_data/tests/startup_rule_sources.gls.js",
+          "status": "fixed-application-prerequisite",
+          "scope": "Installed basic components and concrete TECH imports, native cost helper, validation and faction/state transfer."
+        },
+        {
+          "script": "GLSMAC_data/tests/base_production.gls.js",
+          "status": "fixed-browser-integration-regression",
+          "first_failure": "Startup must not enqueue production already marked processed by initial selection",
+          "scope": "The new initial project waits for the first actual next-turn credit."
         }
       ]
     }

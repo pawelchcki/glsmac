@@ -8,8 +8,8 @@ const result = {
 		turns.configure(game);
 	},
 
-	define: (game) => {
-		defs.define(game);
+	define: (game, rules) => {
+		defs.define(game, rules);
 		animations.define(game);
 	},
 

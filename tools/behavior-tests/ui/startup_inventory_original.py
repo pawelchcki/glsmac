@@ -123,7 +123,7 @@ def enter_inventory(driver, observer, world, directory, timeout):
     return world.wait(driver, world.state, directory / 'inventory.png', timeout)
 
 
-def capture(cases, args):
+def capture(cases, args, source_profiles=None):
     initial = fingerprint()
     args.artifacts.mkdir(parents=True, exist_ok=True)
     work = Path(tempfile.mkdtemp(prefix='capture-', dir=args.artifacts))
@@ -133,6 +133,11 @@ def capture(cases, args):
         rows = []
         for case in cases:
             directory = work / case['id']; directory.mkdir()
+            if source_profiles is not None:
+                if driver.process and driver.process.poll() is None:
+                    driver.process.kill(); driver.process.wait(timeout=5)
+                for filename, raw in source_profiles[case['input']['profile']].items():
+                    (driver.work / 'game' / filename).write_bytes(raw)
             driver.reset()
             for index, label in enumerate(('START GAME', 'MAKE RANDOM MAP', 'TINY PLANET', 'CITIZEN', 'PLAY WITH STANDARD RULES')):
                 deadline = time.monotonic() + (60 if index == 0 else args.timeout)

@@ -90,6 +90,16 @@
       "id": "faction-ratings",
       "cases": "cases/faction-ratings.json",
       "observations": "observations/smacx-gog-2.0-faction-ratings.json"
+    },
+    {
+      "id": "startup-inventory",
+      "cases": "cases/startup-inventory.json",
+      "observations": "observations/smacx-gog-2.0-startup-inventory.json"
+    },
+    {
+      "id": "startup-inventory-sources",
+      "cases": "cases/startup-inventory-sources.json",
+      "observations": "observations/smacx-gog-2.0-startup-inventory-sources.json"
     }
   ]
 }

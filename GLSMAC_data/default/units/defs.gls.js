@@ -55,14 +55,30 @@ const units = [
 ];
 
 const result = {
-	define: (game) => {
+	define: (game, rules) => {
+		if (#is_defined(rules)) {
+			game.event('define_moraleset', {id: 'NATIVE', data: rules.native_morale});
+			game.event('define_moraleset', {id: 'STANDARD', data: rules.standard_morale});
+		} else {
 
 		for (moraleset of moralesets) {
 			game.event('define_moraleset', moraleset);
 		}
+		}
 
 		for (unit of units) {
-			game.event('define_unit', unit);
+			if (!#is_defined(rules) || unit.id != 'ColonyPod') { game.event('define_unit', unit); }
+		}
+		if (#is_defined(rules)) {
+			for (entry of rules.definitions) {
+				// Static portrait until the game's conventional vehicle renderer
+				// supports installed CVR models. Combat/morale remain real data.
+				const data = {name: entry.name, morale: 'STANDARD', type: 'static',
+					movement_type: 'land', movement_per_turn: entry.movement,
+					render: {type: 'sprite', file: 'newicons.pcx', x: 79, y: 501, w: 38, h: 48, cx: 98, cy: 549}};
+				data.combat = entry.combat;
+				game.event('define_unit', {id: entry.id, data: data});
+			}
 		}
 
 	},

@@ -90,6 +90,17 @@ behavior.scenario('idle bases preserve growth without emitting production credit
 	test.assert(f.state.trace == ['growth', 'add_base_pop']);
 	test.assert(#sizeof(f.state.events) == 1 && f.state.events[0].name == 'add_base_pop');
 });
+behavior.scenario('an initial project selected this turn waits for the next production credit', () => {
+	const f = callback_fixture(); f.state.turn = 1;
+	const b = f.add_base(1, 'COLONY_POD'); b.state.last_turn = 1;
+	f.state.handlers.turn({});
+	test.assert(f.state.events == [], 'Startup must not enqueue production already marked processed by initial selection');
+	test.assert(b.state.last_turn == 1, 'Initial selection does not consume next-turn production');
+	f.state.turn = 2; f.state.events = []; b.state.minerals = 8;
+	f.state.handlers.turn({});
+	test.assert(#sizeof(f.state.events) == 1 && f.state.events[0].name == 'process_base_production');
+	test.assert(f.state.events[0].data.turn_id == 2 && f.state.events[0].data.minerals == 7);
+});
 behavior.scenario('each active base captures its own surplus without changing growth frequency', () => {
 	const f = callback_fixture();
 	const first = f.add_base(1, 'RECYCLING_TANKS');

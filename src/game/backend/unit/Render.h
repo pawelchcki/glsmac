@@ -1,5 +1,7 @@
 #pragma once
 
+namespace gse::tests::mocks { struct ProductionFixture; }
+
 #include <string>
 
 #include "types/Buffer.h"
@@ -32,6 +34,7 @@ public:
 
 private:
 	friend class StaticDef;
+	friend struct gse::tests::mocks::ProductionFixture;
 
 	static void Serialize( types::Buffer& buf, const Render* render );
 	static Render* Deserialize( types::Buffer& buf );

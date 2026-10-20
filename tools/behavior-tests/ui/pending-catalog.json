@@ -1,10 +1,4 @@
 {
   "version": 1,
-  "references": [
-    {
-      "id": "startup-inventory",
-      "cases": "cases/startup-inventory.json",
-      "observations": "observations/smacx-gog-2.0-startup-inventory.json"
-    }
-  ]
+  "references": []
 }
