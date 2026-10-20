@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "mineral-credit-unchanged",
+      "algorithm": "economy.starvation_mineral_credit.v1",
+      "input": {
+        "mode": "unchanged",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "project": "incomplete-Formers"
+      }
+    },
+    {
+      "id": "mineral-credit-starvation",
+      "algorithm": "economy.starvation_mineral_credit.v1",
+      "input": {
+        "mode": "starvation",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "project": "incomplete-Formers"
+      }
+    }
+  ]
+}

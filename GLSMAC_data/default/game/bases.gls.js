@@ -36,11 +36,25 @@ const get_pending_production = (base) => {
 const process_production = (game, base) => {
 	const production = base.get_production();
 	if (production.choice_id != '' && production.last_processed_turn < game.get_turn()) {
-		// Capture this turn's minerals before growth changes workers.
+		// Capture income before growth changes workers. The observed starvation
+		// transfer covers projects that stay incomplete. Preserve the existing
+		// native completion path, which can change population or resource intake
+		// before queued growth decides whether the base is actually starving.
+		let minerals = get_pending_production(base);
+		let nutrients = base.get('accumulated_nutrients');
+		if (!#is_defined(nutrients)) { nutrients = 0; }
+		if (nutrients + get_pending_growth(base) < 0) {
+			for (choice of base.get_owner().get_production_choices()) {
+				if (choice.id == production.choice_id && production.minerals + minerals < choice.cost) {
+					// A zero-credit receipt still marks this turn before growth.
+					minerals = 0; break;
+				}
+			}
+		}
 		game.event('process_base_production', {
 			base: base,
 			turn_id: game.get_turn(),
-			minerals: get_pending_production(base),
+			minerals: minerals,
 		});
 	}
 };

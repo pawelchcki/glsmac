@@ -641,11 +641,57 @@
         "assertions": 87,
         "errors": 0
       }
+    },
+    {
+      "id": "starvation-mineral-credit",
+      "suite": "starvation-mineral",
+      "example": "mineral-credit-starvation",
+      "status": "fixed",
+      "lane": "native-display-free-original-comparison",
+      "property": "The recorded first starvation turn preserves nine stored minerals while its notice is pending and after Proceed, while the unchanged one-Doctor control gains one mineral.",
+      "baseline_verification": {
+        "matched": 1,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_wasm_sha256": "82a74f4ec8fde3cc81c1c0233ff48fbbbdd53f582d05f2f8617eddb06a40f2d8",
+      "baseline_scripts_sha256": "e77d3b7c046ef33db6fc7993372868431cc0a693a3e5719ce0656320125952ec",
+      "scope": "Two independently repeated whole original captures with full management/project and continuation guards. Strict native baseline matches all citizen/unit/year context but credits ten minerals at both starvation checkpoints instead of nine. The original project stays incomplete; price/completion, signed nutrient-counter meaning, other support/facility/population contexts and general economy remain excluded. Native replay and actual browser controls now match every recorded checkpoint. Seven application scenarios separately check live resource changes, balanced-food income, native effective completion thresholds, once-per-turn receipts, rollback and retry. Suppression is limited to projects that remain incomplete after the live surplus; native completion keeps its prior behavior. Displayed mineral surplus remains separate from actual credited income.",
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 2,
+        "regression_scenarios": 7,
+        "regression_assertions": 41
+      }
+    },
+    {
+      "id": "mineral-credit-completion-rescue",
+      "suite": "queued-base-turn-native",
+      "status": "fixed",
+      "lane": "native-application-regression",
+      "property": "A population-consuming completed project can avert starvation; the incomplete-project mineral rule must preserve the existing native completion credit and surviving worker graph.",
+      "baseline_verification": {
+        "scenarios": 1,
+        "errors": 1
+      },
+      "scope": "Full native regression found43 expected overflow replaced by36 because an early food forecast suppressed seven minerals even though the Colony Pod completed and prevented starvation. Existing application sequencing expectation is preserved. This is an application regression, not an original project-completion observation. Fixed by using the native owner effective price to limit the new suppression to projects that stay incomplete. Both existing queued scenarios pass unchanged; a separate threshold-crossing Colony Pod scenario fails against the first fix and passes with the corrected guard.",
+      "verification": {
+        "queued_scenarios": 2,
+        "queued_assertions": 312,
+        "regression_scenarios": 7,
+        "regression_assertions": 41,
+        "errors": 0
+      },
+      "baseline_production_scripts_sha256": "b217213e5fba8f3b9cb83af86c2a3163658f2b57a4fcbbb610f596511748623a"
     }
   ],
   "verification": {
-    "cases": 677,
-    "matched": 677,
+    "cases": 679,
+    "matched": 679,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -676,6 +722,8 @@
     "rendered_base_resource_hud_cases": 2,
     "rendered_base_resource_hud_matched": 2,
     "rendered_starvation_cases": 5,
-    "rendered_starvation_matched": 5
+    "rendered_starvation_matched": 5,
+    "rendered_starvation_mineral_cases": 2,
+    "rendered_starvation_mineral_matched": 2
   }
 }

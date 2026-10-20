@@ -79,6 +79,15 @@ acknowledgement, authoritative validation, rollback and cleanup. Raw nutrient
 counters, mineral processing, notice Escape, artwork/audio and suppression-button
 activation remain outside this notification contract.
 
+Two [first-turn mineral traces](starvation-mineral-contract.md), each recorded
+independently twice, also match native replay and actual browser controls. The
+unchanged city gains one mineral; the starving city keeps nine stored minerals
+while its notice is pending and after Proceed. Seven application scenarios check
+live resource changes, balanced-food income, native completion thresholds,
+receipts, rollback and retry. Suppression is limited to incomplete projects.
+Prices/completion, signed nutrient counters and general economy remain excluded.
+Run `npm --prefix tools/wasm-tests run test:starvation-mineral` with installed assets.
+
 ## Contracts and boundaries
 
 Eight [Former work traces](former-work-contract.md) and three
@@ -88,11 +97,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-677 passing cases, including eight independently repeated Sentry lifecycle
+679 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `economy.starvation_mineral_credit.v1` | 2 | Native mineral/citizen/unit/year checkpoints before the turn, during starvation notice and after Proceed; unchanged-city control | Actual original controls, full HUD/project/map guards and read-only native observations; each whole capture repeated twice |
 | `ui.starvation_dialog.v1` | 5 | Source wording, choice selection, delayed native population loss and Zoom/Proceed continuation | Real original controls, independent OCR and native guards; each whole capture repeated twice |
 | `ui.base_resource_hud.v1` | 2 | Visible resource amounts/results/status and Economy/Labs/Psych percentage/energy/bonus/total at first/repeated opening | Complete-panel OCR and native/title guards, independently recorded twice |
 | `ui.base_open_citizens.v1` | 2 | Actual base open/close/reopen, title identity, citizen reconciliation, unit focus/state and mineral preservation; excludes signed nutrient counter | Fresh original executions and visible/native guards, independently recorded twice |
@@ -121,7 +131,7 @@ traces. This does not establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 677 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 679 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -230,7 +240,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 677 recorded cases now agree after production fixes to choices,
+any failures. All 679 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the

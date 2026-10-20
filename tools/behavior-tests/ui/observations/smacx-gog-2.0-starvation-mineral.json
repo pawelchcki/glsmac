@@ -1,0 +1,155 @@
+{
+  "captured_at": "2026-10-20T23:32:53.878168+00:00",
+  "observations": [
+    {
+      "case_sha256": "f63f5d4e97ee9b59fa5b5aecd4e41f070c375daabe83af7e274ccadbb8fc8483",
+      "id": "mineral-credit-unchanged",
+      "output": {
+        "trace": [
+          {
+            "doctors": 1,
+            "minerals": 9,
+            "population": 1,
+            "stage": "before-turn",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "worked_tiles": 0,
+            "workers": 0,
+            "year_delta": 0
+          },
+          {
+            "doctors": 1,
+            "minerals": 10,
+            "population": 1,
+            "stage": "after-turn",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "worked_tiles": 0,
+            "workers": 0,
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d2c60aadeeca5f3a1f09a0f2dd46f8de45db0cc13a9a3322e9a0b9cea4a94681",
+      "id": "mineral-credit-starvation",
+      "output": {
+        "trace": [
+          {
+            "doctors": 2,
+            "minerals": 9,
+            "population": 2,
+            "stage": "before-turn",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "worked_tiles": 0,
+            "workers": 0,
+            "year_delta": 0
+          },
+          {
+            "doctors": 2,
+            "minerals": 9,
+            "population": 2,
+            "stage": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "worked_tiles": 0,
+            "workers": 0,
+            "year_delta": 1
+          },
+          {
+            "doctors": 1,
+            "minerals": 9,
+            "population": 1,
+            "stage": "after-turn",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "worked_tiles": 0,
+            "workers": 0,
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "ec55610ed31c76c22180a03e8b8f04c08c3b6f93b4c2069b658ee72fd306c16c",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "One income turn only; production price/completion, nutrient-counter meaning, general economy/starvation rules, suppression and other notification sources excluded",
+    "contract": "economy.starvation_mineral_credit.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh independent Gaians/Citizen/standard flat arid games; declared one Doctor, food0/minerals9 and visible incomplete Formers project",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual W/W, optional B, complete Enter/Escape management, held units, TURN COMPLETE and guarded Proceed; read-only native mineral/citizen/year/unit checkpoints with full HUD/project and map guards",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Native mineral accumulator integers, citizen counts, native order ordinals and movement spent in thirds"
+  },
+  "repeat": 2,
+  "suite_sha256": "63e660248f82dc53a017e113e89b062f399c5678131380fbe13e37b0d9475b3f",
+  "version": 1
+}
