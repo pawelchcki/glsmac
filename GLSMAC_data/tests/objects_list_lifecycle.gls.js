@@ -9,6 +9,16 @@ f.native = test.founding_fixture(); f.view = mocks.display(); f.game = mocks.eve
 f.state = { orders: [], hover: [], shown: [], hidden: [], close: null };
 f.game.get_um = () => { return f.native.game.um; };
 f.game.get_bm = () => { return f.native.game.bm; };
+f.game.get_player = () => { return f.native.owner; };
+f.game.get_turn = () => { return f.native.game.get_turn(); };
+f.game.event = (name, data) => {
+	const handler = #include('../default/game/event/' + name);
+	const e = {caller: f.native.owner.id}; e.game = f.native.game; e.data = data;
+	const error = handler.validate(e); test.assert(!#is_defined(error));
+	f.native.with_write(() => { e.applied = handler.apply(e); });
+	const result = {name: name, caller: f.native.owner.id, success: true}; result.data = data;
+	f.game.emit('event_result', result);
+};
 f.game.select_unit = (unit) => { f.state.orders :+ ['unit', unit.id]; };
 f.game.select_base = (base) => { f.state.orders :+ ['base', base.id]; };
 f.game.select_tile = (tile) => { f.state.orders :+ ['tile', tile.x, tile.y]; };

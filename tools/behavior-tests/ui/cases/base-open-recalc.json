@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "Original base opening and joined citizen recalculation",
+  "description": "Input-only real B/Enter/Escape with a declared Doctor city; initial city defaults are not under test.",
+  "cases": [
+    {
+      "id": "control-open-reopen",
+      "algorithm": "ui.base_open_city_recalc.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "wait"
+        ],
+        "actions": [
+          "open",
+          "close",
+          "open",
+          "close"
+        ]
+      }
+    },
+    {
+      "id": "join-open-reopen",
+      "algorithm": "ui.base_open_city_recalc.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "open",
+          "close",
+          "open",
+          "close"
+        ]
+      }
+    }
+  ]
+}

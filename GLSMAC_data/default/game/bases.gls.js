@@ -1,5 +1,6 @@
 const pops = #include('pops');
 const facilities = #include('facilities');
+const base_work = #include('base_work');
 
 const globals = {};
 
@@ -143,7 +144,14 @@ const process_growth = (game, base) => {
 	}
 
 	if (grow && game.is_master()) {
-		const best_tile = (find_best_or_worst_tiles(base, base.get_unworked_tiles(), 1, 1))[0];
+		// Unworked means absent from this base's own set. Nearby bases can
+		// still occupy or claim those squares; use the same live eligibility
+		// checks as explicit citizen assignment before comparing their yields.
+		const eligible = [];
+		for (tile of base.get_unworked_tiles()) {
+			if (base_work.workable_tile(game, base, tile) && !tile.has('working_pop') && !base.is_tile_worked(tile)) { eligible :+ tile; }
+		}
+		const best_tile = (find_best_or_worst_tiles(base, eligible, 1, 1))[0];
 		if (#is_defined(best_tile)) {
 			// found tile to work, spawn worker
 			// TODO: talents logic

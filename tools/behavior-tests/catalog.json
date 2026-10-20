@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"base-growth-worker-links","script":"GLSMAC_data/tests/base_growth_worker_links.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"base-citizen-reconciliation","script":"GLSMAC_data/tests/base_citizen_reconciliation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-join","script":"GLSMAC_data/tests/colony_join.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-sentry-activation","script":"GLSMAC_data/tests/unit_sentry_activation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-sentry","script":"GLSMAC_data/tests/unit_sentry.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

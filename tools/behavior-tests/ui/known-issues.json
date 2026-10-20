@@ -515,11 +515,72 @@
         "matched": 1,
         "errors": 0
       }
+    },
+    {
+      "id": "joined-city-open-reconciliation",
+      "suite": "base-open-citizens",
+      "example": "citizens-join-open-reopen",
+      "status": "fixed-in-citizen-contract",
+      "lane": "native-display-free-and-actual-browser-original-comparison",
+      "property": "Opening the declared joined city reconciles its unassigned Worker to a Doctor before management is shown, preserving identities, assignments, stores, surviving units and focus. The native transaction and production control now match the separately recorded citizen-only contract.",
+      "baseline_verification": {
+        "matched": 1,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "Two fresh independently repeated citizen-only original traces; full raw-counter evidence remains immutable in base-open-recalc. Initial baseline reports include both the citizen and nutrient differences; citizen-only native and browser red baselines were also captured against frozen pre-fix production scripts. Other terrain/populations, governor settings and turns remain unobserved.",
+      "baseline_rendered_verification": {
+        "matched": 1,
+        "mismatched": 1,
+        "errors": 0
+      },
+      "baseline_rendered_scripts_sha256": "e055a849ff5d7e85bd537cc8f606ff2f20bf01d573ed6e444d4c7cec2c144e3b",
+      "baseline_rendered_wasm_sha256": "849fc09f3d13b0113f8197eb31d0bde5202a3570f6f6a8c77cac21e5aefaafce",
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 2
+      }
+    },
+    {
+      "id": "joined-city-open-signed-nutrient-counter",
+      "suite": "base-open-recalc",
+      "example": "join-open-reopen",
+      "status": "pending-transfer",
+      "property": "The original signed native nutrient counter changes from zero to -1 when this joined city opens. Its meaning and equivalence to reproduction stored food remain unresolved. The reproduction preserves stored food; no synthetic negative mutation is added.",
+      "verification": {
+        "matched": 1,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "remaining_differences": "Only nutrients at joined trace checkpoints 2,3,4,5. Citizen/context/title/unit/selection/year/mineral observations agree. Excluded from passing totals."
+    },
+    {
+      "id": "growth-worker-on-neighbor-base",
+      "suite": "base-growth-worker-links",
+      "status": "fixed",
+      "lane": "native-and-actual-release-browser-application",
+      "property": "Growth must not assign a Worker to another base center or an already claimed square. Invalid links otherwise block subsequent management preparation.",
+      "baseline_verification": {
+        "scenarios": 1,
+        "errors": 1
+      },
+      "scope": "Strict native red probe and actual two-base browser diagnostics found a reciprocal Worker link to the neighboring base center. Growth now filters by production workable-tile membership, non-base status and absent claims before using its existing yield ranking; no-square growth keeps the Doctor fallback. This is an application invariant, not a new original comparison. The rebuilt Release browser navigates both cities, asserts reciprocal non-base Worker links, completes 32 real production turns and installs Recycling Tanks with the expected yield increase.",
+      "verification": {
+        "native_scenarios": 4,
+        "native_assertions": 31,
+        "errors": 0,
+        "rendered_paths": 1
+      }
     }
   ],
   "verification": {
-    "cases": 668,
-    "matched": 668,
+    "cases": 670,
+    "matched": 670,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -544,6 +605,8 @@
     "rendered_sentry_activation_cases": 4,
     "rendered_sentry_activation_matched": 4,
     "rendered_colony_join_cases": 10,
-    "rendered_colony_join_matched": 10
+    "rendered_colony_join_matched": 10,
+    "rendered_base_open_cases": 2,
+    "rendered_base_open_matched": 2
   }
 }

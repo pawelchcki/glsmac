@@ -47,6 +47,16 @@ Doctor and resources, adds one unassigned Worker, consumes the Pod, and delivers
 survivor or tile selection. All ten match display-free replay and browser input.
 The declared initial city is separate from natural startup-default coverage.
 
+Two separately captured [citizen-opening traces](base-open-citizens-contract.md)
+match native replay and actual browser Enter/Escape/B controls. Opening owned management reconciles the unassigned Worker
+to a Doctor while preserving existing citizens, assignments, mineral stores,
+surviving units, selection and year. The signed nutrient field is excluded from
+this contract and remains in the full pending recording.
+
+Two further [base-opening traces](base-open-recalc-contract.md) are recorded in
+the pending catalog. The unchanged-city control matches native replay; after the citizen
+fix, only the joined-city signed nutrient counter remains a strict mismatch. These two cases do not add to the passing totals.
+
 ## Contracts and boundaries
 
 Eight [Former work traces](former-work-contract.md) and three
@@ -56,11 +66,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-668 passing cases, including eight independently repeated Sentry lifecycle
+670 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `ui.base_open_citizens.v1` | 2 | Actual base open/close/reopen, title identity, citizen reconciliation, unit focus/state and mineral preservation; excludes signed nutrient counter | Fresh original executions and visible/native guards, independently recorded twice |
 | `game.colony_join_base.v1` | 10 | Existing base/citizen/resource preservation, consumed Pod, unassigned Worker, companion orders and B/W/Tab selection | Actual original controls, visible selected-name cross-check and guarded native city/units; two whole captures per case |
 | `ui.unit_sentry_activation.v1` | 4 | Sentry/Hold/Skip preparation, actual picker rows/highlight, confirmation/cancellation, native orders/movement and W/Tab focus | Actual original controls, visible picker and guarded native observations; recorded twice |
 | `game.unit_sentry_lifecycle.v1` | 8 | Actual Sentry/Hold/Skip orders, movement and selected role through every nonempty Sentry subset, W/Tab and one paused turn | Real original controls with read-only native observations and visible selected-name check; recorded twice |
@@ -86,7 +97,7 @@ traces. This does not establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 668 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 670 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -195,7 +206,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 668 recorded cases now agree after production fixes to choices,
+any failures. All 670 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the

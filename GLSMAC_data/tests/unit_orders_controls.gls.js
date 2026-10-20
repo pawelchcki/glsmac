@@ -56,7 +56,10 @@ const fixture = () => {
 		const error = handler.validate(e);
 		test.assert(!#is_defined(error), 'Actual command validation: ' + (#is_defined(error) ? error : 'accepted'));
 		f.native.with_write(() => { e.applied = handler.apply(e); });
-		f.result(request.name, request.data.unit_id, f.native.owner.id, true);
+		if (request.name == 'reconcile_base_citizens') {
+			const result = {name: request.name, caller: f.native.owner.id, success: true}; result.data = request.data;
+			f.game.emit('event_result', result);
+		} else { f.result(request.name, request.data.unit_id, f.native.owner.id, true); }
 		return e;
 	};
 	return f;
@@ -188,6 +191,7 @@ behavior.scenario('closing the actual base selection restores only live owned sa
 		f.key('H', {}); f.deliver(0);
 		const e = {}; e.base = f.native.base; f.game.emit('base_select', e);
 		for (timer of f.view.timers) { if (timer.interval == 0) { timer.tick(); } }
+		f.deliver(#sizeof(f.state.queued) - 1);
 		test.assert(f.state.modal && f.state.opened_base_id == f.native.base.id);
 		if (kind == 'removed') { f.native.with_write(() => { f.native.game.um.despawn_unit(f.id); }); }
 		f.state.modal = false; f.state.close(false);

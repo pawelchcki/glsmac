@@ -6,6 +6,7 @@ SET( SRC ${SRC}
 	${PWD}/BaseManager.cpp
 	${PWD}/Base.cpp
 	${PWD}/BaseProduction.cpp
+	${PWD}/BaseReconciliation.cpp
 	${PWD}/PopDef.cpp
 	${PWD}/Pop.cpp
 	${PWD}/FacilityDef.cpp

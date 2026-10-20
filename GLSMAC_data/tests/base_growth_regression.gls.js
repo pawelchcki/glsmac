@@ -14,6 +14,9 @@ const make_world = (size, nutrients, available_tile) => {
 		get_intake: () => { return { NUTRIENTS: 0 }; },
 		get_consumption: () => { return { NUTRIENTS: 0 }; },
 		get_unworked_tiles: () => { return state.tiles; },
+		get_workable_tiles: () => { return state.tiles; },
+		get_tile: () => { return null; },
+		is_tile_worked: (tile) => { return false; },
 		get: (key) => { return state.values[key]; },
 		set: (key, value) => { state.values[key] = value; },
 	};
@@ -28,6 +31,7 @@ const make_world = (size, nutrients, available_tile) => {
 		get_tm: () => { return {
 			get_map_width: () => { return 20; },
 			get_map_height: () => { return 20; },
+			get_tile: (x, y) => { for (tile of state.tiles) { if (tile.x == x && tile.y == y) { return tile; } } return null; },
 		}; },
 		on: (name, callback) => { state.handlers[name] = callback; },
 		set: (key, value) => { state.globals[key] = value; },
@@ -68,7 +72,7 @@ behavior.scenario('exhausted tiles do not force growth below nutrient threshold'
 	test.assert(state.values.accumulated_nutrients == 39, 'Waiting for growth preserves nutrients');
 });
 behavior.scenario('last available zero-yield tile still creates a worker', () => {
-	const tile = { x: 2, y: 0, get_resources: (owner) => { return { NUTRIENTS: 0, MINERALS: 0, ENERGY: 0 }; } };
+	const tile = { x: 2, y: 0, get_base: () => { return null; }, has: (name) => { return false; }, get_resources: (owner) => { return { NUTRIENTS: 0, MINERALS: 0, ENERGY: 0 }; } };
 	const state = make_world(3, 40, tile);
 	state.handlers.turn({});
 	test.assert(#sizeof(state.events) == 1 && state.events[0].type == 'WORKER', 'An available tile must create a worker');

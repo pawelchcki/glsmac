@@ -1,3 +1,6 @@
+// Monotonic across panel removal/recreation: an old acknowledgement cannot
+// collide with a successor panel's first request.
+let next_management_request = 0;
 return {
 
 	resolve_object: (type, id) => {
@@ -65,8 +68,11 @@ return {
 	},
 
 	schedule_base_selection: (id) => {
+		if (this.management_pending != null && this.management_pending.base_id == id && this.management_pending.turn_id == this.p.game.get_turn()) { return; }
 		this.selection_epoch = this.selection_epoch + 1;
+		this.management_pending = null;
 		const epoch = this.selection_epoch;
+		this.management_scheduled_epoch = epoch;
 		let previous_unit_id = this.selected_type == 'Unit' ? this.selected_id : null;
 		if (previous_unit_id == null && #is_defined(this.p.sections.object_preview.order_focus_id)) {
 			previous_unit_id = this.p.sections.object_preview.order_focus_id;
@@ -75,17 +81,45 @@ return {
 		// Own the deferred callback so removed panels cannot open old dialogs.
 		this.frame.timer(0, () => {
 			if (epoch != this.selection_epoch) { return false; }
+			this.management_scheduled_epoch = null;
 			const base = this.resolve_object('Base', id);
 			if (base == null) { return false; }
-			this.refresh_tile(base.get_tile());
-			const key = #to_string(id);
-			if (#is_defined(this.bases[key])) { this.set_active_item(this.bases[key].item); }
-			this.selected_type = 'Base'; this.selected_id = id;
-			const data = {}; data.base = base;
-			this.p.modules.popup.set('base_screen', data);
-			this.p.modules.popup.show('base_screen', this.base_close_callback(previous_unit_id, id));
+			if (base.get_owner().id != this.p.game.get_player().id) {
+				this.open_base_selection(base, previous_unit_id);
+				return false;
+			}
+			next_management_request++;
+			const turn = this.p.game.get_turn();
+			const request = {base_id: id, turn_id: turn, request_token: next_management_request};
+			const pending = {base_id: id, turn_id: request.turn_id, request_token: request.request_token, epoch: epoch, previous_unit_id: previous_unit_id};
+			pending.base = base; this.management_pending = pending;
+			this.p.game.event('reconcile_base_citizens', request);
 			return false;
 		});
+	},
+
+	open_base_selection: (base, previous_unit_id) => {
+		this.refresh_tile(base.get_tile());
+		const key = #to_string(base.id);
+		if (#is_defined(this.bases[key])) { this.set_active_item(this.bases[key].item); }
+		this.selected_type = 'Base'; this.selected_id = base.id;
+		const data = {}; data.base = base;
+		this.p.modules.popup.set('base_screen', data);
+		this.p.modules.popup.show('base_screen', this.base_close_callback(previous_unit_id, base.id));
+	},
+
+	finish_base_management: (e) => {
+		const pending = this.management_pending;
+		if (pending == null || e.name != 'reconcile_base_citizens' || e.caller != this.p.game.get_player().id || e.data.base_id != pending.base_id || e.data.turn_id != pending.turn_id || e.data.request_token != pending.request_token) { return; }
+		this.management_pending = null;
+		if (!e.success || pending.epoch != this.selection_epoch || pending.turn_id != this.p.game.get_turn()) { return; }
+		// A new modal owns input while this command was in flight. Existing
+		// base management may remain shown during deliberate base navigation.
+		const popup = this.p.modules.popup;
+		if (popup.is_shown() && (!#is_defined(popup.popup) || popup.popup == null || popup.popup.id != 'base_screen')) { return; }
+		const base = this.resolve_object('Base', pending.base_id);
+		if (base == null || base != pending.base || base.get_owner().id != this.p.game.get_player().id) { return; }
+		this.open_base_selection(base, pending.previous_unit_id);
 	},
 
 	set_active_item: (item) => {
@@ -226,6 +260,8 @@ return {
 		this.selected_type = null;
 		this.selected_id = null;
 		this.selection_epoch = 0;
+		this.management_pending = null;
+		this.management_scheduled_epoch = null;
 		this.units = {};
 		this.bases = {};
 		this.active_item = null;
@@ -270,6 +306,8 @@ return {
 		this.frame = frame_outer.panel({
 			class: 'bottombar-panel-inner',
 		});
+		this.frame.on('remove', (e) => { this.selection_epoch = this.selection_epoch + 1; this.management_pending = null; this.management_scheduled_epoch = null; });
+		this.frame.listen(p.game, 'event_result', (e) => { this.finish_base_management(e); });
 
 		this.frame.listen(p.map, 'unit_preview', (e) => {
 			if (e.unit != null) {
@@ -289,6 +327,8 @@ return {
 
 		this.frame.listen(p.game, 'unit_select', (e) => {
 			this.selection_epoch = this.selection_epoch + 1;
+			this.management_pending = null;
+			this.management_scheduled_epoch = null;
 			this.p.modules.popup.hide('base_screen');
 			this.refresh_tile(e.unit.get_tile());
 			const key = #to_string(e.unit.id);
@@ -302,11 +342,15 @@ return {
 
 		this.frame.listen(p.game, 'tile_select', (e) => {
 			this.selection_epoch = this.selection_epoch + 1;
+			this.management_pending = null;
+			this.management_scheduled_epoch = null;
 			this.clear_selection();
 		});
 
 		this.frame.listen(p.game, 'turn', (e) => {
 			this.selection_epoch = this.selection_epoch + 1;
+			this.management_pending = null;
+			this.management_scheduled_epoch = null;
 			this.clear_selection();
 		});
 
@@ -316,6 +360,9 @@ return {
 		});
 
 		this.frame.on('keydown', (e) => {
+			if (e.code == 'ESCAPE' && e.modifiers == {} && (this.management_pending != null || this.management_scheduled_epoch != null)) {
+				this.selection_epoch = this.selection_epoch + 1; this.management_pending = null; this.management_scheduled_epoch = null; return true;
+			}
 			if (
 				!this.p.modules.popup.is_shown() && // TODO: make universal key overrides in popups
 				this.is_turn_active && // TODO: override by turn complete button

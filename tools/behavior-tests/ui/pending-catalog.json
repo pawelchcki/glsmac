@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "references": []
+  "references": [
+    {
+      "id": "base-open-recalc",
+      "cases": "cases/base-open-recalc.json",
+      "observations": "observations/smacx-gog-2.0-base-open-recalc.json"
+    }
+  ]
 }

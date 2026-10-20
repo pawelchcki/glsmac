@@ -11,6 +11,8 @@ const make_tile = (x, y, nutrients, minerals, energy) => {
 	const values = {};
 	const resources = { NUTRIENTS: nutrients, MINERALS: minerals, ENERGY: energy };
 	tile.get_resources = (owner) => { return resources; };
+	tile.get_base = () => { return null; };
+	tile.has = (key) => { return #is_defined(values[key]); };
 	tile.get = (key) => { return values[key]; };
 	tile.set = (key, value) => { values[key] = value; };
 	tile.unset = (key) => { values[key] = undefined; };
@@ -40,6 +42,8 @@ const make_base = () => {
 	base.get_pops = () => { return state.pops; };
 	base.get_worked_tiles = () => { return state.worked; };
 	base.get_unworked_tiles = () => { return state.unworked; };
+	base.get_workable_tiles = () => { return state.unworked + state.worked; };
+	base.is_tile_worked = (tile) => { for (worked of state.worked) { if (worked == tile) { return true; } } return false; };
 	base.get = (key) => { return state.values[key]; };
 	base.set = (key, value) => { state.values[key] = value; };
 	base.get_intake = () => { return { NUTRIENTS: state.intake }; };
@@ -63,6 +67,13 @@ const make_game = (width, height) => {
 	game.get_tm = () => { return {
 		get_map_width: () => { return width; },
 		get_map_height: () => { return height; },
+		get_tile: (x, y) => {
+			for (base of state.bases) {
+				const current = base; const tiles = current.get_workable_tiles();
+				for (tile of tiles) { if (tile.x == x && tile.y == y) { return tile; } }
+			}
+			return null;
+		},
 	}; };
 	game.on = (name, callback) => { state.handlers[name] = callback; };
 	game.get = (key) => { return state.values[key]; };

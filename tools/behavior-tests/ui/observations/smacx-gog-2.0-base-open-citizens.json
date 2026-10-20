@@ -1,0 +1,358 @@
+{
+  "captured_at": "2026-10-20T20:39:57.977473+00:00",
+  "observations": [
+    {
+      "case_sha256": "7180846cdc0020315ad587ce80e815ce239cf85e8530888060c9b249b817b88c",
+      "id": "citizens-control-open-reopen",
+      "output": {
+        "trace": [
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "colony",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "base",
+            "selected": "colony",
+            "title_matches_base": true,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "colony",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "base",
+            "selected": "colony",
+            "title_matches_base": true,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "colony",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "75315df7103cf3f5b3e5786c98ee3fce05c504f1ad3f68f4289b5f2d6fb8fa18",
+      "id": "citizens-join-open-reopen",
+      "output": {
+        "trace": [
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "colony",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 1,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 1
+            },
+            "screen": "map",
+            "selected": "scout",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 2,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "base",
+            "selected": "scout",
+            "title_matches_base": true,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 2,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "scout",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 2,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "base",
+            "selected": "scout",
+            "title_matches_base": true,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "base": {
+              "doctors": 2,
+              "minerals": 9,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "screen": "map",
+            "selected": "scout",
+            "title_matches_base": false,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "82c7aa6163528ee43cc37ea7f314a970da988c38db2d7e1d83c698ffd5902def",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Declared initial city is not natural startup evidence. Only this owned first city, zero-income-turn B/open/close/reopen sequences; no other populations/terrain/factions, stock values, governor modes, turns or general economy rules established; excludes nutrient-counter semantics and equivalence to reproduction stored food; full counter contract remains separately pending",
+    "contract": "ui.base_open_citizens.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Gaians/Citizen/standard 40x80 flat arid owned three-unit stack with declared UNIT bonuses, initial Doctor and stores, pause/tutorial settings; real W/W preparation; no original memory/instruction writes",
+    "full_observer_sha256": "b7496bc42135c1164a0899b1f92f7fc8886e39dae7da45cb6e48ac350300124b",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual B/Enter/Escape; visible native base-title and map selected-name guards; signed nutrient counter, citizen types/counts, worked-tile count and minerals read from actual native records; surviving unit and base identity/count/year guarded",
+    "projection": "All actual base-opening observations except signed native nutrient counter; fresh original execution for every case and recorder repeat",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Visible title equality to own native base identity, normalized independent of the literal city name; signed native nutrient counter; actual base population/jobs/worked tile/mineral counts and role/order/movement-third unit protocol"
+  },
+  "repeat": 2,
+  "suite_sha256": "de21f57d450ecdba713df4c7906ef44f00fcc87b3e0c115c05533595d5fbe851",
+  "version": 1
+}

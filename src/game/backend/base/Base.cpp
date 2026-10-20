@@ -439,6 +439,25 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 	WRAPIMPL_LINK( "get_tile", m_tile )
 	WRAPIMPL_CUSTOM_SETTERS
 	{
+		"validate_citizen_reconciliation", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( turn, 1, Int );
+			const auto error = ValidateCitizenReconciliation( GSE_CALL, caller, turn );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} )
+	},
+	{
+		"reconcile_citizens", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( turn, 1, Int );
+			return VALUE( gse::value::Int,, ReconcileCitizens( GSE_CALL, caller, turn ) );
+		} )
+	},
+	{
+		"rollback_citizen_reconciliation", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Int );
+			RollbackCitizenReconciliation( GSE_CALL, receipt ); return VALUE( gse::value::Undefined );
+		} )
+	},
+	{
 		"get_nutrient_factor", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 0 );
 			const auto* state = m_game->GetState();

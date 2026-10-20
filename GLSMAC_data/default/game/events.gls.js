@@ -35,6 +35,7 @@ return (game) => {
 		'process_base_growth',
 		'found_base',
 		'join_base',
+		'reconcile_base_citizens',
 	]) {
 		game.register_event(e, #include('event/' + e));
 	}

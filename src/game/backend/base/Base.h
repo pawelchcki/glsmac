@@ -74,6 +74,9 @@ public:
 	void RemovePop( const size_t pop_id );
 	void ClearWorkedTiles();
 	void ChangePopType( GSE_CALLABLE, const size_t pop_id, const std::string& def_id );
+	std::string ValidateCitizenReconciliation( GSE_CALLABLE, int64_t caller, int64_t turn );
+	int64_t ReconcileCitizens( GSE_CALLABLE, int64_t caller, int64_t turn );
+	void RollbackCitizenReconciliation( GSE_CALLABLE, int64_t receipt );
 
 	const size_t m_id;
 	slot::Slot* m_owner;
@@ -114,6 +117,13 @@ private:
 	};
 	std::unique_ptr< UnitProductionRecord > m_unit_production;
 	int64_t m_next_production_receipt = 0;
+	struct CitizenReconciliationRecord {
+		size_t turn = 0;
+		std::map< size_t, std::string > previous_types;
+		std::string expected_base;
+	};
+	std::map< int64_t, CitizenReconciliationRecord > m_citizen_reconciliations;
+	int64_t m_next_citizen_reconciliation = 0;
 	void ProductionChanged();
 	ProductionResult CompleteUnitProduction( GSE_CALLABLE, const ProductionState& next );
 

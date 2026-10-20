@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 668 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 670 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,291 scenarios and 8,780 assertions** across
-100 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,321 scenarios and 8,900 assertions** across
+102 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -58,6 +58,26 @@ match display-free replay and real browser B/W/Tab. The declared initial city
 has one Doctor and nine stored minerals; this does not establish natural startup
 defaults or population limits. Run browser comparisons with
 `SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:colony-join`.
+
+The `base-citizen-reconciliation` suite adds 26 scenarios/85 assertions for
+owned-base management preparation. Closed-map joining keeps its unassigned
+Worker; opening reconciles it to a Doctor without assigning terrain. The native
+transaction preserves assigned Workers, specialists, citizen identities, variants,
+food/mineral stores and production, and emits frontend updates on apply/undo.
+Production opening waits for its matching acknowledgement; cancellation, changed
+focus, another modal and replacement panels cannot open an obsolete selection.
+Foreign inspection stays read-only. Two separately recorded
+[citizen-opening traces](ui/base-open-citizens-contract.md) match native replay and actual browser controls;
+the full signed nutrient-counter contract remains pending. Run real browser
+controls with `SMAC_ASSETS_DIR=/path/to/game npm --prefix tools/wasm-tests run test:base-open`.
+
+The `base-growth-worker-links` suite adds four native scenarios/31 assertions.
+Growth excludes other base centers and already claimed terrain before ranking
+vacant squares, and retains the Doctor fallback when none are available. This
+fix prevents invalid Worker links from blocking management of nearby bases.
+The 32-turn browser construction scenario checks reciprocal non-base Worker
+links while navigating between two owned cities. These are application
+regressions, separate from the bounded original opening observations.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached
@@ -887,8 +907,10 @@ The browser checks caught a separate frontend refresh defect that cleared
 explicit exhausted-unit focus; the selected unit must now settle along with
 the native order and visible labels before another command is sent.
 See the [bounded order contract](ui/unit-orders-contract.md) and
-[transfer inventory](properties.json) for exclusions. The pending catalog
-is empty after the repeated Sentry activation traces were transferred. An empty queue does not establish full-game parity.
+[transfer inventory](properties.json) for exclusions. The pending catalog retains two independently repeated full base-opening traces.
+Citizen reconciliation now agrees; the signed nutrient-counter observations
+remain a strict failing transfer contract and are excluded from passing totals; see
+[the bounded contract](ui/base-open-recalc-contract.md).
 
 ## Custom-dimension source and control transfer
 

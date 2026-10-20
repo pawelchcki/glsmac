@@ -150,6 +150,9 @@ const mainScript = String.raw`
       #print('SMOKE_JOIN_CITY|' + #to_string(base.id) + '|' + #to_string(base.get_size()) + '|' + #to_string(#sizeof(base.get_worked_tiles())) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(base.get_production().minerals));
     };
     game.on('event_result', (e) => {
+      if (e.name == 'reconcile_base_citizens') {
+        #print('SMOKE_MANAGEMENT_RESULT|' + #to_string(e.data.base_id) + '|' + #to_string(e.success));
+      }
       if (e.name == 'join_base') {
         #print('SMOKE_JOIN_RESULT|' + #to_string(e.data.unit_id) + '|' + #to_string(e.success));
         for (base of game.get_bm().get_bases()) { report_base(base); }
@@ -178,7 +181,16 @@ const mainScript = String.raw`
     game.on('update_base', (e) => { report_production(e.base); });
     game.on('base_select', (e) => {
       #print('SMOKE_BASE|' + #to_string(e.base.id) + '|' + #to_string(e.base.get_owner().id));
+      const issue = e.base.validate_citizen_reconciliation(game.get_player().id, game.get_turn());
+      #print('SMOKE_MANAGEMENT_VALID|' + #to_string(e.base.id) + '|' + #to_string(issue));
+      for (pop of e.base.get_pops()) {
+        if (pop.has('worked_tile')) {
+          const worked = pop.get('worked_tile'); const other = worked.get_base();
+          #print('SMOKE_WORK_LINK|' + #to_string(e.base.id) + '|' + #to_string(pop.id) + '|' + #to_string(worked.x) + '|' + #to_string(worked.y) + '|' + (other == null ? 'none' : #to_string(other.id)) + '|' + #to_string(worked.get('working_pop') == pop));
+        }
+      }
     });
+    game.on('tile_select', (e) => { #print('SMOKE_TILE_SELECTION'); });
     game.on('unit_select', (e) => {
       #print('SMOKE_UNIT|' + #to_string(e.unit.id) + '|' + #to_string(e.unit.owner));
     });
@@ -767,7 +779,8 @@ test('Quick Start loads installed mineral and nutrient rules before configuring 
 
 test('owned bases, turns, movement and facility production use the real browser game', {
   skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
-  timeout: 180000,
+  // Includes 32 real turns and repeated asynchronous base-management round trips.
+  timeout: 300000,
 }, async (t) => {
   const { page, waitForLog, screenshot, probeUnit, waitForBase, closeBase, productionState, baseSquareResources, currentBases } = await startGame(t);
   const recordedBeforeTanks = recordedBaseSquareResources(false);
@@ -784,12 +797,22 @@ test('owned bases, turns, movement and facility production use the real browser 
   }
   assert.ok(terrainPixels > terrain.width * Math.min(500, terrain.height) / 5, 'Actual terrain fills the playfield');
 
+  const assertValidReportedWorkers = async () => {
+    const log = await page.locator('#log').textContent();
+    const links = [...log.matchAll(/SMOKE_WORK_LINK\|(\d+)\|(\d+)\|(-?\d+)\|(-?\d+)\|(none|\d+)\|(true|false)/g)];
+    assert.ok(links.length > 0, 'Actual management reads existing native Worker assignments');
+    assert.ok(links.every(row => row[5] === 'none' && row[6] === 'true'), 'Workers retain reciprocal links to non-base squares');
+  };
   await page.keyboard.press('Enter'); // Open the base under the selected unit.
   await waitForBase(1);
+  await waitForLog('SMOKE_MANAGEMENT_RESULT|1|true');
+  await assertValidReportedWorkers();
   await waitForLog('SMOKE_BASE_OPEN');
   await screenshot('first-base');
   await clickCanvas(page, 744, 602); // Next owned base.
   await waitForBase(2);
+  await waitForLog('SMOKE_MANAGEMENT_RESULT|2|true');
+  await assertValidReportedWorkers();
   await screenshot('next-base');
   await clickCanvas(page, 744, 602); // Wrap to the first owned base.
   await waitForBase(1);
@@ -954,7 +977,7 @@ test('sole Colony Pod joins Headquarters and stale movement input cannot use the
   await screenshot('joined-after-stale-input');
 });
 
-test('joined Headquarters opens its real base screen with an unassigned Worker', {
+test('joined Headquarters opens its real base screen while preserving its assigned Worker', {
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
   const {page, waitForLog, probeUnit, screenshot, closeBase} = await startGame(t, colonyWorldScript, 'join-base-screen');

@@ -190,6 +190,11 @@
       "id": "colony-join-mixed",
       "cases": "cases/colony-join-mixed.json",
       "observations": "observations/smacx-gog-2.0-colony-join-mixed.json"
+    },
+    {
+      "id": "base-open-citizens",
+      "cases": "cases/base-open-citizens.json",
+      "observations": "observations/smacx-gog-2.0-base-open-citizens.json"
     }
   ]
 }
