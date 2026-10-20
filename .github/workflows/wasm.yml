@@ -44,6 +44,7 @@ jobs:
           python3 tools/behavior-tests/audit.py --validate-only --report build/behavior-artifacts/reference-validation.json
           python3 tools/behavior-tests/audit.py --target native --report build/behavior-artifacts/implemented-parity.json
           python3 tools/behavior-tests/ui/run.py --validate-only --report build/behavior-artifacts/ui-evidence-validation.json
+          python3 tools/behavior-tests/ui/run.py --pending --validate-only --report build/behavior-artifacts/pending-ui-evidence-validation.json
       - name: Require recorded original UX parity
         # Match the bounded interpreter concurrency used by the script suites.
         run: python3 tools/behavior-tests/ui/run.py --jobs 2 --report build/behavior-artifacts/ui-parity.json

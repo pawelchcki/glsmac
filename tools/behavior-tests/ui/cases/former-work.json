@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "name": "Original normal Former work and cancellation on flat arid land",
+  "description": "Fresh Gaians/Citizen/standard game on a synthetic 40x80 arid land map. A controlled UNIT1 bonus supplies one normal Former. Scout held; Former moves one east tile and waits for MY2102 before recording. Pause at end enabled, tutorials disabled, research defaults accepted and contact offers declined when interrupted. Terrain replacement and end-turn confirmations are explicitly accepted. Native unit order/work counter/movement-spent and four actual terrain flags are observed. Edited profile changes only four TERRAIN work rates. No graphics, label-timing, complete research, AI, terrain variation, multiple Formers or advanced abilities claim.",
+  "cases": [
+    {
+      "id": "former-road",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "road",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "farm",
+          "advance",
+          "advance",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-road-source",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "road",
+          "advance",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm-source",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "farm",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-mine-source",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "mine",
+          "advance",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-forest-source",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "forest",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm-cancel-resume",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "farm",
+          "advance",
+          "cancel_work",
+          "farm",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-cancel-switch",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "mine",
+          "advance",
+          "cancel_work",
+          "farm",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm-then-forest",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "farm",
+          "advance",
+          "advance",
+          "forest",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm-cancel-same-turn",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "farm",
+          "cancel_work",
+          "farm",
+          "advance",
+          "advance",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-road-repeat",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "road",
+          "road",
+          "advance",
+          "road"
+        ]
+      }
+    }
+  ]
+}

@@ -299,6 +299,23 @@
       "probe": "GLSMAC_data/tests/unit_work_state.gls.js",
       "first_failure": "Unsupported unit order: TERRAFORM",
       "scope": "Production Hold/Activate receipts preserve and restore complete active native work metadata; the 13 recorded Scout traces remain unchanged. Actual Former work commands remain pending."
+    },
+    {
+      "id": "former-work-core",
+      "suite": "former-work-core",
+      "property": "Original Former work progresses, completes terrain improvements, and cancels/resumes with retained native work units; the reproduction has no playable work commands yet.",
+      "status": "recorded-awaiting-transfer",
+      "examples": [
+        "former-mine-source",
+        "former-farm-cancel-resume"
+      ],
+      "verification": {
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 2,
+        "errors": 0
+      },
+      "scope": "One healthy normal Former on flat arid non-base land; native order, movement spent in thirds, work units and road/farm/mine/forest flags. No complete terraforming or UI-label claim."
     }
   ],
   "verification": {

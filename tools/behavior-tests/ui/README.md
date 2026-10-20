@@ -28,6 +28,11 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 
 ## Contracts and boundaries
 
+Two additional [Former work traces](former-work-contract.md) are frozen in the
+pending catalog. They cover edited mine completion and farm cancellation/resume;
+strict replay currently reports both unsupported. They do not increase the
+passing totals below. CI checks their evidence integrity separately.
+
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
 | `game.startup_inventory.v1` / `game.startup_inventory_sources.v1` | 6 | First-base unit names and separate active/queued/lost counts; two default land factions and controlled starting-TECH swaps | Actual Military Command Nexus at MY2101, independently recorded twice |
