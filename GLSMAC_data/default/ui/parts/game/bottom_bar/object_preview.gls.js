@@ -1,5 +1,6 @@
 const colony = #include('../../../../game/colony');
 const work = #include('../../../../game/terraforming');
+const work_dialog = #include('../../../../game/terraforming_dialog');
 
 return {
 
@@ -25,15 +26,41 @@ return {
 		const unit = this.get_order_unit(false);
 		if (unit == null || unit.def != 'Formers') { return null; }
 		const player = this.p.game.get_player();
-		const e = {caller: player.id, data: {unit_id: unit.id, action: action}}; e.game = this.p.game;
+		const e = {caller: player.id, data: {unit_id: unit.id, action: action, replace_existing: true}}; e.game = this.p.game;
 		return #is_defined(work.validate(e)) ? null : unit;
+	},
+
+	queue_work: (unit, action, confirmed) => {
+		this.order_pending = {name: 'unit_terraform', unit_id: unit.id};
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		const data = {unit_id: unit.id, action: action}; if (confirmed) { data.replace_existing = true; }
+		this.p.game.event('unit_terraform', data);
+		return true;
 	},
 
 	submit_work: (action) => {
 		const unit = this.get_work_unit(action); if (unit == null) { return false; }
-		this.order_pending = {name: 'unit_terraform', unit_id: unit.id};
+		if (!work.needs_confirmation(this.p.game, unit, action)) { return this.queue_work(unit, action, false); }
+		const tile = unit.get_tile(); const turn = this.p.game.get_turn();
+		const request = {id: unit.id, tile_x: tile.x, tile_y: tile.y, turn: turn}; request.unit = unit;
+		const document = this.p.glsmac.load_smac_text('xscript.txt', 'dialogs');
+		const rules = this.p.game.get('terraforming_rules');
+		const definition = work_dialog.render(work_dialog.parse(document), rules.farm.name);
+		this.work_request_token = this.work_request_token + 1; const token = this.work_request_token;
+		this.p.modules.popup.set('terraforming_replacement', {definition: definition});
+		this.p.modules.popup.show('terraforming_replacement', (confirmed) => {
+			if (this.work_request_token != token) { return; }
+			this.work_request_token = this.work_request_token + 1;
+			if (confirmed) {
+				const current = this.get_work_unit(action);
+				if (current != null && current == request.unit && this.p.game.get_turn() == request.turn) {
+					const position = current.get_tile();
+					if (position.x == request.tile_x && position.y == request.tile_y && work.needs_confirmation(this.p.game, current, action)) { this.queue_work(current, action, true); }
+				}
+			}
+			this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		});
 		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
-		this.p.game.event('unit_terraform', {unit_id: unit.id, action: action});
 		return true;
 	},
 
@@ -280,6 +307,7 @@ return {
 		this.skip_available = false;
 		this.founding_pending_id = null;
 		this.found_available = false;
+		this.work_request_token = #is_defined(this.work_request_token) ? this.work_request_token + 1 : 0;
 
 		this.p = p;
 		this.um = p.game.get_um();
@@ -302,6 +330,7 @@ return {
 		this.frame = frame_outer.panel({
 			class: 'bottombar-panel-inner',
 		});
+		this.frame.on('remove', (e) => { this.work_request_token = this.work_request_token + 1; });
 
 		p.ui.class('unit-skip-button').set({
 			left: 63,

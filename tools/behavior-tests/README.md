@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 613 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 615 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,138 scenarios and 7,533 assertions** across
-90 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,160 scenarios and 7,584 assertions** across
+91 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -60,22 +60,29 @@ ownership through shutdown. The two asset-backed browser profiles apply four
 declared edits, verify native resource income and unchanged stored food/minerals,
 compare image regions in the map and preview, reject unexpected loading modals,
 and exit the engine. These fixture edits do not simulate Former work.
-The `former-work` and `former-controls` suites add 30 scenarios for source-driven
+The `former-work` and `former-controls` suites contain 44 scenarios for source-driven
 work, cancellation, completion before base income, command rollback, native
 guards, visible controls, authoritative results, labels and shortcuts. The
 first playable scope is one healthy ordinary Former on flat arid non-base land.
 Farm, Mine, Forest and Road buttons and F/M/Shift+F/R send authoritative commands;
-Activate cancels active work. Other terrain, partial moves, improvement replacement,
-switching unfinished tasks and cooperative work remain unsupported. Four independently repeated original
+Activate cancels active work. Retained work transfers between tasks; Mine-to-Farm
+is the recorded cross-action case. Farm-to-Forest replacement requires the
+installed dialog confirmation and keeps the Farm until completion. Other terrain,
+partial moves, other replacements and cooperative work remain unsupported. Six independently repeated original
 work traces now match native display-free replay; see
 [the exact work contract](ui/former-work-contract.md). Additional action/control
 regressions are application tests, not additional original observations.
+The `terraforming-dialog` suite adds eight scenarios for installed MIMIMI
+caption/body/choice consumption, parameterized improvement names, detached
+results and malformed-source rejection. The real replacement flow also checks
+Cancel/Continue delivery; removal, stale callbacks and changed authoritative
+state cannot submit another order.
 
 ```sh
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:former-work
 ```
 
-All four browser work traces use real shortcuts, native event transport and actual
+All six browser work traces use real shortcuts, native event transport and actual
 turn advancement on a declared small arid world, compare every frozen work
 checkpoint, check source order labels, save one final frame and exit the engine.
 
@@ -829,9 +836,9 @@ The browser checks caught a separate frontend refresh defect that cleared
 explicit exhausted-unit focus; the selected unit must now settle along with
 the native order and visible labels before another command is sent.
 See the [bounded order contract](ui/unit-orders-contract.md) and
-[transfer inventory](properties.json) for exclusions. The pending catalog is
-now contains two repeated original Former task-switch/replacement traces. Strict
-replay reports two errors; these remain separate from passing comparisons.
+[transfer inventory](properties.json) for exclusions. The pending catalog
+is empty again after the two repeated Former task-switch/replacement traces
+were transferred. An empty queue does not establish full-game parity.
 
 ## Custom-dimension source and control transfer
 

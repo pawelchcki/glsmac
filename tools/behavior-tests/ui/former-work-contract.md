@@ -1,9 +1,9 @@
 # Bounded Former work transfer
 
-`game.former_work.v1` has **four independently repeated original cases** in
-`catalog.json`: two core cases and two held-out Road/Forest cases recorded after
-the first implementation. All match strict native display-free candidate replay
-and are included in the 613-case catalog. Existing observations are unchanged.
+`game.former_work.v1` has **six independently repeated original cases** in
+`catalog.json`: two core cases, two held-out Road/Forest cases and two
+task-switch/replacement cases. All match strict native display-free candidate
+replay and are included in the 615-case catalog. Existing observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
 40×80 flat arid land map, chooses Gaians/Citizen/standard rules, and adds a
@@ -43,11 +43,16 @@ uses actual native units, tiles and `Game::AdvanceTurn`; only synthetic equivale
 installed inputs, initial placement and explicit turn acknowledgements are fixture
 boundaries. It loads no original assets, evidence answers or original adapter.
 The application also exposes four buttons, F/M/Shift+F/R and Activate cancellation.
-The optional `test:former-work` browser command replays all four frozen checkpoint
+The optional `test:former-work` browser command replays all six frozen checkpoint
 sequences through the actual shortcuts, event transport, turns and terrain
 renderer on a declared synthetic 16×16 arid world. The profiles also verify
 source-based active order labels and clean engine exit. This adds application
 integration coverage, not original UI-label or map-generation observations.
+Farm-to-Forest replacement reads its caption, body and two choices from the
+installed `xscript.txt` MIMIMI block and substitutes the installed Farm name.
+The browser also cancels once before accepting, checking that cancellation has
+no native effect. Dialog geometry/audio/keyboard parity and common-versus-expansion
+text precedence have not been recorded.
 These observations establish no parity for rocky/moist/sea
 terrain, fungus, multiple Formers, advanced abilities, injured workers, other
 factions, AI, research behavior, rendered work labels or the full game.
@@ -56,28 +61,22 @@ factions, AI, research behavior, rendered work labels or the full game.
 # Evidence integrity; does not execute either application.
 python3 tools/behavior-tests/ui/run.py --suite former-work-core --validate-only
 
-# Strict native candidate replay of the four passing original checkpoints.
-python3 tools/behavior-tests/ui/run.py --suite former-work-core --suite former-work-basic
+# Strict native candidate replay of all six original traces.
+python3 tools/behavior-tests/ui/run.py --suite former-work-core --suite former-work-basic --suite former-work-edge
 ```
 
 `generate_former_work.py` declares eleven input sequences in `former-work.json`
 and the two-case recorded subset in `former-work-core.json`. The held-out subset
 is in `former-work-basic.json`. Two additional repeated cases are frozen in
-`former-work-edge.json` and the pending catalog. The other five
+`former-work-edge.json`, now promoted out of the pending catalog. The other five
 sequences have no accepted public observations yet. Recorder shape, synthetic
 input edits, evidence integrity and turn-resumption safety have Python tests.
 Private failed captures and screenshots are not reference evidence.
 
-The pending switch trace cancels a Mine from four to two work units, then
+The switch trace cancels a Mine from four to two work units, then
 immediately completes an edited four-unit Farm with the retained work. The
-pending replacement trace retains its existing Farm while Forest work is active
-and removes it when Forest completes. The candidate rejects both paths; strict
-replay reports **zero matches and two errors**. A per-case callable preserves
-both failures instead of letting the first caught GSE exception end the outer
-probe loop. These records do not establish transferred behavior or UI parity.
-
-```sh
-# Evidence integrity only, followed by the strict red candidate replay.
-python3 tools/behavior-tests/ui/run.py --pending --validate-only
-python3 tools/behavior-tests/ui/run.py --pending
-```
+replacement trace retains its existing Farm while Forest work is active and
+removes it when Forest completes. Both initially reported strict errors. They
+now match production work events and actual browser controls. A per-case callable
+still preserves each failure if a future regression rejects a sequence; one
+caught GSE exception cannot hide the next case.

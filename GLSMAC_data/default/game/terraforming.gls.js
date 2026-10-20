@@ -12,14 +12,12 @@ const eligible = (game, unit, action) => {
 	if (def.id != 'Formers' || !unit.is_land || def.movement_per_turn != 1.0 || unit.health != def.health_max) { return 'Requires a healthy ordinary Former'; }
 	if (!tile.is_land || tile.moisture != 1 || tile.rockiness != 1 || tile.features.xenofungus || tile.get_base() != null) { return 'Work currently supports flat arid non-base land'; }
 	if (tile.is_locked()) { return 'Terraforming tile is locked'; }
-	const cached = unit.get_terraforming();
-	if (cached.work_units > 0 && cached.tile_x == tile.x && cached.tile_y == tile.y && cached.action != action) { return 'Switching unfinished terrain work is not supported yet'; }
 	for (other of tile.get_units()) {
 		if (other.id != unit.id && other.get_terraforming().active) { return 'Multiple Former work is not supported yet'; }
 	}
 	const data = game.get_tm().get_terraforming(tile.x, tile.y);
 	if (data[action]) { return 'Improvement already exists'; }
-	if (data.forest && action != 'road' || action == 'forest' && (data.farm || data.mine || data.solar)) { return 'Improvement replacement requires confirmation'; }
+	if (data.forest && action != 'road' || action == 'forest' && (data.mine || data.solar)) { return 'This improvement replacement is not supported yet'; }
 	const rules = game.get('terraforming_rules'); const rule = rules[action];
 	if (rule.prerequisite == 'Disable') { return 'Terraforming action is disabled'; }
 	if (rule.prerequisite != 'None') {
@@ -32,14 +30,18 @@ const eligible = (game, unit, action) => {
 		if (!owned) { return 'Terraforming prerequisite is not owned'; }
 	}
 };
+const needs_confirmation = (game, unit, action) => {
+	return action == 'forest' && game.get_tm().get_terraforming(unit.get_tile().x, unit.get_tile().y).farm;
+};
 const tick = (game, unit, action) => {
 	const tile = unit.get_tile(); const rules = game.get('terraforming_rules'); const rule = rules[action]; const required = rule.turns * 2;
 	const previous = unit.get_terraforming();
 	let completed = 0;
-	if (previous.action == action && previous.tile_x == tile.x && previous.tile_y == tile.y && previous.required_work == required) { completed = previous.work_units; }
+	if (previous.tile_x == tile.x && previous.tile_y == tile.y) { completed = previous.work_units; }
 	const movement = unit.movement + 0.0; const moved = unit.moved_this_turn == true;
 	if (completed + 2 >= required) {
 		const data = flags(game, tile); data[action] = true;
+		if (action == 'forest') { data.farm = false; }
 		game.get_tm().set_terraforming(tile.x, tile.y, data);
 		unit.set_terraforming(empty());
 	} else {
@@ -50,12 +52,15 @@ const tick = (game, unit, action) => {
 };
 return {
 	flags: flags,
+	needs_confirmation: needs_confirmation,
 	validate: (e) => {
 		const orders = #include('./unit_orders'); const error = orders.validate(e, true);
 		if (#is_defined(error)) { return error; }
 		const unit = orders.resolve(e.game, e.data);
 		if (unit.movement != 1.0) { return 'Work requires a full movement point'; }
-		return eligible(e.game, unit, e.data.action);
+		if (#is_defined(e.data.replace_existing) && #typeof(e.data.replace_existing) != 'Bool') { return 'Replacement confirmation must be boolean'; }
+		const reason = eligible(e.game, unit, e.data.action); if (#is_defined(reason)) { return reason; }
+		if (needs_confirmation(e.game, unit, e.data.action) && (!#is_defined(e.data.replace_existing) || !e.data.replace_existing)) { return 'Improvement replacement requires confirmation'; }
 	},
 	start: tick,
 	cancel: (game, unit) => {

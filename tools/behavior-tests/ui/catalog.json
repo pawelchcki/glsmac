@@ -110,6 +110,11 @@
       "id": "former-work-basic",
       "cases": "cases/former-work-basic.json",
       "observations": "observations/smacx-gog-2.0-former-work-basic.json"
+    },
+    {
+      "id": "former-work-edge",
+      "cases": "cases/former-work-edge.json",
+      "observations": "observations/smacx-gog-2.0-former-work-edge.json"
     }
   ]
 }

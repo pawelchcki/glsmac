@@ -186,6 +186,7 @@ return {
 				return '';
 			},
 		};
+		this.pp.glsmac = p.glsmac;
 		for (s of ['object_preview', 'tile_preview', 'middle_area', 'objects_list', 'mini_map']) {
 			this.pp.sections[s] = #include(s);
 		}

@@ -94,6 +94,8 @@ const display = () => {
 				for (child of node.children) { child.remove(); }
 				for (listener of node.listeners) { listener.object.off(listener.id); }
 				for (timer of node.timers) { timer.stop(); }
+				// Native Object::Destroy notifies its own removal handlers.
+				handlers.emit('remove', {});
 				handlers.clear();
 			}
 		};

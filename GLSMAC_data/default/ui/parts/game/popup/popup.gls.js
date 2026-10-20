@@ -4,6 +4,7 @@ return {
 		'turn_confirmation',
 		'please_dont_go',
 		'base_screen',
+		'terraforming_replacement',
 	],
 
 	no_sliding: false, // disable sliding until more optimizations
@@ -124,12 +125,13 @@ return {
 				popup.hide();
 
 				let body_top = padding;
+				let header_text = null;
 
 				if (title != '') {
 					const header = popup.panel({
 						class: 'game-popup-header',
 					});
-					header.text({
+					header_text = header.text({
 						class: 'game-popup-text',
 						align: 'center',
 						text: title,
@@ -188,8 +190,10 @@ return {
 					el: popup,
 					height: height + header_height + padding,
 				};
+				data.header_text = header_text;
 
 				popup.on('keydown', (e) => {
+					if (#is_defined(data.on_keydown) && data.on_keydown(e)) { return true; }
 					if (e.code == 'ESCAPE') {
 						f_result(false);
 					}

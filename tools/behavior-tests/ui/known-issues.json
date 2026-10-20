@@ -327,19 +327,19 @@
     {
       "id": "former-work-edge",
       "suite": "former-work-edge",
-      "property": "Original retained work transfers from a cancelled Mine to Farm, and accepted Forest replacement removes an existing Farm only on completion. The candidate currently rejects both sequences.",
-      "status": "recorded-awaiting-transfer",
+      "property": "Original retained work transfers from a cancelled Mine to Farm, and accepted Forest replacement removes an existing Farm only on completion; the reproduction initially rejected both.",
+      "status": "fixed-in-recorded-native-and-browser-contract",
       "examples": [
         "former-cancel-switch",
         "former-farm-then-forest"
       ],
       "verification": {
-        "matched": 0,
+        "matched": 2,
         "mismatched": 0,
         "unsupported": 0,
-        "errors": 2
+        "errors": 0
       },
-      "scope": "Two independently repeated original traces using the unchanged healthy normal Former/arid land fixture. Pending errors are excluded from the 613 passing comparisons. Candidate probe catches each case inside its own callable so one rejection cannot hide another case."
+      "scope": "Both repeated healthy normal Former/arid-land traces now match production work events, native state and turns, and actual browser controls. The replacement prompt imports installed MIMIMI caption/body/choices; Cancel preserves native state and Continue gates the command. Stale callbacks, changed turns/movement, despawn and removed panels cannot issue a replacement. Geometry, audio, keyboard parity and script-versus-xscript precedence remain outside the observed contract."
     }
   ],
   "verification": {

@@ -75,10 +75,48 @@ behavior.scenario('duplicate active command cannot grant another work tick or re
 	const f = fixture('normal'); f.command('farm'); reject(f, (e) => {});
 });
 
-behavior.scenario('unobserved task switching preserves retained work instead of discarding it', () => {
-	const f = fixture('normal'); f.command('farm'); f.advance(); f.command('cancel_work');
-	reject(f, (e) => { e.data.action = 'mine'; });
-	f.command('farm'); test.assert(f.former.get_terraforming().work_units == 4);
+behavior.scenario('recorded cancelled Mine work immediately completes the edited Farm in the same turn', () => {
+	const f = fixture('edited'); f.command('mine'); f.advance(); f.command('cancel_work');
+	test.assert(f.former.get_terraforming().work_units == 2 && f.former.movement == 1.0);
+	f.command('farm');
+	test.assert(f.former.get_order() == 'NO_ORDERS' && f.former.get_terraforming().work_units == 0 && f.former.movement == 0.0);
+	test.assert(f.game.tm.get_terraforming(2, 2).farm && !f.game.tm.get_terraforming(2, 2).mine);
+});
+
+behavior.scenario('recorded accepted Forest work retains its Farm until completion', () => {
+	const f = fixture('edited'); f.command('farm'); f.advance(); f.advance();
+	f.command('forest');
+	test.assert(f.former.get_terraforming().work_units == 2 && f.game.tm.get_terraforming(2, 2).farm && !f.game.tm.get_terraforming(2, 2).forest);
+	f.advance();
+	test.assert(f.former.get_order() == 'NO_ORDERS' && !f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).forest);
+});
+
+for (confirmation of [null, false, 1, 'true']) {
+	behavior.scenario('native replacement requires explicit boolean consent ' + #to_string(confirmation), () => {
+		const f = fixture('edited');
+		f.with_write(() => { f.game.tm.set_terraforming(2, 2, {road: false, farm: true, mine: false, forest: false}); });
+		reject(f, (e) => { e.data.action = 'forest'; if (confirmation != null) { e.data.replace_existing = confirmation; } });
+	});
+}
+
+behavior.scenario('cancelling confirmed replacement restores movement and retains the existing Farm', () => {
+	const f = fixture('edited');
+	f.with_write(() => { f.game.tm.set_terraforming(2, 2, {road: true, farm: true, mine: false, forest: false}); });
+	f.command('forest'); f.command('cancel_work');
+	test.assert(f.former.movement == 1.0 && f.former.get_terraforming().work_units == 0 && f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).road);
+	f.command('forest'); f.advance();
+	test.assert(f.game.tm.get_terraforming(2, 2).forest && !f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).road);
+});
+
+behavior.scenario('immediate replacement completion and receipt rollback restore exact native snapshots', () => {
+	const f = fixture('edited'); const rules = f.game.get('terraforming_rules'); const forest = rules.forest; forest.turns = 1;
+	f.with_write(() => { f.game.tm.set_terraforming(2, 2, {road: false, farm: true, mine: false, forest: false}); });
+	const before = f.snapshot(); const terrain = f.terrain_snapshot();
+	const e = f.command('forest');
+	test.assert(f.game.tm.get_terraforming(2, 2).forest && !f.game.tm.get_terraforming(2, 2).farm);
+	const handler = #include('../default/game/event/unit_terraform');
+	f.with_write(() => { handler.rollback(e); });
+	test.assert(f.snapshot() == before && f.terrain_snapshot() == terrain);
 });
 
 behavior.scenario('completion reaches native tile state before the base-turn income callback', () => {

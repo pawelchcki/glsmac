@@ -33,7 +33,8 @@ return (profile) => {
 	});
 	f.command = (action) => {
 		const handler = #include('../default/game/event/' + (action == 'cancel_work' ? 'unit_activate' : 'unit_terraform'));
-		const e = {caller: f.owner.id, data: {unit_id: f.former.id, action: action}}; e.game = f.game;
+		// The original work contract explicitly accepts replacement prompts.
+		const e = {caller: f.owner.id, data: {unit_id: f.former.id, action: action, replace_existing: true}}; e.game = f.game;
 		const error = handler.validate(e); if (#is_defined(error)) { throw Error(error); }
 		f.with_write(() => { e.applied = handler.apply(e); });
 		return e;

@@ -88,7 +88,7 @@ def main():
     write_response({'name': 'glsmac-former-work', 'kind': 'candidate', 'target': 'wasm-gse', 'rendering': False,
                     'assets_required': False, 'runtime_sha256': hashes[runtime.with_suffix('.wasm')], 'scripts_sha256': digest,
                     'executed': ['installed-text parser and production consumers', 'native unit/tile managers', 'production work/activation commands', 'native AdvanceTurn and production work callbacks'],
-                    'mocked': ['synthetic equivalent component/action inputs', 'flat arid native fixture and initial Former placement', 'explicit turn acknowledgements', 'display/audio omitted']},
+                    'mocked': ['synthetic equivalent component/action inputs', 'flat arid native fixture and initial Former placement', 'explicit turn acknowledgements', 'accepted replacement confirmation input', 'display/audio omitted']},
                    [next(rows) if c['algorithm'] == ALGORITHM else {'id': c['id'], 'status': 'unsupported', 'reason': 'unknown Former contract'} for c in cases])
 
 

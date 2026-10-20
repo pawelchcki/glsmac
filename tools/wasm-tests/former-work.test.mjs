@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
+import {appendFileSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {test} from 'node:test';
 import {isDeepStrictEqual} from 'node:util';
@@ -12,7 +12,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const references = ['former-work-core', 'former-work-basic'];
+const references = ['former-work-core', 'former-work-basic', 'former-work-edge'];
 const observations = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
@@ -47,6 +47,18 @@ const main = String.raw`
 #main((glsmac) => {
   #include('game/game')(glsmac); #include('ui/ui')(glsmac);
   const preview = #include('ui/parts/game/bottom_bar/object_preview');
+  let report = null;
+  const replacement = #include('ui/parts/game/popup/terraforming_replacement');
+  const set_replacement = replacement.set;
+  replacement.set = (data) => {
+    const result = set_replacement(data);
+    #print('FW_REPLACEMENT|' + replacement.header.text);
+    if (report != null) { report(); }
+    return result;
+  };
+  const popups = #include('ui/parts/game/popup/popup');
+  const finish_hide = popups.finish_hide;
+  popups.finish_hide = () => { const result = finish_hide(); #print('FW_MODAL_CLOSED'); return result; };
   glsmac.on('configure_game', (e) => {
     const game = e.game; let status = 'none'; let exiting = false; let selected = false;
     game.on('turn_status', (e) => { status = e.status; });
@@ -56,6 +68,20 @@ const main = String.raw`
       const initial = game.get_turn();
       glsmac.ui.on('loader_show', (e) => { if (selected && !exiting) { #print('FW_UNEXPECTED_LOADER'); } });
       game.get_map().on('unit_preview', (e) => { if (e.unit != null && e.unit.def == 'Formers') { #print('FW_SELECTED'); } });
+      report = () => {
+        for (unit of game.get_tm().get_tile(8, 6).get_units()) {
+          if (unit.def == 'Formers') {
+            const state = unit.get_terraforming(); const tile = unit.get_tile();
+            const flags = game.get_tm().get_terraforming(tile.x, tile.y); const order = unit.get_order();
+            #print('FW_STATE|' + #to_string(game.get_turn() - initial) + '|' + (order == 'TERRAFORM' ? state.action : (order == 'HOLD' ? 'hold' : 'none')) + '|' +
+              #to_string(#round((1.0 - unit.movement) * 3.0)) + '|' + #to_string(state.work_units) + '|' +
+              #to_string(flags.road) + '|' + #to_string(flags.farm) + '|' + #to_string(flags.mine) + '|' + #to_string(flags.forest) + '|' + status);
+          }
+        }
+        if (preview.order_label != null) { #print('FW_LABEL|' + preview.order_label.text); }
+        #print('FW_CONTROL|' + (preview.order_pending == null ? 'ready' : 'pending'));
+        #print('FW_DONE');
+      };
       #async(0, () => {
         glsmac.ui.root.on('keydown', (e) => {
           if (e.modifiers != {}) { return false; }
@@ -68,20 +94,7 @@ const main = String.raw`
             return true;
           }
           if (e.code != 'P') { return false; }
-          for (unit of game.get_tm().get_tile(8, 6).get_units()) {
-            if (unit.def == 'Formers') {
-              const state = unit.get_terraforming(); const tile = unit.get_tile();
-              const flags = game.get_tm().get_terraforming(tile.x, tile.y); const order = unit.get_order();
-              #print('FW_STATE|' + #to_string(game.get_turn() - initial) + '|' + (order == 'TERRAFORM' ? state.action : (order == 'HOLD' ? 'hold' : 'none')) + '|' +
-                #to_string(#round((1.0 - unit.movement) * 3.0)) + '|' + #to_string(state.work_units) + '|' +
-                #to_string(flags.road) + '|' + #to_string(flags.farm) + '|' + #to_string(flags.mine) + '|' + #to_string(flags.forest) + '|' + status);
-              const yields = tile.get_resources(game.get_player());
-              #print('FW_YIELD|' + #to_string(yields.NUTRIENTS) + '|' + #to_string(yields.MINERALS) + '|' + #to_string(yields.ENERGY));
-            }
-          }
-          if (preview.order_label != null) { #print('FW_LABEL|' + preview.order_label.text); }
-          #print('FW_CONTROL|' + (preview.order_pending == null ? 'ready' : 'pending'));
-          #print('FW_DONE'); return true;
+          report(); return true;
         });
         #print('FW_READY'); return false;
       });
@@ -106,6 +119,9 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
   mkdirSync(artifacts, {recursive: true});
+  const progress = new URL(`former-work-${input.id}-progress.log`, artifacts);
+  writeFileSync(progress, '');
+  const step = message => appendFileSync(progress, `${Date.now()} ${message}\n`);
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, {recursive: true}).filter(n => n.endsWith('.gls.js')).sort()
     .map(n => [`GLSMAC_data/default/${n}`, readFileSync(`${root}GLSMAC_data/default/${n}`, 'utf8')]));
   t.diagnostic(`Production scripts SHA-256: ${createHash('sha256').update(JSON.stringify(scripts)).digest('hex')}`);
@@ -114,6 +130,7 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   const browser = await chromium.launch({headless: true, executablePath: process.env.WASM_BROWSER_EXECUTABLE || undefined,
     args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
   const page = await browser.newPage({viewport: {width: 1100, height: 1000}}); page.setDefaultTimeout(60000);
+  const press = async key => { step(`key ${key} start`); await page.keyboard.press(key); step(`key ${key} done`); };
   const errors = []; page.on('pageerror', e => errors.push(String(e)));
   page.on('console', m => { if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)|RuntimeError:|worker sent an error!/i.test(m.text())) errors.push(m.text()); });
   t.after(async () => {
@@ -144,12 +161,14 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   const override = await overrideRulesAsset(page, source);
   const fatal = /FW_REJECT|FW_ERROR|FW_UNEXPECTED_LOADER|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
   const wait = async (marker, count = 1) => {
+    step(`wait ${marker} ${count}`);
     try { await page.waitForFunction(({marker, count, fatal}) => new RegExp(fatal).test(document.querySelector('#log').textContent)
       || document.body.dataset.state === 'failed' || document.querySelector('#log').textContent.split(marker).length - 1 >= count,
     {marker, count, fatal: fatal.source}, {polling: 100}); }
     catch (error) { throw new Error(`${await page.locator('#status').textContent()}\n${(await page.locator('#log').textContent()).slice(-7000)}`, {cause: error}); }
     assert.doesNotMatch(await page.locator('#log').textContent(), fatal); assert.deepEqual(errors, []);
     assert.ok((await page.locator('#log').textContent()).split(marker).length - 1 >= count, `Missing ${marker}`);
+    step(`observed ${marker} ${count}`);
   };
   await page.goto(address); await page.waitForFunction(() => document.body.dataset.state === 'ready');
   await page.locator('#custom-maps').setInputFiles({name: 'former-arid.MP', mimeType: 'application/octet-stream', buffer: terrain()});
@@ -166,14 +185,16 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/former-arid.MP', '--quickstart-faction', 'GAIANS']);
   }, {scripts, main, world});
   await page.locator('#start').click(); await wait('FW_READY'); assert.ok(override.reads() > 0);
-  await page.keyboard.press('k'); await wait('FW_SELECTED');
-  const probe = async () => {
-    const count = (await page.locator('#log').textContent()).split('FW_DONE').length - 1;
-    await page.keyboard.press('p'); await wait('FW_DONE', count + 1);
+  await press('k'); await wait('FW_SELECTED');
+  const readState = async () => {
     const log = await page.locator('#log').textContent(); const m = [...log.matchAll(/FW_STATE\|(\d+)\|([^|]+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)\|(true|false)\|(true|false)\|([^\r\n]+)/g)].at(-1);
     const control = [...log.matchAll(/FW_CONTROL\|(ready|pending)/g)].at(-1);
     assert.ok(m && control); return {state: {year_delta: +m[1], order: m[2], movement_spent: +m[3], work_units: +m[4],
       terrain: Object.fromEntries(['road', 'farm', 'mine', 'forest'].map((name, i) => [name, m[i + 5] === 'true']))}, status: m[9], ready: control[1] === 'ready'};
+  };
+  const probe = async () => {
+    const count = (await page.locator('#log').textContent()).split('FW_DONE').length - 1;
+    await press('p'); await wait('FW_DONE', count + 1); return readState();
   };
   const expected = observations.find(o => o.id === input.id).output.trace;
   assert.deepEqual((await probe()).state, expected[0]);
@@ -187,7 +208,21 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
       assert.deepEqual(state.state, expected[index + 1]);
       assert.ok(state.ready, 'The actual control must settle after native turn delivery');
     } else {
-      await page.keyboard.press({farm: 'f', mine: 'm', forest: 'Shift+f', road: 'r', cancel_work: 'a'}[action]);
+      const replacing = action === 'forest' && expected[index].terrain.farm;
+      const key = {farm: 'f', mine: 'm', forest: 'Shift+f', road: 'r', cancel_work: 'a'}[action];
+      const count = async marker => (await page.locator('#log').textContent()).split(marker).length - 1;
+      let prompts = await count('FW_REPLACEMENT'); let closed = await count('FW_MODAL_CLOSED');
+      const reports = await count('FW_DONE');
+      await press(key);
+      if (replacing) {
+        await wait('FW_REPLACEMENT', ++prompts);
+        await wait('FW_DONE', reports + 1);
+        assert.deepEqual((await readState()).state, expected[index], 'Opening the source dialog does not change native work');
+        await press('Enter'); await wait('FW_MODAL_CLOSED', ++closed);
+        assert.deepEqual((await probe()).state, expected[index], 'Default Cancel leaves the existing Farm and native unit untouched');
+        await press(key); await wait('FW_REPLACEMENT', ++prompts);
+        await press('ArrowDown'); await press('Enter'); await wait('FW_MODAL_CLOSED', ++closed);
+      }
       let state; const deadline = Date.now() + 60000;
       do { state = await probe(); if (state.ready && isDeepStrictEqual(state.state, expected[index + 1])) break; await page.waitForTimeout(100); } while (Date.now() < deadline);
       assert.deepEqual(state.state, expected[index + 1]);
@@ -197,9 +232,19 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   const log = await page.locator('#log').textContent();
   const label = {mine: 'Construct Mine', farm: 'Cultivate Farm', forest: 'Plant Forest', road: 'NO ORDERS'}[input.input.actions[0]];
   assert.ok(log.includes(`FW_LABEL|${label}`));
+  if (input.id === 'former-farm-then-forest') {
+    assert.match(log, /FW_REPLACEMENT\|Planetary Ecologist/); assert.match(log, /FW_LABEL\|Plant Forest/);
+  }
   await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`former-work-${input.id}.png`, artifacts))});
-  await page.keyboard.press('k'); await wait('FW_EXITING');
-  // Engine exit stops animation frames; observe the DOM lifecycle on a timer.
-  await page.waitForFunction(() => document.body.dataset.state === 'exited', null, {polling: 100});
+  await press('k'); await wait('FW_EXITING');
+  // Keep lifecycle polling in Node, independent of application timer teardown.
+  const exitDeadline = Date.now() + 60000;
+  let exitState;
+  do {
+    exitState = await page.evaluate(() => document.body.dataset.state);
+    if (exitState === 'exited') break;
+    await new Promise(resolve => setTimeout(resolve, 100));
+  } while (Date.now() < exitDeadline);
+  assert.equal(exitState, 'exited');
   assert.deepEqual(errors, []);
 });

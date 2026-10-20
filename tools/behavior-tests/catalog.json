@@ -6,6 +6,7 @@
     {"id":"unit-work-state","script":"GLSMAC_data/tests/unit_work_state.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"former-work","script":"GLSMAC_data/tests/former_work.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"former-controls","script":"GLSMAC_data/tests/former_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-dialog","script":"GLSMAC_data/tests/terraforming_dialog.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"land-resource-sources","script":"GLSMAC_data/tests/land_resource_sources.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"unit-source-transfer","script":"GLSMAC_data/tests/unit_source_transfer.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"unit-combat-model","script":"GLSMAC_data/tests/unit_combat_model.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},

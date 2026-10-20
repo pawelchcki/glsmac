@@ -59,7 +59,7 @@ class FormerCandidateProtocolTests(unittest.TestCase):
 
 
 class FormerWorkContractTests(unittest.TestCase):
-    def test_pending_switch_and_replacement_evidence_is_frozen_and_repeated(self):
+    def test_switch_and_replacement_evidence_is_frozen_and_repeated(self):
         directory = Path(__file__).parent / 'ui'
         inputs = json.loads((directory / 'cases/former-work-edge.json').read_text())
         evidence = json.loads((directory / 'observations/smacx-gog-2.0-former-work-edge.json').read_text())

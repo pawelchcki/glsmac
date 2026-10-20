@@ -2,6 +2,7 @@ const behavior = #include('./_behavior');
 const native = #include('./_former_work_fixture');
 const mocks = #include('./_ui_mocks');
 const preview = #include('../default/ui/parts/game/bottom_bar/object_preview');
+const replacement_source = '#MIMIMI\n#xs 320\n#wave 5\n#caption Synthetic Ecologist\nReplace ($MINE0) after work completes.\nProceed with this change?\n\nKeep existing.\nProceed.\n#END\n';
 const fixture = () => {
 	const f = native('normal'); f.view = mocks.display(); f.ui_game = mocks.events(); f.map = mocks.events();
 	f.state = {modal: false, queued: []};
@@ -19,6 +20,10 @@ const fixture = () => {
 	const p = {modules: {popup: {is_shown: () => { return f.state.modal; }}}};
 	p.el = f.view.root; p.ui = f.view.ui; p.game = f.ui_game; p.map = f.map;
 	p.get_stats_str = (unit) => { return ''; };
+	p.glsmac = {load_smac_text: (name, kind) => {
+		test.assert(name == 'xscript.txt' && kind == 'dialogs');
+		return test.parse_smac_text(replacement_source, 'dialogs');
+	}};
 	preview.init(p); f.ui_game.select_unit(f.former);
 	f.key = (code, modifiers) => { return preview.frame.emit('keydown', {code: code, modifiers: modifiers}); };
 	f.click = (text) => { return f.view.find('button', 'text', text).emit('click', {}); };
@@ -29,6 +34,15 @@ const fixture = () => {
 		f.with_write(() => { handler.apply(e); });
 		const result = {name: row.name, caller: f.owner.id, success: true}; result.data = row.data;
 		f.ui_game.emit('event_result', result);
+	};
+	f.prepare_replacement = () => {
+		f.with_write(() => { f.game.tm.set_terraforming(2, 2, {road: false, farm: true, mine: false, forest: false}); });
+		const popup = #include('../default/ui/parts/game/popup/popup');
+		popup.available_popups = ['terraforming_replacement']; popup.no_sliding = true;
+		p.ui.get_height = () => { return 768; };
+		p.modules.bottom_bar = {height: 256}; p.modules.menu = {close_all: () => {}};
+		p.modules.popup = popup; popup.init(p); f.popup = popup;
+		f.replacement = #include('../default/ui/parts/game/popup/terraforming_replacement');
 	};
 	return f;
 };
@@ -63,3 +77,54 @@ behavior.scenario('modal windows waiting turns and unrelated modifiers cannot qu
 	test.assert(#sizeof(f.state.queued) == 0 && f.former.movement == 1.0);
 	f.view.root.remove();
 });
+
+behavior.scenario('replacement prompt imports source caption body choices and requires explicit acceptance before queuing work', () => {
+	const f = fixture(); f.prepare_replacement(); f.click('FOREST');
+	test.assert(f.popup.is_shown() && #sizeof(f.state.queued) == 0 && f.former.movement == 1.0);
+	test.assert(f.replacement.header.text == 'Synthetic Ecologist' && f.replacement.texts[0].text == 'Replace (Farm) after work completes.');
+	test.assert(f.replacement.rows[0].text == 'Keep existing.' && f.replacement.rows[1].text == 'Proceed.');
+	f.replacement.rows[1].emit('click', {});
+	test.assert(#sizeof(f.state.queued) == 0 && f.game.tm.get_terraforming(2, 2).farm);
+	f.replacement.ok.emit('click', {});
+	test.assert(!f.popup.is_shown() && #sizeof(f.state.queued) == 1 && f.state.queued[0].data == {unit_id: f.former.id, action: 'forest', replace_existing: true});
+	f.deliver(0);
+	test.assert(f.former.get_order() == 'TERRAFORM' && f.game.tm.get_terraforming(2, 2).farm && preview.order_label.text == 'Plant Forest');
+	f.view.root.remove();
+});
+
+behavior.scenario('default Cancel and repeated old callbacks leave native work and the successor prompt untouched', () => {
+	const f = fixture(); f.prepare_replacement(); const before = f.snapshot(); const terrain = f.terrain_snapshot();
+	f.click('FOREST'); const old_callback = f.popup.popup_cb; const old_ok = f.replacement.ok;
+	old_ok.emit('click', {}); old_callback(true);
+	test.assert(!f.popup.is_shown() && #sizeof(f.state.queued) == 0 && f.snapshot() == before && f.terrain_snapshot() == terrain);
+	f.click('FOREST'); old_ok.emit('click', {}); old_callback(true);
+	test.assert(f.popup.is_shown() && #sizeof(f.state.queued) == 0 && f.replacement.selected == 0);
+	f.replacement.rows[1].emit('click', {}); f.replacement.ok.emit('click', {}); f.replacement.ok.emit('click', {});
+	test.assert(#sizeof(f.state.queued) == 1);
+	f.view.root.remove();
+});
+
+behavior.scenario('replacement window keyboard selects Continue while default Enter cancels', () => {
+	const f = fixture(); f.prepare_replacement(); f.click('FOREST');
+	const window = f.popup.popups.terraforming_replacement.el;
+	window.emit('keydown', {code: 'ENTER', modifiers: {}});
+	test.assert(!f.popup.is_shown() && #sizeof(f.state.queued) == 0);
+	f.click('FOREST'); window.emit('keydown', {code: 'DOWN', modifiers: {}});
+	test.assert(f.replacement.selected == 1 && #sizeof(f.state.queued) == 0);
+	window.emit('keydown', {code: 'ENTER', modifiers: {}});
+	test.assert(!f.popup.is_shown() && #sizeof(f.state.queued) == 1);
+	f.view.root.remove();
+});
+
+for (kind of ['turn', 'movement', 'despawn', 'removed-panel']) {
+	behavior.scenario('replacement confirmation cannot target changed authoritative state after ' + kind, () => {
+		const f = fixture(); f.prepare_replacement(); f.click('FOREST'); const callback = f.popup.popup_cb;
+		if (kind == 'turn') { f.advance(); }
+		if (kind == 'movement') { f.with_write(() => { f.former.movement = 0.5; }); }
+		if (kind == 'despawn') { f.with_write(() => { f.game.um.despawn_unit(f.former.id); }); }
+		if (kind == 'removed-panel') { preview.frame.remove(); }
+		f.replacement.rows[1].emit('click', {}); f.replacement.ok.emit('click', {}); callback(true);
+		test.assert(#sizeof(f.state.queued) == 0 && f.game.tm.get_terraforming(2, 2).farm);
+		f.view.root.remove();
+	});
+}
