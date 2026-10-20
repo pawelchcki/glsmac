@@ -68,6 +68,20 @@ behavior.scenario('native work callables reject incomplete extra and direct acti
 });
 
 let index = 0;
+for (command of ['unit_hold', 'unit_activate']) {
+	behavior.scenario('shipped ' + command + ' rollback restores the complete prior active native work state', () => {
+		const f = test.founding_fixture(); const unit = f.game.um.get_unit(f.unit_id);
+		f.with_write(() => { unit.set_terraforming(state()); }); const before = f.snapshot();
+		const handler = #include('../default/game/event/' + command);
+		const event = {caller: 1, data: {unit_id: f.unit_id}}; event.game = f.game;
+		test.assert(!#is_defined(handler.validate(event)));
+		f.with_write(() => { event.applied = handler.apply(event); });
+		test.assert(!unit.get_terraforming().active);
+		f.with_write(() => { handler.rollback(event); });
+		test.assert(f.snapshot() == before && unit.get_terraforming().active);
+	});
+}
+
 for (invalid of [{key: 'action', value: 'unknown'}, {key: 'work_units', value: (0 - 1)}, {key: 'required_work', value: 2},
 	{key: 'last_turn', value: (0 - 1)}, {key: 'previous_work_units', value: 3}, {key: 'previous_movement', value: (0.0 - 0.1)},
 	{key: 'previous_movement', value: 1}, {key: 'tile_x', value: 1}, {key: 'active', value: 1}, {key: 'last_turn', value: 0},

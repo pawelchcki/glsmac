@@ -26,7 +26,7 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,087 scenarios and 7,433 assertions** across
+The current passing lane contains **1,089 scenarios and 7,439 assertions** across
 87 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
@@ -48,7 +48,8 @@ Normal game configuration imports those declarations; two browser source
 profiles verify the actual configured values. The `unit-work-state` suite
 checks native progress ownership, inactive retained work, write authorization,
 stale methods, frontend order delivery, receiving-world serialization and
-malformed-record rejection. These are application prerequisites, not original
+malformed-record rejection. Hold/Activate rollback restores the complete prior
+work state. These are application prerequisites, not original
 work-time parity. Terraforming commands, automatic work and terrain changes
 remain unimplemented.
 

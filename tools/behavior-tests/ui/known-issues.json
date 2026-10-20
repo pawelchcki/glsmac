@@ -291,6 +291,14 @@
           "scope": "The new initial project waits for the first actual next-turn credit."
         }
       ]
+    },
+    {
+      "id": "native-work-order-receipt",
+      "property": "Hold and Activate rollback reject TERRAFORM instead of restoring the complete previous native work state.",
+      "status": "fixed-in-native-regression",
+      "probe": "GLSMAC_data/tests/unit_work_state.gls.js",
+      "first_failure": "Unsupported unit order: TERRAFORM",
+      "scope": "Production Hold/Activate receipts preserve and restore complete active native work metadata; the 13 recorded Scout traces remain unchanged. Actual Former work commands remain pending."
     }
   ],
   "verification": {
