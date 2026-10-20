@@ -30,6 +30,7 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `ui.faction_setup.v1` | 82 | Seven roster slots, selected/random modes, all14 leader headers, seven editable fields, caps, source profiles and cancel/re-entry; 603 checkpoints | Real original application in Wine/Xvfb; native control reads and isolated-label OCR, recorded twice |
 | `ui.custom_size_kind.v1` | 20 | Untouched Custom dialog, native setup kind, cancel/back and remembered named-size highlight | Real original application in Wine/Xvfb; recorded twice |
 | `ui.menu_trace.v1` | 41 | Captions, ordered choices, selected choice and intermediate screens after clicks, arrows and Escape | Real original application in Wine/Xvfb; recorded twice |
 | `ui.custom_planet.v1` | 215 | Question order, selected defaults, cancel/confirm/wait status, consumed responses and confirmed map parameters | Original x86 custom-planet controller in Unicorn; recorded twice without graphics |
@@ -42,7 +43,7 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 481 recorded cases in total. `generate_navigation.py` generates only
+There are 563 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -269,3 +270,5 @@ browser lane checks warning body consumption, rejection/re-entry/confirmation,
 actual 258×49 terrain, Headquarters and a gameplay turn. Bounds beyond recorded
 inputs, odd named-table rows, external odd-height SMAC map files and original
 terrain/RNG equivalence remain gaps.
+
+The [faction setup contract](faction-setup-contract.md) replays production GSE controls and native source parsing without rendering. The installed `alphax.txt` roster, faction UI headers, common `Script.txt` editor definitions and `labels.txt` labels supply the controls. Two-case process batches bound native fixture memory; a source snapshot and runtime hashes bind all batches. Real SDL typing, native Player identity and world/gameplay handoff are checked separately in the browser. Portraits, Datalinks, opponent AI and faction mechanics remain explicit gaps.

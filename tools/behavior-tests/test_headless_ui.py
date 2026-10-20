@@ -88,13 +88,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources", "custom-size-kind", "large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights", "custom-grid-dimensions"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources", "custom-size-kind", "large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights", "custom-grid-dimensions", "faction-setup", "faction-random-customization"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 481)
+        self.assertEqual(count, 563)
 
     def test_promoted_order_evidence_stays_bound_to_all_original_checkpoints(self):
         reference = next(row for row in audit.load_references(DIRECTORY / "catalog.json") if row['id'] == 'unit-orders')
@@ -105,13 +105,16 @@ class HeadlessContractTests(unittest.TestCase):
         self.assertEqual(sum(len(case["input"]["actions"]) + 1 for case in suite["cases"]), 45)
 
     def test_empty_pending_queue_never_claims_candidate_execution_or_matches(self):
-        path = DIRECTORY / "pending-catalog.json"
-        self.assertEqual(audit.load_references(path, allow_empty=True), [])
-        with self.assertRaises(ProtocolError):
-            audit.load_references(path)
         with tempfile.TemporaryDirectory() as temporary:
-            report = Path(temporary) / "report.json"
+            directory = Path(temporary)
+            path = directory / "pending-catalog.json"
+            path.write_text('{"version": 1, "references": []}')
+            self.assertEqual(audit.load_references(path, allow_empty=True), [])
+            with self.assertRaises(ProtocolError):
+                audit.load_references(path)
+            report = directory / "report.json"
             with patch.object(compare, "run_probe", side_effect=AssertionError("must not run")), \
+                    patch.object(ui_run, "DIRECTORY", directory), \
                     patch("sys.stdout", new=io.StringIO()):
                 self.assertEqual(ui_run.main(["--pending", "--report", str(report)]), 0)
             result = compare.read_json(report)

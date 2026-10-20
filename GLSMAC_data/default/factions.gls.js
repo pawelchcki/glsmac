@@ -17,6 +17,14 @@ const factions = [
 
 return {
 
+	source_catalog: () => {
+		const result = [];
+		for (faction of factions) {
+			result :+ {id: #uppercase(faction[0]), file: faction[1] + '', block: #uppercase(faction[1])};
+		}
+		return result;
+	},
+
 	configure: (fm) => {
 		for (f of factions) {
 			fm.add(#uppercase(f[0]), {

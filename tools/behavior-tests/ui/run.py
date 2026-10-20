@@ -91,6 +91,18 @@ def world_dimensions_command(args):
     return shlex.join(command)
 
 
+def faction_setup_command(args):
+    if args.browser:
+        raise ProtocolError('faction setup uses display-free replay; real browser integration is separate')
+    name = 'faction_setup_original_v2.py' if args.record else 'faction_setup_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout)]
+    else:
+        command += ['--jobs', str(min(args.jobs, 2))]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -186,6 +198,8 @@ def main(argv=None):
                 reference_command = large_map_command(args)
             if reference["id"] == "custom-grid-dimensions":
                 reference_command = world_dimensions_command(args)
+            if reference["id"] in ("faction-setup", "faction-random-customization"):
+                reference_command = faction_setup_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -204,6 +218,8 @@ def main(argv=None):
                 candidate_command = large_map_command(args)
             if command is not None and reference["id"] == "custom-grid-dimensions":
                 candidate_command = world_dimensions_command(args)
+            if command is not None and reference["id"] in ("faction-setup", "faction-random-customization"):
+                candidate_command = faction_setup_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

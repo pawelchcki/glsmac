@@ -1,0 +1,2421 @@
+{
+  "version": 1,
+  "name": "original-faction-roster-and-leader-editors",
+  "description": "Public original setup inputs. Roster ordinal edits open/choose the actual dropdown; editor focus is explicit. Name confirmation and generated-world outcomes are outside this bounded contract.",
+  "cases": [
+    {
+      "id": "faction-initial",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": []
+      }
+    },
+    {
+      "id": "faction-arrows-clamps",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowDown"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-home-end-middle",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "key": "Home"
+          },
+          {
+            "key": "End"
+          },
+          {
+            "key": "ArrowUp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-random-preview-restore",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 2
+          },
+          {
+            "mode": "random"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "mode": "selected"
+          },
+          {
+            "mode": "random"
+          },
+          {
+            "mode": "selected"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-presets-retain-selection",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 4
+          },
+          {
+            "preset": "base"
+          },
+          {
+            "preset": "expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-random-mode-presets",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "mode": "random"
+          },
+          {
+            "preset": "base"
+          },
+          {
+            "preset": "expansion"
+          },
+          {
+            "mode": "selected"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-random-change-name",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "mode": "random"
+          },
+          {
+            "button": "CHANGE NAME"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-return-escape",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-return-cancel",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "button": "CANCEL"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-0-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 0
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-1-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 1
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-2-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 2
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-3-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 3
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-4-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-5-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 5
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-base-6-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-0-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 0
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-1-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 1
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-2-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 2
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-3-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 3
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-4-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-5-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 5
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-expansion-6-editors",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-0",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-1",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-2",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-3",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-4",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-5",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-6",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-7",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 7
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-8",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 8
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-9",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 9
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-10",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-11",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 11
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-12",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 12
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-13",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 13
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-0-14",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 0,
+              "option": 14
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-0",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-1",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-2",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-3",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-4",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-5",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-6",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-7",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 7
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-8",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 8
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-9",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 9
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-10",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-11",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 11
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-12",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 12
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-13",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 13
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-6-14",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 3
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 14
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-roster-mixed",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "roster": {
+              "slot": 0,
+              "option": 0
+            }
+          },
+          {
+            "roster": {
+              "slot": 2,
+              "option": 2
+            }
+          },
+          {
+            "roster": {
+              "slot": 4,
+              "option": 4
+            }
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 6
+            }
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-random-roster-edit",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 2
+          },
+          {
+            "mode": "random"
+          },
+          {
+            "roster": {
+              "slot": 6,
+              "option": 0
+            }
+          },
+          {
+            "mode": "selected"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-customize-cancel",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "Orbiters"
+            }
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "Orbital"
+            }
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "Navigator"
+            }
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "brisk"
+            }
+          },
+          {
+            "edit": {
+              "field": 6,
+              "text": "Male"
+            }
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "CANCEL"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-customize-confirm",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "Orbiters"
+            }
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "Orbital"
+            }
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "Navigator"
+            }
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "brisk"
+            }
+          },
+          {
+            "edit": {
+              "field": 6,
+              "text": "Male"
+            }
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-customize-restore",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 6,
+              "text": "Male"
+            }
+          },
+          {
+            "button": "RESTORE DEFAULTS"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-change-gender-confirm",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "button": "CHANGE GENDER"
+          },
+          {
+            "edit": {
+              "field": 6,
+              "text": "Male"
+            }
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-change-gender-cancel",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "button": "CHANGE GENDER"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-0",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": ""
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-23",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVW"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-24",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWX"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-31",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDE"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-32",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEF"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-length-64",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-name-case-spaces",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "  Nova Pilot  "
+            }
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-0",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 0
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-1",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 1
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-2",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 2
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-3",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 3
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-4",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 4
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-5",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 5
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-custom-field-length-6",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 6,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"
+            }
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "CANCEL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-common",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "common",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "RESTORE DEFAULTS"
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-alien-common",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "common",
+        "actions": [
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-expansion",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "expansion",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "RESTORE DEFAULTS"
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-alien-expansion",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "expansion",
+        "actions": [
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-both",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "both",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "RESTORE DEFAULTS"
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-source-alien-both",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "both",
+        "actions": [
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          },
+          {
+            "key": "Escape"
+          }
+        ]
+      }
+    }
+  ]
+}

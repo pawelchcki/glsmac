@@ -15,7 +15,11 @@ export const alternateWorldRows = [
 // Synthetic source only; the normal asset store verifies its size and hash.
 export function syntheticNutrientRules(value, mineralValue = 10, worldRows = legacyWorldRows) {
   return `#RULES\n31,\n41,\n51,61\n71,\n81,\n${value},\n${mineralValue},\n#END\n`
-    + `#WORLDSIZE\n${worldRows.length}\n${worldRows.map((row) => row.join(',')).join('\n')}\n#END\n`;
+    + `#WORLDSIZE\n${worldRows.length}\n${worldRows.map((row) => row.join(',')).join('\n')}\n#END\n`
+    // The ordinary setup fixture also enters the real faction source consumer.
+    // These are declared catalog inputs; identity headers remain real assets.
+    + '#FACTIONS\nGAIANS,GAIANS\nHIVE,HIVE\nUNIV,UNIV\nMORGAN,MORGAN\nSPARTANS,SPARTANS\nBELIEVE,BELIEVE\nPEACE,PEACE\n'
+    + '#NEWFACTIONS\nCYBORG,CYBORG\nPIRATES,PIRATES\nDRONE,DRONE\nANGELS,ANGELS\nFUNGBOY,FUNGBOY\nCARETAKE,CARETAKE\nUSURPER,USURPER\n#CUSTOMFACTIONS\n#END\n';
 }
 
 export async function overrideRulesAsset(page, source) {

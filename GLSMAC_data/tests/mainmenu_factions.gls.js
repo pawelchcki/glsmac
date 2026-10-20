@@ -1,141 +1,52 @@
-const select_faction = #include('../default/ui/parts/mainmenu/steps/select_faction');
+const behavior = #include('./_behavior');
+const fixture = #include('./_faction_controls_fixture');
 const select_rules = #include('../default/ui/parts/mainmenu/steps/select_rules');
-const faction_definitions = #include('../default/factions');
 
-// Use the shipped faction configuration, without reading original game assets.
-const factions = [];
-faction_definitions.configure({
-	add: (id, definition) => { factions :+ { id: id, name: definition.name }; },
-	import_colors: (filename) => { return {}; },
-	import_base_names: (filename) => { return {}; },
-});
-test.assert(#sizeof(factions) == 14);
-
-const create_menu = () => {
-	const state = {
-		popup: null, choices: null, scroll: null, label: null, select: null,
-		started: [], back: 0, error: '', reject_start: false, notimpl: 0, menu: null,
-	};
-	const i = {
-		glsmac: {
-			game: { get_fm: () => { return { list: () => { return factions; } }; } },
-			start_game: (faction) => {
-				if (state.reject_start) {
-					throw GSEGameError('Faction is no longer available.');
-				}
-				state.started :+ faction;
-			},
-		},
-		popup: {
-			show: (data) => {
-				state.popup = data;
-				data.generator({
-					text: (properties) => {
-						const label = {};
-						label.text = properties.text;
-						state.label = label;
-						return label;
-					},
-					scrollview: (properties) => {
-						state.scroll = properties;
-						return {
-							choicelist: (properties) => {
-								const choices = {};
-								choices.items = properties.items;
-								choices.value = properties.value;
-								choices.on = (event, callback) => {
-									test.assert(event == 'select');
-									state.select = callback;
-								};
-								state.choices = choices;
-								return choices;
-							},
-						};
-					},
-				});
-			},
-			back: () => { state.back = state.back + 1; },
-			error: (text) => { state.error = text; },
-		},
-		sliding: { show: (data) => { state.menu = data; } },
-		steps: {
-			select_faction: select_faction,
-			notimpl: (current) => { state.notimpl = state.notimpl + 1; },
-		},
-	};
-	const result = {};
-	result.i = i;
-	result.state = state;
-	return result;
-};
-
-// Both existing rules choices must stop at faction selection, before launch.
 for (index of [0, 1]) {
-	const menu = create_menu();
-	select_rules(menu.i);
-	const choose_rules = menu.state.menu.entries[index][1];
-	choose_rules();
-	test.assert(menu.state.popup.title == 'Choose your faction');
-	test.assert(#sizeof(menu.state.started) == 0);
+	behavior.scenario('rules action ' + #to_string(index) + ' opens faction setup before any start request', () => {
+		const f = fixture.create(); const state = f.state;
+		f.m.sliding = {show: (data) => { state.rules = data; }};
+		f.m.steps = {select_faction: fixture.show};
+		select_rules(f.m); const choose = state.rules.entries[index][1]; choose();
+		test.assert(#sizeof(f.view.live('window')) == 1 && #sizeof(f.view.live('input')) == 0);
+		test.assert(#sizeof(state.attempts) == 0 && f.m.settings.local.player_name == 'Unconfirmed');
+	});
 }
-
-const random = create_menu();
-select_faction(random.i);
-test.assert(random.state.popup.height == 340);
-test.assert(random.state.scroll.has_hscroll == false);
-test.assert(random.state.scroll.vscroll_class == 'default-scroll-v');
-test.assert(random.state.choices.value == 'RANDOM');
-test.assert(random.state.choices.items[0] == ['RANDOM', 'Random']);
-test.assert(#sizeof(random.state.choices.items) == 15);
-for (let index = 0; index < #sizeof(factions); index++) {
-	test.assert(random.state.choices.items[index + 1] == [factions[index].id, factions[index].name]);
-}
-const start_random = random.state.popup.buttons[0].onclick;
-test.assert(start_random({}));
-test.assert(random.state.started == ['RANDOM']);
-// Repeated clicks during game loading do not create another game.
-test.assert(start_random({}));
-test.assert(random.state.started == ['RANDOM']);
-
-// An explicitly selected expansion faction reaches native start unchanged.
-const chosen = create_menu();
-select_faction(chosen.i);
-chosen.state.choices.value = 'USURPERS';
-const update_selection = chosen.state.select;
-test.assert(update_selection({ value: 'USURPERS' }));
-test.assert(chosen.state.label.text == 'Faction: Usurpers');
-const start_chosen = chosen.state.popup.buttons[0].onclick;
-test.assert(start_chosen({}));
-test.assert(chosen.state.started == ['USURPERS']);
-
-const canceled = create_menu();
-select_faction(canceled.i);
-canceled.state.choices.value = 'GAIANS';
-const cancel = canceled.state.popup.buttons[1].onclick;
-test.assert(cancel({}));
-test.assert(canceled.state.back == 1);
-test.assert(#sizeof(canceled.state.started) == 0);
-
-// Invalid or stale UI values never launch; correcting the choice allows retry.
-const invalid = create_menu();
-select_faction(invalid.i);
-invalid.state.choices.value = 'MISSING';
-const start_invalid = invalid.state.popup.buttons[0].onclick;
-test.assert(start_invalid({}));
-test.assert(invalid.state.error == 'Choose an available faction.');
-test.assert(#sizeof(invalid.state.started) == 0);
-invalid.state.choices.value = 'GAIANS';
-test.assert(start_invalid({}));
-test.assert(invalid.state.started == ['GAIANS']);
-
-// Native validation can also reject a stale faction without trapping the menu.
-const rejected = create_menu();
-select_faction(rejected.i);
-rejected.state.reject_start = true;
-const start_rejected = rejected.state.popup.buttons[0].onclick;
-test.assert(start_rejected({}));
-test.assert(rejected.state.error == 'Faction is no longer available.');
-test.assert(#sizeof(rejected.state.started) == 0);
-rejected.state.reject_start = false;
-test.assert(start_rejected({}));
-test.assert(rejected.state.started == ['RANDOM']);
+behavior.scenario('actual name input normalizes its value before the start boundary and blocks duplicate requests', () => {
+	const f = fixture.create(); fixture.show(f.m);
+	fixture.click(f, 'faction-preset-base', 0); fixture.click(f, 'faction-row', 1);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	test.assert(#sizeof(f.state.attempts) == 0);
+	const field = fixture.name(f, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+	test.assert(field.value == 'ABCDEFGHIJKLMNOPQRSTUVW');
+	field.emit('input', {});
+	test.assert(f.state.attempts == [['HIVE', 'ABCDEFGHIJKLMNOPQRSTUVW']]);
+	f.view.find('button', 'text', 'OK').emit('click', {}); field.emit('input', {});
+	test.assert(f.state.attempts == [['HIVE', 'ABCDEFGHIJKLMNOPQRSTUVW']]);
+});
+behavior.scenario('canceling an edited name releases its input handlers and leaves native settings untouched', () => {
+	const f = fixture.create(); fixture.show(f.m);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	const field = fixture.name(f, '  Unconfirmed Pilot  ');
+	f.view.find('button', 'text', 'Cancel').emit('click', {});
+	test.assert(field.removed && #sizeof(f.view.live('input')) == 0);
+	test.assert(!field.emit('input', {}));
+	test.assert(f.m.settings.local.player_name == 'Unconfirmed' && f.state.attempts == []);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	const restored = f.view.live('input'); test.assert(restored[0].value == 'Aki Zeta-5');
+});
+behavior.scenario('a native faction removed after name entry is rejected before starting', () => {
+	const f = fixture.create(); fixture.show(f.m);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	fixture.name(f, 'Retained Pilot'); f.state.available = [];
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	test.assert(f.state.attempts == [] && f.m.settings.local.player_name == 'Unconfirmed');
+	test.assert(f.view.find('text', 'text', 'Choose an available faction.').text == 'Choose an available faction.');
+});
+behavior.scenario('malformed faction sources fail before allocating a popup or changing settings', () => {
+	const f = fixture.create(); const make = #include('./_faction_text_fixture'); const data = make('default');
+	data.sources['cyborg.txt'] = undefined; f.m.smac_data = data.bundle; let failed = false;
+	try { fixture.show(f.m); } catch { : (e) => { failed = true; } }
+	test.assert(failed && #sizeof(f.view.live('window')) == 0 && #sizeof(f.manager.data_stack) == 0);
+	test.assert(f.m.settings.local.player_name == 'Unconfirmed' && f.state.attempts == []);
+});

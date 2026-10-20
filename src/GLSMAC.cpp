@@ -636,7 +636,9 @@ void GLSMAC::AddSinglePlayerSlot( game::backend::faction::Faction* const faction
 	const auto& rules = m_state->m_settings.global.rules;
 	const auto& difficulty = rules.m_difficulty_levels.GetString( m_state->m_settings.global.difficulty_level );
 	Log( "Single-player setup: faction=" + ( faction ? faction->m_id : "RANDOM" ) + ", difficulty=" + difficulty );
-	m_state->m_settings.local.player_name = "Player";
+	if ( m_state->m_settings.local.player_name.empty() ) {
+		m_state->m_settings.local.player_name = "Player";
+	}
 	NEWV( player, ::game::backend::Player,
 		m_state->m_settings.local.player_name,
 		::game::backend::Player::PR_SINGLE,

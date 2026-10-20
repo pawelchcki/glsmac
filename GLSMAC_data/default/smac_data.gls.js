@@ -187,5 +187,12 @@ return (glsmac) => {
 		if (warning == null) { warning = large_map_warning(common_document()); }
 		return #clone(warning);
 	};
+	let factions = null;
+	bundle.faction_setup = () => {
+		if (factions == null) {
+			factions = #include('./game/faction_setup')(glsmac, bundle.rules, common_document());
+		}
+		return #clone(factions);
+	};
 	return bundle;
 };

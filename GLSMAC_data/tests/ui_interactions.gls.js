@@ -579,7 +579,6 @@ const create_picker = () => {
 	return f;
 };
 const map_picker = #include('../default/ui/parts/mainmenu/steps/select_map_file');
-const faction_picker = #include('../default/ui/parts/mainmenu/steps/select_faction');
 scenario('map picker Escape restores prior menu and preserves map settings', () => {
 	const f = create_picker();
 	map_picker(f.m);
@@ -614,62 +613,46 @@ scenario('empty map inventory shows recoverable error without changing settings'
 	expect(f.view.find('window', 'title', 'Prior menu').is_visible(), 'error returns to prior menu');
 	expect(f.m.settings.global.map.filename == 'previous.MP', 'previous map preserved');
 });
-scenario('faction picker changes label and forwards choice only once', () => {
-	const f = create_picker();
-	faction_picker(f.m);
-	const choices = f.view.live('choicelist');
-	const choice = choices[0];
-	choice.value = 'HIVE';
-	expect(choice.emit('select', { value: 'HIVE' }), 'selection consumed');
-	expect(f.view.find('text', 'text', 'Faction: Hive').text == 'Faction: Hive', 'selected faction named');
-	const start = f.view.find('button', 'text', 'Start');
-	start.emit('click', {});
-	start.emit('click', {});
-	expect(f.state.started == ['HIVE'] && f.state.attempts == 1, 'one native start');
+const faction_controls = #include('./_faction_controls_fixture');
+scenario('faction name prompt forwards the chosen native faction only once', () => {
+	const f = faction_controls.create(); faction_controls.show(f.m);
+	faction_controls.click(f, 'faction-preset-base', 0); faction_controls.click(f, 'faction-row', 1);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	expect(f.state.attempts == [], 'name prompt does not start the game');
+	const fields = f.view.live('input'); expect(fields[0].value == 'Yang', 'selected leader is named');
+	fields[0].emit('input', {}); f.view.find('button', 'text', 'OK').emit('click', {});
+	expect(f.state.attempts == [['HIVE', 'Yang']], 'one native start');
 });
-scenario('faction picker Cancel restores prior menu and releases choice handlers', () => {
-	const f = create_picker();
-	faction_picker(f.m);
-	const choices = f.view.live('choicelist');
-	const choice = choices[0];
-	choice.value = 'GAIANS';
-	const cancel = f.view.find('button', 'text', 'Cancel');
-	expect(cancel.emit('click', {}), 'cancel consumed');
-	expect(choice.is_removed() && !choice.emit('select', { value: 'HIVE' }), 'removed choice cannot update label');
-	expect(f.state.started == [] && f.state.attempts == 0, 'cancel never starts');
+scenario('faction roster Cancel restores prior menu and releases row handlers', () => {
+	const f = faction_controls.create();
+	f.popup.show({title: 'Prior menu', width: 100, height: 100}); faction_controls.show(f.m);
+	const row = f.view.find('button', 'text', 'The Cybernetic Consciousness');
+	expect(f.view.find('button', 'text', 'Cancel').emit('click', {}), 'cancel consumed');
+	expect(row.is_removed() && !row.emit('click', {}), 'removed row cannot change selection');
+	expect(f.state.attempts == [], 'cancel never starts');
 	expect(f.view.find('window', 'title', 'Prior menu').is_visible(), 'prior menu restored');
 });
-scenario('invalid faction selection shows error and permits corrected retry', () => {
-	const f = create_picker();
-	faction_picker(f.m);
-	const choices = f.view.live('choicelist');
-	const invalid = choices[0];
-	invalid.value = 'MISSING';
-	f.view.find('button', 'text', 'Start').emit('click', {});
-	expect(f.state.attempts == 0, 'invalid faction never reaches native start');
+scenario('unavailable native faction permits corrected roster selection', () => {
+	const f = faction_controls.create(); const available = #clone(f.state.available);
+	faction_controls.show(f.m); f.state.available = [];
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	expect(f.state.attempts == [], 'unavailable faction never reaches native start');
 	expect(f.view.find('text', 'text', 'Choose an available faction.').text == 'Choose an available faction.', 'validation reason shown');
+	f.view.find('button', 'text', 'OK').emit('click', {}); f.state.available = available;
+	faction_controls.click(f, 'faction-preset-base', 0); faction_controls.click(f, 'faction-row', 0);
 	f.view.find('button', 'text', 'OK').emit('click', {});
-	const new_choices = f.view.live('choicelist');
-	const corrected = new_choices[0];
-	corrected.value = 'GAIANS';
-	corrected.emit('select', { value: 'GAIANS' });
-	f.view.find('button', 'text', 'Start').emit('click', {});
-	expect(f.state.started == ['GAIANS'], 'corrected retry starts');
+	const fields = f.view.live('input'); fields[0].emit('input', {});
+	expect(f.state.attempts == [['GAIANS', 'Deirdre']], 'corrected selection starts after naming');
 });
-scenario('native faction rejection is recoverable through real error back navigation', () => {
-	const f = create_picker();
-	faction_picker(f.m);
-	f.state.reject = true;
-	f.view.find('button', 'text', 'Start').emit('click', {});
-	expect(f.state.attempts == 1 && f.state.started == [], 'native rejection caught');
-	expect(f.view.find('text', 'text', 'Faction is no longer available.').text == 'Faction is no longer available.', 'native reason shown');
+scenario('native faction rejection preserves an edited name through error back navigation', () => {
+	const f = faction_controls.create(); faction_controls.show(f.m); f.state.reject = true;
+	f.view.find('button', 'text', 'OK').emit('click', {}); faction_controls.name(f, 'Orbit Pilot');
 	f.view.find('button', 'text', 'OK').emit('click', {});
-	f.state.reject = false;
-	const choices = f.view.live('choicelist');
-	const choice = choices[0];
-	choice.value = 'HIVE';
-	f.view.find('button', 'text', 'Start').emit('click', {});
-	expect(f.state.attempts == 2 && f.state.started == ['HIVE'], 'retry uses fresh choice');
+	expect(#sizeof(f.state.attempts) == 1, 'native rejection caught');
+	expect(f.view.find('text', 'text', 'Try again.').text == 'Try again.', 'native reason shown');
+	f.view.find('button', 'text', 'OK').emit('click', {}); f.state.reject = false;
+	const fields = f.view.live('input'); expect(fields[0].value == 'Orbit Pilot', 'edited name retained'); fields[0].emit('input', {});
+	expect(f.state.attempts == [['CONSCIOUSNESS', 'Orbit Pilot'], ['CONSCIOUSNESS', 'Orbit Pilot']], 'retry uses retained choice and name');
 });
 
 expect(cases == 60, 'all interaction scenarios executed');

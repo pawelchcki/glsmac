@@ -1,4 +1,10 @@
 return (ui) => {
+	// Control identities are also used by the display-free interaction adapter.
+	for (name of ['faction-editor-label', 'faction-row', 'faction-row-active', 'faction-role',
+		'faction-preset-base', 'faction-preset-expansion', 'faction-mode-selected',
+		'faction-mode-random', 'faction-mode-active', 'faction-dropdown']) {
+		ui.class(name).set({});
+	}
 
 	ui.class('popup').set({
 		background: 'interface.pcx:crop(86, 353, 109, 376)',

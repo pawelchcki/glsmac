@@ -1,6 +1,7 @@
 return (i) => {
 	i.sliding.show({
 		title: 'Game rules',
+		cancel_scope: 'rules',
 		entries: [
 			['Play with Standard Rules', () => {
 				// TODO: rules

@@ -191,8 +191,14 @@ async function popupScreenshot(page, filename, width, height, errors, graphicsEr
     const png = PNG.sync.read(await page.locator('#canvas').screenshot({
       path: fileURLToPath(new URL(filename, artifacts)),
     }));
-    stableFrames = previous?.equals(png.data) ? stableFrames + 1 : 0;
-    previous = png.data;
+    const stationary = Buffer.from(png.data);
+    // The leader editor's native caret is animated while its popup is still.
+    if (width === 660 && height === 130) for (let y = Math.floor(353 * png.height / 768); y < Math.ceil(380 * png.height / 768); ++y) {
+      stationary.fill(0, (y * png.width + Math.floor(335 * png.width / 1024)) * 4,
+        (y * png.width + Math.ceil(829 * png.width / 1024)) * 4);
+    }
+    stableFrames = previous?.equals(stationary) ? stableFrames + 1 : 0;
+    previous = stationary;
     const left = (1024 - width) / 2;
     const top = (768 - height) / 2;
     const hasBorder = (edge) => {
@@ -218,11 +224,18 @@ async function popupScreenshot(page, filename, width, height, errors, graphicsEr
 }
 
 async function chooseFaction(page, prefix, index, errors, graphicsErrors) {
-  await popupScreenshot(page, `${prefix}-faction.png`, 480, 340, errors, graphicsErrors);
-  // The first row is Random, followed by the configured faction order.
-  // The choice is made through the production SDL/choicelist input path.
-  await clickCanvas(page, 512, 286 + index * 24);
-  await clickCanvas(page, 390, 538); // Start
+  await popupScreenshot(page, `${prefix}-faction.png`, 800, 340, errors, graphicsErrors);
+  if (index === 0) {
+    await clickCanvas(page, 230, 348); // Play Random Faction
+    await clickCanvas(page, 620, 538);
+  } else {
+    const base = index <= 7;
+    await clickCanvas(page, base ? 300 : 700, 263);
+    await clickCanvas(page, 500, 303 + (base ? index - 1 : index - 8) * 27);
+    await clickCanvas(page, 620, 538);
+    await popupScreenshot(page, `${prefix}-leader-name.png`, 660, 130, errors, graphicsErrors);
+    await page.keyboard.press('Enter');
+  }
 }
 
 async function chooseGameAssets(page, address) {
@@ -504,12 +517,13 @@ test('Credits and installed-map selection return to usable menus and start the s
   await menuScreenshot(page, `${prefix}-difficulty.png`);
   await changeMenu(page, 6, 0, `${prefix}-rules.png`); // Citizen
   await clickMenuEntry(page, 3, 1); // Play with Current Rules
-  await popupScreenshot(page, `${prefix}-faction-cancel.png`, 480, 340, errors, graphicsErrors);
+  await popupScreenshot(page, `${prefix}-faction-cancel.png`, 800, 340, errors, graphicsErrors);
   await page.keyboard.press('Escape');
   await menuScreenshot(page, `${prefix}-after-faction-cancel.png`);
   assert.deepEqual(await page.evaluate(() => [...Module.assetStore.loaded]
     .filter((path) => /\.(?:mp|gsm)$/i.test(path) || /(?:^|\/)units\.pcx$/i.test(path))), [],
   'Canceling faction selection did not read the map or prematurely start a game');
+  await changeMenu(page, 6, 0, `${prefix}-rules-reopened.png`); // Faction cancellation returns to difficulty
   await clickMenuEntry(page, 3, 1); // Current Rules, again
   await chooseFaction(page, prefix, 3, errors, graphicsErrors); // UNIVERSITY
   const pixels = await terrainScreenshot(page, `${prefix}-map.png`, menuPixels, errors, graphicsErrors);

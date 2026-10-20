@@ -1,0 +1,653 @@
+{
+  "captured_at": "2026-10-20T01:53:29.591093+00:00",
+  "observations": [
+    {
+      "case_sha256": "8fca2344ab27a6071b565dd9200a7ca008b3cb35e9d344fd2338b03ede04394e",
+      "id": "faction-random-customize-no-preview",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 0,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": true,
+            "screen": "factions",
+            "selected": -1,
+            "values": []
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Male"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Marr"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Manifold Usurpers"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Usurpers"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Usurper"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Conqueror"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "mighty"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Male"
+            ]
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 6,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 6,
+            "values": []
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2805f31059db01e01a1016150947b1ef4c9d3f94a4e85524ddc3d8016da452d7",
+      "id": "faction-random-customize-explicit-preview",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 0,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 2,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": true,
+            "screen": "factions",
+            "selected": -1,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": true,
+            "screen": "factions",
+            "selected": 6,
+            "values": []
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Male"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Marr"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Manifold Usurpers"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Usurpers"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Usurper"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Conqueror"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "mighty"
+            ]
+          },
+          {
+            "buttons": [
+              "RESTORE DEFAULTS",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE YOUR FACTION",
+            "items": [],
+            "labels": [
+              "NAME",
+              "FORMAL",
+              "NOUN",
+              "ADJECTIVE",
+              "TITLE",
+              "DESCRIPTION",
+              "GENDER"
+            ],
+            "random": false,
+            "screen": "customize",
+            "selected": -1,
+            "values": [
+              "Male"
+            ]
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 6,
+            "values": []
+          },
+          {
+            "buttons": [
+              "INFO",
+              "CHANGE NAME",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CHOOSE YOUR FACTIONS",
+            "items": [
+              "The Cybernetic Consciousness|(The Algorithm)",
+              "Nautilus Pirates|(The Buccaneer)",
+              "The Free Drones|(The Laborer)",
+              "The Data Angels|(The Infogrrrrl)",
+              "The Cult of Planet|(The Voice)",
+              "Manifold Caretakers|(The Conservator)",
+              "Manifold Usurpers|(The Insurgent)"
+            ],
+            "labels": [],
+            "random": false,
+            "screen": "factions",
+            "selected": 6,
+            "values": []
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "a26f4da3d14fbd3c356a4e870e65d1ede56aa41cde1957557f13735834a5b8c9",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.faction_setup.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual native roster/edit values; rendered captions/labels/buttons; no code or memory writes",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "5ce341499b97b40d1b7012cab851f73181ba3732ed8ba6cf9e4b17ea4a56b540"
+  },
+  "repeat": 2,
+  "suite_sha256": "a10d41781eae689fa746b4313dba8cab02a06680aeb13cb5683856a9be2ddb64",
+  "version": 1
+}

@@ -115,7 +115,9 @@ void SDL2::Iterate() {
 				break;
 			}
 			case SDL_KEYDOWN: {
-				auto modifiers = SDL_GetModState();
+				// Queued events retain their own modifier snapshot. The current
+				// global state may already reflect a later Shift/Control release.
+				const auto modifiers = static_cast< SDL_Keymod >( event.key.keysym.mod );
 				auto scancode = GetScanCode( event.key.keysym.scancode, modifiers );
 
 				char keycode = GetKeyCode( event.key.keysym.sym, modifiers );
@@ -129,7 +131,7 @@ void SDL2::Iterate() {
 				break;
 			}
 			case SDL_KEYUP: {
-				auto modifiers = SDL_GetModState();
+				const auto modifiers = static_cast< SDL_Keymod >( event.key.keysym.mod );
 				auto scancode = GetScanCode( event.key.keysym.scancode, modifiers );
 				char keycode = GetKeyCode( event.key.keysym.sym, modifiers );
 				if ( scancode || keycode ) {

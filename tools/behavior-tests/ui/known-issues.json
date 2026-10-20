@@ -232,11 +232,27 @@
         }
       ],
       "scope": "Original dimensions are compared; native terrain and graphics lifecycle remain application integration, without original terrain/RNG equivalence."
+    },
+    {
+      "id": "faction-roster-and-leader-editors",
+      "suite": "faction-setup",
+      "catalog": "catalog.json",
+      "status": "fixed-in-recorded-contract-and-browser-regression",
+      "property": "Initial strict candidate replay mismatched all 82 sequences with zero errors or unsupported cases. All 82 now match 603 original checkpoints, including all four source profiles, all14 leader headers, roster edits, modes, caps and cancel/re-entry. The immutable v1 reference is retained; fresh repeated v2 captures resolve six isolated OCR glyph errors without editing earlier answers. Native typing additionally exposed queued modifier sampling and player-name overwrite; browser regressions verify both fixes.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite faction-setup --suite faction-random-customization",
+      "candidate_probes": [
+        {
+          "script": "GLSMAC_data/tests/faction_source.gls.js",
+          "first_failure": "Installed faction setup needs a production source consumer",
+          "status": "fixed-regression",
+          "scope": "Lazy installed roster/header/common-script/label imports, source profiles, detached cache and malformed-input atomicity"
+        }
+      ]
     }
   ],
   "verification": {
-    "cases": 481,
-    "matched": 481,
+    "cases": 563,
+    "matched": 563,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -245,6 +261,8 @@
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
-    "rendered_custom_dimension_integration_matched": 3
+    "rendered_custom_dimension_integration_matched": 3,
+    "rendered_faction_setup_integration_cases": 3,
+    "rendered_faction_setup_integration_matched": 3
   }
 }

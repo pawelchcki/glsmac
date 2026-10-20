@@ -70,6 +70,16 @@
       "id": "custom-grid-dimensions",
       "cases": "cases/custom-grid-dimensions.json",
       "observations": "observations/smacx-gog-2.0-custom-grid-dimensions.json"
+    },
+    {
+      "id": "faction-setup",
+      "cases": "cases/faction-setup.json",
+      "observations": "observations/smacx-gog-2.0-faction-setup-v2.json"
+    },
+    {
+      "id": "faction-random-customization",
+      "cases": "cases/faction-random-customization.json",
+      "observations": "observations/smacx-gog-2.0-faction-random-customization.json"
     }
   ]
 }

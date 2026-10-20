@@ -201,6 +201,7 @@ const normalMain = String.raw`
           const tm = game.get_tm();
           #print('NORMAL_PROBE_BEGIN');
           #print('NORMAL_WORLD|' + #to_string(tm.get_map_width()) + '|' + #to_string(tm.get_map_height()) + '|' + #to_string(owner.id) + '|' + owner.get_faction().id + '|' + #to_string(game.get_turn()));
+          #print('NORMAL_PLAYER|' + owner.name);
           #print('NORMAL_STATUS|' + status);
           #print('NORMAL_SELECTION|' + #to_string(objects.selected_type) + '|' + #to_string(objects.selected_id));
           for (base of game.get_bm().get_bases()) {
@@ -420,6 +421,21 @@ test(profile.name, {
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
     .map((name) => [`GLSMAC_data/default/${name}`, readFileSync(`${root}GLSMAC_data/default/${name}`, 'utf8')]));
+  // Read-only observations of the actual native name field after production
+  // normalization; input delivery and callbacks are unchanged.
+  const factionScript = 'GLSMAC_data/default/ui/parts/mainmenu/steps/select_faction.gls.js';
+  assert.equal(scripts[factionScript].split('name = field.value; return true;').length, 2);
+  scripts[factionScript] = scripts[factionScript]
+    .replace('name = field.value; return true;', "name = field.value; #print('NORMAL_FACTION_NAME|' + field.value); return true;")
+    .replace("field.on('input', submit);", "field.on('input', submit); #print('NORMAL_FACTION_NAME|' + field.value);")
+    .replace('fields[index] = field;', "fields[index] = field; #print('NORMAL_CUSTOM_FIELD|' + #to_string(index) + '|' + field.value);")
+    .replace('values[ordinal] = field.value; return true;', "values[ordinal] = field.value; #print('NORMAL_CUSTOM_FIELD|' + #to_string(ordinal) + '|' + field.value); return true;")
+    .replace("roles[index].text = is_random ? '' : definitions[id].role;",
+      "roles[index].text = is_random ? '' : definitions[id].role; #print('NORMAL_FACTION_ROW|' + #to_string(index) + '|' + row_buttons[index].text);");
+  scripts[factionScript.replace('select_faction', 'faction_production')] = scripts[factionScript];
+  scripts[factionScript] = `const production = #include('./faction_production');
+return (i) => { try { return production(i); }
+catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error.reason); throw error; } } };`;
   if (profile.dimension) {
     const prefix = 'GLSMAC_data/default/ui/parts/mainmenu/steps/';
     scripts[`${prefix}dimension_production.gls.js`] = scripts[`${prefix}customize_mapsize.gls.js`];
@@ -534,20 +550,31 @@ test(profile.name, {
     assert.ok(changed >= 30000, `Real canvas click transitioned to ${next}`);
     if (next !== 'faction') await menuReady(next);
   };
-  const factionReady = async () => {
+  const factionReady = async (width = 800, height = 340, name = 'faction') => {
     let previous;
     let stable = 0;
     let visible = false;
     for (let frame = 0; frame < 60 && (stable < 2 || !visible); ++frame) {
       await healthy();
       const png = PNG.sync.read(await page.locator('#canvas').screenshot());
-      stable = previous?.equals(png.data) ? stable + 1 : 0;
-      previous = png.data;
+      const stationary = Buffer.from(png.data);
+      // The expected native caret repaints every 250 ms. Field telemetry
+      // verifies its content; stability here covers the surrounding popup.
+      if (height === 130) for (let y = Math.floor(353 * png.height / 768); y < Math.ceil(380 * png.height / 768); ++y) {
+        stationary.fill(0, (y * png.width + Math.floor(335 * png.width / 1024)) * 4,
+          (y * png.width + Math.ceil(829 * png.width / 1024)) * 4);
+      }
+      if (height === 290) for (let y = Math.floor(411 * png.height / 768); y < Math.ceil(435 * png.height / 768); ++y) {
+        stationary.fill(0, (y * png.width + Math.floor(335 * png.width / 1024)) * 4,
+          (y * png.width + Math.ceil(829 * png.width / 1024)) * 4);
+      }
+      stable = previous?.equals(stationary) ? stable + 1 : 0;
+      previous = stationary;
       const border = (edge) => {
         for (let dy = -3; dy <= 3; ++dy) {
           let green = 0;
           let count = 0;
-          for (let x = 280; x < 744; x += 2) {
+          for (let x = (1024 - width) / 2 + 8; x < (1024 + width) / 2 - 8; x += 2) {
             const at = (Math.floor((edge + dy) * png.height / 768) * png.width + Math.floor(x * png.width / 1024)) * 4;
             const [r, g, b] = png.data.subarray(at, at + 3);
             if (Math.abs(r - 73) < 5 && Math.abs(g - 108) < 5 && Math.abs(b - 61) < 5) ++green;
@@ -557,11 +584,11 @@ test(profile.name, {
         }
         return false;
       };
-      visible = border(214) && border(553);
+      visible = border((768 - height) / 2) && border((768 + height) / 2 - 1);
       if (stable < 2 || !visible) await page.waitForTimeout(100);
     }
-    assert.ok(stable >= 2 && visible, 'The production faction picker is visible and stationary');
-    await screenshot('faction');
+    assert.ok(stable >= 2 && visible, `The production ${name} popup is visible and stationary`);
+    await screenshot(name);
   };
   const economies = (log) => [...log.matchAll(/NORMAL_ECONOMY\|(\d+)\|(\d+)\|(-?\d+)\|(-?\d+)\|(\d+)\|(\d+)\|([^|\n]*)\|(\d+)\|(\d+)/g)]
     .map((m) => ({ id: +m[1], size: +m[2], food: +m[3], pendingFood: +m[4], factor: +m[5], pendingMinerals: +m[6], choice: m[7], minerals: +m[8], processed: +m[9] }));
@@ -606,7 +633,9 @@ test(profile.name, {
     const world = log.match(/NORMAL_WORLD\|(\d+)\|(\d+)\|(\d+)\|([^|\n]+)\|(\d+)/);
     assert.ok(world, 'Actual generated world state is readable');
     const selection = log.match(/NORMAL_SELECTION\|([^|\n]+)\|([^|\n]+)/);
-    const state = { width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
+    const playerName = log.match(/NORMAL_PLAYER\|([^\r\n]*)/);
+    assert.ok(playerName, 'Actual native player identity is readable');
+    const state = { playerName: playerName[1], width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
       status: log.match(/NORMAL_STATUS\|([^\n\r]+)/)[1],
       selected: selection[1] === 'Unit' ? +selection[2] : null,
       bases: [...log.matchAll(/NORMAL_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)/g)]
@@ -772,16 +801,54 @@ test(profile.name, {
 
   await chooseMenu(6, 0, 'rules'); // Citizen
   await chooseMenu(3, 0, 'faction'); // Play with Standard Rules
-  // The real faction choice list starts at Random.
-  // Wait for its opaque green border, which cannot be the previous menu.
+  const typeNative = async (text) => {
+    for (const char of text) await page.keyboard.press(/[A-Z]/.test(char)
+      ? `Shift+${char.toLowerCase()}` : char === ' ' ? 'Space' : char);
+  };
+  const clearNative = async () => { for (let index = 0; index < 32; ++index) await page.keyboard.press('Backspace'); };
   await factionReady();
-  await clickCanvas(page, 512, 310); // Gaians, the row following Random
-  await clickCanvas(page, 390, 538); // Start
+  if (profile.lifecycle) {
+    await clickCanvas(page, 887, 303); // Actual slot-zero dropdown
+    await factionReady(480, 450, 'roster-options');
+    await clickCanvas(page, 500, 207); // Gaians option
+    await waitLog("NORMAL_FACTION_ROW|0|Gaia's Stepdaughters");
+    await factionReady();
+    await clickCanvas(page, 400, 538); // Change Name opens all seven editors
+    await factionReady(660, 290, 'customize-faction');
+    await waitLog('NORMAL_CUSTOM_FIELD|0|Deirdre');
+    await clickCanvas(page, 600, 307); // Formal name
+    await clearNative(); await typeNative('ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL');
+    const formal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
+    await waitLog(`NORMAL_CUSTOM_FIELD|1|${formal}`, 1, 5000);
+    const fields = [...(await page.locator('#log').textContent()).matchAll(/NORMAL_CUSTOM_FIELD\|1\|([^\r\n]*)/g)];
+    assert.equal(fields.at(-1)[1], formal, 'Actual formal editor retains the original 39-character cap');
+    await clickCanvas(page, 600, 284); await clearNative(); await typeNative('Orion Vale');
+    await waitLog('NORMAL_CUSTOM_FIELD|0|Orion Vale', 1, 5000);
+    await clickCanvas(page, 600, 422); await clearNative(); await typeNative('Male');
+    await waitLog('NORMAL_CUSTOM_FIELD|6|Male', 1, 5000);
+    await clickCanvas(page, 512, 514); // Confirm customization
+    await waitLog(`NORMAL_FACTION_ROW|0|${formal}`, 1, 5000);
+    await factionReady();
+  }
+  await clickCanvas(page, 300, 263); // Original SMAC roster preset
+  await clickCanvas(page, 500, 303); // Actual Gaians row
+  await clickCanvas(page, 620, 538); // OK opens the leader-name prompt
+  await waitLog('NORMAL_FACTION_NAME|' + (profile.lifecycle ? 'Orion Vale' : 'Deirdre'));
+  await factionReady(660, 130, 'leader-name');
+  await clickCanvas(page, 600, 366);
+  await clearNative(); await typeNative('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  await waitLog('NORMAL_FACTION_NAME|ABCDEFGHIJKLMNOPQRSTUVW', 1, 5000);
+  const names = [...(await page.locator('#log').textContent()).matchAll(/NORMAL_FACTION_NAME\|([^\r\n]*)/g)];
+  assert.equal(names.at(-1)[1], 'ABCDEFGHIJKLMNOPQRSTUVW', 'Real SDL typing retains the original 23-character limit');
+  await clearNative(); await typeNative('Nova Pilot');
+  await waitLog('NORMAL_FACTION_NAME|Nova Pilot', 1, 5000);
+  await page.keyboard.press('Enter');
   await waitLog('NORMAL_UI_READY');
   const initial = await waitState((s) => s.selected !== null && s.status === 'active'
     && s.bases.length > 0 && s.growth.every((g) => g.settled), 'Initial owned unit becomes selectable after starting population settles');
   assert.deepEqual([initial.width, initial.height], profile.size, 'The actual size controls generated their dimensions');
-  assert.equal(initial.faction, 'GAIANS', 'The actual faction picker selected Gaians');
+  assert.equal(initial.faction, 'GAIANS', 'The actual faction roster selected Gaians');
+  assert.equal(initial.playerName, 'Nova Pilot', 'The entered leader name reaches the real backend Player');
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];
   assert.ok(headquarters.hq && headquarters.land && headquarters.size === 1 && headquarters.owner === initial.owner);

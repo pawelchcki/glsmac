@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "name": "original-random-faction-customization-target",
+  "description": "Additional input sequences; recorded separately without changing the original 80-case evidence.",
+  "cases": [
+    {
+      "id": "faction-random-customize-no-preview",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "mode": "random"
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "CANCEL"
+          },
+          {
+            "mode": "selected"
+          }
+        ]
+      }
+    },
+    {
+      "id": "faction-random-customize-explicit-preview",
+      "algorithm": "ui.faction_setup.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "slot": 2
+          },
+          {
+            "mode": "random"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "focus": 0
+          },
+          {
+            "focus": 1
+          },
+          {
+            "focus": 2
+          },
+          {
+            "focus": 3
+          },
+          {
+            "focus": 4
+          },
+          {
+            "focus": 5
+          },
+          {
+            "focus": 6
+          },
+          {
+            "button": "CANCEL"
+          },
+          {
+            "mode": "selected"
+          }
+        ]
+      }
+    }
+  ]
+}
