@@ -991,6 +991,7 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 		}
 		case FrontendRequest::FR_TURN_ADVANCE: {
 			m_turn_id = request->data.turn_advance.turn_id;
+			m_um->ResetSelectionCycle();
 			break;
 		}
 		case FrontendRequest::FR_FACTION_DEFINE: {
@@ -1556,8 +1557,9 @@ void Game::Initialize(
 								X( K_PAGEUP, K_KP_RIGHT_UP, D_NE )
 								X( K_PAGEDOWN, K_KP_RIGHT_DOWN, D_SE )
 #undef X
+								case input::K_W:
 								case input::K_TAB: {
-									m_um->SelectNextUnitMaybe();
+									m_um->SelectNextUnitMaybe( true );
 									break;
 								}
 								case input::K_SPACE: {

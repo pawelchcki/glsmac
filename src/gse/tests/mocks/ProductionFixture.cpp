@@ -1,4 +1,6 @@
 #include "ProductionFixture.h"
+#include "game/frontend/unit/SelectionController.h"
+#include "gse/value/Null.h"
 
 #include <memory>
 #include <set>
@@ -73,9 +75,10 @@ struct ProductionFixture : gc::Object {
 	bool stopped = false;
 	int64_t updates = 0;
 	size_t colony_id = 0;
+	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
 
-	ProductionFixture( GSE_CALLABLE, bool defaults = true ) : gc::Object( nullptr ) {
+	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false ) : gc::Object( nullptr ) {
 		game.Start();
 		{
 			// FixtureObject roots the native graph explicitly. Native managers are
@@ -111,7 +114,7 @@ struct ProductionFixture : gc::Object {
 						{ "w", VALUE( value::Int,, 1 ) }, { "h", VALUE( value::Int,, 1 ) },
 					} ) },
 				} );
-				base = new backend::base::Base( &game, 1, owner->GetSlot(), owner->GetFaction(), game.m_map->GetTile( 0, 0 ), "Fixture Base", { { "HEADQUARTERS", game.m_bm->GetFacilityDef( "HEADQUARTERS" ) } }, {} );
+				base = new backend::base::Base( &game, 1, owner->GetSlot(), owner->GetFaction(), game.m_map->GetTile( selection_world ? 2 : 0, selection_world ? 2 : 0 ), "Fixture Base", { { "HEADQUARTERS", game.m_bm->GetFacilityDef( "HEADQUARTERS" ) } }, {} );
 				game.m_bm->m_bases.emplace( base->m_id, base );
 			}
 		}
@@ -1198,12 +1201,43 @@ static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	object->Set( "owner", f->owner->Wrap( GSE_CALL ), GSE_CALL );
 }
 
-Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
+Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 	const auto session = std::make_shared< ProductionSession >();
-	session->current = std::make_shared< ProductionFixture >( GSE_CALL );
+	session->current = std::make_shared< ProductionFixture >( GSE_CALL, true, selection );
+	if ( selection ) { session->current->SetupFounding( GSE_CALL ); }
 	if ( founding ) { session->current->SetupFounding( GSE_CALL ); }
 	auto* object = new FixtureObject( GSE_CALL, session );
 	UpdateWrappers( GSE_CALL, object );
+	if ( selection ) {
+		object->Set( "selection_next", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( wait, 0, Bool );
+			auto& f = *session->current;
+			game::frontend::unit::SelectionController::Candidates candidates;
+			for ( const auto& entry : f.game.GetUM()->GetUnits() ) {
+				auto* unit = entry.second; const auto* tile = unit->GetTile();
+				candidates.push_back( { unit->m_id, unit->m_owner == f.owner->GetSlot() && unit->NeedsOrders(), (int)tile->coord.x, (int)tile->coord.y } );
+			}
+			const auto selected = f.selection.Next( candidates, wait );
+			return selected ? (Value*)VALUE( value::Int,, *selected ) : VALUE( value::Null );
+		} ), GSE_CALL );
+		object->Set( "selected_id", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 0 ); const auto selected = session->current->selection.Selected();
+			return selected ? (Value*)VALUE( value::Int,, *selected ) : VALUE( value::Null );
+		} ), GSE_CALL );
+		object->Set( "is_deferred", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+			return VALUE( value::Bool,, session->current->selection.IsDeferred( id ) );
+		} ), GSE_CALL );
+		object->Set( "selection_focus", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+			if ( !session->current->game.GetUM()->GetUnit( id ) ) { GSE_ERROR( EC.INVALID_CALL, "Unknown selection unit" ); }
+			session->current->selection.Focus( id ); return VALUE( value::Undefined );
+		} ), GSE_CALL );
+		object->Set( "selection_reset", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 0 ); session->current->selection.Reset(); return VALUE( value::Undefined );
+		} ), GSE_CALL );
+	}
+
 	object->Set( "with_write", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GET_CALLABLE( callback, 0 );
 		Value* result = nullptr;
@@ -1399,9 +1433,10 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		} catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
-	object->Set( "reset", NATIVE_CALL( session, object, founding ) {
+	object->Set( "reset", NATIVE_CALL( session, object, founding, selection ) {
 		N_EXPECT_ARGS( 0 );
-		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL );
+		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL, true, selection );
+		if ( selection ) { fresh->SetupFounding( GSE_CALL ); }
 		if ( founding ) { fresh->SetupFounding( GSE_CALL ); }
 		session->current->Retire();
 		session->retired.push_back( session->current );
@@ -1414,7 +1449,7 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		}
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
-	if ( founding ) {
+	if ( founding || selection ) {
 		object->Set( "unit_id", VALUE( value::Int,, session->current->colony_id ), GSE_CALL );
 		object->Set( "tile", session->current->game.GetMap()->GetTile( 2, 2 )->Wrap( GSE_CALL ), GSE_CALL );
 		object->Set( "worker_tile", session->current->game.GetMap()->GetTile( 0, 2 )->Wrap( GSE_CALL ), GSE_CALL );

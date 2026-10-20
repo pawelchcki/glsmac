@@ -26,6 +26,10 @@ batches and advances timers synchronously, with no animation sleeps. This is a
 local measurement, not a timing guarantee. The original custom-map controller
 can also be observed without rendering, using Unicorn to execute its x86 code.
 
+Six [multi-unit selection traces and two wait-state traces](unit-selection-contract.md)
+use the same production C++ controller in display-free replay and the real UI.
+The browser lane drives W/Tab/H/Space and actual turn controls separately.
+
 ## Contracts and boundaries
 
 Eight [Former work traces](former-work-contract.md) and three
@@ -35,11 +39,13 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-622 passing cases. The pending catalog is currently empty. This does not
+630 passing cases. The pending catalog is currently empty. This does not
 establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `game.unit_selection.v1` | 6 | Selected identity, actual orders/movement/positions through W/Tab/Hold/Skip, no-ready units, fresh turn and nearby layout | Real original controls, native identity and visible name agreement; recorded twice |
+| `game.unit_wait_state.v1` | 2 | Twelve-action W/Tab histories and actual deferred flags for all three units | Read-only original vehicle flags; recorded twice |
 | `game.road_network.v1` | 2 | Base/road/forest flags, current terrain, position and movement spent through base entry/exit and forest roads | Actual original controls and turns with read-only native observations; recorded twice |
 | `game.former_road_movement.v1` | 3 | Relative tile position, movement spent, work counter, current-tile flags, cancellation and exhausted resume | Real original road construction, keyboard movement/work and turns with read-only native checkpoints; recorded twice |
 | `game.former_work.v1` | 8 | Work progress/completion, cancellation, retained-work switching and Farm-to-Forest replacement | Actual original commands/turns and recognized confirmations; recorded twice |
@@ -59,7 +65,7 @@ establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 622 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 630 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the

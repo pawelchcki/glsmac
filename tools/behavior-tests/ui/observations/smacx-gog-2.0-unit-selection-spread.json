@@ -1,0 +1,222 @@
+{
+  "captured_at": "2026-10-20T14:54:55.345300+00:00",
+  "observations": [
+    {
+      "case_sha256": "b744985f8bf6ee447a1ac215c87a52c1a3951cbefa603bc072f554dad7a5bba3",
+      "id": "selection-spread-hold-skip",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 1,
+                "y_delta": 1
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": -1,
+                "y_delta": 1
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "8da55dca429e32f528b06cb7529d8443b98a376fa2f0776b83e5f6d2c0de2af6",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.unit_selection.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Gaians/Citizen/standard process; synthetic 40x80 flat arid map; UNIT1 and UNIT0 bonuses; three healthy ordinary units; actual first-base setup; optional real southeast/southwest moves and turn; Scout initially selected; pause at end on, tutorials off",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native Console active-unit mode/identity cross-checked with visible names; all three owned unit positions/orders/movement and actual turn after real keys",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Relative original map coordinate units with normalized horizontal wrap; movement spent in thirds; native turn difference"
+  },
+  "repeat": 2,
+  "suite_sha256": "903e7768e7d6da8a655123ea08b8ddb9c34ed49212675a143c9e61218dcac4c9",
+  "version": 1
+}

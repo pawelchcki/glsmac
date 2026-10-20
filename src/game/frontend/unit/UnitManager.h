@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "common/Common.h"
+#include "SelectionController.h"
 
 #include "game/backend/unit/Types.h"
 
@@ -69,7 +70,8 @@ CLASS( UnitManager, common::Class )
 	void SelectUnit( Unit* unit, const bool actually_select_unit );
 	void DeselectUnit();
 	Unit* GetPreviouslyDeselectedUnit() const;
-	const bool SelectNextUnitMaybe();
+	const bool SelectNextUnitMaybe( bool wait = false );
+	void ResetSelectionCycle();
 	void SelectNextUnitOrSwitchToTileSelection();
 
 	SlotBadges* GetSlotBadges( const size_t slot_index ) const;
@@ -83,6 +85,8 @@ private:
 	sprite::InstancedSpriteManager* m_ism;
 
 	Unit* m_selected_unit = nullptr;
+	SelectionController m_selection;
+	bool m_fresh_turn_selection = false;
 
 	std::unordered_map< std::string, UnitDef* > m_unitdefs = {};
 	std::unordered_map< size_t, Unit* > m_units = {};
@@ -102,7 +106,7 @@ private:
 	void AddSelectable( Unit* unit );
 	void RemoveSelectable( Unit* unit );
 	void UpdateSelectable( Unit* unit );
-	Unit* GetNextSelectable();
+	Unit* GetNextSelectable( bool wait );
 
 };
 

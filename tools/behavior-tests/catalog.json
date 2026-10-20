@@ -95,7 +95,8 @@
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
     {"id":"faction-source","script":"GLSMAC_data/tests/faction_source.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"faction-identity-native","script":"GLSMAC_data/tests/faction_identity_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
-    {"id":"faction-ratings","script":"GLSMAC_data/tests/faction_ratings.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
+    {"id":"faction-ratings","script":"GLSMAC_data/tests/faction_ratings.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"unit-selection-native","script":"GLSMAC_data/tests/unit_selection_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"human-calibrated-zero-witnesses-v2","cases":"cases/human-calibrated-zero-witnesses-v2.json","observations":"observations/smacx-gog-2.0-human-calibrated-zero-witnesses-v2.json"},

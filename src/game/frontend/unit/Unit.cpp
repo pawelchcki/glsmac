@@ -358,7 +358,7 @@ const Unit::render_data_t& Unit::GetRenderData() const {
 }
 
 const bool Unit::ShouldBeActive() const {
-	return m_is_owned && CanMove() && m_order == backend::unit::order_t::NO_ORDERS;
+	return m_is_owned && m_health >= backend::unit::Unit::MINIMUM_HEALTH_TO_KEEP && CanMove() && m_order == backend::unit::order_t::NO_ORDERS;
 }
 
 void Unit::UpdateMeshTex( meshtex_t& meshtex, const sprite::InstancedSprite* sprite ) {

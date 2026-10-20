@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "Original three-unit selection: unit-selection-spread",
+  "description": "Fresh Gaians/Citizen/standard original process on synthetic 40x80 flat arid land; declared UNIT1 and UNIT0 bonuses leave exactly one Scout, Former and Colony Pod after actual first-base construction. Pause-at-end enabled, tutorials disabled. Stacked starts MY2101 on the base, Scout selected, all ready. Spread uses real southeast/southwest moves, Skip and a turn, then starts MY2102 with Scout selected on the base, Former at (+1,+1) and Pod at (-1,+1), all ready. Positions are original coordinate units relative to the base, horizontal differences normalized for the round map. Native active-unit mode/identity, orders, movement spent in thirds and relative positions are observed. No combat, enemies, other orders, arbitrary topology, mouse selection or activation-picker claim.",
+  "cases": [
+    {
+      "id": "selection-spread-hold-skip",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "spread",
+        "actions": [
+          "wait",
+          "hold",
+          "wait",
+          "skip",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

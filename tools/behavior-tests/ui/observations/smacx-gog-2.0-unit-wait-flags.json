@@ -1,0 +1,275 @@
+{
+  "captured_at": "2026-10-20T15:12:24.258077+00:00",
+  "observations": [
+    {
+      "case_sha256": "d92252d2ee2a15cfa2603ffd280d079fce877d919e8023864f26d0ebe79a2626",
+      "id": "selection-wait-state-wait",
+      "output": {
+        "trace": [
+          {
+            "deferred": {
+              "colony": false,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "40fdd1ba4ba79a01ca2e84c613ce27a565920383c8a30757c8ada5907effb09a",
+      "id": "selection-wait-state-tab",
+      "output": {
+        "trace": [
+          {
+            "deferred": {
+              "colony": false,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": false,
+              "former": true,
+              "scout": true
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": false
+            },
+            "selected": "scout",
+            "year_delta": 0
+          },
+          {
+            "deferred": {
+              "colony": true,
+              "former": false,
+              "scout": true
+            },
+            "selected": "former",
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "592499a50eb8c62323143d2fde89a0530989dcc068d53109038b99d1168d8713",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.unit_wait_state.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Same fresh three-unit Gaians/Citizen/standard stacked fixture as unit_selection.v1; all ready, Scout selected, pause at end on, tutorials off",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native Console selection, visible name agreement and actual VEH state bit 0x2 after real W/Tab",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Boolean original vehicle state bit 0x2 per role; native turn difference"
+  },
+  "repeat": 2,
+  "suite_sha256": "93e27f653a688224abfb4a1ef37ada6b6d187bd17d928153cb2927dd5fb0adfc",
+  "version": 1
+}

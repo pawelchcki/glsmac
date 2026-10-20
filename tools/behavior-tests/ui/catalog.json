@@ -130,6 +130,26 @@
       "id": "former-work-edge",
       "cases": "cases/former-work-edge.json",
       "observations": "observations/smacx-gog-2.0-former-work-edge.json"
+    },
+    {
+      "id": "unit-selection-core",
+      "cases": "cases/unit-selection-core.json",
+      "observations": "observations/smacx-gog-2.0-unit-selection-core.json"
+    },
+    {
+      "id": "unit-selection-lifecycle",
+      "cases": "cases/unit-selection-lifecycle.json",
+      "observations": "observations/smacx-gog-2.0-unit-selection-lifecycle.json"
+    },
+    {
+      "id": "unit-selection-spread",
+      "cases": "cases/unit-selection-spread.json",
+      "observations": "observations/smacx-gog-2.0-unit-selection-spread.json"
+    },
+    {
+      "id": "unit-wait-flags",
+      "cases": "cases/unit-wait-flags.json",
+      "observations": "observations/smacx-gog-2.0-unit-wait-flags.json"
     }
   ]
 }

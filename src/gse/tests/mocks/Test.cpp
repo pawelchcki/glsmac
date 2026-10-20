@@ -102,6 +102,12 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			production_roots->value.push_back( fixture );
 			return fixture;
 		} ) },
+		{ "selection_fixture", NATIVE_CALL( production_roots ) {
+			N_EXPECT_ARGS( 0 );
+			auto* fixture = MakeProductionFixture( GSE_CALL, false, true );
+			production_roots->value.push_back( fixture );
+			return fixture;
+		} ) },
 		{ "production_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 0 );
 			auto* fixture = MakeProductionFixture( GSE_CALL );

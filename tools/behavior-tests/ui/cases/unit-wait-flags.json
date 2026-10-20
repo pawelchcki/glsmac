@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "name": "Original repeated unit waiting state",
+  "description": "Same fresh three-unit stacked Gaians/Citizen/standard fixture as game.unit_selection.v1, with declared UNIT1/UNIT0 bonuses and actual first-base setup. Native Console selection is cross-checked with visible unit names; native VEH state bit 0x2 is observed independently for Scout, Former and Colony Pod after every actual W or Tab. These long sequences observe controller history, not movement or other original state bits. No original code or memory is patched; every case starts a new process and the entire capture repeats.",
+  "cases": [
+    {
+      "id": "selection-wait-state-wait",
+      "algorithm": "game.unit_wait_state.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait",
+          "wait"
+        ]
+      }
+    },
+    {
+      "id": "selection-wait-state-tab",
+      "algorithm": "game.unit_wait_state.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

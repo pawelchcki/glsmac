@@ -172,6 +172,18 @@ def road_network_command(args):
     return shlex.join(command)
 
 
+
+def unit_selection_command(args, waiting=False):
+    if args.browser:
+        raise ProtocolError('Unit selection uses native display-free replay; real browser controls are checked separately')
+    name = ('unit_wait_original.py' if waiting else 'unit_selection_original.py') if args.record else 'unit_selection_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout),
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-selection-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -283,6 +295,8 @@ def main(argv=None):
                 reference_command = former_movement_command(args)
             if reference['id'] == 'road-network':
                 reference_command = road_network_command(args)
+            if reference['id'].startswith('unit-selection-') or reference['id'] == 'unit-wait-flags':
+                reference_command = unit_selection_command(args, waiting=reference['id'] == 'unit-wait-flags')
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -317,6 +331,8 @@ def main(argv=None):
                 candidate_command = former_movement_command(args)
             if command is not None and reference['id'] == 'road-network':
                 candidate_command = road_network_command(args)
+            if command is not None and (reference['id'].startswith('unit-selection-') or reference['id'] == 'unit-wait-flags'):
+                candidate_command = unit_selection_command(args, waiting=reference['id'] == 'unit-wait-flags')
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

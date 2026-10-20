@@ -69,7 +69,7 @@ const bool Unit::HasMovesLeft() const {
 }
 
 const bool Unit::NeedsOrders() const {
-	return HasMovesLeft() && m_order == order_t::NO_ORDERS;
+	return m_health >= MINIMUM_HEALTH_TO_KEEP && HasMovesLeft() && m_order == order_t::NO_ORDERS;
 }
 
 order_t Unit::GetOrder() const { return m_order; }

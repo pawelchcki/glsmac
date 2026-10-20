@@ -39,6 +39,11 @@ UnitManager::~UnitManager() {
 }
 
 void UnitManager::Iterate() {
+	if ( m_fresh_turn_selection && m_game->IsTurnActive() ) {
+		m_fresh_turn_selection = false;
+		m_selection.Reset();
+		SelectNextUnitOrSwitchToTileSelection();
+	}
 	if ( m_selected_unit ) {
 		m_selected_unit->Iterate();
 	}
@@ -160,6 +165,7 @@ void UnitManager::DespawnUnit( const size_t unit_id ) {
 
 	auto* unit = it->second;
 	const bool was_selected = m_selected_unit == unit;
+	m_selection.Forget( unit_id );
 	if ( was_selected ) {
 		DeselectUnit();
 	}
@@ -240,6 +246,7 @@ void UnitManager::SelectUnit( Unit* unit, const bool actually_select_unit ) {
 		unit->SetActiveOnTile();
 
 		m_selected_unit = unit;
+		m_selection.Focus( unit->GetId() );
 		m_selected_unit->Show();
 
 		m_game->SetSelectedTile( m_selected_unit->GetTile() );
@@ -289,6 +296,7 @@ void UnitManager::DeselectUnit() {
 		}
 		m_selected_unit = nullptr;
 	}
+	m_selection.Focus( std::nullopt );
 }
 
 Unit* UnitManager::GetPreviouslyDeselectedUnit() const {
@@ -352,77 +360,30 @@ void UnitManager::UpdateSelectable( Unit* unit ) {
 	}
 }
 
-Unit* UnitManager::GetNextSelectable() {
-	if ( !m_selectable_units.empty() ) {
-		if ( !m_selected_unit ) {
-			return m_selectable_units.front();
-		}
-		Unit* selected_unit = nullptr;
-		float selected_distance = 0;
-		// can be optimized, but probably no need
-		for ( const auto& unit : m_selectable_units ) {
-			if ( unit == m_selected_unit ) {
-				continue;
-			}
-			const auto& a = unit->GetTile()->GetCoords();
-			const auto& b = m_selected_unit->GetTile()->GetCoords();
-			float distance = sqrtf( pow( (float)a.x - b.x, 2 ) + pow( (float)a.y - b.y, 2 ) );
-			if ( !selected_unit || distance < selected_distance ) {
-				selected_unit = unit;
-				selected_distance = distance;
-			}
-		}
-		if ( !selected_unit ) {
-			selected_unit = m_selected_unit; // the only unit left
-		}
-		else {
-			auto* tile = selected_unit->GetTile();
-			if ( tile == m_selected_unit->GetTile() ) {
-				const auto tile_units = tile->GetOrderedUnits();
-				ASSERT( !tile_units.empty(), "tile units empty" );
-				bool searching = false;
-				bool found = false;
-				Unit* first_good_candidate = nullptr;
-				for ( size_t i = 0 ; i < tile_units.size() ; i++ ) {
-					if ( tile_units.at( i ) == m_selected_unit ) {
-						searching = true;
-					}
-					else {
-						auto* tile_unit = tile_units.at( i );
-						if ( searching ) {
-							if ( tile_unit->IsActive() ) {
-								selected_unit = tile_unit;
-								found = true;
-								break;
-							}
-						}
-						else if ( !first_good_candidate && tile_unit->IsActive() ) {
-							first_good_candidate = tile_unit;
-						}
-					}
-				}
-				if ( searching && !found ) {
-					selected_unit = first_good_candidate;
-				}
-			}
-		}
-		return selected_unit;
+Unit* UnitManager::GetNextSelectable( bool wait ) {
+	SelectionController::Candidates candidates;
+	for ( const auto& entry : m_units ) {
+		auto* unit = entry.second; const auto& coords = unit->GetTile()->GetCoords();
+		candidates.push_back( { unit->GetId(), unit->IsOwned() && unit->IsActive(), (int)coords.x, (int)coords.y } );
 	}
-	return nullptr;
+	const auto next = m_selection.Next( candidates, wait );
+	return next ? GetUnitById( *next ) : nullptr;
 }
 
-const bool UnitManager::SelectNextUnitMaybe() {
-	if ( !m_game->IsTurnActive() ) {
+void UnitManager::ResetSelectionCycle() { m_selection.Reset(); m_fresh_turn_selection = true; }
+
+const bool UnitManager::SelectNextUnitMaybe( bool wait ) {
+	if ( !m_game->IsTurnActive() || m_fresh_turn_selection ) {
 		return false;
 	}
-	auto* selected_unit = GetNextSelectable();
+	auto* selected_unit = GetNextSelectable( wait );
 	if ( selected_unit ) {
 		SelectUnit( selected_unit, true );
 		m_game->ScrollToTile( m_selected_unit->GetTile(), true );
 		return true;
 	}
 	else {
-		m_selected_unit = nullptr;
+		DeselectUnit();
 		return false;
 	}
 }
