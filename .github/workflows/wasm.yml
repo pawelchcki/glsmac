@@ -38,9 +38,9 @@ jobs:
           cmake --build build/wasm -j4
       - name: Run parallel behavior tests and validate original observations
         run: |
-          # Keep interpreter/GC contention below the per-suite 30-second limit.
+          # Bound interpreter/GC contention; full UI fixtures need headroom on shared runners.
           python3 tools/smac-data/run.py --target native --report build/behavior-artifacts/smac-text-native.json
-          python3 tools/behavior-tests/fast.py --jobs 2 --report build/behavior-artifacts/fast-report.json
+          python3 tools/behavior-tests/fast.py --jobs 2 --timeout 60 --report build/behavior-artifacts/fast-report.json
           python3 tools/behavior-tests/audit.py --validate-only --report build/behavior-artifacts/reference-validation.json
           python3 tools/behavior-tests/audit.py --target native --report build/behavior-artifacts/implemented-parity.json
           python3 tools/behavior-tests/ui/run.py --validate-only --report build/behavior-artifacts/ui-evidence-validation.json
