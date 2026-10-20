@@ -206,6 +206,17 @@ def unit_sentry_command(args):
     return shlex.join(command)
 
 
+def unit_sentry_activation_command(args):
+    if args.browser:
+        raise ProtocolError('Sentry activation uses native display-free replay; real browser controls are checked separately')
+    name = 'unit_sentry_activation_original.py' if args.record else 'unit_sentry_activation_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout),
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-sentry-activation-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -323,6 +334,8 @@ def main(argv=None):
                 reference_command = unit_activation_command(args)
             if reference['id'] == 'unit-sentry':
                 reference_command = unit_sentry_command(args)
+            if reference['id'] == 'unit-sentry-activation':
+                reference_command = unit_sentry_activation_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -363,6 +376,8 @@ def main(argv=None):
                 candidate_command = unit_activation_command(args)
             if command is not None and reference['id'] == 'unit-sentry':
                 candidate_command = unit_sentry_command(args)
+            if command is not None and reference['id'] == 'unit-sentry-activation':
+                candidate_command = unit_sentry_activation_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

@@ -1225,6 +1225,21 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 			N_EXPECT_ARGS( 0 ); const auto selected = session->current->selection.Selected();
 			return selected ? (Value*)VALUE( value::Int,, *selected ) : VALUE( value::Null );
 		} ), GSE_CALL );
+		object->Set( "selection_navigate", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 2 ); N_GET_CALLABLE( select_unit, 0 ); N_GET_CALLABLE( select_tile, 1 );
+			auto& f = *session->current;
+			game::frontend::unit::SelectionController::Candidates candidates;
+			for ( const auto& entry : f.game.GetUM()->GetUnits() ) {
+				auto* unit = entry.second; const auto* tile = unit->GetTile();
+				candidates.push_back( { unit->m_id, unit->m_owner == f.owner->GetSlot() && unit->NeedsOrders(), (int)tile->coord.x, (int)tile->coord.y } );
+			}
+			const auto selected = f.selection.Navigate(
+				std::move( candidates ),
+				[ & ]( size_t id ) { select_unit->Run( GSE_CALL, { VALUE( value::Int,, id ) } ); },
+				[ & ]() { select_tile->Run( GSE_CALL, {} ); }
+			);
+			return VALUE( value::Bool,, selected );
+		} ), GSE_CALL );
 		object->Set( "is_deferred", NATIVE_CALL( session ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
 			return VALUE( value::Bool,, session->current->selection.IsDeferred( id ) );

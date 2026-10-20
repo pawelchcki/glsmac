@@ -492,6 +492,7 @@ private:
 	void ScrollToSelectedTile( const bool center_on_tile );
 	void SelectAnyUnitAtTile( tile::Tile* tile );
 	void SelectUnitOrSelectedTile( unit::Unit* selected_unit );
+	void SelectSelectedTile();
 	unit::Unit* GetSelectedTileMostImportantUnit() const;
 
 	::game::backend::Game* const GetGame() const;

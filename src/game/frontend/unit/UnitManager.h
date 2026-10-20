@@ -71,6 +71,7 @@ CLASS( UnitManager, common::Class )
 	void DeselectUnit();
 	Unit* GetPreviouslyDeselectedUnit() const;
 	const bool SelectNextUnitMaybe( bool wait = false );
+	void WaitForNextUnit();
 	void ResetSelectionCycle();
 	void SelectNextUnitOrSwitchToTileSelection();
 
@@ -107,6 +108,7 @@ private:
 	void RemoveSelectable( Unit* unit );
 	void UpdateSelectable( Unit* unit );
 	Unit* GetNextSelectable( bool wait );
+	SelectionController::Candidates GetSelectionCandidates() const;
 
 };
 

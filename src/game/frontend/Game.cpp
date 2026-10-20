@@ -1559,7 +1559,7 @@ void Game::Initialize(
 #undef X
 								case input::K_W:
 								case input::K_TAB: {
-									m_um->SelectNextUnitMaybe( true );
+									m_um->WaitForNextUnit();
 									break;
 								}
 								case input::K_SPACE: {
@@ -2523,6 +2523,15 @@ void Game::SelectUnitOrSelectedTile( unit::Unit* selected_unit ) {
 			? selected_unit->GetId()
 			: 0
 	);
+}
+
+void Game::SelectSelectedTile() {
+	auto* tile = m_tm->GetSelectedTile();
+	if ( tile ) {
+		m_tile_at_query_purpose = backend::TQP_TILE_SELECT;
+		SelectTileOrUnit( tile );
+	}
+	else { m_um->DeselectUnit(); }
 }
 
 unit::Unit* Game::GetSelectedTileMostImportantUnit() const {

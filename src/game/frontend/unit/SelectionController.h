@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <optional>
 #include <set>
+#include <utility>
 #include <vector>
 
 namespace game::frontend::unit {
@@ -20,6 +21,17 @@ public:
 	bool IsDeferred( size_t id ) const { return deferred.count( id ); }
 	void Reset() { selected.reset(); deferred.clear(); }
 	void Forget( size_t id ) { deferred.erase( id ); if ( selected == id ) { selected.reset(); } }
+	// W/Tab completes both native selection and its UI delivery. Losing an
+	// explicit exhausted focus must publish tile selection; an already idle
+	// controller has no selection change to publish.
+	template< typename SelectUnit, typename SelectTile >
+	bool Navigate( Candidates units, SelectUnit select_unit, SelectTile select_tile ) {
+		const auto previous = selected;
+		const auto next = Next( std::move( units ), true );
+		if ( next ) { select_unit( *next ); return true; }
+		if ( previous ) { select_tile(); }
+		return false;
+	}
 	std::optional< size_t > Next( Candidates units, bool wait = false ) {
 		std::sort( units.begin(), units.end(), []( const auto& a, const auto& b ) { return a.id < b.id; } );
 		for ( auto it = deferred.begin(); it != deferred.end(); ) {

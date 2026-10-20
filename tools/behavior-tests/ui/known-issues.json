@@ -441,11 +441,35 @@
         "errors": 0,
         "rendered_matched": 8
       }
+    },
+    {
+      "id": "exhausted-activation-wait-focus",
+      "suite": "unit-sentry-activation",
+      "example": "sentry-skip-picker-exhausted",
+      "status": "fixed",
+      "lane": "actual-release-browser",
+      "property": "After activating an exhausted Colony Pod in the mixed Sentry/Skip stack, actual W must clear its selection without changing orders or movement. Browser keeps Colony selected; headless manual null notification masks this frontend discrepancy.",
+      "baseline_verification": {
+        "matched": 3,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_scripts_sha256": "9a519d9550256bb009edd872359ac90a806449571cb0ba053dee893fae585268",
+      "baseline_wasm_sha256": "10e8dc4f433d830688b096a2300c577604fc95e5875c19393d3b87733f5aca36",
+      "scope": "Four independently repeated original Sentry activation traces match actual native orders/movement, picker controls and selection, both display-free and through real browser input. The strict exhausted-focus W mismatch is preserved above. Production navigation now publishes tile selection when exhausted focus clears; the headless fixture executes the same notification path. Enemy waking, work cancellation and arbitrary unit counts/layouts remain outside this contract.",
+      "verification": {
+        "matched": 4,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 4
+      }
     }
   ],
   "verification": {
-    "cases": 654,
-    "matched": 654,
+    "cases": 658,
+    "matched": 658,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -466,6 +490,8 @@
     "rendered_former_matched": 13,
     "normal_generated_lifecycle_passed": true,
     "rendered_sentry_cases": 8,
-    "rendered_sentry_matched": 8
+    "rendered_sentry_matched": 8,
+    "rendered_sentry_activation_cases": 4,
+    "rendered_sentry_activation_matched": 4
   }
 }

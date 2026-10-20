@@ -175,6 +175,11 @@
       "id": "unit-sentry",
       "cases": "cases/unit-sentry.json",
       "observations": "observations/smacx-gog-2.0-unit-sentry.json"
+    },
+    {
+      "id": "unit-sentry-activation",
+      "cases": "cases/unit-sentry-activation.json",
+      "observations": "observations/smacx-gog-2.0-unit-sentry-activation.json"
     }
   ]
 }

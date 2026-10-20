@@ -360,14 +360,30 @@ void UnitManager::UpdateSelectable( Unit* unit ) {
 	}
 }
 
-Unit* UnitManager::GetNextSelectable( bool wait ) {
+SelectionController::Candidates UnitManager::GetSelectionCandidates() const {
 	SelectionController::Candidates candidates;
 	for ( const auto& entry : m_units ) {
 		auto* unit = entry.second; const auto& coords = unit->GetTile()->GetCoords();
 		candidates.push_back( { unit->GetId(), unit->IsOwned() && unit->IsActive(), (int)coords.x, (int)coords.y } );
 	}
-	const auto next = m_selection.Next( candidates, wait );
+	return candidates;
+}
+
+Unit* UnitManager::GetNextSelectable( bool wait ) {
+	const auto next = m_selection.Next( GetSelectionCandidates(), wait );
 	return next ? GetUnitById( *next ) : nullptr;
+}
+
+void UnitManager::WaitForNextUnit() {
+	if ( !m_game->IsTurnActive() || m_fresh_turn_selection ) { return; }
+	m_selection.Navigate(
+		GetSelectionCandidates(),
+		[ this ]( size_t id ) {
+			SelectUnit( GetUnitById( id ), true );
+			m_game->ScrollToTile( m_selected_unit->GetTile(), true );
+		},
+		[ this ]() { m_game->SelectSelectedTile(); }
+	);
 }
 
 void UnitManager::ResetSelectionCycle() { m_selection.Reset(); m_fresh_turn_selection = true; }

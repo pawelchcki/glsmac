@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"unit-sentry-activation","script":"GLSMAC_data/tests/unit_sentry_activation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-sentry","script":"GLSMAC_data/tests/unit_sentry.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-activation","script":"GLSMAC_data/tests/unit_activation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"road-network","script":"GLSMAC_data/tests/road_network.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},

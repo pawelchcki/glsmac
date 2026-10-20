@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 654 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 658 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,256 scenarios and 8,330 assertions** across
-98 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,260 scenarios and 8,510 assertions** across
+99 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -42,7 +42,10 @@ controls and popup blocking with a valid selected unit. Eight independently
 repeated [original Sentry traces](ui/unit-sentry-contract.md) also match native
 display-free replay and actual browser controls through one paused turn.
 Enemy-triggered waking, transport boarding and original Sentry work-cancellation
-behavior remain outside those observations.
+behavior remain outside those observations. Four further Sentry activation
+traces compare actual picker confirmation/cancellation and W/Tab focus, including
+activation without refunding spent movement. The native navigation notification
+path is shared by frontend controls and display-free tests.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached
@@ -873,8 +876,7 @@ explicit exhausted-unit focus; the selected unit must now settle along with
 the native order and visible labels before another command is sent.
 See the [bounded order contract](ui/unit-orders-contract.md) and
 [transfer inventory](properties.json) for exclusions. The pending catalog
-is empty again after the two repeated Former task-switch/replacement traces
-were transferred. An empty queue does not establish full-game parity.
+is empty after the repeated Sentry activation traces were transferred. An empty queue does not establish full-game parity.
 
 ## Custom-dimension source and control transfer
 

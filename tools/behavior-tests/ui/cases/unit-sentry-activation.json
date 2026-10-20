@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "sentry-all-picker-cancel",
+      "algorithm": "ui.unit_sentry_activation.v1",
+      "input": {
+        "profile": "stacked",
+        "setup": [
+          "sleep",
+          "sleep",
+          "sleep"
+        ],
+        "actions": [
+          "open",
+          "up",
+          "escape"
+        ]
+      }
+    },
+    {
+      "id": "sentry-all-picker-activate-scout",
+      "algorithm": "ui.unit_sentry_activation.v1",
+      "input": {
+        "profile": "stacked",
+        "setup": [
+          "sleep",
+          "sleep",
+          "sleep"
+        ],
+        "actions": [
+          "open",
+          "down",
+          "enter",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-picker-exhausted",
+      "algorithm": "ui.unit_sentry_activation.v1",
+      "input": {
+        "profile": "stacked",
+        "setup": [
+          "sleep",
+          "skip",
+          "skip"
+        ],
+        "actions": [
+          "open",
+          "enter",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-hold-picker-activate-former",
+      "algorithm": "ui.unit_sentry_activation.v1",
+      "input": {
+        "profile": "stacked",
+        "setup": [
+          "sleep",
+          "hold",
+          "hold"
+        ],
+        "actions": [
+          "open",
+          "down",
+          "down",
+          "enter",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}
