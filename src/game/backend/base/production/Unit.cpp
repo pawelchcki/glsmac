@@ -7,7 +7,7 @@ namespace game::backend::base::production {
 
 Unit::Unit( const std::string& unit_id, int64_t cost, int64_t cost_rows, int64_t population_cost )
 	: Production( PT_UNIT ), unit_id( unit_id ), cost( cost ), cost_rows( cost_rows ), population_cost( population_cost ) {
-	if ( unit_id != "ColonyPod" || cost <= 0 || cost_rows <= 0 || cost_rows > std::numeric_limits< int64_t >::max() / 10 || population_cost != 1 ) { THROW( "invalid colony production recipe" ); }
+	if ( unit_id.empty() || cost <= 0 || cost_rows <= 0 || cost_rows > std::numeric_limits< int64_t >::max() / 10 || population_cost != ( unit_id == "ColonyPod" ? 1 : 0 ) ) { THROW( "invalid land unit production recipe" ); }
 }
 
 int64_t Unit::GetMineralCost( const Game* game, const Player* player ) const {

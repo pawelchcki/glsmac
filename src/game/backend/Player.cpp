@@ -175,14 +175,14 @@ void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse
 		const auto& unit_id = static_cast< gse::value::String* >( id_it->second )->value;
 		const auto* um = GetGame()->GetUM();
 		const auto* def = um ? um->GetUnitDef( unit_id ) : nullptr;
-		if ( !def || unit_id != "ColonyPod" || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { GSE_ERROR( gse::EC.GAME_ERROR, "Only a defined static land Colony Pod is supported" ); }
+		if ( !def || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production requires a defined static land unit" ); }
 		const auto integer = [ & ]( const std::string& key ) {
 			const auto it = data.find( key );
 			if ( it == data.end() || it->second->type != gse::VT_INT ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production needs integer " + key ); }
 			return static_cast< gse::value::Int* >( it->second )->value;
 		};
 		const auto cost = integer( "cost" ); const auto rows = integer( "cost_rows" ); const auto population = integer( "population_cost" );
-		if ( cost <= 0 || rows <= 0 || rows > std::numeric_limits< int64_t >::max() / 10 || population != 1 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Invalid colony production recipe" ); }
+		if ( cost <= 0 || rows <= 0 || rows > std::numeric_limits< int64_t >::max() / 10 || population != ( unit_id == "ColonyPod" ? 1 : 0 ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Invalid land unit production recipe" ); }
 		production = new base::production::Unit( unit_id, cost, rows, population );
 	}
 	else if ( type == "custom" ) {

@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **984 scenarios and 6,898 assertions** across
-79 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **994 scenarios and 6,924 assertions** across
+80 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -99,8 +99,13 @@ minerals for Tiny, 36 for Small, and 40 for Standard/Large/Huge under the modele
 human rule10/INDUSTRY0 setting. Explicit Custom kind 99 uses 40 minerals. Unknown dimensions and imported maps retain its
 explicit 32-mineral fallback. Its base-square resource bonus is checked separately
 against original observations.
-A bounded land Colony Pod project is described below. Other unit construction,
-queues and hurrying remain absent. Bounded active switching is described below.
+A bounded land Colony Pod project is described below. The native construction path also accepts defined static land units with no
+population charge; ordinary shipped choices still offer only Colony Pods. The
+`land-unit-production` suite checks size-one Scout/Former construction on
+synthetic declarations, worker preservation, rollback, actual codecs and guarded
+non-land rejection. These are application prerequisites for the two strict red
+[first-base inventory cases](ui/startup-inventory-contract.md), not new original
+construction observations. Queues and hurrying remain absent. Bounded active switching is described below.
 
 `facility-cost-native` and `facility-cost-completion-native` check that actual
 Player descriptors and Base completion share the same effective cost. Declared

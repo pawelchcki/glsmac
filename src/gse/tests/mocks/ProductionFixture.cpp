@@ -629,7 +629,11 @@ struct ProductionFixture : gc::Object {
 		try { auto bytes = backend::unit::Def::Serialize( game.m_um->GetUnitDef( "ColonyPod" ) ); std::unique_ptr< backend::unit::Def > staged( backend::unit::Def::Deserialize( bytes, receiving->game.m_um ) ); }
 		catch ( ... ) { rejected_morale = true; }
 		receiving->game.m_um->m_unit_moralesets.insert( std::move( missing_morale ) );
-		auto missing = receiving->game.m_um->m_unit_defs.extract( "ColonyPod" );
+		// Exercise the actual queued unit, including non-colony land recipes.
+		const auto* active_choice = owner->GetProductionChoice( base->m_production.choice_id );
+		const auto active_unit = active_choice && active_choice->GetType() == backend::base::production::Production::PT_UNIT
+			? static_cast< const backend::base::production::Unit* >( active_choice )->unit_id : "ColonyPod";
+		auto missing = receiving->game.m_um->m_unit_defs.extract( active_unit );
 		bool rejected = false;
 		try { auto bytes = backend::base::Base::Serialize( base ); std::unique_ptr< backend::base::Base > staged( backend::base::Base::Deserialize( GSE_CALL, bytes, &receiving->game, false ) ); }
 		catch ( ... ) { rejected = true; }

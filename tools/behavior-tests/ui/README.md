@@ -241,9 +241,12 @@ commands and turn effects are executed by production code. Optional synthetic-wo
 browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
-The [pending catalog](pending-catalog.json) is currently empty after promotion.
-`--pending` remains a strict replay of future recorded gaps; an empty queue reports
-no execution and no matches. It does not establish complete game parity. The
+The [pending catalog](pending-catalog.json) contains two strict red
+[startup inventory cases](startup-inventory-contract.md). They compare actual
+native units/projects against independently repeated original first-base reports,
+and currently mismatch both cases with zero unsupported results or runner errors.
+`--pending` exits unsuccessfully while these discrepancies remain; these cases are
+excluded from the passing totals. They do not establish complete game parity. The
 successful original recorder normalized indexed screenshots to RGB before OCR;
 prior observer/setup failures remain local research artifacts.
 

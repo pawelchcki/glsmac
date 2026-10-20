@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "name": "original-first-base-unit-inventory",
+  "description": "Tiny/Citizen/standard Gaian and Consciousness first-base unit reports at MY2101; no orders or turn advance. Active and queued units are distinct. First visible page only.",
+  "cases": [
+    {"id": "inventory-gaians", "algorithm": "game.startup_inventory.v1", "input": {"preset": "base", "slot": 0}},
+    {"id": "inventory-consciousness", "algorithm": "game.startup_inventory.v1", "input": {"preset": "expansion", "slot": 0}}
+  ]
+}

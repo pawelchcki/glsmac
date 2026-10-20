@@ -131,9 +131,9 @@ int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_i
 	if ( SameProduction( previous_def, previous_recipe, def, recipe ) ) { return 0; }
 	const auto role = m_owner->GetPlayer()->GetRole();
 	const auto supported_item = []( const FacilityDef* facility, const production::Unit* unit ) {
-		return ( facility && facility->m_id == "RECYCLING_TANKS" ) || ( unit && unit->unit_id == "ColonyPod" );
+		return ( facility && facility->m_id == "RECYCLING_TANKS" ) || unit;
 	};
-	// This application models only these declared basic items and human rules.
+	// This application models declared basic land units, Tanks and human rules.
 	// Installed Headquarters is ordinary application state, not new original
 	// evidence. Other categories and Skunkworks require separate contracts.
 	if ( ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) ||

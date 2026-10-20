@@ -248,6 +248,33 @@
           "scope": "Lazy installed roster/header/common-script/label imports, source profiles, detached cache and malformed-input atomicity"
         }
       ]
+    },
+    {
+      "id": "first-base-conventional-inventory",
+      "suite": "startup-inventory",
+      "catalog": "pending-catalog.json",
+      "status": "strict-red-recorded-contract",
+      "examples": [
+        "inventory-gaians",
+        "inventory-consciousness"
+      ],
+      "property": "Two independently repeated original first-base reports require one active Scout Patrol and one queued Former (Gaians) or Colony Pod (Consciousness). Initial native startup replay mismatches both: active Mind Worms plus free Colony Pod, no queued unit. Zero unsupported cases or runner errors.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite startup-inventory",
+      "first_replay": {
+        "matched": 0,
+        "mismatched": 2,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "First visible unit report at MY2101 only; conventional definitions/construction and faction/technology handoff remain missing. Not a combat/morale/governor parity claim.",
+      "candidate_probes": [
+        {
+          "script": "GLSMAC_data/tests/land_unit_production.gls.js",
+          "status": "fixed-application-prerequisite",
+          "first_failure": "Only a defined static land Colony Pod is supported",
+          "scope": "Ten native synthetic-recipe scenarios cover zero-charge static land-unit construction, preservation of citizens/worker links, codec replay, rollback and non-land rejection. Does not fix the recorded startup mismatch."
+        }
+      ]
     }
   ],
   "verification": {

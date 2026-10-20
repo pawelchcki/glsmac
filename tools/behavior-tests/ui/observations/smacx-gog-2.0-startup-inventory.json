@@ -1,0 +1,63 @@
+{
+  "captured_at": "2026-10-20T05:22:48.229196+00:00",
+  "observations": [
+    {
+      "case_sha256": "d12040a47250839970d807be04dee2f17a6bf277abb1c998adcbf2ad766743a9",
+      "id": "inventory-gaians",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "FORMERS",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "dc5ada8b9c2ed5212aef1fad1e2892e899e3511c01a1388841edeb756e99906e",
+      "id": "inventory-consciousness",
+      "output": {
+        "units": [
+          {
+            "active": 0,
+            "lost": 0,
+            "name": "COLONY POD",
+            "production": 1
+          },
+          {
+            "active": 1,
+            "lost": 0,
+            "name": "SCOUT PATROL",
+            "production": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "50bbe0028edc49301d638aa7d15e9bbaca32772a764638c8c564c87d693ace5e",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.startup_inventory.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Tiny/Citizen/standard; selected Gaian or Consciousness; first base founded; default research accepted; no turns advanced",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual first-page Military Command Nexus names and active/production/lost counts at MY2101",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "b73ef5dc1e52265a8ce805289708b5449be7a3e53a862b1bbdec6e204f1b4726",
+  "version": 1
+}

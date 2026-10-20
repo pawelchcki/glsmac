@@ -101,9 +101,13 @@
         "Orders and cancellation beyond the bounded starting Scout",
         "Transport and stacking",
         "Terraforming",
-        "Founding bases"
+        "Founding bases",
+        "Conventional starting Scout, faction/technology-selected initial project and no free extra Pod (two recorded inventory cases currently mismatch)"
       ],
-      "coverage": "13 starting-Scout traces match recorded visible order/movement effects, two paused advances and base-modal behavior; native control/codec/lifetime invariants are separate application coverage."
+      "coverage": "13 starting-Scout traces match recorded visible order/movement effects, two paused advances and base-modal behavior; native control/codec/lifetime invariants are separate application coverage. Two independently repeated first-base inventory cases are strict red in ui/pending-catalog.json (0 matched, 2 mismatched, 0 unsupported/errors); they are excluded from passing parity totals.",
+      "pending_contracts": [
+        "game.startup_inventory.v1"
+      ]
     },
     {
       "id": "combat",
@@ -187,7 +191,11 @@
     {
       "id": "social-engineering",
       "status": "partial",
-      "contracts": ["game.faction_social_ratings.v1", "economy.human_nutrient_factor.v2", "economy.human_mineral_factor.v2"],
+      "contracts": [
+        "game.faction_social_ratings.v1",
+        "economy.human_nutrient_factor.v2",
+        "economy.human_mineral_factor.v2"
+      ],
       "remaining": [
         "Policy availability",
         "Costs",

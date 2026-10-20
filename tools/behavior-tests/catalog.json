@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"land-unit-production","script":"GLSMAC_data/tests/land_unit_production.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"large-map-source","script":"GLSMAC_data/tests/large_map_source.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"large-map-controls","script":"GLSMAC_data/tests/large_map_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"odd-map-grid","script":"GLSMAC_data/tests/odd_map_grid.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
