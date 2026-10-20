@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "Original base resource and energy-allocation display",
+  "description": "Visible resource intake/consumption/net/status and allocation percentage/energy/bonus/total through actual first and repeated base openings. No income turn or allocation editing.",
+  "cases": [
+    {
+      "id": "resource-hud-control-open-reopen",
+      "algorithm": "ui.base_resource_hud.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "wait"
+        ],
+        "actions": [
+          "open",
+          "close",
+          "open",
+          "close"
+        ]
+      }
+    },
+    {
+      "id": "resource-hud-join-open-reopen",
+      "algorithm": "ui.base_resource_hud.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "open",
+          "close",
+          "open",
+          "close"
+        ]
+      }
+    }
+  ]
+}

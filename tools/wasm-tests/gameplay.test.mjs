@@ -1122,7 +1122,7 @@ test('resource-map clicks reassign a real worker through Doctor and preserve the
     for (let i = 0; i < 3; ++i) {
       const surplus = state.intake[i] - state.consumption[i];
       assert.equal(state.labels[i * 2], `${pad(state.intake[i])} - ${pad(state.consumption[i])}`);
-      assert.equal(state.labels[i * 2 + 1], `${surplus > 0 ? '+' : surplus < 0 ? '-' : ''}${pad(Math.abs(surplus))}`);
+      assert.equal(state.labels[i * 2 + 1], `= ${surplus >= 0 ? '+' : '-'}${pad(Math.abs(surplus))}`);
     }
   };
   const assertLinks = (state, citizen, target) => {

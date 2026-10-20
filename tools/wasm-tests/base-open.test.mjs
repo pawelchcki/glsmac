@@ -14,11 +14,16 @@ const scriptsRoot = process.env.WASM_SCRIPTS_ROOT || root;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 // The raw-counter contract remains a strict pending probe, separate from citizens.
 const mode = process.env.BASE_OPEN_CONTRACT || 'citizens';
-assert.ok(['citizens', 'raw'].includes(mode), 'BASE_OPEN_CONTRACT must be citizens or raw');
-const references = [mode === 'raw' ? 'base-open-recalc' : 'base-open-citizens'];
+const artifactPrefix = mode === 'hud' ? 'base-hud' : 'base-open';
+assert.ok(['citizens', 'raw', 'hud'].includes(mode), 'BASE_OPEN_CONTRACT must be citizens, raw or hud');
+const references = [mode === 'raw' ? 'base-open-recalc' : mode === 'hud' ? 'base-resource-hud' : 'base-open-citizens'];
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 const evidence = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
+// The independent citizen traces guard every action/context in the HUD lane.
+// Exact matching inputs prevent silently borrowing an unrelated guard fixture.
+const citizenCases = mode === 'hud' ? JSON.parse(readFileSync(new URL('../behavior-tests/ui/cases/base-open-citizens.json', import.meta.url))).cases : [];
+const citizenEvidence = mode === 'hud' ? JSON.parse(readFileSync(new URL('../behavior-tests/ui/observations/smacx-gog-2.0-base-open-citizens.json', import.meta.url))).observations : [];
 
 function terrain() {
   const width = 16, height = 16, count = width * height / 2, offset = 15 + 0xaa4;
@@ -123,6 +128,17 @@ const main = String.raw`
         }
         #print('JOIN_OWNED|' + #to_string(owned));
         #print('SELECT_CONTROL|' + (preview.order_pending == null && preview.founding_pending_id == null ? 'ready' : 'pending') + '|' + status);
+        if (${mode === 'hud' ? 'true' : 'false'} && shown) {
+          for (type of ['nutrients', 'minerals', 'energy']) {
+            const labels = screen.sections.resources.labels[type];
+            #print('HUD_RESOURCE|' + type + '|' + labels.left.text + '|' + labels.right.text);
+          }
+          #print('HUD_STATUS|' + screen.sections.resources.status_label.text);
+          for (type of ['economy', 'labs', 'psych']) {
+            const labels = screen.sections.energy.labels[type];
+            #print('HUD_ALLOCATION|' + type + '|' + labels.percentage.text + '|' + labels.value.text + '|' + labels.bonus.text + '|' + labels.total.text);
+          }
+        }
         #print('SELECT_DONE');
       };
       // Read-only telemetry keeps running while the base popup owns keyboard
@@ -166,7 +182,7 @@ async function serve(t) {
   });
 }
 
-for (const input of cases) test(`real base opening matches original (${input.id})`, {
+for (const input of cases) test(`real base ${mode === 'hud' ? 'resource HUD' : 'opening'} matches original (${input.id})`, {
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
   mkdirSync(artifacts, {recursive: true});
@@ -178,7 +194,7 @@ for (const input of cases) test(`real base opening matches original (${input.id}
   const browser = await chromium.launch({headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
   const page = await browser.newPage({viewport: {width: 1100, height: 1000}}); page.setDefaultTimeout(60000);
   page.on('pageerror', e => errors.push(e.stack || String(e))); page.on('crash', () => errors.push('Chromium page crashed'));
-  t.after(async () => { try { writeFileSync(new URL(`base-open-${input.id}.log`, artifacts), await page.locator('#log').textContent({timeout: 1000})); }
+  t.after(async () => { try { writeFileSync(new URL(`${artifactPrefix}-${input.id}.log`, artifacts), await page.locator('#log').textContent({timeout: 1000})); }
     finally { await browser.close(); } });
   const fatal = /SELECT_REJECT|SELECT_ERROR|SELECT_PROBE_ERROR|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
   await page.goto(address); await page.waitForFunction(() => document.body.dataset.state === 'ready');
@@ -219,9 +235,28 @@ for (const input of cases) test(`real base opening matches original (${input.id}
     const towns = [...body.matchAll(/JOIN_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(-?\d+)\|(\d+)/g)]; assert.equal(towns.length, 1);
     const countOwned = body.match(/JOIN_OWNED\|(\d+)/); assert.ok(countOwned);
     const row = towns[0]; const base = {population:+row[1],workers:+row[2],doctors:+row[3],worked_tiles:+row[4],nutrients:+row[5],minerals:+row[6],owned_count:+countOwned[1]};
-    if (input.algorithm === 'ui.base_open_citizens.v1') delete base.nutrients;
+    if (mode !== 'raw') delete base.nutrients;
     const context = body.match(/BASEOPEN_CONTEXT\|(map|base)\|(true|false)/); assert.ok(context);
-    return {state: {screen: context[1], title_matches_base: context[2] === 'true', year_delta: +start[1], selected: start[2] === 'none' ? null : start[2], units, base}, ready: control[1] === 'ready', status: control[2]};
+    let hud = null;
+    if (mode === 'hud' && context[1] === 'base') {
+      const rows = {};
+      for (const match of body.matchAll(/HUD_RESOURCE\|([^|]+)\|([^|]+)\|([^\r\n]+)/g)) {
+        assert.ok(['nutrients', 'minerals', 'energy'].includes(match[1])); assert.ok(!Object.hasOwn(rows, match[1]));
+        const left = match[2].match(/^([0-9]{3}) - ([0-9]{3})$/); const right = match[3].match(/^(?:= )?([+-]?[0-9]{3})$/);
+        assert.ok(left && right, 'Actual production resource labels must be readable');
+        rows[match[1]] = {intake:+left[1], consumption:+left[2], net:+right[1], visible_left:match[2], visible_right:match[3]};
+      }
+      assert.deepEqual(Object.keys(rows).sort(), ['energy', 'minerals', 'nutrients']);
+      const statusLabel = body.match(/HUD_STATUS\|= ([A-Z]+)(?:\r?\n|$)/); assert.ok(statusLabel);
+      const allocation = {};
+      for (const match of body.matchAll(/HUD_ALLOCATION\|([^|]+)\| *([0-9]{1,3})%\| *([0-9]{1,3})\| *([0-9]{1,3})\| *([0-9]{1,3})(?:\r?\n|$)/g)) {
+        assert.ok(['economy', 'labs', 'psych'].includes(match[1])); assert.ok(!Object.hasOwn(allocation, match[1]));
+        allocation[match[1]] = {percent:+match[2], energy:+match[3], bonus:+match[4], total:+match[5]};
+      }
+      assert.deepEqual(Object.keys(allocation).sort(), ['economy', 'labs', 'psych']);
+      hud = {population:base.population, rows, status:statusLabel[1], allocation};
+    }
+    return {hud, state: {screen: context[1], title_matches_base: context[2] === 'true', year_delta: +start[1], selected: start[2] === 'none' ? null : start[2], units, base}, ready: control[1] === 'ready', status: control[2]};
   };
   // Initial city is declared input, not a replayed join outcome. Preparation
   // uses actual controls and waits only for real focus/acknowledgement changes.
@@ -231,7 +266,10 @@ for (const input of cases) test(`real base opening matches original (${input.id}
     do { after = await probe(); if (after.ready && after.state.selected !== before.state.selected) break; await page.waitForTimeout(100); } while (Date.now() < deadline);
     assert.ok(after.ready && after.state.selected !== before.state.selected, `Preparation ${action} completed through real input`);
   }
-  const expected = evidence.find(o => o.id === input.id).output.trace;
+  const hudExpected = mode === 'hud' ? evidence.find(o => o.id === input.id).output.trace : null;
+  const guard = mode === 'hud' ? citizenCases.find(c => isDeepStrictEqual(c.input, input.input)) : null;
+  if (mode === 'hud') assert.ok(guard, 'HUD fixture must exactly match its independently recorded citizen guards');
+  const expected = mode === 'hud' ? citizenEvidence.find(o => o.id === guard.id).output.trace : evidence.find(o => o.id === input.id).output.trace;
   assert.deepEqual((await probe()).state, expected[0]);
   let savedBaseFrame = false;
   for (const [index, action] of input.input.actions.entries()) {
@@ -246,12 +284,16 @@ for (const input of cases) test(`real base opening matches original (${input.id}
     do { observed = await probe(); if (observed.ready && isDeepStrictEqual(observed.state, expected[index + 1])) break; await page.waitForTimeout(100); } while (Date.now() < deadline);
     assert.deepEqual(observed.state, expected[index + 1], `${input.id} checkpoint ${index + 1}: ${action}`);
     assert.ok(observed.ready);
+    if (action === 'open' && mode === 'hud') {
+      assert.deepEqual({after_action:index, ...observed.hud}, hudExpected.find(row => row.after_action === index), `${input.id} actual resource labels at opening ${index}`);
+      await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`base-hud-${input.id}-opening-${index}.png`, artifacts))});
+    }
     if (action === 'open' && !savedBaseFrame) {
-      await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`base-open-${input.id}-opened.png`, artifacts))});
+      await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`${artifactPrefix}-${input.id}-opened.png`, artifacts))});
       savedBaseFrame = true;
     }
   }
-  await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`base-open-${input.id}.png`, artifacts))});
+  await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`${artifactPrefix}-${input.id}.png`, artifacts))});
   await page.keyboard.press('k');
   const deadline = Date.now() + 60000; let state;
   do {

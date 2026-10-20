@@ -239,6 +239,17 @@ def base_open_command(args, citizens=False):
     return shlex.join(command)
 
 
+def base_resource_hud_command(args):
+    if args.browser:
+        raise ProtocolError('Resource HUD uses display-free replay; browser controls are checked separately')
+    name = 'base_resource_hud_original.py' if args.record else 'base_resource_hud_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/base-resource-hud-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -362,6 +373,8 @@ def main(argv=None):
                 reference_command = colony_join_command(args, reference['id'] == 'colony-join-mixed')
             if reference['id'] in ('base-open-recalc', 'base-open-citizens'):
                 reference_command = base_open_command(args, citizens=reference['id'] == 'base-open-citizens')
+            if reference['id'] == 'base-resource-hud':
+                reference_command = base_resource_hud_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -408,6 +421,8 @@ def main(argv=None):
                 candidate_command = colony_join_command(args)
             if command is not None and reference['id'] in ('base-open-recalc', 'base-open-citizens'):
                 candidate_command = base_open_command(args)
+            if command is not None and reference['id'] == 'base-resource-hud':
+                candidate_command = base_resource_hud_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -421,7 +436,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins and bounded citizen management opening; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins bounded citizen management opening and resource/allocation HUD labels; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

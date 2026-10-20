@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 670 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 672 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,321 scenarios and 8,900 assertions** across
-102 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,327 scenarios and 9,066 assertions** across
+103 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -78,6 +78,15 @@ fix prevents invalid Worker links from blocking management of nearby bases.
 The 32-turn browser construction scenario checks reciprocal non-base Worker
 links while navigating between two owned cities. These are application
 regressions, separate from the bounded original opening observations.
+
+The `base-resource-hud` suite adds six scenarios/166 assertions for native
+resource labels, initial allocation, read-only refresh, population updates,
+deficit recovery and cell cleanup. Two independently repeated
+[original HUD traces](ui/base-resource-hud-contract.md) match display-free replay
+and real Enter/Escape/B browser controls on first opening and reopening.
+Result labels include the observed equals prefix and signed zero, status follows
+the displayed shortfall, and initial allocation is 50/50/0. These observations
+do not establish allocation editing, arbitrary rounding or general economy rules.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached

@@ -1,0 +1,243 @@
+{
+  "captured_at": "2026-10-20T21:41:14.638518+00:00",
+  "observations": [
+    {
+      "case_sha256": "8e4a0fe1ef1aa8deec94504952ab3807b0d213464567d6cb329afbd2831c7249",
+      "id": "resource-hud-control-open-reopen",
+      "output": {
+        "trace": [
+          {
+            "after_action": 0,
+            "allocation": {
+              "economy": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "labs": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "psych": {
+                "bonus": 2,
+                "energy": 0,
+                "percent": 0,
+                "total": 2
+              }
+            },
+            "population": 1,
+            "rows": {
+              "energy": {
+                "consumption": 0,
+                "intake": 2,
+                "net": 2,
+                "visible_left": "002 - 000",
+                "visible_right": "= +002"
+              },
+              "minerals": {
+                "consumption": 0,
+                "intake": 1,
+                "net": 1,
+                "visible_left": "001 - 000",
+                "visible_right": "= +001"
+              },
+              "nutrients": {
+                "consumption": 2,
+                "intake": 2,
+                "net": 0,
+                "visible_left": "002 - 002",
+                "visible_right": "= +000"
+              }
+            },
+            "status": "SURPLUS"
+          },
+          {
+            "after_action": 2,
+            "allocation": {
+              "economy": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "labs": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "psych": {
+                "bonus": 2,
+                "energy": 0,
+                "percent": 0,
+                "total": 2
+              }
+            },
+            "population": 1,
+            "rows": {
+              "energy": {
+                "consumption": 0,
+                "intake": 2,
+                "net": 2,
+                "visible_left": "002 - 000",
+                "visible_right": "= +002"
+              },
+              "minerals": {
+                "consumption": 0,
+                "intake": 1,
+                "net": 1,
+                "visible_left": "001 - 000",
+                "visible_right": "= +001"
+              },
+              "nutrients": {
+                "consumption": 2,
+                "intake": 2,
+                "net": 0,
+                "visible_left": "002 - 002",
+                "visible_right": "= +000"
+              }
+            },
+            "status": "SURPLUS"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "16f3ae2ce2a8b2eb5a521db96ac08aa71b3f2d49fd5464da251e516678317c9a",
+      "id": "resource-hud-join-open-reopen",
+      "output": {
+        "trace": [
+          {
+            "after_action": 1,
+            "allocation": {
+              "economy": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "labs": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "psych": {
+                "bonus": 4,
+                "energy": 0,
+                "percent": 0,
+                "total": 4
+              }
+            },
+            "population": 2,
+            "rows": {
+              "energy": {
+                "consumption": 0,
+                "intake": 2,
+                "net": 2,
+                "visible_left": "002 - 000",
+                "visible_right": "= +002"
+              },
+              "minerals": {
+                "consumption": 0,
+                "intake": 1,
+                "net": 1,
+                "visible_left": "001 - 000",
+                "visible_right": "= +001"
+              },
+              "nutrients": {
+                "consumption": 4,
+                "intake": 2,
+                "net": -2,
+                "visible_left": "002 - 004",
+                "visible_right": "= -002"
+              }
+            },
+            "status": "SHORTFALL"
+          },
+          {
+            "after_action": 3,
+            "allocation": {
+              "economy": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "labs": {
+                "bonus": 0,
+                "energy": 1,
+                "percent": 50,
+                "total": 1
+              },
+              "psych": {
+                "bonus": 4,
+                "energy": 0,
+                "percent": 0,
+                "total": 4
+              }
+            },
+            "population": 2,
+            "rows": {
+              "energy": {
+                "consumption": 0,
+                "intake": 2,
+                "net": 2,
+                "visible_left": "002 - 000",
+                "visible_right": "= +002"
+              },
+              "minerals": {
+                "consumption": 0,
+                "intake": 1,
+                "net": 1,
+                "visible_left": "001 - 000",
+                "visible_right": "= +001"
+              },
+              "nutrients": {
+                "consumption": 4,
+                "intake": 2,
+                "net": -2,
+                "visible_left": "002 - 004",
+                "visible_right": "= -002"
+              }
+            },
+            "status": "SHORTFALL"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "a38a2327235c07a02622b511a377fdb72cbfeaf00d02925d96873d766a1a989e",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Declared initial city is not natural startup evidence. Only this owned first city, zero-income-turn B/open/close/reopen sequences; no other populations/terrain/factions, stock values, governor modes, turns or general economy rules established; only visible resource-panel/allocation labels on first and repeated openings; no income turn, allocation interaction or general economy formula established",
+    "contract": "ui.base_resource_hud.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Gaians/Citizen/standard 40x80 flat arid owned three-unit stack with declared UNIT bonuses, initial Doctor and stores, pause/tutorial settings; real W/W preparation; no original memory/instruction writes",
+    "full_observer_sha256": "25f52176e3d1cb71685bbcfdd2eb0c6d6c72e7ea18af5f629c0cf19a042c588f",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual base-window title/native guards followed by independent OCR of visible resource intake/consumption/net labels, summary status and allocation percentages, energy, bonus and total labels; no native nutrient-counter equivalence assumed",
+    "ocr": {
+      "engine": "5.5.2",
+      "english_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+      "numeric_normalization": "O to zero only within declared numeric regions",
+      "passes": [
+        2,
+        3,
+        4
+      ]
+    },
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Visible title equality to own native base identity, normalized independent of the literal city name; signed native nutrient counter; actual base population/jobs/worked tile/mineral counts and role/order/movement-third unit protocol"
+  },
+  "repeat": 2,
+  "suite_sha256": "b9a091de8b02cf0b82b46edd1197400b303c3d296ccf4bdd5b49e4a553207cd7",
+  "version": 1
+}

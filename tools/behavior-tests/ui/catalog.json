@@ -195,6 +195,11 @@
       "id": "base-open-citizens",
       "cases": "cases/base-open-citizens.json",
       "observations": "observations/smacx-gog-2.0-base-open-citizens.json"
+    },
+    {
+      "id": "base-resource-hud",
+      "cases": "cases/base-resource-hud.json",
+      "observations": "observations/smacx-gog-2.0-base-resource-hud.json"
     }
   ]
 }

@@ -20,7 +20,7 @@
     "test:known": "npm run test:regressions --",
     "test:assets": "node --test assets.test.mjs asset-bridge.test.mjs",
     "test:custom-maps": "node --test custom-maps.test.mjs",
-    "test:gameplay": "node --test --test-concurrency=1 gameplay.test.mjs normal-game.test.mjs colony-production.test.mjs land-resources.test.mjs former-work.test.mjs unit-selection.test.mjs unit-activation.test.mjs unit-sentry.test.mjs unit-sentry-activation.test.mjs colony-join.test.mjs base-open.test.mjs",
+    "test:gameplay": "node --test --test-concurrency=1 gameplay.test.mjs normal-game.test.mjs colony-production.test.mjs land-resources.test.mjs former-work.test.mjs unit-selection.test.mjs unit-activation.test.mjs unit-sentry.test.mjs unit-sentry-activation.test.mjs colony-join.test.mjs base-open.test.mjs base-resource-hud.test.mjs",
     "test:unit-orders": "node --test --test-name-pattern=\"paused Scout orders\" gameplay.test.mjs",
     "test:normal-game": "node --test normal-game.test.mjs",
     "test:colony-production": "node --test colony-production.test.mjs",
@@ -44,7 +44,8 @@
     "test:unit-sentry": "node --test --test-concurrency=1 unit-sentry.test.mjs",
     "test:unit-sentry-activation": "node --test --test-concurrency=1 unit-sentry-activation.test.mjs",
     "test:colony-join": "node --test --test-concurrency=1 colony-join.test.mjs",
-    "test:base-open": "node --test --test-concurrency=1 base-open.test.mjs"
+    "test:base-open": "node --test --test-concurrency=1 base-open.test.mjs",
+    "test:base-resource-hud": "node --test --test-concurrency=1 base-resource-hud.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

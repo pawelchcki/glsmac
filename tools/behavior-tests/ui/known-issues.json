@@ -576,11 +576,35 @@
         "errors": 0,
         "rendered_paths": 1
       }
+    },
+    {
+      "id": "base-resource-hud-labels",
+      "suite": "base-resource-hud",
+      "example": "resource-hud-join-open-reopen",
+      "status": "fixed",
+      "lane": "native-display-free-original-comparison",
+      "property": "Visible resource result prefixes/signs, surplus/shortfall status and initial Economy/Labs/Psych percentages must match the recorded unchanged and joined city windows.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 2,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_wasm_sha256": "82a74f4ec8fde3cc81c1c0233ff48fbbbdd53f582d05f2f8617eddb06a40f2d8",
+      "baseline_scripts_sha256": "f39b96b4c7f6f891fc2cf38e6875614e41216472f6c18b7567730a327fda9bec",
+      "scope": "Two independently repeated whole original captures per case with complete-panel OCR consensus. Native display-free replay and real browser controls now agree on resource amounts, signed/prefixed results, surplus/shortfall status, initial percentages and Doctor bonuses at first opening and reopening. Six native/UI regression scenarios add 166 assertions for read preservation, population refresh, individual deficit recovery and cell cleanup. No income turn, general rounding, allocation editing or signed nutrient-counter equivalence is established.",
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 2
+      }
     }
   ],
   "verification": {
-    "cases": 670,
-    "matched": 670,
+    "cases": 672,
+    "matched": 672,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -607,6 +631,8 @@
     "rendered_colony_join_cases": 10,
     "rendered_colony_join_matched": 10,
     "rendered_base_open_cases": 2,
-    "rendered_base_open_matched": 2
+    "rendered_base_open_matched": 2,
+    "rendered_base_resource_hud_cases": 2,
+    "rendered_base_resource_hud_matched": 2
   }
 }

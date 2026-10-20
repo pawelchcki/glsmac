@@ -167,7 +167,7 @@ return {
 				align: 'center',
 			})
 		;
-		info.area({
+		this.status_label = info.area({
 			align: 'right',
 			width: 80,
 		})
@@ -191,10 +191,12 @@ return {
 		this.cells.clear();
 
 		const w = this.cell_width + 1;
+		let shortfall = false;
 
 		for (type of types) {
 			const d = data[type];
 			const total = d.profit - d.loss;
+			if (total < 0) { shortfall = true; }
 
 			// cells
 			let left = 0;
@@ -215,14 +217,13 @@ return {
 			// labels
 			const l = this.labels[type];
 			l.left.text = this._pad(d.profit) + ' - ' + this._pad(d.loss);
-			if (d.profit == d.loss) {
-				l.right.text = this._pad(0);
-			} else if (d.profit > d.loss) {
-				l.right.text = '+' + this._pad(d.profit - d.loss);
+			if (total >= 0) {
+				l.right.text = '= +' + this._pad(total);
 			} else {
-				l.right.text = '-' + this._pad(d.loss - d.profit);
+				l.right.text = '= -' + this._pad(0 - total);
 			}
 		}
+		this.status_label.text = shortfall ? '= SHORTFALL' : '= SURPLUS';
 	},
 
 };
