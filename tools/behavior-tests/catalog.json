@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"former-first-tick","script":"GLSMAC_data/tests/former_first_tick.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"movement-rules","script":"GLSMAC_data/tests/movement_rules.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"former-movement","script":"GLSMAC_data/tests/former_movement.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"terraforming-native","script":"GLSMAC_data/tests/terraforming_native.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},

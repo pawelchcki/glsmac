@@ -99,11 +99,11 @@ for (confirmation of [null, false, 1, 'true']) {
 	});
 }
 
-behavior.scenario('cancelling confirmed replacement restores movement and retains the existing Farm', () => {
+behavior.scenario('cancelling the first confirmed replacement tick retains work and the existing Farm', () => {
 	const f = fixture('edited');
 	f.with_write(() => { f.game.tm.set_terraforming(2, 2, {road: true, farm: true, mine: false, forest: false}); });
 	f.command('forest'); f.command('cancel_work');
-	test.assert(f.former.movement == 1.0 && f.former.get_terraforming().work_units == 0 && f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).road);
+	test.assert(f.former.movement == 0.0 && f.former.get_terraforming().work_units == 2 && f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).road);
 	f.command('forest'); f.advance();
 	test.assert(f.game.tm.get_terraforming(2, 2).forest && !f.game.tm.get_terraforming(2, 2).farm && f.game.tm.get_terraforming(2, 2).road);
 });

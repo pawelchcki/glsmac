@@ -28,17 +28,17 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 
 ## Contracts and boundaries
 
-Six [Former work traces](former-work-contract.md) and three
+Eight [Former work traces](former-work-contract.md) and three
 [road/work traces](former-movement-contract.md) match native display-free replay.
 They check actual work, cancellation, task switching, Farm-to-Forest replacement,
 three road steps per turn and work after partial movement. Each entire original
-capture was repeated independently. The full catalog contains 618 passing cases;
+capture was repeated independently. The full catalog contains 620 passing cases;
 the pending catalog is currently empty. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
 | `game.former_road_movement.v1` | 3 | Relative tile position, movement spent, work counter, current-tile flags, cancellation and exhausted resume | Real original road construction, keyboard movement/work and turns with read-only native checkpoints; recorded twice |
-| `game.former_work.v1` | 6 | Work progress/completion, cancellation, retained-work switching and Farm-to-Forest replacement | Actual original commands/turns and recognized confirmations; recorded twice |
+| `game.former_work.v1` | 8 | Work progress/completion, cancellation, retained-work switching and Farm-to-Forest replacement | Actual original commands/turns and recognized confirmations; recorded twice |
 | `game.startup_inventory.v1` / `game.startup_inventory_sources.v1` | 6 | First-base unit names and separate active/queued/lost counts; two default land factions and controlled starting-TECH swaps | Actual Military Command Nexus at MY2101, independently recorded twice |
 | `game.faction_social_ratings.v1` | 18 | Fourteen initialized original factions and four source overrides; actual GROWTH/INDUSTRY labels and distinct nutrient/mineral globals | First-base setup and actual Social Engineering with guarded native cross-checks, recorded twice |
 | `game.faction_identity.v1` | 22 | Six selected-faction text fields after actual name confirmation/world generation; fourteen factions, custom edits, cancel/restore, empty/limited/space-preserving names and source overrides | Original native identity at the rendered opening dialog; recorded twice |

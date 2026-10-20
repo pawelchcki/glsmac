@@ -1,6 +1,7 @@
 {
   "version": 1,
   "references": [
+    {"id":"former-work-timing","cases":"cases/former-work-timing.json","observations":"observations/smacx-gog-2.0-former-work-timing.json"},
     {
       "id": "former-movement",
       "cases": "cases/former-movement.json",

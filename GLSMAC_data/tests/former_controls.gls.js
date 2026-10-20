@@ -54,8 +54,8 @@ behavior.scenario('visible Farm control queues one scalar command and labels the
 	f.deliver(0);
 	test.assert(f.former.get_order() == 'TERRAFORM' && preview.order_label.text == 'Cultivate Farm' && preview.movement_label.text == 'ALREADY MOVED');
 	f.key('A', {}); f.deliver(1);
-	test.assert(f.former.movement == 1.0 && f.former.get_terraforming().work_units == 0 && preview.selected_unit_id == f.former.id);
-	test.assert(preview.order_label.text == 'NO ORDERS' && preview.movement_label.text == 'Moves: 1');
+	test.assert(f.former.movement == 0.0 && f.former.get_terraforming().work_units == 2 && preview.selected_unit_id == f.former.id);
+	test.assert(preview.order_label.text == 'NO ORDERS' && preview.movement_label.text == 'ALREADY MOVED');
 	f.view.root.remove();
 });
 

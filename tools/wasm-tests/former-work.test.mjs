@@ -12,7 +12,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const references = ['former-work-core', 'former-work-basic', 'former-work-edge', 'former-movement'];
+const references = ['former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing', 'former-movement'];
 const observations = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
@@ -234,7 +234,8 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     }
   }
   const log = await page.locator('#log').textContent();
-  const label = {mine: 'Construct Mine', farm: 'Cultivate Farm', forest: 'Plant Forest', road: 'NO ORDERS'}[input.input.actions[0]];
+  const label = {mine: 'Construct Mine', farm: 'Cultivate Farm', forest: 'Plant Forest',
+    road: input.input.profile === 'edited' ? 'Build Road' : 'NO ORDERS'}[input.input.actions[0]];
   if (label) assert.ok(log.includes(`FW_LABEL|${label}`));
   if (roads && input.input.actions.includes('farm')) assert.match(log, /FW_LABEL\|Cultivate Farm/);
   if (input.id === 'former-farm-then-forest') {

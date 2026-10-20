@@ -11,7 +11,7 @@ from protocol import ProtocolError
 from compare import validate_observations
 from ui.former_work_contract import ALGORITHM, RATE_PROFILES, RATE_ROWS, validate_input, validate_output
 from ui.former_work_sources import arid_map, block_rows, free_former, profiles, work_rates
-from ui.generate_former_work import suite, basic_suite, edge_suite
+from ui.generate_former_work import suite, basic_suite, edge_suite, timing_suite
 from ui import former_work_original as recorder
 from ui.former_work_headless import parse_candidate
 
@@ -59,6 +59,17 @@ class FormerCandidateProtocolTests(unittest.TestCase):
 
 
 class FormerWorkContractTests(unittest.TestCase):
+    def test_first_tick_cancellation_and_edited_road_evidence_is_frozen_and_repeated(self):
+        directory = Path(__file__).parent / 'ui'
+        inputs = json.loads((directory / 'cases/former-work-timing.json').read_text())
+        evidence = json.loads((directory / 'observations/smacx-gog-2.0-former-work-timing.json').read_text())
+        self.assertEqual(inputs, timing_suite())
+        validate_observations(evidence, inputs)
+        self.assertGreaterEqual(evidence['repeat'], 2)
+        self.assertEqual({case['id'] for case in inputs['cases']}, {'former-road-source', 'former-farm-cancel-same-turn'})
+        for case, observation in zip(inputs['cases'], evidence['observations'], strict=True):
+            validate_output(observation['output'], case['input']['actions'])
+
     def test_switch_and_replacement_evidence_is_frozen_and_repeated(self):
         directory = Path(__file__).parent / 'ui'
         inputs = json.loads((directory / 'cases/former-work-edge.json').read_text())

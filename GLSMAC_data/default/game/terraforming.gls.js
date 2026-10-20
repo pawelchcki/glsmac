@@ -38,7 +38,7 @@ const can_resume_exhausted = (game, unit, action) => {
 	const rules = game.get('terraforming_rules'); const rule = rules[action];
 	return unit.movement == 0.0 && unit.moved_this_turn && !state.active && state.action == action && state.work_units > 0 &&
 		state.tile_x == tile.x && state.tile_y == tile.y && state.required_work == rule.turns * 2 &&
-		state.previous_moved && state.previous_movement > 0.0 && state.previous_movement < 1.0;
+		state.previous_movement > 0.0 && state.previous_movement <= 1.0;
 };
 const tick = (game, unit, action) => {
 	const tile = unit.get_tile(); const rules = game.get('terraforming_rules'); const rule = rules[action]; const required = rule.turns * 2;
@@ -47,7 +47,7 @@ const tick = (game, unit, action) => {
 	if (previous.tile_x == tile.x && previous.tile_y == tile.y) { completed = previous.work_units; }
 	const movement = unit.movement + 0.0; const moved = unit.moved_this_turn == true;
 	if (movement == 0.0) {
-		// A cancelled partial-move task can be ordered again while exhausted.
+		// A cancelled first work tick can be ordered again while exhausted.
 		// It resumes next turn; issuing this order earns no extra work.
 		previous.active = true; previous.last_turn = game.get_turn();
 		unit.set_terraforming(previous); return;
@@ -84,7 +84,8 @@ return {
 	cancel: (game, unit) => {
 		const state = unit.get_terraforming();
 		if (!state.active) { return; }
-		if (state.last_turn == game.get_turn() && !state.previous_moved) {
+		if (state.last_turn == game.get_turn() && !state.previous_moved &&
+			state.previous_work_units > 0 && state.work_units > state.previous_work_units) {
 			state.work_units = state.previous_work_units;
 			unit.movement = state.previous_movement; unit.moved_this_turn = state.previous_moved;
 		}

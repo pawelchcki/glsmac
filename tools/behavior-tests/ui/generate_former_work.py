@@ -44,6 +44,14 @@ def edge_suite():
     return declared
 
 
+def timing_suite():
+    declared = suite()
+    declared['name'] = 'Held-out original same-year cancellation and edited Road completion'
+    declared['cases'] = [case for case in declared['cases'] if case['id'] in
+                        ('former-farm-cancel-same-turn', 'former-road-source')]
+    return declared
+
+
 if __name__ == '__main__':
     declared = suite()
     directory = Path(__file__).with_name('cases')
@@ -53,3 +61,4 @@ if __name__ == '__main__':
     directory.joinpath('former-work-core.json').write_text(json.dumps(core, indent=2) + '\n')
     directory.joinpath('former-work-basic.json').write_text(json.dumps(basic_suite(), indent=2) + '\n')
     directory.joinpath('former-work-edge.json').write_text(json.dumps(edge_suite(), indent=2) + '\n')
+    directory.joinpath('former-work-timing.json').write_text(json.dumps(timing_suite(), indent=2) + '\n')

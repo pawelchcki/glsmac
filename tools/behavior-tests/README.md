@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 618 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 620 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,197 scenarios and 7,677 assertions** across
-93 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,203 scenarios and 7,699 assertions** across
+94 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -60,7 +60,7 @@ ownership through shutdown. The two asset-backed browser profiles apply four
 declared edits, verify native resource income and unchanged stored food/minerals,
 compare image regions in the map and preview, reject unexpected loading modals,
 and exit the engine. These fixture edits do not simulate Former work.
-The `former-work` and `former-controls` suites contain 44 scenarios for source-driven
+The `former-work` and `former-controls` suites contain 46 scenarios for source-driven
 work, cancellation, completion before base income, command rollback, native
 guards, visible controls, authoritative results, labels and shortcuts. The
 first playable scope is one healthy ordinary Former on flat arid non-base land.
@@ -68,10 +68,15 @@ Farm, Mine, Forest and Road buttons and F/M/Shift+F/R send authoritative command
 Activate cancels active work. Retained work transfers between tasks; Mine-to-Farm
 is the recorded cross-action case. Farm-to-Forest replacement requires the
 installed dialog confirmation and keeps the Farm until completion. Other terrain,
-other replacements and cooperative work remain unsupported. Six independently repeated original
+other replacements and cooperative work remain unsupported. Eight independently repeated original
 work traces now match native display-free replay; see
 [the exact work contract](ui/former-work-contract.md). Additional action/control
 regressions are application tests, not additional original observations.
+The held-out timing cases add edited Road completion and first-year Farm
+cancellation/resume. The first tick stays earned and movement stays exhausted;
+resuming the same task adds no work. The `former-first-tick` suite adds six
+regressions for completion, repeated cancellation/resume, guarded task changes
+and exact receipts. Previously frozen observations remain unchanged.
 The `terraforming-dialog` suite adds eight scenarios for installed MIMIMI
 caption/body/choice consumption, parameterized improvement names, detached
 results and malformed-source rejection. The real replacement flow also checks
@@ -82,7 +87,7 @@ state cannot submit another order.
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:former-work
 ```
 
-All six browser work traces use real shortcuts, native event transport and actual
+All eight browser work traces use real shortcuts, native event transport and actual
 turn advancement on a declared small arid world, compare every frozen work
 checkpoint, check source order labels, save one final frame and exit the engine.
 

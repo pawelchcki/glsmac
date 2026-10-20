@@ -266,7 +266,7 @@ def main(argv=None):
                 reference_command = startup_inventory_command(args)
             if reference['id'] == 'startup-inventory-sources':
                 reference_command = startup_inventory_command(args, sources=True)
-            if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
+            if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 reference_command = former_work_command(args)
             if reference['id'] == 'former-movement':
                 reference_command = former_movement_command(args)
@@ -298,7 +298,7 @@ def main(argv=None):
                 candidate_command = startup_inventory_command(args)
             if command is not None and reference['id'] == 'startup-inventory-sources':
                 candidate_command = startup_inventory_command(args, sources=True)
-            if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
+            if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 candidate_command = former_work_command(args)
             if command is not None and reference['id'] == 'former-movement':
                 candidate_command = former_movement_command(args)

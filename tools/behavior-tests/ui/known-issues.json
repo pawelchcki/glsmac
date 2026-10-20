@@ -373,6 +373,28 @@
         "release_browser_passed": 9,
         "normal_generated_gameplay_passed": true
       }
+    },
+    {
+      "id": "former-first-tick-cancellation",
+      "suite": "former-work-timing",
+      "status": "fixed-in-recorded-native-and-browser-contract",
+      "examples": [
+        "former-farm-cancel-same-turn"
+      ],
+      "property": "Two independent original runs retain the initial Farm tick (two work units) and exhausted movement on same-year cancellation. The reproduction refunds it to zero work and full movement.",
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "Healthy normal Former on flat arid non-base land; original first-turn Farm cancellation/resume and edited Road completion are separate frozen traces. Both frozen cases now match native replay and actual browser controls; six native invariants reject extra work/movement and check exact receipts. Earlier observations remain unchanged.",
+      "baseline_verification": {
+        "matched": 1,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      }
     }
   ],
   "verification": {

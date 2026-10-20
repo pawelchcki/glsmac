@@ -1,9 +1,10 @@
 # Bounded Former work transfer
 
-`game.former_work.v1` has **six independently repeated original cases** in
-`catalog.json`: two core cases, two held-out Road/Forest cases and two
-task-switch/replacement cases. All match strict native display-free candidate
-replay and are included in the 618-case catalog. Existing observations are unchanged.
+`game.former_work.v1` has **eight independently repeated original cases** in
+`catalog.json`: two core cases, two held-out Road/Forest cases, two
+task-switch/replacement cases and two held-out timing cases. All match strict
+native display-free candidate replay and are included in the 620-case catalog.
+Existing observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
 40×80 flat arid land map, chooses Gaians/Citizen/standard rules, and adds a
@@ -43,7 +44,7 @@ uses actual native units, tiles and `Game::AdvanceTurn`; only synthetic equivale
 installed inputs, initial placement and explicit turn acknowledgements are fixture
 boundaries. It loads no original assets, evidence answers or original adapter.
 The application also exposes four buttons, F/M/Shift+F/R and Activate cancellation.
-The optional `test:former-work` browser command replays all six frozen checkpoint
+The optional `test:former-work` browser command replays all eight frozen checkpoint
 sequences through the actual shortcuts, event transport, turns and terrain
 renderer on a declared synthetic 16×16 arid world. The profiles also verify
 source-based active order labels and clean engine exit. This adds application
@@ -61,14 +62,15 @@ factions, AI, research behavior, rendered work labels or the full game.
 # Evidence integrity; does not execute either application.
 python3 tools/behavior-tests/ui/run.py --suite former-work-core --validate-only
 
-# Strict native candidate replay of all six original traces.
-python3 tools/behavior-tests/ui/run.py --suite former-work-core --suite former-work-basic --suite former-work-edge
+# Strict native candidate replay of all eight original work traces.
+python3 tools/behavior-tests/ui/run.py --suite former-work-core --suite former-work-basic --suite former-work-edge --suite former-work-timing
 ```
 
 `generate_former_work.py` declares eleven input sequences in `former-work.json`
 and the two-case recorded subset in `former-work-core.json`. The held-out subset
 is in `former-work-basic.json`. Two additional repeated cases are frozen in
-`former-work-edge.json`, now promoted out of the pending catalog. The other five
+`former-work-edge.json`, now promoted out of the pending catalog. Two timing cases
+are frozen in `former-work-timing.json`. The other three
 sequences have no accepted public observations yet. Recorder shape, synthetic
 input edits, evidence integrity and turn-resumption safety have Python tests.
 Private failed captures and screenshots are not reference evidence.
@@ -80,3 +82,12 @@ removes it when Forest completes. Both initially reported strict errors. They
 now match production work events and actual browser controls. A per-case callable
 still preserves each failure if a future regression rejects a sequence; one
 caught GSE exception cannot hide the next case.
+
+The held-out timing cases repeat the original observer unchanged. An edited
+Road requires three work ticks, then the next turn restores movement. Same-year
+first Farm cancellation retains two work units and exhausted movement. Resuming
+the same task does not grant another tick; later turns complete the Farm. The
+initial candidate wrongly refunded that first tick and movement, despite
+matching the earlier next-turn cancellation trace. Both timing cases now match
+production replay and real browser controls. Six native regressions additionally
+check repeated cancellation/resume, command receipts and exhausted task guards.
