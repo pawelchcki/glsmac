@@ -92,9 +92,12 @@ unavailability errors after an iteration, leave the connection mode offline,
 consume responses once, support cancellation, and allow offline disconnection.
 These tests use the real platform sources without constructing a game engine.
 
-The thread regression compiles the production `Thread` implementation with WASM
-pthreads. It verifies callbacks on the SDL-owning MAIN worker, module thread
-affinity, reverse shutdown order, and successful joins and process exit.
+The thread regression compiles the production `Thread` implementation for native
+and WASM pthreads. It verifies callbacks on the SDL-owning MAIN worker, module
+affinity, reverse module shutdown, and successful joins and process exit.
+Held in-flight traversals check that the collector joins first, background
+iterations drain while UI state remains alive, and worker cleanup follows UI
+teardown. The real-asset Former traces additionally check stable engine exit.
 
 The production `TextureUpload` helper is compiled separately and checked with
 real GL pixel readback. Small fixtures force a 32-pixel GPU limit, preserve

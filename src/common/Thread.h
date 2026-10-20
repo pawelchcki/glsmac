@@ -16,11 +16,13 @@ CLASS( Thread, Class )
 		STATE_INACTIVE,
 		STATE_STARTING,
 		STATE_ACTIVE,
+		STATE_QUIESCENT,
 		STATE_STOPPING,
 	};
 
 	enum thread_command_t {
 		COMMAND_NONE,
+		COMMAND_QUIESCE,
 		COMMAND_STOP,
 	};
 
@@ -33,6 +35,8 @@ CLASS( Thread, Class )
 	void T_Start();
 	bool T_IsRunning();
 	void T_Stop();
+	// The first thread owns the UI/script state used by background iterations.
+	static void StopAll( const std::vector< Thread* >& threads, Thread* collector = nullptr );
 
 	const std::string& GetThreadName() const;
 

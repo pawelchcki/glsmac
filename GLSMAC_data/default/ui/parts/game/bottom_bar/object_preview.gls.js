@@ -42,7 +42,8 @@ return {
 		const unit = this.get_work_unit(action); if (unit == null) { return false; }
 		if (!work.needs_confirmation(this.p.game, unit, action)) { return this.queue_work(unit, action, false); }
 		const tile = unit.get_tile(); const turn = this.p.game.get_turn();
-		const request = {id: unit.id, tile_x: tile.x, tile_y: tile.y, turn: turn}; request.unit = unit;
+		const request = {id: unit.id, tile_x: tile.x, tile_y: tile.y, turn: turn,
+			movement: unit.movement + 0.0, moved: unit.moved_this_turn == true}; request.unit = unit;
 		const document = this.p.glsmac.load_smac_text('xscript.txt', 'dialogs');
 		const rules = this.p.game.get('terraforming_rules');
 		const definition = work_dialog.render(work_dialog.parse(document), rules.farm.name);
@@ -53,7 +54,8 @@ return {
 			this.work_request_token = this.work_request_token + 1;
 			if (confirmed) {
 				const current = this.get_work_unit(action);
-				if (current != null && current == request.unit && this.p.game.get_turn() == request.turn) {
+				if (current != null && current == request.unit && this.p.game.get_turn() == request.turn &&
+					current.movement == request.movement && current.moved_this_turn == request.moved) {
 					const position = current.get_tile();
 					if (position.x == request.tile_x && position.y == request.tile_y && work.needs_confirmation(this.p.game, current, action)) { this.queue_work(current, action, true); }
 				}

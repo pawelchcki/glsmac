@@ -59,6 +59,22 @@ behavior.scenario('visible Farm control queues one scalar command and labels the
 	f.view.root.remove();
 });
 
+for (remaining of [1.0 / 3.0, 2.0 / 3.0]) {
+	behavior.scenario('work controls accept partial road movement and exhausted same-task resume ' + #to_string(remaining), () => {
+		const f = fixture();
+		f.with_write(() => { f.former.movement = remaining; f.former.moved_this_turn = true; });
+		f.ui_game.select_unit(f.game.um.get_unit(f.former.id));
+		f.key('F', {}); test.assert(#sizeof(f.state.queued) == 1);
+		f.deliver(0); test.assert(f.game.um.get_unit(f.former.id).get_terraforming().work_units == 2);
+		f.key('A', {}); f.deliver(1);
+		const unit = f.game.um.get_unit(f.former.id);
+		test.assert(unit.movement == 0.0 && unit.moved_this_turn && unit.get_order() == 'NO_ORDERS');
+		f.key('F', {}); test.assert(#sizeof(f.state.queued) == 3); f.deliver(2);
+		test.assert(f.game.um.get_unit(f.former.id).get_terraforming().work_units == 2);
+		f.view.root.remove();
+	});
+}
+
 for (entry of [{code: 'F', modifiers: {}, action: 'farm'}, {code: 'M', modifiers: {}, action: 'mine'},
 	{code: 'R', modifiers: {}, action: 'road'}, {code: 'F', modifiers: {shift: true}, action: 'forest'}]) {
 	behavior.scenario('shipped work shortcut dispatches ' + entry.action, () => {

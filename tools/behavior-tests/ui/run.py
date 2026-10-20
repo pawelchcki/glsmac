@@ -150,6 +150,17 @@ def former_work_command(args):
     return shlex.join(command)
 
 
+def former_movement_command(args):
+    if args.browser:
+        raise ProtocolError('Road movement uses native display-free replay; browser controls are checked separately')
+    name = 'former_movement_original.py' if args.record else 'former_movement_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout),
+                    '--artifacts', str(DIRECTORY.parent / '.build/former-movement-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -257,6 +268,8 @@ def main(argv=None):
                 reference_command = startup_inventory_command(args, sources=True)
             if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
                 reference_command = former_work_command(args)
+            if reference['id'] == 'former-movement':
+                reference_command = former_movement_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -287,6 +300,8 @@ def main(argv=None):
                 candidate_command = startup_inventory_command(args, sources=True)
             if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
                 candidate_command = former_work_command(args)
+            if command is not None and reference['id'] == 'former-movement':
+                candidate_command = former_movement_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

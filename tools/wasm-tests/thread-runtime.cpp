@@ -58,6 +58,73 @@ private:
 	std::thread::id m_owner;
 };
 
+struct CollectionState {
+	std::atomic< bool > reading = false, release = false, stopping = false;
+	std::atomic< bool > collector_stopped = false, teardown_overlap = false;
+	std::atomic< bool > owner_stopped = false, invalid_stop_phase = false;
+	bool separate_collector = true;
+};
+
+class CollectionProbe final : public common::Module {
+public:
+	explicit CollectionProbe( CollectionState& state ) : state( state ) {}
+	const std::string GetClassName() const override { return "CollectionProbe"; }
+	void Iterate() override {
+		state.reading = true;
+		while ( !state.release ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+		state.reading = false;
+	}
+	void Stop() override {
+		state.invalid_stop_phase = state.separate_collector ? state.owner_stopped.load() : !state.owner_stopped.load();
+		state.collector_stopped = true;
+	}
+private:
+	CollectionState& state;
+};
+
+class ResourceOwnerProbe final : public common::Module {
+public:
+	explicit ResourceOwnerProbe( CollectionState& state ) : state( state ) {}
+	const std::string GetClassName() const override { return "ResourceOwnerProbe"; }
+	void Iterate() override {
+		// Keep serving work while the collector drains an in-flight traversal.
+		if ( state.stopping && ++draining_frames == 20 ) { state.release = true; }
+	}
+	void Stop() override {
+		state.teardown_overlap = state.reading || ( state.separate_collector && !state.collector_stopped );
+		state.release = true; // a bad stop order fails without hanging the probe
+		state.owner_stopped = true;
+	}
+private:
+	CollectionState& state;
+	int draining_frames = 0;
+};
+
+void CheckCollectionShutdown( const bool separate_collector ) {
+	CollectionState state;
+	state.separate_collector = separate_collector;
+	CollectionProbe collection( state ); ResourceOwnerProbe owner( state );
+	common::Thread collector_thread( "GC" ), owner_thread( "RESOURCE_OWNER" );
+	collector_thread.SetIPS( 1000 ); owner_thread.SetIPS( 1000 );
+	collector_thread.AddModule( &collection ); owner_thread.AddModule( &owner );
+	collector_thread.T_Start(); owner_thread.T_Start();
+	const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds( 5 );
+	while ( !state.reading ) {
+		assert( std::chrono::steady_clock::now() < deadline );
+		std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
+	}
+	state.stopping = true;
+	common::Thread::StopAll( { &owner_thread, &collector_thread }, separate_collector ? &collector_thread : nullptr );
+	while ( collector_thread.T_IsRunning() || owner_thread.T_IsRunning() ) {
+		assert( std::chrono::steady_clock::now() < deadline );
+		std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
+	}
+	assert( !state.teardown_overlap );
+	assert( !state.invalid_stop_phase );
+	puts( separate_collector ? "In-flight collection finishes and joins before resource teardown" :
+		"Background workers quiesce before UI-owned script state teardown" );
+}
+
 }
 
 int main() {
@@ -82,8 +149,7 @@ int main() {
 		assert( std::chrono::steady_clock::now() < deadline );
 		std::this_thread::sleep_for( std::chrono::milliseconds( 5 ) );
 	}
-	main_thread.T_Stop();
-	worker_thread.T_Stop();
+	common::Thread::StopAll( { &main_thread, &worker_thread } );
 	while ( main_thread.T_IsRunning() || worker_thread.T_IsRunning() ) {
 		assert( std::chrono::steady_clock::now() < deadline );
 		std::this_thread::sleep_for( std::chrono::milliseconds( 5 ) );
@@ -91,4 +157,6 @@ int main() {
 	assert( (main_shutdown_order == std::vector< int >{ 2, 1 }) );
 	assert( (worker_shutdown_order == std::vector< int >{ 3 }) );
 	puts( "Thread callbacks, module affinity, reverse shutdown and join passed" );
+	CheckCollectionShutdown( true );
+	CheckCollectionShutdown( false );
 }

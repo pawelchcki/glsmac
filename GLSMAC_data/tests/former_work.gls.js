@@ -49,7 +49,7 @@ const reject = (f, change) => {
 	test.assert(denied && f.snapshot() == before && f.terrain_snapshot() == terrain && f.former.get_terraforming() == work);
 };
 
-for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'fractional-moves', 'dead', 'injured', 'wrong-definition', 'completed-turn', 'existing-improvement', 'missing-prerequisite', 'disabled-action']) {
+for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'excess-moves', 'dead', 'injured', 'wrong-definition', 'completed-turn', 'existing-improvement', 'missing-prerequisite', 'disabled-action']) {
 	behavior.scenario('invalid native work command preserves every snapshot for ' + kind, () => {
 		const f = fixture('normal');
 		reject(f, (e) => {
@@ -57,7 +57,7 @@ for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'fractional-moves
 			if (kind == 'missing-unit') { e.data.unit_id = f.former.id + 100; }
 			if (kind == 'unknown-action') { e.data.action = 'solar'; }
 			f.with_write(() => {
-				if (kind == 'fractional-moves') { f.former.movement = 0.5; }
+				if (kind == 'excess-moves') { f.former.movement = 2.0; }
 				if (kind == 'dead') { f.former.health = 0.0; }
 				if (kind == 'injured') { f.former.health = 0.5; }
 				if (kind == 'wrong-definition') { e.data.unit_id = f.game.um.spawn_unit({def: 'ScoutPatrol', owner: f.owner, tile: f.former.get_tile(), morale: 2, health: 1.0}).id; }

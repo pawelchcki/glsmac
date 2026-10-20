@@ -3,7 +3,7 @@
 `game.former_work.v1` has **six independently repeated original cases** in
 `catalog.json`: two core cases, two held-out Road/Forest cases and two
 task-switch/replacement cases. All match strict native display-free candidate
-replay and are included in the 615-case catalog. Existing observations are unchanged.
+replay and are included in the 618-case catalog. Existing observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
 40×80 flat arid land map, chooses Gaians/Citizen/standard rules, and adds a

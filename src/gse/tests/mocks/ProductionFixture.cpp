@@ -45,6 +45,7 @@
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/resource/Resource.h"
 #include "game/backend/slot/Slots.h"
+#include "game/backend/animation/AnimationManager.h"
 
 namespace gse::tests::mocks {
 namespace backend = game::backend;
@@ -148,6 +149,16 @@ struct ProductionFixture : gc::Object {
 		state = nullptr;
 	}
 	void WithWrite( const std::function< void() >& callback ) { game.WithRW( callback ); }
+	void EnableMovement( GSE_CALLABLE ) {
+		if ( game.m_am ) { GSE_ERROR( EC.INVALID_CALL, "fixture movement already enabled" ); }
+		game.m_am = new backend::animation::AnimationManager( &game );
+	}
+	void FinishUnitMove( GSE_CALLABLE, int64_t id ) {
+		auto* unit = game.m_um ? game.m_um->GetUnit( id ) : nullptr;
+		if ( !game.m_am || !unit || !unit->m_animation_id ) { GSE_ERROR( EC.INVALID_CALL, "fixture unit has no pending move" ); }
+		const auto animation = unit->m_animation_id;
+		WithWrite( [ & ]() { game.m_am->FinishAnimation( animation ); } );
+	}
 	void SetTurn( int64_t turn ) {
 		if ( turn <= 0 ) { THROW( "invalid fixture turn" ); }
 		game.m_current_turn.Reset();
@@ -881,6 +892,16 @@ struct ProductionFixture : gc::Object {
 			for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
 			tile->Update();
 		}
+		else if ( kind == "arid_road_pair" ) {
+			for ( const auto x : { 0, 2 } ) {
+				auto* tile = game.GetMap()->GetTile( x, 2 );
+				tile->moisture = backend::map::tile::MOISTURE_ARID;
+				tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+				for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
+				tile->terraforming = backend::map::tile::TERRAFORMING_ROAD;
+				tile->Update();
+			}
+		}
 		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
 		else if ( kind == "completed" ) { owner->CompleteTurn(); }
 		else if ( kind == "inactive" ) { game.m_game_state = backend::Game::GS_NONE; }
@@ -1391,6 +1412,18 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	object->Set( "enable_transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->EnableTransport(); return VALUE( value::Undefined ); } ), GSE_CALL );
 	object->Set( "transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectTransport( GSE_CALL ); } ), GSE_CALL );
 	object->Set( "process_events", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->Process(); return VALUE( value::Undefined ); } ), GSE_CALL );
+	// Supply only the display acknowledgement. Actual movement, locking and
+	// the shipped handler's completion callable still execute in native code.
+	object->Set( "enable_movement", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		session->current->EnableMovement( GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "finish_unit_move", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+		session->current->FinishUnitMove( GSE_CALL, id );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
 	object->Set( "response_event", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 4 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object ); N_GETVALUE( accepted, 2, Bool ); N_GETVALUE( applied, 3, Bool );
 		session->current->Response( GSE_CALL, name, data, accepted, applied );

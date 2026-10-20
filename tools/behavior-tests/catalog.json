@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"movement-rules","script":"GLSMAC_data/tests/movement_rules.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
+    {"id":"former-movement","script":"GLSMAC_data/tests/former_movement.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"terraforming-native","script":"GLSMAC_data/tests/terraforming_native.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"terraforming-rules","script":"GLSMAC_data/tests/terraforming_rules.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
     {"id":"unit-work-state","script":"GLSMAC_data/tests/unit_work_state.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},

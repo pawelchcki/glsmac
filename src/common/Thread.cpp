@@ -62,6 +62,43 @@ void Thread::T_Stop() {
 	m_command = Thread::COMMAND_STOP;
 }
 
+void Thread::StopAll( const std::vector< Thread* >& threads, Thread* collector ) {
+	// Collection traverses game/UI objects. Let an in-flight traversal finish
+	// while their owner threads can still serve work, then join it before any
+	// owner begins destroying that graph. Shared single-thread engines pass null.
+	if ( collector ) {
+		collector->T_Stop();
+		while ( collector->T_IsRunning() ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+	}
+	if ( threads.empty() ) { return; }
+	auto* owner = threads.front();
+	ASSERT( owner != collector, "collector cannot own the UI thread" );
+	// Drain iterations while the owner can still serve callbacks. Keep native
+	// worker state alive until UI timers, listeners and script roots are gone.
+	for ( size_t i = 1; i < threads.size(); ++i ) {
+		auto* thread = threads[i];
+		if ( thread != collector ) {
+			ASSERT( thread->m_command == COMMAND_NONE, "thread command overlap" );
+			thread->m_command = COMMAND_QUIESCE;
+		}
+	}
+	for ( size_t i = 1; i < threads.size(); ++i ) {
+		auto* thread = threads[i];
+		if ( thread != collector ) {
+			while ( thread->m_state != STATE_QUIESCENT ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+		}
+	}
+	owner->T_Stop();
+	while ( owner->T_IsRunning() ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+	for ( size_t i = threads.size(); i > 1; --i ) {
+		auto* thread = threads[i - 1];
+		if ( thread != collector ) {
+			thread->m_command = COMMAND_STOP;
+			while ( thread->T_IsRunning() ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+		}
+	}
+}
+
 void Thread::Run() {
 
 	ASSERT( m_state == STATE_STARTING, "starting thread from invalid state" );
@@ -156,6 +193,12 @@ void Thread::Run() {
 		switch ( m_command ) {
 			case COMMAND_NONE:
 				// nothing
+				break;
+			case COMMAND_QUIESCE:
+				m_state = STATE_QUIESCENT;
+				while ( m_command == COMMAND_QUIESCE ) { std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) ); }
+				ASSERT( m_command == COMMAND_STOP, "quiescent thread must stop" );
+				m_state = STATE_STOPPING;
 				break;
 			case COMMAND_STOP:
 				Log( "Received STOP command" );

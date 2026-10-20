@@ -2,6 +2,11 @@
   "version": 1,
   "references": [
     {
+      "id": "former-movement",
+      "cases": "cases/former-movement.json",
+      "observations": "observations/smacx-gog-2.0-former-movement.json"
+    },
+    {
       "id": "menus",
       "cases": "cases/menus.json",
       "observations": "observations/smacx-gog-2.0-menus.json"

@@ -1,3 +1,15 @@
+// First recorded road scope: flat arid land without fungus. Read live flags
+// from the manager so roads constructed after selecting a tile take effect.
+const get_road_rate = (e, src_tile, dst_tile) => {
+	if (!e.data.unit.is_land || !src_tile.is_land || !dst_tile.is_land ||
+		src_tile.moisture != 1 || dst_tile.moisture != 1 || src_tile.rockiness != 1 || dst_tile.rockiness != 1 ||
+		src_tile.features.xenofungus || dst_tile.features.xenofungus) { return 0; }
+	const tm = e.game.get_tm();
+	if (!tm.get_terraforming(src_tile.x, src_tile.y).road || !tm.get_terraforming(dst_tile.x, dst_tile.y).road) { return 0; }
+	const rules = e.game.get('movement_rules');
+	return rules.road_rate;
+};
+
 const get_movement_cost = (unit, src_tile, dst_tile) => {
 	const is_native = true; // TODO: non-native units
 
@@ -5,7 +17,6 @@ const get_movement_cost = (unit, src_tile, dst_tile) => {
 		dst_tile.is_land &&
 		src_tile.features.river &&
 		dst_tile.features.river
-		// TODO: roads
 	) {
 		return 1.0 / 3.0;
 	}
@@ -90,11 +101,15 @@ return {
 
 	resolve: (e) => {
 
-		const movement = e.data.unit.movement;
+		const movement = e.data.unit.movement + 0.0;
 
 		const src_tile = e.data.unit.get_tile();
 		const dst_tile = e.data.tile;
 
+		const road_rate = get_road_rate(e, src_tile, dst_tile);
+		if (road_rate > 0 && #round(movement * #to_float(road_rate)) >= 1) {
+			return {is_movement_successful: true};
+		}
 		let movement_cost = get_movement_cost(e.data.unit, src_tile, dst_tile);
 
 		return {
@@ -111,13 +126,14 @@ return {
 		const src_tile = unit.get_tile();
 		const dst_tile = e.data.tile;
 
-		const movement = unit.movement;
+		const movement = unit.movement + 0.0;
+		const road_rate = get_road_rate(e, src_tile, dst_tile);
 
 		const result = {
 			orig: {
 				tile: src_tile,
 				movement: movement,
-				moved_this_turn: unit.moved_this_turn,
+				moved_this_turn: unit.moved_this_turn == true,
 			}
 		};
 
@@ -125,11 +141,14 @@ return {
 
 		let next = () => {
 			// reduce remaining movement points (even if failed)
-			if (movement >= movement_cost) {
+			if (road_rate > 0) {
+				const steps = #round(movement * #to_float(road_rate));
+				unit.movement = steps > 1 ? #to_float(steps - 1) / #to_float(road_rate) : 0.0;
+			} else { if (movement >= movement_cost) {
 				unit.movement = movement - movement_cost;
 			} else {
 				unit.movement = 0.0;
-			}
+			} }
 			unit.moved_this_turn = true;
 		};
 

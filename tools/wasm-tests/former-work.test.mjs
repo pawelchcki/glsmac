@@ -12,18 +12,19 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const references = ['former-work-core', 'former-work-basic', 'former-work-edge'];
+const references = ['former-work-core', 'former-work-basic', 'former-work-edge', 'former-movement'];
 const observations = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
 
-function terrain() {
+function terrain(roads = false) {
   const width = 16, height = 16, count = width * height / 2, offset = 15 + 0xaa4;
   const aw = Math.ceil(width / 5), ah = Math.ceil(height / 5), ac = Math.floor((aw + 1) / 2) * ah;
   const bytes = Buffer.alloc(offset + count * 44 + ac);
   bytes.write('TERRANMAP\0\x1a', 0, 'binary'); bytes.writeUInt32LE(5, 11);
   for (const [at, value] of [[0, width], [4, height], [20, count], [0xa24, aw], [0xa28, ah], [0xa2c, ac]]) bytes.writeUInt32LE(value, 15 + at);
   for (let i = 0; i < count; ++i) { bytes[offset + i * 44] = 3 * 32; bytes[offset + i * 44 + 1] = 64; }
+  if (roads) for (const x of [8, 10]) bytes.writeUInt32LE(4, offset + (6 * width / 2 + x / 2) * 44 + 8);
   return bytes;
 }
 
@@ -69,15 +70,15 @@ const main = String.raw`
       glsmac.ui.on('loader_show', (e) => { if (selected && !exiting) { #print('FW_UNEXPECTED_LOADER'); } });
       game.get_map().on('unit_preview', (e) => { if (e.unit != null && e.unit.def == 'Formers') { #print('FW_SELECTED'); } });
       report = () => {
-        for (unit of game.get_tm().get_tile(8, 6).get_units()) {
+        for (x of [8, 10]) { for (unit of game.get_tm().get_tile(x, 6).get_units()) {
           if (unit.def == 'Formers') {
             const state = unit.get_terraforming(); const tile = unit.get_tile();
             const flags = game.get_tm().get_terraforming(tile.x, tile.y); const order = unit.get_order();
             #print('FW_STATE|' + #to_string(game.get_turn() - initial) + '|' + (order == 'TERRAFORM' ? state.action : (order == 'HOLD' ? 'hold' : 'none')) + '|' +
               #to_string(#round((1.0 - unit.movement) * 3.0)) + '|' + #to_string(state.work_units) + '|' +
-              #to_string(flags.road) + '|' + #to_string(flags.farm) + '|' + #to_string(flags.mine) + '|' + #to_string(flags.forest) + '|' + status);
+              #to_string(flags.road) + '|' + #to_string(flags.farm) + '|' + #to_string(flags.mine) + '|' + #to_string(flags.forest) + '|' + status + '|' + #to_string(tile.x));
           }
-        }
+        } }
         if (preview.order_label != null) { #print('FW_LABEL|' + preview.order_label.text); }
         #print('FW_CONTROL|' + (preview.order_pending == null ? 'ready' : 'pending'));
         #print('FW_DONE');
@@ -88,7 +89,7 @@ const main = String.raw`
           if (e.code == 'K') {
             if (selected) { exiting = true; #print('FW_EXITING'); glsmac.exit(); }
             else {
-              for (unit of game.get_tm().get_tile(8, 6).get_units()) { if (unit.def == 'Formers') { game.select_unit(unit); } }
+              for (x of [8, 10]) { for (unit of game.get_tm().get_tile(x, 6).get_units()) { if (unit.def == 'Formers') { game.select_unit(unit); } } }
               selected = true;
             }
             return true;
@@ -118,6 +119,7 @@ async function serve(t) {
 for (const input of cases) test(`real Former controls reproduce frozen work trace (${input.id})`, {
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
+  const roads = input.algorithm === 'game.former_road_movement.v1';
   mkdirSync(artifacts, {recursive: true});
   const progress = new URL(`former-work-${input.id}-progress.log`, artifacts);
   writeFileSync(progress, '');
@@ -131,7 +133,8 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
   const page = await browser.newPage({viewport: {width: 1100, height: 1000}}); page.setDefaultTimeout(60000);
   const press = async key => { step(`key ${key} start`); await page.keyboard.press(key); step(`key ${key} done`); };
-  const errors = []; page.on('pageerror', e => errors.push(String(e)));
+  const errors = []; page.on('pageerror', e => errors.push(e.stack || String(e)));
+  page.on('crash', () => { errors.push('Chromium page crashed'); step('Chromium page crashed'); });
   page.on('console', m => { if (/(?:WebGL|GL_).*(?:INVALID|error)|shader.*(?:failed|error)|RuntimeError:|worker sent an error!/i.test(m.text())) errors.push(m.text()); });
   t.after(async () => {
     try {
@@ -171,7 +174,7 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     step(`observed ${marker} ${count}`);
   };
   await page.goto(address); await page.waitForFunction(() => document.body.dataset.state === 'ready');
-  await page.locator('#custom-maps').setInputFiles({name: 'former-arid.MP', mimeType: 'application/octet-stream', buffer: terrain()});
+  await page.locator('#custom-maps').setInputFiles({name: 'former-arid.MP', mimeType: 'application/octet-stream', buffer: terrain(roads)});
   await page.locator('#import-maps').click(); await page.waitForFunction(() => document.querySelector('#custom-map-list').textContent.includes('former-arid.MP'));
   await page.locator('#asset-source').selectOption('remote'); await page.locator('#asset-url').fill(`${address}/assets/manifest.json`);
   await page.evaluate(({scripts, main, world}) => {
@@ -183,14 +186,15 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     const callMain = Module.callMain;
     Module.callMain = args => callMain([...args, '--datapath', '/former-snapshot/GLSMAC_data', '--mainscript', 'browser_former_main', '--worldscript', 'browser_former',
       '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/former-arid.MP', '--quickstart-faction', 'GAIANS']);
-  }, {scripts, main, world});
+  }, {scripts, main, world: roads ? world.replace("{type: 'Formers', owner: owner, tile: tm.get_tile(8, 6)", "{type: 'Formers', owner: owner, tile: tm.get_tile(10, 6)") : world});
   await page.locator('#start').click(); await wait('FW_READY'); assert.ok(override.reads() > 0);
   await press('k'); await wait('FW_SELECTED');
   const readState = async () => {
-    const log = await page.locator('#log').textContent(); const m = [...log.matchAll(/FW_STATE\|(\d+)\|([^|]+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)\|(true|false)\|(true|false)\|([^\r\n]+)/g)].at(-1);
+    const log = await page.locator('#log').textContent(); const m = [...log.matchAll(/FW_STATE\|(\d+)\|([^|]+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)\|(true|false)\|(true|false)\|([^|\r\n]+)\|(\d+)/g)].at(-1);
     const control = [...log.matchAll(/FW_CONTROL\|(ready|pending)/g)].at(-1);
     assert.ok(m && control); return {state: {year_delta: +m[1], order: m[2], movement_spent: +m[3], work_units: +m[4],
-      terrain: Object.fromEntries(['road', 'farm', 'mine', 'forest'].map((name, i) => [name, m[i + 5] === 'true']))}, status: m[9], ready: control[1] === 'ready'};
+      terrain: Object.fromEntries(['road', 'farm', 'mine', 'forest'].map((name, i) => [name, m[i + 5] === 'true'])),
+      ...(roads ? {position: (+m[10] - 10) / 2} : {})}, status: m[9], ready: control[1] === 'ready'};
   };
   const probe = async () => {
     const count = (await page.locator('#log').textContent()).split('FW_DONE').length - 1;
@@ -209,7 +213,7 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
       assert.ok(state.ready, 'The actual control must settle after native turn delivery');
     } else {
       const replacing = action === 'forest' && expected[index].terrain.farm;
-      const key = {farm: 'f', mine: 'm', forest: 'Shift+f', road: 'r', cancel_work: 'a'}[action];
+      const key = {farm: 'f', mine: 'm', forest: 'Shift+f', road: 'r', cancel_work: 'a', west: 'ArrowLeft', east: 'ArrowRight'}[action];
       const count = async marker => (await page.locator('#log').textContent()).split(marker).length - 1;
       let prompts = await count('FW_REPLACEMENT'); let closed = await count('FW_MODAL_CLOSED');
       const reports = await count('FW_DONE');
@@ -231,20 +235,30 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   }
   const log = await page.locator('#log').textContent();
   const label = {mine: 'Construct Mine', farm: 'Cultivate Farm', forest: 'Plant Forest', road: 'NO ORDERS'}[input.input.actions[0]];
-  assert.ok(log.includes(`FW_LABEL|${label}`));
+  if (label) assert.ok(log.includes(`FW_LABEL|${label}`));
+  if (roads && input.input.actions.includes('farm')) assert.match(log, /FW_LABEL\|Cultivate Farm/);
   if (input.id === 'former-farm-then-forest') {
     assert.match(log, /FW_REPLACEMENT\|Planetary Ecologist/); assert.match(log, /FW_LABEL\|Plant Forest/);
   }
   await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`former-work-${input.id}.png`, artifacts))});
-  await press('k'); await wait('FW_EXITING');
+  writeFileSync(new URL(`former-work-${input.id}-before-exit.log`, artifacts), log);
+  await press('k');
   // Keep lifecycle polling in Node, independent of application timer teardown.
   const exitDeadline = Date.now() + 60000;
   let exitState;
   do {
-    exitState = await page.evaluate(() => document.body.dataset.state);
+    assert.deepEqual(errors, []);
+    exitState = await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('Browser did not answer the shutdown probe')), 5000);
+      page.evaluate(() => document.body.dataset.state).then(value => { clearTimeout(timer); resolve(value); },
+        error => { clearTimeout(timer); reject(error); });
+    });
     if (exitState === 'exited') break;
     await new Promise(resolve => setTimeout(resolve, 100));
   } while (Date.now() < exitDeadline);
   assert.equal(exitState, 'exited');
+  assert.match(await page.locator('#log').textContent(), /FW_EXITING/);
+  await new Promise(resolve => setTimeout(resolve, 500));
+  assert.equal(await page.evaluate(() => document.body.dataset.state), 'exited');
   assert.deepEqual(errors, []);
 });

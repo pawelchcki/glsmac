@@ -33,12 +33,25 @@ const eligible = (game, unit, action) => {
 const needs_confirmation = (game, unit, action) => {
 	return action == 'forest' && game.get_tm().get_terraforming(unit.get_tile().x, unit.get_tile().y).farm;
 };
+const can_resume_exhausted = (game, unit, action) => {
+	const state = unit.get_terraforming(); const tile = unit.get_tile();
+	const rules = game.get('terraforming_rules'); const rule = rules[action];
+	return unit.movement == 0.0 && unit.moved_this_turn && !state.active && state.action == action && state.work_units > 0 &&
+		state.tile_x == tile.x && state.tile_y == tile.y && state.required_work == rule.turns * 2 &&
+		state.previous_moved && state.previous_movement > 0.0 && state.previous_movement < 1.0;
+};
 const tick = (game, unit, action) => {
 	const tile = unit.get_tile(); const rules = game.get('terraforming_rules'); const rule = rules[action]; const required = rule.turns * 2;
 	const previous = unit.get_terraforming();
 	let completed = 0;
 	if (previous.tile_x == tile.x && previous.tile_y == tile.y) { completed = previous.work_units; }
 	const movement = unit.movement + 0.0; const moved = unit.moved_this_turn == true;
+	if (movement == 0.0) {
+		// A cancelled partial-move task can be ordered again while exhausted.
+		// It resumes next turn; issuing this order earns no extra work.
+		previous.active = true; previous.last_turn = game.get_turn();
+		unit.set_terraforming(previous); return;
+	}
 	if (completed + 2 >= required) {
 		const data = flags(game, tile); data[action] = true;
 		if (action == 'forest') { data.farm = false; }
@@ -54,19 +67,24 @@ return {
 	flags: flags,
 	needs_confirmation: needs_confirmation,
 	validate: (e) => {
-		const orders = #include('./unit_orders'); const error = orders.validate(e, true);
+		const orders = #include('./unit_orders'); const error = orders.validate(e, false);
 		if (#is_defined(error)) { return error; }
 		const unit = orders.resolve(e.game, e.data);
-		if (unit.movement != 1.0) { return 'Work requires a full movement point'; }
+		if (unit.movement > 1.0) { return 'Work requires at most one movement point'; }
 		if (#is_defined(e.data.replace_existing) && #typeof(e.data.replace_existing) != 'Bool') { return 'Replacement confirmation must be boolean'; }
 		const reason = eligible(e.game, unit, e.data.action); if (#is_defined(reason)) { return reason; }
+		if (unit.movement <= 0.0) {
+			if (!can_resume_exhausted(e.game, unit, e.data.action)) { return 'Unit has no pending moves'; }
+		} else {
+			const readiness = orders.validate(e, true); if (#is_defined(readiness)) { return readiness; }
+		}
 		if (needs_confirmation(e.game, unit, e.data.action) && (!#is_defined(e.data.replace_existing) || !e.data.replace_existing)) { return 'Improvement replacement requires confirmation'; }
 	},
 	start: tick,
 	cancel: (game, unit) => {
 		const state = unit.get_terraforming();
 		if (!state.active) { return; }
-		if (state.last_turn == game.get_turn()) {
+		if (state.last_turn == game.get_turn() && !state.previous_moved) {
 			state.work_units = state.previous_work_units;
 			unit.movement = state.previous_movement; unit.moved_this_turn = state.previous_moved;
 		}

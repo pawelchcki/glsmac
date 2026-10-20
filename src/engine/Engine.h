@@ -120,6 +120,7 @@ private:
 	std::atomic< bool > m_is_shutting_down = false;
 
 	std::vector< common::Thread* > m_threads = {};
+	common::Thread* m_collector_thread = nullptr;
 
 	config::Config* const m_config = nullptr;
 	error_handler::ErrorHandler* m_error_handler = nullptr;

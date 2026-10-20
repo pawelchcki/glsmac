@@ -340,6 +340,39 @@
         "errors": 0
       },
       "scope": "Both repeated healthy normal Former/arid-land traces now match production work events, native state and turns, and actual browser controls. The replacement prompt imports installed MIMIMI caption/body/choices; Cancel preserves native state and Continue gates the command. Stale callbacks, changed turns/movement, despawn and removed panels cannot issue a replacement. Geometry, audio, keyboard parity and script-versus-xscript precedence remain outside the observed contract."
+    },
+    {
+      "id": "former-road-movement-and-partial-work",
+      "suite": "former-movement",
+      "status": "fixed-in-recorded-native-and-browser-contract",
+      "examples": [
+        "former-road-three-moves",
+        "former-road-one-move-farm",
+        "former-road-two-moves-farm"
+      ],
+      "property": "Baseline road moves spent a full movement point and rejected subsequent movement/work. Same-year partial-move cancellation must retain progress and exhausted movement; same-task resume must not grant another tick.",
+      "verification": {
+        "matched": 3,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "Three independently repeated original healthy Former traces on two flat arid roads with unchanged installed rates. Candidate uses native movement and animation callbacks, shipped orders/work and real turns. Other terrain, changed original rates, ZOC and combat remain unobserved."
+    },
+    {
+      "id": "engine-shutdown-ui-timer-lifetime",
+      "suite": "thread-runtime-and-former-browser",
+      "status": "fixed-in-native-wasm-and-browser-regressions",
+      "property": "Concurrent shutdown lets get_player run from a UI timer after the backend clears its state. Stopping collection alone does not prevent this second lifetime race.",
+      "scope": "Actual native and WASM threads hold traversals in flight. Shutdown joins the collector, drains background iterations, removes UI/script state while native game state remains alive, then finishes background Stop callbacks. The real-asset work traces additionally require stable engine exit and reject page crashes or native exceptions.",
+      "first_failure": "Native/WASM assertion !state.teardown_overlap; real optimized browser RuntimeError memory access out of bounds in Game::Wrap get_player during exit.",
+      "verification": {
+        "native_thread_probe": true,
+        "wasm_thread_probe": true,
+        "release_browser_traces": 9,
+        "release_browser_passed": 9,
+        "normal_generated_gameplay_passed": true
+      }
     }
   ],
   "verification": {

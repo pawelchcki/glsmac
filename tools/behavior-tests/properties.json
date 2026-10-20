@@ -94,10 +94,12 @@
       "contracts": [
         "ui.unit_orders.v1",
         "game.startup_inventory.v1",
-        "game.startup_inventory_sources.v1"
+        "game.startup_inventory_sources.v1",
+        "game.former_work.v1",
+        "game.former_road_movement.v1"
       ],
       "remaining": [
-        "Movement and terrain costs",
+        "Movement and terrain costs beyond the recorded flat arid Former road traces",
         "Skip/activation across other unit types, terrain and multi-unit selection",
         "Sentry, Alert and other persistent orders",
         "Orders and cancellation beyond the bounded starting Scout",
@@ -107,7 +109,7 @@
         "Other factions/difficulties and starting-unit bonuses beyond the two recorded land starts",
         "Faction morale bonuses, reactor damage, authentic conventional unit graphics and terraforming beyond one healthy Former on flat arid non-base land"
       ],
-      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Installed TERRAIN metadata, native work-state persistence and live terrain edits now have separate headless and browser checks, including world/preview redraws under two rule profiles. Production work commands and fresh-turn progress now support one healthy normal Former on flat arid non-base land; six frozen work traces match native replay. Original combat odds and complete research/terraforming/AI remain unimplemented. Six independently repeated original Former traces are frozen (edited mine completion, farm cancellation/resume, held-out ordinary Road/edited Forest, retained-work switching and accepted Farm-to-Forest replacement); candidate replay matches all six; they are promoted into the passing catalog."
+      "coverage": "13 Scout order traces and six initial land inventory cases match recorded original behavior. Four inventory source cases exchange only an installed TECH token. Shipped unit/component/morale-name tables, concrete faction TECH tokens, native conventional/civilian metadata, construction and startup handoff are exercised separately by native/application tests and real browser source swaps, natural Former completion and normal growth/Pod construction. Installed TERRAIN metadata, native work-state persistence and live terrain edits now have separate headless and browser checks, including world/preview redraws under two rule profiles. Production work commands and fresh-turn progress now support one healthy normal Former on flat arid non-base land; six frozen work traces match native replay. Original combat odds and complete research/terraforming/AI remain unimplemented. Six independently repeated original Former traces are frozen (edited mine completion, farm cancellation/resume, held-out ordinary Road/edited Forest, retained-work switching and accepted Farm-to-Forest replacement); candidate replay matches all six; they are promoted into the passing catalog. Three additional repeated original road traces establish three road steps per turn, work after one or two steps, retained same-year cancellation, exhausted same-task resume without extra work, and next-turn cancellation. Installed RULES road rates and actual native movement/rollback have application tests; alternate rates are not original observations."
     },
     {
       "id": "combat",

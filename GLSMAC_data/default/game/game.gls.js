@@ -10,6 +10,7 @@ return (glsmac) => {
 	const unit_rules = #include('unit_rules');
 	const land_resource_rules = #include('land_resource_rules');
 	const terraforming_rules = #include('terraforming_rules');
+	const movement_rules = #include('movement_rules');
 
 	// Native asset initialization supplies the parsed document on both ordinary
 	// and command-line Quick Start paths. Return a validated scalar; native code
@@ -53,6 +54,7 @@ return (glsmac) => {
 			units.configure(game);
 			const document = glsmac.load_smac_text('alphax.txt', 'rules');
 			game.set('terraforming_rules', terraforming_rules.parse(document));
+			game.set('movement_rules', movement_rules.parse(document));
 			#include('terraforming').configure(game);
 			resources.configure(game, land_resource_rules.parse(document));
 

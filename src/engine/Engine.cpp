@@ -108,6 +108,7 @@ Engine::Engine(
 	else {
 		NEW( t_gc, common::Thread, "GC" );
 		m_threads.push_back( t_gc );
+		m_collector_thread = t_gc;
 	}
 	t_gc->SetIPS( gc::GC::COLLECTS_PER_SECOND );
 	NEW( m_gc, gc::GC );
@@ -160,9 +161,7 @@ int Engine::Run() {
 		}
 		Log( "Shutting down" );
 
-		for ( auto& thread : m_threads ) {
-			thread->T_Stop();
-		}
+		common::Thread::StopAll( m_threads, m_collector_thread );
 #ifdef DEBUG
 		util::Timer thread_running_timer;
 		thread_running_timer.SetInterval( 1000 );

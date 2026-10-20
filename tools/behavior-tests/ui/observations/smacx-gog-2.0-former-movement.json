@@ -1,0 +1,335 @@
+{
+  "captured_at": "2026-10-20T12:05:10.538893+00:00",
+  "observations": [
+    {
+      "case_sha256": "eadb0f357a1b96dcb09a565d505be0f71f91d38827af1aa51a3f1b0435a0437b",
+      "id": "former-road-three-moves",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 1,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 2,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 1,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "51fd25a493417163acccf542a195130f663bf477c1cce933f22d7a4ef4e59816",
+      "id": "former-road-one-move-farm",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 1,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 4,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 4,
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a05336124299a8b3333b15a957a66ed5ed1019a4c7e8e9b767b6b208704bdb8a",
+      "id": "former-road-two-moves-farm",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 1,
+            "order": "none",
+            "position": -1,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 2,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 4,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "position": 0,
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 2,
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "d641ddfdba312bb8bd8b3707fa578d64807f5225e3a4b03842176900712cd55b",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.former_road_movement.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh healthy Former on synthetic 40x80 arid map; Gaians/Citizen/standard; UNIT1 input; held Scout; two adjacent roads built through actual work/turns before recording; unchanged installed road and work rates",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native vehicle position, order, movement spent, work counter, turn and current-tile improvement flags after real UI input",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "4063564c3adbcdf183265d6bb4a75ef1578c8fc16c468276faf392d79e0d2b9c",
+    "units": "Signed same-row tile displacement; movement spent in thirds; original integer work counter"
+  },
+  "repeat": 2,
+  "suite_sha256": "daebe041ade3fd3b9b23b87147a79cd60c14e010a5d59560a63a790e261add08",
+  "version": 1
+}
