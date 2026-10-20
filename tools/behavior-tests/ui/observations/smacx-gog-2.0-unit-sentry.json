@@ -1,0 +1,1263 @@
+{
+  "captured_at": "2026-10-20T16:58:55.314034+00:00",
+  "observations": [
+    {
+      "case_sha256": "ff91ef84fd5c7ab560d5b06a7e98c1fc28143a199f62390b45ef359e19fdc167",
+      "id": "sentry-skip-mask-1-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a28a829a1dc9c50e28e1d4f6179fb77c6f2cdbfd299f7f4b0fa06befcb077388",
+      "id": "sentry-skip-mask-2-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "938f4789510cc6c4f39de81300672499c082c1f65a1c905c2060492df04c7d1c",
+      "id": "sentry-skip-mask-3-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f20dcbdbc8b5457f8fd3092a03958b4c2b967c6d2009469f75c8a478adb53633",
+      "id": "sentry-skip-mask-4-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "85bbf51f5c99cb3286284e380777ed9a01f30a01250eb300041c3f768f70306c",
+      "id": "sentry-skip-mask-5-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "061b449a63cf37f93ff524350a62c21239cf150ecf6ef9a8439d108b976065ea",
+      "id": "sentry-skip-mask-6-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ec9a78d06ff86f0d8397373f5cadfd31ce5172ee0e52883724e7ba44cbc77be8",
+      "id": "sentry-skip-mask-7-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c9d85e0cf31979fce167caaacffab30c9129367b0032333786dce3f384ebb900",
+      "id": "sentry-scout-held-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "e373d7ed8fcac39b6219ab772b5209623d0e000f9f0e42c8d5ceafb9608f275a",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.unit_sentry_lifecycle.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh three healthy owned Gaia/Citizen/standard units on one actual base; flat arid 40x80 map, declared UNIT bonuses, pause enabled and tutorials off",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Guarded read-only native selected identity and vehicle orders/movement; actual selected name checked against visible UI; real L/H/Space/W/Tab and turns",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Turn difference; original vehicle order byte ordinal 0/1/2 retained raw, movement spent in thirds; role-normalized actual selected identity"
+  },
+  "repeat": 2,
+  "suite_sha256": "092088b63795087ca5c676926bd277f13311000789aa2adf611517f75f4cc532",
+  "version": 1
+}

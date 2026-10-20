@@ -75,7 +75,7 @@ const bool Unit::NeedsOrders() const {
 order_t Unit::GetOrder() const { return m_order; }
 
 void Unit::SetOrder( const order_t order ) {
-	ASSERT( order == order_t::NO_ORDERS || order == order_t::HOLD || ( order == order_t::TERRAFORM && !m_work.action.empty() ), "Invalid native unit order" );
+	ASSERT( order == order_t::NO_ORDERS || order == order_t::HOLD || order == order_t::SENTRY || ( order == order_t::TERRAFORM && !m_work.action.empty() ), "Invalid native unit order" );
 	m_order = order;
 }
 
@@ -156,7 +156,7 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	work_state_t work;
 	if ( buf.lenr != buf.lenw ) {
 		const auto encoded = buf.ReadInt();
-		if ( encoded < static_cast< int64_t >( order_t::NO_ORDERS ) || encoded > static_cast< int64_t >( order_t::TERRAFORM ) ) { THROW( "Invalid serialized unit order" ); }
+		if ( encoded < static_cast< int64_t >( order_t::NO_ORDERS ) || encoded > static_cast< int64_t >( order_t::SENTRY ) ) { THROW( "Invalid serialized unit order" ); }
 		order = static_cast< order_t >( encoded );
 		if ( buf.lenr != buf.lenw ) {
 			if ( buf.ReadString() != "unit-work-v1" ) { THROW( "Unknown serialized unit work extension" ); }
@@ -211,7 +211,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 			auto* unit = *handle;
 			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
 			unit->CheckLive( GSE_CALL );
-			return VALUE( gse::value::String,, unit->GetOrder() == order_t::TERRAFORM ? "TERRAFORM" : ( unit->GetOrder() == order_t::HOLD ? "HOLD" : "NO_ORDERS" ) );
+			return VALUE( gse::value::String,, unit->GetOrder() == order_t::TERRAFORM ? "TERRAFORM" : ( unit->GetOrder() == order_t::SENTRY ? "SENTRY" : ( unit->GetOrder() == order_t::HOLD ? "HOLD" : "NO_ORDERS" ) ) );
 		} )
 	},
 	{
@@ -234,6 +234,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 			order_t order;
 			if ( name == "NO_ORDERS" ) { order = order_t::NO_ORDERS; }
 			else if ( name == "HOLD" ) { order = order_t::HOLD; }
+			else if ( name == "SENTRY" ) { order = order_t::SENTRY; }
 			else { GSE_ERROR( gse::EC.INVALID_CALL, "Unsupported unit order: " + name ); }
 			if ( unit->GetOrder() != order ) { unit->SetOrder( order ); unit->m_um->RefreshUnit( GSE_CALL, unit ); }
 			return VALUE( gse::value::Undefined );

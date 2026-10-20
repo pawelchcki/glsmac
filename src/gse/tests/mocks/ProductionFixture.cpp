@@ -695,6 +695,7 @@ struct ProductionFixture : gc::Object {
 		const auto* received = receiving->game.m_um->GetUnit( id );
 		const bool roundtrip = received && backend::unit::Unit::Serialize( received ).ToString() == backend::unit::Unit::Serialize( source ).ToString();
 		const bool held = received && received->GetOrder() == backend::unit::order_t::HOLD && !received->NeedsOrders();
+		const bool sentry = received && received->GetOrder() == backend::unit::order_t::SENTRY && !received->NeedsOrders();
 		const bool receiving_owner = received && received->m_owner == receiving->owner->GetSlot() && received->m_def->m_moraleset == receiving->game.m_um->GetMoraleSet( "SYNTHETIC" );
 		const bool combat_received = received && received->m_def->GetCombat() == source->m_def->GetCombat();
 		// This is the exact pre-order candidate Unit payload, not an original
@@ -740,7 +741,7 @@ struct ProductionFixture : gc::Object {
 		const bool receiver_unchanged = receiving->FoundingSnapshot() == receiver_before && backend::unit::Unit::GetNextId() == next_before;
 		backend::base::Base::SetNextId( old_base_id ); backend::unit::Unit::SetNextId( old_unit_id );
 		const value::object_properties_t result {
-			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "held", VALUE( value::Bool,, held ) },
+			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "held", VALUE( value::Bool,, held ) }, { "sentry", VALUE( value::Bool,, sentry ) },
 			{ "receiving_owner", VALUE( value::Bool,, receiving_owner ) }, { "legacy_default", VALUE( value::Bool,, legacy_default ) },
 			{ "combat_received", VALUE( value::Bool,, combat_received ) },
 			{ "invalid_rejected", VALUE( value::Bool,, invalid_rejected ) }, { "trailing_rejected", VALUE( value::Bool,, trailing_rejected ) },

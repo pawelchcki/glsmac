@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "name": "Original three-unit Sentry lifecycle",
+  "description": "Input-only real L/H/Space/W/Tab and one paused turn; every nonempty sentry subset alongside skipped units, plus sentry Scout and held companions. No supplied answers.",
+  "cases": [
+    {
+      "id": "sentry-skip-mask-1-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "sleep",
+          "skip",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-2-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "sleep",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-3-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "sleep",
+          "sleep",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-4-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "skip",
+          "sleep",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-5-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "sleep",
+          "skip",
+          "sleep",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-6-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "sleep",
+          "sleep",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-skip-mask-7-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "sleep",
+          "sleep",
+          "sleep",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "sentry-scout-held-turn",
+      "algorithm": "game.unit_sentry_lifecycle.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "sleep",
+          "hold",
+          "hold",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

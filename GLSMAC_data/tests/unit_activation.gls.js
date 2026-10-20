@@ -62,7 +62,7 @@ behavior.scenario('despawn and changed native movement invalidate the draft with
 });
 behavior.scenario('modal state blocks preview commands and panel removal cancels pending picker callbacks', () => {
 	const f = fixture('default'); f.action('open'); const count = #sizeof(f.state.queued);
-	for (code of ['A', 'H', 'SPACE']) { f.preview.frame.emit('keydown', {code: code, modifiers: {}}); }
+	for (code of ['A', 'H', 'SPACE', 'L']) { f.preview.frame.emit('keydown', {code: code, modifiers: {}}); }
 	f.preview.activate_button.emit('click', {}); f.preview.hold_button.emit('click', {});
 	test.assert(#sizeof(f.state.queued) == count); held(f);
 	const ok = f.picker.ok; f.preview.frame.remove(); ok.emit('click', {}); f.flush();

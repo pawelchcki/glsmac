@@ -170,6 +170,11 @@
       "id": "unit-wait-lifecycle",
       "cases": "cases/unit-wait-lifecycle.json",
       "observations": "observations/smacx-gog-2.0-unit-wait-lifecycle.json"
+    },
+    {
+      "id": "unit-sentry",
+      "cases": "cases/unit-sentry.json",
+      "observations": "observations/smacx-gog-2.0-unit-sentry.json"
     }
   ]
 }

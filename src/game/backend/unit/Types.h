@@ -22,6 +22,8 @@ enum class order_t : uint8_t {
 	NO_ORDERS = 0,
 	HOLD = 1,
 	TERRAFORM = 2,
+	// Append new orders: prior candidate snapshots retain their numeric values.
+	SENTRY = 3,
 };
 
 typedef float movement_t;

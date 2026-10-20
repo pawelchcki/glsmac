@@ -35,6 +35,10 @@ production modal controls and actual native orders without rendering. The
 browser lane repeats all seven using actual keyboard and mouse input, including
 a paired installed-script caption override through the normal asset manifest.
 
+Eight [Sentry lifecycle traces](unit-sentry-contract.md) compare actual orders,
+movement and selection after L/H/Space/W/Tab and one paused turn. Display-free
+native replay and real browser input both match all eight frozen traces.
+
 ## Contracts and boundaries
 
 Eight [Former work traces](former-work-contract.md) and three
@@ -44,11 +48,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-646 passing cases. The pending catalog is currently empty. This does not
-establish full-game parity.
+654 passing cases, including eight independently repeated Sentry lifecycle
+traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `game.unit_sentry_lifecycle.v1` | 8 | Actual Sentry/Hold/Skip orders, movement and selected role through every nonempty Sentry subset, W/Tab and one paused turn | Real original controls with read-only native observations and visible selected-name check; recorded twice |
 | `ui.unit_activation_picker.v1` | 7 | Caption, ordered native unit names/roles, draft highlight, keyboard/text clicks, OK/Cancel and native order/selection effects | Actual original picker and read-only native state; recorded twice |
 | `game.unit_selection.v1` | 13 | Selected identity, actual orders/movement/positions through W/Tab/Hold/Skip, no-ready units, fresh turn and nearby layout | Real original controls, native identity and visible name agreement; recorded twice |
 | `game.unit_wait_state.v1` | 4 | Twelve-action W/Tab histories and actual deferred flags for all three units | Read-only original vehicle flags; recorded twice |
@@ -71,7 +76,7 @@ establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 646 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 654 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -180,7 +185,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 646 recorded cases now agree after production fixes to choices,
+any failures. All 654 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the
@@ -268,7 +273,7 @@ browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
 The [pending catalog](pending-catalog.json) is empty after promotion of the
-recorded activation and held-turn lifecycle cases. The six
+Sentry lifecycle, activation and held-turn cases. The six
 [startup inventory cases](startup-inventory-contract.md) also remain green. The two original
 red cases and four additional controlled-source cases now match actual native
 units and projects. `--pending` remains a strict lane for future discrepancies;

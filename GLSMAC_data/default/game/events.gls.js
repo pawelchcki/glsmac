@@ -15,6 +15,7 @@ return (game) => {
 		'attack_unit',
 		'unit_skip_turn',
 		'unit_hold',
+		'unit_sentry',
 		'unit_activate',
 		'unit_terraform',
 		'define_base_pop',

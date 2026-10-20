@@ -52,7 +52,7 @@ behavior.scenario('native order writes require write authorization before any mu
 
 behavior.scenario('native order setter rejects unsupported names and types without changing queues', () => {
 	const f = fixture(); const unit = f.unit();
-	for (invalid of ['', 'NO ORDERS', 'hold', 'SENTRY', 1, true, null, undefined]) {
+	for (invalid of ['', 'NO ORDERS', 'hold', 'sentry', 1, true, null, undefined]) {
 		const before = capture(f);
 		rejected(() => { f.with_write(() => { unit.set_order(invalid); }); }); unchanged(f, before);
 	}

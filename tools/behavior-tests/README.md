@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 646 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 654 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,238 scenarios and 8,115 assertions** across
-97 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,256 scenarios and 8,330 assertions** across
+98 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -35,6 +35,14 @@ bindings, facility and Colony Pod production, and technology/production snapshot
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `unit-sentry` suite checks persistent native Sentry orders, readiness,
+receiving-world serialization, authoritative guards, rollback, production L
+controls and popup blocking with a valid selected unit. Eight independently
+repeated [original Sentry traces](ui/unit-sentry-contract.md) also match native
+display-free replay and actual browser controls through one paused turn.
+Enemy-triggered waking, transport boarding and original Sentry work-cancellation
+behavior remain outside those observations.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached

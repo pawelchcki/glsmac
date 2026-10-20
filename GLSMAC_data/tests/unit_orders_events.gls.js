@@ -2,6 +2,7 @@
 // effects are supplied by display/transport mocks in this suite.
 const behavior = #include('./_behavior');
 const hold = #include('../default/game/event/unit_hold');
+const sentry = #include('../default/game/event/unit_sentry');
 const activate = #include('../default/game/event/unit_activate');
 const skip = #include('../default/game/event/unit_skip_turn');
 
@@ -55,7 +56,7 @@ behavior.scenario('Activate does not replenish exhausted movement and Hold accep
 
 behavior.scenario('malformed nonexistent and foreign identities are rejected without mutation', () => {
 	const f = test.founding_fixture();
-	for (handler of [hold, activate, skip]) {
+	for (handler of [hold, sentry, activate, skip]) {
 		for (data of [{}, { unit_id: null }, { unit_id: '1' }, { unit_id: 0 }, { unit_id: (0 - 1) }, { unit_id: 99999 }]) {
 			rejected(f, handler, event(f, data, 1));
 		}
@@ -66,7 +67,7 @@ behavior.scenario('malformed nonexistent and foreign identities are rejected wit
 behavior.scenario('dead locked and completed or inactive turns reject every unit command', () => {
 	for (kind of ['dead', 'locked', 'completed', 'inactive']) {
 		const f = test.founding_fixture(); f.configure(kind);
-		for (handler of [hold, activate, skip]) { rejected(f, handler, event(f, { unit_id: f.unit_id }, 1)); }
+		for (handler of [hold, sentry, activate, skip]) { rejected(f, handler, event(f, { unit_id: f.unit_id }, 1)); }
 	}
 });
 
@@ -78,7 +79,7 @@ behavior.scenario('native immovable definitions cannot receive these movement or
 		const data = { def: 'Fixed', health: 1.0, morale: 2 }; data.owner = f.owner; data.tile = f.base.get_tile();
 		unit = f.game.um.spawn_unit(data);
 	});
-	for (handler of [hold, activate, skip]) { rejected(f, handler, event(f, { unit_id: unit.id }, 1)); }
+	for (handler of [hold, sentry, activate, skip]) { rejected(f, handler, event(f, { unit_id: unit.id }, 1)); }
 });
 
 behavior.scenario('legacy wrapper requests require the exact current native manager entity', () => {
@@ -86,7 +87,7 @@ behavior.scenario('legacy wrapper requests require the exact current native mana
 	const data = {}; data.unit = f.game.um.get_unit(f.unit_id);
 	const e = event(f, data, 1); apply(f, skip, e); f.with_write(() => { skip.rollback(e); });
 	const wrong = { unit_id: f.unit_id }; wrong.unit = other.game.um.get_unit(other.unit_id);
-	for (handler of [hold, activate, skip]) { rejected(f, handler, event(f, wrong, 1)); }
+	for (handler of [hold, sentry, activate, skip]) { rejected(f, handler, event(f, wrong, 1)); }
 });
 
 behavior.scenario('rollback cannot apply an old receipt to a despawned and replaced scalar id', () => {

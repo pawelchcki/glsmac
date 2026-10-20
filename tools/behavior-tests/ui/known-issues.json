@@ -417,16 +417,40 @@
         "errors": 0,
         "rendered_matched": 7
       }
+    },
+    {
+      "id": "three-unit-sentry-control",
+      "suite": "unit-sentry",
+      "example": "sentry-skip-mask-1-turn",
+      "status": "fixed",
+      "lane": "actual-release-browser",
+      "property": "Actual L leaves Scout ready and selected in the reproduction. The original sets native order code 1 and selects Former.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_scripts_sha256": "72469a5076a36e979e236911d407fb5faa3dcf61ddd4a8c29a1cc9736f52b418",
+      "baseline_wasm_sha256": "216b01a1465152233882e7d1bc22ca30d7539ac82990e17f4d56aa5130794be3",
+      "scope": "Eight independently repeated original Sentry/Skip/Hold/Wait/Tab/paused-turn lifecycle traces now match production controls and actual native orders, movement and selection, both display-free and through actual browser input. The original strict opening mismatch remains recorded above. Enemy-triggered waking, transport boarding, work cancellation and general unit-order UI remain outside this contract.",
+      "verification": {
+        "matched": 8,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 8
+      }
     }
   ],
   "verification": {
-    "cases": 646,
-    "matched": 646,
+    "cases": 654,
+    "matched": 654,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Full display-free recorded catalog; browser integration lanes are checked separately. Not full-game parity.",
+    "scope": "Full display-free passing catalog; pending contracts are excluded and browser integration lanes are checked separately. Not full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -440,6 +464,8 @@
     "rendered_selection_matched": 13,
     "rendered_former_cases": 13,
     "rendered_former_matched": 13,
-    "normal_generated_lifecycle_passed": true
+    "normal_generated_lifecycle_passed": true,
+    "rendered_sentry_cases": 8,
+    "rendered_sentry_matched": 8
   }
 }

@@ -320,8 +320,8 @@ return {
 				if (!object.is_immovable) {
 					this.movement_label = f_line(object.movement > 0.0 ? 'Moves: ' + this.format_movement(object.movement) : 'ALREADY MOVED', 12, 'left');
 				}
-				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD' && this.rendered_order != 'TERRAFORM') { throw Error('Unknown unit order: ' + this.rendered_order); }
-				let label = this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS';
+				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD' && this.rendered_order != 'SENTRY' && this.rendered_order != 'TERRAFORM') { throw Error('Unknown unit order: ' + this.rendered_order); }
+				let label = this.rendered_order == 'SENTRY' ? 'SENTRY' : (this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS');
 				if (this.rendered_order == 'TERRAFORM') {
 					const state = object.get_terraforming(); const rules = this.p.game.get('terraforming_rules'); const rule = rules[state.action];
 					label = rule.order;
@@ -460,6 +460,7 @@ return {
 		this.frame.on('keydown', (e) => {
 			if (e.modifiers == {} && !this.p.modules.popup.is_shown() && this.is_turn_active) {
 				if (e.code == 'H') { return this.submit_unit_order('unit_hold'); }
+				if (e.code == 'L') { return this.submit_unit_order('unit_sentry'); }
 				if (e.code == 'A') { return this.submit_unit_order('unit_activate'); }
 				if (e.code == 'SPACE') { return this.submit_unit_order('unit_skip_turn'); }
 				if (e.code == 'F') { return this.submit_work('farm'); }
