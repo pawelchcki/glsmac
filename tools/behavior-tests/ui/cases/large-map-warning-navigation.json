@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "name": "original-large-map-warning-navigation-boundaries",
+  "description": "Additive focused-list boundary and Home/End probes, preserving the original 68-case input suite. Actual highlights are observed after every key.",
+  "cases": [
+    {
+      "id": "warning-random-navigation-0",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowDown"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-navigation-1",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowUp",
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-navigation-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "Home"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-navigation-3",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "End"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-navigation-4",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowUp",
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-navigation-0",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowDown"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-navigation-1",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowUp",
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-navigation-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "Home"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-navigation-3",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "End"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-navigation-4",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowUp",
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    }
+  ]
+}

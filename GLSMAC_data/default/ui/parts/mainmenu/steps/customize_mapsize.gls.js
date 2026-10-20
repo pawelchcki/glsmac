@@ -1,11 +1,17 @@
-// Original dialog observations cover raw defaults and source-driven text.
-// Validation and conversion to backend parity coordinates are application rules.
+// Recorded setup covers edited values, warning boundaries and controls.
+// Four original generated worlds establish doubled horizontal coordinates
+// and unchanged vertical counts, including odd heights.
+const warn_large = #include('./large_map_warning');
 return (i) => {
 	const definition = i.smac_data.dimension_dialog();
 	i.settings.global.map.preset_level = 99;
 	let width_input = null;
 	let height_input = null;
 	let error_text = null;
+	const next = () => {
+		if (i.settings.global.map.type == 'random') { i.steps.select_difficulty_level(i); }
+		else { i.steps.customize_ocean_coverage(i); }
+	};
 	const parse_dimension = (value) => {
 		const text = #trim(value);
 		let dimension = 0;
@@ -26,19 +32,18 @@ return (i) => {
 			error_text.text = 'Choose a random or customized map before setting its size.';
 			return true;
 		}
-		if (horizontal < 2 || horizontal > 2048 || height < 2 || height > 4096 || height % 2 != 0) {
-			error_text.text = 'Use whole horizontal and even vertical sizes within the displayed ranges.';
+		if (horizontal < 2 || horizontal > 2048 || height < 2 || height > 4096) {
+			error_text.text = 'Use whole sizes within the displayed ranges.';
 			return true;
 		}
+		let warning = null;
+		if (horizontal > 128 || height > 128) { warning = i.smac_data.large_map_warning(); }
 		i.settings.global.map.size_x = horizontal * 2;
 		i.settings.global.map.size_y = height;
 		i.settings.global.map.preset_level = 99;
 		i.popup.complete();
-		if (i.settings.global.map.type == 'random') {
-			i.steps.select_difficulty_level(i);
-		} else {
-			i.steps.customize_ocean_coverage(i);
-		}
+		if (warning != null) { warn_large(i, warning, next); }
+		else { next(); }
 		return true;
 	};
 	i.popup.show({
@@ -61,7 +66,7 @@ return (i) => {
 			height_input.on('input', submit);
 			error_text = body.text({
 				class: 'popup-text', align: 'left', top: 70, left: 15,
-				text: 'Horizontal: 2-2048. Vertical: even values 2-4096.',
+				text: 'Horizontal: 2-2048. Vertical: 2-4096.',
 			});
 		},
 		buttons: [

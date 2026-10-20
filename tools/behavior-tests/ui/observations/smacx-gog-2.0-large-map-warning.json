@@ -1,0 +1,3758 @@
+{
+  "captured_at": "2026-10-19T23:08:35.537432+00:00",
+  "observations": [
+    {
+      "case_sha256": "776dc189fcde708bf61c4ffc11da918a5e3bf91d3486b2cfb2d906fdd3650af9",
+      "id": "warning-random-bounds-80-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e1de9e855ccdd0478a3865716f613aded8560ccb0277dcbf766b9e30ac4d691a",
+      "id": "warning-random-bounds-80-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a08dd78b118d11b92255c39826fa2ab8a7f0e8376263e9972f9492fcdb82e329",
+      "id": "warning-random-bounds-128-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a40320c5cdd558a54c0e4e687ce556c71d1c8a9f3c859261f90f7aac39dc56ce",
+      "id": "warning-random-bounds-129-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ead95b4b423baba70145512e0960b22db585ad9e6aea6f6b7fe0bf1507a82fda",
+      "id": "warning-random-bounds-256-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "256",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f29a32098168700e5ba799abcf759d5e9c136a7c1040377cbf3008d0348b333c",
+      "id": "warning-random-bounds-256-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "256",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "197e7ccca8afe078b95f15a22c422d2a277cb5087c7b1ca33e471282b093edf3",
+      "id": "warning-random-bounds-80-255",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "255"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cf4ab41c1a388a922055492e689e1b3f31bdcb52e30691b836528c8579369678",
+      "id": "warning-random-bounds-80-256",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "256"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ac0d61055d35d6717776a87382f6bbefe9207ad88a3698bded8f8968a533630f",
+      "id": "warning-random-bounds-128-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ec9ae33e033bbfa961d5d6595d4765b53ec434f8a06a6ac28c57184f81dfcc6f",
+      "id": "warning-random-bounds-129-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "05925ab2ef758f7f4ee1d99794950dec1edee327f8b028ac9f6faa8fff905dda",
+      "id": "warning-random-bounds-2-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bcbd1c32bd04b077573e4eda2a772e949f99aeec85ea741fdc66cf56d1febd2b",
+      "id": "warning-random-bounds-2-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "245cd93fa16a1796efa32aa714e372e2037e12844ddb7bd7cfb11cdb677f9d75",
+      "id": "warning-random-bounds-128-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8ae17a57037bc51a0268db79274c330adb3d830f90c8d2a1978039b97e914976",
+      "id": "warning-random-bounds-129-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bd3aabef3600c142396445fed3b3205e727c752abecd65675217de492a03b3d9",
+      "id": "warning-random-bounds-2-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "31635584f5fe3e6bde98fe3b57052aec9300f613733c5c3a6734a79a12703518",
+      "id": "warning-random-bounds-130-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4d86e4c008aaee0b16ed198d91809b35d5115ee1cb2f1ac135efb1469dbe4da1",
+      "id": "warning-random-bounds-128-130",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "130"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "392d92daa8a70e4e357baa60fff73bd2e7811e6dd9efe665ec255f3e84b9be11",
+      "id": "warning-random-controls-0",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b9e9f8567c5bb9a4eff05141e4c8dbce1927138495a8afb822220f1f1bdade55",
+      "id": "warning-random-controls-1",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e3cda8e9584a224fe29e7b52b0dfbaa0adb3776065f03e4ee96c355746146e50",
+      "id": "warning-random-controls-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "400a044cbef8cb357ced93487452fb6516b7035b8509331a9a990811a3afd670",
+      "id": "warning-random-controls-3",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "02b78716cd62e36390119ae9553f2c9ada50b2aa5bbd76ed36978ca2ee315ff5",
+      "id": "warning-random-controls-4",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2b22404ded235716813456483a571c95c4b6213a1c7dd7697e69f1dae7ab563c",
+      "id": "warning-random-controls-5",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f1c08fe4e0a1b5784d9622c882b585fd969ce46e85d97bfe81520d0e8fc47e8d",
+      "id": "warning-random-controls-6",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8893be86a8550c922caded3820762887bfffb56964d057b1fd680797ee937aab",
+      "id": "warning-random-controls-7",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1e9b3fe780d86388317f9aaafe0804454fc9c6358f85e0674a93a4ebcfdd05a2",
+      "id": "warning-random-controls-8",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6df5f92d8375fa51b46c4d5886f202514414764f094df86abb40aae9a2e0cc84",
+      "id": "warning-random-controls-9",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b2752cd321e42b143943e969b4f4a836bdb2499eb6e022c0c0301c68d3b24bbc",
+      "id": "warning-random-controls-10",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cc138450515bf55c3ffa39f33ab165d9bbbfe075bc43f87727115fee220746c5",
+      "id": "warning-random-controls-11",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "5452cedc5c9414d95babf5cfd3772499815640b92edd7cac020309f10332fc80",
+      "id": "warning-random-controls-12",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f21cbe6983b9aff9a089f99789267454f4221378fd7446f6bf740a5cc08fea0e",
+      "id": "warning-random-controls-13",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "PICK A DIFFICULTY LEVEL",
+              "entries": [
+                "CITIZEN",
+                "SPECIALIST",
+                "TALENT",
+                "LIBRARIAN",
+                "THINKER",
+                "TRANSCEND"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CITIZEN"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7ef49f71534761b8e815eb483d9e1d0cf83daa11b0c532cd72715bdbf4584c67",
+      "id": "warning-random-text-common",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "PROCEED HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "RETURN HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "94b4671d8f94c94d4638289677aa32d21968b03eca1254ea640bfc7d24253b05",
+      "id": "warning-random-text-expansion",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2a4086a43e5657a38f52e6b842d99d6494fcf1dac2f32d279d565698f6156fdf",
+      "id": "warning-random-text-both",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "PROCEED HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "RETURN HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "MAKE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "78ffda7eecc7b48dec0953cb6a2b029845ae521dcb676fd31c9a3bf852aafd60",
+      "id": "warning-custom-bounds-80-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "19adf414542d31c98eb0941bc7a0f53d8208eaa047244e2dffc5c72555422554",
+      "id": "warning-custom-bounds-80-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3fc957ff4ceef9f312e2cc123da2244184551ec8a9f1577bf77b3014f30382e9",
+      "id": "warning-custom-bounds-128-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b1caac934d97b7adf449474bd7d807a36fc017105ac266f9b6eda89ce7247b07",
+      "id": "warning-custom-bounds-129-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "993a4c660810124456f06465971d2a395d2127d8a6b0816b8b31c64f4f06871e",
+      "id": "warning-custom-bounds-256-80",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "256",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b943362b8e3b58ca92dd3a4cbfc917088e6f433b3158f479768b0b053707eaae",
+      "id": "warning-custom-bounds-256-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "256",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "56eb63a0e0dc04d17ab145cc69ad3895ecf37b6ebff782b765f507ea69d654f5",
+      "id": "warning-custom-bounds-80-255",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "255"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9b1aa36f0cbe5b12c8371c8bee4b86a7c3476c5a43767cdc863d49211a3f3366",
+      "id": "warning-custom-bounds-80-256",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "80",
+                "256"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3023f03951a0cf37db12678e078cb230ad5d66d77dbfbb3f3c5f1443901813fe",
+      "id": "warning-custom-bounds-128-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "5c0aa8031acef93aa15cde0ea36adc48c40d76304095fb0e1353f802e66df886",
+      "id": "warning-custom-bounds-129-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "450a83785c604e53565f6c63be4a20477895746fc3f11f3af330bc46fd710aab",
+      "id": "warning-custom-bounds-2-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6735f4c3caab62e10de480e6efd1ed6d1f6c85ad04fdf8bdc7390ed9b62f424c",
+      "id": "warning-custom-bounds-2-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "34c2b96ef11ab90c6478adea5c6691ea4542f56e5ff4f04c4ed12452e3fe5ac4",
+      "id": "warning-custom-bounds-128-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "de532bc18b8d080197d65681c5beeaf079d0e8dd6d5d745463ba28cfaa9a7dcc",
+      "id": "warning-custom-bounds-129-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "2"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cd57289a1c97d663196a194e2b8b5a41113d0fe01f56fa442759c1d2d27de422",
+      "id": "warning-custom-bounds-2-129",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "2",
+                "129"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "3fc55771c97b2c5aefdd3efd984cf22d3886c2d5ef8a35bb7af3c3094fce8d9a",
+      "id": "warning-custom-bounds-130-128",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "128"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "501a3c352110e0803205240faca4b475f5ea32ad2f33da3d9b9c225a26e37684",
+      "id": "warning-custom-bounds-128-130",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "128",
+                "130"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9c167eaf858775e26e9e4b024380edda62ba1f2d72116c39a10deeb347009598",
+      "id": "warning-custom-controls-0",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a7eb29bcb0854879008874bc336e47dc77828352e35c2787092d696a15d24e37",
+      "id": "warning-custom-controls-1",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1f7b93327fd05dd47b0565f14e22404c2ce3bec1267755cc05e87203a7b12cab",
+      "id": "warning-custom-controls-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "40369eb8ac2be9d8e0bc5de744eb0d4a6f6aa53863736440baa1399cfa0056e7",
+      "id": "warning-custom-controls-3",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e1e7d74f979a4e14e23b94ad0a205a9b84fff8da40201881a593bfcb1f9e1014",
+      "id": "warning-custom-controls-4",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "639b8bb5f2cc044f191989a3b651ea17887bde3ded471cbd22b534752fb254c7",
+      "id": "warning-custom-controls-5",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e92c4666bb9f4e56292d6ced69669a4ea6346237d8838dcc012e88cce37b307b",
+      "id": "warning-custom-controls-6",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "50af76e818b7d93fe72cfe411d3b1fdc9a611beda79f73ddf0f0d005a1ec654e",
+      "id": "warning-custom-controls-7",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "23dde962270c4e5544daea6cdd9a5ad3245ed38f1f1917d2269fdc965d196632",
+      "id": "warning-custom-controls-8",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a405eb7546e0a83fb53966b1157d0cc648757e3c484e1a00b1c2737d469ed121",
+      "id": "warning-custom-controls-9",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fc982e8c1bda965357a1057a2bdb4298a2547ccf5680691e76eb6b800f638057",
+      "id": "warning-custom-controls-10",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0d58ddce8767db0aebcf4424b780e559b60e3c195b3a42c6f910fccb11818e13",
+      "id": "warning-custom-controls-11",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "93e7077538ed133ce4cff3fe2713f35b557c9a354bccb9900cd566d371a46128",
+      "id": "warning-custom-controls-12",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "747459762c72f00be665b73d2a180b6a9bab0c4709124beed5403fdb02f66088",
+      "id": "warning-custom-controls-13",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": "SELECT OCEAN COVERAGE",
+              "entries": [
+                "30-50% OF SURFACE",
+                "50-70% OF SURFACE",
+                "70-90% OF SURFACE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "50-70% OF SURFACE"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "77b0657819bfb97a529224bcfbb58e40b3653868ca1ba3a5cb56890e435122a4",
+      "id": "warning-custom-text-common",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "PROCEED HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "RETURN HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "330bc23368151605bccbb7f842b78650fc331b78070e6495eb32424ed360af97",
+      "id": "warning-custom-text-expansion",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ce7a0d5536dcfcdf4ffe1f3f57bebfda5a81a4a584dda588d3311ac4c1bf7b9d",
+      "id": "warning-custom-text-both",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "130",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "PROCEED HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CORE NOTICE",
+              "entries": [
+                "PROCEED HERE.",
+                "RETURN HERE."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "RETURN HERE."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "caption": null,
+              "entries": [
+                "MAKE RANDOM MAP",
+                "CUSTOMIZE RANDOM MAP",
+                "THE MAP OF PLANET",
+                "HUGE MAP OF PLANET",
+                "LOAD MAP FILE"
+              ],
+              "kind": "sliding-menu",
+              "selected": [
+                "CUSTOMIZE RANDOM MAP"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "1f635200f41f3bc861a2f0fbb16d3318a43290d08ae4699050cbfd55f8ad8af9",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.large_map_warning.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual edited values, warning selection, caller navigation and read-only setup kind",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "text_profiles_sha256": "ed66823f9c145aa997ca08ff77066a50a7da7287bd2becf94d927031ba937f2b"
+  },
+  "repeat": 2,
+  "suite_sha256": "42e0033cdc02d8ab22c87928d99ad5437778299408817ce570cb3996699711d0",
+  "version": 1
+}

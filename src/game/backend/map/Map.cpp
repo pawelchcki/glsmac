@@ -701,7 +701,7 @@ const Map::error_code_t Map::LoadFromBuffer( types::Buffer& buffer ) {
 		// Each tile has twelve typed 64-bit integers (14 bytes each), wrapped
 		// in a typed string (6 bytes). Imported source metadata is optional.
 		constexpr size_t minimum_tile_record_size = 12 * 14 + 6;
-		if ( width <= 0 || height <= 0 || width > 4096 || height > 4096 || ( width & 1 ) || ( height & 1 ) ||
+		if ( width <= 0 || height < 2 || width > 4096 || height > 4096 || ( width & 1 ) ||
 			uint64_t( width ) * height / 2 > ( header.lenw - header.lenr ) / minimum_tile_record_size ) {
 			THROW( "invalid GLSMAC map dimensions or tile count" );
 		}
@@ -863,20 +863,28 @@ void Map::InitTextureAndMesh() {
 		( m_map_state->dimensions.x + 1 ) * s_consts.tc.texture_pcx.dimensions.x, // + 1 for overdraw_column
 		( m_map_state->dimensions.y * tile::LAYER_MAX ) * s_consts.tc.texture_pcx.dimensions.y
 	);
-
-	// not deleting meshes because if they exist - it means they are already linked to actor and are deleted together when needed
-	NEW( m_meshes.terrain, types::mesh::Render,
-		( m_map_state->dimensions.x * tile::LAYER_MAX + 1 ) * m_map_state->dimensions.y * 5 / 2, // + 1 for overdraw column
-		( m_map_state->dimensions.x * tile::LAYER_MAX + 1 ) * m_map_state->dimensions.y * 4 / 2 // + 1 for overdraw column
-	);
-	NEW( m_meshes.terrain_data, types::mesh::Data, // data mesh has only one layer and no overdraw column
-		m_map_state->dimensions.x * m_map_state->dimensions.y * 5 / 2,
-		m_map_state->dimensions.x * m_map_state->dimensions.y * 4 / 2
-	);
+	InitMeshes();
 
 	// TODO: refactor?
 	m_map_state->terrain_texture = m_textures.terrain;
 	m_map_state->ter1_pcx = m_textures.source.ter1_pcx;
+}
+
+void Map::InitMeshes() {
+	const size_t tile_count = size_t( m_map_state->dimensions.x ) * m_map_state->dimensions.y / 2;
+	// Finalize copies x == 0 land tiles into the wrapped edge column.
+	// Those tiles exist on every even row, including an odd-height last row.
+	const size_t overdraw_count = ( m_map_state->dimensions.y + 1 ) / 2;
+	const size_t terrain_diamonds = tile_count * tile::LAYER_MAX + overdraw_count;
+	// not deleting meshes because if they exist - it means they are already linked to actor and are deleted together when needed
+	NEW( m_meshes.terrain, types::mesh::Render,
+		terrain_diamonds * 5,
+		terrain_diamonds * 4
+	);
+	NEW( m_meshes.terrain_data, types::mesh::Data, // data mesh has only one layer and no overdraw column
+		tile_count * 5,
+		tile_count * 4
+	);
 }
 
 void Map::ProcessTiles( module_passes_t& module_passes, const tiles_t& tiles, MT_CANCELABLE ) {

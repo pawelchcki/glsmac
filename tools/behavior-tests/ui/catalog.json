@@ -50,6 +50,26 @@
       "id": "custom-size-kind",
       "cases": "cases/custom-size-kind.json",
       "observations": "observations/smacx-gog-2.0-custom-size-kind.json"
+    },
+    {
+      "id": "large-map-warning",
+      "cases": "cases/large-map-warning.json",
+      "observations": "observations/smacx-gog-2.0-large-map-warning.json"
+    },
+    {
+      "id": "large-map-warning-navigation",
+      "cases": "cases/large-map-warning-navigation.json",
+      "observations": "observations/smacx-gog-2.0-large-map-warning-navigation.json"
+    },
+    {
+      "id": "large-map-warning-odd-heights",
+      "cases": "cases/large-map-warning-odd-heights.json",
+      "observations": "observations/smacx-gog-2.0-large-map-warning-odd-heights.json"
+    },
+    {
+      "id": "custom-grid-dimensions",
+      "cases": "cases/custom-grid-dimensions.json",
+      "observations": "observations/smacx-gog-2.0-custom-grid-dimensions.json"
     }
   ]
 }

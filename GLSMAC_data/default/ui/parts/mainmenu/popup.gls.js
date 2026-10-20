@@ -80,6 +80,9 @@ return (m) => {
 				if (!#is_empty(e.modifiers)) {
 					return false;
 				}
+				if (#is_defined(data.on_keydown) && data.on_keydown(e) == true) {
+					return true;
+				}
 				if (e.code == 'ESCAPE') {
 					this.back();
 					return true;

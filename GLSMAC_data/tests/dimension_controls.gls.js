@@ -47,16 +47,21 @@ for (route of ['random', 'custom']) {
 }
 
 behavior.scenario('application dimension boundaries and padding preserve native parity units', () => {
-	for (entry of [['2', '2', 4, 2], ['2048', '4096', 4096, 4096], [' 30 ', ' 24 ', 60, 24], ['121', '80', 242, 80]]) {
+	for (entry of [['2', '2', 4, 2], ['2048', '4096', 4096, 4096], [' 30 ', ' 24 ', 60, 24], ['121', '80', 242, 80], ['40', '81', 80, 81]]) {
 		const f = fixture('random', 'default'); f.open();
 		f.fields[0].value = entry[0]; f.fields[1].value = entry[1];
 		test.assert(f.view.find('button', 'text', 'OK').emit('click', {}) == true);
 		test.assert(f.m.settings.global.map.size_x == entry[2] && f.m.settings.global.map.size_y == entry[3]);
+		if (entry[2] > 256 || entry[3] > 128) {
+			test.assert(f.state.routes == [] && f.view.find('window', 'title', 'Warning!').title == 'Warning!');
+			f.view.find('button', 'text', 'OK').emit('click', {});
+		}
+		test.assert(f.state.routes == ['difficulty']);
 	}
 });
 
 behavior.scenario('invalid displayed dimensions preserve the complete native map and keep controls open', () => {
-	for (entry of [['1', '80'], ['2049', '80'], ['40', '1'], ['40', '81'], ['040', '80'], ['40', '080'], ['+40', '80'], ['40.0', '80'], ['40x', '80'], ['40', '2e1'], ['', '80'], ['999999999999999999999', '80']]) {
+	for (entry of [['1', '80'], ['2049', '80'], ['40', '1'], ['040', '80'], ['40', '080'], ['+40', '80'], ['40.0', '80'], ['40x', '80'], ['40', '2e1'], ['', '80'], ['999999999999999999999', '80']]) {
 		const f = fixture('random', 'default'); f.open(); const before = f.native.map_settings_snapshot('current');
 		f.fields[0].value = entry[0]; f.fields[1].value = entry[1];
 		test.assert(f.fields[0].emit('input', {}) == true, 'Invalid input is consumed: ' + entry[0] + '/' + entry[1]);

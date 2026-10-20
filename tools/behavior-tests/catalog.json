@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"large-map-source","script":"GLSMAC_data/tests/large_map_source.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"large-map-controls","script":"GLSMAC_data/tests/large_map_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"odd-map-grid","script":"GLSMAC_data/tests/odd_map_grid.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"world-size-consumer", "script":"GLSMAC_data/tests/world_size_consumer.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"world-size-native", "script":"GLSMAC_data/tests/world_size_native.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
     {"id":"world-size-menus", "script":"GLSMAC_data/tests/world_size_menus.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},

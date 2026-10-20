@@ -210,7 +210,7 @@ for (invalid of [['nonsense', '80'], ['60.5', '80'], ['120', '0'], ['2049', '80'
 	test.assert(picker.state.events == '');
 	test.assert(picker.i.settings.global.map.size_x == 112);
 	test.assert(picker.i.settings.global.map.size_y == 56);
-	test.assert(picker.state.error.text == 'Use whole horizontal and even vertical sizes within the displayed ranges.');
+	test.assert(picker.state.error.text == 'Use whole sizes within the displayed ranges.');
 }
 const cancelled_size = custom_size_picker('custom');
 cancelled_size.state.inputs[0].value = '120';

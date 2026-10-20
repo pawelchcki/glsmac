@@ -23,9 +23,10 @@ Tiles::~Tiles() {
 
 void Tiles::Resize( const uint32_t width, const uint32_t height ) {
 	ASSERT( width > 0, "can't resize to zero width" );
-	ASSERT( height > 0, "can't resize to zero height" );
+	ASSERT( height >= 2, "can't resize to fewer than two rows" );
 	ASSERT( !( width & 1 ), "can't resize to non-even width" );
-	ASSERT( !( height & 1 ), "can't resize to non-even height" );
+	// Rows alternate horizontal parity; vertical bounds clamp at the poles.
+	// Original generated custom worlds also use odd row counts.
 
 	if ( width != m_width || height != m_height ) {
 		Log( "Initializing tiles ( " + std::to_string( width ) + " x " + std::to_string( height ) + " )" );
@@ -260,14 +261,17 @@ void Tiles::FixTopBottomRows( util::random::Random* random ) {
 			*tile->elevation.top = 0;
 		}
 		else {
-			tile = &At( x, GetHeight() - 1 );
+			// Keep the existing interleaved RNG draw order. The last row's
+			// horizontal parity depends on its actual vertical coordinate.
+			const auto bottom_x = x - 1 + ( ( m_height - 1 ) & 1 );
+			tile = &At( bottom_x, GetHeight() - 1 );
 			*tile->elevation.left = *tile->elevation.right = top_bottom_elevation;
 			*tile->elevation.bottom = 0;
 		}
 	}
 
 	for ( auto y = 0 ; y < m_height ; y++ ) {
-		if ( y > 1 || y < m_height - 2 ) {
+		if ( y > 1 && y < m_height - 2 ) {
 			continue;
 		}
 		for ( auto x = y & 1 ; x < m_width ; x += 2 ) {

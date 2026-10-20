@@ -61,6 +61,52 @@ const dimension_labels = (document) => {
 	return [plain_dimension_text(labels[1091]), plain_dimension_text(labels[1092])];
 };
 
+const plain_warning_text = (text) => {
+	if (#trim(text) == '') { throw Error('Empty SMAC large map warning text'); }
+	for (marker of ['^', '|', '$', '{', '}']) {
+		if (#sizeof(#split(text, marker)) != 1) { throw Error('Unsupported formatting in SMAC large map warning'); }
+	}
+	return text;
+};
+
+const large_map_warning = (document) => {
+	const block = document.dialog('VERYLARGEMAP');
+	let caption = #undefined;
+	const texts = [];
+	for (record of block.records) {
+		switch (record.kind) {
+			case 'blank': { break; }
+			case 'comment': { break; }
+			case 'directive': {
+				switch (record.name) {
+					case 'caption': {
+						if (#is_defined(caption)) { throw Error('Duplicate SMAC large map warning caption'); }
+						caption = plain_warning_text(record.argument);
+						break;
+					}
+					case 'xs': { break; }
+					case 'x': { break; }
+					case 'y': { break; }
+					default: { throw Error('Unsupported SMAC large map warning directive: ' + record.name); }
+				}
+				break;
+			}
+			case 'text': { texts :+ record.text; break; }
+			default: { throw Error('Unsupported SMAC large map warning record'); }
+		}
+	}
+	if (!#is_defined(caption)) { throw Error('Missing SMAC large map warning caption'); }
+	const count = #sizeof(texts);
+	if (count < 3) { throw Error('Missing SMAC large map warning body or choices'); }
+	const lines = []; let has_body = false;
+	for (let index = 0; index < count - 2; index++) {
+		if (texts[index] == '^') { lines :+ ''; }
+		else { lines :+ plain_warning_text(texts[index]); has_body = true; }
+	}
+	if (!has_body) { throw Error('Missing SMAC large map warning body'); }
+	return {caption: caption, lines: lines, choices: [plain_warning_text(texts[count - 2]), plain_warning_text(texts[count - 1])]};
+};
+
 const static_dialog = (document, id, count) => {
 	const dialog = document.dialog(id);
 	let caption = #undefined;
@@ -120,16 +166,26 @@ return (glsmac) => {
 		for (label of definition.labels) { menu.entries[index][0] = label; index = index + 1; }
 		menu.title = definition.caption;
 	};
+	let common_dialogs = null;
+	const common_document = () => {
+		if (common_dialogs == null) { common_dialogs = glsmac.load_smac_text('script.txt', 'dialogs'); }
+		return common_dialogs;
+	};
 	let dimensions = null;
 	bundle.dimension_dialog = () => {
 		if (dimensions == null) {
 			// Original controlled-source observations select the common script's
 			// CUSTOMMAP caption, independently of a conflicting expansion block.
-			const caption = dimension_caption(glsmac.load_smac_text('script.txt', 'dialogs'));
+			const caption = dimension_caption(common_document());
 			const labels = dimension_labels(glsmac.load_smac_text('labels.txt', 'dialogs'));
 			dimensions = {caption: caption, horizontal: labels[0], vertical: labels[1]};
 		}
 		return #clone(dimensions);
+	};
+	let warning = null;
+	bundle.large_map_warning = () => {
+		if (warning == null) { warning = large_map_warning(common_document()); }
+		return #clone(warning);
 	};
 	return bundle;
 };

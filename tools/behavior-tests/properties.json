@@ -13,7 +13,9 @@
         "ui.map_size_keyboard.v1",
         "ui.citizen_job.v1",
         "ui.map_dimension_dialog.v1",
-        "ui.custom_size_kind.v1"
+        "ui.custom_size_kind.v1",
+        "ui.large_map_warning.v1",
+        "map.custom_grid_dimensions.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -22,8 +24,10 @@
         "File dialogs",
         "Credits",
         "Setting combinations and side effects outside custom-planet controller",
-        "Edited custom dimensions, normalization and large-map warning behavior"
-      ]
+        "Custom-dimension bounds and normalization outside recorded inputs",
+        "Warning selection memory on later reopening and paragraph typography"
+      ],
+      "coverage": "84 warning traces cover edited inputs, inclusive threshold 128, common-source text, clamped choice navigation and confirmation/caller return. Four generated original worlds establish selected full widths, retained odd heights and valid tile counts."
     },
     {
       "id": "controls",
@@ -32,7 +36,8 @@
         "ui.menu_trace.v1",
         "ui.map_size_keyboard.v1",
         "ui.citizen_job.v1",
-        "ui.unit_orders.v1"
+        "ui.unit_orders.v1",
+        "ui.large_map_warning.v1"
       ],
       "remaining": [
         "Gameplay hotkeys beyond bounded Scout Hold/Activate/Skip",
@@ -48,15 +53,18 @@
       "contracts": [
         "map.same_row_distance.v1",
         "map.vector_distance.v1",
-        "map.raw_vector_distance.v1"
+        "map.raw_vector_distance.v1",
+        "map.custom_grid_dimensions.v1"
       ],
       "remaining": [
         "Neighbors",
         "Map boundaries",
         "Picking",
         "Pathfinding",
-        "Terrain generation and loading"
-      ]
+        "Terrain generation and loading",
+        "Odd-height named source-table rows and odd-height external SMAC map files"
+      ],
+      "coverage": "Four original generated worlds establish selected custom dimensions and tile counts. Native grid/codec/polar/mesh invariants and actual browser terrain/turn checks are separate application coverage."
     },
     {
       "id": "technology",

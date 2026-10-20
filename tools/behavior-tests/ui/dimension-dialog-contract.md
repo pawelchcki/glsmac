@@ -41,9 +41,9 @@ contracts cannot count as matches.
 This contract does not observe edited input, validation limits, focus traversal,
 dialog geometry, generated terrain, resulting original map coordinate units,
 save/load or complete setup. Existing keyboard-navigation and browser tests
-remain separate. Any conversion from displayed horizontal size to backend
-parity coordinates is application coverage, not an additional original terrain
-observation. Case counts do not establish complete SMAC parity.
+remain separate. The separate [generated-grid contract](custom-grid-dimensions-contract.md) now
+observes selected horizontal conversions and retained odd heights; these are
+not additional observations under this visible-text contract. Case counts do not establish complete SMAC parity.
 
 The separate `dimension-data` and `dimension-controls` regressions cover lazy
 loading, malformed optional sources, detached cached definitions, actual popup

@@ -38,9 +38,11 @@ can also be observed without rendering, using Unicorn to execute its x86 code.
 | `ui.map_size_keyboard.v1` | 4 | Final menu after Enter/Escape in untouched custom dimensions, on random/custom routes | Real original application in Wine/Xvfb; recorded twice |
 | `ui.citizen_job.v1` | 14 | Starting Worker/Doctor choices, highlight, draft/confirm/cancel, keyboard behavior and visible Psych bonus; 67 checkpoints | Real original application in Wine/Xvfb; recorded twice |
 | `ui.unit_orders.v1` | 13 | Paused-turn Scout Hold/Activate/Skip, two advances, idle Space base opening, actual OK close and modal key blocking; 45 checkpoints | Real original application in Wine/Xvfb; recorded twice |
+| `ui.large_map_warning.v1` | 84 | Edited values, threshold 128, common-source caption/choices, clamped navigation, mouse selection, Enter/Escape/OK and caller return | Real original application in Wine/Xvfb; recorded twice |
+| `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 373 recorded cases in total. `generate_navigation.py` generates only
+There are 481 recorded cases in total. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -149,7 +151,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 373 recorded cases now agree after production fixes to choices,
+any failures. All 481 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the
@@ -250,3 +252,20 @@ without pixels; original capture reads one verified four-byte setup field and
 observes visible controls. Edited bounds and large-map warnings remain outside
 this contract. `npm --prefix tools/wasm-tests run test:dimensions` separately
 checks real browser input, loaded rule factors, terrain, Headquarters and a turn.
+
+The [large-map warning contract](large-map-warning-contract.md) adds 84 original
+traces. Either typed dimension above 128 opens the source-driven warning. Its
+arrows clamp, Home/End do nothing, mouse clicks only select, and Enter/Escape/OK
+confirm the selected choice. Continue reaches difficulty or ocean coverage;
+Never mind returns to map type with the route highlighted. Four controlled
+profiles distinguish common Script.txt from conflicting expansion text.
+
+The [generated-grid contract](custom-grid-dimensions-contract.md) adds four
+original worlds. Raw 30×48, 30×49, 31×49 and 129×49 produce full widths 60/60/62/258
+and unchanged heights, including 49. Candidate replay uses actual controls and
+native grids/codecs without terrain generation or graphics. Separate native
+regressions cover pole normalization and the final mesh pass. The installed-data
+browser lane checks warning body consumption, rejection/re-entry/confirmation,
+actual 258×49 terrain, Headquarters and a gameplay turn. Bounds beyond recorded
+inputs, odd named-table rows, external odd-height SMAC map files and original
+terrain/RNG equivalence remain gaps.

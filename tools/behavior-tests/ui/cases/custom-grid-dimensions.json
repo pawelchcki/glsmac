@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "name": "original-generated-custom-grid-dimensions",
+  "description": "Read five native dimensions at actual post-generation PLANETFALL after ordinary custom size, Citizen, standard rules, default factions and default name. Terrain/RNG content is excluded.",
+  "cases": [
+    {
+      "id": "grid-30-48",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "30",
+        "vertical": "48"
+      }
+    },
+    {
+      "id": "grid-30-49",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "30",
+        "vertical": "49"
+      }
+    },
+    {
+      "id": "grid-31-49",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "31",
+        "vertical": "49"
+      }
+    },
+    {
+      "id": "grid-129-49",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "129",
+        "vertical": "49"
+      }
+    }
+  ]
+}

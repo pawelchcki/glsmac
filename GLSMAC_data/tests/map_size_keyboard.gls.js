@@ -31,6 +31,10 @@ const assert_settings = (f, width, height, map_type, preset) => {
 };
 
 const assert_submitted = (f, width, height, map_type) => {
+	if (width > 256 || height > 128) {
+		test.assert(f.state.routes == [] && f.view.find('window', 'title', 'Warning!').title == 'Warning!');
+		f.view.find('button', 'text', 'OK').emit('click', {});
+	}
 	assert_settings(f, width, height, map_type, 99);
 	test.assert(f.state.routes == [map_type == 'random' ? 'difficulty' : 'ocean']);
 	test.assert(#sizeof(f.view.live('input')) == 0 && #sizeof(f.view.live('window')) == 1);
@@ -87,7 +91,6 @@ for (c of [
 	['text width', 'nonsense', '80', 0],
 	['trailing height text', '120', '80junk', 1],
 	['fractional horizontal size', '60.5', '80', 0],
-	['odd height', '120', '3', 1],
 	['width below minimum', '1', '80', 0],
 	['height below minimum', '120', '0', 1],
 	['width above maximum', '2049', '80', 0],
@@ -107,7 +110,7 @@ for (c of [
 		assert_settings(f, 112, 56, 'random');
 		test.assert(f.state.routes == [] && #sizeof(f.view.live('input')) == 2);
 		test.assert(f.view.find('window', 'title', 'Custom Map Size').title == 'Custom Map Size');
-		test.assert(f.view.find('text', 'text', 'Use whole horizontal and even vertical sizes within the displayed ranges.').text == 'Use whole horizontal and even vertical sizes within the displayed ranges.');
+		test.assert(f.view.find('text', 'text', 'Use whole sizes within the displayed ranges.').text == 'Use whole sizes within the displayed ranges.');
 		f.inputs[0].value = '60';
 		f.inputs[1].value = '80';
 		test.assert(f.inputs[field].emit('input', { value: field == 0 ? '60' : '80' }) == true);
@@ -115,7 +118,7 @@ for (c of [
 	});
 }
 
-for (c of [['2', '2', 4, 2], ['2048', '4096', 4096, 4096], [' 60 ', ' 80 ', 120, 80]]) {
+for (c of [['2', '2', 4, 2], ['2048', '4096', 4096, 4096], [' 60 ', ' 80 ', 120, 80], ['60', '3', 120, 3]]) {
 	behavior.scenario('Enter accepts dimension boundaries or whitespace ' + c[0] + 'x' + c[1], () => {
 		const f = make_picker('custom');
 		f.inputs[0].value = c[0];

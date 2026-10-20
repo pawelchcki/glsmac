@@ -263,6 +263,66 @@ return (i) => {
 };
 `;
 
+const warningObserver = String.raw`
+const production = #include('./warning_production');
+return (i, definition, next) => {
+  const show = i.popup.show;
+  i.popup.show = (data) => {
+    const rows = [];
+    const report = () => {
+      let selected = (0 - 1); let index = 0;
+      for (record of rows) {
+        for (name of #split(record.node.class, ' ')) { if (name == 'popup-choice-active') { selected = index; } }
+        #print('NORMAL_WARNING_ROW|' + #to_string(index) + '|' + #to_string(record.top) + '|' + #to_string(data.height) + '|' + record.node.text);
+        index++;
+      }
+      #print('NORMAL_WARNING_STATE|' + #to_string(selected));
+    };
+    const generate = data.generator;
+    data.generator = (body) => {
+      let text_index = 0;
+      generate({
+        text: (props) => {
+          const text = body.text(props);
+          #print('NORMAL_WARNING_TEXT|' + #to_string(text_index) + '|' + text.text); text_index++;
+          return text;
+        },
+        button: (props) => {
+          const node = body.button(props); const record = {}; record.node = node; record.top = props.top; rows :+ record;
+          return node;
+        },
+      });
+      #print('NORMAL_WARNING_CAPTION|' + data.title);
+      report();
+    };
+    const keydown = data.on_keydown;
+    data.on_keydown = (e) => {
+      if (e.code == 'P') { report(); }
+      const result = keydown(e);
+      if (e.code == 'DOWN' || e.code == 'UP' || e.code == 'HOME' || e.code == 'END') { report(); }
+      return result;
+    };
+    return show(data);
+  };
+  try { production(i, definition, next); }
+  catch { : (e) => { i.popup.show = show; throw e; } }
+  i.popup.show = show;
+};
+`;
+
+function installedWarningBody() {
+  const source = readdirSync(assets).find((name) => name.toLowerCase() === 'script.txt');
+  assert.ok(source, 'Installed common script exists');
+  const lines = readFileSync(`${assets}/${source}`, 'latin1').split(/\r?\n/);
+  const start = lines.indexOf('#VERYLARGEMAP');
+  assert.ok(start >= 0);
+  let end = lines.findIndex((line, index) => index > start && /^#[A-Z][A-Z0-9_]*$/.test(line));
+  if (end < 0) end = lines.length;
+  const records = lines.slice(start + 1, end).filter((line) => line.trim() && !/^[#;]/.test(line));
+  assert.ok(records.length >= 3);
+  return records.slice(0, -2).filter((line) => line !== '^');
+}
+
 async function overrideDimensionAssets(page, rulesSource) {
   const sources = new Map();
   for (const name of ['script.txt', 'xscript.txt', 'labels.txt']) {
@@ -328,6 +388,8 @@ for (const profile of [
     name: `custom dimensions load installed text and generate a playable ${route} world`,
     dimension: route, alternateText: route === 'custom', level: 0, size: [60, 48], rule: route === 'custom' ? 13 : 10, mineralRule: 13, lifecycle: false,
   })),
+  { name: 'custom dimensions load installed text and generate a playable large odd-height world after warning rejection and confirmation',
+    dimension: 'random', warning: true, fields: ['129', '49'], level: 0, size: [258, 49], rule: 13, mineralRule: 13, lifecycle: false },
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
@@ -342,7 +404,18 @@ test(profile.name, {
   timeout: 180000,
 }, async (t) => {
   const factors = recordedNormalFactors(profile.dimension ? 99 : profile.level, profile.rule, profile.mineralRule ?? 10);
-  const artifactPrefix = profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  if (profile.dimension) {
+    const [horizontal, vertical] = profile.fields ?? ['30', '48'];
+    const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/cases/custom-grid-dimensions.json`, 'utf8')).cases;
+    const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/observations/smacx-gog-2.0-custom-grid-dimensions.json`, 'utf8')).observations;
+    const item = cases.find(({ input: i }) => i.horizontal === horizontal && i.vertical === vertical);
+    assert.ok(item, 'Original generated-world evidence contains these typed dimensions');
+    const original = observations.find(({ id }) => id === item.id)?.output;
+    assert.ok(original, 'Original generated-world witness has a recorded output');
+    assert.deepEqual(profile.size, [original.width, original.height]);
+    assert.equal(original.size_kind, 99);
+  }
+  const artifactPrefix = profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -351,6 +424,10 @@ test(profile.name, {
     const prefix = 'GLSMAC_data/default/ui/parts/mainmenu/steps/';
     scripts[`${prefix}dimension_production.gls.js`] = scripts[`${prefix}customize_mapsize.gls.js`];
     scripts[`${prefix}customize_mapsize.gls.js`] = dimensionObserver;
+    if (profile.warning) {
+      scripts[`${prefix}warning_production.gls.js`] = scripts[`${prefix}large_map_warning.gls.js`];
+      scripts[`${prefix}large_map_warning.gls.js`] = warningObserver;
+    }
     for (const name of ['customize_ocean_coverage', 'customize_erosive_forces', 'customize_native_lifeforms', 'customize_cloud_cover', 'select_difficulty_level']) {
       const source = scripts[`${prefix}${name}.gls.js`];
       assert.ok(source.startsWith('return (i) => {'));
@@ -641,19 +718,56 @@ test(profile.name, {
     await screenshot('untouched-dimensions');
     // Window is centered at 512,384; production header/body and field offsets
     // put the two native inputs here. Change notifications verify real focus.
-    for (const [index, value] of ['30', '48'].entries()) {
-      await clickCanvas(page, 570, 344 + 27 * index);
-      await page.keyboard.press('Backspace'); await page.keyboard.press('Backspace');
-      await page.keyboard.type(value);
-      await waitLog(`NORMAL_DIMENSION_CHANGE|${index}|${value}`);
+    const submitDimensions = async () => {
+      for (const [index, value] of (profile.fields ?? ['30', '48']).entries()) {
+        const marker = `NORMAL_DIMENSION_CHANGE|${index}|${value}`;
+        const previous = await countLog(marker);
+        await clickCanvas(page, 570, 344 + 27 * index);
+        await page.keyboard.press('Backspace'); await page.keyboard.press('Backspace');
+        await page.keyboard.type(value);
+        await waitLog(marker, previous + 1);
+      }
+      await page.keyboard.press('Enter'); // Submit the focused vertical field
+    };
+    await submitDimensions();
+    if (profile.warning) {
+      await waitLog('NORMAL_WARNING_STATE|0'); await healthy();
+      const warningLog = await page.locator('#log').textContent();
+      assert.ok(warningLog.includes('NORMAL_WARNING_CAPTION|Warning!'));
+      const actualBody = [...warningLog.matchAll(/NORMAL_WARNING_TEXT\|\d+\|([^\r\n]*)/g)].map((row) => row[1]);
+      const hash = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+      assert.equal(hash(actualBody), hash(installedWarningBody()), 'Actual native text nodes display the installed common warning body');
+      const rows = [...warningLog.matchAll(/NORMAL_WARNING_ROW\|(\d+)\|(\d+)\|(\d+)\|([^\r\n]*)/g)];
+      assert.equal(rows.length, 2);
+      assert.deepEqual(rows.map((row) => row[4]), ['Continue anyway.', 'Never mind.']);
+      await screenshot('large-warning');
+      const second = rows.find((row) => +row[1] === 1);
+      const selectedBefore = await countLog('NORMAL_WARNING_STATE|1');
+      // Actual production row/window dimensions plus the existing native
+      // window header and popup-body offsets locate the rendered hit target.
+      await clickCanvas(page, 512, 384 - +second[3] / 2 + 23 + 3 + +second[2] + 10);
+      await page.keyboard.press('p'); // Read-only observation of actual classes
+      await waitLog('NORMAL_WARNING_STATE|1', selectedBefore + 1);
+      assert.equal(await countLog('NORMAL_MENU_STEP|select_difficulty_level'), 0, 'A warning option click selects without advancing setup');
+      await page.keyboard.press('Escape'); await menuReady('map-type');
+      const reopenedBefore = await countLog('NORMAL_DIMENSION_FIELD|1|80');
+      await chooseMenu(5, 0, 'map-size'); await clickCanvas(page, 820, 732);
+      await waitLog('NORMAL_DIMENSION_FIELD|1|80', reopenedBefore + 1);
+      const openedBefore = await countLog('NORMAL_WARNING_STATE|0');
+      await submitDimensions(); await waitLog('NORMAL_WARNING_STATE|0', openedBefore + 1);
+      const changedBefore = await countLog('NORMAL_WARNING_STATE|1');
+      await page.keyboard.press('ArrowDown'); await waitLog('NORMAL_WARNING_STATE|1', changedBefore + 1);
+      const restoredBefore = await countLog('NORMAL_WARNING_STATE|0');
+      await page.keyboard.press('ArrowUp'); await waitLog('NORMAL_WARNING_STATE|0', restoredBefore + 1);
+      await page.keyboard.press('Escape'); // Confirm the current first choice
     }
-    await page.keyboard.press('Enter'); // Submit the focused vertical field
     if (profile.dimension === 'custom') {
       await menuReady('ocean');
       await chooseMenu(3, 1, 'erosion'); await chooseMenu(3, 1, 'life');
       await chooseMenu(3, 1, 'cloud'); await chooseMenu(3, 1, 'difficulty');
     } else { await menuReady('difficulty'); }
-    await waitLog('NORMAL_DIMENSION_CONFIRMED|60|48|99');
+    await waitLog(`NORMAL_DIMENSION_CONFIRMED|${profile.size[0]}|${profile.size[1]}|99`);
+    if (profile.warning) assert.equal(await countLog('NORMAL_MENU_STEP|select_difficulty_level'), 1, 'The real warning callback advances exactly once');
   } else { await chooseMenu(6, profile.level, 'difficulty'); }
 
   await chooseMenu(6, 0, 'rules'); // Citizen

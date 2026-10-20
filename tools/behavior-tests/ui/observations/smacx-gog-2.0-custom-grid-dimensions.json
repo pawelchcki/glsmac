@@ -1,0 +1,93 @@
+{
+  "captured_at": "2026-10-19T23:38:35.319843+00:00",
+  "observations": [
+    {
+      "case_sha256": "42ddb96c12f6bd052e74ff812c6ec86913e037e88975896ea6664377d7fbc9e5",
+      "id": "grid-30-48",
+      "output": {
+        "half_width": 30,
+        "height": 48,
+        "size_kind": 99,
+        "tile_count": 1440,
+        "width": 60
+      }
+    },
+    {
+      "case_sha256": "b38a9687a8b457d7e1a34663d9cb8c2163d6501ad9cabb2d8ea5c631f0f8545d",
+      "id": "grid-30-49",
+      "output": {
+        "half_width": 30,
+        "height": 49,
+        "size_kind": 99,
+        "tile_count": 1470,
+        "width": 60
+      }
+    },
+    {
+      "case_sha256": "f71d0bd67355e0e2ed1d2792493922bcc3ae5d5b820a31bc84a76222f890e6c5",
+      "id": "grid-31-49",
+      "output": {
+        "half_width": 31,
+        "height": 49,
+        "size_kind": 99,
+        "tile_count": 1519,
+        "width": 62
+      }
+    },
+    {
+      "case_sha256": "1bf576cba12d1f9c694edf6087e1f2af892a308d3419eacbcb3b056df091ed2f",
+      "id": "grid-129-49",
+      "output": {
+        "half_width": 129,
+        "height": 49,
+        "size_kind": 99,
+        "tile_count": 6321,
+        "width": 258
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "7fc9ff869f602f29ce6b19a3a9c8c9e723fbfbea0fd3f3f756e6ca2da546d271",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "map.custom_grid_dimensions.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual post-generation dimensions at the visible PLANETFALL checkpoint",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "readonly_fields": [
+      {
+        "bytes": 4,
+        "name": "size_kind",
+        "rva": "0x54a2a0"
+      },
+      {
+        "bytes": 4,
+        "name": "width",
+        "rva": "0x549870"
+      },
+      {
+        "bytes": 4,
+        "name": "height",
+        "rva": "0x549874"
+      },
+      {
+        "bytes": 4,
+        "name": "half_width",
+        "rva": "0x28faf0"
+      },
+      {
+        "bytes": 4,
+        "name": "tile_count",
+        "rva": "0x549884"
+      }
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "080c9f624ef08daf2dac7a7cc9766101964d0c81fa483765d42849761b408aae",
+  "version": 1
+}

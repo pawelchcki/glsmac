@@ -3,6 +3,7 @@
 const world_source = '#WORLDSIZE\n5\nChoice Zero,24,48\nChoice One,32,64\nChoice Two,40,80\nChoice Three,44,90\nChoice Four,64,128\n#END\n';
 const dialogs = '#TOPMENU\n#itemlist\nStart Game\nQuick Start\nScenario\nLoad Game\nMultiplayer\nView Credits\nExit Game\n#MAPMENU\n#itemlist\nMake Random Map\nCustomize Random Map\nThe Map of Planet\nHuge Map of Planet\nLoad Map File\n#SCENARIOMENU\n#caption Scenario\n#itemlist\nPlay Scenario\nCreate Scenario\nLoad Map File\nEdit Scenario\n#END\n';
 const label_cache = {};
+const warning_source = '#VERYLARGEMAP\n#caption Warning!\n#xs 440\n#x -5\n#y -5\nSynthetic warning paragraph.\n^\nSynthetic follow-up paragraph.\nContinue anyway.\nNever mind.\n#END\n';
 let installed_default = null;
 const label_source = (alternate) => {
 	const key = alternate ? 'alternate' : 'default';
@@ -28,8 +29,8 @@ const create = (profile, world) => {
 		let expansion_caption = 'Custom Map Size';
 		if (profile == 'alternate') { expansion_caption = 'Alternate Dimensions'; }
 		if (profile == 'both') { expansion_caption = 'Expansion Dimensions'; }
-		f.sources['xscript.txt'] = dialogs + '#CUSTOMMAP\n#xs 440\n#x -5\n#y -5\n#caption ' + expansion_caption + '\n#END\n';
-		f.sources['script.txt'] = '#CUSTOMMAP\n#xs 440\n#x -5\n#y -5\n#caption ' + (profile == 'core' || profile == 'both' ? 'Core Dimensions' : 'Custom Map Size') + '\n#END\n';
+		f.sources['xscript.txt'] = dialogs + '#CUSTOMMAP\n#xs 440\n#x -5\n#y -5\n#caption ' + expansion_caption + '\n' + warning_source;
+		f.sources['script.txt'] = '#CUSTOMMAP\n#xs 440\n#x -5\n#y -5\n#caption ' + (profile == 'core' || profile == 'both' ? 'Core Dimensions' : 'Custom Map Size') + '\n' + warning_source;
 		f.sources['labels.txt'] = label_source(alternate);
 		f.glsmac.load_smac_text = (name, format) => {
 			f.loads :+ [name, format];
@@ -53,6 +54,7 @@ return {
 		};
 		i.smac_data = {
 			dimension_dialog: () => { const bundle = get_bundle(); return bundle.dimension_dialog(); },
+			large_map_warning: () => { const bundle = get_bundle(); return bundle.large_map_warning(); },
 			apply_dialog: (id, menu) => { const bundle = get_bundle(); return bundle.apply_dialog(id, menu); },
 		};
 	},

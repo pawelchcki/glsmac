@@ -71,6 +71,26 @@ def size_kind_command(args):
     return shlex.join(command)
 
 
+def large_map_command(args):
+    if args.browser:
+        raise ProtocolError("large-map-warning uses pixel-free replay; rendered setup is checked separately")
+    name = "large_map_original.py" if args.record else "large_map_headless.py"
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ["--assets", str(args.assets.resolve()), "--wine", args.wine, "--timeout", str(args.step_timeout)]
+    return shlex.join(command)
+
+
+def world_dimensions_command(args):
+    if args.browser:
+        raise ProtocolError("custom-grid-dimensions uses native display-free replay; generated browser worlds are checked separately")
+    name = "world_dimensions_original.py" if args.record else "world_dimensions_headless.py"
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ["--assets", str(args.assets.resolve()), "--wine", args.wine, "--timeout", str(args.step_timeout)]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -162,6 +182,10 @@ def main(argv=None):
                 reference_command = dimension_dialog_command(args)
             if reference["id"] == "custom-size-kind":
                 reference_command = size_kind_command(args)
+            if reference["id"] in ("large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights"):
+                reference_command = large_map_command(args)
+            if reference["id"] == "custom-grid-dimensions":
+                reference_command = world_dimensions_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -176,6 +200,10 @@ def main(argv=None):
                 candidate_command = dimension_dialog_command(args)
             if command is not None and reference["id"] == "custom-size-kind":
                 candidate_command = size_kind_command(args)
+            if command is not None and reference["id"] in ("large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights"):
+                candidate_command = large_map_command(args)
+            if command is not None and reference["id"] == "custom-grid-dimensions":
+                candidate_command = world_dimensions_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -189,7 +217,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom-dimension keyboard navigation, bounded citizen-job choices/Psych bonus and paused-turn Scout orders; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom dimensions, source-driven large-map warning controls, selected native grid dimensions, bounded citizen-job choices/Psych bonus and paused-turn Scout orders; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

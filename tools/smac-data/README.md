@@ -147,7 +147,9 @@ reproduction table; configured current records add a tagged extension after
 the two cost values. Complete validation precedes mutation, including malformed
 later entries and nested aggregate records. Named selection refreshes retained
 map wrappers as one operation. Descriptions remain available as data; their
-conditional display and original custom-dimension input units are separate gaps.
+conditional display remains a separate gap. Four recorded original custom worlds
+now establish selected input units and retained odd heights; see the
+[generated-grid contract](../behavior-tests/ui/custom-grid-dimensions-contract.md).
 
 Three asset-free suites exercise parser/source validation, strict native APIs,
 copies and transfer, actual picker callbacks, the full animated menu controller,
@@ -237,6 +239,25 @@ directives. Target text rejects empty values and unsupported formatting markers
 (`^`, `|`, `$`, `{`, `}`). Missing/duplicate blocks, malformed counts and unsupported
 text fail explicitly. Existing static menus remain usable when optional text fails.
 Layout directives are preserved by the shared parser but do not drive layout.
-Untouched fields use the recorded raw `40` and `80`. Validation bounds and
-horizontal-to-backend conversion are application coverage, beyond these original
-visible-text observations.
+Untouched fields use the recorded raw `40` and `80`. Four separate original
+generated-world records verify doubled horizontal coordinates and unchanged
+vertical counts for selected values, including odd height 49. Bounds outside
+the recorded inputs remain application policy.
+
+## Installed large-map warning
+
+The [84 original warning traces](../behavior-tests/ui/large-map-warning-contract.md)
+select common `Script.txt` VERYLARGEMAP even with conflicting expansion text.
+`bundle.large_map_warning()` shares the lazy common document with the dimension
+consumer and returns detached caption, paragraph lines and two choices. A lone
+`^` becomes a blank paragraph line; unsupported inline formatting, directives,
+missing body/caption and duplicate blocks fail explicitly. Original paragraph
+prose stays in the user's installation. Layout directives remain parsed data.
+
+Production shows this definition when either typed dimension exceeds 128.
+Selection clamps, mouse clicks select, and Enter/Escape/OK confirm the current
+choice. Nine synthetic source scenarios and twelve control/lifecycle scenarios
+exercise caching, malformed input, native settings, caller return and repeated
+callbacks without pixels. The installed-source browser check also hashes the
+actual loaded body and follows rejection, re-entry and confirmation into a
+generated odd-height world and a real gameplay turn.

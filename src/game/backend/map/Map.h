@@ -184,6 +184,7 @@ private:
 	module_passes_t m_modules_deferred; // after finalizing and deferred calls
 
 	void InitTextureAndMesh();
+	void InitMeshes();
 	void ProcessTiles( module_passes_t& module_passes, const tiles_t& tiles, MT_CANCELABLE );
 	void LoadTiles( const tiles_t& tiles, MT_CANCELABLE );
 	void FixNormals( const tiles_t& tiles, MT_CANCELABLE );

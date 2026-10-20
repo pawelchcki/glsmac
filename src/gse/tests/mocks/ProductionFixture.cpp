@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <set>
+#include <atomic>
 #include "gc/Space.h"
 #include "gse/value/Array.h"
 #include "gse/value/Bool.h"
@@ -37,6 +38,9 @@
 #include "game/backend/map/MapState.h"
 #include "game/backend/map/tile/Tiles.h"
 #include "game/backend/map/tile/TileManager.h"
+#include "game/backend/map/module/Finalize.h"
+#include "types/mesh/Render.h"
+#include "types/mesh/Data.h"
 #include "game/backend/resource/ResourceManager.h"
 #include "game/backend/resource/Resource.h"
 #include "game/backend/slot/Slots.h"
@@ -181,6 +185,107 @@ struct ProductionFixture : gc::Object {
 	}
 	void RestoreMapSettings( const std::string& bytes ) {
 		state->m_settings.global.map.Deserialize( types::Buffer( bytes ) );
+	}
+	Value* MapGridProbe( GSE_CALLABLE, const bool fix_poles = false ) {
+		const auto& config = state->m_settings.global.map;
+		if ( config.size_x < 4 || config.size_x > 512 || config.size_x % 2 || config.size_y < 2 || config.size_y > 256 ) {
+			GSE_ERROR( EC.INVALID_CALL, "grid probe requires bounded configured dimensions" );
+		}
+		// These are actual production grids and the production native map-file
+		// decoder. Rendering and terrain generation resources are not constructed.
+		std::unique_ptr< backend::map::Map > source( new backend::map::Map( &game, false ) );
+		source->m_tiles = new backend::map::tile::Tiles( source.get(), uint32_t( config.size_x ), uint32_t( config.size_y ) );
+		source->m_tiles->Clear();
+		bool polar_zero = true;
+		bool rng_preserved = true;
+		if ( fix_poles ) {
+			std::atomic< bool > cancel{ false };
+			const auto cells = source->m_tiles->GetVector( cancel );
+			for ( auto* tile : cells ) { for ( auto* corner : tile->elevation.corners ) { *corner = 40; } }
+			for ( auto* tile : cells ) { tile->Update(); }
+			util::random::Random random( 17 ), expected( 17 );
+			for ( int64_t x = 0; x < config.size_x; ++x ) { expected.GetBool(); }
+			source->m_tiles->FixTopBottomRows( &random );
+			rng_preserved = random.GetStateString() == expected.GetStateString();
+			for ( const auto* tile : cells ) {
+				if ( tile->coord.y == 0 ) { polar_zero = polar_zero && *tile->elevation.top == 0; }
+				if ( tile->coord.y + 1 == uint64_t( config.size_y ) ) { polar_zero = polar_zero && *tile->elevation.bottom == 0; }
+			}
+		}
+		const auto bytes = source->m_tiles->Serialize();
+		std::unique_ptr< backend::map::Map > restored( new backend::map::Map( &game, false ) );
+		auto input = bytes;
+		if ( restored->LoadFromBuffer( input ) != backend::map::Map::EC_NONE ) {
+			GSE_ERROR( EC.INVALID_CALL, "native configured grid snapshot did not decode" );
+		}
+		// Single-row input was implicitly rejected by the old even-height
+		// check. Keep it invalid before linking, including in Release builds.
+		auto records = bytes;
+		records.ReadInt(); records.ReadInt();
+		types::Buffer single_row;
+		single_row.WriteInt( config.size_x ); single_row.WriteInt( 1 );
+		for ( int64_t x = 0; x < config.size_x / 2; ++x ) { single_row.WriteString( records.ReadString() ); }
+		std::unique_ptr< backend::map::Map > invalid( new backend::map::Map( &game, false ) );
+		const bool rejects_single_row = invalid->LoadFromBuffer( single_row ) == backend::map::Map::EC_MAPFILE_FORMAT_ERROR;
+		std::atomic< bool > cancel{ false };
+		const auto cells = restored->m_tiles->GetVector( cancel );
+		int64_t half_width = 0;
+		bool links = true;
+		for ( const auto* tile : cells ) {
+			if ( tile->coord.y == 0 ) { ++half_width; }
+			links = links && tile->E->W == tile && tile->W->E == tile &&
+				tile->elevation.right == tile->E->elevation.left;
+			if ( tile->coord.y >= 2 ) { links = links && tile->N->elevation.bottom == tile->elevation.top; }
+			if ( tile->coord.y == 0 ) { links = links && tile->N == tile && tile->NW == tile && tile->NE == tile; }
+			if ( tile->coord.y + 1 == restored->GetHeight() ) { links = links && tile->S == tile && tile->SW == tile && tile->SE == tile; }
+		}
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "width", VALUE( value::Int,, restored->GetWidth() ) },
+			{ "height", VALUE( value::Int,, restored->GetHeight() ) },
+			{ "half_width", VALUE( value::Int,, half_width ) },
+			{ "tile_count", VALUE( value::Int,, cells.size() ) },
+			{ "links", VALUE( value::Bool,, links ) },
+			{ "roundtrip", VALUE( value::Bool,, restored->m_tiles->Serialize().ToString() == bytes.ToString() ) },
+			{ "rejects_single_row", VALUE( value::Bool,, rejects_single_row ) },
+			{ "polar_zero", VALUE( value::Bool,, polar_zero ) },
+			{ "rng_preserved", VALUE( value::Bool,, rng_preserved ) },
+		} );
+	}
+	Value* MapMeshProbe( GSE_CALLABLE ) {
+		const auto& config = state->m_settings.global.map;
+		if ( config.size_x < 4 || config.size_x > 512 || config.size_x % 2 || config.size_y < 2 || config.size_y > 256 ) {
+			GSE_ERROR( EC.INVALID_CALL, "mesh probe requires bounded configured dimensions" );
+		}
+		// Real mesh allocation and final tile pass, with synthetic all-water
+		// tile state. Textures, earlier generation passes and graphics are absent.
+		std::unique_ptr< backend::map::Map > source( new backend::map::Map( &game, false ) );
+		source->m_tiles = new backend::map::tile::Tiles( source.get(), uint32_t( config.size_x ), uint32_t( config.size_y ) );
+		source->m_tiles->Clear();
+		source->m_map_state = new backend::map::MapState();
+		auto* ms = source->m_map_state;
+		ms->dimensions = { uint32_t( config.size_x ), uint32_t( config.size_y ) };
+		ms->variables.texture_scaling = { 1.0f, 1.0f };
+		ms->first_run = true;
+		std::atomic< bool > cancel{ false };
+		ms->LinkTileStates( cancel );
+		source->InitMeshes();
+		// Ordinary meshes are transferred to frontend actors. This fixture
+		// has no frontend, so it owns both allocations even if the pass throws.
+		std::unique_ptr< types::mesh::Render > terrain( source->m_meshes.terrain );
+		std::unique_ptr< types::mesh::Data > data( source->m_meshes.terrain_data );
+		backend::map::module::Finalize finalize( source.get() );
+		for ( auto* tile : source->m_tiles->GetVector( cancel ) ) {
+			tile->is_water_tile = true;
+			finalize.GenerateTile( tile, ms->At( tile->coord.x, tile->coord.y ), ms );
+		}
+		terrain->Finalize();
+		data->Finalize();
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "vertices", VALUE( value::Int,, terrain->GetVertexCount() ) },
+			{ "surfaces", VALUE( value::Int,, terrain->GetSurfaceCount() ) },
+			{ "data_vertices", VALUE( value::Int,, data->GetVertexCount() ) },
+			{ "data_surfaces", VALUE( value::Int,, data->GetSurfaceCount() ) },
+		} );
 	}
 	std::string RulesSettingsSnapshot( const std::string& kind ) {
 		const auto bytes = state->m_settings.global.rules.Serialize().ToString();
@@ -987,6 +1092,21 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 		try { session->current->RestoreMapSettings( bytes ); }
 		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "map_grid_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		try { return session->current->MapGridProbe( GSE_CALL ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+	} ), GSE_CALL );
+	object->Set( "map_polar_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		try { return session->current->MapGridProbe( GSE_CALL, true ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+	} ), GSE_CALL );
+	object->Set( "map_mesh_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		try { return session->current->MapMeshProbe( GSE_CALL ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 	} ), GSE_CALL );
 	object->Set( "rules_settings_snapshot", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );

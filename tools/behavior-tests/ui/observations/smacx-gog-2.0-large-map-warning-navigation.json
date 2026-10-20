@@ -1,0 +1,841 @@
+{
+  "captured_at": "2026-10-19T23:11:34.981204+00:00",
+  "observations": [
+    {
+      "case_sha256": "60cc2ea208fd301e6a8843e17d014251f5604a3eef6c85f36bac8f8b53cc6815",
+      "id": "warning-random-navigation-0",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "433e45a1360a08334889e864f1dcba1ae41b0e99da1729e7fc9493941b339db3",
+      "id": "warning-random-navigation-1",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ed1bb8224dc3d3e36fb3afc9eaab48fbc83a4a3e52a5776e4e1c571e8d658571",
+      "id": "warning-random-navigation-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8aa132b8a0d8d7d48ddebbb2af83302575e563d437cce377444cbabb00f8fd8f",
+      "id": "warning-random-navigation-3",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "cccc2ebce4fb820b16f67f223a1cbb7b65db6668fe11a8126aa5e1a235b7770d",
+      "id": "warning-random-navigation-4",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "221683a3307c9cb9d972eb24ffb9dc95211453ca6b9be3661744befc66a7712e",
+      "id": "warning-custom-navigation-0",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "95d3104e806362d190a8c87d2c5818a6cab4e496e17b1c933e0f666ac9b0ee15",
+      "id": "warning-custom-navigation-1",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-2"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "dd12813268ef42aa1cf42433a9a84888c6a53131b2b24d743a6ef26ea2bc4d27",
+      "id": "warning-custom-navigation-2",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "4831ae3d59777d2855700a0b724f2b8024b74ba9ccb1b8417320491996964752",
+      "id": "warning-custom-navigation-3",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "NEVER MIND."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ea6eeb9cdf1d525541b020a471d1a493a05e0e570eee9954ec3c673bab961cf5",
+      "id": "warning-custom-navigation-4",
+      "output": {
+        "trace": [
+          {
+            "available": true,
+            "screen": {
+              "caption": "CUSTOM MAP SIZE",
+              "kind": "dimension-dialog",
+              "values": [
+                "129",
+                "80"
+              ]
+            },
+            "size_kind": 99,
+            "stage": "edited"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "submit"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-0"
+          },
+          {
+            "available": true,
+            "screen": {
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WARNING!",
+              "entries": [
+                "CONTINUE ANYWAY.",
+                "NEVER MIND."
+              ],
+              "kind": "large-map-warning",
+              "selected": [
+                "CONTINUE ANYWAY."
+              ]
+            },
+            "size_kind": 99,
+            "stage": "action-1"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "1f635200f41f3bc861a2f0fbb16d3318a43290d08ae4699050cbfd55f8ad8af9",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.large_map_warning.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual edited values, warning selection, caller navigation and read-only setup kind",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "text_profiles_sha256": "ed66823f9c145aa997ca08ff77066a50a7da7287bd2becf94d927031ba937f2b"
+  },
+  "repeat": 2,
+  "suite_sha256": "c6bcd3837b064b6d1b8e1641dad7ec6f30f1e8a0e2eb188ccfd293ddebfbe763",
+  "version": 1
+}

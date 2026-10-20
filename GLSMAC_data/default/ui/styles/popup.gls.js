@@ -87,6 +87,9 @@ return (ui) => {
 	ui.class('popup-panel-text').extend('popup-text').set({
 		font: 'arialnb.ttf:17',
 	});
+	ui.class('popup-warning-text').extend('popup-text').set({
+		font: 'arialnb.ttf:18',
+	});
 
 	ui.class('popup-button-base').set({
 		background: 'interface.pcx:crop(68, 149, 134, 166)',
@@ -119,6 +122,15 @@ return (ui) => {
 			background: 'interface.pcx:crop(68,  170, 134, 187)',
 			border: 'rgb(120, 164, 212),2',
 		},
+	});
+	ui.class('popup-choice').extend('popup-button-base').set({
+		height: 21,
+		font: 'arialnb.ttf:18',
+	});
+	ui.class('popup-choice-active').set({
+		color: 'rgb(13, 23, 36)',
+		background: 'interface.pcx:crop(68, 170, 134, 187)',
+		border: 'rgb(120, 164, 212),2',
 	});
 
 	ui.class('popup-list-select').set({

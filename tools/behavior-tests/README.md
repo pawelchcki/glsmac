@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit controls without graphics against 393 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 481 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **907 scenarios and 6,636 assertions** across
-73 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **945 scenarios and 6,849 assertions** across
+76 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -783,8 +783,33 @@ assigned dimension/type values when custom settings change.
 
 `dimension-data` and `dimension-controls` add 22 display-free scenarios/149
 assertions for real source parsing, control actions, validation, cancellation
-and native settings aliases. The declared horizontal-to-backend conversion and
-bounds are application policy, beyond the observed original dialog contract.
+and native settings aliases. The separate generated-grid contract verifies
+selected horizontal-to-backend conversions and odd heights. Bounds outside
+recorded inputs remain application policy.
 With installed assets, `npm --prefix tools/wasm-tests run test:dimensions` checks
 both real setup routes, native typing/Enter, source resolution, conflicting text,
 terrain generation and a complete turn. Those checks remain application coverage.
+
+## Large-map warning and odd-height generated worlds
+
+The default UI replay includes 84 independently repeated original warning traces
+and four original post-generation dimension observations. Production consumes
+common Script.txt VERYLARGEMAP, defers setup when either edited dimension exceeds
+128, and transfers the recorded clamped selection and Enter/Escape/OK behavior.
+Never mind returns to the caller. Warning prose is loaded from installed data;
+only synthetic paragraphs belong to the asset-free source tests.
+
+Four generated original worlds establish selected doubled horizontal dimensions,
+unchanged odd heights and valid tile counts. The native grid decoder now retains
+odd heights. Polar normalization addresses the actual bottom-row parity and
+updates derived centers. Terrain mesh allocation includes the final wrapped edge
+diamond for odd heights. The `odd-map-grid` suite executes real grids, codecs,
+polar normalization and mesh/final-tile code without pixels; textures and earlier
+terrain passes are controlled boundaries.
+
+`npm --prefix tools/wasm-tests run test:dimensions` runs three real browser paths:
+random and custom setup, plus warning rejection/re-entry/confirmation followed by
+258×49 terrain, Headquarters and a real turn. These are application integration
+checks; original terrain, RNG and full-game equivalence remain unproven. See the
+[warning contract](ui/large-map-warning-contract.md) and
+[generated-grid contract](ui/custom-grid-dimensions-contract.md) for exact scope.

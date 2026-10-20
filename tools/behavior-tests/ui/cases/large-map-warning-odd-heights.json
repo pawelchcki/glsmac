@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "name": "original-custom-size-odd-height-continuation",
+  "description": "Additive actual odd-height editing and continuation at both small and warning dimensions, without changing prior evidence. Does not observe generated terrain coordinates.",
+  "cases": [
+    {
+      "id": "warning-random-odd-30-49",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "30",
+        "vertical": "49",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-odd-80-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "80",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-odd-129-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-odd-30-49",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "30",
+        "vertical": "49",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-odd-80-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "80",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-odd-129-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    }
+  ]
+}

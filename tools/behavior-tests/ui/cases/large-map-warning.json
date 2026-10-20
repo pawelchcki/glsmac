@@ -1,0 +1,911 @@
+{
+  "version": 1,
+  "name": "original-edited-custom-size-warning",
+  "description": "Actual edited values, warning boundaries, choice/keyboard/mouse semantics, caller return and controlled common/expansion source text. Setup-state observations only; resulting map coordinates and generated terrain remain separate.",
+  "cases": [
+    {
+      "id": "warning-random-bounds-80-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "80",
+        "vertical": "128",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-80-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "80",
+        "vertical": "129",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-128-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "128",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-129-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-256-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "256",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-256-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "256",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-80-255",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "80",
+        "vertical": "255",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-80-256",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "80",
+        "vertical": "256",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-128-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "128",
+        "vertical": "128",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-129-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "129",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-2-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "2",
+        "vertical": "2",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-2-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "2",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-128-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "128",
+        "vertical": "2",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-129-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "2",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-2-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "2",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-130-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "130",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-bounds-128-130",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "128",
+        "vertical": "130",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-0",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-1",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "OK"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-3",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ArrowDown"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-4",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-5",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "Home"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-6",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "End"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-7",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ArrowDown",
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-8",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-9",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ClickFirst"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-10",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-11",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ClickSecond",
+          "OK"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-12",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowUp",
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-controls-13",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "End",
+          "Home",
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-random-text-common",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "common"
+      }
+    },
+    {
+      "id": "warning-random-text-expansion",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "expansion"
+      }
+    },
+    {
+      "id": "warning-random-text-both",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "random",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "both"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-80-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "80",
+        "vertical": "128",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-80-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "80",
+        "vertical": "129",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-128-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "128",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-129-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-256-80",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "256",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-256-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "256",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-80-255",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "80",
+        "vertical": "255",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-80-256",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "80",
+        "vertical": "256",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-128-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "128",
+        "vertical": "128",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-129-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "129",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-2-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "2",
+        "vertical": "2",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-2-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "2",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-128-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "128",
+        "vertical": "2",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-129-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "2",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-2-129",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "2",
+        "vertical": "129",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-130-128",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "130",
+        "vertical": "128",
+        "submit": "Enter",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-bounds-128-130",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "128",
+        "vertical": "130",
+        "submit": "OK",
+        "actions": [],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-0",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-1",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-2",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "OK"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-3",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ArrowDown"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-4",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowUp"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-5",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "Home"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-6",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "End"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-7",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ArrowDown",
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-8",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-9",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ClickFirst"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-10",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-11",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "ClickSecond",
+          "OK"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-12",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ArrowDown",
+          "ArrowUp",
+          "Enter"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-controls-13",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "129",
+        "vertical": "80",
+        "submit": "Enter",
+        "actions": [
+          "End",
+          "Home",
+          "Escape"
+        ],
+        "text_profile": "default"
+      }
+    },
+    {
+      "id": "warning-custom-text-common",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "common"
+      }
+    },
+    {
+      "id": "warning-custom-text-expansion",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "expansion"
+      }
+    },
+    {
+      "id": "warning-custom-text-both",
+      "algorithm": "ui.large_map_warning.v1",
+      "input": {
+        "route": "custom",
+        "horizontal": "130",
+        "vertical": "80",
+        "submit": "OK",
+        "actions": [
+          "ClickSecond",
+          "Enter"
+        ],
+        "text_profile": "both"
+      }
+    }
+  ]
+}
