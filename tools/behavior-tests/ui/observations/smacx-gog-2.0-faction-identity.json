@@ -1,0 +1,344 @@
+{
+  "captured_at": "2026-10-20T03:42:12.798239+00:00",
+  "observations": [
+    {
+      "case_sha256": "e83a47195a0af26287841fc24d066e3c77eb5857cc684314919d62669a060595",
+      "id": "identity-base-0",
+      "output": {
+        "identity": [
+          "Deirdre",
+          "Gaia's Stepdaughters",
+          "Gaians",
+          "Gaian",
+          "Lady",
+          "beautiful"
+        ]
+      }
+    },
+    {
+      "case_sha256": "1b0a174d2fda61e2ebf74124035164aa138b6a38c71692fcba3612f5edb5098d",
+      "id": "identity-base-1",
+      "output": {
+        "identity": [
+          "Yang",
+          "Human Hive",
+          "Hive",
+          "Hive",
+          "Chairman",
+          "ruthless"
+        ]
+      }
+    },
+    {
+      "case_sha256": "3f2dc07b9c4c61ee8ba849d3ccc565b1b4a8cf508a9a81803da8d99884d16c4e",
+      "id": "identity-base-2",
+      "output": {
+        "identity": [
+          "Zakharov",
+          "University of Planet",
+          "University",
+          "University",
+          "Provost",
+          "brilliant"
+        ]
+      }
+    },
+    {
+      "case_sha256": "81d13cf3c34841dc294836280c4c3890701ba83e040ef225225b95f1e2d2522a",
+      "id": "identity-base-3",
+      "output": {
+        "identity": [
+          "Morgan",
+          "Morgan Industries",
+          "Morganites",
+          "Morganic",
+          "CEO",
+          "shrewd"
+        ]
+      }
+    },
+    {
+      "case_sha256": "64ded4e5f357ae7bc038cf3619d58cf144d734e16c19c3b505fb922cf9aa932b",
+      "id": "identity-base-4",
+      "output": {
+        "identity": [
+          "Santiago",
+          "Spartan Federation",
+          "Spartans",
+          "Spartan",
+          "Colonel",
+          "vigilant"
+        ]
+      }
+    },
+    {
+      "case_sha256": "46026f3fbf06b2633f6ad734d3628c213b5a6958eb762e007cbb2af6309e43e5",
+      "id": "identity-base-5",
+      "output": {
+        "identity": [
+          "Miriam",
+          "The Lord's Believers",
+          "Believers",
+          "Believing",
+          "Sister",
+          "pious"
+        ]
+      }
+    },
+    {
+      "case_sha256": "205c594c6c217ffe2e110fb5d577f3db37d329a2a0e83c26d2137547f4c5f785",
+      "id": "identity-base-6",
+      "output": {
+        "identity": [
+          "Lal",
+          "Peacekeeping Forces",
+          "Peacekeepers",
+          "Peacekeeper",
+          "Brother",
+          "humane"
+        ]
+      }
+    },
+    {
+      "case_sha256": "2bfd4a325c35d179ca85be076da78ecfde9e5d463b5b927dcddc286a23c439be",
+      "id": "identity-expansion-0",
+      "output": {
+        "identity": [
+          "Aki Zeta-5",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "2a7c5e75eeff5b28267241a929d1c3a4df4783c33ec174f13f7b093bb7ad20da",
+      "id": "identity-expansion-1",
+      "output": {
+        "identity": [
+          "Svensgaard",
+          "Nautilus Pirates",
+          "Pirates",
+          "Nautilus",
+          "Captain",
+          "heroic"
+        ]
+      }
+    },
+    {
+      "case_sha256": "9ee5f05fa442824ea1440929c3ddb96890eb7bd5a3d5a3bc947f35c3456347cc",
+      "id": "identity-expansion-2",
+      "output": {
+        "identity": [
+          "Domai",
+          "The Free Drones",
+          "Drones",
+          "Free Drone",
+          "Foreman",
+          "stalwart"
+        ]
+      }
+    },
+    {
+      "case_sha256": "14c514658d6a02809107c2df68ba0c30427eea8afe54c2606e602a24091daa9e",
+      "id": "identity-expansion-3",
+      "output": {
+        "identity": [
+          "Roze",
+          "The Data Angels",
+          "Angels",
+          "Datatech",
+          "Datajack",
+          "stylish"
+        ]
+      }
+    },
+    {
+      "case_sha256": "96d3470ade0660d8d46ac48977dd8207872510529095defbea7527c3523faf3f",
+      "id": "identity-expansion-4",
+      "output": {
+        "identity": [
+          "Cha Dawn",
+          "The Cult of Planet",
+          "Planet Cult",
+          "Cultist",
+          "Prophet",
+          "charismatic"
+        ]
+      }
+    },
+    {
+      "case_sha256": "c1a53f28160dbee41a79299adb0fa877a7534fd34088d550743053fca5f28de5",
+      "id": "identity-expansion-5",
+      "output": {
+        "identity": [
+          "H'minee",
+          "Manifold Caretakers",
+          "Caretakers",
+          "Caretaker",
+          "Guardian",
+          "insightful"
+        ]
+      }
+    },
+    {
+      "case_sha256": "19ee46f1051859ed34d369720190f64b24624be2629637b82c49ac0c62329a7f",
+      "id": "identity-expansion-6",
+      "output": {
+        "identity": [
+          "Marr",
+          "Manifold Usurpers",
+          "Usurpers",
+          "Usurper",
+          "Conqueror",
+          "mighty"
+        ]
+      }
+    },
+    {
+      "case_sha256": "b9abb066766560064252e04f429b26c30a3c4a9bb5b221d01a33fa549dbbb18a",
+      "id": "identity-custom-confirmed",
+      "output": {
+        "identity": [
+          "Orion Vale",
+          "Orbit Guild",
+          "Orbiters",
+          "Orbital",
+          "Navigator",
+          "brisk"
+        ]
+      }
+    },
+    {
+      "case_sha256": "588bde3dec55032aecf48b3468204903c195c6f3722f018fca78dcc2200b7ea2",
+      "id": "identity-custom-canceled",
+      "output": {
+        "identity": [
+          "Aki Zeta-5",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "3c9f07841c3084587354325545c32efcb5e7004e24fb7536144950f86e6749e1",
+      "id": "identity-custom-restored",
+      "output": {
+        "identity": [
+          "Aki Zeta-5",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "2115600ae63bca5d56f3dd55ed83d59e50d60e717019ee578e923d1c8c193c74",
+      "id": "identity-name-17",
+      "output": {
+        "identity": [
+          "Nova Pilot",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "95360684250ca1292db03df7503dd482d004ed2f39441f2cea8132dc1df4a80e",
+      "id": "identity-name-18",
+      "output": {
+        "identity": [
+          "ABCDEFGHIJKLMNOPQRSTUVW",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "0c5d089f8038b10ae4931b67c5d71c0f7df5f23406b57b99d84e1181dc95e808",
+      "id": "identity-name-19",
+      "output": {
+        "identity": [
+          "  Nova Pilot  ",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "6f70cee2ac694b4969f3342354a5aea59354c38e134a24c92c0d4e8714fe1375",
+      "id": "identity-name-20",
+      "output": {
+        "identity": [
+          "",
+          "The Cybernetic Consciousness",
+          "Consciousness",
+          "Cybernetic",
+          "Prime Function",
+          "analytical"
+        ]
+      }
+    },
+    {
+      "case_sha256": "f8439c46a5f1c3487fe518ceca5b089734a1e32318338f093ca7534c3cb9e4f7",
+      "id": "identity-source-both",
+      "output": {
+        "identity": [
+          "Nova",
+          "Orbit Guild",
+          "Orbiters",
+          "Orbital",
+          "Navigator",
+          "brisk"
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "e88c8f35b9fd266844e76a436c59a76ed3f1dcadabfbbd5e0f468ec3414e3cde",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.faction_identity.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "six actual selected-faction identity strings at the visible post-generation opening dialog; no memory writes",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "readonly_data": {
+      "fields": {
+        "adjective": 720,
+        "formal_name": 848,
+        "leader_description": 48,
+        "leader_name": 0,
+        "leader_title": 24,
+        "noun": 688
+      },
+      "human_mask": "0x9a64e8",
+      "record": "0x947020",
+      "stride": 1436
+    },
+    "source_profiles_sha256": "5ce341499b97b40d1b7012cab851f73181ba3732ed8ba6cf9e4b17ea4a56b540"
+  },
+  "repeat": 2,
+  "suite_sha256": "481bc958fd82a4563cae30ec1455e0901a057e397cf0be13296d176b704a2f14",
+  "version": 1
+}

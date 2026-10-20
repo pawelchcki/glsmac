@@ -3,6 +3,8 @@
 #include "types/texture/Texture.h"
 #include "gse/value/String.h"
 #include "gse/value/Bool.h"
+#include "gse/value/Array.h"
+#include "gse/callable/Native.h"
 #include "engine/Engine.h"
 #include "loader/texture/TextureLoader.h"
 #include "resource/ResourceManager.h"
@@ -20,6 +22,43 @@ Faction::Faction( const std::string& id, const std::string& name )
 	: m_id( id )
 	, m_name( name ) {
 	//
+}
+
+namespace {
+bool ValidIdentity( const Faction::identity_t& identity ) {
+	for ( size_t index = 0; index < identity.size(); ++index ) {
+		const auto& text = identity[ index ];
+		if ( text.size() > ( index == 1 ? 39 : 23 ) ) { return false; }
+		for ( const unsigned char character : text ) {
+			if ( character < 32 || character == 127 ) { return false; }
+		}
+	}
+	return true;
+}
+}
+
+Faction::identity_t Faction::ParseIdentity( GSE_CALLABLE, const std::vector< gse::Value* >& values ) {
+	identity_t identity;
+	if ( values.size() != identity.size() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction identity requires six strings" ); }
+	for ( size_t index = 0; index < identity.size(); ++index ) {
+		const auto* value = values[ index ];
+		if ( value->type != gse::VT_STRING ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction identity fields must be strings" ); }
+		identity[ index ] = static_cast< const gse::value::String* >( value )->value;
+	}
+	if ( !ValidIdentity( identity ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Invalid faction identity text or length" ); }
+	return identity;
+}
+
+void Faction::SetIdentity( const identity_t& identity ) {
+	if ( !ValidIdentity( identity ) ) { THROW( "Invalid faction identity" ); }
+	m_identity = identity;
+	m_name = identity[ 1 ];
+}
+
+Faction::identity_t Faction::GetIdentity() const {
+	auto identity = m_identity;
+	identity[ 1 ] = m_name;
+	return identity;
 }
 
 const types::Buffer Faction::Serialize() const {
@@ -42,6 +81,9 @@ const types::Buffer Faction::Serialize() const {
 	buf.WriteInt( m_bases_render.cell_padding );
 	buf.WriteFloat( m_bases_render.scale_x );
 	buf.WriteFloat( m_bases_render.scale_y );
+	for ( size_t index = 0; index < m_identity.size(); ++index ) {
+		if ( index != 1 ) { buf.WriteString( m_identity[ index ] ); }
+	}
 
 	return buf;
 }
@@ -65,6 +107,11 @@ void Faction::Deserialize( types::Buffer buf ) {
 	m_bases_render.cell_padding = buf.ReadInt();
 	m_bases_render.scale_x = buf.ReadFloat();
 	m_bases_render.scale_y = buf.ReadFloat();
+	auto identity = GetIdentity();
+	for ( size_t index = 0; index < identity.size(); ++index ) {
+		if ( index != 1 ) { identity[ index ] = buf.ReadString(); }
+	}
+	SetIdentity( identity );
 
 }
 
@@ -77,6 +124,14 @@ WRAPIMPL_BEGIN( Faction )
 			{
 				"name",
 				VALUE( gse::value::String, , m_name )
+			},
+			{
+				"identity",
+				[ & ] () {
+					std::vector< gse::Value* > fields;
+					for ( const auto& text : GetIdentity() ) { fields.push_back( VALUE( gse::value::String,, text ) ); }
+					return VALUE( gse::value::Array,, fields );
+				}()
 			},
 			{
 				"text_color",

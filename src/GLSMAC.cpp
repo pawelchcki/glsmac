@@ -299,7 +299,7 @@ WRAPIMPL_BEGIN( GLSMAC )
 		{
 			"start_game",
 			NATIVE_CALL( this ) {
-				N_EXPECT_ARGS_MAX( 1 );
+				N_EXPECT_ARGS_MAX( 2 );
 				if ( !m_state ) {
 					GSE_ERROR( gse::EC.GAME_ERROR, "Game not initialized" );
 				}
@@ -322,8 +322,17 @@ WRAPIMPL_BEGIN( GLSMAC )
 						}
 					}
 				}
+				if ( arguments.size() == 2 ) {
+					if ( !faction ) { GSE_ERROR( gse::EC.GAME_ERROR, "Identity requires an explicitly selected faction" ); }
+					N_GETVALUE( values, 1, Array );
+					const auto identity = game::backend::faction::Faction::ParseIdentity( GSE_CALL, values );
+					if ( identity[ 0 ] != m_state->m_settings.local.player_name ) {
+						GSE_ERROR( gse::EC.GAME_ERROR, "Leader identity must match the confirmed player name" );
+					}
+					faction->SetIdentity( identity );
+				}
 				if ( m_state->m_slots->GetSlots().empty() ) {
-					AddSinglePlayerSlot( faction );
+					AddSinglePlayerSlot( faction, arguments.size() == 2 );
 				}
 				StartGame( GSE_CALL );
 				return VALUE( gse::value::Undefined );
@@ -631,12 +640,12 @@ void GLSMAC::RandomizeSettings( GSE_CALLABLE ) {
 	}
 }
 
-void GLSMAC::AddSinglePlayerSlot( game::backend::faction::Faction* const faction ) {
+void GLSMAC::AddSinglePlayerSlot( game::backend::faction::Faction* const faction, const bool name_confirmed ) {
 	m_state->m_slots->Resize( 7 ); // TODO: make dynamic?
 	const auto& rules = m_state->m_settings.global.rules;
 	const auto& difficulty = rules.m_difficulty_levels.GetString( m_state->m_settings.global.difficulty_level );
 	Log( "Single-player setup: faction=" + ( faction ? faction->m_id : "RANDOM" ) + ", difficulty=" + difficulty );
-	if ( m_state->m_settings.local.player_name.empty() ) {
+	if ( !name_confirmed && m_state->m_settings.local.player_name.empty() ) {
 		m_state->m_settings.local.player_name = "Player";
 	}
 	NEWV( player, ::game::backend::Player,

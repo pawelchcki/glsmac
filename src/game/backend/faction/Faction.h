@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <array>
 
 #include "types/Serializable.h"
 #include "gse/Wrappable.h"
@@ -17,6 +18,12 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 
 	Faction();
 	Faction( const std::string& id, const std::string& name );
+
+	// Editor order: leader, formal faction name, noun, adjective, title, description.
+	using identity_t = std::array< std::string, 6 >;
+	static identity_t ParseIdentity( GSE_CALLABLE, const std::vector< gse::Value* >& values );
+	void SetIdentity( const identity_t& identity );
+	identity_t GetIdentity() const;
 
 	typedef uint8_t faction_flag_t;
 	static constexpr Faction::faction_flag_t FF_NONE = 0;
@@ -44,6 +51,9 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 	void Deserialize( types::Buffer buf ) override;
 
 	WRAPDEFS_PTR( Faction )
+
+private:
+	identity_t m_identity = {};
 
 };
 

@@ -15,7 +15,14 @@ return (i) => {
 		if (!available(id)) { i.popup.error('Choose an available faction.'); return true; }
 		try {
 			i.settings.local.player_name = name;
-			i.glsmac.start_game(id + ''); starting = true;
+			if (id == 'RANDOM') { i.glsmac.start_game(id + ''); }
+			else {
+				const identity = []; const values = definitions[id].values;
+				for (let index = 0; index < 6; index++) { identity :+ values[index] + ''; }
+				identity[0] = name + '';
+				i.glsmac.start_game(id + '', identity);
+			}
+			starting = true;
 		} catch { GSEGameError: (error) => { i.popup.error(error.reason); } }
 		return true;
 	};

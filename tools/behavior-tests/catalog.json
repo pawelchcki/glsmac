@@ -77,7 +77,8 @@
     {"id":"dimension-data","script":"GLSMAC_data/tests/dimension_data.gls.js","domains":["ui","ux","gameplay"],"evidence":"glsmac-regression"},
     {"id":"dimension-controls","script":"GLSMAC_data/tests/dimension_controls.gls.js","domains":["ui","ux","gameplay"],"evidence":"glsmac-regression"},
     {"id":"behavior-rules", "script":"GLSMAC_data/tests/behavior_rules.gls.js", "domains":["gameplay"], "evidence":"glsmac-regression"},
-    {"id":"faction-source","script":"GLSMAC_data/tests/faction_source.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"}
+    {"id":"faction-source","script":"GLSMAC_data/tests/faction_source.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"faction-identity-native","script":"GLSMAC_data/tests/faction_identity_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"custom-map-human-factors","cases":"cases/custom-map-human-factors.json","observations":"observations/smacx-gog-2.0-custom-map-human-factors.json"},

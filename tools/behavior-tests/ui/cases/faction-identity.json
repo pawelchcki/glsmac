@@ -1,0 +1,508 @@
+{
+  "version": 1,
+  "name": "original-selected-faction-identity-handoff",
+  "description": "Selected preset factions, confirmed/canceled/restored customization, name edits and conflicting source profiles at the actual original post-generation opening dialog. Opponent AI and identity gender semantics are excluded.",
+  "cases": [
+    {
+      "id": "identity-base-0",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 0
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-1",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 1
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-2",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 2
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-3",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 3
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-4",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-5",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 5
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-base-6",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "base"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-0",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 0
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-1",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 1
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-2",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 2
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-3",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 3
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-4",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 4
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-5",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 5
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-expansion-6",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "preset": "expansion"
+          },
+          {
+            "slot": 6
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-custom-confirmed",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "Orbiters"
+            }
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "Orbital"
+            }
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "Navigator"
+            }
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "brisk"
+            }
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-custom-canceled",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "Orbiters"
+            }
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "Orbital"
+            }
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "Navigator"
+            }
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "brisk"
+            }
+          },
+          {
+            "button": "CANCEL"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-custom-restored",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "button": "CHANGE NAME"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Orion Vale"
+            }
+          },
+          {
+            "edit": {
+              "field": 1,
+              "text": "Orbit Guild"
+            }
+          },
+          {
+            "edit": {
+              "field": 2,
+              "text": "Orbiters"
+            }
+          },
+          {
+            "edit": {
+              "field": 3,
+              "text": "Orbital"
+            }
+          },
+          {
+            "edit": {
+              "field": 4,
+              "text": "Navigator"
+            }
+          },
+          {
+            "edit": {
+              "field": 5,
+              "text": "brisk"
+            }
+          },
+          {
+            "button": "RESTORE DEFAULTS"
+          },
+          {
+            "button": "OK"
+          },
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-name-17",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "Nova Pilot"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-name-18",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-name-19",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": "  Nova Pilot  "
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-name-20",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          {
+            "key": "Enter"
+          },
+          {
+            "edit": {
+              "field": 0,
+              "text": ""
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-source-both",
+      "algorithm": "game.faction_identity.v1",
+      "input": {
+        "profile": "both",
+        "actions": [
+          {
+            "key": "Enter"
+          }
+        ]
+      }
+    }
+  ]
+}

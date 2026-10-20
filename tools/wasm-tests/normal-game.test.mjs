@@ -202,6 +202,7 @@ const normalMain = String.raw`
           #print('NORMAL_PROBE_BEGIN');
           #print('NORMAL_WORLD|' + #to_string(tm.get_map_width()) + '|' + #to_string(tm.get_map_height()) + '|' + #to_string(owner.id) + '|' + owner.get_faction().id + '|' + #to_string(game.get_turn()));
           #print('NORMAL_PLAYER|' + owner.name);
+          for (field of owner.get_faction().identity) { #print('NORMAL_IDENTITY|' + field); }
           #print('NORMAL_STATUS|' + status);
           #print('NORMAL_SELECTION|' + #to_string(objects.selected_type) + '|' + #to_string(objects.selected_id));
           for (base of game.get_bm().get_bases()) {
@@ -392,6 +393,7 @@ for (const profile of [
   { name: 'custom dimensions load installed text and generate a playable large odd-height world after warning rejection and confirmation',
     dimension: 'random', warning: true, fields: ['129', '49'], level: 0, size: [258, 49], rule: 13, mineralRule: 13, lifecycle: false },
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
+  { name: 'ordinary startup preserves a confirmed empty leader name', level: 0, size: [68, 34], rule: 10, lifecycle: false, leaderName: '' },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules for zero-price Tiny projects', level: 0, size: [68, 34], rule: 10, mineralRule: 1, lifecycle: false },
@@ -416,7 +418,7 @@ test(profile.name, {
     assert.deepEqual(profile.size, [original.width, original.height]);
     assert.equal(original.size_kind, 99);
   }
-  const artifactPrefix = profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  const artifactPrefix = profile.leaderName === '' ? 'empty-leader-name' : profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -635,7 +637,9 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
     const selection = log.match(/NORMAL_SELECTION\|([^|\n]+)\|([^|\n]+)/);
     const playerName = log.match(/NORMAL_PLAYER\|([^\r\n]*)/);
     assert.ok(playerName, 'Actual native player identity is readable');
-    const state = { playerName: playerName[1], width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
+    const identity = [...log.matchAll(/NORMAL_IDENTITY\|([^\r\n]*)/g)].map((match) => match[1]);
+    assert.equal(identity.length, 6, 'Every identity field is read from the real native faction');
+    const state = { playerName: playerName[1], identity, width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
       status: log.match(/NORMAL_STATUS\|([^\n\r]+)/)[1],
       selected: selection[1] === 'Unit' ? +selection[2] : null,
       bases: [...log.matchAll(/NORMAL_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)/g)]
@@ -824,6 +828,10 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
     assert.equal(fields.at(-1)[1], formal, 'Actual formal editor retains the original 39-character cap');
     await clickCanvas(page, 600, 284); await clearNative(); await typeNative('Orion Vale');
     await waitLog('NORMAL_CUSTOM_FIELD|0|Orion Vale', 1, 5000);
+    for (const [index, value] of [[2, 'Orbiters'], [3, 'Orbital'], [4, 'Navigator'], [5, 'brisk']]) {
+      await clickCanvas(page, 600, 284 + index * 23); await clearNative(); await typeNative(value);
+      await waitLog(`NORMAL_CUSTOM_FIELD|${index}|${value}`, 1, 5000);
+    }
     await clickCanvas(page, 600, 422); await clearNative(); await typeNative('Male');
     await waitLog('NORMAL_CUSTOM_FIELD|6|Male', 1, 5000);
     await clickCanvas(page, 512, 514); // Confirm customization
@@ -840,15 +848,20 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   await waitLog('NORMAL_FACTION_NAME|ABCDEFGHIJKLMNOPQRSTUVW', 1, 5000);
   const names = [...(await page.locator('#log').textContent()).matchAll(/NORMAL_FACTION_NAME\|([^\r\n]*)/g)];
   assert.equal(names.at(-1)[1], 'ABCDEFGHIJKLMNOPQRSTUVW', 'Real SDL typing retains the original 23-character limit');
-  await clearNative(); await typeNative('Nova Pilot');
-  await waitLog('NORMAL_FACTION_NAME|Nova Pilot', 1, 5000);
+  const leaderName = profile.leaderName ?? 'Nova Pilot';
+  await clearNative(); await typeNative(leaderName);
+  await waitLog('NORMAL_FACTION_NAME|' + leaderName, 1, 5000);
   await page.keyboard.press('Enter');
   await waitLog('NORMAL_UI_READY');
   const initial = await waitState((s) => s.selected !== null && s.status === 'active'
     && s.bases.length > 0 && s.growth.every((g) => g.settled), 'Initial owned unit becomes selectable after starting population settles');
   assert.deepEqual([initial.width, initial.height], profile.size, 'The actual size controls generated their dimensions');
   assert.equal(initial.faction, 'GAIANS', 'The actual faction roster selected Gaians');
-  assert.equal(initial.playerName, 'Nova Pilot', 'The entered leader name reaches the real backend Player');
+  assert.equal(initial.playerName, leaderName, 'The entered leader name reaches the real backend Player, including an explicitly confirmed empty name');
+  assert.deepEqual(initial.identity, profile.lifecycle
+    ? [leaderName, 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM', 'Orbiters', 'Orbital', 'Navigator', 'brisk']
+    : [leaderName, "Gaia's Stepdaughters", 'Gaians', 'Gaian', 'Lady', 'beautiful'],
+  'Confirmed source/custom faction identity survives native startup and world generation');
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];
   assert.ok(headquarters.hq && headquarters.land && headquarters.size === 1 && headquarters.owner === initial.owner);

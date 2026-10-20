@@ -383,6 +383,7 @@ struct ProductionFixture : gc::Object {
 		to.rules.SetNutrientCostFactor( 23 ); to.rules.SetMineralCostFactor( 31 ); to.game_name = "Previous target";
 		source->GetFM()->Add( new backend::faction::Faction( "WIRE_SOURCE", "Wire Source" ) );
 		target->GetFM()->Add( new backend::faction::Faction( "WIRE_OLD", "Old Target" ) );
+		source->GetFM()->Get( "WIRE_SOURCE" )->SetIdentity( { "Wire Pilot", "Wire Guild", "Wirefolk", "Orbital", "Navigator", "brisk" } );
 		auto* wrapper = static_cast< value::Object* >( to.rules.Wrap( GSE_CALL ) );
 		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
 		auto* mineral_read = static_cast< value::Callable* >( wrapper->Get( "get_mineral_cost_factor" ) );
@@ -400,20 +401,43 @@ struct ProductionFixture : gc::Object {
 			to.rules.GetNutrientCostFactor() == 17 && to.game_name == "Source wire";
 		const bool factions = target->GetFM()->Get( "WIRE_SOURCE" ) && !target->GetFM()->Get( "WIRE_OLD" ) &&
 			target->GetFM()->Get( "WIRE_SOURCE" ) != source->GetFM()->Get( "WIRE_SOURCE" );
+		const bool identity_received = factions && target->GetFM()->Get( "WIRE_SOURCE" )->GetIdentity() ==
+			source->GetFM()->Get( "WIRE_SOURCE" )->GetIdentity() && target->GetFM()->Get( "WIRE_SOURCE" )->m_name == "Wire Guild";
 		const bool roundtrip = target->Serialize().ToString() == wire;
 		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.rules.SetMineralCostFactor( 37 ); from.game_name = "Changed sender";
 		auto changed_worlds = worlds_before; changed_worlds[0].name = "Changed sender world"; from.rules.SetWorldSizes( changed_worlds );
+		source->GetFM()->Get( "WIRE_SOURCE" )->SetIdentity( { "Changed sender", "Changed guild", "Otherfolk", "Distant", "Captain", "quiet" } );
 		const bool independent = target->Serialize().ToString() == wire && to.rules.GetNutrientCostFactor() == 17;
 		const bool mineral_independent = target->Serialize().ToString() == wire && to.rules.GetMineralCostFactor() == 19;
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "received", VALUE( value::Bool,, received ) }, { "aliases", VALUE( value::Bool,, aliases ) },
 			{ "factions", VALUE( value::Bool,, factions ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
+			{ "identity_received", VALUE( value::Bool,, identity_received ) },
 			{ "independent", VALUE( value::Bool,, independent ) },
 			{ "mineral_received", VALUE( value::Bool,, mineral_received ) },
 			{ "mineral_aliases", VALUE( value::Bool,, mineral_aliases ) },
 			{ "mineral_independent", VALUE( value::Bool,, mineral_independent ) },
 			{ "worlds_received", VALUE( value::Bool,, worlds_received ) }, { "worlds_aliases", VALUE( value::Bool,, worlds_aliases ) },
 			{ "worlds_independent", VALUE( value::Bool,, to.rules.GetWorldSizes() == worlds_before && target->Serialize().ToString() == wire ) },
+		} );
+	}
+	Value* ApplyFactionIdentity( GSE_CALLABLE, const std::vector< Value* >& values ) {
+		auto* faction = owner->GetFaction();
+		faction->SetIdentity( backend::faction::Faction::ParseIdentity( GSE_CALL, values ) );
+		return faction->Wrap( GSE_CALL );
+	}
+	Value* FactionIdentityCodec( GSE_CALLABLE ) {
+		auto* source = owner->GetFaction();
+		const auto wire = source->Serialize().ToString();
+		backend::faction::Faction receiving;
+		receiving.Deserialize( types::Buffer( wire ) );
+		const bool roundtrip = receiving.Serialize().ToString() == wire;
+		const bool received = receiving.GetIdentity() == source->GetIdentity() && receiving.m_name == source->m_name;
+		auto changed = receiving.GetIdentity(); changed[ 0 ] = "Changed receiver"; receiving.SetIdentity( changed );
+		const bool independent = source->Serialize().ToString() == wire;
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "received", VALUE( value::Bool,, received ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
+			{ "independent", VALUE( value::Bool,, independent ) },
 		} );
 	}
 	Value* WorldSizesCopyProbe( GSE_CALLABLE ) {
@@ -1180,6 +1204,13 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	object->Set( "player_copy_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String );
 		return session->current->CopyProbe( GSE_CALL, kind );
+	} ), GSE_CALL );
+	object->Set( "apply_faction_identity", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( values, 0, Array );
+		return session->current->ApplyFactionIdentity( GSE_CALL, values );
+	} ), GSE_CALL );
+	object->Set( "faction_identity_codec", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->FactionIdentityCodec( GSE_CALL );
 	} ), GSE_CALL );
 	object->Set( "snapshot", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->Snapshot() );

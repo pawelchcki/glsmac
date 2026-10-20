@@ -16,7 +16,8 @@
         "ui.custom_size_kind.v1",
         "ui.large_map_warning.v1",
         "map.custom_grid_dimensions.v1",
-        "ui.faction_setup.v1"
+        "ui.faction_setup.v1",
+        "game.faction_identity.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -27,11 +28,11 @@
         "Custom-dimension bounds and normalization outside recorded inputs",
         "Warning selection memory on later reopening and paragraph typography",
         "Faction portraits, quotations and Info/Datalinks content",
-        "Opponent population/AI and applying all customized identity fields in game",
+        "Opponent population/AI, identity Gender semantics and dialog substitutions throughout gameplay",
         "Faction dropdown keyboard input and availability states",
-        "Name confirmation, empty values, Unicode and complete faction/world effects"
+        "Random-name confirmation, other empty fields, Unicode and complete faction/world effects"
       ],
-      "coverage": "84 warning traces cover edited inputs, inclusive threshold 128, common-source text, clamped choice navigation and confirmation/caller return. Four generated original worlds establish selected full widths, retained odd heights and valid tile counts. 82 faction-setup sequences add 603 original checkpoints for roster slots, modes, leader fields, caps and source profiles. Native typing, Player name handoff and selected/random world entry are separate browser integration."
+      "coverage": "84 warning traces cover edited inputs, inclusive threshold 128, common-source text, clamped choice navigation and confirmation/caller return. Four generated original worlds establish selected full widths, retained odd heights and valid tile counts. 82 faction-setup sequences add 603 original checkpoints for roster slots, modes, leader fields, caps and source profiles. 22 post-generation original observations add six selected identity fields, name confirmation, empty names and custom/source values. Candidate native storage/codecs and browser startup are checked separately."
     },
     {
       "id": "controls",

@@ -33,7 +33,7 @@ const ordered = (nodes) => {
 	}
 	return result;
 };
-let faction_count = 0;
+let faction_count = 0; let identity_count = 0;
 for (input of faction_inputs) {
 	const f = fixture(); const native = test.production_fixture();
 	f.i.settings = native.game.get_settings();
@@ -42,8 +42,18 @@ for (input of faction_inputs) {
 	const data = faction_profiles[input.profile]; f.i.smac_data = data.bundle;
 	#include('../default/game/world_sizes').apply(data.bundle.rules, f.i.settings.global.rules);
 	f.i.glsmac.game = { get_fm: () => { return {list: () => { return configured_factions; }}; } };
-	let starting = false;
-	f.i.glsmac.start_game = (id) => { starting = true; };
+	let starting = false; let start_identity = null;
+	f.i.glsmac.start_game = (id, identity) => {
+		starting = true;
+		if (#typeof(identity) == 'Array' || #typeof(identity) == 'ArrayRef') {
+			if (#is_defined(input.handoff) && input.handoff == 1) {
+				const faction = native.apply_faction_identity(identity);
+				start_identity = #clone(faction.identity);
+				const codec = native.faction_identity_codec();
+				test.assert(codec.received && codec.roundtrip && codec.independent, 'Actual native identity must survive its codec');
+			} else { start_identity = #clone(identity); }
+		}
+	};
 	const fields = () => { return ordered(f.view.live('input')); };
 	const footer = () => { return of_class(f.view, 'button', 'popup-button'); };
 	const rows = () => { return of_class(f.view, 'button', 'faction-row'); };
@@ -157,6 +167,18 @@ for (input of faction_inputs) {
 		}
 		emit();
 	}
-	#print('FSET_DONE'); f.view.root.remove(); faction_count++;
+	#print('FSET_DONE');
+	if (#is_defined(input.handoff) && input.handoff == 1) {
+		test.assert(!starting && #sizeof(fields()) == 1, 'The actual name editor must precede the start boundary');
+		for (button of footer()) { if (#is_defined(button.is_ok) && button.is_ok) { button.emit('click', {}); } }
+		test.assert(starting, 'Actual confirmation must request native startup');
+		#print('IDENTITY_CASE|' + input.id);
+		if (start_identity == null) { #print('IDENTITY_MISSING'); }
+		else { for (value of start_identity) { #print('IDENTITY_VALUE|' + value); } }
+		#print('IDENTITY_END');
+		identity_count++;
+	}
+	f.view.root.remove(); faction_count++;
 }
 #print('FSET_COMPLETE|' + #to_string(faction_count));
+if (identity_count > 0) { #print('IDENTITY_COMPLETE|' + #to_string(identity_count)); }
