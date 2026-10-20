@@ -1,0 +1,210 @@
+{
+  "captured_at": "2026-10-20T04:41:35.475491+00:00",
+  "observations": [
+    {
+      "case_sha256": "c12a81ec6d91683d6baca5fef7051a66a810f59e873a07c8b9f1721834f810b9",
+      "id": "ratings-base-0",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "0de0fe211301621c93acf91c45662d7159d04f503b48e0889a9381886fdfe867",
+      "id": "ratings-base-1",
+      "output": {
+        "growth": 1,
+        "industry": 1,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "8b459cd67c7ead5e572d8a311f31283e3c09ba6c56456a98753a171a2932df1a",
+      "id": "ratings-base-2",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "70cba9305e1c7ed232ba52ff17a48fb9ea6354639cf4b97c0a211fd0b4d8ece5",
+      "id": "ratings-base-3",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "4f47c7dfbc267e5d3cbc5bbb2ad9063b90e69fd942b0550c277b1faf3e9d9f44",
+      "id": "ratings-base-4",
+      "output": {
+        "growth": 0,
+        "industry": -1,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "6bab70b7737bed911ebb980d3677629deb3634b54d9f387457a03346896e554c",
+      "id": "ratings-base-5",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "3b4834889bc15494539b080b0ca08b5547bb0b18d0f32622273078a218271f31",
+      "id": "ratings-base-6",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "b54b391efbb4ec20ff2944284ec7eeae270229855eb3f4fa3a185693179eedd9",
+      "id": "ratings-expansion-0",
+      "output": {
+        "growth": -1,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "2166d6bff18d75e59d09febc75fff0c27f52191c2531a2473adef50ab1f66792",
+      "id": "ratings-expansion-1",
+      "output": {
+        "growth": -1,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "5c5b6577621be1abbac54d825cad3659d250feb09c15857ffd815dd0c54a8979",
+      "id": "ratings-expansion-2",
+      "output": {
+        "growth": 0,
+        "industry": 2,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "f53896331af5a929ce62af04fb943e3edd02b624c742e2535c287ce63470ac33",
+      "id": "ratings-expansion-3",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "cc68355488ac24528d8e694232d69199766d28f7bc02f28a011c24c2ceee0b8b",
+      "id": "ratings-expansion-4",
+      "output": {
+        "growth": 0,
+        "industry": -1,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "9cad49c52826c7cdd4929cef211ea801d3fae65e7fbdd871396b99fb0e415abc",
+      "id": "ratings-expansion-5",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "a182282dd0adc10521ee63a0d377d4d96bd5ae6e547b2bc00fc83848d32b69f3",
+      "id": "ratings-expansion-6",
+      "output": {
+        "growth": 1,
+        "industry": 0,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "507de9014ddec2b4dc42c7a1cbc7dae6c04b09f132c32674e1d8bb615fb638e0",
+      "id": "ratings-growth-positive",
+      "output": {
+        "growth": 2,
+        "industry": -3,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "e4813fc0faf356d1a8a25190fb986e6e09ed472bc695d56a8eeea7b88b549620",
+      "id": "ratings-industry-positive",
+      "output": {
+        "growth": -3,
+        "industry": 4,
+        "mineral_rule_factor": 10,
+        "nutrient_rule_factor": 10
+      }
+    },
+    {
+      "case_sha256": "a2fb3dee3d76e6b4e6dfc3da418a3341da2611ca6835654267b70f737c2f2465",
+      "id": "ratings-rules-a",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 23,
+        "nutrient_rule_factor": 17
+      }
+    },
+    {
+      "case_sha256": "d524019f8586757623c9584d72ddbcc92c2575d75ed01d567cd17d65bdbce88e",
+      "id": "ratings-rules-b",
+      "output": {
+        "growth": 0,
+        "industry": 0,
+        "mineral_rule_factor": 17,
+        "nutrient_rule_factor": 23
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "5b9c2e0bb8349a39c31d95a9fa54fe20aca95c409552c1fda3f308f482d5b731",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.faction_social_ratings.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "initialized human ratings cross-checked against actual named Social Engineering rows after first-base setup",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "readonly_data": {
+      "growth": "0x96cc44",
+      "industry": "0x96cc50",
+      "mineral_rule": "0x949754",
+      "nutrient_rule": "0x949750",
+      "stride": 8396
+    },
+    "source_profiles_sha256": "d263cd83d53814c40024f4a7c75eaa9dee9d8a8082571b56d0f8cbc51832577d"
+  },
+  "repeat": 2,
+  "suite_sha256": "ed003a4d7640a9ad777c4dc702bd94e3d124364caca212c2a45be6199b07201a",
+  "version": 1
+}

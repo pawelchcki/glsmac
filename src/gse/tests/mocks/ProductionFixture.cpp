@@ -384,6 +384,7 @@ struct ProductionFixture : gc::Object {
 		source->GetFM()->Add( new backend::faction::Faction( "WIRE_SOURCE", "Wire Source" ) );
 		target->GetFM()->Add( new backend::faction::Faction( "WIRE_OLD", "Old Target" ) );
 		source->GetFM()->Get( "WIRE_SOURCE" )->SetIdentity( { "Wire Pilot", "Wire Guild", "Wirefolk", "Orbital", "Navigator", "brisk" } );
+		source->GetFM()->Get( "WIRE_SOURCE" )->SetSocialRatings( 2, -3 );
 		auto* wrapper = static_cast< value::Object* >( to.rules.Wrap( GSE_CALL ) );
 		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
 		auto* mineral_read = static_cast< value::Callable* >( wrapper->Get( "get_mineral_cost_factor" ) );
@@ -404,15 +405,18 @@ struct ProductionFixture : gc::Object {
 		const bool identity_received = factions && target->GetFM()->Get( "WIRE_SOURCE" )->GetIdentity() ==
 			source->GetFM()->Get( "WIRE_SOURCE" )->GetIdentity() && target->GetFM()->Get( "WIRE_SOURCE" )->m_name == "Wire Guild";
 		const bool roundtrip = target->Serialize().ToString() == wire;
+		const bool ratings_received = factions && target->GetFM()->Get( "WIRE_SOURCE" )->m_growth == 2 && target->GetFM()->Get( "WIRE_SOURCE" )->m_industry == -3;
 		from.map.preset_level = 4; from.rules.SetNutrientCostFactor( 29 ); from.rules.SetMineralCostFactor( 37 ); from.game_name = "Changed sender";
 		auto changed_worlds = worlds_before; changed_worlds[0].name = "Changed sender world"; from.rules.SetWorldSizes( changed_worlds );
 		source->GetFM()->Get( "WIRE_SOURCE" )->SetIdentity( { "Changed sender", "Changed guild", "Otherfolk", "Distant", "Captain", "quiet" } );
+		source->GetFM()->Get( "WIRE_SOURCE" )->SetSocialRatings( -1, 4 );
 		const bool independent = target->Serialize().ToString() == wire && to.rules.GetNutrientCostFactor() == 17;
 		const bool mineral_independent = target->Serialize().ToString() == wire && to.rules.GetMineralCostFactor() == 19;
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "received", VALUE( value::Bool,, received ) }, { "aliases", VALUE( value::Bool,, aliases ) },
 			{ "factions", VALUE( value::Bool,, factions ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
 			{ "identity_received", VALUE( value::Bool,, identity_received ) },
+			{ "ratings_received", VALUE( value::Bool,, ratings_received ) },
 			{ "independent", VALUE( value::Bool,, independent ) },
 			{ "mineral_received", VALUE( value::Bool,, mineral_received ) },
 			{ "mineral_aliases", VALUE( value::Bool,, mineral_aliases ) },
@@ -426,13 +430,19 @@ struct ProductionFixture : gc::Object {
 		faction->SetIdentity( backend::faction::Faction::ParseIdentity( GSE_CALL, values ) );
 		return faction->Wrap( GSE_CALL );
 	}
+	Value* ApplyFactionRatings( GSE_CALLABLE, const value::object_properties_t& values ) {
+		const auto ratings = backend::faction::Faction::ParseSocialRatings( GSE_CALL, values );
+		auto* faction = owner->GetFaction(); faction->SetSocialRatings( ratings[ 0 ], ratings[ 1 ] );
+		return faction->Wrap( GSE_CALL );
+	}
 	Value* FactionIdentityCodec( GSE_CALLABLE ) {
 		auto* source = owner->GetFaction();
 		const auto wire = source->Serialize().ToString();
 		backend::faction::Faction receiving;
 		receiving.Deserialize( types::Buffer( wire ) );
 		const bool roundtrip = receiving.Serialize().ToString() == wire;
-		const bool received = receiving.GetIdentity() == source->GetIdentity() && receiving.m_name == source->m_name;
+		const bool received = receiving.GetIdentity() == source->GetIdentity() && receiving.m_name == source->m_name &&
+			receiving.m_growth == source->m_growth && receiving.m_industry == source->m_industry;
 		auto changed = receiving.GetIdentity(); changed[ 0 ] = "Changed receiver"; receiving.SetIdentity( changed );
 		const bool independent = source->Serialize().ToString() == wire;
 		return VALUEEXT( value::Object, GSE_CALL, {
@@ -1208,6 +1218,10 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding ) {
 	object->Set( "apply_faction_identity", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( values, 0, Array );
 		return session->current->ApplyFactionIdentity( GSE_CALL, values );
+	} ), GSE_CALL );
+	object->Set( "apply_faction_ratings", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( values, 0, Object );
+		return session->current->ApplyFactionRatings( GSE_CALL, values );
 	} ), GSE_CALL );
 	object->Set( "faction_identity_codec", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->FactionIdentityCodec( GSE_CALL );

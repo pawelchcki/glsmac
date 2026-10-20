@@ -123,8 +123,14 @@ WRAPIMPL_BEGIN( FactionManager )
 				N_GETVALUE( id, 0, String );
 				N_GETVALUE( faction_def, 1, Object );
 				N_GETPROP( name, faction_def, "name", String );
+				std::array< int, 2 > social_ratings = { 0, 0 };
+				if ( faction_def.find( "social_ratings" ) != faction_def.end() ) {
+					N_GETPROP( ratings, faction_def, "social_ratings", Object );
+					social_ratings = Faction::ParseSocialRatings( GSE_CALL, ratings );
+				}
 
 				auto* faction = new Faction( id, name );
+				faction->SetSocialRatings( social_ratings[ 0 ], social_ratings[ 1 ] );
 
 				N_GETPROP( colors, faction_def, "colors", Object );
 				N_GETPROP_UNWRAP( colors_text, colors, "text", types::Color );

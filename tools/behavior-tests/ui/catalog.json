@@ -85,6 +85,11 @@
       "id": "faction-identity",
       "cases": "cases/faction-identity.json",
       "observations": "observations/smacx-gog-2.0-faction-identity.json"
+    },
+    {
+      "id": "faction-ratings",
+      "cases": "cases/faction-ratings.json",
+      "observations": "observations/smacx-gog-2.0-faction-ratings.json"
     }
   ]
 }

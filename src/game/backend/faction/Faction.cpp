@@ -4,6 +4,7 @@
 #include "gse/value/String.h"
 #include "gse/value/Bool.h"
 #include "gse/value/Array.h"
+#include "gse/value/Int.h"
 #include "gse/callable/Native.h"
 #include "engine/Engine.h"
 #include "loader/texture/TextureLoader.h"
@@ -61,6 +62,26 @@ Faction::identity_t Faction::GetIdentity() const {
 	return identity;
 }
 
+std::array< int, 2 > Faction::ParseSocialRatings( GSE_CALLABLE, const gse::value::object_properties_t& values ) {
+	if ( values.size() != 2 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction ratings require exactly growth and industry" ); }
+	std::array< int, 2 > ratings;
+	size_t index = 0;
+	for ( const auto* key : { "growth", "industry" } ) {
+		const auto found = values.find( key );
+		if ( found == values.end() || found->second->type != gse::VT_INT ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction ratings must be integers" ); }
+		const auto value = static_cast< gse::value::Int* >( found->second )->value;
+		if ( value < -8 || value > 10 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction rating is outside the verified range" ); }
+		ratings[ index++ ] = int( value );
+	}
+	return ratings;
+}
+
+void Faction::SetSocialRatings( const int growth, const int industry ) {
+	if ( growth < -8 || growth > 10 || industry < -8 || industry > 10 ) { THROW( "Invalid faction social ratings" ); }
+	m_growth = growth;
+	m_industry = industry;
+}
+
 const types::Buffer Faction::Serialize() const {
 	types::Buffer buf;
 
@@ -84,6 +105,8 @@ const types::Buffer Faction::Serialize() const {
 	for ( size_t index = 0; index < m_identity.size(); ++index ) {
 		if ( index != 1 ) { buf.WriteString( m_identity[ index ] ); }
 	}
+	buf.WriteInt( m_growth );
+	buf.WriteInt( m_industry );
 
 	return buf;
 }
@@ -112,6 +135,10 @@ void Faction::Deserialize( types::Buffer buf ) {
 		if ( index != 1 ) { identity[ index ] = buf.ReadString(); }
 	}
 	SetIdentity( identity );
+	const auto growth = buf.ReadInt();
+	const auto industry = buf.ReadInt();
+	if ( growth < -8 || growth > 10 || industry < -8 || industry > 10 ) { THROW( "Invalid serialized faction social ratings" ); }
+	SetSocialRatings( int( growth ), int( industry ) );
 
 }
 
@@ -132,6 +159,13 @@ WRAPIMPL_BEGIN( Faction )
 					for ( const auto& text : GetIdentity() ) { fields.push_back( VALUE( gse::value::String,, text ) ); }
 					return VALUE( gse::value::Array,, fields );
 				}()
+			},
+			{
+				"social_ratings",
+				VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "growth", VALUE( gse::value::Int,, m_growth ) },
+					{ "industry", VALUE( gse::value::Int,, m_industry ) },
+				} )
 			},
 			{
 				"text_color",

@@ -3,6 +3,7 @@
 #include "game/backend/Game.h"
 #include "game/backend/State.h"
 #include "game/backend/Player.h"
+#include "game/backend/faction/Faction.h"
 #include <limits>
 #include <stdexcept>
 
@@ -45,9 +46,10 @@ bool HasDeclaredMineralCost( const Game* game, const Player* player, const int64
 int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {
 	if ( !HasDeclaredMineralCost( game, player, rows ) ) { return fallback; }
 	const auto& settings = game->GetState()->m_settings.global;
-	// Only the observed human/no-base factor at INDUSTRY0 is modeled. Item
-	// row declarations remain a separate GLSMAC application rule.
-	const auto factor = HumanMineralFactor( settings.map.preset_level, int( settings.rules.GetMineralCostFactor() ), 0 );
+	// Initial faction ratings are source data; later social policy effects remain
+	// outside this bounded no-base factor. Item rows are declared separately.
+	const auto* faction = player->GetFaction();
+	const auto factor = HumanMineralFactor( settings.map.preset_level, int( settings.rules.GetMineralCostFactor() ), faction ? faction->m_industry : 0 );
 	if ( factor > 0 && rows > std::numeric_limits< int64_t >::max() / factor ) {
 		throw std::overflow_error( "Declared mineral price overflow" );
 	}

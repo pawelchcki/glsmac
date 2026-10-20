@@ -16,6 +16,9 @@ from protocol import ProtocolError
 class AuditTests(unittest.TestCase):
     def test_every_recorded_suite_is_registered_exactly_once(self):
         references = audit.load_references(audit.DIRECTORY / "catalog.json")
+        historical = audit.load_references(audit.DIRECTORY / 'factor-v1-historical-catalog.json')
+        self.assertTrue({row['cases'] for row in references}.isdisjoint(row['cases'] for row in historical))
+        references += historical
         self.assertEqual({item["cases"] for item in references}, {
             path.relative_to(audit.DIRECTORY).as_posix() for path in (audit.DIRECTORY / "cases").glob("*.json")
         })

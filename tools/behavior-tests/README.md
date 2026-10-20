@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit controls without graphics against 585 recorded original cases. The original
+GSE menus and native-backed citizen/unit controls without graphics against 603 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **969 scenarios and 6,873 assertions** across
-78 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **984 scenarios and 6,898 assertions** across
+79 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -241,11 +241,11 @@ contract measures movement costs, tile yields, combat or AI.
 There are also **1,692 additional original observations** across seven versioned
 contracts: raw/coordinate vector distance, technology possession, weight
 category, research availability, bounded prerequisite queries and the human
-mineral cost factor without base effects. Their precise
+nutrient cost factor without base effects. Their precise
 fixtures and exclusions are in [contracts.md](contracts.md). The C++ helper
 reference set also includes **5,531 ability-free prototype cost cases** and
-**5,679 human nutrient-factor cases** and **2,528 basic production switch-loss
-cases**, plus **24 fixed-Custom nutrient/mineral factor cases**, making **15,544 cases** in total. These probes cover small rule helpers; they do
+**5,679 human mineral-factor cases** and **2,528 basic production switch-loss
+cases**, plus **24 fixed-Custom nutrient/mineral factor cases** and **20 calibrated zero-rating witnesses**, making **15,564 cases** in total. These probes cover small rule helpers; they do
 not constitute a complete economy, AI turn or research planner.
 
 A separate [economy script lane](economy/README.md) replays **504 original
@@ -253,16 +253,16 @@ base-square resource cases** through the shipped GSE callback without rendering
 or assets. It transfers Recycling Tanks’ nutrient/mineral/energy increments and
 checks Headquarters/river combinations in a precise synthetic fixture. It uses
 the WASM interpreter with controlled native inputs and is separate from the
-15,544 native/WASM C++ helper cases. Run it with
+15,564 native/WASM C++ helper cases. Run it with
 `python3 tools/behavior-tests/economy/run.py`; CI requires agreement.
 
-All eleven bounded C++ contracts are implemented by shared production GLSMAC helpers.
+The bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
 and bounded prerequisite queries; it does not add a full research planner or
 populate the shipped technology rules. The mineral-factor helper transfers the
 recorded map-preset and industry behavior. Recycling Tanks now uses its explicit
-row declaration with known named presets at rule10/INDUSTRY0; social engineering,
+row declaration with known named presets, installed multipliers and initial faction INDUSTRY; social policy choices,
 AI/difficulty and per-base cost effects remain outside this integration. The candidate adapter calls these same
 helpers for native and WASM replay:
 
@@ -270,7 +270,7 @@ helpers for native and WASM replay:
 npm --prefix tools/wasm-tests run test:parity
 ```
 
-This checks all **15,544 cases**. It runs independent reference suites in
+This checks all **15,564 cases**. It runs independent reference suites in
 parallel; each result remains bound to its recorded input hashes. Run both
 compilation targets with:
 
@@ -463,7 +463,7 @@ boundaries, selected weapon modes and table-slot independence. A further 1,024
 of these cases were recorded after the implementation was frozen.
 
 See [contracts.md](contracts.md) for exact bounds and evidence. The full
-C++ helper lane also includes nutrient factors and totals 15,544 original cases; resource callback and UI traces remain
+C++ helper lane also includes nutrient factors and totals 15,564 original cases; resource callback and UI traces remain
 separate. This arithmetic transfer does not establish full design, ability or
 production parity; the bounded Colony Pod application lifecycle below is separate.
 
@@ -559,29 +559,28 @@ generation, native factors and the displayed growth label using a verified
 synthetic rules asset. See the [source-data contract](../smac-data/nutrient-rule-contract.md).
 These are application regression tests; original parity totals are unchanged.
 
-## Human nutrient cost factors
+## Calibrated human cost factors and faction bonuses
 
-The original helper replay includes **5,679** human nutrient-factor observations,
-with explicit preset, rule multiplier and GROWTH inputs. The implementation
-was inferred independently from recorded outputs, then checked against 1,024
-samples using multipliers absent from its initial matrix. Native and WASM replay
-call the same production header. See [contracts.md](contracts.md) for bounds,
-original switch-table handling and exclusions.
+The active helper catalog has 764 nutrient/GROWTH cases, 5,679 mineral/INDUSTRY
+cases, 24 Custom-kind cases and 20 explicit zero-rating witnesses, all freshly executed twice in the original.
+The original Social Engineering screen and distinct installed rule overrides
+establish the field names. The old v1 labels were reversed; their immutable
+records remain in `factor-v1-historical-catalog.json` and do not inflate totals.
+See [contracts.md](contracts.md) for modes, units and exclusions.
 
-Regenerate inputs with
-`python3 tools/behavior-tests/generate_nutrient_factor.py --suite all`.
-Original answers require separate repeated executable captures. These helper
-cases do not establish population booms or whole-base growth behavior.
+The source consumer imports initial SOCIAL GROWTH/INDUSTRY from the installed
+fourteen faction definitions. Native factions retain both ratings through
+wrappers and wire transfer. Supported human bases use GROWTH for nutrient
+thresholds and INDUSTRY for explicitly declared mineral rows. The 18 initialized
+original rating cases compare all fourteen factions and four source overrides.
+Real browser paths check the Consciousness growth penalty and Drone industry
+bonus through source loading, selection, generated worlds, displayed prices,
+food thresholds and turn credits. These application sequences are separate
+from the bounded original helper outputs.
 
-`nutrient-factor-native` and `growth-factor-integration` additionally check the
-actual per-base query, shipped growth/reset callbacks and food-grid cells.
-Supported human owners with explicit named presets use the recorded factor at
-modeled rule10/GROWTH0; procedural custom climate still supports a named size.
-Explicit Custom kind 99 also uses the loaded rule multiplier. Unknown dimensions, imported maps and unmodeled owner roles retain the
-existing area-based fallback. Growth thresholds and food-grid capacity share
-the same factor. Population row counts, events and UI checks are GLSMAC
-application coverage, separate from original factor observations; faction
-traits, social engineering, per-base modifiers and population booms remain gaps.
+Other social bonuses, policy changes, AI, per-base adjustments and population
+booms remain gaps. Unknown map provenance and unmodeled roles retain the
+existing application fallback; complete game parity is still unproven.
 
 
 ## Renewable Colony Pod construction

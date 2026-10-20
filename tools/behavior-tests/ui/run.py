@@ -115,6 +115,18 @@ def faction_identity_command(args):
     return shlex.join(command)
 
 
+def faction_ratings_command(args):
+    if args.browser:
+        raise ProtocolError('initial rating comparisons use display-free replay; native gameplay effects are checked separately')
+    name = 'faction_ratings_original.py' if args.record else 'faction_ratings_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout)]
+    else:
+        command += ['--jobs', str(min(args.jobs, 2))]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -214,6 +226,8 @@ def main(argv=None):
                 reference_command = faction_setup_command(args)
             if reference['id'] == 'faction-identity':
                 reference_command = faction_identity_command(args)
+            if reference['id'] == 'faction-ratings':
+                reference_command = faction_ratings_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -236,6 +250,8 @@ def main(argv=None):
                 candidate_command = faction_setup_command(args)
             if command is not None and reference['id'] == 'faction-identity':
                 candidate_command = faction_identity_command(args)
+            if command is not None and reference['id'] == 'faction-ratings':
+                candidate_command = faction_ratings_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

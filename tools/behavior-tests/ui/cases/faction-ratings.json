@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "name": "original-initial-faction-social-ratings",
+  "description": "Initial selected human ratings after first-base setup, independently checked against actual Social Engineering labels. No social policy changes, AI or other faction bonuses.",
+  "cases": [
+    {
+      "id": "ratings-base-0",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 0,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-1",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 1,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-2",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 2,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-3",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 3,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-4",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 4,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-5",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 5,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-base-6",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "base",
+        "slot": 6,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-0",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 0,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-1",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 1,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-2",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 2,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-3",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 3,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-4",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 4,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-5",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 5,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-expansion-6",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 6,
+        "profile": "default"
+      }
+    },
+    {
+      "id": "ratings-growth-positive",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 0,
+        "profile": "growth-positive"
+      }
+    },
+    {
+      "id": "ratings-industry-positive",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 0,
+        "profile": "industry-positive"
+      }
+    },
+    {
+      "id": "ratings-rules-a",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 0,
+        "profile": "rules-a"
+      }
+    },
+    {
+      "id": "ratings-rules-b",
+      "algorithm": "game.faction_social_ratings.v1",
+      "input": {
+        "preset": "expansion",
+        "slot": 0,
+        "profile": "rules-b"
+      }
+    }
+  ]
+}

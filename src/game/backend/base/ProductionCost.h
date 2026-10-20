@@ -20,7 +20,9 @@ inline int HumanMineralFactor( const int map_size_level, const int mineral_rule_
 	// Standard and larger map presets use the full multiplier.
 	const int map_factor = 8 + std::min( map_size_level, 2 );
 	const int mineral_factor = mineral_rule_factor * map_factor / 10;
-	const int industry_factor = 10 - std::max( -2, std::min( industry, 5 ) );
+	// Calibrated against the original INDUSTRY row and mineral rule (v2).
+	const int adjusted_industry = industry == -8 ? 5 : std::max( -3, std::min( industry, 5 ) );
+	const int industry_factor = 10 - adjusted_industry;
 	// Round the adjusted mineral factor up, retaining zero for tiny multipliers.
 	return ( mineral_factor * industry_factor + 9 ) / 10;
 }

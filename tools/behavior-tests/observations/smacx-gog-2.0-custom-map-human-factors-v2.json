@@ -1,0 +1,212 @@
+{
+  "captured_at": "2026-10-20T04:22:25.526075+00:00",
+  "observations": [
+    {
+      "case_sha256": "cc260fbce3cf904101daa1848400afbfa5c1f25b3673f115e9e0cbe7c10f0e35",
+      "id": "v2-custom-nutrient-rule-1-growth--3",
+      "output": {
+        "factor": 2
+      }
+    },
+    {
+      "case_sha256": "20e456871b64c2e1db67f8ff090eaf72ce187f54ae5a60526cebb683376c7c1d",
+      "id": "v2-custom-nutrient-rule-1-growth-0",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "8facaf303dcfec87f0e5de932df276e4d735ed9918058cca10f9c263389fbafb",
+      "id": "v2-custom-nutrient-rule-1-growth-3",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "d96736867102f49742851f0d3ab2a3fac69e419ce893729650d276f39b1f8256",
+      "id": "v2-custom-nutrient-rule-10-growth--3",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "2ff18dd40928b88833a85a720b9d2d62b4b7c3647828af6c1ff535b408979f10",
+      "id": "v2-custom-nutrient-rule-10-growth-0",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "83d826313eadb36454a2a8d53e34743f83b36b5f22ff9059deb8aa6d68e0808a",
+      "id": "v2-custom-nutrient-rule-10-growth-3",
+      "output": {
+        "factor": 7
+      }
+    },
+    {
+      "case_sha256": "ae9e3c206a7cbd2b3188cb4f5df4a5ab6a4816bd7b1a401dd1c80bf42dda1273",
+      "id": "v2-custom-nutrient-rule-13-growth--3",
+      "output": {
+        "factor": 17
+      }
+    },
+    {
+      "case_sha256": "e927b873ae74906442747a4b11e5b3423dc63f82d8f15d1c84410145ef73c94c",
+      "id": "v2-custom-nutrient-rule-13-growth-0",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "5d9c97e7bde169bf8ade6fb96cc08c2e35743725df6376791f45005b97d91158",
+      "id": "v2-custom-nutrient-rule-13-growth-3",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "3df4994c50a8b3363d99f32811b524b599a25850436015354c150dc464121934",
+      "id": "v2-custom-nutrient-rule-100-growth--3",
+      "output": {
+        "factor": 130
+      }
+    },
+    {
+      "case_sha256": "352a9d65db82bb3ce984078bd7fd8e782876bdbdd8429044f36846874532ff39",
+      "id": "v2-custom-nutrient-rule-100-growth-0",
+      "output": {
+        "factor": 100
+      }
+    },
+    {
+      "case_sha256": "6375c0cfa16a4980471a3c4765ad881e56bb3e945ce7e2f2a778dcaff6ac7cb0",
+      "id": "v2-custom-nutrient-rule-100-growth-3",
+      "output": {
+        "factor": 70
+      }
+    },
+    {
+      "case_sha256": "d47ce6094f8b33d43adab585ac73f0f644e6b4ab7817e1376dd7d1538dfa4242",
+      "id": "v2-custom-mineral-rule-1-industry--3",
+      "output": {
+        "factor": 2
+      }
+    },
+    {
+      "case_sha256": "9e56a6816eeb8448764552ba947157a93327b531b68473541bb6d69ec53f31cf",
+      "id": "v2-custom-mineral-rule-1-industry-0",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "dc3adc9c326cb0a9d2e2123b375dffdac7c82baf4d767c2e2d0ebf41a599b66a",
+      "id": "v2-custom-mineral-rule-1-industry-3",
+      "output": {
+        "factor": 1
+      }
+    },
+    {
+      "case_sha256": "784d1c93c55632104bb518aab4637661260c6d5f16b15e2a13ebaf1b59b7b4e6",
+      "id": "v2-custom-mineral-rule-10-industry--3",
+      "output": {
+        "factor": 12
+      }
+    },
+    {
+      "case_sha256": "0fd2f434533697872e7070c978895c6fc245b9d4ea4d69e369e22584ab6a43a7",
+      "id": "v2-custom-mineral-rule-10-industry-0",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "52d6888987f8c3e33d04af3d5f9d850e3b4ff7c2e4ded45821c03b3dc856c78b",
+      "id": "v2-custom-mineral-rule-10-industry-3",
+      "output": {
+        "factor": 7
+      }
+    },
+    {
+      "case_sha256": "dd8e2ff26792f1d52152bfe42a69c7fdcf0913ff6880b93eedfffa5cec63fa3d",
+      "id": "v2-custom-mineral-rule-13-industry--3",
+      "output": {
+        "factor": 16
+      }
+    },
+    {
+      "case_sha256": "2f2d065f8ae07741a915954d5b91bbd50e028b86aa75a8e46b9c736775148c11",
+      "id": "v2-custom-mineral-rule-13-industry-0",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "749aa09c4ab2a74f3b35b48f9d493491949b8ccc1f5513a2340e476482edb3b1",
+      "id": "v2-custom-mineral-rule-13-industry-3",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "84ebb02704bb9f04ec9b7764139e86b3c04cfaf83d9f1fdc9ceb0e5ca6401a19",
+      "id": "v2-custom-mineral-rule-100-industry--3",
+      "output": {
+        "factor": 120
+      }
+    },
+    {
+      "case_sha256": "716925270003124c2d49c09feb8a35db3616a70497fa2ce6e48ddc9fc5ff8e5c",
+      "id": "v2-custom-mineral-rule-100-industry-0",
+      "output": {
+        "factor": 100
+      }
+    },
+    {
+      "case_sha256": "70d8fafc79f074a4aaa9850a9c9824e64baf944803c8c05a25d20691a566dd7f",
+      "id": "v2-custom-mineral-rule-100-industry-3",
+      "output": {
+        "factor": 70
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "0f41d7008d5441d1ac430146ca71981a9ec8deb0f1f1c00ddd7e5f840b1306a7",
+    "adapter_version": 4,
+    "calibration_contract": "game.faction_social_ratings.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.custom_map_mineral_factor.v2",
+        "function": "cost_factor (human, no base)",
+        "rating_address": "0x0096CC50",
+        "resource_mode": 1,
+        "rule_address": "0x00949754"
+      },
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.custom_map_nutrient_factor.v2",
+        "function": "cost_factor (human, no base)",
+        "rating_address": "0x0096CC44",
+        "resource_mode": 0,
+        "rule_address": "0x00949750"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original",
+    "readonly_original_tables": [
+      {
+        "address": "0x004E46C4",
+        "name": "cost_factor nutrient switch",
+        "size": 48
+      }
+    ],
+    "semantic_correction": "v1 resource/rating labels were reversed; v1 observations remain unchanged"
+  },
+  "repeat": 2,
+  "suite_sha256": "d69dbf3b0c513159c22c0839ee19f023738ee3f2ed916909195e11c4303c8d1d",
+  "version": 1
+}

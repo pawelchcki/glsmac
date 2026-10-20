@@ -24,6 +24,10 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 	static identity_t ParseIdentity( GSE_CALLABLE, const std::vector< gse::Value* >& values );
 	void SetIdentity( const identity_t& identity );
 	identity_t GetIdentity() const;
+	static std::array< int, 2 > ParseSocialRatings( GSE_CALLABLE, const gse::value::object_properties_t& values );
+	void SetSocialRatings( int growth, int industry );
+	int m_growth = 0;
+	int m_industry = 0;
 
 	typedef uint8_t faction_flag_t;
 	static constexpr Faction::faction_flag_t FF_NONE = 0;

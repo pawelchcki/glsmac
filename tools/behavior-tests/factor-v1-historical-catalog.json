@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "references": [
+    {
+      "id": "custom-map-human-factors",
+      "cases": "cases/custom-map-human-factors.json",
+      "observations": "observations/smacx-gog-2.0-custom-map-human-factors.json"
+    },
+    {
+      "id": "human-mineral-factor",
+      "cases": "cases/human-mineral-factor.json",
+      "observations": "observations/smacx-gog-2.0-human-mineral-factor.json"
+    },
+    {
+      "id": "human-nutrient-factor",
+      "cases": "cases/human-nutrient-factor.json",
+      "observations": "observations/smacx-gog-2.0-human-nutrient-factor.json"
+    },
+    {
+      "id": "human-nutrient-factor-held-out",
+      "cases": "cases/human-nutrient-factor-held-out.json",
+      "observations": "observations/smacx-gog-2.0-human-nutrient-factor-held-out.json"
+    }
+  ]
+}

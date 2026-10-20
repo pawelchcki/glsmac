@@ -17,7 +17,8 @@
         "ui.large_map_warning.v1",
         "map.custom_grid_dimensions.v1",
         "ui.faction_setup.v1",
-        "game.faction_identity.v1"
+        "game.faction_identity.v1",
+        "game.faction_social_ratings.v1"
       ],
       "remaining": [
         "Modal dialogs",
@@ -137,13 +138,14 @@
       "id": "economy",
       "status": "partial",
       "contracts": [
-        "economy.human_mineral_factor.v1",
-        "economy.human_nutrient_factor.v1",
+        "economy.human_mineral_factor.v2",
+        "economy.human_nutrient_factor.v2",
         "economy.base_square_resources.v1",
         "economy.basic_production_switch_loss.v1",
         "ui.citizen_job.v1",
-        "economy.custom_map_nutrient_factor.v1",
-        "economy.custom_map_mineral_factor.v1"
+        "economy.custom_map_nutrient_factor.v2",
+        "economy.custom_map_mineral_factor.v2",
+        "game.faction_social_ratings.v1"
       ],
       "remaining": [
         "Tile yields",
@@ -184,13 +186,13 @@
     },
     {
       "id": "social-engineering",
-      "status": "unobserved",
-      "contracts": [],
+      "status": "partial",
+      "contracts": ["game.faction_social_ratings.v1", "economy.human_nutrient_factor.v2", "economy.human_mineral_factor.v2"],
       "remaining": [
         "Policy availability",
         "Costs",
         "Effects",
-        "Faction modifiers",
+        "Faction modifiers other than initial GROWTH/INDUSTRY",
         "Confirmation and cancellation"
       ]
     },

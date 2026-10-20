@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "name": "custom-map-human-factors-v2",
+  "description": "Fresh original execution required. Input coverage follows historical numeric fields with resource/rating labels calibrated against actual Social Engineering and controlled rule-source observations.",
+  "cases": [
+    {
+      "id": "v2-custom-nutrient-rule-1-growth--3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 1,
+        "industry": -3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-1-growth-0",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 1,
+        "industry": 0
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-1-growth-3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 1,
+        "industry": 3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-10-growth--3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 10,
+        "industry": -3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-10-growth-0",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 10,
+        "industry": 0
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-10-growth-3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 10,
+        "industry": 3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-13-growth--3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 13,
+        "industry": -3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-13-growth-0",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 13,
+        "industry": 0
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-13-growth-3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 13,
+        "industry": 3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-100-growth--3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 100,
+        "industry": -3
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-100-growth-0",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 100,
+        "industry": 0
+      }
+    },
+    {
+      "id": "v2-custom-nutrient-rule-100-growth-3",
+      "algorithm": "economy.custom_map_mineral_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "mineral_rule_factor": 100,
+        "industry": 3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-1-industry--3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 1,
+        "growth": -3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-1-industry-0",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 1,
+        "growth": 0
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-1-industry-3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 1,
+        "growth": 3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-10-industry--3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 10,
+        "growth": -3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-10-industry-0",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 10,
+        "growth": 0
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-10-industry-3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 10,
+        "growth": 3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-13-industry--3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 13,
+        "growth": -3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-13-industry-0",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 13,
+        "growth": 0
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-13-industry-3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 13,
+        "growth": 3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-100-industry--3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 100,
+        "growth": -3
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-100-industry-0",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 100,
+        "growth": 0
+      }
+    },
+    {
+      "id": "v2-custom-mineral-rule-100-industry-3",
+      "algorithm": "economy.custom_map_nutrient_factor.v2",
+      "input": {
+        "faction_id": 1,
+        "nutrient_rule_factor": 100,
+        "growth": 3
+      }
+    }
+  ]
+}

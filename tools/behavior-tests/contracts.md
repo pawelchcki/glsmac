@@ -121,73 +121,46 @@ Unbounded reachability, full shipped technology trees and research planning are
 outside the contract. The instruction budget is independently capped even for
 cyclic fixtures.
 
-## `economy.human_mineral_factor.v1`
+## Calibrated human cost factors (v2)
 
-Input: `{faction_id, map_size_level, mineral_rule_factor, industry}`.
+`economy.human_nutrient_factor.v2` takes `{faction_id, map_size_level,
+nutrient_rule_factor, growth}`. `economy.human_mineral_factor.v2` takes
+`{faction_id, map_size_level, mineral_rule_factor, industry}`. Each returns
+`{factor: integer}` from actual original `cost_factor` at `0x004E4430` with
+base ID -1. Faction IDs are 1..7, named preset levels are 0..4, rule multipliers
+are 1..100, and signed rating probes are -8..10. These are factors, not complete
+population/item prices. Exact zeros remain observable.
 
-- `faction_id`: integer 1 through 7, the original faction-mask bit position.
-- `map_size_level`: integer 0 through 4, the raw map preset level. This is not
-  a width, height or tile count.
-- `mineral_rule_factor`: integer 1 through 100, the configured integer mineral
-  cost multiplier, supplied explicitly rather than inherited from rules text.
-- `industry`: signed integer -8 through 10, the queried faction's social rating.
+The [initialized social-rating contract](ui/faction-ratings-contract.md)
+calibrates names against actual original UI and distinct rule-source overrides:
 
-Output: `{factor: integer}`, the original `cost_factor` result at `0x004E4430`
-in mineral mode with base ID -1. It is a cost factor, not an item's total cost.
-Zero results for small synthetic multipliers are retained exactly.
+| Resource | Mode | Rating field (+ faction*0x20CC) | Rule field |
+| --- | ---: | --- | --- |
+| Nutrients / GROWTH | 0 | 0x0096CC44 | 0x00949750 |
+| Minerals / INDUSTRY | 1 | 0x0096CC50 | 0x00949754 |
 
-The fixture marks only the queried faction as human and initializes every data
-read on this path: human faction status, mineral rule multiplier, map preset
-level and that faction's industry field. No AI or difficulty branch executes;
-no base is supplied. Cases cover all seven playable faction slots, map presets,
-industry boundaries, small multipliers and integer rounding. Each capture starts
-from fresh original instructions and synthetic state.
+The historical v1 adapter used the opposite symbolic names. Its inputs and
+observations are preserved byte for byte in `factor-v1-historical-catalog.json`.
+They remain available for raw numeric replay but are superseded and excluded
+from the default passing totals. New v2 answers execute the original again in
+two independent identical runs; no old expected answer is renamed or edited.
 
-AI/difficulty modifiers, nutrient/growth factors, per-base effects, facilities,
-the shipped rules database, complete item costs and turn production are outside
-this contract. The GLSMAC helper is independently replayed on native and WASM;
-the shipped Recycling Tanks declaration now supplies four row units to the
-shared native resolver for explicit named presets with the installed mineral
-multiplier at INDUSTRY0. Source-data integration has separate application tests.
-Absent preset provenance, custom dimensions,
-or imported maps retain the explicit 32-mineral fallback. Descriptor
-and completion tests exercise that application integration, not original
-whole-item construction. Social engineering remains unimplemented.
+The v2 nutrient suite has 764 cases. The mineral suites have 4,655 matrix cases
+and 1,024 seeded cases with other multipliers. There are also 24 Custom-kind
+cases (below) and 20 explicit zero-rating witnesses for installed-rule application tests. Every fixture supplies the queried human mask, raw rule globals,
+map kind and rating field. Mode1 preserves the pinned executable's own switch-table bytes from the local verified image; no original bytes are committed.
+Existing read/write, instruction, stack and return guards remain enforced.
 
-## `economy.human_nutrient_factor.v1`
+Native and WASM replay call the same production `NutrientCost.h` and
+`ProductionCost.h` helpers. The application now imports initial faction SOCIAL
+GROWTH/INDUSTRY from installed faction files and uses them for supported human
+owners with known map provenance. Declared mineral rows, growth population rows,
+world generation, turn events and UI are separate application checks.
 
-Input: `{faction_id, map_size_level, nutrient_rule_factor, growth}`.
-
-- `faction_id`: integer 1 through 7, explicitly marked human.
-- `map_size_level`: raw preset level 0 through 4, not dimensions.
-- `nutrient_rule_factor`: integer 1 through 100.
-- `growth`: signed faction GROWTH rating -8 through 10.
-
-Output: `{factor: integer}`, original `cost_factor` at `0x004E4430` in
-nutrient mode with base ID -1. It is a nutrient factor, not the complete
-nutrients needed to grow a population. Zero returns remain exact.
-
-Every fresh emulator initializes the human mask, both rule globals read on
-this path, the map level and the selected faction's GROWTH field. The probe
-also reads the pinned executable's own 48-byte switch table without changing
-its data. No original table bytes are committed; the adapter reads them from
-the verified local image. Execution cannot enter that data table. The image
-remains read-only during execution, and the usual return address, stack,
-register, read and instruction guards apply. Adapter guard tests use synthetic
-x86 to check table integrity, fresh rule inputs and rejected neighboring reads
-or original-table writes.
-
-The 4,655-case matrix crosses all seven human fixture slots, five presets,
-19 GROWTH values and seven multipliers (1, 2, 3, 7, 10, 11, 100). Another 1,024
-seeded cases use previously unobserved multipliers and were captured after
-the independently inferred production header was frozen. Each suite was
-recorded twice. The permitted multiplier range is not exhaustively crossed.
-The candidate calls `src/game/backend/base/NutrientCost.h` on native and WASM.
-
-Population booms, faction trait data, social-engineering policy, AI/difficulty,
-per-base modifiers, total growth requirements, growth/starvation events and
-UI behavior remain outside this helper contract. Application integration
-checks are separate from these original observations.
+Social-policy choices, other faction bonuses, AI/difficulty, per-base effects,
+population booms and whole-item original construction remain outside these
+helper contracts. Probe bounds are controlled numeric experiments, not a claim
+that every rating is reachable through ordinary play.
 
 ## `unit.prototype_base_cost.v1`
 
@@ -300,19 +273,9 @@ execution, worked-tile yields, construction costs or complete base economy.
 
 ## Fixed Custom map factors
 
-`economy.custom_map_nutrient_factor.v1` and
-`economy.custom_map_mineral_factor.v1` fix the original setup kind at **99**.
-Inputs omit `map_size_level`; faction 1..7, rule factor 1..100 and the existing
-GROWTH/INDUSTRY bounds otherwise match the named contracts. The original adapter
-executes the same pinned original functions with human status and no base.
-It preserves the existing guarded memory, stack, register and instruction limits.
-The named contracts continue to reject kinds outside 0..4.
-
-`cases/custom-map-human-factors.json` has 24 independently repeated observations
-in `observations/smacx-gog-2.0-custom-map-human-factors.json`: both resources,
-rule factors 1/10/13/100 and ratings -3/0/3 at faction 1. This is a sample of
-the bounded input domain. `ui.custom_size_kind.v1` separately observes that
-ordinary Custom Size dialogs actually select kind 99. These contracts establish
-neither edited-input limits nor full base economy or item construction rules.
-Native/WASM helpers replay the 24 outputs; `custom-size-context` checks their
-integration into native settings, nutrient queries and declared item prices.
+`economy.custom_map_nutrient_factor.v2` and
+`economy.custom_map_mineral_factor.v2` use the corresponding v2 inputs without
+`map_size_level`; native kind99 is explicit. The 24 fresh original cases cover
+selected signed ratings and multipliers, including exact zero factors. These
+exclude ordinary custom-dialog navigation, terrain, AI and per-base effects.
+Their historical v1 predecessors remain only in the provenance catalog.

@@ -55,7 +55,7 @@ CLASS2( Player, types::Serializable, gse::Wrappable )
 
 	void SetFaction( faction::Faction* faction );
 	void ClearFaction();
-	faction::Faction* GetFaction();
+	faction::Faction* GetFaction() const;
 
 	void SetDifficultyLevel( const std::string& difficulty_level );
 	const std::string& GetDifficultyLevel() const;

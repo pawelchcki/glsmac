@@ -106,7 +106,7 @@ void Player::ClearFaction() {
 	m_faction = nullptr;
 }
 
-faction::Faction* Player::GetFaction() {
+faction::Faction* Player::GetFaction() const {
 	return m_faction;
 }
 

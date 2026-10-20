@@ -14,27 +14,34 @@ const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const fatal = /worker sent an error!|RuntimeError:|Aborted\(|GSE\w*Error|GSEInvalidCall|FATAL ERROR|Event result listener failed|NORMAL_EVENT_REJECTED/;
 
-function recordedNormalFactors(level = 0, nutrientRule = 10, mineralRule = 10) {
+function recordedNormalFactors(level = 0, nutrientRule = 10, mineralRule = 10, growth = 0, industry = 0) {
   const witness = (name, predicate) => {
     const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/cases/${name}.json`, 'utf8')).cases;
     const observations = JSON.parse(readFileSync(`${root}tools/behavior-tests/observations/smacx-gog-2.0-${name}.json`, 'utf8')).observations;
-    const item = cases.find(predicate);
+    let item = cases.find(predicate);
+    let evidence = observations;
+    if (!item) {
+      const calibrated = 'human-calibrated-zero-witnesses-v2';
+      const extra = JSON.parse(readFileSync(`${root}tools/behavior-tests/cases/${calibrated}.json`, 'utf8')).cases;
+      item = extra.find(predicate);
+      evidence = JSON.parse(readFileSync(`${root}tools/behavior-tests/observations/smacx-gog-2.0-${calibrated}.json`, 'utf8')).observations;
+    }
     assert.ok(item, `Public ${name} evidence contains the relevant witness`);
-    const output = observations.find(({ id }) => id === item.id)?.output;
+    const output = evidence.find(({ id }) => id === item.id)?.output;
     assert.ok(output, `Public ${name} witness has a recorded output`);
     return output;
   };
   const rows = witness('starting-unit-components', ({ id }) => id === 'colony-pod-fission-infantry').rows;
-  const mineral = level === 99 ? witness('custom-map-human-factors', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_mineral_factor.v1'
-    && i.faction_id === 1 && i.mineral_rule_factor === mineralRule && i.industry === 0).factor
-    : witness('human-mineral-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
-    && i.mineral_rule_factor === mineralRule && i.industry === 0).factor;
-  const nutrient = level === 99 ? witness('custom-map-human-factors', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_nutrient_factor.v1'
-    && i.faction_id === 1 && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor
-    : witness('human-nutrient-factor', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
-    && i.nutrient_rule_factor === nutrientRule && i.growth === 0).factor;
+  const mineral = level === 99 ? witness('custom-map-human-factors-v2', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_mineral_factor.v2'
+    && i.faction_id === 1 && i.mineral_rule_factor === mineralRule && i.industry === industry).factor
+    : witness('human-industry-mineral-factor-v2', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
+    && i.mineral_rule_factor === mineralRule && i.industry === industry).factor;
+  const nutrient = level === 99 ? witness('custom-map-human-factors-v2', ({ algorithm, input: i }) => algorithm === 'economy.custom_map_nutrient_factor.v2'
+    && i.faction_id === 1 && i.nutrient_rule_factor === nutrientRule && i.growth === growth).factor
+    : witness('human-growth-nutrient-factor-v2', ({ input: i }) => i.faction_id === 1 && i.map_size_level === level
+    && i.nutrient_rule_factor === nutrientRule && i.growth === growth).factor;
   assert.equal(rows, 3);
-  if (level === 0 && nutrientRule === 10 && mineralRule === 10) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
+  if (level === 0 && nutrientRule === 10 && mineralRule === 10 && growth === 0 && industry === 0) assert.deepEqual([rows, mineral, nutrient], [3, 8, 8]);
   // The generated-world lifecycle below is application coverage, outside the
   // bounded component/factor observations and original-input parity counts.
   return { rows, mineral, nutrient, cost: rows * mineral };
@@ -203,6 +210,8 @@ const normalMain = String.raw`
           #print('NORMAL_WORLD|' + #to_string(tm.get_map_width()) + '|' + #to_string(tm.get_map_height()) + '|' + #to_string(owner.id) + '|' + owner.get_faction().id + '|' + #to_string(game.get_turn()));
           #print('NORMAL_PLAYER|' + owner.name);
           for (field of owner.get_faction().identity) { #print('NORMAL_IDENTITY|' + field); }
+          const ratings = owner.get_faction().social_ratings;
+          #print('NORMAL_RATINGS|' + #to_string(ratings.growth) + '|' + #to_string(ratings.industry));
           #print('NORMAL_STATUS|' + status);
           #print('NORMAL_SELECTION|' + #to_string(objects.selected_type) + '|' + #to_string(objects.selected_id));
           for (base of game.get_bm().get_bases()) {
@@ -394,6 +403,12 @@ for (const profile of [
     dimension: 'random', warning: true, fields: ['129', '49'], level: 0, size: [258, 49], rule: 13, mineralRule: 13, lifecycle: false },
   { name: 'normal Tiny gameplay grows naturally and produces a new Colony Pod through real turns', level: 0, size: [48, 48], rule: 10, lifecycle: true },
   { name: 'ordinary startup preserves a confirmed empty leader name', level: 0, size: [68, 34], rule: 10, lifecycle: false, leaderName: '' },
+  { name: 'ordinary startup consumes original Consciousness growth penalty', level: 0, size: [68, 34], rule: 10, lifecycle: false, threshold: 18,
+    faction: { id: 'CONSCIOUSNESS', slot: 0, leader: 'Aki Zeta-5', growth: -1, industry: 0,
+      identity: ['The Cybernetic Consciousness', 'Consciousness', 'Cybernetic', 'Prime Function', 'analytical'] } },
+  { name: 'ordinary startup consumes original Drone industry bonus', level: 0, size: [68, 34], rule: 10, lifecycle: false,
+    faction: { id: 'DRONES', slot: 2, leader: 'Domai', growth: 0, industry: 2,
+      identity: ['The Free Drones', 'Drones', 'Free Drone', 'Foreman', 'stalwart'] } },
   { name: 'ordinary startup consumes installed nutrient rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules in real Standard gameplay', level: 2, size: [112, 56], rule: 11, mineralRule: 13, lifecycle: false },
   { name: 'ordinary startup consumes installed mineral rules for zero-price Tiny projects', level: 0, size: [68, 34], rule: 10, mineralRule: 1, lifecycle: false },
@@ -406,7 +421,7 @@ test(profile.name, {
   skip: (!assets || (!profile.lifecycle && process.env.WASM_SITE_URL)) && 'Requires SMAC_ASSETS_DIR; synthetic rules require the local asset server',
   timeout: 180000,
 }, async (t) => {
-  const factors = recordedNormalFactors(profile.dimension ? 99 : profile.level, profile.rule, profile.mineralRule ?? 10);
+  const factors = recordedNormalFactors(profile.dimension ? 99 : profile.level, profile.rule, profile.mineralRule ?? 10, profile.faction?.growth ?? 0, profile.faction?.industry ?? 0);
   if (profile.dimension) {
     const [horizontal, vertical] = profile.fields ?? ['30', '48'];
     const cases = JSON.parse(readFileSync(`${root}tools/behavior-tests/ui/cases/custom-grid-dimensions.json`, 'utf8')).cases;
@@ -418,7 +433,7 @@ test(profile.name, {
     assert.deepEqual(profile.size, [original.width, original.height]);
     assert.equal(original.size_kind, 99);
   }
-  const artifactPrefix = profile.leaderName === '' ? 'empty-leader-name' : profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
+  const artifactPrefix = profile.faction ? `faction-ratings-${profile.faction.id}` : profile.leaderName === '' ? 'empty-leader-name' : profile.warning ? 'large-map-warning' : profile.dimension ? `dimension-${profile.dimension}` : profile.worldRules ? `world-size-ordinary-${profile.level}` : profile.lifecycle ? 'normal-game' : profile.mineralRule === 1 ? 'mineral-rule-zero' : profile.mineralRule ? 'mineral-rule-ordinary' : 'nutrient-rule-ordinary';
   mkdirSync(artifacts, { recursive: true });
   const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
     .filter((name) => name.endsWith('.gls.js')).sort()
@@ -639,7 +654,9 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
     assert.ok(playerName, 'Actual native player identity is readable');
     const identity = [...log.matchAll(/NORMAL_IDENTITY\|([^\r\n]*)/g)].map((match) => match[1]);
     assert.equal(identity.length, 6, 'Every identity field is read from the real native faction');
-    const state = { playerName: playerName[1], identity, width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
+    const ratings = log.match(/NORMAL_RATINGS\|(-?\d+)\|(-?\d+)/);
+    assert.ok(ratings, 'Actual native faction ratings are readable');
+    const state = { playerName: playerName[1], identity, ratings: {growth: +ratings[1], industry: +ratings[2]}, width: +world[1], height: +world[2], owner: +world[3], faction: world[4], turn: +world[5],
       status: log.match(/NORMAL_STATUS\|([^\n\r]+)/)[1],
       selected: selection[1] === 'Unit' ? +selection[2] : null,
       bases: [...log.matchAll(/NORMAL_BASE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|(true|false)\|(true|false)/g)]
@@ -838,10 +855,10 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
     await waitLog(`NORMAL_FACTION_ROW|0|${formal}`, 1, 5000);
     await factionReady();
   }
-  await clickCanvas(page, 300, 263); // Original SMAC roster preset
-  await clickCanvas(page, 500, 303); // Actual Gaians row
+  await clickCanvas(page, profile.faction ? 700 : 300, 263);
+  await clickCanvas(page, 500, 303 + (profile.faction?.slot ?? 0) * 27);
   await clickCanvas(page, 620, 538); // OK opens the leader-name prompt
-  await waitLog('NORMAL_FACTION_NAME|' + (profile.lifecycle ? 'Orion Vale' : 'Deirdre'));
+  await waitLog('NORMAL_FACTION_NAME|' + (profile.lifecycle ? 'Orion Vale' : profile.faction?.leader ?? 'Deirdre'));
   await factionReady(660, 130, 'leader-name');
   await clickCanvas(page, 600, 366);
   await clearNative(); await typeNative('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -856,11 +873,12 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   const initial = await waitState((s) => s.selected !== null && s.status === 'active'
     && s.bases.length > 0 && s.growth.every((g) => g.settled), 'Initial owned unit becomes selectable after starting population settles');
   assert.deepEqual([initial.width, initial.height], profile.size, 'The actual size controls generated their dimensions');
-  assert.equal(initial.faction, 'GAIANS', 'The actual faction roster selected Gaians');
+  assert.equal(initial.faction, profile.faction?.id ?? 'GAIANS', 'The actual roster selection reaches the native owner');
+  assert.deepEqual(initial.ratings, {growth: profile.faction?.growth ?? 0, industry: profile.faction?.industry ?? 0}, 'Installed faction ratings reach real generated gameplay');
   assert.equal(initial.playerName, leaderName, 'The entered leader name reaches the real backend Player, including an explicitly confirmed empty name');
   assert.deepEqual(initial.identity, profile.lifecycle
     ? [leaderName, 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM', 'Orbiters', 'Orbital', 'Navigator', 'brisk']
-    : [leaderName, "Gaia's Stepdaughters", 'Gaians', 'Gaian', 'Lady', 'beautiful'],
+    : [leaderName, ...(profile.faction?.identity ?? ["Gaia's Stepdaughters", 'Gaians', 'Gaian', 'Lady', 'beautiful'])],
   'Confirmed source/custom faction identity survives native startup and world generation');
   assert.equal(initial.bases.length, 1, 'Normal world startup creates one local Headquarters');
   const headquarters = initial.bases[0];

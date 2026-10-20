@@ -25,9 +25,15 @@ return {
 		return result;
 	},
 
-	configure: (fm) => {
+	configure: (fm, glsmac) => {
+		let ratings = null;
+		if (#is_defined(glsmac)) {
+			const catalog = [];
+			for (faction of factions) { catalog :+ {id: #uppercase(faction[0]), file: faction[1] + '', block: #uppercase(faction[1])}; }
+			ratings = #include('game/faction_ratings').load(glsmac, catalog);
+		}
 		for (f of factions) {
-			fm.add(#uppercase(f[0]), {
+			const definition = {
 				name: f[0],
 				colors: fm.import_colors(f[1] + '.pcx'),
 				bases: {
@@ -40,7 +46,10 @@ return {
 					},
 					names: fm.import_base_names(f[1] + '.txt'),
 				},
-			} + f[2]);
+			} + f[2];
+			const id = #uppercase(f[0]);
+			if (ratings != null) { definition.social_ratings = ratings[id]; }
+			fm.add(id, definition);
 		}
 	},
 

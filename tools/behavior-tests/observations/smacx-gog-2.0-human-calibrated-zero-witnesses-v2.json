@@ -1,0 +1,184 @@
+{
+  "captured_at": "2026-10-20T04:40:11.648425+00:00",
+  "observations": [
+    {
+      "case_sha256": "3f0830279e6dbd79dd6829c427bba8b7ca26e518815f7e4f550156a70bcf13bb",
+      "id": "zero-growth-level0-rule11",
+      "output": {
+        "factor": 8
+      }
+    },
+    {
+      "case_sha256": "3308f38c2375ce5eaaa942c6aff96605ccabb8a1c705f1acc9a7f6f8b08186ac",
+      "id": "zero-industry-level0-rule11",
+      "output": {
+        "factor": 8
+      }
+    },
+    {
+      "case_sha256": "0304475122c2a32e4ee23f6af62068383cc7aa53ab817a9c04e650f2787ee1d5",
+      "id": "zero-growth-level0-rule13",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "bf609a9d070f641a61549494898aedc6b8b398856bb987f38cb0b28f63a2694f",
+      "id": "zero-industry-level0-rule13",
+      "output": {
+        "factor": 10
+      }
+    },
+    {
+      "case_sha256": "bc3dd67201efc4723270004140a15109c250a083bac0af3e6a5071986f92cab2",
+      "id": "zero-growth-level1-rule11",
+      "output": {
+        "factor": 9
+      }
+    },
+    {
+      "case_sha256": "d846c08ca08ef3b42e54154b01904556865185a977dfb0fecae4a9acddcb45a7",
+      "id": "zero-industry-level1-rule11",
+      "output": {
+        "factor": 9
+      }
+    },
+    {
+      "case_sha256": "30360bb1c3c75a2e0be0053fc708c3314050345894e6691a2ef9471e43b004b4",
+      "id": "zero-growth-level1-rule13",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "20652105b2d4e3a5d51d4fe65946ffc613f105e026cbbf6bd02c61d0de070fb0",
+      "id": "zero-industry-level1-rule13",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "c339967a3f01d4c3f8f276f36dff763a77fb2fdba1eeab06bedfab61ddc1cf5f",
+      "id": "zero-growth-level2-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "5d75bc4689d44dcb7e43d31927a9f85336ad147dfea3c9807f209f34c305f8d6",
+      "id": "zero-industry-level2-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "be7ee93b6a8ead60215f457c00ad3acd97544876e7f8672ee1f19fb16a57337d",
+      "id": "zero-growth-level2-rule13",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "8a4fb0fcae084f47d1c6b663742b613187bf0631f5374acc6228d2a093b286e6",
+      "id": "zero-industry-level2-rule13",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "91568e9309b3574770f2f325d72a9324f97ea97861aa0c9b86c0db6fd92254c6",
+      "id": "zero-growth-level3-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "3e8dff29fd55931c34ff3d28bbb01b5efabbc1180403a9de319ccc5b005476ac",
+      "id": "zero-industry-level3-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "ad15215d4256fc7652f5351c50a0be74472d328d9ed2dec5eab9ab3707d0464a",
+      "id": "zero-growth-level3-rule13",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "0a56d24ca297233332ab8ba04042cd5de264b6423e7b4fca992bb39bc52efab2",
+      "id": "zero-industry-level3-rule13",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "5765e8fb9da341d2d593cc9735f17a889c4c75674100ad9b3b2eeb62c0b286da",
+      "id": "zero-growth-level4-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "a3e7b57848419f5abaf616d4de6334802906df73bfd56ac0786fb554d1d8af39",
+      "id": "zero-industry-level4-rule11",
+      "output": {
+        "factor": 11
+      }
+    },
+    {
+      "case_sha256": "0deb05fdbe7d7283b0273e890b553b52a8934d041cae9eab6ee4a4ab9e3423c8",
+      "id": "zero-growth-level4-rule13",
+      "output": {
+        "factor": 13
+      }
+    },
+    {
+      "case_sha256": "7ee817bd078134379626c5e2ef616b26220fe921747ab8c9a307ba7e3d4db244",
+      "id": "zero-industry-level4-rule13",
+      "output": {
+        "factor": 13
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "0f41d7008d5441d1ac430146ca71981a9ec8deb0f1f1c00ddd7e5f840b1306a7",
+    "adapter_version": 4,
+    "calibration_contract": "game.faction_social_ratings.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.human_mineral_factor.v2",
+        "function": "cost_factor (human, no base)",
+        "rating_address": "0x0096CC50",
+        "resource_mode": 1,
+        "rule_address": "0x00949754"
+      },
+      {
+        "address": "0x004E4430",
+        "algorithm": "economy.human_nutrient_factor.v2",
+        "function": "cost_factor (human, no base)",
+        "rating_address": "0x0096CC44",
+        "resource_mode": 0,
+        "rule_address": "0x00949750"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original",
+    "readonly_original_tables": [
+      {
+        "address": "0x004E46C4",
+        "name": "cost_factor nutrient switch",
+        "size": 48
+      }
+    ],
+    "semantic_correction": "v1 resource/rating labels were reversed; v1 observations remain unchanged"
+  },
+  "repeat": 2,
+  "suite_sha256": "2893eb9d884c465b53880e85713dafffb1d86956fa8aafbaf5bb1e87b3548361",
+  "version": 1
+}
