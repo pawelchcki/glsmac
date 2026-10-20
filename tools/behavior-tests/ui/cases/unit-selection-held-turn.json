@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "name": "Original held orders across turn boundary",
+  "description": "Fresh stacked fixture from game.unit_selection.v1; actual Hold/Skip and one turn, no new world overrides or expected answers.",
+  "cases": [
+    {
+      "id": "selection-all-held-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "hold",
+          "hold",
+          "hold",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-one-held-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "hold",
+          "skip",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

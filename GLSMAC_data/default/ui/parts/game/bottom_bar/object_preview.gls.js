@@ -1,6 +1,7 @@
 const colony = #include('../../../../game/colony');
 const work = #include('../../../../game/terraforming');
 const work_dialog = #include('../../../../game/terraforming_dialog');
+const activation_dialog = #include('../../../../game/unit_activation_dialog');
 
 return {
 
@@ -11,6 +12,60 @@ return {
 		const unit = this.um.get_unit(id);
 		if (unit.owner != this.p.game.get_player().id || unit.is_immovable || unit.health <= 0.0 || unit.get_tile().is_locked()) { return null; }
 		return unit;
+	},
+
+	activation_choices: (focus) => {
+		const result = [];
+		// Retain the current command focus first, then the native tile's unit
+		// order. Original ordering evidence is bounded to the recorded stack.
+		const candidates = [focus];
+		for (unit of focus.get_tile().get_units()) { if (unit.id != focus.id) { candidates :+ unit; } }
+		for (unit of candidates) {
+			if (unit.owner == this.p.game.get_player().id && !unit.is_immovable && unit.health > 0.0) {
+				result :+ {id: unit.id, name: unit.get_def().name, order: unit.get_order(), movement: unit.movement + 0.0};
+			}
+		}
+		return result;
+	},
+
+	queue_unit_order: (name, id) => {
+		this.order_pending = { name: name, unit_id: id };
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		this.p.game.event(name, { unit_id: id });
+		return true;
+	},
+
+	activate_unit: () => {
+		const focus = this.get_order_unit(true); if (focus == null) { return true; }
+		const choices = this.activation_choices(focus);
+		if (#sizeof(choices) < 2) { return this.queue_unit_order('unit_activate', focus.id); }
+		// Validate source before opening or changing authoritative game state.
+		const definition = activation_dialog.parse(this.p.glsmac.load_smac_text('xscript.txt', 'dialogs'));
+		const tile = focus.get_tile();
+		const selected = this.selected_unit_id; const turn = this.p.game.get_turn();
+		const request = {focus: focus.id, selected: selected, owner: focus.owner,
+			x: tile.x, y: tile.y, turn: turn};
+		this.activation_token = this.activation_token + 1; const token = this.activation_token;
+		this.p.modules.popup.set('unit_activation', {definition: definition, choices: choices});
+		this.p.modules.popup.show('unit_activation', (id) => {
+			if (token != this.activation_token) { return; }
+			this.activation_token = this.activation_token + 1;
+			if (#typeof(id) == 'Int' && this.is_turn_active && this.order_pending == null && this.founding_pending_id == null &&
+				!this.p.modules.popup.is_shown() && this.p.game.get_turn() == request.turn && this.p.game.get_player().id == request.owner &&
+				this.selected_unit_id == request.selected && this.order_focus_id == request.focus && this.um.has_unit(id)) {
+				const unit = this.um.get_unit(id); const position = unit.get_tile();
+				if (unit.owner == request.owner && !unit.is_immovable && unit.health > 0.0 && !position.is_locked() && position.x == request.x && position.y == request.y) {
+					for (choice of choices) {
+						if (choice.id == id && unit.get_order() == choice.order && unit.movement == choice.movement) {
+							this.order_focus_id = id; this.queue_unit_order('unit_activate', id); break;
+						}
+					}
+				}
+			}
+			this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		});
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		return true;
 	},
 
 	update_order_buttons: () => {
@@ -67,12 +122,10 @@ return {
 	},
 
 	submit_unit_order: (name) => {
+		if (name == 'unit_activate') { return this.activate_unit(); }
 		const unit = name == 'unit_skip_turn' ? this.get_skip_unit() : this.get_order_unit(name == 'unit_activate');
 		if (unit == null) { return name != 'unit_skip_turn' || this.selected_unit_id != null; }
-		this.order_pending = { name: name, unit_id: unit.id };
-		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
-		this.p.game.event(name, { unit_id: unit.id });
-		return true;
+		return this.queue_unit_order(name, unit.id);
 	},
 
 	finish_unit_order: (e) => {
@@ -310,6 +363,7 @@ return {
 		this.founding_pending_id = null;
 		this.found_available = false;
 		this.work_request_token = #is_defined(this.work_request_token) ? this.work_request_token + 1 : 0;
+		this.activation_token = #is_defined(this.activation_token) ? this.activation_token + 1 : 0;
 
 		this.p = p;
 		this.um = p.game.get_um();
@@ -333,6 +387,10 @@ return {
 			class: 'bottombar-panel-inner',
 		});
 		this.frame.on('remove', (e) => { this.work_request_token = this.work_request_token + 1; });
+		this.frame.on('remove', (e) => {
+			this.activation_token = this.activation_token + 1;
+			if (#is_defined(p.modules.popup.popups) && #is_defined(p.modules.popup.popups.unit_activation)) { p.modules.popup.hide('unit_activation'); }
+		});
 
 		p.ui.class('unit-skip-button').set({
 			left: 63,

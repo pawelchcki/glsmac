@@ -150,6 +150,26 @@
       "id": "unit-wait-flags",
       "cases": "cases/unit-wait-flags.json",
       "observations": "observations/smacx-gog-2.0-unit-wait-flags.json"
+    },
+    {
+      "id": "unit-activation",
+      "cases": "cases/unit-activation.json",
+      "observations": "observations/smacx-gog-2.0-unit-activation.json"
+    },
+    {
+      "id": "unit-selection-held-turn",
+      "cases": "cases/unit-selection-held-turn.json",
+      "observations": "observations/smacx-gog-2.0-unit-selection-held-turn.json"
+    },
+    {
+      "id": "unit-selection-held-subsets",
+      "cases": "cases/unit-selection-held-subsets.json",
+      "observations": "observations/smacx-gog-2.0-unit-selection-held-subsets.json"
+    },
+    {
+      "id": "unit-wait-lifecycle",
+      "cases": "cases/unit-wait-lifecycle.json",
+      "observations": "observations/smacx-gog-2.0-unit-wait-lifecycle.json"
     }
   ]
 }

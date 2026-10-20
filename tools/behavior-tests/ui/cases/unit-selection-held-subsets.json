@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "name": "Original remaining held-unit subsets across next turn",
+  "description": "Fresh stacked fixture from game.unit_selection.v1. Bit positions scout/former/colony choose actual Hold versus Skip, then one real turn, W and Tab. Only input actions are generated; no expected outputs. Complements separately frozen all-skipped, all-held and Scout-only-held traces.",
+  "cases": [
+    {
+      "id": "selection-held-mask-2-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "hold",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-held-mask-3-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "hold",
+          "hold",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-held-mask-4-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "skip",
+          "hold",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-held-mask-5-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "hold",
+          "skip",
+          "hold",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-held-mask-6-next-turn",
+      "algorithm": "game.unit_selection.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "skip",
+          "hold",
+          "hold",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

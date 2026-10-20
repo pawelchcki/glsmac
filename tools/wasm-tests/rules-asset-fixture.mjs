@@ -56,11 +56,15 @@ export function syntheticNutrientRules(value, mineralValue = 10, worldRows = leg
     + basicUnitRules;
 }
 
-export async function overrideRulesAsset(page, source, extraSources = {}) {
-  const bytes = Buffer.from(source, 'utf8');
-  const sources = new Map([['alphax.txt', bytes], ...Object.entries(extraSources)]);
-  const sha256 = createHash('sha256').update(bytes).digest('hex');
-  let reads = 0;
+export async function overrideTextAssets(page, inputSources) {
+  const sources = new Map();
+  for (const [name, data] of Object.entries(inputSources)) {
+    const key = name.toLowerCase();
+    assert.match(key, /^[a-z0-9_-]+\.txt$/);
+    assert.ok(Buffer.isBuffer(data), 'Text overrides retain exact declared bytes');
+    assert.ok(!sources.has(key), 'Text override names are unique without case');
+    sources.set(key, data);
+  }
   await page.route('**/assets/manifest.json', async (route) => {
     const response = await route.fetch();
     assert.equal(response.status(), 200, 'The actual asset manifest is available');
@@ -74,14 +78,21 @@ export async function overrideRulesAsset(page, source, extraSources = {}) {
     await route.fulfill({ json: manifest });
   });
   const sourceReads = new Map();
-  await page.route(/\/assets\/(?:alphax|gaians|cyborg)\.txt$/i, async (route) => {
+  await page.route(/\/assets\/[^/]+\.txt$/i, async (route) => {
     const name = new URL(route.request().url()).pathname.split('/').at(-1).toLowerCase();
     if (!sources.has(name)) return route.fallback();
-    if (name === 'alphax.txt') reads += 1;
     sourceReads.set(name, (sourceReads.get(name) ?? 0) + 1);
     await route.fulfill({ status: 200, contentType: 'application/octet-stream', body: sources.get(name) });
   });
-  return { reads: () => reads, sha256, sourceReads };
+  return { sourceReads };
+}
+
+// Synthetic source only; the normal asset store verifies its size and hash.
+export async function overrideRulesAsset(page, source, extraSources = {}) {
+  const bytes = Buffer.from(source, 'utf8');
+  const {sourceReads} = await overrideTextAssets(page, {'alphax.txt': bytes, ...extraSources});
+  return { reads: () => sourceReads.get('alphax.txt') ?? 0,
+    sha256: createHash('sha256').update(bytes).digest('hex'), sourceReads };
 }
 
 export function replaceStartingTechnology(raw, block, previous, replacement) {

@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "name": "Original three-unit activation picker",
+  "description": "Fresh stacked three-unit fixture from game.unit_selection.v1, actual Hold on Scout/Former/Pod then A. Observe visible caption, ordered unit roles, selection frame, buttons and actual selected identity/orders/movement. Input-only keyboard/mouse sequences plus one paired installed PICKUNIT caption edit; no supplied answers.",
+  "cases": [
+    {
+      "id": "activate-default-cancel",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "escape"
+        ]
+      }
+    },
+    {
+      "id": "activate-default-enter",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "enter"
+        ]
+      }
+    },
+    {
+      "id": "activate-navigation",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "down",
+          "down",
+          "down",
+          "up",
+          "home",
+          "end",
+          "enter"
+        ]
+      }
+    },
+    {
+      "id": "activate-row-click",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "click2"
+        ]
+      }
+    },
+    {
+      "id": "activate-mouse-ok",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "ok"
+        ]
+      }
+    },
+    {
+      "id": "activate-mouse-cancel",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "default",
+        "actions": [
+          "open",
+          "cancel"
+        ]
+      }
+    },
+    {
+      "id": "activate-caption-source",
+      "algorithm": "ui.unit_activation_picker.v1",
+      "input": {
+        "profile": "edited-caption",
+        "actions": [
+          "open",
+          "escape"
+        ]
+      }
+    }
+  ]
+}

@@ -184,6 +184,17 @@ def unit_selection_command(args, waiting=False):
     return shlex.join(command)
 
 
+def unit_activation_command(args):
+    if args.browser:
+        raise ProtocolError('Activation picker uses native display-free replay; real browser controls are checked separately')
+    name = 'unit_activation_original.py' if args.record else 'unit_activation_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine, '--timeout', str(args.step_timeout),
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-activation-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -295,8 +306,10 @@ def main(argv=None):
                 reference_command = former_movement_command(args)
             if reference['id'] == 'road-network':
                 reference_command = road_network_command(args)
-            if reference['id'].startswith('unit-selection-') or reference['id'] == 'unit-wait-flags':
-                reference_command = unit_selection_command(args, waiting=reference['id'] == 'unit-wait-flags')
+            if reference['id'].startswith('unit-selection-') or reference['id'].startswith('unit-wait-'):
+                reference_command = unit_selection_command(args, waiting=reference['id'].startswith('unit-wait-'))
+            if reference['id'] == 'unit-activation':
+                reference_command = unit_activation_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -331,8 +344,10 @@ def main(argv=None):
                 candidate_command = former_movement_command(args)
             if command is not None and reference['id'] == 'road-network':
                 candidate_command = road_network_command(args)
-            if command is not None and (reference['id'].startswith('unit-selection-') or reference['id'] == 'unit-wait-flags'):
-                candidate_command = unit_selection_command(args, waiting=reference['id'] == 'unit-wait-flags')
+            if command is not None and (reference['id'].startswith('unit-selection-') or reference['id'].startswith('unit-wait-')):
+                candidate_command = unit_selection_command(args, waiting=reference['id'].startswith('unit-wait-'))
+            if command is not None and reference['id'] == 'unit-activation':
+                candidate_command = unit_activation_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -346,7 +361,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Sliding menus/input traces, custom-planet controller, custom dimensions, source-driven large-map warning controls, selected native grid dimensions, bounded citizen-job choices/Psych bonus and paused-turn Scout orders; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting and activation pickers; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

@@ -9,6 +9,7 @@ from protocol import ProtocolError
 from ui import unit_selection_contract as selection, unit_wait_contract as waiting
 from ui.generate_unit_selection import suites
 from ui.generate_unit_wait import suite
+from ui.generate_unit_selection_lifecycle import suites as lifecycle_suites
 from ui.unit_selection_headless import parse_candidate
 from ui.unit_selection_sources import three_units
 
@@ -17,23 +18,23 @@ DIRECTORY = Path(__file__).parent / 'ui'
 
 class UnitSelectionTests(unittest.TestCase):
     def test_generators_supply_only_bounded_inputs(self):
-        groups = dict(suites(), **{'unit-wait-flags': suite()})
+        groups = dict(suites(), **lifecycle_suites(), **{'unit-wait-flags': suite()})
         ids = []
         for name, generated in groups.items():
             self.assertEqual(generated, json.loads((DIRECTORY / f'cases/{name}.json').read_text()))
             for case in generated['cases']:
                 self.assertEqual(set(case), {'id', 'algorithm', 'input'})
                 selection.validate_input(case['input']); ids.append(case['id'])
-        self.assertEqual(len(ids), 8)
-        self.assertEqual(len(set(ids)), 8)
+        self.assertEqual(len(ids), 17)
+        self.assertEqual(len(set(ids)), 17)
 
-    def test_eight_frozen_cases_require_two_identical_whole_runs(self):
-        for name in (*suites(), 'unit-wait-flags'):
+    def test_seventeen_frozen_cases_require_two_identical_whole_runs(self):
+        for name in (*suites(), *lifecycle_suites(), 'unit-wait-flags'):
             inputs = json.loads((DIRECTORY / f'cases/{name}.json').read_text())
             evidence = json.loads((DIRECTORY / f'observations/smacx-gog-2.0-{name}.json').read_text())
             validate_observations(evidence, inputs)
             self.assertGreaterEqual(evidence['repeat'], 2)
-            contract = waiting if name == 'unit-wait-flags' else selection
+            contract = waiting if name.startswith('unit-wait-') else selection
             for case, row in zip(inputs['cases'], evidence['observations'], strict=True):
                 contract.validate_output(row['output'], case['input']['actions'])
 

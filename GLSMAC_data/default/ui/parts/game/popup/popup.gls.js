@@ -5,6 +5,7 @@ return {
 		'please_dont_go',
 		'base_screen',
 		'terraforming_replacement',
+		'unit_activation',
 	],
 
 	no_sliding: false, // disable sliding until more optimizations

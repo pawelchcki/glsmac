@@ -26,9 +26,14 @@ batches and advances timers synchronously, with no animation sleeps. This is a
 local measurement, not a timing guarantee. The original custom-map controller
 can also be observed without rendering, using Unicorn to execute its x86 code.
 
-Six [multi-unit selection traces and two wait-state traces](unit-selection-contract.md)
+Thirteen [multi-unit selection traces and four wait-state traces](unit-selection-contract.md)
 use the same production C++ controller in display-free replay and the real UI.
 The browser lane drives W/Tab/H/Space and actual turn controls separately.
+
+Seven [activation-picker traces](unit-activation-contract.md) additionally compare
+production modal controls and actual native orders without rendering. The
+browser lane repeats all seven using actual keyboard and mouse input, including
+a paired installed-script caption override through the normal asset manifest.
 
 ## Contracts and boundaries
 
@@ -39,13 +44,14 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-630 passing cases. The pending catalog is currently empty. This does not
+646 passing cases. The pending catalog is currently empty. This does not
 establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
-| `game.unit_selection.v1` | 6 | Selected identity, actual orders/movement/positions through W/Tab/Hold/Skip, no-ready units, fresh turn and nearby layout | Real original controls, native identity and visible name agreement; recorded twice |
-| `game.unit_wait_state.v1` | 2 | Twelve-action W/Tab histories and actual deferred flags for all three units | Read-only original vehicle flags; recorded twice |
+| `ui.unit_activation_picker.v1` | 7 | Caption, ordered native unit names/roles, draft highlight, keyboard/text clicks, OK/Cancel and native order/selection effects | Actual original picker and read-only native state; recorded twice |
+| `game.unit_selection.v1` | 13 | Selected identity, actual orders/movement/positions through W/Tab/Hold/Skip, no-ready units, fresh turn and nearby layout | Real original controls, native identity and visible name agreement; recorded twice |
+| `game.unit_wait_state.v1` | 4 | Twelve-action W/Tab histories and actual deferred flags for all three units | Read-only original vehicle flags; recorded twice |
 | `game.road_network.v1` | 2 | Base/road/forest flags, current terrain, position and movement spent through base entry/exit and forest roads | Actual original controls and turns with read-only native observations; recorded twice |
 | `game.former_road_movement.v1` | 3 | Relative tile position, movement spent, work counter, current-tile flags, cancellation and exhausted resume | Real original road construction, keyboard movement/work and turns with read-only native checkpoints; recorded twice |
 | `game.former_work.v1` | 8 | Work progress/completion, cancellation, retained-work switching and Farm-to-Forest replacement | Actual original commands/turns and recognized confirmations; recorded twice |
@@ -65,7 +71,7 @@ establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 630 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 646 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -174,7 +180,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 481 recorded cases now agree after production fixes to choices,
+any failures. All 646 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the
@@ -262,7 +268,8 @@ browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
 The [pending catalog](pending-catalog.json) is empty after promotion of the
-six [startup inventory cases](startup-inventory-contract.md). The two original
+recorded activation and held-turn lifecycle cases. The six
+[startup inventory cases](startup-inventory-contract.md) also remain green. The two original
 red cases and four additional controlled-source cases now match actual native
 units and projects. `--pending` remains a strict lane for future discrepancies;
 an empty queue reports no execution and no matches. This does not establish

@@ -1,0 +1,787 @@
+{
+  "captured_at": "2026-10-20T16:04:42.867528+00:00",
+  "observations": [
+    {
+      "case_sha256": "709e94c6d78d952f5a014a77b51ad5bf9e6db3d043051dfd4d83ccc731ccd90e",
+      "id": "activate-default-cancel",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7b823397ae832841aaa7776a30ac774c5c02d58fd059cce4d7cb61384bcea541",
+      "id": "activate-default-enter",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c13446f727e5e0b4511f5d70e84da3c92a780a61a30cdc25dcffc2ae7e97a151",
+      "id": "activate-navigation",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "scout"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "former"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "former"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "scout"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "scout"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "scout"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ee51237724813539d9a699176ba004fb74ff96da458300490984913559b2bbb1",
+      "id": "activate-row-click",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "67381e2b65cc6ca91166a21ab6742943c2ef58d1eb09741319e0866f96f6efe7",
+      "id": "activate-mouse-ok",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "bd9272b3f3cd06cb108c5bba00311083613bd4733b6d035d5368e831c5417126",
+      "id": "activate-mouse-cancel",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "SELECT UNIT TO ACTIVATE",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "13c126cf3f9066dde72fd7054aba586ff6fc975cf3afdf8a209cd7722b43b729",
+      "id": "activate-caption-source",
+      "output": {
+        "trace": [
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": {
+              "caption": "ACTIVATE AN OWNED UNIT",
+              "choices": [
+                "colony",
+                "scout",
+                "former"
+              ],
+              "selected": "colony"
+            },
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "picker": null,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "73e6e53d0934c886f5dccd6356c221c149562fbc8bdab0581673a4c89533511c",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.unit_activation_picker.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Same fresh stacked three-unit Gaians/Citizen/standard fixture as unit_selection.v1; actual Hold on all three; Scout/Former/Pod healthy and unmoved; no selected unit; optional paired common/expansion PICKUNIT caption edit",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual visible picker caption, ordered row names, icon-frame highlight and buttons; actual native selected identity/orders/movement",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "fff8d43043111123afb015a0c62e3f75d1f98f942105379b777a5d8bcefa4e08",
+    "units": "Caption uppercase/whitespace normalized OCR; recognized visible unit roles in actual row order; native movement spent in thirds and turn difference"
+  },
+  "repeat": 2,
+  "suite_sha256": "6764d48c08196d76d4a1ee72a2c516ec9f51d3bd4b4c44bac1e3782cd9b26450",
+  "version": 1
+}

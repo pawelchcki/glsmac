@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "name": "Original deferred flags through Hold Skip and turn advancement",
+  "description": "Fresh stacked three-unit fixture from game.unit_wait_state.v1. Real W/Tab, Hold, Skip and one turn. Native original deferred flags and selection are read after every action; input-only sequences supply no expected outputs.",
+  "cases": [
+    {
+      "id": "selection-wait-state-hold-history-reset",
+      "algorithm": "game.unit_wait_state.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "wait",
+          "wait",
+          "hold",
+          "wait",
+          "skip",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "selection-wait-state-skip-history-reset",
+      "algorithm": "game.unit_wait_state.v1",
+      "input": {
+        "profile": "stacked",
+        "actions": [
+          "wait",
+          "wait",
+          "wait",
+          "skip",
+          "tab",
+          "hold",
+          "skip",
+          "advance",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1010 @@
+{
+  "captured_at": "2026-10-20T15:44:49.899288+00:00",
+  "observations": [
+    {
+      "case_sha256": "b7de15d346b46830c90ba8bdc383b41a65030f6934dac2ffdcb76bb2042b3c59",
+      "id": "selection-held-mask-2-next-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2e417a47dabeba1f6895b51435659e900a8c6b9bdf6bea2b1b2ebb7ed4f6b035",
+      "id": "selection-held-mask-3-next-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6666aae798cecc4166d077243f68ca23fd27a9938a8b7703d072d7258556bcef",
+      "id": "selection-held-mask-4-next-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b53751c2f400e118649296388c4199482b9e2eccd28dd94b0605434e8a069896",
+      "id": "selection-held-mask-5-next-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c40fbea4f5ee6337504759eb687639e4d323e95fd925574e90444f2c31f3a3a5",
+      "id": "selection-held-mask-6-next-turn",
+      "output": {
+        "trace": [
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 3,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order": "none",
+                "role": "scout",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "former",
+                "x_delta": 0,
+                "y_delta": 0
+              },
+              {
+                "movement_spent": 0,
+                "order": "hold",
+                "role": "colony",
+                "x_delta": 0,
+                "y_delta": 0
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "8da55dca429e32f528b06cb7529d8443b98a376fa2f0776b83e5f6d2c0de2af6",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.unit_selection.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Gaians/Citizen/standard process; synthetic 40x80 flat arid map; UNIT1 and UNIT0 bonuses; three healthy ordinary units; actual first-base setup; optional real southeast/southwest moves and turn; Scout initially selected; pause at end on, tutorials off",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native Console active-unit mode/identity cross-checked with visible names; all three owned unit positions/orders/movement and actual turn after real keys",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00",
+    "units": "Relative original map coordinate units with normalized horizontal wrap; movement spent in thirds; native turn difference"
+  },
+  "repeat": 2,
+  "suite_sha256": "d6049105d6a0b2a8284fb3a16ab593a9fd97c09b16e3898ffdd7a3babcf687a7",
+  "version": 1
+}

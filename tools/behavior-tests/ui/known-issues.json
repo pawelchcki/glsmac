@@ -395,21 +395,51 @@
         "unsupported": 0,
         "errors": 0
       }
+    },
+    {
+      "id": "three-unit-activation-opens-picker",
+      "suite": "unit-activation",
+      "example": "activate-default-cancel",
+      "status": "fixed-in-recorded-native-and-browser-contract",
+      "lane": "actual-release-browser",
+      "property": "With all three units held, A must open the activation picker and preserve all orders/empty selection. The reproduction directly activates Colony Pod with no picker.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "Seven independently repeated original picker traces now match production controls and native orders/selection, both display-free and through actual browser input. Caption transfer edits only PICKUNIT in both installed script aliases; it makes no precedence claim. Text clicks and Home/End leave the draft unchanged, arrows clamp, and explicit OK/Enter confirms. Other unit counts, icon clicking and full-game modal behavior remain outside this contract.",
+      "verification": {
+        "matched": 7,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 7
+      }
     }
   ],
   "verification": {
-    "cases": 563,
-    "matched": 563,
+    "cases": 646,
+    "matched": 646,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Headless menu/controller/keyboard/citizen-job/paused-Scout contracts; selected rendered menu and synthetic-world gameplay checks are separate; not full-game parity",
+    "scope": "Full display-free recorded catalog; browser integration lanes are checked separately. Not full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
     "rendered_custom_dimension_integration_matched": 3,
     "rendered_faction_setup_integration_cases": 3,
-    "rendered_faction_setup_integration_matched": 3
+    "rendered_faction_setup_integration_matched": 3,
+    "unsupported": 0,
+    "rendered_activation_cases": 7,
+    "rendered_activation_matched": 7,
+    "rendered_selection_cases": 13,
+    "rendered_selection_matched": 13,
+    "rendered_former_cases": 13,
+    "rendered_former_matched": 13,
+    "normal_generated_lifecycle_passed": true
   }
 }

@@ -12,7 +12,7 @@ const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
 const references = process.env.SELECTION_REFERENCE ? [process.env.SELECTION_REFERENCE]
-  : ['unit-selection-core', 'unit-selection-lifecycle', 'unit-selection-spread'];
+  : ['unit-selection-core', 'unit-selection-lifecycle', 'unit-selection-spread', 'unit-selection-held-turn', 'unit-selection-held-subsets'];
 const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
 const evidence = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
 assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
