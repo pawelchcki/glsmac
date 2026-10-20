@@ -465,11 +465,61 @@
         "errors": 0,
         "rendered_matched": 4
       }
+    },
+    {
+      "id": "colony-pod-joins-owned-base",
+      "suite": "colony-join-core",
+      "example": "colony-join-wait",
+      "status": "fixed",
+      "property": "B with an owned healthy Pod on its existing owned base must consume the Pod, add an unassigned Worker while retaining its Doctor/stores/base identity, and complete selection through the shared removal path. Baseline ignores B on the existing base.",
+      "baseline_verification": {
+        "errors": 0,
+        "matched": 0,
+        "mismatched": 4,
+        "unsupported": 0
+      },
+      "baseline_scripts_sha256": "d52bad36bdcd55589d3fbfd7d831cef7bb438854de190bf6872e983ffde6cfbf",
+      "baseline_wasm_sha256": "dd45c8d5460c4ba22a6d62c44a1eac3b7d234a227658310c624ea6c17d47e556",
+      "scope": "Ten independently repeated original joins match native display-free replay and real browser B/W/Tab. Preserve Doctor and stored resources, add one unassigned Worker, consume Pod, retain base/survivor identities, and choose/clear survivor focus. Size2-to3, rollback/guards and button/pending checks are separate application regressions. Natural startup defaults, population limits, later city recalculation, other terrain/factions and full-game parity remain outside the observed contract.",
+      "baseline_rendered_verification": {
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_rendered_scripts_sha256": "9a519d9550256bb009edd872359ac90a806449571cb0ba053dee893fae585268",
+      "baseline_rendered_wasm_sha256": "65800abebeb614449151b26c6a316f0eaaad14e5cd9f7325f2acf74224aa7d2a",
+      "verification": {
+        "matched": 10,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 10
+      }
+    },
+    {
+      "id": "consumed-colony-keyboard-input",
+      "suite": "colony-join",
+      "status": "fixed",
+      "lane": "actual-release-browser-application",
+      "property": "After joining a sole Pod, an immediate repeated command/probe/ArrowRight can arrive before frontend despawn while the backend identity is gone. Input must resolve live scalar identities and ignore consumed units rather than asserting or dereferencing a missing unit.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 1
+      },
+      "baseline_wasm_sha256": "d7ec6e50f4280c8cfc546e8da88c1a6049dadaa6bbf50e888217de54d024811c",
+      "scope": "Dedicated actual browser application regression. Debug diagnostics resolve the release table-call failure to missing native unit assertion in frontend movement input. Not an additional original-game comparison. The exact B/repeated-button/probe/ArrowRight sequence now passes against the rebuilt Release runtime; native Space/movement/attack delivery retains scalar identities and guards missing targets.",
+      "verification": {
+        "matched": 1,
+        "errors": 0
+      }
     }
   ],
   "verification": {
-    "cases": 658,
-    "matched": 658,
+    "cases": 668,
+    "matched": 668,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -492,6 +542,8 @@
     "rendered_sentry_cases": 8,
     "rendered_sentry_matched": 8,
     "rendered_sentry_activation_cases": 4,
-    "rendered_sentry_activation_matched": 4
+    "rendered_sentry_activation_matched": 4,
+    "rendered_colony_join_cases": 10,
+    "rendered_colony_join_matched": 10
   }
 }

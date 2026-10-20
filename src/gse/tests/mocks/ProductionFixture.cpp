@@ -836,6 +836,32 @@ struct ProductionFixture : gc::Object {
 		};
 		return VALUEEXT( value::Object, GSE_CALL, result );
 	}
+	value::Object* FrontendPackets( GSE_CALLABLE ) {
+		EnableRenderCoordinates();
+		game.m_um->PushUpdates(); game.m_bm->PushUpdates();
+		value::array_elements_t bases, removed;
+		int64_t spawned_bases = 0, removed_bases = 0;
+		std::vector< std::unique_ptr< ::game::FrontendRequest > > copies;
+		for ( const auto& request : *game.m_pending_frontend_requests ) { copies.push_back( std::make_unique< ::game::FrontendRequest >( request ) ); }
+		game.m_pending_frontend_requests->clear();
+		for ( const auto& packet : copies ) {
+			if ( packet->type == ::game::FrontendRequest::FR_BASE_UPDATE ) {
+				value::array_elements_t pops;
+				for ( const auto& pop : *packet->data.base_update.pops ) { pops.push_back( VALUE( value::String,, pop.type ) ); }
+				bases.push_back( VALUEEXT( value::Object, GSE_CALL, {
+					{ "id", VALUE( value::Int,, packet->data.base_update.base_id ) }, { "pops", VALUE( value::Array,, pops ) },
+				} ) );
+			}
+			if ( packet->type == ::game::FrontendRequest::FR_UNIT_DESPAWN ) { removed.push_back( VALUE( value::Int,, packet->data.unit_despawn.unit_id ) ); }
+			if ( packet->type == ::game::FrontendRequest::FR_BASE_SPAWN ) { spawned_bases++; }
+			if ( packet->type == ::game::FrontendRequest::FR_BASE_DESPAWN ) { removed_bases++; }
+		}
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "bases", VALUE( value::Array,, bases ) }, { "removed_units", VALUE( value::Array,, removed ) },
+			{ "spawned_bases", VALUE( value::Int,, spawned_bases ) }, { "removed_bases", VALUE( value::Int,, removed_bases ) },
+		} );
+	}
+
 	bool CheckUnitReadiness() {
 		game.CheckTurnComplete();
 		return game.m_is_turn_complete;
@@ -882,8 +908,8 @@ struct ProductionFixture : gc::Object {
 		for ( const auto& name : names ) { bytes.WriteString( name ); }
 		return bytes.ToString();
 	}
-	void ConfigureFounding( const std::string& kind ) {
-		auto* unit = game.m_um->GetUnit( colony_id );
+	void ConfigureFounding( const std::string& kind, size_t selected_id = 0 ) {
+		auto* unit = game.m_um->GetUnit( selected_id ? selected_id : colony_id );
 		if ( !unit ) { THROW( "fixture colony no longer live" ); }
 		if ( kind == "no_moves" ) { unit->m_movement = 0; }
 		else if ( kind == "dead" ) { unit->m_health = 0; }
@@ -1240,6 +1266,22 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 			);
 			return VALUE( value::Bool,, selected );
 		} ), GSE_CALL );
+		object->Set( "selection_removed", NATIVE_CALL( session ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GET_CALLABLE( select_unit, 1 ); N_GET_CALLABLE( select_tile, 2 );
+			auto& f = *session->current;
+			if ( f.game.GetUM()->GetUnit( id ) ) { GSE_ERROR( EC.INVALID_CALL, "Removed selection unit still exists" ); }
+			game::frontend::unit::SelectionController::Candidates candidates;
+			for ( const auto& entry : f.game.GetUM()->GetUnits() ) {
+				auto* unit = entry.second; const auto* tile = unit->GetTile();
+				candidates.push_back( { unit->m_id, unit->m_owner == f.owner->GetSlot() && unit->NeedsOrders(), (int)tile->coord.x, (int)tile->coord.y } );
+			}
+			f.selection.Removed( id, f.selection.Selected() == size_t( id ), std::move( candidates ),
+				[ & ]( size_t selected ) { select_unit->Run( GSE_CALL, { VALUE( value::Int,, selected ) } ); },
+				[ & ]() { select_tile->Run( GSE_CALL, {} ); }
+			);
+			return VALUE( value::Undefined );
+		} ), GSE_CALL );
+
 		object->Set( "is_deferred", NATIVE_CALL( session ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
 			return VALUE( value::Bool,, session->current->selection.IsDeferred( id ) );
@@ -1480,6 +1522,14 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 		object->Set( "snapshot", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->FoundingSnapshot() ); } ), GSE_CALL );
 		object->Set( "configure", NATIVE_CALL( session ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); session->current->ConfigureFounding( kind ); return VALUE( value::Undefined ); } ), GSE_CALL );
 	}
+	object->Set( "configure_unit", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( kind, 1, String );
+		session->current->ConfigureFounding( kind, id ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "frontend_packets", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->FrontendPackets( GSE_CALL );
+	} ), GSE_CALL );
+
 	object->Set( "enable_transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->EnableTransport(); return VALUE( value::Undefined ); } ), GSE_CALL );
 	object->Set( "transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return session->current->InspectTransport( GSE_CALL ); } ), GSE_CALL );
 	object->Set( "process_events", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->Process(); return VALUE( value::Undefined ); } ), GSE_CALL );

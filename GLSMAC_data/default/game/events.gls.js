@@ -34,6 +34,7 @@ return (game) => {
 		'process_base_production',
 		'process_base_growth',
 		'found_base',
+		'join_base',
 	]) {
 		game.register_event(e, #include('event/' + e));
 	}

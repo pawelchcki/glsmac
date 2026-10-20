@@ -147,8 +147,14 @@ const mainScript = String.raw`
     const report_base = (base) => {
       const tile = base.get_tile();
       #print('SMOKE_BASE_STATE|' + #to_string(base.id) + '|' + #to_string(base.get_owner().id) + '|' + #to_string(tile.x) + '|' + #to_string(tile.y) + '|' + #to_string(base.get_size()));
+      #print('SMOKE_JOIN_CITY|' + #to_string(base.id) + '|' + #to_string(base.get_size()) + '|' + #to_string(#sizeof(base.get_worked_tiles())) + '|' + #to_string(base.get('accumulated_nutrients')) + '|' + #to_string(base.get_production().minerals));
     };
     game.on('event_result', (e) => {
+      if (e.name == 'join_base') {
+        #print('SMOKE_JOIN_RESULT|' + #to_string(e.data.unit_id) + '|' + #to_string(e.success));
+        for (base of game.get_bm().get_bases()) { report_base(base); }
+        #print('SMOKE_JOIN_UNIT_EXISTS|' + #to_string(game.get_um().has_unit(e.data.unit_id)));
+      }
       if (e.name == 'found_base') {
         #print('SMOKE_FOUND_RESULT|' + #to_string(e.data.unit_id) + '|' + #to_string(e.success));
         for (base of game.get_bm().get_bases()) { report_base(base); }
@@ -923,6 +929,46 @@ test('owned bases, turns, movement and facility production use the real browser 
   t.diagnostic(`Imported synthetic 16x16 map; base navigation, skip, turn advance and move (8,8) -> (10,8) passed; canceled facility picker, selected declared 32-mineral Recycling Tanks, and completed it through ${productionTurns} real turns with ${production.minerals} overflow minerals. Actual base-square N/M/E changed from ${beforeTanks.NUTRIENTS}/${beforeTanks.MINERALS}/${beforeTanks.ENERGY} to ${afterTanks.NUTRIENTS}/${afterTanks.MINERALS}/${afterTanks.ENERGY}, agreeing with recorded resource values in this reproduction fixture; pending mineral production increased by one. This construction regression is outside the bounded original-input parity counts.`);
 });
 
+test('sole Colony Pod joins Headquarters and stale movement input cannot use the consumed unit', {
+  skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
+}, async t => {
+  const {page, waitForLog, probeUnit, screenshot} = await startGame(t, colonyWorldScript, 'join-sole-colony');
+  assert.ok(await probeUnit());
+  const city = async () => {
+    const log = await page.locator('#log').textContent();
+    const m = [...log.matchAll(/SMOKE_JOIN_CITY\|(\d+)\|(\d+)\|(\d+)\|(-?\d+)\|(\d+)/g)].at(-1);
+    assert.ok(m); return [...m].slice(1).map(Number);
+  };
+  const before = await city();
+  assert.equal(before[1], 1); assert.equal(before[2], 1);
+  await page.keyboard.press('b');
+  await clickCanvas(page, 40, 741); // Duplicate command while join is pending.
+  await probeUnit(); // Native consumption can precede frontend despawn delivery.
+  // Native input delivery must tolerate that consumed identity.
+  await page.keyboard.press('ArrowRight'); await page.keyboard.press('Space');
+  await waitForLog('SMOKE_JOIN_RESULT|1|true');
+  await waitForLog('SMOKE_JOIN_UNIT_EXISTS|false');
+  assert.equal(await probeUnit(), null);
+  const after = await city();
+  assert.deepEqual(after, [before[0], 2, ...before.slice(2)], 'Join preserves native base, existing assignment and stores');
+  await screenshot('joined-after-stale-input');
+});
+
+test('joined Headquarters opens its real base screen with an unassigned Worker', {
+  skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
+}, async t => {
+  const {page, waitForLog, probeUnit, screenshot, closeBase} = await startGame(t, colonyWorldScript, 'join-base-screen');
+  assert.ok(await probeUnit());
+  await page.keyboard.press('b');
+  await waitForLog('SMOKE_JOIN_RESULT|1|true');
+  await waitForLog('SMOKE_JOIN_UNIT_EXISTS|false');
+  assert.equal(await probeUnit(), null);
+  await clickCanvas(page, 280, 733); // Actual existing base portrait.
+  await waitForLog('SMOKE_BASE_OPEN'); await waitForLog('SMOKE_BASE_RENDER|1');
+  await screenshot('joined-base-open'); await closeBase();
+  assert.equal(await probeUnit(), null);
+});
+
 for (const action of ['keyboard', 'button']) {
   test(`Colony Pod moves off Headquarters and founds an owned base through ${action}`, {
     skip: !assets && 'Set SMAC_ASSETS_DIR to a legally obtained Alpha Centauri installation',
@@ -934,11 +980,9 @@ for (const action of ['keyboard', 'button']) {
     assert.deepEqual(initialUnit.position, [8, 8]);
     assert.ok(initialUnit.movement > 0);
 
-    await page.keyboard.press('b'); // Headquarters already occupies this tile.
-    await clickCanvas(page, 40, 741);
-    await probeUnit();
-    assert.doesNotMatch(await page.locator('#log').textContent(), /SMOKE_FOUND_RESULT\|/,
-      'Founding at Headquarters does not even submit a command');
+    // B on Headquarters now joins the city (covered separately). Keep this
+    // Pod alive so this case continues to exercise movement and new founding.
+    assert.match(await page.locator('#log').textContent(), /SMOKE_FOUND_CONTROL\|unit-found-button-enabled/);
 
     await page.keyboard.press('ArrowRight');
     let moved;

@@ -217,6 +217,17 @@ def unit_sentry_activation_command(args):
     return shlex.join(command)
 
 
+def colony_join_command(args, mixed=False):
+    if args.browser:
+        raise ProtocolError('Colony join uses display-free replay; browser controls are checked separately')
+    name = ('colony_join_mixed_original.py' if mixed else 'colony_join_original.py') if args.record else 'colony_join_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/colony-join-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -336,6 +347,8 @@ def main(argv=None):
                 reference_command = unit_sentry_command(args)
             if reference['id'] == 'unit-sentry-activation':
                 reference_command = unit_sentry_activation_command(args)
+            if reference['id'] in ('colony-join-core', 'colony-join-mixed'):
+                reference_command = colony_join_command(args, reference['id'] == 'colony-join-mixed')
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -378,6 +391,8 @@ def main(argv=None):
                 candidate_command = unit_sentry_command(args)
             if command is not None and reference['id'] == 'unit-sentry-activation':
                 candidate_command = unit_sentry_activation_command(args)
+            if command is not None and reference['id'] in ('colony-join-core', 'colony-join-mixed'):
+                candidate_command = colony_join_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -391,7 +406,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting and activation pickers; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers and owned-base Colony joins; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

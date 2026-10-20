@@ -32,6 +32,17 @@ public:
 		if ( previous ) { select_tile(); }
 		return false;
 	}
+	// Native/frontend removal uses the same ready-survivor choice and publishes
+	// a tile selection when consuming the focused unit leaves no ready unit.
+	template< typename SelectUnit, typename SelectTile >
+	void Removed( size_t id, bool was_selected, Candidates units, SelectUnit select_unit, SelectTile select_tile ) {
+		Forget( id );
+		if ( !was_selected ) { return; }
+		const auto next = Next( std::move( units ) );
+		if ( next ) { select_unit( *next ); }
+		else { select_tile(); }
+	}
+
 	std::optional< size_t > Next( Candidates units, bool wait = false ) {
 		std::sort( units.begin(), units.end(), []( const auto& a, const auto& b ) { return a.id < b.id; } );
 		for ( auto it = deferred.begin(); it != deferred.end(); ) {

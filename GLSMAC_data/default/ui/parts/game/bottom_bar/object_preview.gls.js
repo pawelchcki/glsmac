@@ -157,7 +157,7 @@ return {
 		const unit = this.um.get_unit(this.selected_unit_id);
 		const player_id = this.p.game.get_player().id;
 		if (unit.owner != player_id || unit.def != 'ColonyPod') { return null; }
-		if (colony.validate(this.p.game, unit.id, player_id) != #undefined) { return null; }
+		if (colony.validate_action(this.p.game, unit.id, player_id) != #undefined) { return null; }
 		return unit;
 	},
 
@@ -166,8 +166,10 @@ return {
 		if (unit != null) {
 			this.founding_pending_id = unit.id;
 			this.update_found_button();
-			// Only the authoritative event can consume the pod and create a base.
-			this.p.game.event('found_base', { unit_id: unit.id });
+			const base = unit.get_tile().get_base();
+			this.founding_pending_name = base == null ? 'found_base' : 'join_base';
+			if (base == null) { this.p.game.event('found_base', { unit_id: unit.id }); }
+			else { this.p.game.event('join_base', { unit_id: unit.id, base_id: base.id }); }
 		}
 		return true;
 	},
@@ -360,7 +362,7 @@ return {
 		this.rendered_unit_id = null;
 		this.is_turn_active = true;
 		this.skip_available = false;
-		this.founding_pending_id = null;
+		this.founding_pending_id = null; this.founding_pending_name = null;
 		this.found_available = false;
 		this.work_request_token = #is_defined(this.work_request_token) ? this.work_request_token + 1 : 0;
 		this.activation_token = #is_defined(this.activation_token) ? this.activation_token + 1 : 0;
@@ -475,8 +477,8 @@ return {
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
 			this.finish_unit_order(e);
-			if (e.name == 'found_base' && e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id) {
-				this.founding_pending_id = null;
+			if (e.name == this.founding_pending_name && e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id) {
+				this.founding_pending_id = null; this.founding_pending_name = null;
 				this.update_found_button();
 				this.update_skip_button();
 			}

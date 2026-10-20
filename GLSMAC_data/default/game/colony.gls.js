@@ -11,6 +11,15 @@ return {
 		return game.validate_found_base(unit_id, caller);
 	},
 
+	validate_action: (game, unit_id, caller) => {
+		if (#typeof(unit_id) != 'Int' || unit_id <= 0 || #typeof(caller) != 'Int' || caller < 0) { return 'Invalid colony unit or owner'; }
+		const um = game.get_um();
+		if (!um.has_unit(unit_id)) { return 'Colony unit no longer exists'; }
+		const base = um.get_unit(unit_id).get_tile().get_base();
+		if (base != null) { return game.validate_join_base(unit_id, base.id, caller); }
+		return game.validate_found_base(unit_id, caller);
+	},
+
 	choose_citizen: (game, base) => {
 		const eligible = [];
 		for (tile of base.get_unworked_tiles()) {

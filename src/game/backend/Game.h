@@ -315,6 +315,9 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 	std::string ValidateFoundBase( int64_t unit_id, int64_t caller ) const;
 	gse::Value* FoundBase( GSE_CALLABLE, int64_t unit_id, int64_t caller, gse::value::Callable* chooser );
 	void RollbackFoundBase( GSE_CALLABLE, int64_t token, int64_t base_id );
+	std::string ValidateJoinBase( int64_t unit_id, int64_t base_id, int64_t caller ) const;
+	gse::Value* JoinBase( GSE_CALLABLE, int64_t unit_id, int64_t base_id, int64_t caller );
+	void RollbackJoinBase( GSE_CALLABLE, int64_t token, int64_t base_id );
 
 	WRAPDEFS_PTR( Game )
 
@@ -455,6 +458,15 @@ private:
 	};
 	std::map< int64_t, FoundingRecord > m_founding_records;
 	int64_t m_next_founding_id = 0;
+	struct JoiningRecord {
+		size_t unit_id = 0, base_id = 0, pop_id = 0;
+		size_t previous_pop_id = 0, next_base_id = 0, next_unit_id = 0;
+		std::string def, unit_snapshot, expected_def, previous_rng, expected_rng, expected_base;
+		uint64_t turn = 0;
+		gse::value::Object* base_identity = nullptr;
+	};
+	std::map< int64_t, JoiningRecord > m_joining_records;
+	int64_t m_next_joining_id = 0;
 
 private:
 	friend struct gse::tests::mocks::ProductionFixture;

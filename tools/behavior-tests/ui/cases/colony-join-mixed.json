@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "name": "Original mixed companion Colony joins",
+  "description": "Held-out input-only combinations with one waiting companion and one skipped/held/sentry companion; no supplied answers.",
+  "cases": [
+    {
+      "id": "colony-join-wait-skip",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "skip"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-skip-wait",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "skip",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-wait-hold",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "hold"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-hold-wait",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "hold",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-wait-sleep",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "sleep"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-sleep-wait",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "sleep",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

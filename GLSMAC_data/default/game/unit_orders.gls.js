@@ -1,6 +1,6 @@
-// Resolve command identity at the authoritative boundary. Legacy native Space
-// requests still carry a Unit wrapper; it must be the exact current manager
-// entity. New controls send only the scalar unit_id.
+// Resolve command identity at the authoritative boundary. Legacy requests may
+// carry a Unit wrapper; it must be the exact current manager entity. Current
+// frontend controls send only the scalar unit_id.
 const resolve = (game, data) => {
 	let id = #undefined;
 	if (#is_defined(data.unit_id)) { id = data.unit_id; }

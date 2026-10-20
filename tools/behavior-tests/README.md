@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 658 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 668 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,260 scenarios and 8,510 assertions** across
-99 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,291 scenarios and 8,780 assertions** across
+100 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -46,6 +46,18 @@ behavior remain outside those observations. Four further Sentry activation
 traces compare actual picker confirmation/cancellation and W/Tab focus, including
 activation without refunding spent movement. The native navigation notification
 path is shared by frontend controls and display-free tests.
+
+The `colony-join` suite executes production B and visible button controls against
+native base/unit state. Its 31 scenarios check preserved citizens and worker
+links, unassigned joined workers, stored resources, consumed-unit lifetime,
+selection delivery, rollback, stale requests and popup/pending guards. A sole-Pod
+case also checks the transition to Base preview while preserving assigned workers;
+browser regressions check the joined base screen and input after native consumption.
+Ten independently repeated [original join traces](ui/colony-join-contract.md)
+match display-free replay and real browser B/W/Tab. The declared initial city
+has one Doctor and nine stored minerals; this does not establish natural startup
+defaults or population limits. Run browser comparisons with
+`SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:colony-join`.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached

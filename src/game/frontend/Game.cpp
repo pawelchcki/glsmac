@@ -1565,12 +1565,15 @@ void Game::Initialize(
 								case input::K_SPACE: {
 									auto* unit = m_um->GetSelectedUnit();
 									if ( unit ) {
+										const auto unit_id = unit->GetId();
 										m_glsmac->WithGSE(
-											[ &game, &unit ]( GSE_CALLABLE ) {
-												auto* u = game->GetUM()->GetUnit( unit->GetId() );
+											[ game, unit_id ]( GSE_CALLABLE ) {
+												// A consumed unit can remain selected until its
+												// frontend despawn packet arrives. Ignore stale input.
+												if ( !game->GetUM() || !game->GetUM()->GetUnit( unit_id ) ) { return; }
 												game->Event(
 													GSE_CALL, "unit_skip_turn", {
-														{ "unit", u->Wrap( GSE_CALL ) },
+														{ "unit_id", VALUE( gse::value::Int,, unit_id ) },
 													}
 												);
 											}
@@ -1610,15 +1613,17 @@ void Game::Initialize(
 											foreign_units.insert( it );
 										}
 									}
+									const auto unit_id = selected_unit->GetId();
+									const auto target_coords = tile->GetCoords();
+									const auto defender_id = foreign_units.empty() ? size_t( 0 ) : tile::Tile::GetUnitsOrder( foreign_units ).front();
 									m_glsmac->WithGSE(
-										[ &game, &selected_unit, &tile, &foreign_units ]( GSE_CALLABLE ) {
+										[ game, unit_id, target_coords, defender_id ]( GSE_CALLABLE ) {
 											const auto* um = game->GetUM();
-											if ( foreign_units.empty() ) {
-												// move
-												auto* unit = um->GetUnit( selected_unit->GetId() );
-												const auto& c = tile->GetCoords();
-												auto* dst_tile = game->GetMap()->GetTile( c.x, c.y );
-												ASSERT( unit, "unit not found" );
+											if ( !um || !game->GetMap() ) { return; }
+											auto* unit = um->GetUnit( unit_id );
+											if ( !unit ) { return; }
+											auto* dst_tile = game->GetMap()->GetTile( target_coords.x, target_coords.y );
+											if ( !defender_id ) {
 												game->Event(
 													GSE_CALL, "move_unit", {
 														{ "unit", unit->Wrap( GSE_CALL ) },
@@ -1627,14 +1632,11 @@ void Game::Initialize(
 												);
 											}
 											else {
-												// attack
-												auto* attacker = um->GetUnit( selected_unit->GetId() );
-												ASSERT( attacker, "attacker unit not found" );
-												auto* defender = um->GetUnit( foreign_units.at( tile::Tile::GetUnitsOrder( foreign_units ).front() )->GetId() );
-												ASSERT( attacker, "defender unit not found" );
+												auto* defender = um->GetUnit( defender_id );
+												if ( !defender || defender->GetTile() != dst_tile ) { return; }
 												game->Event(
 													GSE_CALL, "attack_unit", {
-														{ "attacker", attacker->Wrap( GSE_CALL ) },
+														{ "attacker", unit->Wrap( GSE_CALL ) },
 														{ "defender", defender->Wrap( GSE_CALL ) },
 													}
 												);

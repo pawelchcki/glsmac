@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "name": "Original Colony Pod joining an owned base",
+  "description": "Four input-only actual B/W/Tab traces after declared companion commands; base starts with one Doctor, no worked tile, zero nutrients and nine minerals. No behavioral answers.",
+  "cases": [
+    {
+      "id": "colony-join-wait",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "wait",
+          "wait"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-skip",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "skip",
+          "skip"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-hold",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "hold",
+          "hold"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-join-sentry",
+      "algorithm": "game.colony_join_base.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "setup": [
+          "sleep",
+          "sleep"
+        ],
+        "actions": [
+          "join",
+          "wait",
+          "tab"
+        ]
+      }
+    }
+  ]
+}

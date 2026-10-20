@@ -180,6 +180,16 @@
       "id": "unit-sentry-activation",
       "cases": "cases/unit-sentry-activation.json",
       "observations": "observations/smacx-gog-2.0-unit-sentry-activation.json"
+    },
+    {
+      "id": "colony-join-core",
+      "cases": "cases/colony-join-core.json",
+      "observations": "observations/smacx-gog-2.0-colony-join-core.json"
+    },
+    {
+      "id": "colony-join-mixed",
+      "cases": "cases/colony-join-mixed.json",
+      "observations": "observations/smacx-gog-2.0-colony-join-mixed.json"
     }
   ]
 }

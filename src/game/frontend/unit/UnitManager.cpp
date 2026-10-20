@@ -165,7 +165,6 @@ void UnitManager::DespawnUnit( const size_t unit_id ) {
 
 	auto* unit = it->second;
 	const bool was_selected = m_selected_unit == unit;
-	m_selection.Forget( unit_id );
 	if ( was_selected ) {
 		DeselectUnit();
 	}
@@ -184,9 +183,16 @@ void UnitManager::DespawnUnit( const size_t unit_id ) {
 	ASSERT( m_selected_unit != unit, "unit still selected" );
 	delete unit;
 
-	if ( was_selected ) {
-		SelectNextUnitOrSwitchToTileSelection();
-	}
+	m_selection.Removed(
+		unit_id, was_selected, GetSelectionCandidates(),
+		[ this ]( size_t id ) {
+			if ( m_game->IsTurnActive() && !m_fresh_turn_selection ) {
+				SelectUnit( GetUnitById( id ), true );
+				m_game->ScrollToTile( m_selected_unit->GetTile(), true );
+			} else { m_game->SelectUnitOrSelectedTile( nullptr ); }
+		},
+		[ this ]() { m_game->SelectUnitOrSelectedTile( nullptr ); }
+	);
 	m_game->RefreshSelectedTile( m_selected_unit );
 }
 

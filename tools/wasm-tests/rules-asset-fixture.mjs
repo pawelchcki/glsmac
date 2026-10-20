@@ -42,7 +42,8 @@ Elite,Demon Boil
 
 // Synthetic source only; the normal asset store verifies its size and hash.
 export function syntheticNutrientRules(value, mineralValue = 10, worldRows = legacyWorldRows) {
-  const ruleRows = ['31', '41', '51,61', '71', '81', String(value), String(mineralValue), '0', '1', '-1'];
+  // RULES row zero is the road rate; keep this full-startup input valid.
+  const ruleRows = ['3', '41', '51,61', '71', '81', String(value), String(mineralValue), '0', '1', '-1'];
   while (ruleRows.length < 53) ruleRows.push('0');
   ruleRows.push('Gene', 'EcoEng', 'EnvEcon');
   return `#RULES\n${ruleRows.join('\n')}\n#END\n`

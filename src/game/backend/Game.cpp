@@ -458,6 +458,21 @@ WRAPIMPL_BEGIN( Game )
 			RollbackFoundBase( GSE_CALL, token, id );
 			return VALUE( gse::value::Undefined );
 		} ) },
+		{ "validate_join_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( base, 1, Int ); N_GETVALUE( caller, 2, Int );
+			const auto error = ValidateJoinBase( id, base, caller );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "join_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( base, 1, Int ); N_GETVALUE( caller, 2, Int );
+			return JoinBase( GSE_CALL, id, base, caller );
+		} ) },
+		{ "rollback_join_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object );
+			N_GETPROP( token, receipt, "transaction_id", Int ); N_GETPROP( id, receipt, "base_id", Int );
+			RollbackJoinBase( GSE_CALL, token, id );
+			return VALUE( gse::value::Undefined );
+		} ) },
 		{ "technologies", technology::WrapTable( GSE_CALL, m_technologies, this ) },
 		{ "geometry", map::tile::WrapGeometry( GSE_CALL ) },
 		{
@@ -842,6 +857,8 @@ void Game::GetReachableObjects( std::unordered_set< Object* >& reachable_objects
 	if ( m_map ) {
 		GC_REACHABLE( m_map );
 	}
+
+	for ( const auto& entry : m_joining_records ) { GC_REACHABLE( entry.second.base_identity ); }
 
 	GC_DEBUG_BEGIN( "events" );
 	{
@@ -1983,6 +2000,7 @@ void Game::ResetGame() {
 	}
 	m_next_event_id = 0;
 	m_founding_records.clear();
+	m_joining_records.clear();
 
 	m_tm = nullptr;
 	m_rm = nullptr;
