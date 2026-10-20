@@ -101,8 +101,9 @@ is replaced with a calculated answer.
 The default profile supplies forest (1,2,1), farm nutrient increment 1, the
 mine-without-road rule 1, and mine nutrient effect -1. The altered profile supplies
 forest (2,3,2), farm increment 2, mine rule 0 and mine nutrient effect 0. These are
-input coefficients, not resource answers. One synthetic technology independently
-gates the three original cap fields. Food and mineral cases cross the cap;
+input coefficients, not resource answers. All three original cap fields use the
+same declared synthetic technology and ownership mask. Independent token ownership
+is checked separately in application regressions. Food and mineral cases cross the cap;
 forest energy inputs are only 1 and 2, so the energy-cap boundary is unobserved.
 Two independent complete recordings agree. The reference SHA-256 is
 `cc5fb5ef8504865cef6271f0959d74956d841d9125df3671c23669f2f2acec3c`.
