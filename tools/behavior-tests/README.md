@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,024 scenarios and 7,012 assertions** across
-83 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,047 scenarios and 7,364 assertions** across
+84 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -35,6 +35,18 @@ bindings, facility and Colony Pod production, and technology/production snapshot
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `unit-source-transfer` suite mutates synthetic installed component records and
+executes shipped consumers, definition events and startup against native managers.
+Its 23 scenarios check names and definition codecs, movement on all three basic
+land units, civilian/conventional strength separation, armor, all seven standard
+and native morale labels, renamed/reordered component aliases, cost forwarding
+and detached results. Technology cases check actual native production choices
+and the opening project, including a renamed prerequisite and a nonmatching
+case variant. Terrain, coordinate draws, one selected owner, artwork/frontend
+delivery and base population initialization are controlled. These are application
+integration checks; the six independently recorded original inventory comparisons
+remain separate.
 
 The `turn-playability` suite exercises consecutive production event sequences,
 movement restoration, healing, completion/uncompletion and stale confirmation
