@@ -28,6 +28,22 @@ def suite():
                            'No graphics, label-timing, complete research, AI, terrain variation, multiple Formers or advanced abilities claim.', 'cases': cases}
 
 
+def basic_suite():
+    declared = suite()
+    declared['name'] = 'Held-out original Road and edited Forest work'
+    declared['description'] += ' Held-out subset recorded after the first work implementation: direct Road and edited Forest completion. No changes to work effects or expected answers in the observer.'
+    declared['cases'] = [case for case in declared['cases'] if case['id'] in ('former-road', 'former-forest-source')]
+    return declared
+
+
+def edge_suite():
+    declared = suite()
+    declared['name'] = 'Original Former task switching and improvement replacement'
+    declared['description'] += ' This subset records retained-progress task switching and accepted farm-to-forest replacement, without calculating their effects in the observer.'
+    declared['cases'] = [case for case in declared['cases'] if case['id'] in ('former-cancel-switch', 'former-farm-then-forest')]
+    return declared
+
+
 if __name__ == '__main__':
     declared = suite()
     directory = Path(__file__).with_name('cases')
@@ -35,3 +51,5 @@ if __name__ == '__main__':
     core = dict(declared, name='Original Former mine completion and farm cancellation/resume',
                 cases=[case for case in declared['cases'] if case['id'] in ('former-mine-source', 'former-farm-cancel-resume')])
     directory.joinpath('former-work-core.json').write_text(json.dumps(core, indent=2) + '\n')
+    directory.joinpath('former-work-basic.json').write_text(json.dumps(basic_suite(), indent=2) + '\n')
+    directory.joinpath('former-work-edge.json').write_text(json.dumps(edge_suite(), indent=2) + '\n')

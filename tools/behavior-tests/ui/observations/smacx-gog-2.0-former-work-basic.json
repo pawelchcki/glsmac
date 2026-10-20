@@ -1,0 +1,125 @@
+{
+  "captured_at": "2026-10-20T10:34:14.623117+00:00",
+  "observations": [
+    {
+      "case_sha256": "6476153f7cb8f72afaeb7cb3b379e28a731c46c97c840cbc3f2222b15d70b24e",
+      "id": "former-road",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": true
+            },
+            "work_units": 0,
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7cd529bc84dacd674c4d02e36a634bb2e7916b5583231c82f7c48d560b9dda70",
+      "id": "former-forest-source",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "forest",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": true,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": true,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 2
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f5befd12ea47767af71cc3033e4cc6dfd7eeba847fb168318191041d7ac3991b",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.former_work.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Synthetic flat arid 40x80 map, Gaians/Citizen/standard, UNIT1 input, held Scout, normal Former one tile east at MY2102, verified pause/tutorial preferences, displayed research defaults accepted and contact offers declined, terrain replacement and end-turn confirmations accepted",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual native vehicle order, road movement spent, work counter and four map improvement flags after real UI commands",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "2789e3ace3ad6aecefe09c61d0dfe4b24caef08459a3493dd66a7ddbe036c765",
+    "units": "Movement spent in thirds of a normal movement point; original work-counter units (two per observed full normal Former tick)"
+  },
+  "repeat": 2,
+  "suite_sha256": "313736c0b37b55bbbcb4843365d29d514e67749040c6a7a23bb3de03ee434cdb",
+  "version": 1
+}

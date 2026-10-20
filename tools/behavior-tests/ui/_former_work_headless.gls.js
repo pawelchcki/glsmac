@@ -1,5 +1,5 @@
 const fixture = #include('./_former_work_fixture');
-for (input of former_inputs) {
+const observe_case = (input) => {
 	#print('WORK_CASE|' + input.id);
 	try {
 		const f = fixture(input.profile); const initial = f.game.get_turn();
@@ -18,4 +18,5 @@ for (input of former_inputs) {
 		}
 		#print('WORK_DONE');
 	} catch { : (e) => { #print('WORK_ERROR|' + #to_string(e)); } }
-}
+};
+for (input of former_inputs) { observe_case(input); }

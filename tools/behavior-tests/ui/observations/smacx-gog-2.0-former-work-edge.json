@@ -1,0 +1,185 @@
+{
+  "captured_at": "2026-10-20T10:38:12.586950+00:00",
+  "observations": [
+    {
+      "case_sha256": "1fa5062c2c2a838df4246618d7351c3bf4aae0b0512304a1e78d15b08b6e5150",
+      "id": "former-cancel-switch",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "mine",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "mine",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 4,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 2,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "terrain": {
+              "farm": true,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": true,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 2
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "802e824efbf85345f80fe6398cf1934b4e7de798bb24d433011d86e493b9420b",
+      "id": "former-farm-then-forest",
+      "output": {
+        "trace": [
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "farm",
+            "terrain": {
+              "farm": false,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 2,
+            "year_delta": 0
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "terrain": {
+              "farm": true,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 1
+          },
+          {
+            "movement_spent": 0,
+            "order": "none",
+            "terrain": {
+              "farm": true,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 2
+          },
+          {
+            "movement_spent": 3,
+            "order": "forest",
+            "terrain": {
+              "farm": true,
+              "forest": false,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 2,
+            "year_delta": 2
+          },
+          {
+            "movement_spent": 3,
+            "order": "none",
+            "terrain": {
+              "farm": false,
+              "forest": true,
+              "mine": false,
+              "road": false
+            },
+            "work_units": 0,
+            "year_delta": 3
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f5befd12ea47767af71cc3033e4cc6dfd7eeba847fb168318191041d7ac3991b",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.former_work.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Synthetic flat arid 40x80 map, Gaians/Citizen/standard, UNIT1 input, held Scout, normal Former one tile east at MY2102, verified pause/tutorial preferences, displayed research defaults accepted and contact offers declined, terrain replacement and end-turn confirmations accepted",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual native vehicle order, road movement spent, work counter and four map improvement flags after real UI commands",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "source_profiles_sha256": "2789e3ace3ad6aecefe09c61d0dfe4b24caef08459a3493dd66a7ddbe036c765",
+    "units": "Movement spent in thirds of a normal movement point; original work-counter units (two per observed full normal Former tick)"
+  },
+  "repeat": 2,
+  "suite_sha256": "0b7c6250f6cb6367049fedb3f8d01203917b3a9c80a565e43c72d12441eb1895",
+  "version": 1
+}

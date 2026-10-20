@@ -1,8 +1,9 @@
 # Bounded Former work transfer
 
-`game.former_work.v1` has **two independently repeated original cases** in
-`catalog.json`. Both match strict native display-free candidate replay. They
-are included in the 611-case catalog; the original observations are unchanged.
+`game.former_work.v1` has **four independently repeated original cases** in
+`catalog.json`: two core cases and two held-out Road/Forest cases recorded after
+the first implementation. All match strict native display-free candidate replay
+and are included in the 613-case catalog. Existing observations are unchanged.
 
 The fixture starts a fresh original process for every case. It loads a synthetic
 40×80 flat arid land map, chooses Gaians/Citizen/standard rules, and adds a
@@ -13,8 +14,8 @@ contact offers declined. Replacement and end-turn confirmations are accepted
 only after recognizing their captions and choices. No executable or process
 memory is patched.
 
-The first case changes only four installed `TERRAIN` work-rate fields and
-observes mine work, completion and the following turn. The second retains the
+The first core case changes only four installed `TERRAIN` work-rate fields and
+observes mine work, completion and the following turn. The second core case retains the
 installed rates and observes farm work, next-turn progress, cancellation,
 same-year resume and completion. The observer reads the actual vehicle order,
 movement spent, work counter and four map flags through guarded read-only
@@ -22,6 +23,10 @@ native memory access. Movement spent uses thirds of a normal movement point;
 work units are the original counter, which increments by two in these observed
 full normal-Former ticks. Coordinates, random starting positions and unrelated
 AI state are omitted from the output.
+
+The held-out cases observe an immediate ordinary Road and the following turn,
+and an edited Forest order, completion and the following turn. They use the same
+original fixture and unchanged observer; both entire capture runs agree.
 
 The cancellation trace observes the work counter returning from four to two
 and movement spent returning from three to zero. Resuming in the same year
@@ -38,9 +43,9 @@ uses actual native units, tiles and `Game::AdvanceTurn`; only synthetic equivale
 installed inputs, initial placement and explicit turn acknowledgements are fixture
 boundaries. It loads no original assets, evidence answers or original adapter.
 The application also exposes four buttons, F/M/Shift+F/R and Activate cancellation.
-The optional `test:former-work` browser command replays both frozen checkpoint
+The optional `test:former-work` browser command replays all four frozen checkpoint
 sequences through the actual shortcuts, event transport, turns and terrain
-renderer on a declared synthetic 16×16 arid world. Both profiles also verify
+renderer on a declared synthetic 16×16 arid world. The profiles also verify
 source-based active order labels and clean engine exit. This adds application
 integration coverage, not original UI-label or map-generation observations.
 These observations establish no parity for rocky/moist/sea
@@ -51,12 +56,28 @@ factions, AI, research behavior, rendered work labels or the full game.
 # Evidence integrity; does not execute either application.
 python3 tools/behavior-tests/ui/run.py --suite former-work-core --validate-only
 
-# Strict native candidate replay of the original checkpoints.
-python3 tools/behavior-tests/ui/run.py --suite former-work-core
+# Strict native candidate replay of the four passing original checkpoints.
+python3 tools/behavior-tests/ui/run.py --suite former-work-core --suite former-work-basic
 ```
 
 `generate_former_work.py` declares eleven input sequences in `former-work.json`
-and the two-case recorded subset in `former-work-core.json`. The other nine
+and the two-case recorded subset in `former-work-core.json`. The held-out subset
+is in `former-work-basic.json`. Two additional repeated cases are frozen in
+`former-work-edge.json` and the pending catalog. The other five
 sequences have no accepted public observations yet. Recorder shape, synthetic
 input edits, evidence integrity and turn-resumption safety have Python tests.
 Private failed captures and screenshots are not reference evidence.
+
+The pending switch trace cancels a Mine from four to two work units, then
+immediately completes an edited four-unit Farm with the retained work. The
+pending replacement trace retains its existing Farm while Forest work is active
+and removes it when Forest completes. The candidate rejects both paths; strict
+replay reports **zero matches and two errors**. A per-case callable preserves
+both failures instead of letting the first caught GSE exception end the outer
+probe loop. These records do not establish transferred behavior or UI parity.
+
+```sh
+# Evidence integrity only, followed by the strict red candidate replay.
+python3 tools/behavior-tests/ui/run.py --pending --validate-only
+python3 tools/behavior-tests/ui/run.py --pending
+```

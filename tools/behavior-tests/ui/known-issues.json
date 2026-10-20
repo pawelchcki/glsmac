@@ -323,6 +323,23 @@
       "probe": "GLSMAC_data/tests/terraforming_native.gls.js",
       "first_failure": "get_terraforming is undefined on the native tile manager",
       "scope": "19 native scenarios verify guarded edits, detached state, owned frontend packets, sprite cleanup and RNG preservation. Two browser rule profiles exercise four live terrain edits, resource income, world and preview redraws, and clean shutdown. Bounded Former controls and automatic work progress now use this bridge."
+    },
+    {
+      "id": "former-work-edge",
+      "suite": "former-work-edge",
+      "property": "Original retained work transfers from a cancelled Mine to Farm, and accepted Forest replacement removes an existing Farm only on completion. The candidate currently rejects both sequences.",
+      "status": "recorded-awaiting-transfer",
+      "examples": [
+        "former-cancel-switch",
+        "former-farm-then-forest"
+      ],
+      "verification": {
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 2
+      },
+      "scope": "Two independently repeated original traces using the unchanged healthy normal Former/arid land fixture. Pending errors are excluded from the 613 passing comparisons. Candidate probe catches each case inside its own callable so one rejection cannot hide another case."
     }
   ],
   "verification": {

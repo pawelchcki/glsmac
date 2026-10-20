@@ -11,7 +11,7 @@ from protocol import ProtocolError
 from compare import validate_observations
 from ui.former_work_contract import ALGORITHM, RATE_PROFILES, RATE_ROWS, validate_input, validate_output
 from ui.former_work_sources import arid_map, block_rows, free_former, profiles, work_rates
-from ui.generate_former_work import suite
+from ui.generate_former_work import suite, basic_suite, edge_suite
 from ui import former_work_original as recorder
 from ui.former_work_headless import parse_candidate
 
@@ -44,6 +44,14 @@ class FormerCandidateProtocolTests(unittest.TestCase):
         self.assertEqual(row['status'], 'error')
         self.assertEqual(row['reason'], 'rejected by native state')
 
+    def test_preserves_independent_errors_for_every_case(self):
+        cases = self.cases + [dict(self.cases[0], id='second-witness')]
+        text = ('WORK_CASE|shape-witness\nWORK_ERROR|first rejection\n'
+                'WORK_CASE|second-witness\nWORK_ERROR|second rejection\nAll tests passed.\n')
+        rows = parse_candidate(text, cases)
+        self.assertEqual([row['status'] for row in rows], ['error', 'error'])
+        self.assertEqual([row['reason'] for row in rows], ['first rejection', 'second rejection'])
+
     def test_rejects_reordered_cases_and_unknown_markers(self):
         for value in (self.text.replace('shape-witness', 'another-case'), self.text.replace('WORK_DONE', 'WORK_UNKNOWN')):
             with self.assertRaises(ProtocolError):
@@ -51,6 +59,28 @@ class FormerCandidateProtocolTests(unittest.TestCase):
 
 
 class FormerWorkContractTests(unittest.TestCase):
+    def test_pending_switch_and_replacement_evidence_is_frozen_and_repeated(self):
+        directory = Path(__file__).parent / 'ui'
+        inputs = json.loads((directory / 'cases/former-work-edge.json').read_text())
+        evidence = json.loads((directory / 'observations/smacx-gog-2.0-former-work-edge.json').read_text())
+        self.assertEqual(inputs, edge_suite())
+        validate_observations(evidence, inputs)
+        self.assertGreaterEqual(evidence['repeat'], 2)
+        self.assertEqual({case['id'] for case in inputs['cases']}, {'former-cancel-switch', 'former-farm-then-forest'})
+        for case, observation in zip(inputs['cases'], evidence['observations'], strict=True):
+            validate_output(observation['output'], case['input']['actions'])
+
+    def test_held_out_road_and_forest_are_reproducible_and_bound_to_repeated_original_runs(self):
+        directory = Path(__file__).parent / 'ui'
+        inputs = json.loads((directory / 'cases/former-work-basic.json').read_text())
+        evidence = json.loads((directory / 'observations/smacx-gog-2.0-former-work-basic.json').read_text())
+        self.assertEqual(inputs, basic_suite())
+        self.assertEqual({case['id'] for case in inputs['cases']}, {'former-road', 'former-forest-source'})
+        validate_observations(evidence, inputs)
+        self.assertGreaterEqual(evidence['repeat'], 2)
+        for case, observation in zip(inputs['cases'], evidence['observations'], strict=True):
+            validate_input(case['input']); validate_output(observation['output'], case['input']['actions'])
+
     def test_public_inputs_are_reproducible_unique_and_bounded(self):
         declared = suite()
         self.assertEqual(declared, json.loads((Path(__file__).parent / 'ui/cases/former-work.json').read_text()))

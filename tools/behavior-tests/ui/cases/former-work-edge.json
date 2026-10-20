@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "name": "Original Former task switching and improvement replacement",
+  "description": "Fresh Gaians/Citizen/standard game on a synthetic 40x80 arid land map. A controlled UNIT1 bonus supplies one normal Former. Scout held; Former moves one east tile and waits for MY2102 before recording. Pause at end enabled, tutorials disabled, research defaults accepted and contact offers declined when interrupted. Terrain replacement and end-turn confirmations are explicitly accepted. Native unit order/work counter/movement-spent and four actual terrain flags are observed. Edited profile changes only four TERRAIN work rates. No graphics, label-timing, complete research, AI, terrain variation, multiple Formers or advanced abilities claim. This subset records retained-progress task switching and accepted farm-to-forest replacement, without calculating their effects in the observer.",
+  "cases": [
+    {
+      "id": "former-cancel-switch",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "mine",
+          "advance",
+          "cancel_work",
+          "farm",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-farm-then-forest",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "farm",
+          "advance",
+          "advance",
+          "forest",
+          "advance"
+        ]
+      }
+    }
+  ]
+}

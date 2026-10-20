@@ -255,7 +255,7 @@ def main(argv=None):
                 reference_command = startup_inventory_command(args)
             if reference['id'] == 'startup-inventory-sources':
                 reference_command = startup_inventory_command(args, sources=True)
-            if reference['id'] == 'former-work-core':
+            if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
                 reference_command = former_work_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
@@ -285,7 +285,7 @@ def main(argv=None):
                 candidate_command = startup_inventory_command(args)
             if command is not None and reference['id'] == 'startup-inventory-sources':
                 candidate_command = startup_inventory_command(args, sources=True)
-            if command is not None and reference['id'] == 'former-work-core':
+            if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge'):
                 candidate_command = former_work_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)

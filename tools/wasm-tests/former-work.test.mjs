@@ -12,8 +12,10 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const evidence = JSON.parse(readFileSync(new URL('../behavior-tests/ui/observations/smacx-gog-2.0-former-work-core.json', import.meta.url)));
-const cases = JSON.parse(readFileSync(new URL('../behavior-tests/ui/cases/former-work-core.json', import.meta.url))).cases;
+const references = ['former-work-core', 'former-work-basic'];
+const observations = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/observations/smacx-gog-2.0-${name}.json`, import.meta.url))).observations);
+const cases = references.flatMap(name => JSON.parse(readFileSync(new URL(`../behavior-tests/ui/cases/${name}.json`, import.meta.url))).cases);
+assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
 
 function terrain() {
   const width = 16, height = 16, count = width * height / 2, offset = 15 + 0xaa4;
@@ -173,7 +175,7 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     assert.ok(m && control); return {state: {year_delta: +m[1], order: m[2], movement_spent: +m[3], work_units: +m[4],
       terrain: Object.fromEntries(['road', 'farm', 'mine', 'forest'].map((name, i) => [name, m[i + 5] === 'true']))}, status: m[9], ready: control[1] === 'ready'};
   };
-  const expected = evidence.observations.find(o => o.id === input.id).output.trace;
+  const expected = observations.find(o => o.id === input.id).output.trace;
   assert.deepEqual((await probe()).state, expected[0]);
   for (const [index, action] of input.input.actions.entries()) {
     if (action === 'advance') {
@@ -193,7 +195,8 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
     }
   }
   const log = await page.locator('#log').textContent();
-  assert.match(log, input.input.profile === 'edited' ? /FW_LABEL\|Construct Mine/ : /FW_LABEL\|Cultivate Farm/);
+  const label = {mine: 'Construct Mine', farm: 'Cultivate Farm', forest: 'Plant Forest', road: 'NO ORDERS'}[input.input.actions[0]];
+  assert.ok(log.includes(`FW_LABEL|${label}`));
   await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`former-work-${input.id}.png`, artifacts))});
   await page.keyboard.press('k'); await wait('FW_EXITING');
   // Engine exit stops animation frames; observe the DOM lifecycle on a timer.

@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 611 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 613 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -66,7 +66,7 @@ guards, visible controls, authoritative results, labels and shortcuts. The
 first playable scope is one healthy ordinary Former on flat arid non-base land.
 Farm, Mine, Forest and Road buttons and F/M/Shift+F/R send authoritative commands;
 Activate cancels active work. Other terrain, partial moves, improvement replacement,
-switching unfinished tasks and cooperative work remain unsupported. Two independently repeated original
+switching unfinished tasks and cooperative work remain unsupported. Four independently repeated original
 work traces now match native display-free replay; see
 [the exact work contract](ui/former-work-contract.md). Additional action/control
 regressions are application tests, not additional original observations.
@@ -75,7 +75,7 @@ regressions are application tests, not additional original observations.
 SMAC_ASSETS_DIR=/path/to/installed/game npm --prefix tools/wasm-tests run test:former-work
 ```
 
-Both browser work traces use real shortcuts, native event transport and actual
+All four browser work traces use real shortcuts, native event transport and actual
 turn advancement on a declared small arid world, compare every frozen work
 checkpoint, check source order labels, save one final frame and exit the engine.
 
@@ -830,7 +830,8 @@ explicit exhausted-unit focus; the selected unit must now settle along with
 the native order and visible labels before another command is sent.
 See the [bounded order contract](ui/unit-orders-contract.md) and
 [transfer inventory](properties.json) for exclusions. The pending catalog is
-currently empty; future red probes remain separate and never count as matches.
+now contains two repeated original Former task-switch/replacement traces. Strict
+replay reports two errors; these remain separate from passing comparisons.
 
 ## Custom-dimension source and control transfer
 

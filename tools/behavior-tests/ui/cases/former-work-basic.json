@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "Held-out original Road and edited Forest work",
+  "description": "Fresh Gaians/Citizen/standard game on a synthetic 40x80 arid land map. A controlled UNIT1 bonus supplies one normal Former. Scout held; Former moves one east tile and waits for MY2102 before recording. Pause at end enabled, tutorials disabled, research defaults accepted and contact offers declined when interrupted. Terrain replacement and end-turn confirmations are explicitly accepted. Native unit order/work counter/movement-spent and four actual terrain flags are observed. Edited profile changes only four TERRAIN work rates. No graphics, label-timing, complete research, AI, terrain variation, multiple Formers or advanced abilities claim. Held-out subset recorded after the first work implementation: direct Road and edited Forest completion. No changes to work effects or expected answers in the observer.",
+  "cases": [
+    {
+      "id": "former-road",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "normal",
+        "actions": [
+          "road",
+          "advance"
+        ]
+      }
+    },
+    {
+      "id": "former-forest-source",
+      "algorithm": "game.former_work.v1",
+      "input": {
+        "profile": "edited",
+        "actions": [
+          "forest",
+          "advance",
+          "advance"
+        ]
+      }
+    }
+  ]
+}

@@ -283,10 +283,10 @@ Their historical v1 predecessors remain only in the provenance catalog.
 ## Bounded Former work state
 
 `game.former_work.v1` compares native work orders, movement spent in thirds,
-work counters and four improvement flags at every action checkpoint. Two
-independently repeated original traces cover edited mine completion and normal
-farm cancellation/resume on flat arid non-base land with one healthy ordinary
-Former. Both match the production work scripts, actual native unit/tile state
+work counters and four improvement flags at every action checkpoint. Four
+independently repeated original traces cover edited mine completion, normal
+farm cancellation/resume, ordinary Road and edited Forest completion on flat
+arid non-base land with one healthy ordinary Former. All match the production work scripts, actual native unit/tile state
 and native turn advancement without graphics or original assets. Synthetic
 equivalent installed declarations, initial placement and explicit turn
 acknowledgements are fixture inputs. They do not compute work effects.
