@@ -7,6 +7,25 @@ Emscripten's WebGL2 bindings into an offscreen canvas backed by
 On Linux the tests use Mesa's CPU renderer with no browser, display server,
 window, or GPU required. No original SMAC assets are needed.
 
+## Hot and stable application checks
+
+Run `npm --prefix tools/wasm-tests run test:hot` for the current PR/development
+lane. Run `test:stable` only on main after merge. Both use the existing strict
+behavior runners with an [explicit lane manifest](../behavior-tests/lanes.json),
+run groups sequentially and default to one worker (`-- --jobs 2` is the maximum).
+The default commands include no pixel browser tests. Optional rendered hot checks
+use `test:hot:browser` with the usual installed-assets/browser requirements.
+
+`test:lanes` lists catalog membership, pending transfer and unrecorded gaps without
+running a candidate. `python3 tools/behavior-tests/lanes.py --lane hot
+--validate-only` validates evidence integrity and labels candidate execution false;
+it does not establish candidate agreement. Pending strict red probes require
+explicit `--pending` / `--kind pending-ui`, and input-only gaps are not runnable.
+Legacy `test:fast`, `test:ui-parity`, `test:economy-parity` and `test:parity` commands
+still default to all catalogued IDs. Stable is the explicit catalog complement,
+not a claim of complete gameplay coverage. See the [lane commands and
+scope](../behavior-tests/README.md#hot-and-stable-lanes).
+
 ## Setup
 
 Use Node.js 22.16 or newer and [Emscripten](https://emscripten.org/docs/getting_started/downloads.html).

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "enabled": true,
+  "merge_methods": [
+    "merge",
+    "squash",
+    "rebase"
+  ],
+  "auto_merge": true,
+  "delete_branch_on_merge": true,
+  "admin_override": "none",
+  "github": {
+    "repository": {}
+  },
+  "rules": [
+    {
+      "id": "main",
+      "branches": {
+        "include": [
+          "main"
+        ],
+        "exclude": []
+      },
+      "require_pull_request": true,
+      "approvals": 0,
+      "dismiss_stale_reviews": true,
+      "code_owner_review": false,
+      "last_push_approval": false,
+      "resolve_conversations": true,
+      "require_up_to_date": true,
+      "required_checks": [
+        {
+          "name": "Hot tests",
+          "github_app_id": 15368
+        },
+        {
+          "name": "Runnerless / Main health",
+          "github_app_id": 4602759
+        },
+        {
+          "name": "Runnerless / Codex review",
+          "github_app_id": 4602759
+        }
+      ],
+      "prevent_force_push": true,
+      "prevent_deletion": true,
+      "linear_history": false,
+      "signed_commits": false,
+      "github": {
+        "rules": [],
+        "bypass_actors": []
+      }
+    }
+  ]
+}

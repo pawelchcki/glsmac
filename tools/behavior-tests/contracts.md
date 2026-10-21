@@ -308,6 +308,19 @@ consumption. Identical synthetic menu and TERRAIN declarations feed both apps.
 The [exact contract](ui/ingame-menus-contract.md) describes native state guards,
 normalization and display/event boundaries. Display-free replay executes the
 production GSE controls and native parser; the browser lane drives real pointer
-controls and SDL Escape. Row effects, accelerator binding, enabled semantics,
-other game contexts and complete menu/game parity remain unobserved. These
+controls and SDL Escape. This presentation contract excludes row effects,
+accelerator binding, enabled semantics, other game contexts and complete menu/game parity. These
 cases are separate from the native/WASM C++ helper totals.
+
+`ui.unit_menu_orders.v1` records six Action-menu source-slot command sequences
+under two synthetic source profiles, with thirty menu/native checkpoints and
+two independent original captures. Slots 26/29/30 observe Sentry/Hold/Skip and
+the subsequent Tab path. The [exact contract](ui/unit-menu-orders-contract.md)
+limits the claim to the declared healthy, unspent Scout and unchanged city/year.
+The frozen pre-fix candidate retains six mismatches and no probe errors. All six
+now match production/native display-free replay and actual browser pointer/SDL
+Tab controls. Fifteen application scenarios/91 assertions separately cover
+source identity, existing order handlers, native receipt authority, failed
+submissions, popup/pending guards and stale callbacks. Other initial selections
+and orders, including twelve input-only `ui.unit_menu_context.v1` sequences,
+remain an unrecorded hot gap and contribute no passing cases.

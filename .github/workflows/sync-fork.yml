@@ -1,0 +1,50 @@
+name: Sync original fork
+
+on:
+  workflow_run:
+    workflows: [Main CI]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    if: github.repository == 'pawelchcki/wasmsmac' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Merge the tested main revision into the linked fork
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_RUN: ${{ github.event.workflow_run.id }}
+          SYNC_DEPLOY_KEY: ${{ secrets.FORK_SYNC_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$SYNC_DEPLOY_KEY"
+          install -d -m 700 "$RUNNER_TEMP/sync-ssh"
+          printf '%s\n' "$SYNC_DEPLOY_KEY" > "$RUNNER_TEMP/sync-ssh/key"
+          chmod 600 "$RUNNER_TEMP/sync-ssh/key"
+          unset SYNC_DEPLOY_KEY
+          trap 'rm -f "$RUNNER_TEMP/sync-ssh/key"' EXIT
+          gh api meta --jq '.ssh_keys[] | "github.com " + .' > "$RUNNER_TEMP/sync-ssh/known_hosts"
+          export GIT_SSH_COMMAND="ssh -i $RUNNER_TEMP/sync-ssh/key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$RUNNER_TEMP/sync-ssh/known_hosts"
+          git config user.name 'wasmsmac sync'
+          git config user.email 'wasmsmac-sync@users.noreply.github.com'
+          git remote add linked-fork git@github.com:pawelchcki/glsmac.git
+          # Preserve both histories and never force-push. A newer sync can win a
+          # race; retry against its actual branch tip, or leave a visible conflict.
+          for attempt in 1 2 3; do
+            git fetch linked-fork in_webbrowser
+            git checkout --detach FETCH_HEAD
+            if git merge-base --is-ancestor "$SOURCE_SHA" HEAD; then
+              echo 'This revision is already linked.'
+              exit 0
+            fi
+            git merge --no-ff "$SOURCE_SHA" -m "Synced from wasmsmac $SOURCE_SHA" -m "Wasmsmac-CI: $SOURCE_RUN"
+            if git push linked-fork HEAD:refs/heads/in_webbrowser; then exit 0; fi
+          done
+          exit 1

@@ -129,7 +129,9 @@ return {
 	},
 
 	finish_unit_order: (e) => {
-		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id || e.data.unit_id != this.order_pending.unit_id) { return false; }
+		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id) { return false; }
+		if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id) || e.data.unit_id != this.order_pending.unit_id) { return false; }
+		if (!#is_defined(e.success) || #typeof(e.success) != 'Bool') { return false; }
 		const pending = this.order_pending; this.order_pending = null;
 		if (e.success && this.um.has_unit(pending.unit_id)) {
 			const unit = this.um.get_unit(pending.unit_id);

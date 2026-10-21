@@ -12,6 +12,7 @@ import sys
 import time
 
 import compare
+import lanes
 from protocol import ProtocolError, probe_request
 
 
@@ -70,11 +71,17 @@ def main(argv=None):
     parser.add_argument("--suite", action="append")
     parser.add_argument("--target", choices=("native", "wasm"), default="native")
     parser.add_argument("--validate-only", action="store_true", help="check evidence integrity without claiming candidate agreement")
-    parser.add_argument("--jobs", type=int, default=3)
+    parser.add_argument("--jobs", type=int)
     parser.add_argument("--timeout", type=float, default=60)
     parser.add_argument("--report", type=Path, default=DIRECTORY / ".build/parity-audit.json")
+    parser.add_argument("--lane", choices=lanes.LANES, default="all")
+    parser.add_argument("--list", action="store_true", help="list selected IDs without executing apps")
     args = parser.parse_args(argv)
+    if args.jobs is None:
+        args.jobs = 2 if args.lane != "all" else 3
     try:
+        if args.lane != "all" and args.jobs > 2:
+            raise ProtocolError("selected lanes support at most two workers")
         if not 1 <= args.jobs <= 16 or not 0 < args.timeout <= 300:
             raise ProtocolError("invalid worker count or timeout")
         references = load_references(args.catalog)
@@ -83,7 +90,12 @@ def main(argv=None):
             if unknown:
                 raise ProtocolError(f"unknown reference suites: {sorted(unknown)}")
             references = [reference for reference in references if reference["id"] in args.suite]
-        command = None if args.validate_only else shlex.join([
+        references = lanes.select("helper", references, args.lane)
+        if args.list:
+            for reference in references:
+                print(reference["id"])
+            return 0
+        command = None if args.validate_only or not references else shlex.join([
             sys.executable, str(DIRECTORY / "glsmac.py"), "--target", args.target,
         ])
         started = time.perf_counter()
@@ -94,7 +106,7 @@ def main(argv=None):
         if command is not None:
             for status in ("matched", "mismatched", "unsupported", "errors"):
                 summary[status] = sum(result["comparison"]["summary"][status] for result in results)
-        report = {"version": 1, "kind": "original-evidence-validation" if args.validate_only else "original-parity-audit",
+        report = {"version": 1, "lane": args.lane, "kind": "original-evidence-validation" if args.validate_only else "original-parity-audit",
                   "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
                   "summary": summary, "results": results}
         args.report.parent.mkdir(parents=True, exist_ok=True)

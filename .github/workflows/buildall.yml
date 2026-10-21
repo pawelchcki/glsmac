@@ -1,6 +1,7 @@
 name: GLSMAC autobuild
 
-on: [ push, pull_request ]
+on:
+  workflow_call:
 
 jobs:
   prepare:
@@ -25,9 +26,9 @@ jobs:
   scanbuild_ubuntu:
     runs-on: ubuntu-latest
     outputs:
-      bugs_found: ${{ steps.pack.bugs_found }}
+      bugs_found: ${{ steps.pack.outputs.bugs_found }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: install_dependencies
         run: |
           sudo apt-get update -qq
@@ -54,53 +55,11 @@ jobs:
           name: scanbuild-report
           path: scanbuild/scanbuild-report-${{ steps.pack.outputs.bugs_found }}-bugs.zip
           compression-level: 0
-  prerelease:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    needs: [ prepare, scanbuild_ubuntu, build_ubuntu, build_windows ]
-    steps:
-      - uses: dev-drprasad/delete-tag-and-release@v1.1
-        with:
-          tag_name: development
-          delete_release: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/download-artifact@v4
-      - name: release
-        uses: "ncipollo/release-action@v1"
-        with:
-          artifacts: "scanbuild-report/*,glsmac-ubuntu64/*,glsmac-win64/*"
-          tag: "development"
-          name: "${{ needs.prepare.outputs.ver }}-${{ needs.prepare.outputs.sha }}-dev"
-#          title: "development version"
-          prerelease: true
-  release:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/stable'
-    needs: [ prepare, scanbuild_ubuntu, build_ubuntu, build_windows ]
-    steps:
-      - uses: actions/download-artifact@v4
-      - name: release
-        uses: "ncipollo/release-action@v1"
-        with:
-          makeLatest: true
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          artifacts: "scanbuild-report/*,glsmac-ubuntu64/*,glsmac-win64/*"
-          tag: "${{ needs.prepare.outputs.ver }}-${{ needs.prepare.outputs.sha }}"
-          name: "${{ needs.prepare.outputs.ver }}-${{ needs.prepare.outputs.sha }}"
-#          title: "stable version"
-          commit: stable
-      - uses: dev-drprasad/delete-older-releases@v0.2.0
-        with:
-          keep_latest: 4
-          delete_tags: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build_ubuntu:
     needs: [ prepare ]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: install_dependencies
         run: |
           sudo apt-get update -qq
@@ -134,7 +93,7 @@ jobs:
     needs: [ prepare ]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: install_dependencies
         run: |
           choco install ninja

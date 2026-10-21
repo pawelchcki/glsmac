@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import audit
 import compare
 from economy.headless import DEFAULT_RUNTIME
+import lanes
 from protocol import ProtocolError
 
 
@@ -26,7 +27,11 @@ def main(argv=None):
     parser.add_argument("--jobs", type=int, default=2)
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--report", type=Path, default=DIRECTORY.parent / ".build/economy/parity.json")
+    parser.add_argument("--lane", choices=lanes.LANES, default="all")
+    parser.add_argument("--list", action="store_true", help="list selected IDs without executing apps")
     args = parser.parse_args(argv)
+    if args.lane != "all" and args.jobs > 2:
+        raise ProtocolError("selected lanes support at most two workers")
     if not 1 <= args.jobs <= 4 or not 0 < args.timeout <= 300:
         raise ProtocolError("invalid economy worker count or timeout")
     references = audit.load_references(DIRECTORY / "catalog.json")
@@ -35,6 +40,11 @@ def main(argv=None):
         if unknown:
             raise ProtocolError(f"unknown economy suites: {sorted(unknown)}")
         references = [reference for reference in references if reference["id"] in args.suite]
+    references = lanes.select("economy", references, args.lane)
+    if args.list:
+        for reference in references:
+            print(reference["id"])
+        return 0
     if args.case and len(references) != 1:
         raise ProtocolError("--case requires exactly one selected economy suite")
     def command_for(reference):
@@ -46,17 +56,17 @@ def main(argv=None):
     started = time.perf_counter()
     results = [audit.check_reference(reference, command_for(reference), args.timeout, directory=DIRECTORY, case_ids=args.case)
                for reference in references]
-    summary = {"reference_cases": sum(row["cases"] for row in results), "candidate_executed": not args.validate_only}
-    if not args.validate_only:
+    summary = {"reference_cases": sum(row["cases"] for row in results), "candidate_executed": not args.validate_only and bool(references)}
+    if summary["candidate_executed"]:
         for status in ("matched", "mismatched", "unsupported", "errors"):
             summary[status] = sum(row["comparison"]["summary"][status] for row in results)
     compare.write_json(args.report, {
-        "version": 1, "kind": "original-economy-evidence-validation" if args.validate_only else "original-economy-parity",
+        "version": 1, "lane": args.lane, "kind": "original-economy-evidence-validation" if args.validate_only else "original-economy-parity",
         "scope": "Bounded base-square and non-base land-worker NUTRIENTS/MINERALS/ENERGY; not complete terrain or base economy",
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2), "summary": summary, "results": results,
     }, overwrite=True)
     print(summary)
-    return 0 if args.validate_only else 2 if summary["errors"] else int(summary["mismatched"] > 0 or summary["unsupported"] > 0)
+    return 0 if not summary["candidate_executed"] else 2 if summary["errors"] else int(summary["mismatched"] > 0 or summary["unsupported"] > 0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,71 @@
+name: Linked fork Pages
+
+on:
+  push:
+    branches: [in_webbrowser]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  artifact:
+    if: github.repository == 'pawelchcki/glsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify the merge and successful source build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MERGE_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, re, subprocess
+          def api(path):
+              return json.loads(subprocess.check_output(['gh', 'api', path]))
+          merge = api('repos/pawelchcki/glsmac/git/commits/' + os.environ['MERGE_SHA'])
+          assert len(merge['parents']) == 2, 'Expected a sync merge commit'
+          source = merge['parents'][1]['sha']
+          assert merge['message'].splitlines()[0] == 'Synced from wasmsmac ' + source
+          run_id = re.search(r'^Wasmsmac-CI: ([1-9][0-9]*)$', merge['message'], re.M)
+          assert run_id, 'Missing source CI identity'
+          run = api('repos/pawelchcki/wasmsmac/actions/runs/' + run_id[1])
+          assert run['head_sha'] == source and run['head_branch'] == 'main'
+          assert run['path'] == '.github/workflows/wasm.yml'
+          assert run['head_repository']['full_name'] == 'pawelchcki/wasmsmac'
+          assert run['status'] == 'completed' and run['conclusion'] == 'success', 'Main CI must pass before deployment'
+          commit = api('repos/pawelchcki/wasmsmac/git/commits/' + source)
+          assert commit['tree']['sha'] == merge['tree']['sha'], 'Downstream edits require their own verified build'
+          artifacts = api('repos/pawelchcki/wasmsmac/actions/runs/' + run_id[1] + '/artifacts?per_page=100')['artifacts']
+          matches = [a for a in artifacts if a['name'] == 'github-pages' and not a['expired']]
+          assert len(matches) == 1, 'Expected one tested Pages artifact'
+          destination = pathlib.Path(os.environ['RUNNER_TEMP']) / 'source-pages.zip'
+          with destination.open('wb') as output:
+              subprocess.run(['gh', 'api', 'repos/pawelchcki/wasmsmac/actions/artifacts/' + str(matches[0]['id']) + '/zip'], stdout=output, check=True)
+          import tarfile, zipfile
+          with zipfile.ZipFile(destination) as archive:
+              assert archive.namelist() == ['artifact.tar']
+              with archive.open('artifact.tar') as stream, tarfile.open(fileobj=stream, mode='r|') as tar:
+                  tar.extractall('site', filter='data')
+          assert pathlib.Path('site/GLSMAC.wasm').read_bytes()[:4] == b'\0asm'
+          PY
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  pages:
+    needs: [artifact]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
+        id: deployment

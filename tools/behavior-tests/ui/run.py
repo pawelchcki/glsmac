@@ -11,6 +11,7 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import audit
 import compare
+import lanes
 from protocol import ProtocolError
 from ui.drivers import ROOT
 
@@ -305,6 +306,17 @@ def ingame_menu_command(args):
     return shlex.join(command)
 
 
+def unit_menu_orders_command(args):
+    if args.browser:
+        raise ProtocolError('Action-menu orders use native display-free replay; browser controls are checked separately')
+    name = 'unit_menu_orders_original.py' if args.record else 'unit_menu_orders_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-menu-orders-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -324,6 +336,8 @@ def main(argv=None):
     parser.add_argument("--step-timeout", type=float, help="settling deadline (browser 20s, otherwise 8s)")
     parser.add_argument("--timeout", type=float, default=600)
     parser.add_argument("--report", type=Path, default=DIRECTORY.parent / ".build/ui/parity.json")
+    parser.add_argument("--lane", choices=lanes.LANES, default="all")
+    parser.add_argument("--list", action="store_true", help="list selected IDs without executing apps")
     args = parser.parse_args(argv)
     rendered_cases = None
     if args.render_smoke:
@@ -338,6 +352,8 @@ def main(argv=None):
         args.jobs = 1 if args.browser else 2
     if args.step_timeout is None:
         args.step_timeout = 20 if args.browser else 8
+    if args.lane != "all" and args.jobs > 2:
+        raise ProtocolError("selected lanes support at most two workers")
     started = time.perf_counter()
     if (not 1 <= args.jobs <= 4 or not 0 < args.step_timeout <= 120 or not 0 < args.timeout <= 1800
             or args.force and not args.record):
@@ -350,8 +366,13 @@ def main(argv=None):
         if unknown:
             raise ProtocolError(f"unknown UI suites: {sorted(unknown)}")
         references = [reference for reference in references if reference["id"] in args.suite]
+    references = lanes.select("pending-ui" if args.pending else "ui", references, args.lane)
+    if args.list:
+        for reference in references:
+            print(reference["id"])
+        return 0
     command = None
-    if not args.validate_only and (args.record or args.browser):
+    if references and not args.validate_only and (args.record or args.browser):
         if not args.assets or not args.assets.is_dir():
             raise ProtocolError("set SMAC_ASSETS_DIR or --assets to a local original installation")
         command = shlex.join([sys.executable, str(DIRECTORY / "probe.py"),
@@ -359,11 +380,11 @@ def main(argv=None):
                               "--assets", str(args.assets.resolve()), "--wine", args.wine,
                               "--build", str(args.build.resolve()), "--jobs", str(args.jobs),
                               "--timeout", str(args.step_timeout)])
-    elif not args.validate_only:
+    elif references and not args.validate_only:
         command = shlex.join([sys.executable, str(DIRECTORY / "headless.py"), "--jobs", str(args.jobs)])
     if not references:
         command = None
-        print("No recorded contracts are currently pending transfer; apps not executed.", flush=True)
+        print("No contracts selected for this lane; apps not executed.", flush=True)
     # Reject missing/corrupt evidence or accidental overwrites before booting apps.
     for reference in references:
         suite = compare.read_json(DIRECTORY / reference["cases"])
@@ -440,6 +461,8 @@ def main(argv=None):
                 reference_command = base_rename_command(args)
             if reference['id'] == 'ingame-menus':
                 reference_command = ingame_menu_command(args)
+            if reference['id'] == 'unit-menu-orders':
+                reference_command = unit_menu_orders_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -498,6 +521,8 @@ def main(argv=None):
                 candidate_command = base_rename_command(args)
             if command is not None and reference['id'] == 'ingame-menus':
                 candidate_command = ingame_menu_command(args)
+            if command is not None and reference['id'] == 'unit-menu-orders':
+                candidate_command = unit_menu_orders_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -510,7 +535,7 @@ def main(argv=None):
         for status in ("matched", "mismatched", "unsupported", "errors"):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
-        "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
+        "version": 1, "lane": args.lane, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
         "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins, bounded citizen management opening, resource/allocation HUD labels, first-starvation notification controls including Escape/modifier/immediate suppression, bounded first-turn mineral credit, owned-base Rename controls and bounded in-game menu presentation/navigation; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
