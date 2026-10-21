@@ -13,11 +13,37 @@ const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const scriptsRoot = process.env.WASM_SCRIPTS_ROOT || root;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
-const cases = JSON.parse(readFileSync(new URL('../behavior-tests/ui/cases/unit-menu-context.json', import.meta.url))).cases
+const publicCasesPath = fileURLToPath(new URL('../behavior-tests/ui/cases/unit-menu-context.json', import.meta.url));
+const casesPath = process.env.UNIT_MENU_CONTEXT_CASES || publicCasesPath;
+const observationsPath = process.env.UNIT_MENU_CONTEXT_OBSERVATIONS || fileURLToPath(new URL('../behavior-tests/ui/observations/smacx-gog-2.0-unit-menu-context.json', import.meta.url));
+const cases = JSON.parse(readFileSync(casesPath)).cases
   .filter(row => !process.env.UNIT_MENU_CONTEXT_CASE || row.id === process.env.UNIT_MENU_CONTEXT_CASE);
 assert.ok(cases.length, 'The case selector must match declared public unit-menu inputs');
 assert.ok(cases.every(row => row.algorithm === 'ui.unit_menu_context.v1'), 'Only the bounded unit-menu contract is supported');
 const hash = value => createHash('sha256').update(value).digest('hex');
+
+// Explicit pilot paths narrow the declared suite, never the evidence checks.
+// The default still requires complete independently repeated full-suite gold.
+function loadEvidence() {
+  return JSON.parse(execFileSync('python3', ['-c', `
+import json, sys
+sys.path.insert(0, 'tools/behavior-tests')
+from compare import read_json, validate_observations
+from protocol import fingerprint, probe_request
+from ui.unit_menu_context_contract import validate_input, validate_output
+suite, record, public = [read_json(path) for path in sys.argv[1:]]
+declared = {case['id']: case for case in probe_request(public)['cases']}
+request = probe_request(suite)
+for case in request['cases']:
+    if case['id'] not in declared or fingerprint(case) != fingerprint(declared[case['id']]):
+        raise ValueError('Selected browser case differs from declared public input: ' + case['id'])
+    validate_input(case['input'])
+outputs = validate_observations(record, suite)
+for case in request['cases']:
+    validate_output(outputs[case['id']], case['input']['actions'])
+print(json.dumps(dict(outputs=outputs, cases=len(request['cases']), repeat=record['repeat'])))
+`, casesPath, observationsPath, publicCasesPath], {cwd: root, encoding: 'utf8', env: {...process.env, PYTHONDONTWRITEBYTECODE: '1'}}));
+}
 
 // Replace only the declared TERRAIN block in an opaque full startup document.
 // The fixture consumes no installed text as an expected menu observation.
@@ -42,6 +68,9 @@ function replaceOnce(source, marker, replacement) {
 
 // Retain actual native nodes solely for observation. Constructors, properties,
 // callbacks and input remain production code; no menu data enters this patch.
+// Factory success makes native children visible (Container::Factory). Native
+// Object has no visibility getter/events, so observe completed row Show/Hide
+// calls in plain records, without replacing native methods or properties.
 export function instrumentMenuNodes(scripts) {
   const path = 'GLSMAC_data/default/ui/parts/game/menu/menu.gls.js';
   let source = scripts[path];
@@ -53,6 +82,7 @@ export function instrumentMenuNodes(scripts) {
                     const record = {kind: kind}; record.el = node;
                     record.declared_class = #is_defined(props.class) ? props.class : '';
                     record.removed = false;
+                    record.visible = true;
                     record.is_removed = () => { return record.removed; };
                     node.on('remove', () => { record.removed = true; });
                     contract_nodes :+ record; return node;
@@ -61,7 +91,21 @@ export function instrumentMenuNodes(scripts) {
   source = source.replaceAll('menu.surface({', "observe_menu_node('surface', {")
     .replaceAll('menu.button({', "observe_menu_node('button', {");
   source = replaceOnce(source, "item.on('click', (e) => {", "item.on('click', (e) => {\n                        #print('UMENU_NATIVE_CLICK|' + (#is_defined(entry.source_index) ? #to_string(entry.source_index) : 'header') + '|' + entry.label);");
-  source = replaceOnce(source, 'result.el = menu;', 'result.el = menu; result.contract_nodes = contract_nodes;');
+  source = replaceOnce(source, 'result.el = menu;', `result.contract_observe_visibility = (node, visible) => {
+                    if (#typeof(visible) != 'Bool') { throw Error('Invalid observed native row visibility'); }
+                    let found = null;
+                    for (record of contract_nodes) {
+                        if (record.el == node) {
+                            if (found != null || record.is_removed()) { throw Error('Ambiguous or stale native row visibility identity'); }
+                            found = record;
+                        }
+                    }
+                    if (found == null) { throw Error('Unknown native row visibility identity'); }
+                    found.visible = visible;
+                };
+                result.el = menu; result.contract_nodes = contract_nodes;`);
+  source = replaceOnce(source, 'row.el.hide();', 'row.el.hide(); child.contract_observe_visibility(row.el, false);');
+  source = replaceOnce(source, 'row.el.show();', 'row.el.show(); child.contract_observe_visibility(row.el, true);');
   scripts[path] = source;
   const orders = 'GLSMAC_data/default/ui/parts/game/menu/unit_orders.gls.js';
   scripts[orders] = replaceOnce(scripts[orders], 'if (!preview.submit_unit_order(command))', "#print('UMENU_NATIVE_COMMAND|' + command);\n                                if (!preview.submit_unit_order(command))");
@@ -193,6 +237,9 @@ const main = String.raw`
       let row_count = 0;
       for (record of child.contract_nodes) {
        if (record.is_removed()) { throw Error('Stale removed browser child node'); }
+       if (#typeof(record.visible) != 'Bool') { throw Error('Unknown actual browser child visibility'); }
+       if (record.kind != 'button' && (record.kind != 'surface' || (record.declared_class != 'game-menu-separator' && record.declared_class != 'game-menu-top-border' && record.declared_class != 'game-menu-bottom-border'))) { throw Error('Unknown actual browser child node'); }
+       if (!record.visible) { continue; }
        const node = record.el;
        if (record.kind == 'button') {
         row_count++;
@@ -215,18 +262,21 @@ const main = String.raw`
         if (#is_defined(seen_slots[key])) { throw Error('Ambiguous actual Action source-slot identity'); }
         seen_slots[key] = true;
         let attached = false;
+        let visible = false;
         for (record of child.contract_nodes) {
          if (record.kind == 'button' && record.el == control.el) {
-          if (record.is_removed()) { throw Error('Removed actual Action source-slot control'); }
-          attached = true;
+          if (record.is_removed() || attached) { throw Error('Removed or ambiguous actual Action source-slot control'); }
+          attached = true; visible = record.visible;
          }
         }
         if (!attached) { throw Error('Action source identity is detached from actual mounted row'); }
         // Source-slot identity selects a real mounted node, never a command
         // or result. Center estimates still require its native hover event.
         const node = control.el;
-        watch('row-source-' + key, node, child.el.left + child.el.width / 2,
-          child.el.top + node.top + node.height / 2);
+        if (visible) {
+         watch('row-source-' + key, node, child.el.left + child.el.width / 2,
+           child.el.top + node.top + node.height / 2);
+        }
        }
       }
      }
@@ -263,10 +313,11 @@ for (const input of cases) test(`real Action-menu context commands match recorde
   skip: !assets && 'Requires installed SMAC assets', timeout: 240000,
 }, async t => {
   mkdirSync(artifacts, {recursive: true});
-  const evidence = JSON.parse(readFileSync(new URL('../behavior-tests/ui/observations/smacx-gog-2.0-unit-menu-context.json', import.meta.url))).observations;
-  const expected = evidence.find(row => row.id === input.id)?.output.trace;
-  assert.ok(expected, 'Independent immutable twelve-case original unit-menu context observations are required');
+  const evidence = loadEvidence();
+  const expected = evidence.outputs[input.id]?.trace;
+  assert.ok(expected, 'Independent immutable observations bound to the selected declared inputs are required');
   assert.equal(expected.length, input.input.actions.length + 1, 'Complete original checkpoints are required');
+  t.diagnostic(`Validated evidence: ${evidence.cases} declared cases, ${evidence.repeat} identical original runs; replaying ${cases.length} selected cases. Cases: ${casesPath}; observations: ${observationsPath}`);
   const scripts = Object.fromEntries(readdirSync(`${scriptsRoot}/GLSMAC_data/default`, {recursive: true}).filter(name => name.endsWith('.gls.js')).sort()
     .map(name => [`GLSMAC_data/default/${name}`, readFileSync(`${scriptsRoot}/GLSMAC_data/default/${name}`, 'utf8')]));
   t.diagnostic(`Uninstrumented production scripts SHA-256: ${hash(JSON.stringify(scripts))}`);
@@ -276,6 +327,7 @@ for (const input of cases) test(`real Action-menu context commands match recorde
   t.diagnostic(`WASM SHA-256: ${hash(readFileSync(`${build}/GLSMAC.wasm`))}`);
   t.diagnostic('Browser native guards cover all three declared unit IDs and origin-stack membership; the frontend unit API exposes no global unit enumeration. Full global membership is guarded separately by headless native inspect().');
   t.diagnostic('Action row targets come from actual child.items source_index bindings; each real pointer click requires a native hover event. Tab uses actual SDL delivery.');
+  t.diagnostic('Row visibility records successful production native Show/Hide calls by node identity. Hidden rows emit neither presentation rows nor pointer targets. This observes native visibility commands and real pointer delivery; it does not measure pixels, occlusion, clipping or independently read native visibility state.');
   t.diagnostic('Initial Scout focus must render its actual production name. Every checkpoint guards both production selected-unit IDs against native focus; later hover previews are independent of selection and outside this menu contract.');
   const declarations = JSON.parse(execFileSync('python3', ['-c', 'import json,sys; sys.path.insert(0,"tools/behavior-tests"); from ui.unit_menu_context_inputs import declarations; print(json.dumps(declarations(sys.argv[1])))', input.input.text_profile], {cwd: root, encoding: 'utf8', env: {...process.env, PYTHONDONTWRITEBYTECODE: '1'}}));
   const names = readdirSync(assets).filter(name => name.toLowerCase() === 'alphax.txt');

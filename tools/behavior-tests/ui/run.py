@@ -317,6 +317,17 @@ def unit_menu_orders_command(args):
     return shlex.join(command)
 
 
+def unit_menu_context_command(args):
+    if args.browser:
+        raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
+    name = 'unit_menu_context_original.py' if args.record else 'unit_menu_context_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-menu-context-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -463,6 +474,8 @@ def main(argv=None):
                 reference_command = ingame_menu_command(args)
             if reference['id'] == 'unit-menu-orders':
                 reference_command = unit_menu_orders_command(args)
+            if reference['id'] == 'unit-menu-context-former-sentry':
+                reference_command = unit_menu_context_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -523,6 +536,8 @@ def main(argv=None):
                 candidate_command = ingame_menu_command(args)
             if command is not None and reference['id'] == 'unit-menu-orders':
                 candidate_command = unit_menu_orders_command(args)
+            if command is not None and reference['id'] == 'unit-menu-context-former-sentry':
+                candidate_command = unit_menu_context_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

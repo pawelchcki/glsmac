@@ -900,13 +900,13 @@
     }
   ],
   "verification": {
-    "cases": 712,
-    "matched": 712,
+    "cases": 713,
+    "matched": 713,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Full display-free passing catalog; pending contracts are excluded and browser integration lanes are checked separately. Not full-game parity.",
+    "scope": "Passing catalog aggregates the previously verified contracts and one separately verified Former/Sentry pilot. Pending contracts and the full twelve-input context gap are excluded; browser integration lanes are checked separately. Not a new all-catalog run or full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -942,6 +942,8 @@
     "rendered_ingame_menu_cases": 12,
     "rendered_ingame_menu_matched": 12,
     "rendered_unit_menu_orders_cases": 6,
-    "rendered_unit_menu_orders_matched": 6
+    "rendered_unit_menu_orders_matched": 6,
+    "rendered_unit_menu_context_former_sentry_cases": 1,
+    "rendered_unit_menu_context_former_sentry_matched": 1
   }
 }

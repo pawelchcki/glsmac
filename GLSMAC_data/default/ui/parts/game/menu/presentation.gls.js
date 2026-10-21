@@ -32,6 +32,9 @@ return (id, source, terrain) => {
 		if (#is_defined(entry.separator)) { continue; }
 		// A text tone is presentation, not an implemented enabled-state rule.
 		entry.dark = id == 'TERRAFORM' || id == 'EDITOR' || (id == 'SCENARIO' && entry.source_index != 0);
+		// The observed ordinary land Former omits these additional Action
+		// source slots. Other unit types retain the existing projection.
+		entry.omit_for_former = id == 'ACTION' && (entry.source_index == 2 || entry.source_index == 8 || entry.source_index == 25);
 		items :+ entry;
 	}
 	const result = [];

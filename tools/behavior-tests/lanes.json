@@ -120,7 +120,8 @@
     "ui": {
       "hot": [
         "ingame-menus",
-        "unit-menu-orders"
+        "unit-menu-orders",
+        "unit-menu-context-former-sentry"
       ],
       "stable": [
         "road-network",
@@ -213,7 +214,7 @@
     {
       "id": "unit-menu-context",
       "cases": "ui/cases/unit-menu-context.json",
-      "reason": "Twelve input-only context traces; accepted full original evidence and strict transfer are not ready."
+      "reason": "Twelve declared context inputs remain a not-ready full-suite gap. The separate Former/Sentry pilot proves one input only; the complete original recording and full transfer are not ready."
     }
   ],
   "archived": [

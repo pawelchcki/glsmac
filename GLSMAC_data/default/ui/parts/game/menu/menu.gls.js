@@ -76,6 +76,7 @@ return {
 
 				let top = 0;
 				const items = [];
+				const rows = [];
 
 				const menu = p.ui.root.panel({
 					class: 'game-menu',
@@ -97,7 +98,8 @@ return {
 				for (e of entries) {
 					const entry = e; // TODO: fix
 					if (#is_defined(entry.separator) && entry.separator) {
-						menu.surface({class: 'game-menu-separator', top: top + row_height / 2});
+						const separator = menu.surface({class: 'game-menu-separator', top: top + row_height / 2});
+						const row = {}; row.entry = entry; row.el = separator; rows :+ row;
 						top += row_height;
 						continue;
 					}
@@ -108,6 +110,7 @@ return {
 					});
 					if (#is_defined(entry.dark) && entry.dark) { item.color = 'black'; }
 					const control = {}; control.entry = entry; control.el = item; items :+ control;
+					rows :+ control;
 					item.on('click', (e) => {
 						if (active_entry != null) {
 							if (#is_defined(active_entry.close)) {
@@ -140,6 +143,7 @@ return {
 				const result = {is_open: false, on_close: clear_active, clear_active: clear_active};
 				result.el = menu;
 				result.items = items;
+				result.rows = rows;
 				return result;
 			},
 		};
@@ -162,10 +166,12 @@ return {
 			const frame = this.menus.left_menu.el;
 			frame.listen(this.game, 'unit_select', (e) => {
 				this.selected_unit_id = e.unit.id + 0; this.selected_tile = null;
+				if (#is_defined(this.menus.left_menu_action) && this.menus.left_menu_action.is_open) { this.refresh_action(); }
 				if (#is_defined(this.menus.left_menu_terraform) && this.menus.left_menu_terraform.is_open) { this.refresh_terrain(); }
 			});
 			frame.listen(this.game, 'tile_select', (e) => {
 				this.selected_unit_id = null; this.selected_tile = e.tile;
+				if (#is_defined(this.menus.left_menu_action) && this.menus.left_menu_action.is_open) { this.refresh_action(); }
 				if (#is_defined(this.menus.left_menu_terraform) && this.menus.left_menu_terraform.is_open) { this.refresh_terrain(); }
 			});
 		}
@@ -197,6 +203,7 @@ return {
 			}
 		}
 		if (!#is_defined(child)) { throw Error('Unknown in-game child menu: ' + id); }
+		if (id == 'left_menu_action') { this.refresh_action(); }
 		if (id == 'left_menu_terraform') { this.refresh_terrain(); }
 		// Keep source-driven lists within the viewport. Exact artwork and
 		// original menu geometry are outside the navigation contract.
@@ -206,6 +213,27 @@ return {
 		if (top < 4) { top = 4; }
 		const left = this.menu_width;
 		this.open(id, {align: 'top left', left: left, top: top});
+	},
+
+	refresh_action: () => {
+		let former = false;
+		if (this.game != null && this.selected_unit_id != null) {
+			const units = this.game.get_um();
+			if (units.has_unit(this.selected_unit_id)) {
+				const unit = units.get_unit(this.selected_unit_id);
+				former = unit.def == 'Formers' && unit.is_land;
+			}
+		}
+		const child = this.menus.left_menu_action;
+		let top = 0;
+		for (row of child.rows) {
+			if (former && #is_defined(row.entry.omit_for_former) && row.entry.omit_for_former) { row.el.hide(); }
+			else {
+				row.el.top = top + (#is_defined(row.entry.separator) ? this.item_height / 2 : 0);
+				row.el.show(); top += this.item_height;
+			}
+		}
+		child.el.height = top;
 	},
 
 	refresh_terrain: () => {

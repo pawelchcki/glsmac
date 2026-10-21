@@ -57,10 +57,12 @@ on Tab. That strict report is retained separately as pre-fix evidence; no
 baseline discrepancy is exempted or counted as passing coverage.
 
 Production callbacks reuse the existing Sentry/Hold/Skip handlers and native
-selection delivery. Fifteen separate application scenarios/91 assertions check
+selection delivery. Seventeen separate application scenarios/253 assertions check
 source-slot identity, actual current selection, pending/duplicate submissions,
 malformed/unrelated/failed receipts, popup guards, switched headers and removed
-controls. These application regressions are separate from original observations.
+controls, the Former row projection and live Scout restoration. The edited-label
+Former case and live reselection are application regressions, separate from
+original observations.
 
 The six actual browser traces require native hover and exactly one clicked
 source identity before pointer parking, observe the emitted command and matching
@@ -71,8 +73,10 @@ rendered Scout selection is checked; later independent hover previews remain
 outside this contract. No click or command is retried based on the outcome.
 
 Twelve input-only `ui.unit_menu_context.v1` sequences declare other initial
-selections but have no accepted full original recording or passing transfer
-claim. They remain an unrecorded hot gap, outside these six Scout cases.
+selections but have no accepted full original recording or full-suite transfer
+claim. The separate [Former/Sentry pilot](unit-menu-context-former-sentry-contract.md)
+proves one input and counts once outside these six Scout cases; the complete
+twelve-input suite remains a not-ready HOT gap.
 
 The historical one-case pilot is retained unchanged for provenance and excluded
 from totals. Its earlier observer fingerprint is preserved in the pilot unit

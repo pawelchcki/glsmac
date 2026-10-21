@@ -130,11 +130,23 @@ independently, add Sentry, Hold and Skip source-slot clicks followed by Tab.
 The edited-label profile checks binding identity separately from display wording.
 All six match production/native display-free replay and actual browser pointer
 and SDL Tab controls at thirty complete menu/native checkpoints. The frozen
-pre-fix candidate baseline retains six mismatches and no probe errors. Fifteen
-separate application scenarios/91 assertions cover native receipt authority,
+pre-fix candidate baseline retains six mismatches and no probe errors. Seventeen
+separate application scenarios/253 assertions cover native receipt authority,
 failed submissions, popup/pending guards and stale callbacks. The observed
-contract covers the declared healthy, unspent Scout only; twelve input-only
-`unit-menu-context` sequences remain an unrecorded hot gap, outside passing counts.
+Scout contract covers the declared healthy, unspent Scout only. The separate
+[Former/Sentry pilot](unit-menu-context-former-sentry-contract.md) contributes one
+HOT case and six checkpoints, matching strict production/native replay and real
+browser controls. Its Former Action child has twenty rows, including four
+separators, with recorded source wording and light text tones. The complete
+twelve-input `unit-menu-context` suite remains a not-ready gap: the pilot proves
+one input, without establishing the other eleven or full context coverage.
+
+Run that single accepted browser pilot with
+`npm --prefix tools/wasm-tests run test:unit-menu-context-former-sentry` and the
+usual installed-assets/runtime environment. Its wrapper pins the public pilot
+paths and rejects conflicting case/evidence selectors. Optional `test:hot:browser`
+and `test:gameplay` include that wrapper; the full-context harness keeps its strict
+full-suite defaults.
 
 ## Contracts and boundaries
 
@@ -145,11 +157,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-712 passing cases, including eight independently repeated Sentry lifecycle
+713 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `ui.unit_menu_context.v1` (Former/Sentry pilot only) | 1 | One initial Tab to Former, twenty-row Action child, source-slot 26 Sentry and subsequent Tab; six complete checkpoints matching native replay and actual browser controls | Two identical independent complete original captures; full twelve-input suite remains not ready |
 | `ui.unit_menu_orders.v1` | 6 | Scout Action source slots 26/29/30 under two profiles, Sentry/Hold/Skip and subsequent Tab; 30 menu/native checkpoints matching native replay and actual browser controls | Actual original controls with native guards, each whole trace independently recorded twice |
 | `ui.ingame_menu_trace.v1` | 12 | Nine headers, source labels and edited title, row grouping/separators/text tones, child Escape, switching and MENU toggles; 63 native/visible checkpoints | Actual original controls and complete native guards, independently recorded twice |
 | `ui.base_rename.v1` | 11 | Actual Rename, raw native names, visible draft/title, cancel/confirm/reopen, 24-character input and common/expansion source precedence | Original controls with independent rendered/native guards; each whole capture repeated twice |
@@ -183,7 +196,7 @@ traces. This does not establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 712 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 713 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -292,11 +305,11 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 712 recorded cases now agree after production fixes to choices,
-selection, wrapping, cancellation, citizen jobs, bounded Scout orders and
+any failures. All 713 recorded cases now agree after production fixes to choices,
+selection, wrapping, cancellation, citizen jobs, bounded Scout orders, the single Former/Sentry pilot and
 in-game menu presentation/navigation. This
 does not cover Scenario child actions, custom-dimension limits or other unit
-types/orders. These totals remain separate from the
+types/orders beyond that pilot. These totals remain separate from the
 regression and helper-comparison catalogs. CI validates evidence and requires
 the strict headless parity check.
 

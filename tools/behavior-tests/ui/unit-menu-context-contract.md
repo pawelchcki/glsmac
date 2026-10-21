@@ -1,5 +1,11 @@
 # Action-menu context after Tab navigation
 
+The complete twelve-input suite remains a **not-ready gap**: there is no accepted
+full original recording or full-suite candidate agreement. The separate HOT
+[Former/Sentry pilot](unit-menu-context-former-sentry-contract.md) proves one
+synthetic input at six checkpoints and contributes one passing case. It does
+not supply evidence for the other eleven inputs or make this full suite ready.
+
 `ui.unit_menu_context.v1` declares twelve fresh-game sequences with the same
 healthy unspent stacked Scout, Former and Colony Pod and one-Doctor city as
 `ui.unit_menu_orders.v1`. One or two initial real Tab presses precede MENU,
