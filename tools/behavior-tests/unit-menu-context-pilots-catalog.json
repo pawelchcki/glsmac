@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "directory": "ui",
+  "references": [
+    {
+      "id": "unit-menu-context-former-sentry",
+      "cases": "cases/unit-menu-context-former-sentry.json",
+      "observations": "observations/smacx-gog-2.0-unit-menu-context-former-sentry.json"
+    },
+    {
+      "id": "unit-menu-context-colony-sentry",
+      "cases": "cases/unit-menu-context-colony-sentry.json",
+      "observations": "observations/smacx-gog-2.0-unit-menu-context-colony-sentry.json"
+    },
+    {
+      "id": "unit-menu-context-former-hold",
+      "cases": "cases/unit-menu-context-former-hold.json",
+      "observations": "observations/smacx-gog-2.0-unit-menu-context-former-hold.json"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 712 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 724 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -35,10 +35,14 @@ npm --prefix tools/wasm-tests run test:lanes
 python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 ```
 
-Hot contains the `unit-menu-orders`, `ingame-menu`, `ui-interactions` and
-`game-modal-input` regression suites (96 scenarios/597 assertions), plus
-`ingame-menus` and `unit-menu-orders` original UI replay (18 recorded cases).
-Stable contains the explicit complement: 106 regression suites, 44 UI references
+Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
+`ui-interactions`, `game-modal-input`, `world-single-player-setup`,
+`natural-first-city-lifecycle`, `base-growth-worker-links` and
+`base-growth-regression` regression suites
+(123 scenarios/1,095 assertions), plus
+`ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
+(30 recorded cases across three references).
+Stable contains the explicit complement: 104 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
 on main; PR checks run hot and consult the latest main stable result. CI trigger
@@ -54,8 +58,10 @@ Any executed mismatch, unsupported result, error or failed suite returns nonzero
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
 
-Two recorded `base-open-recalc` cases are **pending transfer**, outside default
-passing release groups. Their explicit strict red replay remains available:
+Two recorded `base-open-recalc` cases, one
+[`world-base-ownership`](ui/world-base-ownership-contract.md) case and six
+[natural-first-city](ui/natural-first-city-contract.md) cases are **pending transfer**, outside default passing release groups. Their explicit strict red
+replay remains available:
 
 ```sh
 python3 tools/behavior-tests/lanes.py --lane hot --pending
@@ -63,10 +69,28 @@ python3 tools/behavior-tests/lanes.py --lane hot --pending
 python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
 ```
 
-Twelve `unit-menu-context` input-only cases are a **not-ready gap** and cannot
-execute through the lane dispatcher. Both pending and gap inventories appear in
-`--list`, `--validate-only` and report metadata without contributing to passing
-counts. Four historical factor-v1 helper references are archived metadata with
+The ownership recording observes seven owners with one base each after the
+declared first-city setup. Its candidate uses the actual production
+single-player initializer and queued world startup; the initializer currently
+fills only the human slot. Computer controllers and later turns remain gaps.
+This pending comparison adds no passing original cases.
+
+The natural first-city probe executes native configure/create_world, InitComplete,
+FirstTurn and the settled host queue with shipped mechanical modules. The preserved baseline created
+one Worker and one worked tile with zero stored minerals; stock original
+recordings at all six difficulties have one specialist, no worked tiles and a
+raw mineral field of nine. All six cases now match population
+and worker state after the growth fix; the mineral field remains pending.
+Automatic growth now uses a Doctor when no legal vacant tile has a positive
+resource score. Verification of the bounded change is separate from the full
+strict pending case, which adds no passing original cases.
+
+The complete twelve-input `unit-menu-context` reference is HOT and supersedes
+three archived pilots. Their case/evidence files remain unchanged and receive
+static integrity validation without duplicate passing counts. The active UI
+catalog has 47 references and 724 cases. Pending base recalculation remains a
+strict red comparison outside passing totals. Four historical factor-v1
+helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
 
 ## Fast parallel gameplay and UI checks
@@ -78,8 +102,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,401 scenarios and 9,562 assertions** across
-110 suites. It exercises production movement/combat/spawn events, deterministic
+The full regression catalog contains **1,419 scenarios and 10,011 assertions** across
+113 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -102,11 +126,24 @@ match display-free native replay and actual browser controls at thirty complete
 checkpoints. In the declared healthy, unspent Scout fixture, source slots
 26/29/30 apply Sentry/Hold/Skip, advance selection to the Former while retaining
 the root menu, and Tab selects the Colony Pod while closing the root. Both
-synthetic and edited-label profiles preserve source identity. Fifteen separate
-application scenarios/91 assertions cover shared handlers, native receipt
+synthetic and edited-label profiles preserve source identity. Nineteen separate
+application scenarios/443 assertions cover shared handlers, native receipt
 authority, failed submissions, popup/pending guards and stale callbacks.
-Other unit/initial-order contexts, other rows and turn effects remain unobserved;
-the twelve input-only context traces remain an unrecorded hot gap.
+A separate `unit-menu-context-orders` HOT suite adds one native Former/Hold
+restoration scenario/11 assertions in a fresh worker. Combining all twenty
+fixtures exceeded the frozen WASM runtime's 2 GiB limit during exit; the strict
+failure is retained. The split preserves every assertion and changes no runtime
+limit or production code; it does not establish a product memory-leak cause.
+The complete [Action-menu context reference](ui/unit-menu-context-contract.md)
+contains twelve independently repeated inputs and 78 complete checkpoints:
+Former and Colony Sentry/Hold/Skip under synthetic and edited source wording.
+All twelve match strict current-production/native replay. Five selected context
+cases have actual browser pointer/SDL verification; this does not claim a full
+twelve-case rendered replay. The Former/Colony Action children retain twenty and
+twenty-two rows with observed light source labels and four/five separators.
+The full reference supersedes three immutable pilots: nine additional inputs
+are counted, with no duplicate pilot passes. Other rows, initial orders, spent
+movement, active work and turn effects remain outside the contract.
 
 The `native-input-state` suite adds seven scenarios/41 assertions for the shared
 production text-edit state used by real UI fields and display-free replay.

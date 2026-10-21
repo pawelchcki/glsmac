@@ -141,6 +141,22 @@ def startup_inventory_command(args, sources=False):
     return shlex.join(command)
 
 
+def world_base_ownership_command(args):
+    if args.browser:
+        raise ProtocolError('World ownership uses native display-free replay; no rendered ownership contract is recorded')
+    if args.record:
+        raise ProtocolError('World ownership evidence is recorded separately with the fingerprinted original adapter')
+    return shlex.join([sys.executable, str(DIRECTORY / 'world_base_ownership_headless.py')])
+
+
+def natural_first_city_command(args):
+    if args.browser:
+        raise ProtocolError('Natural first-city uses native display-free replay; no rendered contract is recorded')
+    if args.record:
+        raise ProtocolError('Natural first-city evidence is recorded separately with the fingerprinted original adapter')
+    return shlex.join([sys.executable, str(DIRECTORY / 'natural_first_city_headless.py')])
+
+
 def former_work_command(args):
     if args.browser:
         raise ProtocolError('Former work effects use native display-free replay; rendered controls are checked separately')
@@ -317,6 +333,23 @@ def unit_menu_orders_command(args):
     return shlex.join(command)
 
 
+def unit_menu_context_command(args, paced=False, message=False, saved=False):
+    if args.browser:
+        raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
+    if sum([paced, message, saved]) > 1:
+        raise ProtocolError('Choose one original unit-menu context observer')
+    original = ('unit_menu_context_saved_original.py' if saved else
+                'unit_menu_context_message_original.py' if message else ('unit_menu_context_paced_original.py' if paced else 'unit_menu_context_original.py'))
+    name = original if args.record else 'unit_menu_context_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-menu-context-original')]
+        if saved:
+            command += ['--child']
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -431,6 +464,10 @@ def main(argv=None):
                 reference_command = startup_inventory_command(args)
             if reference['id'] == 'startup-inventory-sources':
                 reference_command = startup_inventory_command(args, sources=True)
+            if reference['id'] == 'world-base-ownership':
+                reference_command = world_base_ownership_command(args)
+            if reference['id'] == 'natural-first-city':
+                reference_command = natural_first_city_command(args)
             if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 reference_command = former_work_command(args)
             if reference['id'] == 'former-movement':
@@ -463,6 +500,14 @@ def main(argv=None):
                 reference_command = ingame_menu_command(args)
             if reference['id'] == 'unit-menu-orders':
                 reference_command = unit_menu_orders_command(args)
+            if reference['id'] == 'unit-menu-context':
+                reference_command = unit_menu_context_command(args, saved=True)
+            if reference['id'] == 'unit-menu-context-former-sentry':
+                reference_command = unit_menu_context_command(args)
+            if reference['id'] == 'unit-menu-context-colony-sentry':
+                reference_command = unit_menu_context_command(args, paced=True)
+            if reference['id'] == 'unit-menu-context-former-hold':
+                reference_command = unit_menu_context_command(args, message=True)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -491,6 +536,10 @@ def main(argv=None):
                 candidate_command = startup_inventory_command(args)
             if command is not None and reference['id'] == 'startup-inventory-sources':
                 candidate_command = startup_inventory_command(args, sources=True)
+            if command is not None and reference['id'] == 'world-base-ownership':
+                candidate_command = world_base_ownership_command(args)
+            if command is not None and reference['id'] == 'natural-first-city':
+                candidate_command = natural_first_city_command(args)
             if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 candidate_command = former_work_command(args)
             if command is not None and reference['id'] == 'former-movement':
@@ -523,6 +572,14 @@ def main(argv=None):
                 candidate_command = ingame_menu_command(args)
             if command is not None and reference['id'] == 'unit-menu-orders':
                 candidate_command = unit_menu_orders_command(args)
+            if command is not None and reference['id'] == 'unit-menu-context':
+                candidate_command = unit_menu_context_command(args, saved=True)
+            if command is not None and reference['id'] == 'unit-menu-context-former-sentry':
+                candidate_command = unit_menu_context_command(args)
+            if command is not None and reference['id'] == 'unit-menu-context-colony-sentry':
+                candidate_command = unit_menu_context_command(args, paced=True)
+            if command is not None and reference['id'] == 'unit-menu-context-former-hold':
+                candidate_command = unit_menu_context_command(args, message=True)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

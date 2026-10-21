@@ -78,7 +78,7 @@ struct ProductionFixture : gc::Object {
 	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
 
-	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4 ) : gc::Object( nullptr ) {
+	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4, size_t startup_map_height = 0 ) : gc::Object( nullptr ) {
 		game.Start();
 		{
 			// FixtureObject roots the native graph explicitly. Native managers are
@@ -88,10 +88,20 @@ struct ProductionFixture : gc::Object {
 			game.SetState( state );
 			game.m_bm = new backend::base::BaseManager( &game, false );
 			game.m_map = new backend::map::Map( &game, false );
-			backend::map::tile::Tiles tiles( nullptr, fixture_map_size, fixture_map_size );
+			backend::map::tile::Tiles tiles( nullptr, fixture_map_size, startup_map_height ? startup_map_height : fixture_map_size );
 			tiles.Clear();
 			auto terrain = tiles.Serialize();
 			if ( game.m_map->LoadFromBuffer( terrain ) != backend::map::Map::EC_NONE ) { THROW( "fixture terrain failed" ); }
+			if ( startup_map_height ) {
+				// Empty participant/entity graph. The caller configures native factions
+				// and invokes State's actual single-player initializer before startup.
+				game.m_tm = new backend::map::tile::TileManager( &game, false );
+				game.m_rm = new backend::resource::ResourceManager( &game, false );
+				game.m_um = new backend::unit::UnitManager( &game, false );
+				game.m_game_state = backend::Game::GS_RUNNING;
+				game.m_current_turn.AdvanceTurn( 1 );
+				return;
+			}
 			state->GetFM()->Add( new backend::faction::Faction( "SYNTHETIC", "Synthetic" ) );
 			owner = std::make_unique< backend::Player >( "Fixture", backend::Player::PR_SINGLE, state->GetFM()->Get( "SYNTHETIC" ), "Citizen" );
 			state->m_slots->Resize( 2 );
@@ -150,6 +160,75 @@ struct ProductionFixture : gc::Object {
 		delete rm;
 		delete state;
 		state = nullptr;
+	}
+	backend::slot::Slot* InitializeSinglePlayer( GSE_CALLABLE, const std::string& faction_id, const std::string& difficulty = "Citizen" ) {
+		if ( state->m_slots->GetCount() || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			GSE_ERROR( EC.INVALID_CALL, "Single-player initialization requires an empty world" );
+		}
+		auto* faction = state->GetFM()->Get( faction_id );
+		if ( !faction ) { GSE_ERROR( EC.INVALID_CALL, "Unknown startup faction" ); }
+		const auto difficulty_value = state->m_settings.global.rules.m_difficulty_levels.GetValue( GSE_CALL, difficulty );
+		state->m_settings.global.Initialize();
+		state->m_settings.global.difficulty_level = difficulty_value;
+		state->m_settings.global.map.SelectWorldSize( game.m_map->GetWidth(), game.m_map->GetHeight(), 2 );
+		state->AddSinglePlayerSlot( faction );
+		game.m_slot_num = 0;
+		game.m_slot = &state->m_slots->GetSlot( 0 );
+		game.m_player = game.m_slot->GetPlayer();
+		return game.m_slot;
+	}
+	void DrainStartupEvents( GSE_CALLABLE ) {
+		for ( size_t drain = 0; !game.m_pending_events.empty(); ++drain ) {
+			if ( drain >= 1000 ) { GSE_ERROR( EC.INVALID_CALL, "Startup event queue did not settle" ); }
+			Process();
+		}
+	}
+	void PrepareNaturalStartup( const std::string& terrain ) {
+		backend::map::tile::moisture_t moisture;
+		if ( terrain == "flat-arid" ) { moisture = backend::map::tile::MOISTURE_ARID; }
+		else if ( terrain == "flat-moist" ) { moisture = backend::map::tile::MOISTURE_MOIST; }
+		else if ( terrain == "flat-rainy" ) { moisture = backend::map::tile::MOISTURE_RAINY; }
+		else { THROW( "Unknown declared natural-startup terrain" ); }
+		// Only declared map inputs change here. There are no participants, bases,
+		// citizens, resource stores or starting units to copy into this world.
+		if ( state->m_slots->GetCount() || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			THROW( "Natural-startup terrain requires an empty world" );
+		}
+		for ( size_t y = 0; y < game.m_map->GetHeight(); ++y ) {
+			for ( size_t x = y % 2; x < game.m_map->GetWidth(); x += 2 ) {
+				auto* tile = game.m_map->GetTile( x, y );
+				tile->moisture = moisture;
+				tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+				tile->bonus = tile->features = tile->terraforming = 0;
+				// Native lowland height; exact contour conversion is outside this contract.
+				for ( auto* corner : tile->elevation.corners ) { *corner = 200; }
+			}
+		}
+		for ( size_t y = 0; y < game.m_map->GetHeight(); ++y ) {
+			for ( size_t x = y % 2; x < game.m_map->GetWidth(); x += 2 ) { game.m_map->GetTile( x, y )->Update(); }
+		}
+		game.m_current_turn.Reset();
+		game.m_game_state = backend::Game::GS_NONE;
+	}
+	void RunNaturalStartup( GSE_CALLABLE ) {
+		if ( game.m_game_state != backend::Game::GS_NONE || !game.m_player ||
+			!game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			GSE_ERROR( EC.INVALID_CALL, "Natural startup requires configured participants and an unstarted empty world" );
+		}
+		state->TriggerObject( &game, "configure", ARGS_F( this ) { { "game", game.Wrap( GSE_CALL ) } }; } );
+		for ( const auto* name : { "spawn_base", "spawn_unit", "advance_turn", "process_base_growth", "add_base_pop" } ) {
+			if ( !game.m_event_handlers.count( name ) ) { GSE_ERROR( EC.INVALID_CALL, "Natural startup handler is missing: " + std::string( name ) ); }
+		}
+		// The map is a declared input, so only rendering/map generation are
+		// supplied. Execute the same native post-map lifecycle as Game::Iterate.
+		game.m_game_state = backend::Game::GS_STARTING;
+		state->TriggerObject( &game, "create_world", ARGS_F( this ) { { "game", game.Wrap( GSE_CALL ) } }; } );
+		game.InitComplete( GSE_CALL );
+		if ( !game.IsRunning() ) { GSE_ERROR( EC.INVALID_CALL, "Native natural startup did not reach the running state" ); }
+		game.FirstTurn( GSE_CALL );
+		DrainStartupEvents( GSE_CALL );
+		game.CheckTurnComplete();
+		Flush( GSE_CALL );
 	}
 	void WithWrite( const std::function< void() >& callback ) { game.WithRW( callback ); }
 	void EnableMovement( GSE_CALLABLE ) {
@@ -1231,6 +1310,56 @@ static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	object->Set( "game", f->game.Wrap( GSE_CALL ), GSE_CALL );
 	object->Set( "base", f->base->Wrap( GSE_CALL ), GSE_CALL );
 	object->Set( "owner", f->owner->Wrap( GSE_CALL ), GSE_CALL );
+}
+
+Value* MakeWorldStartupFixture( GSE_CALLABLE, size_t width, size_t height ) {
+	const auto session = std::make_shared< ProductionSession >();
+	session->current = std::make_shared< ProductionFixture >( GSE_CALL, false, false, "", width, height );
+	auto* object = new FixtureObject( GSE_CALL, session );
+	object->Set( "game", session->current->game.Wrap( GSE_CALL ), GSE_CALL );
+	object->Set( "fm", session->current->state->GetFM()->Wrap( GSE_CALL ), GSE_CALL );
+	object->Set( "colors", VALUEEXT( value::Object, GSE_CALL, ( value::object_properties_t {
+		{ "text", types::Color( 1.0f, 1.0f, 1.0f ).Wrap( GSE_CALL ) },
+		{ "text_shadow", types::Color( 0.0f, 0.0f, 0.0f ).Wrap( GSE_CALL ) },
+		{ "border", types::Color( 0.0f, 1.0f, 0.0f ).Wrap( GSE_CALL ) },
+	} ) ), GSE_CALL );
+	object->Set( "initialize_single_player", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( faction_id, 0, String );
+		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "with_write", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GET_CALLABLE( callback, 0 ); Value* result = nullptr;
+		session->current->WithWrite( [ & ]() { result = callback->Run( GSE_CALL, {} ); } );
+		return result;
+	} ), GSE_CALL );
+	object->Set( "process_events", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->DrainStartupEvents( GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	return object;
+}
+
+Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, const std::string& terrain ) {
+	auto* object = static_cast< FixtureObject* >( MakeWorldStartupFixture( GSE_CALL, width, height ) );
+	const auto session = object->session;
+	session->current->PrepareNaturalStartup( terrain );
+	object->Set( "initialize_single_player", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS_MIN_MAX( 1, 2 ); N_GETVALUE( faction_id, 0, String );
+		std::string difficulty = "Citizen";
+		if ( arguments.size() == 2 ) { N_GETVALUE( selected, 1, String ); difficulty = selected; }
+		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id, difficulty )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "get_player_difficulty", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		if ( !session->current->state->m_slots->GetCount() ) { GSE_ERROR( EC.INVALID_CALL, "Natural startup has no initialized player" ); }
+		const auto* player = session->current->game.GetPlayer();
+		return VALUE( value::String,, player->GetDifficultyLevel() );
+	} ), GSE_CALL );
+	object->Set( "start_world", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->RunNaturalStartup( GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	return object;
 }
 
 Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const std::string& initial_base_name, size_t fixture_map_size ) {

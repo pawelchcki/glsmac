@@ -657,26 +657,10 @@ void GLSMAC::RandomizeSettings( GSE_CALLABLE ) {
 }
 
 void GLSMAC::AddSinglePlayerSlot( game::backend::faction::Faction* const faction, const bool name_confirmed ) {
-	m_state->m_slots->Resize( 7 ); // TODO: make dynamic?
 	const auto& rules = m_state->m_settings.global.rules;
 	const auto& difficulty = rules.m_difficulty_levels.GetString( m_state->m_settings.global.difficulty_level );
 	Log( "Single-player setup: faction=" + ( faction ? faction->m_id : "RANDOM" ) + ", difficulty=" + difficulty );
-	if ( !name_confirmed && m_state->m_settings.local.player_name.empty() ) {
-		m_state->m_settings.local.player_name = "Player";
-	}
-	NEWV( player, ::game::backend::Player,
-		m_state->m_settings.local.player_name,
-		::game::backend::Player::PR_SINGLE,
-		faction,
-		difficulty
-	);
-	m_state->AddPlayer( player );
-	size_t slot_num = 0; // player always has slot 0
-	m_state->AddCIDSlot( 0, slot_num ); // for consistency
-	auto& slot = m_state->m_slots->GetSlot( slot_num );
-	slot.SetPlayer( player, 0, "" );
-	slot.SetPlayerFlag( ::game::backend::slot::PF_READY );
-	slot.SetLinkedGSID( m_state->m_settings.local.account.GetGSID() );
+	m_state->AddSinglePlayerSlot( faction, name_confirmed );
 }
 
 void GLSMAC::StartGame( GSE_CALLABLE ) {

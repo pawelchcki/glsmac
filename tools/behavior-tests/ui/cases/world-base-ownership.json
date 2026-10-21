@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "name": "Controlled first-city world ownership after ordinary setup",
+  "description": "Input-only ordinary Gaian/Citizen setup on the declared flat world; source fixture adds the known stacked starting companions. No opponent counts or effects supplied.",
+  "cases": [{"id":"gaian-standard-first-city-owners","algorithm":"game.world_base_ownership.v1","input":{"profile":"gaian-citizen-standard-flat-stacked","world_width":40,"world_height":80,"initial_human_base":{"workers":0,"doctors":1,"worked_tiles":0,"nutrients":0,"minerals":9}}}]
+}

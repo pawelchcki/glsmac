@@ -1,0 +1,5072 @@
+{
+  "captured_at": "2026-10-21T18:53:04.752504+00:00",
+  "observations": [
+    {
+      "case_sha256": "5aef0f47ccdbd2a84ebcd888d48a76454d7b230f7c517f037cefbe5ebd14b11c",
+      "id": "unit-menu-former-slot-26-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9d9c91639757a3c8f315e28f0e63006f6b1ed2781fb7ef64cdc7bef099682f3e",
+      "id": "unit-menu-former-slot-29-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c5508b2629f44556eb400bc8bf7bf4ab04d48aaea612601de5d47ebe80136e83",
+      "id": "unit-menu-former-slot-30-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "57463a20683dfcac989194c3308ffdf9a6393f6bc62ebf8b6d259dae593e35bc",
+      "id": "unit-menu-former-slot-26-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "494df4c7fa01146caa72870f336b9db6aad084459960583509ac9d7f4465dd4a",
+      "id": "unit-menu-former-slot-29-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8589b19d8a427d1e46398493151a5d3e71112f7658630334bcd96812e968ce99",
+      "id": "unit-menu-former-slot-30-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "47c61b90776a6f3505b40fc56508652f769bc64388ebcc59a4e1b52282503777",
+      "id": "unit-menu-colony-slot-26-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9628370b49718491b6c12e488a7a7c58642fb99fec2a17150d873953d860c1df",
+      "id": "unit-menu-colony-slot-29-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ace7fccf809f4c9c5eaa5246262318f1905c5f285e6adba8525f2dca7cbbb21f",
+      "id": "unit-menu-colony-slot-30-synthetic",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTY ONE",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "92d4128bc450324ac4204ae415f58ec8ce00bbee9cff6cc1f36133c056cd8962",
+      "id": "unit-menu-colony-slot-26-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 1,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b79c8bfc1bf1f1a561488d315c11fbb9acc1264c512f04758e7686c5e8a8828f",
+      "id": "unit-menu-colony-slot-29-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0977bf3d69db9f1568128093179edcd007908d4c5a0170eb25cb06cbb23b2fe3",
+      "id": "unit-menu-colony-slot-30-action-edited",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": {
+                "header_index": 4,
+                "rows": [
+                  {
+                    "label": "ACTION ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY ELEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWELVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY THIRTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY SIXTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY SEVENTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY EIGHTEEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "WATCH HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "ACTION ENTRY TWENTY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "STAY HERE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "PAUSE NOW",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": true,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ORDERS"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "screen": "menu",
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 5,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "menu": null,
+            "screen": "map",
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 3,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "9049714a00372454ab6515b73a1656298083c48979d8d14d3d8eb3a0eed15c06",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Twelve declared stacked healthy unspent unit contexts, native orders/movement/selection and unchanged city/year. No work cancellation, other commands, contexts or turn advancement",
+    "contract": "ui.unit_menu_context.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual initial Tab navigation, MENU, Action source-label row click and Tab; independent glyph/context and read-only native unit guards",
+    "recording_partitions": [
+      {
+        "captured_at": "2026-10-21T18:50:42.922216+00:00",
+        "cases": 6,
+        "record_sha256": "7dbf86929fa4681cd407beda6b9905dfc25e44bf5d51adb9669bd4fb4bc02487",
+        "repeat": 2,
+        "suite_sha256": "361bcfba59ee560ec738e49cfd0585ca61b3bb80d66ce33ba8c854a68da60f78"
+      },
+      {
+        "captured_at": "2026-10-21T18:51:07.672394+00:00",
+        "cases": 6,
+        "record_sha256": "8b13a24dc4d0096f4079b70085230ffc79acafa8a5f57f00f7bba38e88a42213",
+        "repeat": 2,
+        "suite_sha256": "1c7e7fd1d27486ca6675dff8efbbd9d8a42483dd696e4fdd58f8b4994817fe65"
+      }
+    ],
+    "source_profiles_sha256": "4dcc0cfc2b08d2fd3cabd746055b829649c6828dd4decae09ef43d8a128f7b39"
+  },
+  "repeat": 2,
+  "suite_sha256": "58239b33ce51332374e3804b2246bcf5791101a74f10c428694a1025dfac6fa8",
+  "version": 1
+}

@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "gaian-stock-flat-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaian-stock-specialist-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "SPECIALIST",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaian-stock-talent-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "TALENT",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaian-stock-librarian-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "LIBRARIAN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaian-stock-thinker-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "THINKER",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaian-stock-transcend-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "TRANSCEND",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    }
+  ]
+}

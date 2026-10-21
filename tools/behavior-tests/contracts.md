@@ -319,8 +319,18 @@ the subsequent Tab path. The [exact contract](ui/unit-menu-orders-contract.md)
 limits the claim to the declared healthy, unspent Scout and unchanged city/year.
 The frozen pre-fix candidate retains six mismatches and no probe errors. All six
 now match production/native display-free replay and actual browser pointer/SDL
-Tab controls. Fifteen application scenarios/91 assertions separately cover
+Tab controls. Nineteen application scenarios/443 assertions separately cover
 source identity, existing order handlers, native receipt authority, failed
-submissions, popup/pending guards and stale callbacks. Other initial selections
-and orders, including twelve input-only `ui.unit_menu_context.v1` sequences,
-remain an unrecorded hot gap and contribute no passing cases.
+submissions, popup/pending guards, stale callbacks and context row restoration.
+The separate fresh-worker `unit-menu-context-orders` application regression adds
+one Former/Hold restoration scenario and eleven assertions.
+The complete [Action-menu context reference](ui/unit-menu-context-contract.md)
+contains twelve independently repeated inputs and 78 complete checkpoints:
+Former and Colony Sentry/Hold/Skip under synthetic and edited source wording.
+All twelve match strict current-production/native replay. Five selected context
+cases have actual browser pointer/SDL verification; this does not claim a full
+twelve-case rendered replay. The Former/Colony Action children retain twenty and
+twenty-two rows with observed light source labels and four/five separators.
+The full reference supersedes three immutable pilots: nine additional inputs
+are counted, with no duplicate pilot passes. Other rows, initial orders, spent
+movement, active work and turn effects remain outside the contract.

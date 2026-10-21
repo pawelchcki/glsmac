@@ -85,6 +85,15 @@ def validate_manifest(data, known):
     return data
 
 
+def archived_directory(entry, root=DIRECTORY):
+    metadata = read(root / entry['catalog'])
+    if (not isinstance(metadata, dict) or set(metadata) not in (
+            {'version', 'references'}, {'version', 'directory', 'references'}) or
+            metadata.get('directory', '') not in ('', 'ui')):
+        raise ProtocolError('Invalid archived evidence directory metadata')
+    return root / metadata.get('directory', '')
+
+
 def load_manifest(path=MANIFEST, root=DIRECTORY):
     data = read(path)
     # Check the outer shape before accessing catalog-specific declarations.
@@ -102,6 +111,7 @@ def load_manifest(path=MANIFEST, root=DIRECTORY):
                 not isinstance(entry['reason'], str) or not entry['reason'] or entry['catalog'] in catalogs):
             raise ProtocolError('Invalid archived evidence entry')
         catalogs.add(entry['catalog'])
+        archived_directory(entry, root)
         declared = ids(entry['ids'], 'archived ' + entry['catalog'])
         rows = read(root / entry['catalog']).get('references', [])
         actual = ids([row['id'] for row in rows], 'archived catalog')
@@ -220,7 +230,7 @@ def main(argv=None):
             import audit
             for entry in report['archived']:
                 for reference in audit.load_references(DIRECTORY / entry['catalog']):
-                    audit.check_reference(reference)
+                    audit.check_reference(reference, directory=archived_directory(entry))
                 entry['observations_validated'] = True
         report['failed'] = failed
         report_path.parent.mkdir(parents=True, exist_ok=True)
