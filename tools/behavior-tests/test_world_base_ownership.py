@@ -111,6 +111,19 @@ class WorldBaseOwnershipTests(unittest.TestCase):
         execute.assert_not_called()
         self.assertEqual(write.call_args.args[1][0]['status'], 'unsupported')
 
+    def test_main_uses_lane_runtime_override_and_explicit_runtime_takes_precedence(self):
+        for arguments, expected in [([], Path('/selected/headless/GLSMAC.js')),
+                                    (['--runtime', '/explicit/GLSMAC.js'], Path('/explicit/GLSMAC.js'))]:
+            with self.subTest(arguments=arguments), \
+                    patch.dict(candidate.os.environ, {'WASM_HEADLESS_APP_DIR': '/selected/headless',
+                                                      'WASM_APP_DIR': '/unrelated/browser'}), \
+                    patch('sys.argv', ['world_base_ownership_headless.py', *arguments]), \
+                    patch.object(candidate, 'load_request', return_value={'cases': [case()]}), \
+                    patch.object(candidate, 'headless', return_value=({}, [{'id': case()['id']}])) as execute, \
+                    patch.object(candidate, 'write_response'):
+                candidate.main()
+                self.assertEqual(execute.call_args.args[1], expected)
+
     def test_frozen_repeated_evidence_remains_pending_and_is_not_a_pass(self):
         path = DIRECTORY / 'observations/smacx-gog-2.0-world-base-ownership.json'
         self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),

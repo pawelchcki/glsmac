@@ -67,7 +67,7 @@ def headless(cases, runtime, node='node'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--runtime', type=Path, default=Path(os.environ.get('WASM_APP_DIR', ROOT / 'build/wasm/bin')) / 'GLSMAC.js')
+    parser.add_argument('--runtime', type=Path, default=Path(os.environ.get('WASM_HEADLESS_APP_DIR', ROOT / 'build/wasm/bin')) / 'GLSMAC.js')
     parser.add_argument('--node', default=os.environ.get('NODE', 'node'))
     args = parser.parse_args()
     cases = load_request()['cases']
