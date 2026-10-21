@@ -1,16 +1,23 @@
-name: WebAssembly
+name: Main CI
 
 on:
   push:
-  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  hot:
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/hot.yml
+  native:
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/buildall.yml
   behavior:
-    name: Fast headless behavior
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    name: Stable headless behavior
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,20 +43,12 @@ jobs:
           source "$RUNNER_TEMP/behavior-emsdk/emsdk_env.sh"
           emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
           cmake --build build/wasm -j4
-      - name: Run parallel behavior tests and validate original observations
+      - name: Validate all evidence and explicit lane membership
+        run: python3 tools/behavior-tests/lanes.py --lane all --validate-only --report build/behavior-artifacts/evidence.json
+      - name: Run stable regressions and recorded original comparisons
         run: |
-          # Bound interpreter/GC contention; full UI fixtures need headroom on shared runners.
           python3 tools/smac-data/run.py --target native --report build/behavior-artifacts/smac-text-native.json
-          python3 tools/behavior-tests/fast.py --jobs 2 --timeout 120 --report build/behavior-artifacts/fast-report.json
-          python3 tools/behavior-tests/audit.py --validate-only --report build/behavior-artifacts/reference-validation.json
-          python3 tools/behavior-tests/audit.py --target native --report build/behavior-artifacts/implemented-parity.json
-          python3 tools/behavior-tests/ui/run.py --validate-only --report build/behavior-artifacts/ui-evidence-validation.json
-          python3 tools/behavior-tests/ui/run.py --pending --validate-only --report build/behavior-artifacts/pending-ui-evidence-validation.json
-      - name: Require recorded original UX parity
-        # Match the bounded interpreter concurrency used by the script suites.
-        run: python3 tools/behavior-tests/ui/run.py --jobs 2 --report build/behavior-artifacts/ui-parity.json
-      - name: Require recorded original economy parity
-        run: python3 tools/behavior-tests/economy/run.py --jobs 2 --report build/behavior-artifacts/economy-parity.json
+          python3 tools/behavior-tests/lanes.py --lane stable --jobs 2 --report build/behavior-artifacts/stable.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -57,6 +56,7 @@ jobs:
           path: build/behavior-artifacts
 
   wasm:
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -93,7 +93,7 @@ jobs:
           "$RUNNER_TEMP/smacx-reference/bin/python" -m unittest discover -s tools/behavior-tests -p 'test_*.py' -v
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
           python3 tools/smac-data/run.py --target wasm --report tools/wasm-tests/build/artifacts/smac-text-wasm.json
-          python3 tools/behavior-tests/audit.py --target wasm \
+          python3 tools/behavior-tests/audit.py --lane stable --target wasm \
             --report tools/wasm-tests/build/artifacts/behavior-wasm-report.json
       - name: Test browser startup
         run: |
@@ -111,14 +111,30 @@ jobs:
           name: wasm-rendering
           path: tools/wasm-tests/build/artifacts
       - name: Upload Pages site
-        if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
+        if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: build/wasm-release/bin
 
+  result:
+    name: Main CI
+    if: always() && github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [hot, native, behavior, wasm]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every main check
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY_CHECK'
+          import json, os
+          results = json.loads(os.environ['RESULTS'])
+          assert results and all(job['result'] == 'success' for job in results.values()), results
+          PY_CHECK
+
   pages:
-    if: github.event_name != 'pull_request' && (github.ref_name == 'in_webbrowser' || github.ref_name == github.event.repository.default_branch)
-    needs: [wasm, behavior]
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [result]
     runs-on: ubuntu-latest
     permissions:
       contents: read
