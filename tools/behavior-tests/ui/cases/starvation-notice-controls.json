@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "notice-escape-default",
+      "algorithm": "ui.starvation_notice_controls.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "escape"
+        ]
+      }
+    },
+    {
+      "id": "notice-escape-proceed",
+      "algorithm": "ui.starvation_notice_controls.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "down",
+          "escape"
+        ]
+      }
+    },
+    {
+      "id": "notice-shift-escape",
+      "algorithm": "ui.starvation_notice_controls.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "shift-escape"
+        ]
+      }
+    },
+    {
+      "id": "notice-suppress-default",
+      "algorithm": "ui.starvation_notice_controls.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "suppress"
+        ]
+      }
+    }
+  ]
+}

@@ -67,7 +67,8 @@ behavior.scenario('actual queued starvation waits for mounted owned-city confirm
  try { f.native.with_write(() => { advance.apply(e); }); } catch { : (error) => { failed = true; } }
  test.assert(failed && f.native.snapshot() == before);
  e.caller = f.native.owner.id; test.assert(#is_defined(complete.validate(e)));
- key(f, 'ESCAPE'); test.assert(f.popup.is_shown() && f.base.get_size() == 2, 'Unobserved Escape cannot bypass the pending authoritative choice');
+ f.popup.popups.starvation.el.emit('keydown', {code: 'ESCAPE', modifiers: {shift: true}});
+ test.assert(f.popup.is_shown() && f.base.get_size() == 2, 'Observed Shift+Escape preserves the pending authoritative choice');
  f.view.root.remove();
 });
 

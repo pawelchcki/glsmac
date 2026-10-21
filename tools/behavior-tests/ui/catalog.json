@@ -210,6 +210,11 @@
       "id": "starvation-mineral",
       "cases": "cases/starvation-mineral.json",
       "observations": "observations/smacx-gog-2.0-starvation-mineral.json"
+    },
+    {
+      "id": "starvation-notice-controls",
+      "cases": "cases/starvation-notice-controls.json",
+      "observations": "observations/smacx-gog-2.0-starvation-notice-controls.json"
     }
   ]
 }

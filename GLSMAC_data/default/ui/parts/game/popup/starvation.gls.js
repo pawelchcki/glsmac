@@ -6,13 +6,14 @@ return {
   const data = p.create(' ', 520, 166, (body, cb) => { this.body = body; this.finish = cb; });
   this.window = data.el; this.header = data.header_text;
   data.on_keydown = (e) => {
+   // Shift+Escape leaves this pending notice mounted. Consume it before the
+   // generic popup Escape callback can dismiss the authoritative decision.
+   if (this.active && e.code == 'ESCAPE' && e.modifiers == {shift: true}) { return true; }
    if (!this.active || e.modifiers != {}) { return false; }
    if (e.code == 'UP') { this.select(0); return true; }
    if (e.code == 'DOWN') { this.select(1); return true; }
    if (e.code == 'ENTER') { this.finish(this.selected); return true; }
-   // Notification cancellation is outside the transferred contract. Keep the
-   // pending authoritative decision modal until it is explicitly confirmed.
-   if (e.code == 'ESCAPE') { return true; }
+   if (e.code == 'ESCAPE') { this.finish(this.selected); return true; }
    return false;
   };
   return data;
@@ -80,8 +81,10 @@ return {
    row.on('click', () => { if (this.active && this.generation == generation) { this.select(choice); } return true; });
    this.rows :+ row; index++;
   }
-  // Suppression activation is outside the transferred contract.
+  // Only the immediate observed activation is transferred: acknowledge the
+  // native loss and continue to the map. Future preference scope is unobserved.
   this.suppress = this.body.button({class: 'game-popup-button', text: data.definition.buttons[0], left: 10, right: 150, top: 135});
+  this.suppress.on('click', () => { if (this.active && this.generation == generation) { this.finish(1); } return true; });
   this.ok = this.body.button({class: 'game-popup-button', text: data.definition.buttons[1], left: 380, right: 10, top: 135, is_ok: true});
   this.ok.on('click', () => { if (this.active && this.generation == generation) { this.finish(this.selected); } return true; });
   this.select(0);

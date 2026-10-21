@@ -687,11 +687,36 @@
         "errors": 0
       },
       "baseline_production_scripts_sha256": "b217213e5fba8f3b9cb83af86c2a3163658f2b57a4fcbbb610f596511748623a"
+    },
+    {
+      "id": "starvation-notice-escape-and-suppression",
+      "suite": "starvation-notice-controls",
+      "status": "fixed",
+      "lane": "native-display-free-original-comparison",
+      "property": "Normal Escape confirms the highlighted first starvation choice; Shift+Escape stays modal; the visible suppression button immediately confirms Proceed and returns to the map.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 4,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_wasm_sha256": "82a74f4ec8fde3cc81c1c0233ff48fbbbdd53f582d05f2f8617eddb06a40f2d8",
+      "baseline_scripts_sha256": "3a565f3294b2c02e7d77904049adb3b4a3bedb47be98599efde238ac9ca7d3d6",
+      "scope": "Four whole original captures independently repeated twice, with real controls and native citizen/unit/year plus visible notice/full management/map guards. The strict native baseline leaves ordinary Escape and suppression pending and hides Shift+Escape without confirming. Future suppression preferences and later notices, other modifiers, artwork/audio, raw nutrients, prices/completion and general economy remain excluded. Fixed native replay and actual browser input now match all four traces; eleven separate native application scenarios preserve matching receipt authority, delayed acknowledgement, duplicate/stale controls, rejection/retry, cleanup and rollback.",
+      "verification": {
+        "matched": 4,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 4,
+        "regression_scenarios": 11,
+        "regression_assertions": 112
+      }
     }
   ],
   "verification": {
-    "cases": 679,
-    "matched": 679,
+    "cases": 683,
+    "matched": 683,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -724,6 +749,8 @@
     "rendered_starvation_cases": 5,
     "rendered_starvation_matched": 5,
     "rendered_starvation_mineral_cases": 2,
-    "rendered_starvation_mineral_matched": 2
+    "rendered_starvation_mineral_matched": 2,
+    "rendered_starvation_notice_controls_cases": 4,
+    "rendered_starvation_notice_controls_matched": 4
   }
 }

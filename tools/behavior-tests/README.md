@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 679 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 683 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,345 scenarios and 9,194 assertions** across
-105 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,356 scenarios and 9,306 assertions** across
+106 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -108,6 +108,16 @@ surplus and existing native completion behavior. A threshold-crossing regression
 checks the latter using the native effective price. Project prices and
 completion, raw nutrient-counter meaning and general economy remain excluded.
 Run `npm --prefix tools/wasm-tests run test:starvation-mineral` with installed assets.
+
+The `starvation-notice-controls` suite adds eleven native scenarios/112 assertions
+for Escape, Shift+Escape and immediate suppression activation. Four independently
+repeated [original control traces](ui/starvation-notice-controls-contract.md) match
+native replay and actual browser input. Normal Escape confirms the highlighted
+choice, Shift+Escape preserves the pending notice, and suppression confirms
+Proceed. Receipt authority, delayed acknowledgement, duplicate/stale input,
+rejection/retry, cleanup and rollback have separate application coverage. Future
+suppression preferences and later notices remain unobserved. Run
+`npm --prefix tools/wasm-tests run test:starvation-notice-controls` with installed assets.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached

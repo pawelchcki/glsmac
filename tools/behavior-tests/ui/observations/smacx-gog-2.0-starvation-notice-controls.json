@@ -1,0 +1,351 @@
+{
+  "captured_at": "2026-10-21T00:23:29.797407+00:00",
+  "observations": [
+    {
+      "case_sha256": "c6c3f59de174e0002a81f763c900e95261c1dcabaf5c66c60416c0afc5d4d0a0",
+      "id": "notice-escape-default",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "8e77dc4e41a6c634eb588375f83f1a1c3f54dfaa24f0122fa56820d68fd222d7",
+      "id": "notice-escape-proceed",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 1
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2ce185adff111ad8478ec60640b33ca3d19f7df34fa6fb60c34cf9cffad6c468",
+      "id": "notice-shift-escape",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "09883ffde69b1bd76069168f82d18cfbe98ae904d23e41c6ae8e22148edb4e3d",
+      "id": "notice-suppress-default",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 2,
+              "owned_count": 1,
+              "population": 2,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "body": "OUR CITIZENS ARE STARVING AT {BASE}! FACTORIES ABANDONED BY HUNGRY WORKERS.",
+              "buttons": [
+                "DON'T SHOW AS POPUP",
+                "OK"
+              ],
+              "caption": "PSYCH CHAPLAIN",
+              "choices": [
+                "ZOOM TO BASE CONTROL",
+                "PROCEED"
+              ],
+              "selected": 0
+            },
+            "screen": "notice",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "dfe44d41f43d6a4a1de5c425112077be194c4d2f64ea0e41be0ea943c662c5db",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "First owned two-Doctor notice only; suppression immediate activation, not future preference behavior; raw nutrients, minerals, project cost/completion, artwork/audio and other modifier combinations excluded",
+    "contract": "ui.starvation_notice_controls.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual original W/W/B, management Enter/Escape, H/H, TURN COMPLETE and notice Escape/Down/Shift+Escape/suppression click; visible full HUD/map/notice and read-only native context guards",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00"
+  },
+  "repeat": 2,
+  "suite_sha256": "7d2fcccd2a36133d8c9c489fab23609cdd63ab292b7fdaf4d43d3667b7a7b011",
+  "version": 1
+}
