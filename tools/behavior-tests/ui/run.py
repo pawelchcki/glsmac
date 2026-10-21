@@ -317,10 +317,11 @@ def unit_menu_orders_command(args):
     return shlex.join(command)
 
 
-def unit_menu_context_command(args):
+def unit_menu_context_command(args, paced=False):
     if args.browser:
         raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
-    name = 'unit_menu_context_original.py' if args.record else 'unit_menu_context_headless.py'
+    original = 'unit_menu_context_paced_original.py' if paced else 'unit_menu_context_original.py'
+    name = original if args.record else 'unit_menu_context_headless.py'
     command = [sys.executable, str(DIRECTORY / name)]
     if args.record:
         command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
@@ -476,6 +477,8 @@ def main(argv=None):
                 reference_command = unit_menu_orders_command(args)
             if reference['id'] == 'unit-menu-context-former-sentry':
                 reference_command = unit_menu_context_command(args)
+            if reference['id'] == 'unit-menu-context-colony-sentry':
+                reference_command = unit_menu_context_command(args, paced=True)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -538,6 +541,8 @@ def main(argv=None):
                 candidate_command = unit_menu_orders_command(args)
             if command is not None and reference['id'] == 'unit-menu-context-former-sentry':
                 candidate_command = unit_menu_context_command(args)
+            if command is not None and reference['id'] == 'unit-menu-context-colony-sentry':
+                candidate_command = unit_menu_context_command(args, paced=True)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")

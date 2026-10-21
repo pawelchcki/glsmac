@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 713 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 714 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -36,9 +36,10 @@ python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 ```
 
 Hot contains the `unit-menu-orders`, `ingame-menu`, `ui-interactions` and
-`game-modal-input` regression suites (98 scenarios/759 assertions), plus
+`game-modal-input` regression suites (100 scenarios/949 assertions), plus
 `ingame-menus`, `unit-menu-orders` and the bounded
-`unit-menu-context-former-sentry` original UI replay (19 recorded cases).
+`unit-menu-context-former-sentry` / `unit-menu-context-colony-sentry` original UI
+replay (20 recorded cases).
 Stable contains the explicit complement: 106 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
@@ -67,8 +68,8 @@ python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
 The full twelve-input `unit-menu-context` suite is a **not-ready gap** and cannot
 execute through the lane dispatcher. Both pending and gap inventories appear in
 `--list`, `--validate-only` and report metadata without contributing to passing
-counts. The separate Former/Sentry pilot proves one of the twelve context inputs;
-it does not make the complete context suite ready. Four historical factor-v1
+counts. Separate Former/Sentry and Colony/Sentry pilots prove two distinct inputs
+once; they do not make the complete context suite ready. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
 
@@ -81,7 +82,7 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,403 scenarios and 9,724 assertions** across
+The full regression catalog contains **1,405 scenarios and 9,914 assertions** across
 110 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
@@ -105,15 +106,16 @@ match display-free native replay and actual browser controls at thirty complete
 checkpoints. In the declared healthy, unspent Scout fixture, source slots
 26/29/30 apply Sentry/Hold/Skip, advance selection to the Former while retaining
 the root menu, and Tab selects the Colony Pod while closing the root. Both
-synthetic and edited-label profiles preserve source identity. Seventeen separate
-application scenarios/253 assertions cover shared handlers, native receipt
+synthetic and edited-label profiles preserve source identity. Nineteen separate
+application scenarios/443 assertions cover shared handlers, native receipt
 authority, failed submissions, popup/pending guards and stale callbacks.
-One separately repeated [Former/Sentry pilot](ui/unit-menu-context-former-sentry-contract.md)
-now matches strict native-backed display-free replay and actual browser input at
-six checkpoints: its twenty-row Action child preserves source wording, light
-tones and four separators. It contributes one HOT case. The complete twelve-input
-context suite remains not ready; the other eleven inputs, other rows, initial
-orders, active work and turn effects remain unobserved.
+Separate independently repeated [Former/Sentry](ui/unit-menu-context-former-sentry-contract.md)
+and [Colony/Sentry](ui/unit-menu-context-colony-sentry-contract.md) pilots cover
+two distinct HOT inputs and thirteen checkpoints, matching strict native-backed
+replay and real browser input. Their Action children have
+twenty and twenty-two rows, with source wording, light text and four/five
+separators. The full twelve-input suite remains not ready: the other ten inputs,
+other rows, initial orders, active work and turn effects remain unobserved.
 
 The `native-input-state` suite adds seven scenarios/41 assertions for the shared
 production text-edit state used by real UI fields and display-free replay.

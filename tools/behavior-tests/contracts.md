@@ -319,12 +319,14 @@ the subsequent Tab path. The [exact contract](ui/unit-menu-orders-contract.md)
 limits the claim to the declared healthy, unspent Scout and unchanged city/year.
 The frozen pre-fix candidate retains six mismatches and no probe errors. All six
 now match production/native display-free replay and actual browser pointer/SDL
-Tab controls. Seventeen application scenarios/253 assertions separately cover
+Tab controls. Nineteen application scenarios/443 assertions separately cover
 source identity, existing order handlers, native receipt authority, failed
 submissions, popup/pending guards, stale callbacks and context row restoration.
-The separate [Former/Sentry pilot](ui/unit-menu-context-former-sentry-contract.md)
-adds one `ui.unit_menu_context.v1` case with six complete checkpoints, recorded
-twice and matched by strict production/native replay and real browser input.
-It establishes the twenty-row Former Action child and the source-slot 26 Sentry
-path only. The full twelve-input context suite remains a not-ready HOT gap; this
-pilot proves one input without establishing the other eleven or full coverage.
+Separate [Former/Sentry](ui/unit-menu-context-former-sentry-contract.md) and
+[Colony/Sentry](ui/unit-menu-context-colony-sentry-contract.md) pilots add two
+distinct `ui.unit_menu_context.v1` inputs with thirteen complete checkpoints,
+each independently recorded twice and matched by strict production/native replay
+and actual browser input. They establish twenty/twenty-two-row Action
+children and their source-slot 26 Sentry paths only. The full twelve-input context
+suite remains a not-ready HOT gap; these two inputs do not establish the other
+ten or full coverage.

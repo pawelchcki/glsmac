@@ -217,17 +217,34 @@ return {
 
 	refresh_action: () => {
 		let former = false;
+		let colony = false;
 		if (this.game != null && this.selected_unit_id != null) {
 			const units = this.game.get_um();
 			if (units.has_unit(this.selected_unit_id)) {
 				const unit = units.get_unit(this.selected_unit_id);
 				former = unit.def == 'Formers' && unit.is_land;
+				colony = unit.def == 'ColonyPod' && unit.is_land;
 			}
 		}
 		const child = this.menus.left_menu_action;
+		// Keep separators only between groups with visible source entries.
+		// The optional Colony group must not leave a leading blank Scout row.
+		let separator = null; let has_visible = false;
+		for (row of child.rows) {
+			row.visible = false;
+			if (#is_defined(row.entry.separator)) { separator = row; }
+			else {
+				const omit = (former && row.entry.omit_for_former) || (colony && row.entry.omit_for_colony) || (!colony && row.entry.only_for_colony);
+				if (!omit) {
+					row.visible = true;
+					if (separator != null && has_visible) { separator.visible = true; }
+					separator = null; has_visible = true;
+				}
+			}
+		}
 		let top = 0;
 		for (row of child.rows) {
-			if (former && #is_defined(row.entry.omit_for_former) && row.entry.omit_for_former) { row.el.hide(); }
+			if (!row.visible) { row.el.hide(); }
 			else {
 				row.el.top = top + (#is_defined(row.entry.separator) ? this.item_height / 2 : 0);
 				row.el.show(); top += this.item_height;
