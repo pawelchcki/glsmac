@@ -30,7 +30,9 @@ fail visibly. An already-linked older revision is never used to rewind the fork.
 
 The fork verifies the sync parents, exact source tree and successful source main
 workflow before downloading its Pages artifact. It deploys that tested artifact
-without rerunning stable tests. Both Pages URLs use the same main build. Main
+without rerunning stable tests. Both Pages URLs deploy a successful main build of the same source revision.
+Separate successful runs of that revision can produce different binary hashes;
+each URL is verified against the particular artifact it publishes. Main
 and fork workflow failures remain visible; no force pushes or automatic conflict
 resolution are used.
 
@@ -47,3 +49,10 @@ The first main workflow is 39565462224 at 62eebe00; it was manually dispatched
 because GitHub did not schedule the initial default-branch creation. Subsequent
 main updates use the ordinary push trigger. Deployment is still gated on its
 successful completion; the previous public build remains live until then.
+
+The first main runs 39565462224 and 39565466953 both passed, including stable,
+hot, native builds, full GSE and browser/platform checks. Sync created fork merge
+cbc06d36fc2404adbef0cc16dd28859e7808590f; linked Pages run 39568591169 passed.
+The read-only Main health capability dependency is tracked in
+https://github.com/pawelchcki/my-infra/pull/279. Custom Runnerless gate executions
+are still being checked; required checks remain in place during rollout.
