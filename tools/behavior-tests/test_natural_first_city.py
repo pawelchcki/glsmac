@@ -31,6 +31,27 @@ def markers(values='1|1|0|1|0|0|1|0', case_id=None):
 
 
 class NaturalFirstCityTests(unittest.TestCase):
+    def test_completed_research_archives_preserve_original_evidence_without_candidate_passes(self):
+        references = [row['id'] for name in ('catalog.json', 'pending-catalog.json')
+                      for row in json.loads((DIRECTORY / name).read_text())['references']]
+        for name, count, gold_hash, source_hash in [
+                ('natural-first-city-factions-v6', 7,
+                 'df68df635ae7a2270ea34e03ed845604fd2140507def9642d7bd23e5f1a29970',
+                 '362b6156c811a79a7bbda59ea460759f637b0a4b5a230c591acd4587491b7b09'),
+                ('natural-first-city-source-controls-v7', 6,
+                 'a821f99cde710e56e480f8c3cfcaa541f43950db6397c9251f5b3eab4591f687',
+                 '08f1cf7befc807e82ced754a02b187c24d5d0609e75843133da77442188e3095')]:
+            with self.subTest(archive=name):
+                archive = DIRECTORY / 'reference-archives' / name
+                recorded = json.loads((archive / 'observations.json').read_text())
+                inputs = json.loads((archive / 'cases.json').read_text())
+                self.assertEqual(hashlib.sha256((archive / 'observations.json').read_bytes()).hexdigest(), gold_hash)
+                self.assertEqual(hashlib.sha256((archive / 'original.py').read_bytes()).hexdigest(), source_hash)
+                compare.validate_observations(recorded, inputs)
+                self.assertEqual(len(recorded['observations']), count)
+                self.assertEqual(recorded['reference']['kind'], 'original-executable')
+                self.assertNotIn(name, references)
+
     def test_exact_input_excludes_observed_city_overrides_and_unaccepted_terrain(self):
         value = case()['input']
         for declared in suite()['cases']:
