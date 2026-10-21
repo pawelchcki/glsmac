@@ -1,0 +1,258 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "rename-cancel",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          "cancel"
+        ]
+      }
+    },
+    {
+      "id": "rename-unchanged",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          "confirm",
+          "close",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "rename-confirm-reopen",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": "Test Grove"
+          },
+          "confirm",
+          "close",
+          "open"
+        ]
+      }
+    },
+    {
+      "id": "rename-discard-reopen",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": "Other Grove"
+          },
+          "cancel",
+          "rename",
+          "cancel"
+        ]
+      }
+    },
+    {
+      "id": "rename-empty",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": ""
+          },
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "rename-spaces",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": "  Green Glade  "
+          },
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "rename-long",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+          },
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "rename-mouse-cancel",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "default",
+        "actions": [
+          "rename",
+          {
+            "edit": "False Grove"
+          },
+          "button-cancel"
+        ]
+      }
+    },
+    {
+      "id": "rename-common-source",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "common",
+        "actions": [
+          "rename",
+          {
+            "edit": "Common Grove"
+          },
+          "button-ok"
+        ]
+      }
+    },
+    {
+      "id": "rename-expansion-source",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "expansion",
+        "actions": [
+          "rename",
+          {
+            "edit": "Expansion Grove"
+          },
+          "button-ok"
+        ]
+      }
+    },
+    {
+      "id": "rename-both-source",
+      "algorithm": "ui.base_rename.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "both",
+        "actions": [
+          "rename",
+          {
+            "edit": "Both Grove"
+          },
+          "button-ok"
+        ]
+      }
+    }
+  ]
+}

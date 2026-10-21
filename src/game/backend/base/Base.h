@@ -59,7 +59,7 @@ public:
 		const size_t next_pop_id = 1,
 		const bool attach_tile = true
 	);
-	virtual ~Base() = default;
+	virtual ~Base() { *m_rename_handle = nullptr; }
 
 	const Game* const GetGame() const;
 	const ProductionState& GetProductionState() const { return m_production; }
@@ -77,6 +77,9 @@ public:
 	std::string ValidateCitizenReconciliation( GSE_CALLABLE, int64_t caller, int64_t turn );
 	int64_t ReconcileCitizens( GSE_CALLABLE, int64_t caller, int64_t turn );
 	void RollbackCitizenReconciliation( GSE_CALLABLE, int64_t receipt );
+	std::string ValidateRename( GSE_CALLABLE, int64_t caller, int64_t turn, const std::string& previous_name, const std::string& name );
+	int64_t Rename( GSE_CALLABLE, int64_t caller, int64_t turn, const std::string& previous_name, const std::string& name );
+	void RollbackRename( GSE_CALLABLE, int64_t receipt );
 
 	const size_t m_id;
 	slot::Slot* m_owner;
@@ -124,6 +127,11 @@ private:
 	};
 	std::map< int64_t, CitizenReconciliationRecord > m_citizen_reconciliations;
 	int64_t m_next_citizen_reconciliation = 0;
+	struct RenameRecord { size_t turn; std::string previous_name, expected_base; };
+	std::map< int64_t, RenameRecord > m_renames;
+	int64_t m_next_rename = 0;
+	// Saved native methods retain an invalidatable identity, like Rules handles.
+	std::shared_ptr< Base* > m_rename_handle = std::make_shared< Base* >( this );
 	void ProductionChanged();
 	ProductionResult CompleteUnitProduction( GSE_CALLABLE, const ProductionState& next );
 

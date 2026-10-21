@@ -78,7 +78,7 @@ struct ProductionFixture : gc::Object {
 	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
 
-	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false ) : gc::Object( nullptr ) {
+	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4 ) : gc::Object( nullptr ) {
 		game.Start();
 		{
 			// FixtureObject roots the native graph explicitly. Native managers are
@@ -88,7 +88,7 @@ struct ProductionFixture : gc::Object {
 			game.SetState( state );
 			game.m_bm = new backend::base::BaseManager( &game, false );
 			game.m_map = new backend::map::Map( &game, false );
-			backend::map::tile::Tiles tiles( nullptr, 4, 4 );
+			backend::map::tile::Tiles tiles( nullptr, fixture_map_size, fixture_map_size );
 			tiles.Clear();
 			auto terrain = tiles.Serialize();
 			if ( game.m_map->LoadFromBuffer( terrain ) != backend::map::Map::EC_NONE ) { THROW( "fixture terrain failed" ); }
@@ -114,7 +114,7 @@ struct ProductionFixture : gc::Object {
 						{ "w", VALUE( value::Int,, 1 ) }, { "h", VALUE( value::Int,, 1 ) },
 					} ) },
 				} );
-				base = new backend::base::Base( &game, 1, owner->GetSlot(), owner->GetFaction(), game.m_map->GetTile( selection_world ? 2 : 0, selection_world ? 2 : 0 ), "Fixture Base", { { "HEADQUARTERS", game.m_bm->GetFacilityDef( "HEADQUARTERS" ) } }, {} );
+				base = new backend::base::Base( &game, 1, owner->GetSlot(), owner->GetFaction(), game.m_map->GetTile( selection_world ? 2 : 0, selection_world ? 2 : 0 ), initial_base_name, { { "HEADQUARTERS", game.m_bm->GetFacilityDef( "HEADQUARTERS" ) } }, {} );
 				game.m_bm->m_bases.emplace( base->m_id, base );
 			}
 		}
@@ -839,13 +839,17 @@ struct ProductionFixture : gc::Object {
 	value::Object* FrontendPackets( GSE_CALLABLE ) {
 		EnableRenderCoordinates();
 		game.m_um->PushUpdates(); game.m_bm->PushUpdates();
-		value::array_elements_t bases, removed;
+		value::array_elements_t bases, removed, base_names;
 		int64_t spawned_bases = 0, removed_bases = 0;
 		std::vector< std::unique_ptr< ::game::FrontendRequest > > copies;
 		for ( const auto& request : *game.m_pending_frontend_requests ) { copies.push_back( std::make_unique< ::game::FrontendRequest >( request ) ); }
 		game.m_pending_frontend_requests->clear();
 		for ( const auto& packet : copies ) {
 			if ( packet->type == ::game::FrontendRequest::FR_BASE_UPDATE ) {
+				base_names.push_back( VALUEEXT( value::Object, GSE_CALL, {
+					{ "id", VALUE( value::Int,, packet->data.base_update.base_id ) },
+					{ "name", VALUE( value::String,, *packet->data.base_update.name ) },
+				} ) );
 				value::array_elements_t pops;
 				for ( const auto& pop : *packet->data.base_update.pops ) { pops.push_back( VALUE( value::String,, pop.type ) ); }
 				bases.push_back( VALUEEXT( value::Object, GSE_CALL, {
@@ -858,6 +862,7 @@ struct ProductionFixture : gc::Object {
 		}
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "bases", VALUE( value::Array,, bases ) }, { "removed_units", VALUE( value::Array,, removed ) },
+			{ "base_names", VALUE( value::Array,, base_names ) },
 			{ "spawned_bases", VALUE( value::Int,, spawned_bases ) }, { "removed_bases", VALUE( value::Int,, removed_bases ) },
 		} );
 	}
@@ -1228,9 +1233,9 @@ static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	object->Set( "owner", f->owner->Wrap( GSE_CALL ), GSE_CALL );
 }
 
-Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
+Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const std::string& initial_base_name, size_t fixture_map_size ) {
 	const auto session = std::make_shared< ProductionSession >();
-	session->current = std::make_shared< ProductionFixture >( GSE_CALL, true, selection );
+	session->current = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size );
 	if ( selection ) { session->current->SetupFounding( GSE_CALL ); }
 	if ( founding ) { session->current->SetupFounding( GSE_CALL ); }
 	auto* object = new FixtureObject( GSE_CALL, session );
@@ -1302,6 +1307,14 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 		session->current->WithWrite( [ & ]() { result = callback->Run( GSE_CALL, {} ); } );
 		session->current->Flush( GSE_CALL );
 		return result;
+	} ), GSE_CALL );
+	// Script catch handles GSE errors. Fault-injection tests additionally need
+	// to catch native codec failures after exercising production rollback.
+	object->Set( "catches_native_failure", NATIVE_CALL() {
+		N_EXPECT_ARGS( 1 ); N_GET_CALLABLE( callback, 0 );
+		try { callback->Run( GSE_CALL, {} ); }
+		catch ( const std::exception& ) { return VALUE( value::Bool,, true ); }
+		return VALUE( value::Bool,, false );
 	} ), GSE_CALL );
 	object->Set( "set_turn", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( turn, 0, Int );
@@ -1491,9 +1504,26 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection ) {
 		} catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
-	object->Set( "reset", NATIVE_CALL( session, object, founding, selection ) {
+	object->Set( "base_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->Snapshot() );
+	} ), GSE_CALL );
+	object->Set( "base_rename_lifetime_probe", NATIVE_CALL() {
 		N_EXPECT_ARGS( 0 );
-		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL, true, selection );
+		auto temporary = std::make_unique< ProductionFixture >( GSE_CALL, true, true, "Transient Rename" );
+		auto* wrapper = static_cast< value::Object* >( temporary->base->Wrap( GSE_CALL ) );
+		auto* validate = static_cast< value::Callable* >( wrapper->Get( "validate_rename" ) );
+		auto* apply = static_cast< value::Callable* >( wrapper->Get( "rename" ) );
+		auto* undo = static_cast< value::Callable* >( wrapper->Get( "rollback_rename" ) );
+		temporary.reset();
+		const value::function_arguments_t args { VALUE( value::Int,, 1 ), VALUE( value::Int,, 1 ), VALUE( value::String,, "Transient Rename" ), VALUE( value::String,, "New" ) };
+		const auto* result = validate->Run( GSE_CALL, args ); bool applied = false, undone = false;
+		try { apply->Run( GSE_CALL, args ); } catch ( const std::exception& ) { applied = true; }
+		try { undo->Run( GSE_CALL, { VALUE( value::Int,, 1 ) } ); } catch ( const std::exception& ) { undone = true; }
+		return VALUE( value::Bool,, result->type == VT_STRING && applied && undone );
+	} ), GSE_CALL );
+	object->Set( "reset", NATIVE_CALL( session, object, founding, selection, initial_base_name, fixture_map_size ) {
+		N_EXPECT_ARGS( 0 );
+		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size );
 		if ( selection ) { fresh->SetupFounding( GSE_CALL ); }
 		if ( founding ) { fresh->SetupFounding( GSE_CALL ); }
 		session->current->Retire();

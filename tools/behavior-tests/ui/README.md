@@ -98,6 +98,20 @@ duplicate/stale controls, rejection/retry, cleanup and rollback. Future suppress
 preferences and later notices remain unobserved. Run
 `npm --prefix tools/wasm-tests run test:starvation-notice-controls` with installed assets.
 
+Eleven [owned-base Rename traces](base-rename-contract.md), each independently
+recorded twice, match native display-free replay and real Release browser input.
+They cover actual Rename/field/OK/Cancel controls, native committed names,
+visible drafts and management titles, close/reopen, empty names, preserved
+spaces, the observed 24-character limit and common/expansion source precedence.
+The frozen baseline reports eleven missing-dialog errors after passing complete
+initial management/native guards. Thirteen native application scenarios separately
+check authoritative rename/rollback, saved-method lifetime, stale receipts and
+modal cleanup. Seven generic editor scenarios use the same production InputState
+as real fields. A browser regression additionally preserves x/z in focused input
+before map zoom shortcuts. Other cities, duplicate policies, Unicode, save/load
+and general gameplay remain outside the original observations. Run
+`npm --prefix tools/wasm-tests run test:base-rename` with installed assets.
+
 ## Contracts and boundaries
 
 Eight [Former work traces](former-work-contract.md) and three
@@ -107,11 +121,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-683 passing cases, including eight independently repeated Sentry lifecycle
+694 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| `ui.base_rename.v1` | 11 | Actual Rename, raw native names, visible draft/title, cancel/confirm/reopen, 24-character input and common/expansion source precedence | Original controls with independent rendered/native guards; each whole capture repeated twice |
 | `economy.starvation_mineral_credit.v1` | 2 | Native mineral/citizen/unit/year checkpoints before the turn, during starvation notice and after Proceed; unchanged-city control | Actual original controls, full HUD/project/map guards and read-only native observations; each whole capture repeated twice |
 | `ui.starvation_dialog.v1` | 5 | Source wording, choice selection, delayed native population loss and Zoom/Proceed continuation | Real original controls, independent OCR and native guards; each whole capture repeated twice |
 | `ui.starvation_notice_controls.v1` | 4 | Escape confirmation, Shift+Escape modal preservation and immediate suppression activation, with native citizen/unit/year and full screen guards | Real original controls and independent OCR/native observations; each whole capture repeated twice |
@@ -142,7 +157,7 @@ traces. This does not establish full-game parity.
 | `map.custom_grid_dimensions.v1` | 4 | Width, height, half-width, tile count and Custom kind after real generated worlds, including odd height 49 | Real original application in Wine/Xvfb; five verified read-only fields, recorded twice |
 | `ui.map_dimension_dialog.v1` | 18 | Custom-size caption, two labels, untouched raw values and buttons across both routes, all prior presets and four controlled text profiles | Real original application in Wine/Xvfb; recorded twice |
 
-There are 683 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
+There are 694 recorded cases in the passing catalog. The historical 80-case faction recording is retained for provenance and is not counted again. `generate_navigation.py` generates only
 new input sequences, excluding paths already present in the first menu suite.
 The recordings establish that both arrows wrap and Home/End leave these menus
 unchanged. Random-map difficulty cancellation returns to map type, while the
@@ -251,7 +266,7 @@ fields. Exit status is 0 for full agreement, 1 for disagreements/unsupported
 contracts and 2 for execution/observation errors. Missing controls preserve the
 partial trace and fail comparison. Runtime success alone never proves parity.
 [known-issues.json](known-issues.json) describes observed gaps without suppressing
-any failures. All 683 recorded cases now agree after production fixes to choices,
+any failures. All 694 recorded cases now agree after production fixes to choices,
 selection, wrapping, cancellation, citizen jobs and bounded Scout orders. This
 does not cover Scenario child actions, custom-dimension limits or other unit
 types/orders. These totals remain separate from the
@@ -338,13 +353,11 @@ commands and turn effects are executed by production code. Optional synthetic-wo
 browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
-The [pending catalog](pending-catalog.json) is empty after promotion of the
-Sentry lifecycle and activation cases. The six
-[startup inventory cases](startup-inventory-contract.md) also remain green. The two original
-red cases and four additional controlled-source cases now match actual native
-units and projects. `--pending` remains a strict lane for future discrepancies;
-an empty queue reports no execution and no matches. This does not establish
-complete game parity. The
+The [pending catalog](pending-catalog.json) retains the signed nutrient-counter
+contract: its unchanged-city control agrees, while the joined-city counter
+still differs. Pending failures are excluded from passing totals. `--pending`
+always reports strict candidate outcomes; an empty queue would report no
+execution and no matches. This does not establish complete game parity. The
 successful original recorder normalized indexed screenshots to RGB before OCR;
 prior observer/setup failures remain local research artifacts.
 

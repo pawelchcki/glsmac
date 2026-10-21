@@ -12,7 +12,7 @@ return (input) => {
 	}
 	const initial = input.initial_base;
 	if (initial != {workers: 0, doctors: 1, worked_tiles: 0, nutrients: 0, minerals: 9}) { throw Error('Unsupported declared initial city'); }
-	const f = {}; f.native = native_fixture(input.profile); f.game = f.native.game; f.units = f.native.units; f.base = f.native.base;
+	const f = {}; f.native = native_fixture(input.profile, undefined, input.initial_base_name, input.fixture_map_size); f.game = f.native.game; f.units = f.native.units; f.base = f.native.base;
 	// This is an input condition, deliberately separate from ordinary startup.
 	f.native.with_write(() => {
 		f.base.create_pop({type: 'DOCTOR'});

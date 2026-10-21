@@ -263,5 +263,48 @@ class ProductionCandidateTests(unittest.TestCase):
                 self.assertEqual(report["summary"], {"matched": len(cases["cases"]), "mismatched": 0, "unsupported": 0, "errors": 0})
 
 
+class ParallelReferenceTests(unittest.TestCase):
+    def original(self):
+        result=response();result['implementation']=record()['reference'];return result
+
+    def test_two_independent_probes_run_concurrently_and_remain_input_only(self):
+        from threading import Barrier
+        barrier=Barrier(2,timeout=2);seen=[]
+        def run(command,request,timeout):
+            seen.append(deepcopy(request));barrier.wait();return self.original()
+        with patch.object(compare,'run_probe',side_effect=run) as probe:
+            captured=compare.capture_reference(suite(),'isolated synthetic runner',jobs=2)
+        self.assertEqual(probe.call_count,2);self.assertEqual(seen,[probe_request(suite())]*2)
+        self.assertEqual(captured['repeat'],2);compare.validate_observations(captured,suite())
+
+    def test_parallel_output_disagreement_still_rejects_evidence(self):
+        first=self.original();other=deepcopy(first);other['results'][0]['output']['value']+=1
+        with patch.object(compare,'run_probe',side_effect=[first,other]):
+            with self.assertRaisesRegex(ProtocolError,'nondeterministic'):compare.capture_reference(suite(),'synthetic',jobs=2)
+
+    def test_parallel_metadata_disagreement_still_rejects_evidence(self):
+        first=self.original();other=deepcopy(first);other['implementation']['adapter_version']+=1
+        with patch.object(compare,'run_probe',side_effect=[first,other]):
+            with self.assertRaisesRegex(ProtocolError,'nondeterministic'):compare.capture_reference(suite(),'synthetic',jobs=2)
+
+    def test_every_requested_repeat_is_checked(self):
+        first=self.original();other=deepcopy(first);other['results'][0]['output']['value']+=1
+        with patch.object(compare,'run_probe',side_effect=[first,deepcopy(first),other]):
+            with self.assertRaisesRegex(ProtocolError,'nondeterministic'):compare.capture_reference(suite(),'synthetic',repeat=3,jobs=2)
+
+    def test_failed_or_unobserved_parallel_probe_cannot_supply_partial_evidence(self):
+        with patch.object(compare,'run_probe',side_effect=ProtocolError('failed original probe')):
+            with self.assertRaisesRegex(ProtocolError,'failed original probe'):compare.capture_reference(suite(),'synthetic',jobs=2)
+        missing=self.original();missing['results'][0]=dict(id='synthetic-a',status='error',reason='guard failed')
+        with patch.object(compare,'run_probe',return_value=missing):
+            with self.assertRaisesRegex(ProtocolError,'did not observe'):compare.capture_reference(suite(),'synthetic',jobs=2)
+
+    def test_invalid_parallelism_never_launches_probe(self):
+        for jobs in (True,0,3,-1,1.5,None):
+            with self.subTest(jobs=jobs),patch.object(compare,'run_probe') as run:
+                with self.assertRaises(ProtocolError):compare.capture_reference(suite(),'synthetic',jobs=jobs)
+                run.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

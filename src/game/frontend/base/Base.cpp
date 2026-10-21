@@ -7,6 +7,8 @@
 #include "game/frontend/sprite/Sprite.h"
 #include "game/frontend/sprite/InstancedSprite.h"
 #include "game/frontend/text/InstancedText.h"
+#include "game/frontend/text/InstancedTextManager.h"
+#include <memory>
 #include "scene/actor/Instanced.h"
 #include "types/mesh/Rectangle.h"
 #include "scene/actor/Sprite.h"
@@ -80,7 +82,11 @@ const std::string& Base::GetName() const {
 
 void Base::SetName( const std::string& name ) {
 	if ( m_name != name ) {
-		m_name = name;
+		std::string next_name = name;
+		auto replacement = std::unique_ptr< text::InstancedText >( m_bm->m_game->GetITM()->CreateInstancedText( name, m_bm->m_name_font, m_faction->m_colors.text, m_faction->m_colors.text_shadow ) );
+		if ( m_render.is_rendered ) { replacement->ShowAt( { m_render.coords.x, m_render.coords.y - 0.25f, m_render.coords.z - 0.25f } ); }
+		m_name.swap( next_name );
+		auto* previous = m_render.name_sprite; m_render.name_sprite = replacement.release(); delete previous;
 	}
 }
 

@@ -25,6 +25,9 @@ public:
 
 	void ShowAt( const types::Vec3& coords );
 	void Hide();
+	const std::string& GetText() const { return m_text; }
+	size_t GetSymbolCount() const { return m_text_sprites.size(); }
+	size_t GetInstanceCount() const { return m_instance_ids.size(); }
 
 private:
 	const std::string m_text = "";

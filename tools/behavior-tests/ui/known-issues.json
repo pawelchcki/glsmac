@@ -712,11 +712,78 @@
         "regression_scenarios": 11,
         "regression_assertions": 112
       }
+    },
+    {
+      "id": "owned-base-rename-controls",
+      "suite": "base-rename",
+      "status": "fixed",
+      "lane": "native-display-free-original-comparison",
+      "property": "The actual owned-base Rename button must open the installed-script dialog and commit or discard edits through native name state, preserving citizen/unit/year context and close/reopen behavior.",
+      "baseline_verification": {
+        "errors": 11,
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 0
+      },
+      "baseline_wasm_sha256": "373451659e3b4fe86028ee860506251c8cb2ab5aa4f70756d988e167ca52cb2c",
+      "baseline_scripts_sha256": "00a4dd03ce3b2d619ceeb81197eb9de2aa9afaa15572f11632116e3e8e7caf87",
+      "reference_sha256": "49f049affb7fafb237ec99270f29ca437c43255bbb7d8300c4345ae95cd8310f",
+      "scope": "Eleven whole original case traces independently repeated twice. The frozen pre-fix candidate passes its initial full management/native context then reports eleven missing mounted Rename dialog/input errors, not parity mismatches. Confirmed inputs include unchanged/cancel, rename/reopen, discard/reopen, empty/space-preserving/24-character drafts and separate common/expansion source profiles. Native authority, rollback, codec, stale controls, frontend name sprites and editor sharing are separate application invariants. Other names, cities, duplicate policies, save/load/network and full-game parity remain unobserved. All eleven now match native display-free replay and actual Release browser controls. Thirteen native application scenarios separately cover authority, receipts, rollback, lifetime and modal cleanup; seven generic editor scenarios cover shared production InputState.",
+      "verification": {
+        "matched": 11,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 11
+      }
+    },
+    {
+      "id": "rename-optional-controller-refresh",
+      "suite": "base-rename",
+      "status": "fixed",
+      "lane": "native-application-regression",
+      "property": "Refreshing base sections must preserve existing partial management contexts that have no initialized Rename controller.",
+      "baseline_verification": {
+        "passed": 105,
+        "failed": 3,
+        "scenarios": 1340,
+        "assertions": 9084
+      },
+      "baseline_suites": [
+        "nutrient-rule-consumer",
+        "base-specialist-bonus-native",
+        "growth-factor-integration"
+      ],
+      "scope": "The first full frozen108-suite run found three strict existing regressions at base_screen.refresh: GSE undefined differs from null, so the optional controller method was dereferenced before initialization. Existing nutrient/Doctor/growth tests and their expectations are preserved. The fix guards both undefined and null. This is an application regression, separate from original Rename observations.",
+      "verification": {
+        "passed": 108,
+        "failed": 0,
+        "scenarios": 1376,
+        "assertions": 9406
+      }
+    },
+    {
+      "id": "focused-input-zoom-shortcut",
+      "suite": "base-rename",
+      "status": "fixed",
+      "lane": "actual-release-browser-application",
+      "property": "Focused native text fields must receive lowercase x/z before map zoom shortcuts.",
+      "baseline_verification": {
+        "rendered_matched": 10,
+        "rendered_failed": 1
+      },
+      "baseline_wasm_sha256": "bb2ec9ab2e3178f22aae96d1ca118a1647df9967d338383eb662470f28a2a978",
+      "scope": "The full eleven-case actual Release browser run and a paced focused retry both dropped lowercase x from Expansion Grove. Native field output was Epansion Grove; the original observation remains unchanged. The global pre-DOM zoom keydown handler consumed x/z. Move zoom keydown to the existing after-DOM unhandled-key phase and retain early keyup release. This is an application routing defect exposed by the original expansion-source trace.",
+      "verification": {
+        "rendered_matched": 11,
+        "rendered_failed": 0,
+        "additional_editor_paths": 1
+      }
     }
   ],
   "verification": {
-    "cases": 683,
-    "matched": 683,
+    "cases": 694,
+    "matched": 694,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -751,6 +818,8 @@
     "rendered_starvation_mineral_cases": 2,
     "rendered_starvation_mineral_matched": 2,
     "rendered_starvation_notice_controls_cases": 4,
-    "rendered_starvation_notice_controls_matched": 4
+    "rendered_starvation_notice_controls_matched": 4,
+    "rendered_base_rename_cases": 11,
+    "rendered_base_rename_matched": 11
   }
 }

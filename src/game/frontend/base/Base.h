@@ -68,6 +68,7 @@ public:
 
 	const std::string& GetName() const;
 	void SetName( const std::string& name );
+	const text::InstancedText* GetNameSprite() const { return m_render.name_sprite; }
 
 	faction::Faction* const GetFaction() const;
 	const bool IsOwned() const;

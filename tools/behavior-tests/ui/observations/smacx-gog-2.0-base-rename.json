@@ -1,0 +1,1883 @@
+{
+  "captured_at": "2026-10-21T01:46:18.428250+00:00",
+  "observations": [
+    {
+      "case_sha256": "768fcc9a9e04f421ad0c8a739b8fd9d1feaf4db8dfcc76a7a51722731b212ec2",
+      "id": "rename-cancel",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "aafead9510fab90ce98997c5899deac6470b4f24f777678b8e0c6b776743c0dc",
+      "id": "rename-unchanged",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "selected": "scout",
+            "title": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "91c5fe163141d0e4f48caf7dd731947b3a9188c4bdcff10b0774b64ca638f53a",
+      "id": "rename-confirm-reopen",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "TEST GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Test Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "TEST GROVE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Test Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "map",
+            "selected": "scout",
+            "title": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Test Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "TEST GROVE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0618350c1c7c8f5f998e8ce9e0c35281689e490b2cd09ebaeb00fee1a76ebb12",
+      "id": "rename-discard-reopen",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "OTHER GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 3,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 4,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7e38ac02aae60c35e1f75410e42edd7a6bccff72442e56da69a3e72686f5d624",
+      "id": "rename-empty",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": ""
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ec4847c64eaec0546b2b857f7bb4045633712b7e4db8619b85c66f07f8f20016",
+      "id": "rename-spaces",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GREEN GLADE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "  Green Glade  ",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GREEN GLADE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "1956b49c3f12d2d84c232a4864ccce5cd3ff4225e3e4985c4422abfc4ce91b5f",
+      "id": "rename-long",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "ABCDEFGHIJKLMNOPQRSTUVWX"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "ABCDEFGHIJKLMNOPQRSTUVWX",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "ABCDEFGHIJKLMNOPQRSTUVWX",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7429f3f958800be1cae97265bb6f1bc0797634f4cce0902a70bb536a524774dd",
+      "id": "rename-mouse-cancel",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "FALSE GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "22268effc9111ef530812fff576d8a3870e002bd95d303882f2cea445fc49c29",
+      "id": "rename-common-source",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "COMMON ARCHIVIST",
+              "label": "TAG:",
+              "prompt": "COMMON TITLE FOR GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "COMMON ARCHIVIST",
+              "label": "TAG:",
+              "prompt": "COMMON TITLE FOR GAIA'S LANDING?",
+              "value": "COMMON GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Common Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "COMMON GROVE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "966cd7c599bcf287c442a5a0090282072f13a55c1ea0b6c2a1a307b3dfc975ad",
+      "id": "rename-expansion-source",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHIEF LIBRARIAN",
+              "label": "NAME:",
+              "prompt": "WHAT SHALL WE RENAME GAIA'S LANDING?",
+              "value": "EXPANSION GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Expansion Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "EXPANSION GROVE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b5570b28c7984777d6e27decd095df47ebc992ca710b5effa4cae637761be072",
+      "id": "rename-both-source",
+      "output": {
+        "trace": [
+          {
+            "after_action": -1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 0,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "COMMON ARCHIVIST",
+              "label": "TAG:",
+              "prompt": "COMMON TITLE FOR GAIA'S LANDING?",
+              "value": "GAIA'S LANDING"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 1,
+            "base": {
+              "doctors": 1,
+              "name": "Gaia's Landing",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "COMMON ARCHIVIST",
+              "label": "TAG:",
+              "prompt": "COMMON TITLE FOR GAIA'S LANDING?",
+              "value": "BOTH GROVE"
+            },
+            "screen": "rename",
+            "selected": "scout",
+            "title": "GAIA'S LANDING",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "after_action": 2,
+            "base": {
+              "doctors": 1,
+              "name": "Both Grove",
+              "owned_count": 1,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "dialog": null,
+            "screen": "base",
+            "selected": "scout",
+            "title": "BOTH GROVE",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "8acc4c269f85866f2c162aae618b40c4faf6fc14782ad79c927ba69d0d71337b",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Eleven declared ASCII sequences only; draft/display wording uppercase whitespace normalized, native committed names preserve case/spaces; other input, cities, save/load/network, raw stores and full game excluded",
+    "contract": "ui.base_rename.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual full management/Rename clicks, focused Backspace/type, Enter/Escape/OK/Cancel and reopen; independent rendered dialog/draft/title OCR and read-only native name/citizens/unit/year guards",
+    "source_profiles_sha256": "e538a25330338bad7072ec65c4ad73dd46bcf12ed0b4f7324d6b0a0f297ed60e"
+  },
+  "repeat": 2,
+  "suite_sha256": "f3a2b02178d496d2e6d8ce8edfcb11e8387f7fb7ef1bc09152e518d19ef53aa1",
+  "version": 1
+}

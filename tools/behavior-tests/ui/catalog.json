@@ -215,6 +215,11 @@
       "id": "starvation-notice-controls",
       "cases": "cases/starvation-notice-controls.json",
       "observations": "observations/smacx-gog-2.0-starvation-notice-controls.json"
+    },
+    {
+      "id": "base-rename",
+      "cases": "cases/base-rename.json",
+      "observations": "observations/smacx-gog-2.0-base-rename.json"
     }
   ]
 }

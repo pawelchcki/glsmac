@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 683 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 694 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,356 scenarios and 9,306 assertions** across
-106 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,376 scenarios and 9,406 assertions** across
+108 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -35,6 +35,23 @@ bindings, facility and Colony Pod production, and technology/production snapshot
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `native-input-state` suite adds seven scenarios/41 assertions for the shared
+production text-edit state used by real UI fields and display-free replay.
+It covers exact assignment, independent buffers, printable/Backspace/Enter,
+modifier and Insert fallthrough, the existing clipboard filter, rejected raw
+key descriptors and an optional field length limit with an unlimited default. Drawing, focus and platform delivery remain browser boundaries.
+These are application regressions, separate from original Rename observations.
+
+The `base-rename` suite adds 13 scenarios/59 assertions for production Rename
+controls, native validation/rollback, receipts, saved-method lifetime and modal
+cleanup. Eleven independently repeated [original Rename traces](ui/base-rename-contract.md)
+match native replay and actual browser controls, including raw names, cancel and
+reopen, source precedence and the observed 24-character field limit. Installed
+common Script.txt RENAME and labels.txt supply the dialog. Native text fields
+and display-free tests share production InputState; focused text now receives
+x/z before map zoom. Unicode, duplicate-name behavior, other cities and complete
+base-management parity remain unobserved.
 
 The `unit-sentry` suite checks persistent native Sentry orders, readiness,
 receiving-world serialization, authoritative guards, rollback, production L
@@ -564,6 +581,11 @@ executable fingerprint and adapter/emulator versions. It refuses to overwrite
 existing evidence unless `--force` is supplied. A modified executable, including
 a differently patched build, is rejected before execution. Supporting another
 build requires separately verified addresses and separate observations.
+
+`record --jobs 2` runs two independent reference processes concurrently. Each
+runner must own isolated fixture state; the Wine driver uses private game copies,
+prefixes and displays. Every requested repetition must return identical outputs
+and metadata before evidence is written. The default is one worker.
 
 For a live comparison, replace `--reference FILE` in the comparison command
 with:

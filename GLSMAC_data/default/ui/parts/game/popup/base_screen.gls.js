@@ -31,6 +31,7 @@ return {
 		this.production_switch_preview = null;
 		this.production_selection_base_id = null;
 		this.citizen_job = null;
+		this.rename_dialog = null; this.rename_controller = null;
 
 		p.ui.class('base-screen-frame').set({
 			border: 'rgb(35,59,34),2',
@@ -92,6 +93,12 @@ return {
 
 			this.body = body;
 			const screen = this;
+			this.rename_controller = #include('base_screen/rename');
+			this.rename_controller.init({owner: body, ui: p.ui, game: p.game, glsmac: p.glsmac,
+				is_open: () => { return screen.is_open; }, get_base: () => { return screen.base; },
+				set_dialog: (dialog) => { screen.rename_dialog = dialog; },
+			});
+			body.on('remove', (e) => { this.rename_controller.cancel(); });
 			this.citizen_job = #include('base_screen/citizen_job');
 			this.citizen_job.init({
 				ui: p.ui, game: p.game,
@@ -120,6 +127,7 @@ return {
 					hide_production_selection: parent.parent.hide_production_selection,
 					update_production_selection: parent.parent.update_production_selection,
 					show_citizen_selection: parent.parent.show_citizen_selection,
+					show_rename: parent.parent.show_rename,
 				},
 			};
 
@@ -141,6 +149,7 @@ return {
 
 		this.base_id = base.id;
 		this.base = base;
+		if (#is_defined(this.rename_controller) && this.rename_controller != null) { this.rename_controller.refresh(); }
 
 		const intake = base.get_intake();
 		const consumption = base.get_consumption();
@@ -232,6 +241,7 @@ return {
 	},
 
 	on_hide: () => {
+		if (#is_defined(this.rename_controller) && this.rename_controller != null) { this.rename_controller.cancel(); }
 		this.hide_citizen_selection();
 		this.sections.bottom_bar.frame.hide();
 		this.hide_production_selection();
@@ -333,6 +343,7 @@ return {
 	},
 
 	show_citizen_selection: (base_id, pop_id, base_identity, pop_identity) => {
+		if (#is_defined(this.rename_controller) && this.rename_controller != null) { this.rename_controller.cancel(); }
 		if (!this.is_open || !#is_defined(this.citizen_job) || this.citizen_job == null) { return; }
 		this.hide_production_selection();
 		this.citizen_job.open(base_id, pop_id, base_identity, pop_identity);
@@ -350,6 +361,7 @@ return {
 	},
 
 	show_production_selection: () => {
+		if (#is_defined(this.rename_controller) && this.rename_controller != null) { this.rename_controller.cancel(); }
 		this.hide_citizen_selection();
 		if (this.production_selection == null && this.is_open && this.base != null && this.base.get_owner().id == this.p.game.get_player().id) {
 			this.production_selection_base_id = this.base_id;
@@ -452,6 +464,11 @@ return {
 				this.p.game.event('set_base_production', { base: base, choice_id: selected });
 			}
 		}
+	},
+
+	show_rename: () => {
+		if (!this.is_open || !#is_defined(this.rename_controller) || this.rename_controller == null || this.production_selection != null) { return; }
+		this.hide_citizen_selection(); this.rename_controller.open();
 	},
 
 };

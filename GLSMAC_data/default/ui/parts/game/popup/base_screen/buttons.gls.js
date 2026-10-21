@@ -26,6 +26,7 @@ return {
 			is_ok: true,
 			is_cancel: true,
 		});
+		btn_rename.on('click', (e) => { this.p.utils.show_rename(); return true; });
 
 		btn_ok.on('click', (e) => {
 			this.p.hide();

@@ -4,6 +4,7 @@
 import argparse
 from datetime import datetime, timezone
 from copy import deepcopy
+from concurrent.futures import ThreadPoolExecutor
 import json
 from pathlib import Path
 import re
@@ -55,18 +56,28 @@ def validate_reference_metadata(metadata):
         raise ProtocolError("reference requires a positive integer adapter_version")
 
 
-def capture_reference(suite, command, repeat=2, timeout=60):
+def capture_reference(suite, command, repeat=2, timeout=60, jobs=1):
     if type(repeat) is not int or not 2 <= repeat <= 10:
         raise ProtocolError("reference capture requires 2..10 identical runs")
+    if type(jobs) is not int or not 1 <= jobs <= 2:
+        raise ProtocolError("reference jobs must be 1 or 2")
     request = probe_request(suite)
-    first = run_probe(command, request, timeout)
+    if jobs == 2:
+        # Each runner must isolate its fixture. Keep every independent response;
+        # identical outputs AND metadata remain required before evidence exists.
+        with ThreadPoolExecutor(max_workers=jobs) as pool:
+            responses = list(pool.map(lambda _: run_probe(command, request, timeout), range(repeat)))
+        first = responses[0]
+        others = iter(responses[1:])
+    else:
+        first = run_probe(command, request, timeout)
+        others = (run_probe(command, request, timeout) for _ in range(repeat - 1))
     validate_reference_metadata(first["implementation"])
     indexed = validate_response(first, request)
     for result in indexed.values():
         if result["status"] != "ok":
             raise ProtocolError(f"reference did not observe {result['id']}: {result['reason']}")
-    for _ in range(repeat - 1):
-        other = run_probe(command, request, timeout)
+    for other in others:
         other_results = validate_response(other, request)
         if canonical(indexed) != canonical(other_results) or first["implementation"] != other["implementation"]:
             raise ProtocolError("reference was nondeterministic; control world state and RNG before recording")
@@ -211,6 +222,7 @@ def main(argv=None):
     record_parser.add_argument("--command", required=True, help="runner argv, parsed without a shell")
     record_parser.add_argument("--output", type=Path, required=True)
     record_parser.add_argument("--repeat", type=int, default=2)
+    record_parser.add_argument("--jobs", type=int, default=1, help="independent reference workers, 1 or 2; parallel runners must isolate fixture state")
     record_parser.add_argument("--force", action="store_true")
     references = compare_parser.add_mutually_exclusive_group(required=True)
     references.add_argument("--reference", type=Path, help="recorded original observations")
@@ -226,7 +238,7 @@ def main(argv=None):
         if args.action == "record":
             if args.output.exists() and not args.force:
                 raise ProtocolError("observation file already exists; choose a new path or use --force")
-            observations = capture_reference(suite, args.command, args.repeat, args.timeout)
+            observations = capture_reference(suite, args.command, args.repeat, args.timeout, jobs=args.jobs)
             write_json(args.output, observations, args.force)
             print(f"Recorded {len(request['cases'])} cases from {observations['reference']['executable_sha256']}")
             return 0

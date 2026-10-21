@@ -2,6 +2,7 @@
 
 #include "Panel.h"
 #include "Focusable.h"
+#include "InputState.h"
 
 #include "util/Timer.h"
 
@@ -29,7 +30,7 @@ private:
 
 	bool m_is_focused = false;
 
-	std::string m_value = "";
+	InputState m_state;
 
 	Text* m_text;
 
@@ -37,6 +38,7 @@ private:
 	util::Timer m_blinker;
 
 	void SetValue( GSE_CALLABLE, const std::string& value );
+	void ValueChanged( GSE_CALLABLE );
 	void FixAlign();
 
 	void UpdateText();

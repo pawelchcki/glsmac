@@ -4,5 +4,6 @@ SET( SRC ${SRC}
 	${PWD}/Test.cpp
 	${PWD}/ProductionFixture.cpp
 	${PWD}/AsyncFixture.cpp
+	${PWD}/InputFixture.cpp
 
 	PARENT_SCOPE )

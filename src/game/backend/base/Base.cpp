@@ -439,6 +439,37 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 	WRAPIMPL_LINK( "get_tile", m_tile )
 	WRAPIMPL_CUSTOM_SETTERS
 	{
+		"validate_rename", NATIVE_CALL( handle = m_rename_handle ) {
+			N_EXPECT_ARGS( 4 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( turn, 1, Int ); N_GETVALUE( previous, 2, String ); N_GETVALUE( name, 3, String );
+			auto* identity = *handle;
+			if ( !identity ) { return VALUE( gse::value::String,, "Base rename identity is stale" ); }
+			auto* game = identity->m_game;
+			if ( !game->IsRunning() || !game->GetBM() || game->GetBM()->GetBase( identity->m_id ) != identity ) { return VALUE( gse::value::String,, "Base rename identity is stale" ); }
+			const auto error = identity->ValidateRename( GSE_CALL, caller, turn, previous, name );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} )
+	},
+	{
+		"rename", NATIVE_CALL( handle = m_rename_handle ) {
+			N_EXPECT_ARGS( 4 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( turn, 1, Int ); N_GETVALUE( previous, 2, String ); N_GETVALUE( name, 3, String );
+			auto* identity = *handle;
+			if ( !identity ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base rename identity is stale" ); }
+			auto* game = identity->m_game;
+			if ( !game->IsRunning() || !game->GetBM() || game->GetBM()->GetBase( identity->m_id ) != identity ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base rename identity is stale" ); }
+			return VALUE( gse::value::Int,, identity->Rename( GSE_CALL, caller, turn, previous, name ) );
+		} )
+	},
+	{
+		"rollback_rename", NATIVE_CALL( handle = m_rename_handle ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Int );
+			auto* identity = *handle;
+			if ( !identity ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base rename identity is stale" ); }
+			auto* game = identity->m_game;
+			if ( !game->IsRunning() || !game->GetBM() || game->GetBM()->GetBase( identity->m_id ) != identity ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base rename identity is stale" ); }
+			identity->RollbackRename( GSE_CALL, receipt ); return VALUE( gse::value::Undefined );
+		} )
+	},
+	{
 		"validate_citizen_reconciliation", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( turn, 1, Int );
 			const auto error = ValidateCitizenReconciliation( GSE_CALL, caller, turn );

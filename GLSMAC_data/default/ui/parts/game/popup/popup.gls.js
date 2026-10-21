@@ -107,6 +107,7 @@ return {
 
 		const pp = {
 
+			glsmac: p.glsmac,
 			game: p.game,
 			ui: p.ui,
 			modules: p.modules,

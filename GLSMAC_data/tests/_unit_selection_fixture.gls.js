@@ -3,8 +3,12 @@
 const source = #include('./_startup_unit_rules_fixture');
 const definitions = #include('../default/units/defs');
 const turns = #include('../default/units/turns');
-return (profile, ids) => {
-	const f = test.selection_fixture(); f.enable_economy();
+return (profile, ids, initial_base_name, map_size) => {
+	let f = null;
+	if (#is_defined(map_size)) { f = test.selection_fixture(initial_base_name, map_size); }
+	else if (#is_defined(initial_base_name)) { f = test.selection_fixture(initial_base_name); }
+	else { f = test.selection_fixture(); }
+	f.enable_economy();
 	f.with_write(() => {
 		// Existing constructor definitions are replaced with the actual shipped
 		// basic land declarations on synthetic installed component inputs.

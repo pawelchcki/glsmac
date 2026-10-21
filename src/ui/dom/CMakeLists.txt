@@ -13,6 +13,7 @@ SET( SRC ${SRC}
 	${PWD}/Text.cpp
 	${PWD}/Button.cpp
 	${PWD}/Input.cpp
+	${PWD}/InputState.cpp
 	${PWD}/Sound.cpp
 	${PWD}/ChoiceList.cpp
 	${PWD}/Select.cpp

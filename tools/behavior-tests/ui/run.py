@@ -283,6 +283,17 @@ def starvation_notice_controls_command(args):
     return shlex.join(command)
 
 
+def base_rename_command(args):
+    if args.browser:
+        raise ProtocolError('Rename uses native display-free replay; browser inputs are checked separately')
+    name = 'base_rename_original.py' if args.record else 'base_rename_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/base-rename-original')]
+    return shlex.join(command)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
@@ -414,6 +425,8 @@ def main(argv=None):
                 reference_command = starvation_mineral_command(args)
             if reference['id'] == 'starvation-notice-controls':
                 reference_command = starvation_notice_controls_command(args)
+            if reference['id'] == 'base-rename':
+                reference_command = base_rename_command(args)
             record = compare.capture_reference(suite, reference_command, timeout=args.timeout)
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
@@ -468,6 +481,8 @@ def main(argv=None):
                 candidate_command = starvation_mineral_command(args)
             if command is not None and reference['id'] == 'starvation-notice-controls':
                 candidate_command = starvation_notice_controls_command(args)
+            if command is not None and reference['id'] == 'base-rename':
+                candidate_command = base_rename_command(args)
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
@@ -481,7 +496,7 @@ def main(argv=None):
             summary[status] = sum(result["comparison"]["summary"][status] for result in results)
     compare.write_json(args.report, {
         "version": 1, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
-        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins, bounded citizen management opening, resource/allocation HUD labels, first-starvation notification controls including Escape/modifier/immediate suppression and bounded first-turn mineral credit; not full-game parity",
+        "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins, bounded citizen management opening, resource/allocation HUD labels, first-starvation notification controls including Escape/modifier/immediate suppression, bounded first-turn mineral credit and owned-base Rename controls; not full-game parity",
         "pending_transfer": args.pending,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,

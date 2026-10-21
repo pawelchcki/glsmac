@@ -32,6 +32,9 @@
 #include "game/backend/connection/Client.h"
 
 #include "game/frontend/Game.h"
+#include "game/frontend/base/BaseManager.h"
+#include "game/frontend/base/Base.h"
+#include "game/frontend/text/InstancedText.h"
 
 static GLSMAC* s_glsmac = nullptr;
 
@@ -294,6 +297,19 @@ WRAPIMPL_BEGIN( GLSMAC )
 					return loader::txt::WrapSmacTextDocument( GSE_CALL, loaders->smac_text->Load( filename, format ) );
 				}
 				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+			} )
+		},
+		{
+			"get_base_map_label", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+				const auto* base = m_game && m_game->GetBM() && id > 0 ? m_game->GetBM()->GetBaseById( id ) : nullptr;
+				if ( !base ) { return VALUE( gse::value::Undefined ); }
+				const auto* label = base->GetNameSprite();
+				return VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "text", VALUE( gse::value::String,, label->GetText() ) },
+					{ "symbols", VALUE( gse::value::Int,, label->GetSymbolCount() ) },
+					{ "instances", VALUE( gse::value::Int,, label->GetInstanceCount() ) },
+				} );
 			} )
 		},
 		{

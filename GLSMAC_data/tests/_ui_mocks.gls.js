@@ -37,6 +37,7 @@ const display = () => {
 	result.nodes = [];
 	result.timers = [];
 	result.styles = {};
+	result.native_input_factory = null;
 	const create = (kind, properties) => {
 		const node = {};
 		for (key in properties) { node[key] = properties[key]; }
@@ -53,6 +54,7 @@ const display = () => {
 		node.on = handlers.on;
 		node.emit = handlers.emit;
 		node.handler_count = handlers.count;
+		node.get_handlers = () => { return handlers.handlers; };
 		node.is_removed = () => { return node.removed; };
 		node.is_visible = () => { return node.visible; };
 		node.play_count = () => { return node.plays; };
@@ -113,6 +115,19 @@ const display = () => {
 			if (!#is_defined(node[child_kind])) {
 				node[child_kind] = (props) => {
 					const child = create(child_kind, props);
+					if (child_kind == 'input' && result.native_input_factory != null) {
+						child.input_state = result.native_input_factory(props);
+						child.value = child.input_state.get_value();
+						// Platform delivery only: the shared production native buffer
+						// owns all editing, including any field-specific maximum.
+						child.raw_key = (code, printable, modifiers, clipboard) => {
+							const event = child.input_state.key_down(code, printable, modifiers, clipboard);
+							child.value = child.input_state.get_value();
+							if (event.changed) { child.emit('change', {value: child.value}); }
+							if (event.submitted) { child.emit('input', {value: child.value}); }
+							return event.handled;
+						};
+					}
 					node.children :+ child;
 					return child;
 				};

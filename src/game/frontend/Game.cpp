@@ -1422,17 +1422,6 @@ void Game::Initialize(
 			}
 
 			switch ( event.type ) {
-				case input::EV_KEY_DOWN: {
-					if ( event.data.key.key == 'z' ) {
-						m_map_control.key_zooming = 1;
-						return true;
-					}
-					if ( event.data.key.key == 'x' ) {
-						m_map_control.key_zooming = -1;
-						return true;
-					}
-					break;
-				}
 				case input::EV_KEY_UP: {
 					if ( event.data.key.key == 'z' || event.data.key.key == 'x' ) {
 						if ( m_map_control.key_zooming ) {
@@ -1532,6 +1521,12 @@ void Game::Initialize(
 
 			switch ( event.type ) {
 				case input::EV_KEY_DOWN: {
+					// Text fields and modal controls own their keys first.
+					// Zoom applies only when the DOM leaves a map key unhandled.
+					if ( event.data.key.key == 'z' || event.data.key.key == 'x' ) {
+						m_map_control.key_zooming = event.data.key.key == 'z' ? 1 : -1;
+						return true;
+					}
 					if ( !event.data.key.modifiers ) {
 						auto* selected_tile = m_tm->GetSelectedTile();
 						if ( selected_tile ) {

@@ -1,6 +1,7 @@
 #include "Test.h"
 #include "ProductionFixture.h"
 #include "AsyncFixture.h"
+#include "InputFixture.h"
 #include "gse/value/Array.h"
 
 #include <unordered_map>
@@ -96,6 +97,12 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			return ::loader::txt::ParseSmacText( GSE_CALL, source, format );
 		} ) },
 		{ "async_probe", NATIVE_CALL() { N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); return ProbeAsyncTimers( GSE_CALL, kind ); } ) },
+		{ "input_state", NATIVE_CALL() {
+			N_EXPECT_ARGS_MIN_MAX( 1, 2 ); N_GETVALUE( initial_value, 0, String );
+			int64_t max_length = 0;
+			if ( arguments.size() > 1 ) { N_GETVALUE( length, 1, Int ); if ( length < 0 ) { GSE_ERROR( EC.INVALID_CALL, "Negative input maximum length" ); } max_length = length; }
+			return MakeInputState( GSE_CALL, initial_value, max_length );
+		} ) },
 		{ "founding_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 0 );
 			auto* fixture = MakeProductionFixture( GSE_CALL, true );
@@ -103,8 +110,16 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			return fixture;
 		} ) },
 		{ "selection_fixture", NATIVE_CALL( production_roots ) {
-			N_EXPECT_ARGS( 0 );
-			auto* fixture = MakeProductionFixture( GSE_CALL, false, true );
+			N_EXPECT_ARGS_MIN_MAX( 0, 2 );
+			std::string initial_base_name = "Fixture Base";
+			if ( !arguments.empty() ) { N_GETVALUE( declared_name, 0, String ); initial_base_name = declared_name; }
+			size_t fixture_map_size = 4;
+			if ( arguments.size() > 1 ) {
+				N_GETVALUE( declared_size, 1, Int );
+				if ( declared_size < 4 || declared_size > 64 || declared_size % 2 != 0 ) { GSE_ERROR( EC.INVALID_CALL, "fixture map size must be even and between 4 and 64" ); }
+				fixture_map_size = declared_size;
+			}
+			auto* fixture = MakeProductionFixture( GSE_CALL, false, true, initial_base_name, fixture_map_size );
 			production_roots->value.push_back( fixture );
 			return fixture;
 		} ) },
