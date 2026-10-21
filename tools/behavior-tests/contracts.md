@@ -295,3 +295,19 @@ acknowledgements are fixture inputs. They do not compute work effects.
 This is separate from the C++ helper totals and establishes no parity for
 other terrain, partial movement, advanced abilities, multiple workers,
 replacement dialogs or UI labels. See [the exact contract](ui/former-work-contract.md).
+
+## Bounded in-game menu presentation
+
+`ui.ingame_menu_trace.v1` compares twelve independently repeated original traces
+and 63 native/visible checkpoints in one declared healthy Scout/Former/Colony
+Headquarters fixture. It covers all nine root headers, source-driven labels,
+ordered child rows, separators, light/dark text classes, child Escape, switching
+and the MENU toggle. An edited GAME title and two source rows establish source
+consumption. Identical synthetic menu and TERRAIN declarations feed both apps.
+
+The [exact contract](ui/ingame-menus-contract.md) describes native state guards,
+normalization and display/event boundaries. Display-free replay executes the
+production GSE controls and native parser; the browser lane drives real pointer
+controls and SDL Escape. Row effects, accelerator binding, enabled semantics,
+other game contexts and complete menu/game parity remain unobserved. These
+cases are separate from the native/WASM C++ helper totals.

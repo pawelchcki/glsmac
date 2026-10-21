@@ -505,7 +505,7 @@ const create_game_menu = () => {
 	const state = { quits: [], closed: [] };
 	const p = {};
 	p.ui = view.ui;
-	p.glsmac = {};
+	p.glsmac = {load_smac_text: #include('./_ingame_menu_text_fixture')};
 	p.maybe_quit = (exit) => { state.quits :+ exit; };
 	const module = #include('../default/ui/parts/game/menu/menu');
 	module.init(p);

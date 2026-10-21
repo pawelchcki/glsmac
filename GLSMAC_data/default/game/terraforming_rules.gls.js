@@ -22,6 +22,7 @@ const format_order = (template, name) => {
 	return result;
 };
 return {
+	format_order: format_order,
 	parse: (document) => {
 		const rows = document.rows('TERRAIN');
 		if (#sizeof(rows) < 6) { throw Error('Missing SMAC terraforming action rows'); }

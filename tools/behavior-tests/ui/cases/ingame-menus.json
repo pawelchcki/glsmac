@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "name": "Bounded in-game menu presentation and navigation",
+  "description": "Input-only nine-header, root-toggle, header-switch and synthetic-source traces. No row actions or supplied answers.",
+  "cases": [
+    {
+      "id": "ingame-menu-header-0",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 0
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-1",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 1
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-2",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 2
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-3",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 3
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-4",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-5",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-6",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 6
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-7",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 7
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-8",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 8
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-root-toggle",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          "menu",
+          "menu",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-header-switch",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 0
+          },
+          {
+            "header": 1
+          },
+          {
+            "header": 3
+          },
+          {
+            "header": 8
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    },
+    {
+      "id": "ingame-menu-source-game",
+      "algorithm": "ui.ingame_menu_trace.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "game-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 0
+          },
+          "escape",
+          "menu"
+        ]
+      }
+    }
+  ]
+}

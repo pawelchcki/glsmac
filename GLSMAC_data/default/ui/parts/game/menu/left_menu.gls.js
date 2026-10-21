@@ -1,21 +1,20 @@
 return {
 
 	init: (p) => {
-		return p.create([
-			{
-				label: 'GAME',
-				open: () => {
-					p.menu.open('left_menu_game', {
-						align: 'bottom',
-						left: p.menu.menu_width,
-						bottom: 256 + 166 - p.menu.item_height * 2,
-					});
-				},
-				close: () => {
-					p.menu.close('left_menu_game');
-				},
-			},
-		]);
+		const entries = [];
+		for (definition of p.menu.headers) {
+			const header = definition;
+			entries :+ {
+				label: header.label,
+				open: () => { p.menu.open_child(header.id); },
+				close: () => { p.menu.close(header.id); },
+			};
+		}
+		const menu = p.create(entries);
+		menu.el.align = 'bottom left';
+		menu.el.left = 0;
+		menu.el.bottom = p.menu.bottom_bar_height;
+		return menu;
 	},
 
 };

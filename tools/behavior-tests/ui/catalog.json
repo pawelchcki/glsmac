@@ -220,6 +220,11 @@
       "id": "base-rename",
       "cases": "cases/base-rename.json",
       "observations": "observations/smacx-gog-2.0-base-rename.json"
+    },
+    {
+      "id": "ingame-menus",
+      "cases": "cases/ingame-menus.json",
+      "observations": "observations/smacx-gog-2.0-ingame-menus.json"
     }
   ]
 }

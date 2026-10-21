@@ -59,6 +59,13 @@ You can also include maps under `maps` in a local installation or hosted source.
 **View Credits** opens the project and original-game
 credits; **OK** or Escape returns to the main menu.
 
+The in-game **MENU** opens nine source-driven headings. Choose a heading to
+open its child list, press Escape to return to the highlighted parent, and click
+MENU to close it. Labels come from installed `menu.txt`; Terraform entries also
+use installed `alphax.txt` terrain names and order templates. Existing New Game
+and Quit controls retain their confirmation flows. Other imported rows currently
+provide presentation and navigation; their gameplay actions remain in progress.
+
 In a base screen, the left and right arrows beside the base name cycle through
 your bases and wrap at either end. The **Skip Turn** button below the unit
 preview spends the selected unit's remaining movement, as Space does. It is

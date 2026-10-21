@@ -41,6 +41,7 @@ const fixture = () => {
 	f.state = { exits: 0, resets: 0, orders: [], results: [] };
 	f.glsmac.exit = () => { f.state.exits = f.state.exits + 1; };
 	f.glsmac.reset = () => { f.state.resets = f.state.resets + 1; };
+	f.glsmac.load_smac_text = #include('./_ingame_menu_text_fixture');
 	f.game.get_map = () => { return f.map; };
 	f.game.get_um = () => { return {}; };
 	f.game.get_year = () => { return 2101; };

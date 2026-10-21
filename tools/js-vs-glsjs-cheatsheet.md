@@ -8,8 +8,10 @@
 |---|---|---|
 | Keywords | ~40 reserved words | Only: `return break continue throw let const true false null undefined if else while for try catch switch case default`. No `var`, `function`, `class`, `new`, `import`, `export`, `async`, `await`. (`src/gse/parser/JS.h:98-148`) |
 | Functions | `function`/arrow both | Arrow only: `let f = (a, b) => { ... };`. No hoisting — declare before use. |
+| Reserved bindings | `parent` can be a local variable | GSE reserves the bindings `this` and `parent`; use another local name. This is separate from parser keywords. (`src/gse/context/Context.cpp`) |
 | Modules | `import`/`export` | `#include('path')` returns whatever that file's top-level `return` produced; call the result yourself. (`GLSMAC_data/default/main.gls.js:1-4`) |
 | Strings | Single or double quotes | Single quotes only; escape an apostrophe with `\'`. Double quotes produce a parse error. (`src/gse/parser/JS.h`, `CHARS_QUOTES`) |
+| Splitting strings | `'aWORDb'.split('WORD')` | `#split` accepts a single-character separator. For terraforming `$STR0` substitutions, reuse the production formatter in `default/game/terraforming_rules.gls.js`. |
 | Object keys | Quoted strings allowed in literals | Literal keys must be identifiers. For names such as `68x34`, create `{}` then assign `obj['68x34'] = value`. (`src/gse/parser/JS.cpp:1045-1061`) |
 | Negative inputs | Unary literals such as `-1` | In arrays and call arguments, use `(0 - 1)`; unary negative literals can fail parsing with “Left operand missing.” (`src/gse/parser/JS.cpp:605-623`) |
 | `+` coercion | Anything stringifies (`1+'2'==='12'`) | Strict — both sides must match type (int+int, float+float, string+string). Array `+` **concatenates**; object `+` **merges** (throws on duplicate key). Anything else throws `operation_not_supported`. (`src/gse/Interpreter.cpp:522-543`) |
@@ -17,6 +19,8 @@
 | `this` | dynamic, many footguns | Context-bound inside callables, same idea as JS. Nothing special found here — don't over-solve it. (`src/gse/context/Context.cpp:13,48`) |
 | async | promises / event loop / microtasks | No promises. `#async(ms, callback)` = repeating timer: callback returning `true` reschedules after `ms`, `false` stops. Nested `#async` calls create child scopes tied to the parent's lifetime (cooperative, not microtask-queued) — see the parent/child example at `GLSMAC_data/tests/async.gls.js:33-73`. Different mental model, don't reach for `await`-shaped intuitions. |
 | Array push | `.push(x)` | `arr :+ x` or `arr[] = x`. No method-call form seen. |
+| Property increment | `state.count++` | Assign explicitly: `state.count = state.count + 1`. Property increments fail even where a local `count++` works. |
+| Object iteration | `continue` skips the current item | In the current interpreter, `continue` in an object `for … in/of` ends iteration. Use a positive condition around the body instead. The object branch lacks the array branch's loop-control handling; this prevented child-menu Escape handlers from being registered. (`src/gse/runner/Interpreter.cpp`) |
 | Existing values in object literals | `{key: obj}` retains the object reference | Object literals clone existing object/array values; callbacks keep their original captured objects. For a shared reference, create the container then assign `container.key = obj`. Newly nested literal objects and callables are retained. (`src/gse/runner/Interpreter.cpp:975-993`, `src/gse/Value.cpp:475-490`) |
 | `this` in object literals | Values read the enclosing JS `this` | GSE evaluates the literal with the new object as its context. Compute outer values first: `const token = this.next_token; const session = {token: token};`. The Rename request regression exercises this distinction. |
 | Index calls | `obj[fn()]` | Compute the call into a local variable before indexing (`const key = fn(); obj[key]`); an inline call can fail with `unexpected index type`. |

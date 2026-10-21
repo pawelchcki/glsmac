@@ -167,3 +167,18 @@ Chromium startup tests, see [GLSMAC in a browser](../../web/README.md).
 EGL-backed tests alone do not cover browser event handling, DOM behavior, or
 every browser's WebGL validation rules. Linux was verified locally; macOS and
 Windows support in the underlying runtime has not been verified here.
+
+The in-game menu comparison lane uses actual native MENU/header pointer hits
+and SDL Escape against twelve immutable original traces:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game npm run test:ingame-menus
+```
+
+It loads production scripts directly from the checkout; `WASM_SCRIPTS_ROOT`
+can select a frozen source tree and `WASM_APP_DIR` selects a built runtime.
+`INGAME_MENU_CASE` selects one public case ID. The default lane runs all twelve
+serially. Native labels, separators, text tones and city/unit state are observed;
+artwork, hints, enabled semantics and row effects are outside this contract.
+The display-free equivalent needs no original assets; see the
+[bounded contract](../behavior-tests/ui/ingame-menus-contract.md).

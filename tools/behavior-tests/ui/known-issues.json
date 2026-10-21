@@ -779,11 +779,95 @@
         "rendered_failed": 0,
         "additional_editor_paths": 1
       }
+    },
+    {
+      "id": "ingame-menu-source-presentation",
+      "suite": "ingame-menus",
+      "status": "fixed",
+      "lane": "native-production-controls-and-actual-browser",
+      "property": "Original controlled Scout/headquarters navigation presents nine headers and source-driven child labels, grouping, separators and observed text classes; the frozen reproduction contains one Game header.",
+      "baseline_verification": {
+        "cases": 12,
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 12
+      },
+      "baseline_wasm_sha256": "edc8904cfbccafe1bf5a101862fdf955eb66ef9310316652c1f2e1fc504a04f2",
+      "baseline_scripts_sha256": "cab562f92d8447d8f85fa3eeb09d6aeafe84a1c27fc2524776587259ac82bccd",
+      "scope": "Twelve original navigation/source traces, independently repeated twice, contain 63 checkpoints in one declared healthy three-unit owned Headquarters fixture. Source menu.txt and twenty synthetic alphax TERRAIN rows are identical relevant inputs in both apps. The separate accepted switching pilot is provenance only and excluded from totals. Row effects, enable semantics, hints, other contexts, editor mode and complete menu/game parity remain unobserved. Probe-reserved-binding error and rejected original input/setup/nondeterminism captures are retained as failed harness attempts, never passing evidence.",
+      "initial_baseline_scripts_sha256": "c9324c847ee9991f0c2088d0d3576217a5afc33589e1c3e776d9dc713437ee5f",
+      "intermediate_verification": {
+        "matched": 9,
+        "mismatched": 3,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "confirmed_discrepancies": [
+        "Duplicate separator between terrain and menu-source Terraform groups",
+        "Incorrect Editor/Terraform first-row text tone from unparenthesized GSE condition",
+        "Edited GAME source title failed to change the displayed header to CORE"
+      ],
+      "headless_verification": {
+        "matched": 12,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "verification": {
+        "cases": 12,
+        "matched": 12,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 12
+      },
+      "verification_wasm_sha256": "edc8904cfbccafe1bf5a101862fdf955eb66ef9310316652c1f2e1fc504a04f2",
+      "verification_scripts_sha256": "b5451ff8ef354814ec94394940dc858b07636795b1d85b447472ba23983d0603"
+    },
+    {
+      "id": "ingame-menu-child-escape-registration",
+      "suite": "ingame-menus",
+      "status": "fixed-in-native-regression",
+      "lane": "application-regression",
+      "property": "Every mounted in-game child menu must register and consume its plain Escape handler while retaining its root highlight.",
+      "scope": "The new controller used continue while iterating its menu object. Current GSE object iteration ends on that loop-control flag, so the first skipped root prevented all child handlers from being registered. A native diagnostic observed zero keydown handlers and unconsumed Escape. Use a positive body condition; the language-engine behavior is documented, not changed. Assign shared controller/node references after literal construction as an identity safeguard; cloning was not separately established as the Escape cause.",
+      "verification": {
+        "targeted_suites": 3,
+        "scenarios": 81,
+        "assertions": 506,
+        "failed": 0
+      },
+      "failed_attempts": "Candidate authoring reports v1..v6 are retained outside the checkout. Reserved binding/property increment, contextual parent and multi-character split failures are harness/implementation mistakes, not original disagreements."
+    },
+    {
+      "id": "ingame-menu-child-layer-and-position",
+      "suite": "ingame-menus",
+      "status": "fixed",
+      "lane": "actual-browser-application",
+      "property": "Mounted child menus must leave root headers reachable and display their complete rows above the bottom bar.",
+      "scope": "The first actual browser header0 trace passed native presentation/state checkpoints, but its rendered child frame revealed a panel at x0 covering root controls and lower rows behind the bottom bar. GSE style-literal this resolved to the newly constructed object, so left was unset; native default zindex0.5 was below bottom-bar0.8. Capture the controller width before constructing style and set the menu layer above the bottom bar. Exact original geometry remains outside the recorded contract. A passing state trace alone is not evidence of readable rows or reachable pointer controls.",
+      "baseline_verification": {
+        "native_trace_matched": 1,
+        "visual_review_failed": true
+      },
+      "native_verification": {
+        "targeted_suites": 3,
+        "scenarios": 81,
+        "assertions": 506,
+        "failed": 0
+      },
+      "verification": {
+        "rendered_matched": 12,
+        "rendered_failed": 0,
+        "complete_child_pointer_access": true
+      },
+      "browser_observer_boundary": "Subsequent hover preview is independent of selection and outside this contract. Initial rendered Scout and both production selected-unit IDs are checked; native state guards remain strict. A bounded native-hover event wait replaces a fixed delay. Rejected observer/transport attempts are retained outside the checkout; no singular viewport/timing cause is asserted."
     }
   ],
   "verification": {
-    "cases": 694,
-    "matched": 694,
+    "cases": 706,
+    "matched": 706,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -820,6 +904,8 @@
     "rendered_starvation_notice_controls_cases": 4,
     "rendered_starvation_notice_controls_matched": 4,
     "rendered_base_rename_cases": 11,
-    "rendered_base_rename_matched": 11
+    "rendered_base_rename_matched": 11,
+    "rendered_ingame_menu_cases": 12,
+    "rendered_ingame_menu_matched": 12
   }
 }

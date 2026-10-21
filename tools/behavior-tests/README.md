@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 694 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 706 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -26,8 +26,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,376 scenarios and 9,406 assertions** across
-108 suites. It exercises production movement/combat/spawn events, deterministic
+The current passing lane contains **1,386 scenarios and 9,471 assertions** across
+109 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -35,6 +35,15 @@ bindings, facility and Colony Pod production, and technology/production snapshot
 assertion-only scripts count as one file scenario; the remaining scenarios have
 individual names. This is current
 GLSMAC regression/invariant coverage, separate from original-game parity.
+
+The `ingame-menu` suite adds ten scenarios/65 assertions for installed menu
+definitions, lazy child mounting, source-slot callback identity and native
+land/water wording. Twelve independently repeated [original menu traces](ui/ingame-menus-contract.md)
+cover nine headers and source-driven presentation/navigation at 63 checkpoints.
+The comparison executes production scripts and native parser/state without
+assets or pixels; actual browser input is checked in a separate lane. Row effects,
+enabled semantics, hints, shortcuts and complete menu/game behavior remain
+unobserved.
 
 The `native-input-state` suite adds seven scenarios/41 assertions for the shared
 production text-edit state used by real UI fields and display-free replay.
