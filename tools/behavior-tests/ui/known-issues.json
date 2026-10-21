@@ -897,6 +897,31 @@
       },
       "browser_observer_boundary": "Real native hover and exactly one native clicked-source identity are required before pointer parking; the command and successful receipt are observed too. Complete checkpoints wait within a bounded deadline for both actual production selection controllers and native focus, then require two identical complete readings. Original gold is unchanged.",
       "failed_attempts": "Candidate v1 had six probe errors when Colony selection exposed omitted native validation aliases; these are corrected with actual native methods. First browser batch retained three passes/three failures: one Skip target observed Hold and two reads caught selection delivery in progress. A separate focused native-click/command diagnostic and final strict six-case batch passed. The cause of the initial wrong-target outcome was not established; no production binding defect or causal transport explanation is asserted."
+    },
+    {
+      "id": "single-player-world-base-ownership",
+      "suite": "world-base-ownership",
+      "catalog": "pending-catalog.json",
+      "status": "pending-transfer",
+      "property": "Two fresh original first-city runs have seven actual owners with one base each; production single-player initialization occupies only the human slot. The pending native replay uses shared production initialization, actual get_players, and shipped queued startup handlers. Computer controllers and later turns are outside the observations.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite world-base-ownership",
+      "original_observations_sha256": "71a75678cc7288fc9b90c8653864e154357e6fea600c125352bab97152b72436",
+      "scope": "Counts of owners with bases only, after declared Gaian/Citizen actual 40x80 flat-grid first-city input; no full player roster, opponent identities/composition, AI decisions, natural starting inventory/placement or later turns.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_output": {
+        "human_factions": 1,
+        "human_bases": 1,
+        "owners_with_bases": 1,
+        "total_bases": 1,
+        "other_owner_base_counts": []
+      },
+      "baseline_wasm_sha256": "5f84145a267964941e9055bc4bf22e17508c2d719d70bac530f764d3321a5539",
+      "baseline_scripts_sha256": "d7e9398770d907765e805752b3747b4834ff39c8f6b90b97772f6b0accb80455"
     }
   ],
   "verification": {

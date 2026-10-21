@@ -19,6 +19,7 @@ namespace game {
 namespace backend {
 
 namespace faction {
+class Faction;
 class FactionManager;
 }
 
@@ -61,6 +62,7 @@ CLASS( State, gse::GCWrappable )
 	bool IsSlave();
 
 	void AddPlayer( Player* player );
+	void AddSinglePlayerSlot( faction::Faction* faction, bool name_confirmed = false );
 	void RemovePlayer( Player* player );
 
 	// used only on host

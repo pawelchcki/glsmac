@@ -5,6 +5,11 @@
       "id": "base-open-recalc",
       "cases": "cases/base-open-recalc.json",
       "observations": "observations/smacx-gog-2.0-base-open-recalc.json"
+    },
+    {
+      "id": "world-base-ownership",
+      "cases": "cases/world-base-ownership.json",
+      "observations": "observations/smacx-gog-2.0-world-base-ownership.json"
     }
   ]
 }

@@ -78,7 +78,7 @@ struct ProductionFixture : gc::Object {
 	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
 
-	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4 ) : gc::Object( nullptr ) {
+	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4, size_t startup_map_height = 0 ) : gc::Object( nullptr ) {
 		game.Start();
 		{
 			// FixtureObject roots the native graph explicitly. Native managers are
@@ -88,10 +88,20 @@ struct ProductionFixture : gc::Object {
 			game.SetState( state );
 			game.m_bm = new backend::base::BaseManager( &game, false );
 			game.m_map = new backend::map::Map( &game, false );
-			backend::map::tile::Tiles tiles( nullptr, fixture_map_size, fixture_map_size );
+			backend::map::tile::Tiles tiles( nullptr, fixture_map_size, startup_map_height ? startup_map_height : fixture_map_size );
 			tiles.Clear();
 			auto terrain = tiles.Serialize();
 			if ( game.m_map->LoadFromBuffer( terrain ) != backend::map::Map::EC_NONE ) { THROW( "fixture terrain failed" ); }
+			if ( startup_map_height ) {
+				// Empty participant/entity graph. The caller configures native factions
+				// and invokes State's actual single-player initializer before startup.
+				game.m_tm = new backend::map::tile::TileManager( &game, false );
+				game.m_rm = new backend::resource::ResourceManager( &game, false );
+				game.m_um = new backend::unit::UnitManager( &game, false );
+				game.m_game_state = backend::Game::GS_RUNNING;
+				game.m_current_turn.AdvanceTurn( 1 );
+				return;
+			}
 			state->GetFM()->Add( new backend::faction::Faction( "SYNTHETIC", "Synthetic" ) );
 			owner = std::make_unique< backend::Player >( "Fixture", backend::Player::PR_SINGLE, state->GetFM()->Get( "SYNTHETIC" ), "Citizen" );
 			state->m_slots->Resize( 2 );
@@ -150,6 +160,27 @@ struct ProductionFixture : gc::Object {
 		delete rm;
 		delete state;
 		state = nullptr;
+	}
+	backend::slot::Slot* InitializeSinglePlayer( GSE_CALLABLE, const std::string& faction_id ) {
+		if ( state->m_slots->GetCount() || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			GSE_ERROR( EC.INVALID_CALL, "Single-player initialization requires an empty world" );
+		}
+		auto* faction = state->GetFM()->Get( faction_id );
+		if ( !faction ) { GSE_ERROR( EC.INVALID_CALL, "Unknown startup faction" ); }
+		state->m_settings.global.Initialize();
+		state->m_settings.global.difficulty_level = state->m_settings.global.rules.m_difficulty_levels.GetValueUnsafe( "Citizen" );
+		state->m_settings.global.map.SelectWorldSize( game.m_map->GetWidth(), game.m_map->GetHeight(), 2 );
+		state->AddSinglePlayerSlot( faction );
+		game.m_slot_num = 0;
+		game.m_slot = &state->m_slots->GetSlot( 0 );
+		game.m_player = game.m_slot->GetPlayer();
+		return game.m_slot;
+	}
+	void DrainStartupEvents( GSE_CALLABLE ) {
+		for ( size_t drain = 0; !game.m_pending_events.empty(); ++drain ) {
+			if ( drain >= 1000 ) { GSE_ERROR( EC.INVALID_CALL, "Startup event queue did not settle" ); }
+			Process();
+		}
 	}
 	void WithWrite( const std::function< void() >& callback ) { game.WithRW( callback ); }
 	void EnableMovement( GSE_CALLABLE ) {
@@ -1231,6 +1262,33 @@ static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	object->Set( "game", f->game.Wrap( GSE_CALL ), GSE_CALL );
 	object->Set( "base", f->base->Wrap( GSE_CALL ), GSE_CALL );
 	object->Set( "owner", f->owner->Wrap( GSE_CALL ), GSE_CALL );
+}
+
+Value* MakeWorldStartupFixture( GSE_CALLABLE, size_t width, size_t height ) {
+	const auto session = std::make_shared< ProductionSession >();
+	session->current = std::make_shared< ProductionFixture >( GSE_CALL, false, false, "", width, height );
+	auto* object = new FixtureObject( GSE_CALL, session );
+	object->Set( "game", session->current->game.Wrap( GSE_CALL ), GSE_CALL );
+	object->Set( "fm", session->current->state->GetFM()->Wrap( GSE_CALL ), GSE_CALL );
+	object->Set( "colors", VALUEEXT( value::Object, GSE_CALL, ( value::object_properties_t {
+		{ "text", types::Color( 1.0f, 1.0f, 1.0f ).Wrap( GSE_CALL ) },
+		{ "text_shadow", types::Color( 0.0f, 0.0f, 0.0f ).Wrap( GSE_CALL ) },
+		{ "border", types::Color( 0.0f, 1.0f, 0.0f ).Wrap( GSE_CALL ) },
+	} ) ), GSE_CALL );
+	object->Set( "initialize_single_player", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( faction_id, 0, String );
+		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "with_write", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GET_CALLABLE( callback, 0 ); Value* result = nullptr;
+		session->current->WithWrite( [ & ]() { result = callback->Run( GSE_CALL, {} ); } );
+		return result;
+	} ), GSE_CALL );
+	object->Set( "process_events", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->DrainStartupEvents( GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	return object;
 }
 
 Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const std::string& initial_base_name, size_t fixture_map_size ) {

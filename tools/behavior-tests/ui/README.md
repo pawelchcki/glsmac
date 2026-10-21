@@ -396,6 +396,14 @@ commands and turn effects are executed by production code. Optional synthetic-wo
 browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
+The [pending catalog](pending-catalog.json) also retains one
+[first-city ownership recording](world-base-ownership-contract.md): seven
+actual owners with bases after declared ordinary Gaian setup. Its candidate
+uses the shared production single-player initializer, actual native player
+enumeration, shipped startup and native event queue. Production currently
+occupies only the human slot; computer controllers and later turns remain gaps.
+This comparison is excluded from passing totals and remains a strict failure.
+
 The [pending catalog](pending-catalog.json) retains the signed nutrient-counter
 contract: its unchanged-city control agrees, while the joined-city counter
 still differs. Pending failures are excluded from passing totals. `--pending`

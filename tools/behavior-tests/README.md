@@ -36,8 +36,8 @@ python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 ```
 
 Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
-`ui-interactions` and `game-modal-input` regression suites
-(101 scenarios/960 assertions), plus
+`ui-interactions`, `game-modal-input` and `world-single-player-setup` regression suites
+(102 scenarios/971 assertions), plus
 `ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
 (30 recorded cases across three references).
 Stable contains the explicit complement: 106 regression suites, 44 UI references
@@ -56,14 +56,22 @@ Any executed mismatch, unsupported result, error or failed suite returns nonzero
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
 
-Two recorded `base-open-recalc` cases are **pending transfer**, outside default
-passing release groups. Their explicit strict red replay remains available:
+Two recorded `base-open-recalc` cases and one
+[`world-base-ownership`](ui/world-base-ownership-contract.md) case are **pending
+transfer**, outside default passing release groups. Their explicit strict red
+replay remains available:
 
 ```sh
 python3 tools/behavior-tests/lanes.py --lane hot --pending
 # Equivalent explicit kind:
 python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
 ```
+
+The ownership recording observes seven owners with one base each after the
+declared first-city setup. Its candidate uses the actual production
+single-player initializer and queued world startup; the initializer currently
+fills only the human slot. Computer controllers and later turns remain gaps.
+This pending comparison adds no passing original cases.
 
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
@@ -82,8 +90,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,406 scenarios and 9,925 assertions** across
-111 suites. It exercises production movement/combat/spawn events, deterministic
+The full regression catalog contains **1,407 scenarios and 9,936 assertions** across
+112 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology

@@ -1,0 +1,40 @@
+{
+  "captured_at": "2026-10-21T19:14:55.422481+00:00",
+  "observations": [
+    {
+      "case_sha256": "d3e6ba45c9c2c5547716b62e2db826b2e2c109b3be3c8378a79ed6ff29bdf011",
+      "id": "gaian-standard-first-city-owners",
+      "output": {
+        "human_bases": 1,
+        "human_factions": 1,
+        "other_owner_base_counts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "owners_with_bases": 7,
+        "total_bases": 7
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "16c386c6483edbe8eaf3bcd60e75ba054028b1ae80b278ee47bf15df501d9d09",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Controlled Gaian/Citizen/standard-rules flat40x80 first-city fixture with declared companions. Counts of owners with bases only; not complete participant roster, AI decisions, faction identity/composition, natural starting units/placement or later turns",
+    "contract": "game.world_base_ownership.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Fresh original ordinary setup through first city; read-only actual city array owners and human mask, with stable native city/unit/year guards",
+    "source_profiles_sha256": "9c34091285810676072e10058ba681db5427a11f639b858aafd076fe6df1fa00"
+  },
+  "repeat": 2,
+  "suite_sha256": "63954b1676c11a35a8c7ded516005b23a885fd3185cc2b4a3eeeda77bc79de4f",
+  "version": 1
+}
