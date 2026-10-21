@@ -3,6 +3,7 @@ import { capabilities, checks, configuration, event, reviews } from "runnerless/
 // Runnerless compiles the trusted PR base revision. PR changes cannot approve
 // themselves by changing this program. Neither gate allocates an Actions runner.
 export function configure(): void {
+  configuration.titlePolicy();
   configuration.workflow("pr-gates", [
     "pull_request", "pull_request_review", "pull_request_review_comment",
     "pull_request_review_thread", "issue_comment", "check_run",
