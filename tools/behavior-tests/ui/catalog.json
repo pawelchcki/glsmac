@@ -225,6 +225,11 @@
       "id": "ingame-menus",
       "cases": "cases/ingame-menus.json",
       "observations": "observations/smacx-gog-2.0-ingame-menus.json"
+    },
+    {
+      "id": "unit-menu-orders",
+      "cases": "cases/unit-menu-orders.json",
+      "observations": "observations/smacx-gog-2.0-unit-menu-orders.json"
     }
   ]
 }

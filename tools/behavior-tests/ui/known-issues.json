@@ -863,11 +863,45 @@
         "complete_child_pointer_access": true
       },
       "browser_observer_boundary": "Subsequent hover preview is independent of selection and outside this contract. Initial rendered Scout and both production selected-unit IDs are checked; native state guards remain strict. A bounded native-hover event wait replaces a fixed delay. Rejected observer/transport attempts are retained outside the checkout; no singular viewport/timing cause is asserted."
+    },
+    {
+      "id": "action-menu-orders-and-dismissal",
+      "suite": "unit-menu-orders",
+      "status": "fixed",
+      "lane": "original-native-ui-parity",
+      "property": "Actual Action source slots 26, 29 and 30 apply their observed native orders and movement, select the next ready unit, close the child while keeping the root, then dismiss the root on Tab while advancing native selection.",
+      "scope": "Six independently repeated original traces with two declared source profiles and 30 checkpoints. Fresh healthy unspent Scout, Former and Colony stack, one Doctor city, no turn advances. Other row effects, contexts and unit types remain unobserved.",
+      "baseline_verification": {
+        "matched": 0,
+        "mismatched": 6,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "baseline_wasm_sha256": "edc8904cfbccafe1bf5a101862fdf955eb66ef9310316652c1f2e1fc504a04f2",
+      "baseline_scripts_sha256": "5dbfe8858956d65bc72918a24cfa943c1d6f202dc1e2715665b6116974481885",
+      "original_observations_sha256": "5d34809c8c04ac8fe8f4d0a6519961dd49506218f536a26341ea7a63a19fa927",
+      "verification": {
+        "matched": 6,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "rendered_matched": 6,
+        "rendered_failed": 0
+      },
+      "verification_wasm_sha256": "edc8904cfbccafe1bf5a101862fdf955eb66ef9310316652c1f2e1fc504a04f2",
+      "verification_scripts_sha256": "ab3ef88cd458c1b4ad41350bf77395970955a865277cae074e0ed62b68303d62",
+      "native_verification": {
+        "scenarios": 15,
+        "assertions": 91,
+        "failed": 0
+      },
+      "browser_observer_boundary": "Real native hover and exactly one native clicked-source identity are required before pointer parking; the command and successful receipt are observed too. Complete checkpoints wait within a bounded deadline for both actual production selection controllers and native focus, then require two identical complete readings. Original gold is unchanged.",
+      "failed_attempts": "Candidate v1 had six probe errors when Colony selection exposed omitted native validation aliases; these are corrected with actual native methods. First browser batch retained three passes/three failures: one Skip target observed Hold and two reads caught selection delivery in progress. A separate focused native-click/command diagnostic and final strict six-case batch passed. The cause of the initial wrong-target outcome was not established; no production binding defect or causal transport explanation is asserted."
     }
   ],
   "verification": {
-    "cases": 706,
-    "matched": 706,
+    "cases": 712,
+    "matched": 712,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
@@ -906,6 +940,8 @@
     "rendered_base_rename_cases": 11,
     "rendered_base_rename_matched": 11,
     "rendered_ingame_menu_cases": 12,
-    "rendered_ingame_menu_matched": 12
+    "rendered_ingame_menu_matched": 12,
+    "rendered_unit_menu_orders_cases": 6,
+    "rendered_unit_menu_orders_matched": 6
   }
 }

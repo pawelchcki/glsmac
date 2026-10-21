@@ -13,6 +13,7 @@ import sys
 import tempfile
 import time
 
+import lanes
 from protocol import ProtocolError, canonical, decode_json
 
 
@@ -111,15 +112,20 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
     parser.add_argument("--runtime", type=Path, default=Path(os.environ.get("WASM_APP_DIR", ROOT / "build/wasm/bin")) / "GLSMAC.js")
-    parser.add_argument("--jobs", type=int, default=min(os.cpu_count() or 1, 4))
+    parser.add_argument("--jobs", type=int)
     parser.add_argument("--suite", action="append", help="select suite id (repeatable)")
     parser.add_argument("--domain", choices=("gameplay", "economy", "decision-logic", "ui", "ux"))
     parser.add_argument("--timeout", type=float, default=30)
     parser.add_argument("--node", default="node")
     parser.add_argument("--report", type=Path, default=DIRECTORY / ".build/fast-report.json")
     parser.add_argument("--list", action="store_true")
+    parser.add_argument("--lane", choices=lanes.LANES, default="all")
     args = parser.parse_args(argv)
+    if args.jobs is None:
+        args.jobs = 2 if args.lane != "all" else min(os.cpu_count() or 1, 4)
     try:
+        if args.lane != "all" and args.jobs > 2:
+            raise ProtocolError("selected lanes support at most two workers")
         if not 1 <= args.jobs <= 32 or not 0 < args.timeout <= 300:
             raise ProtocolError("jobs must be 1..32 and timeout in (0, 300]")
         suites = load_catalog(args.catalog)["suites"]
@@ -130,6 +136,7 @@ def main(argv=None):
             suites = [suite for suite in suites if suite["id"] in args.suite]
         if args.domain:
             suites = [suite for suite in suites if args.domain in suite["domains"]]
+        suites = lanes.select("regression", suites, args.lane)
         if not suites:
             raise ProtocolError("selection contains no suites")
         if args.list:
@@ -167,7 +174,7 @@ def main(argv=None):
                 hashlib.sha256(wasm.read_bytes()).hexdigest() != wasm_hash):
             raise ProtocolError("runtime changed during the run; finish the build before testing")
         report = {
-            "version": 1, "kind": "glsmac-headless-regression", "jobs": args.jobs,
+            "version": 1, "kind": "glsmac-headless-regression", "lane": args.lane, "candidate_executed": True, "jobs": args.jobs,
             "runtime": str(runtime), "runtime_sha256": runtime_hash,
             "wasm_sha256": wasm_hash,
             "scripts_sha256": hashlib.sha256(snapshot_json.encode("utf-8")).hexdigest(),

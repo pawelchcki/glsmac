@@ -9,13 +9,65 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 706 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 712 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
 helper contracts and the display-free GLSMAC-only regressions below.
 [properties.json](properties.json) tracks the wider transfer scope and explicit
 gaps; existing passing case totals do not imply complete SMAC parity.
+
+## Hot and stable lanes
+
+[lanes.json](lanes.json) explicitly classifies every current regression, UI,
+economy and helper reference ID. A new catalog ID must be assigned to exactly one
+lane; duplicate, overlapping, missing and unknown assignments fail validation.
+Existing runner commands default to `--lane all` and retain their full catalog
+selection. `--suite` and `--domain` selections intersect with the chosen lane.
+
+```sh
+# PR/default development gate: regression and recorded UI groups, sequentially.
+npm --prefix tools/wasm-tests run test:hot
+# Stable complement: run only on main, after merge.
+npm --prefix tools/wasm-tests run test:stable
+# Inventory only; no candidate execution or agreement claim.
+npm --prefix tools/wasm-tests run test:lanes
+python3 tools/behavior-tests/lanes.py --lane hot --validate-only
+```
+
+Hot contains the `unit-menu-orders`, `ingame-menu`, `ui-interactions` and
+`game-modal-input` regression suites (96 scenarios/597 assertions), plus
+`ingame-menus` and `unit-menu-orders` original UI replay (18 recorded cases).
+Stable contains the explicit complement: 106 regression suites, 44 UI references
+(694 cases), two economy references and 15 current helper references. These are
+bounded catalogs, not a full-game coverage claim. Stable execution belongs only
+on main; PR checks run hot and consult the latest main stable result. CI trigger
+and required-check policy are configured separately from these runner filters.
+
+The lane dispatcher runs groups sequentially, defaults to one worker, and accepts
+only `--jobs 1` or `--jobs 2`. Individual runners accept `--lane hot|stable|all` and
+`--list`; hot/stable execution also caps each runner at two workers. Use
+`lanes.py --runtime /path/to/GLSMAC.js` to select one cached WASM runtime for the
+regression/economy/UI groups. Reports label the selected lane and distinguish
+integrity validation (`candidate_executed: false`) from actual candidate replay.
+Any executed mismatch, unsupported result, error or failed suite returns nonzero.
+Rendered comparisons stay optional and separate:
+`npm --prefix tools/wasm-tests run test:hot:browser`.
+
+Two recorded `base-open-recalc` cases are **pending transfer**, outside default
+passing release groups. Their explicit strict red replay remains available:
+
+```sh
+python3 tools/behavior-tests/lanes.py --lane hot --pending
+# Equivalent explicit kind:
+python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
+```
+
+Twelve `unit-menu-context` input-only cases are a **not-ready gap** and cannot
+execute through the lane dispatcher. Both pending and gap inventories appear in
+`--list`, `--validate-only` and report metadata without contributing to passing
+counts. Four historical factor-v1 helper references are archived metadata with
+static integrity validation only; they are outside current runnable groups.
 
 ## Fast parallel gameplay and UI checks
 
@@ -26,8 +78,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The current passing lane contains **1,386 scenarios and 9,471 assertions** across
-109 suites. It exercises production movement/combat/spawn events, deterministic
+The full regression catalog contains **1,401 scenarios and 9,562 assertions** across
+110 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -41,9 +93,20 @@ definitions, lazy child mounting, source-slot callback identity and native
 land/water wording. Twelve independently repeated [original menu traces](ui/ingame-menus-contract.md)
 cover nine headers and source-driven presentation/navigation at 63 checkpoints.
 The comparison executes production scripts and native parser/state without
-assets or pixels; actual browser input is checked in a separate lane. Row effects,
-enabled semantics, hints, shortcuts and complete menu/game behavior remain
-unobserved.
+assets or pixels; actual browser input is checked in a separate lane. This
+presentation contract excludes row effects, enabled semantics, hints, shortcuts
+and complete menu/game behavior.
+
+Six independently repeated [Action-menu command traces](ui/unit-menu-orders-contract.md)
+match display-free native replay and actual browser controls at thirty complete
+checkpoints. In the declared healthy, unspent Scout fixture, source slots
+26/29/30 apply Sentry/Hold/Skip, advance selection to the Former while retaining
+the root menu, and Tab selects the Colony Pod while closing the root. Both
+synthetic and edited-label profiles preserve source identity. Fifteen separate
+application scenarios/91 assertions cover shared handlers, native receipt
+authority, failed submissions, popup/pending guards and stale callbacks.
+Other unit/initial-order contexts, other rows and turn effects remain unobserved;
+the twelve input-only context traces remain an unrecorded hot gap.
 
 The `native-input-state` suite adds seven scenarios/41 assertions for the shared
 production text-edit state used by real UI fields and display-free replay.

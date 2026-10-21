@@ -127,19 +127,17 @@ return {
 					top += row_height;
 				}
 
-				const result = {
-					is_open: false,
-					on_close: () => {
-						if (active_entry != null) {
-							if (#is_defined(active_entry.close)) {
-								active_entry.close();
-							}
-							active_item.active = false;
-							active_entry = null;
-							active_item = null;
+				const clear_active = () => {
+					if (active_entry != null) {
+						if (#is_defined(active_entry.close)) {
+							active_entry.close();
 						}
-					},
+						active_item.active = false;
+						active_entry = null;
+						active_item = null;
+					}
 				};
+				const result = {is_open: false, on_close: clear_active, clear_active: clear_active};
 				result.el = menu;
 				result.items = items;
 				return result;
@@ -159,6 +157,7 @@ return {
 				this.bind_child(id, this.menus[id]);
 			}
 		}
+		#include('unit_orders')(this, p);
 		if (this.game != null) {
 			const frame = this.menus.left_menu.el;
 			frame.listen(this.game, 'unit_select', (e) => {

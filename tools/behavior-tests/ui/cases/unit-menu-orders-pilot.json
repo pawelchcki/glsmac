@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "Action-menu source26 pilot",
+  "description": "Input-only source-slot clicks and Tab with identical declared source profiles; no supplied effects.",
+  "cases": [
+    {
+      "id": "unit-menu-slot-26-synthetic",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 26
+          },
+          "tab"
+        ]
+      }
+    }
+  ]
+}

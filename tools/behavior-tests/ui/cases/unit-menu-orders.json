@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "name": "Bounded Action-menu source-slot commands",
+  "description": "Input-only source-slot clicks and Tab with identical declared source profiles; no supplied effects.",
+  "cases": [
+    {
+      "id": "unit-menu-slot-26-synthetic",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 26
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-slot-29-synthetic",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 29
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-slot-30-synthetic",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 30
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-slot-26-action-edited",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 26
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-slot-29-action-edited",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 29
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-slot-30-action-edited",
+      "algorithm": "ui.unit_menu_orders.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 30
+          },
+          "tab"
+        ]
+      }
+    }
+  ]
+}
