@@ -7,7 +7,7 @@ export function configure(): void {
   configuration.workflow("pr-gates", [
     "pull_request", "pull_request_review", "pull_request_review_comment",
     "pull_request_review_thread", "issue_comment", "check_run",
-    "workflow_run", "push"
+    "workflow_run", "push", "default_branch_ci"
   ]);
 }
 
