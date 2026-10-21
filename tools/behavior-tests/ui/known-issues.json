@@ -900,13 +900,13 @@
     }
   ],
   "verification": {
-    "cases": 714,
-    "matched": 714,
+    "cases": 715,
+    "matched": 715,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Passing catalog aggregates previously verified contracts and two separately verified Former/Sentry and Colony/Sentry pilots. The HOT twenty-case group matches the current production candidate. Pending contracts and the full twelve-input context gap are excluded; browser integration is checked separately. Not a new all-catalog run or full-game parity.",
+    "scope": "Passing catalog aggregates previously verified contracts and three independently repeated context records. The HOT twenty-one-case group matches current production/native replay; the three context browser wrappers also passed together. Pending contracts and the full twelve-input context gap remain excluded. Not a new all-catalog run or full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -946,6 +946,8 @@
     "rendered_unit_menu_context_former_sentry_cases": 1,
     "rendered_unit_menu_context_former_sentry_matched": 1,
     "rendered_unit_menu_context_colony_sentry_cases": 1,
-    "rendered_unit_menu_context_colony_sentry_matched": 1
+    "rendered_unit_menu_context_colony_sentry_matched": 1,
+    "rendered_unit_menu_context_former_hold_cases": 1,
+    "rendered_unit_menu_context_former_hold_matched": 1
   }
 }

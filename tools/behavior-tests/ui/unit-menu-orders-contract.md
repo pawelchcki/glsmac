@@ -74,10 +74,11 @@ outside this contract. No click or command is retried based on the outcome.
 
 Twelve input-only `ui.unit_menu_context.v1` sequences declare other initial
 selections but have no accepted full original recording or full-suite transfer
-claim. Separate [Former/Sentry](unit-menu-context-former-sentry-contract.md) and
-[Colony/Sentry](unit-menu-context-colony-sentry-contract.md) pilots prove two
-distinct inputs, counted once outside these six Scout cases; the full twelve-input
-suite remains a not-ready HOT gap.
+claim. Separate [Former/Sentry](unit-menu-context-former-sentry-contract.md),
+[Colony/Sentry](unit-menu-context-colony-sentry-contract.md) and
+[Former/Hold](unit-menu-context-former-hold-contract.md) records prove three distinct
+inputs, counted once outside these six Scout cases; the full twelve-input suite
+and its other nine inputs remain a not-ready HOT gap.
 
 The historical one-case pilot is retained unchanged for provenance and excluded
 from totals. Its earlier observer fingerprint is preserved in the pilot unit

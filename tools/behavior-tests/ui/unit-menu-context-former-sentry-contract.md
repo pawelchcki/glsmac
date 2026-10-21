@@ -40,14 +40,14 @@ npm --prefix tools/wasm-tests run test:unit-menu-context-former-sentry
 ```
 
 The complete [twelve-input context suite](unit-menu-context-contract.md) remains
-a not-ready gap. This pilot and the separate
-[Colony/Sentry pilot](unit-menu-context-colony-sentry-contract.md) prove two
-distinct inputs, counted once through their separate case files. They do not
-establish the other ten inputs, edited context labels, Hold/Skip contexts, initial
-orders, spent movement, active work, other commands or turn effects. Edited-label
-and live-reselection checks in the nineteen-scenario application suite remain
-regressions, not further original cases. Future full-suite evidence must supersede
-both catalog entries without counting either input twice.
+a not-ready gap. This pilot, [Colony/Sentry](unit-menu-context-colony-sentry-contract.md)
+and [Former/Hold](unit-menu-context-former-hold-contract.md) prove three distinct
+inputs and nineteen checkpoints, counted once through separate case files.
+The other nine inputs, edited context labels, Skip and Colony Hold contexts,
+initial orders, spent movement, active work, other commands and turn effects
+remain unproven. Edited-label and live-reselection application regressions do not
+add original cases. Future full-suite evidence must supersede all three catalog
+entries without counting their inputs twice.
 The browser command pins the public pilot case/evidence paths and rejects
 conflicting path or case selectors. The full-context browser harness retains its
 strict full-suite defaults. The pilot wrapper also participates in the optional

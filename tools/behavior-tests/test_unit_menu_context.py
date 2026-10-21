@@ -26,6 +26,7 @@ class UnitMenuContextTests(unittest.TestCase):
     case_id = 'unit-menu-former-slot-26-synthetic'
     original = 'unit_menu_context_original.py'
     paced = False
+    message = False
     checkpoints = 6
     case_digest = '76231d1db28cdde78ca4e7421c288625d33b9ec8b1b606799a877ece5fa19bf3'
     observation_digest = 'df8a04a7e1fb0f4ddb9e8a19aa2eb5c8ac188180a13de469661bf050237f11c0'
@@ -75,7 +76,7 @@ class UnitMenuContextTests(unittest.TestCase):
         with self.assertRaises(ProtocolError):
             contract.validate_output(output, self.suite['cases'][0]['input']['actions'])
 
-    def test_schema_does_not_supply_the_observed_sentry_effect(self):
+    def test_schema_does_not_supply_the_observed_order_effect(self):
         expected = self.evidence['observations'][0]['output']
         alternate = deepcopy(expected)
         for state in alternate['trace']:
@@ -86,15 +87,15 @@ class UnitMenuContextTests(unittest.TestCase):
 
     def test_commands_name_separate_original_and_current_candidate_adapters(self):
         args = SimpleNamespace(browser=False, record=False, assets=Path('/tmp'), wine='wine')
-        self.assertEqual(Path(shlex.split(ui_run.unit_menu_context_command(args, paced=self.paced))[1]).name,
+        self.assertEqual(Path(shlex.split(ui_run.unit_menu_context_command(args, paced=self.paced, message=self.message))[1]).name,
                          'unit_menu_context_headless.py')
         args.record = True
-        recorded = shlex.split(ui_run.unit_menu_context_command(args, paced=self.paced))
+        recorded = shlex.split(ui_run.unit_menu_context_command(args, paced=self.paced, message=self.message))
         self.assertEqual(Path(recorded[1]).name, self.original)
         self.assertIn('--artifacts', recorded)
         args.browser = True
         with self.assertRaises(ProtocolError):
-            ui_run.unit_menu_context_command(args, paced=self.paced)
+            ui_run.unit_menu_context_command(args, paced=self.paced, message=self.message)
 
     def test_selected_pilot_validation_never_executes_or_claims_candidate_agreement(self):
         with tempfile.TemporaryDirectory() as temporary, redirect_stdout(io.StringIO()), \
@@ -130,18 +131,29 @@ class ColonyMenuContextTests(UnitMenuContextTests):
     observer_digest = '931415ad2ddef76cb711a862041c7eb3675ffca636181470f5cc8fa599a24f26'
 
 
+class FormerHoldMenuContextTests(UnitMenuContextTests):
+    identifier = 'unit-menu-context-former-hold'
+    case_id = 'unit-menu-former-slot-29-synthetic'
+    original = 'unit_menu_context_message_original.py'
+    message = True
+    checkpoints = 6
+    case_digest = '3fef87c39a27ca2b32a22d6b4b4ece6993a493377778ac26f7b9d010f8a89b48'
+    observation_digest = '16927bfb6f3b867e4f1efed5cf3de6f2b5185d54d1153ac67a276da2ca3b5636'
+    observer_digest = 'af534c25a295248907e482d9988832fb13343d14f0ab11476b21ad4ce4d8fbff'
+
+
 class ContextInventoryTests(unittest.TestCase):
-    def test_two_pilots_prove_distinct_inputs_once_while_full_suite_stays_not_ready(self):
+    def test_three_records_prove_distinct_inputs_once_while_full_suite_stays_not_ready(self):
         references = audit.load_references(DIRECTORY / 'catalog.json')
         selected = [row for row in references if row['id'] in {
-            UnitMenuContextTests.identifier, ColonyMenuContextTests.identifier}]
+            UnitMenuContextTests.identifier, ColonyMenuContextTests.identifier, FormerHoldMenuContextTests.identifier}]
         cases = [case for row in selected for case in compare.read_json(DIRECTORY / row['cases'])['cases']]
-        self.assertEqual(len(selected), 2)
+        self.assertEqual(len(selected), 3)
         self.assertEqual(len(cases), len({case['id'] for case in cases}))
-        self.assertEqual(len(cases), 2)
+        self.assertEqual(len(cases), 3)
         manifest = lanes.load_manifest()
         known = lanes.inventory(manifest)
-        self.assertEqual(lanes.describe('ui', lanes.select('ui', known['ui'], 'hot', manifest))['cases'], 20)
+        self.assertEqual(lanes.describe('ui', lanes.select('ui', known['ui'], 'hot', manifest))['cases'], 21)
         self.assertEqual(lanes.describe('gaps', known['gaps'])['cases'], 12)
 
 

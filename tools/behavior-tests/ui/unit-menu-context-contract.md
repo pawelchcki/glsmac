@@ -3,9 +3,10 @@
 The complete twelve-input suite remains a **not-ready gap**: there is no accepted
 full original recording or full-suite candidate agreement. The separate HOT
 [Former/Sentry](unit-menu-context-former-sentry-contract.md) and
-[Colony/Sentry](unit-menu-context-colony-sentry-contract.md) pilots prove two
-distinct synthetic inputs at thirteen checkpoints and contribute two cases once.
-They do not supply evidence for the other ten inputs or make this full suite ready.
+[Colony/Sentry](unit-menu-context-colony-sentry-contract.md), plus the separate
+[Former/Hold record](unit-menu-context-former-hold-contract.md), prove three
+distinct synthetic inputs at nineteen checkpoints and contribute three cases once.
+They do not supply evidence for the other nine inputs or make this full suite ready.
 
 `ui.unit_menu_context.v1` declares twelve fresh-game sequences with the same
 healthy unspent stacked Scout, Former and Colony Pod and one-Doctor city as

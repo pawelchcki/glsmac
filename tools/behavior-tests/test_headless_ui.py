@@ -88,13 +88,13 @@ class HeadlessContractTests(unittest.TestCase):
 
     def test_checked_in_original_evidence_is_bound_to_all_inputs(self):
         references = audit.load_references(DIRECTORY / "catalog.json")
-        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources", "custom-size-kind", "large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights", "custom-grid-dimensions", "faction-setup", "faction-random-customization", "faction-identity", "faction-ratings", "startup-inventory", "startup-inventory-sources", "former-work-core", "former-work-basic", "former-work-edge", "former-work-timing", "former-movement", "road-network", "unit-selection-core", "unit-selection-lifecycle", "unit-selection-spread", "unit-wait-flags", "unit-activation", "unit-selection-held-turn", "unit-selection-held-subsets", "unit-wait-lifecycle", "unit-sentry", "unit-sentry-activation", "colony-join-core", "colony-join-mixed", "base-open-citizens", "base-resource-hud", "starvation-dialog", "starvation-mineral", "starvation-notice-controls", "base-rename", "ingame-menus", "unit-menu-orders", "unit-menu-context-former-sentry", "unit-menu-context-colony-sentry"})
+        self.assertEqual({r["id"] for r in references}, {"menus", "custom-map", "navigation", "reentry", "size-keyboard", "citizen-job", "unit-orders", "dimension-dialog", "dimension-caption-sources", "custom-size-kind", "large-map-warning", "large-map-warning-navigation", "large-map-warning-odd-heights", "custom-grid-dimensions", "faction-setup", "faction-random-customization", "faction-identity", "faction-ratings", "startup-inventory", "startup-inventory-sources", "former-work-core", "former-work-basic", "former-work-edge", "former-work-timing", "former-movement", "road-network", "unit-selection-core", "unit-selection-lifecycle", "unit-selection-spread", "unit-wait-flags", "unit-activation", "unit-selection-held-turn", "unit-selection-held-subsets", "unit-wait-lifecycle", "unit-sentry", "unit-sentry-activation", "colony-join-core", "colony-join-mixed", "base-open-citizens", "base-resource-hud", "starvation-dialog", "starvation-mineral", "starvation-notice-controls", "base-rename", "ingame-menus", "unit-menu-orders", "unit-menu-context-former-sentry", "unit-menu-context-colony-sentry", "unit-menu-context-former-hold"})
         count = 0
         for reference in references:
             suite = compare.read_json(DIRECTORY / reference["cases"])
             compare.validate_observations(compare.read_json(DIRECTORY / reference["observations"]), suite)
             count += len(suite["cases"])
-        self.assertEqual(count, 714)
+        self.assertEqual(count, 715)
 
     def test_promoted_order_evidence_stays_bound_to_all_original_checkpoints(self):
         reference = next(row for row in audit.load_references(DIRECTORY / "catalog.json") if row['id'] == 'unit-orders')

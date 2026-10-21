@@ -4,6 +4,7 @@
     "regression": {
       "hot": [
         "unit-menu-orders",
+        "unit-menu-context-orders",
         "ingame-menu",
         "ui-interactions",
         "game-modal-input"
@@ -122,7 +123,8 @@
         "ingame-menus",
         "unit-menu-orders",
         "unit-menu-context-former-sentry",
-        "unit-menu-context-colony-sentry"
+        "unit-menu-context-colony-sentry",
+        "unit-menu-context-former-hold"
       ],
       "stable": [
         "road-network",
@@ -215,7 +217,7 @@
     {
       "id": "unit-menu-context",
       "cases": "ui/cases/unit-menu-context.json",
-      "reason": "Twelve declared context inputs remain a not-ready full-suite gap. Separate Former/Sentry and Colony/Sentry pilots prove two inputs only; the complete original recording and full transfer are not ready."
+      "reason": "Twelve declared context inputs remain a not-ready full-suite gap. Separate Former/Sentry, Colony/Sentry and Former/Hold records prove three inputs only; the complete original recording and full transfer are not ready."
     }
   ],
   "archived": [

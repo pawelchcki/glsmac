@@ -59,10 +59,11 @@ commands and actual input, without independently reading native visibility state
 or asserting pixel, clipping or occlusion equivalence. The full-context browser
 harness retains strict full-suite defaults.
 
-Together with the separate [Former/Sentry pilot](unit-menu-context-former-sentry-contract.md),
-this proves two distinct inputs and contributes two cases and thirteen checkpoints
-once. The full [twelve-input context suite](unit-menu-context-contract.md) remains
-a not-ready gap. The other ten inputs, edited context profiles, Hold/Skip contexts,
-initial orders, spent movement, active work, other commands and turn effects remain
-unproven. Future accepted full-suite evidence must supersede the pilots without
-counting either input twice.
+Together with [Former/Sentry](unit-menu-context-former-sentry-contract.md) and
+[Former/Hold](unit-menu-context-former-hold-contract.md), this proves three
+distinct inputs and contributes three cases and nineteen checkpoints once.
+The full [twelve-input context suite](unit-menu-context-contract.md) remains a
+not-ready gap. The other nine inputs, edited context profiles, Skip and Colony
+Hold contexts, initial orders, spent movement, active work, other commands and
+turn effects remain unproven. Future full-suite evidence must supersede these
+bounded references without counting their inputs twice.

@@ -165,12 +165,22 @@ const main = String.raw`
    const doctor = pops[0]; const doctor_id = doctor.id + 0;
    for (unit of origin.get_units()) { const name = role(unit); if (#is_defined(ids[name])) { throw Error('Duplicate menu role'); } ids[name] = unit.id + 0; }
    const watched = {};
+   const acknowledge_moves = (name, node) => {
+    const key = 'ack-' + name;
+    if (!#is_defined(watched[key]) || watched[key] != node) {
+     watched[key] = node;
+     node.on('mousemove', (e) => { #print('IMENU_MOVE_ACK|' + #to_string(e.ax) + '|' + #to_string(e.ay)); return false; });
+    }
+   };
+   acknowledge_moves('root', glsmac.ui.root);
    const watch = (name, node, x, y) => {
     if (!#is_defined(watched[name]) || watched[name] != node) {
      watched[name] = node;
      node.on('mousemove', (e) => {
-      #print('IMENU_HOVER|' + name + '|' + #to_string(e.ax - e.x) + '|' + #to_string(e.ay - e.y) + '|' + #to_string(node.width) + '|' + #to_string(node.height)); return false;
+      #print('IMENU_HOVER|' + name + '|' + #to_string(e.ax - e.x) + '|' + #to_string(e.ay - e.y) + '|' + #to_string(node.width) + '|' + #to_string(node.height) + '|' + #to_string(e.ax) + '|' + #to_string(e.ay)); return false;
      });
+     node.on('mousedown', (e) => { #print('IMENU_POINTER|down|' + name + '|' + #to_string(e.ax) + '|' + #to_string(e.ay)); return false; });
+     node.on('mouseup', (e) => { #print('IMENU_POINTER|up|' + name + '|' + #to_string(e.ax) + '|' + #to_string(e.ay)); return false; });
     }
     #print('IMENU_TARGET|' + name + '|' + #to_string(x) + '|' + #to_string(y));
    };
@@ -234,6 +244,7 @@ const main = String.raw`
      if (child != null) {
       if (active < 0 || !#is_defined(child.contract_nodes)) { throw Error('Actual child menu has no active header/nodes'); }
       #print('IMENU_CHILD|' + #to_string(active));
+      acknowledge_moves('child-' + #to_string(active), child.el);
       let row_count = 0;
       for (record of child.contract_nodes) {
        if (record.is_removed()) { throw Error('Stale removed browser child node'); }
@@ -274,7 +285,10 @@ const main = String.raw`
         // or result. Center estimates still require its native hover event.
         const node = control.el;
         if (visible) {
-         watch('row-source-' + key, node, child.el.left + child.el.width / 2,
+         // Native row controls can be narrower than their containing panel.
+         // This remains an estimate: actual native hover must prove delivery.
+         const row_left = #is_defined(node.left) ? node.left : 0;
+         watch('row-source-' + key, node, child.el.left + row_left + node.width / 2,
            child.el.top + node.top + node.height / 2);
         }
        }
@@ -283,7 +297,8 @@ const main = String.raw`
     }
     #print('IMENU_STATE_DONE'); #print('IMENU_BROWSE_DONE');
    };
-   #async(150, () => { if (started) { try { report(); } catch { : (error) => { #print('IMENU_PROBE_ERROR|' + #to_string(error)); } } } return true; });
+   // Bound passive snapshot volume: the browser shell appends and lays out every printed line.
+   #async(1000, () => { if (started) { try { report(); } catch { : (error) => { #print('IMENU_PROBE_ERROR|' + #to_string(error)); } } } return true; });
    #async(0, () => {
     glsmac.ui.root.on('keydown', (e) => {
      if (e.code != 'K' || e.modifiers != {}) { return false; }
@@ -327,6 +342,7 @@ for (const input of cases) test(`real Action-menu context commands match recorde
   t.diagnostic(`WASM SHA-256: ${hash(readFileSync(`${build}/GLSMAC.wasm`))}`);
   t.diagnostic('Browser native guards cover all three declared unit IDs and origin-stack membership; the frontend unit API exposes no global unit enumeration. Full global membership is guarded separately by headless native inspect().');
   t.diagnostic('Action row targets come from actual child.items source_index bindings; each real pointer click requires a native hover event. Tab uses actual SDL delivery.');
+  t.diagnostic('Row center estimates use each actual native control left/width, rather than the containing menu width. Native hover and exactly one clicked-source identity remain mandatory; no geometry estimate bypasses input delivery.');
   t.diagnostic('Row visibility records successful production native Show/Hide calls by node identity. Hidden rows emit neither presentation rows nor pointer targets. This observes native visibility commands and real pointer delivery; it does not measure pixels, occlusion, clipping or independently read native visibility state.');
   t.diagnostic('Initial Scout focus must render its actual production name. Every checkpoint guards both production selected-unit IDs against native focus; later hover previews are independent of selection and outside this menu contract.');
   const declarations = JSON.parse(execFileSync('python3', ['-c', 'import json,sys; sys.path.insert(0,"tools/behavior-tests"); from ui.unit_menu_context_inputs import declarations; print(json.dumps(declarations(sys.argv[1])))', input.input.text_profile], {cwd: root, encoding: 'utf8', env: {...process.env, PYTHONDONTWRITEBYTECODE: '1'}}));
@@ -409,22 +425,31 @@ for (const input of cases) test(`real Action-menu context commands match recorde
     for (const offset of [0, -8, 8, -16, 16, -24, 24, -32, 32]) {
       const before = (await page.locator('#log').textContent()).length;
       const box = await page.locator('#canvas').boundingBox();
+      const nativePoint = [x, y + offset];
       const pointer = [box.x + box.width * x / 1024, box.y + box.height * (y + offset) / 768];
+      t.diagnostic(`Move ${name}: native ${JSON.stringify(nativePoint)}, browser ${JSON.stringify(pointer)}, canvas ${JSON.stringify(box)}`);
+      const movedAt = Date.now();
       await page.mouse.move(...pointer);
-      try {
-        await page.waitForFunction(({before, name, pattern}) => {
+      await page.waitForFunction(({before, nativePoint, pattern}) => {
           const text = document.querySelector('#log').textContent.slice(before);
-          return text.includes(`IMENU_HOVER|${name}|`) || new RegExp(pattern, 'i').test(text);
-        }, {before, name, pattern: fatal.source}, {timeout: 500});
-      } catch (error) { if (error.name !== 'TimeoutError') throw error; }
+          const acknowledged = [...text.matchAll(/IMENU_MOVE_ACK\|(-?[\d.]+)\|(-?[\d.]+)/g)]
+            .some(row => Math.abs(+row[1] - nativePoint[0]) <= 1 && Math.abs(+row[2] - nativePoint[1]) <= 1);
+          const delivered = [...text.matchAll(/IMENU_HOVER\|(menu|header-\d+|row-source-\d+)\|(-?[\d.]+)\|(-?[\d.]+)\|([\d.]+)\|([\d.]+)\|(-?[\d.]+)\|(-?[\d.]+)/g)]
+            .some(row => Math.abs(+row[6] - nativePoint[0]) <= 1 && Math.abs(+row[7] - nativePoint[1]) <= 1);
+          return acknowledged || delivered || new RegExp(pattern, 'i').test(text);
+        }, {before, nativePoint, pattern: fatal.source}, {timeout: 15000});
+      t.diagnostic(`Native move processed for ${name} at ${JSON.stringify(nativePoint)} after ${Date.now() - movedAt}ms`);
       const current = (await page.locator('#log').textContent()).slice(before); assert.doesNotMatch(current, fatal);
-      const hit = [...current.matchAll(/IMENU_HOVER\|(menu|header-\d+|row-source-\d+)\|(-?[\d.]+)\|(-?[\d.]+)\|([\d.]+)\|([\d.]+)/g)].find(row => row[1] === name);
+      const hit = [...current.matchAll(/IMENU_HOVER\|(menu|header-\d+|row-source-\d+)\|(-?[\d.]+)\|(-?[\d.]+)\|([\d.]+)\|([\d.]+)\|(-?[\d.]+)\|(-?[\d.]+)/g)]
+        .find(row => row[1] === name && Math.abs(+row[6] - nativePoint[0]) <= 1 && Math.abs(+row[7] - nativePoint[1]) <= 1);
       if (hit) {
+        assert.deepEqual(await page.locator('#canvas').boundingBox(), box, 'Canvas bounds must stay fixed between the proven native hover and click');
+        t.diagnostic(`Proven ${name} native hover: ${JSON.stringify({point: [+hit[6], +hit[7]], bounds: hit.slice(2, 6).map(Number)})}`);
         // Exactly one click at the point proven to reach this actual node.
         const beforeClick = (await page.locator('#log').textContent()).length;
         await page.mouse.click(...pointer, {delay: 100});
         if (name.startsWith('row-source-')) {
-          await page.waitForFunction(before => document.querySelector('#log').textContent.slice(before).includes('UMENU_NATIVE_CLICK|'), beforeClick, {timeout: 1000});
+          await page.waitForFunction(before => document.querySelector('#log').textContent.slice(before).includes('UMENU_NATIVE_CLICK|'), beforeClick, {timeout: 15000});
           const clicks = [...(await page.locator('#log').textContent()).slice(beforeClick).matchAll(/UMENU_NATIVE_CLICK\|([^|]+)\|([^\n]+)/g)];
           assert.deepEqual(clicks.map(row => row[1]), [name.slice('row-source-'.length)], 'The one real click must reach the declared actual source row');
         }
