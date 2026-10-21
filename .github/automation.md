@@ -11,7 +11,8 @@ separate from passing totals.
 
 `.runnerless-ci.ts` executes on Runnerless from the trusted PR base revision.
 Required checks are Hot tests (GitHub Actions), Runnerless / Main health and
-Runnerless / Codex review (Runnerless App 4602759). Automatic Codex review must be enabled
+Runnerless / Codex review (Runnerless App 4602759). The managed codex/review-gate
+is also required. Automatic Codex review must be enabled
 for this repository in the connected Codex GitHub integration.
 
 Main health reads the latest attempt of the configured workflow at the actual
@@ -35,9 +36,10 @@ resolution are used.
 
 Desired protection is versioned in `repository-policy.json`. Bootstrap applied
 GitHub ruleset 25531394 directly: active on main, PRs required, no bypass actors,
-and producer-pinned Hot/Main health/Codex review checks. The installed Runl CLI
+and producer-pinned Hot/Main health/Codex review checks plus codex/review-gate. The installed Runl CLI
 supports read-only automation/policy access; its generic API cannot write these
-settings. Managed repository-policy adoption can be done through Runnerless's
+settings. The managed Review gate must be enabled in Runnerless repository
+automation; it remains required while activation is pending. Managed repository-policy adoption can be done through Runnerless's
 administrator UI later without weakening GitHub enforcement. A checked-in policy
 alone does not prove enforcement.
 
