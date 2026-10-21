@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "gaian-stock-flat-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "hive-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "HIVE",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "univ-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "UNIV",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "morgan-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "MORGAN",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "spartans-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "SPARTANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "believe-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "BELIEVE",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "peace-stock-citizen-first-city",
+      "algorithm": "game.natural_first_city.v1",
+      "input": {
+        "faction": "PEACE",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    }
+  ],
+  "name": "stock-base-factions-natural-first-city",
+  "description": "Unchanged stock base factions, Citizen, standard, fresh flat arid first city; actual selected native roster slot and native city records; repeated independent original execution."
+}

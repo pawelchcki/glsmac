@@ -101,6 +101,22 @@ void State::AddPlayer( Player* player ) {
 	m_players.insert( player );
 }
 
+void State::AddSinglePlayerSlot( faction::Faction* faction, const bool name_confirmed ) {
+	m_slots->Resize( 7 ); // TODO: make dynamic?
+	const auto& difficulty = m_settings.global.rules.m_difficulty_levels.GetString( m_settings.global.difficulty_level );
+	if ( !name_confirmed && m_settings.local.player_name.empty() ) {
+		m_settings.local.player_name = "Player";
+	}
+	NEWV( player, Player, m_settings.local.player_name, Player::PR_SINGLE, faction, difficulty );
+	AddPlayer( player );
+	const size_t slot_num = 0; // player always has slot 0
+	AddCIDSlot( 0, slot_num );
+	auto& slot = m_slots->GetSlot( slot_num );
+	slot.SetPlayer( player, 0, "" );
+	slot.SetPlayerFlag( slot::PF_READY );
+	slot.SetLinkedGSID( m_settings.local.account.GetGSID() );
+}
+
 void State::RemovePlayer( Player* player ) {
 	Log( "removing player: " + player->GetPlayerName() );
 #if defined( DEBUG ) || defined( FASTDEBUG )

@@ -7,7 +7,7 @@ const groups = {
 	HQ: [[0, 1], [3, 3], [4, 6], [7, 10], [11, 14]],
 	NETWORK: [[0, 4], [5, 5], [6, 7]],
 	MAP: [[1, 1], [2, 7], [8, 12], [13, 17], [18, 20]],
-	ACTION: [[2, 9], [10, 12], [15, 19], [20, 25], [26, 30]],
+	ACTION: [[1, 1], [2, 9], [10, 12], [15, 19], [20, 25], [26, 30]],
 	SCENARIO: [[0, 1], [2, 5], [6, 9], [10, 14], [15, 19], [20, 23], [24, 27]],
 	EDITOR: [[0, 1], [2, 8], [9, 11], [12, 15], [16, 19], [20, 23], [24, 27], [28, 28]],
 	HELP: [[0, 2], [3, 5], [6, 7], [8, 13], [14, 19], [20, 21]],
@@ -32,6 +32,12 @@ return (id, source, terrain) => {
 		if (#is_defined(entry.separator)) { continue; }
 		// A text tone is presentation, not an implemented enabled-state rule.
 		entry.dark = id == 'TERRAFORM' || id == 'EDITOR' || (id == 'SCENARIO' && entry.source_index != 0);
+		// These observed land-unit projections use source identities only.
+		// The Colony Pod has its own leading group; both support units omit
+		// the same additional slots without changing any command bindings.
+		entry.omit_for_former = id == 'ACTION' && (entry.source_index == 2 || entry.source_index == 8 || entry.source_index == 25);
+		entry.omit_for_colony = entry.omit_for_former;
+		entry.only_for_colony = id == 'ACTION' && entry.source_index == 1;
 		items :+ entry;
 	}
 	const result = [];

@@ -57,10 +57,12 @@ on Tab. That strict report is retained separately as pre-fix evidence; no
 baseline discrepancy is exempted or counted as passing coverage.
 
 Production callbacks reuse the existing Sentry/Hold/Skip handlers and native
-selection delivery. Fifteen separate application scenarios/91 assertions check
+selection delivery. Nineteen separate application scenarios/443 assertions check
 source-slot identity, actual current selection, pending/duplicate submissions,
 malformed/unrelated/failed receipts, popup guards, switched headers and removed
-controls. These application regressions are separate from original observations.
+controls, the Former/Colony projections and live context restoration. The edited-label
+Former/Colony cases and live reselection are application regressions, separate from
+original observations.
 
 The six actual browser traces require native hover and exactly one clicked
 source identity before pointer parking, observe the emitted command and matching
@@ -70,9 +72,12 @@ then require two identical complete observations with all native guards. Initial
 rendered Scout selection is checked; later independent hover previews remain
 outside this contract. No click or command is retried based on the outcome.
 
-Twelve input-only `ui.unit_menu_context.v1` sequences declare other initial
-selections but have no accepted full original recording or passing transfer
-claim. They remain an unrecorded hot gap, outside these six Scout cases.
+The complete [context reference](unit-menu-context-contract.md) adds twelve
+independently repeated Former/Colony Sentry/Hold/Skip inputs under both source
+profiles and 78 checkpoints, all matching strict native replay. It supersedes
+three earlier pilot references without duplicate case counts. Five selected
+context cases also have actual browser verification. Other initial orders,
+spent movement, active work and turn effects remain outside these contracts.
 
 The historical one-case pilot is retained unchanged for provenance and excluded
 from totals. Its earlier observer fingerprint is preserved in the pilot unit

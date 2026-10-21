@@ -183,7 +183,8 @@ WRAPIMPL_BEGIN( Slot )
 UNWRAPIMPL_PTR( Slot )
 
 void Slot::Update() {
-	auto* const game = g_engine->GetGame();
+	auto* game = m_state->GetGame();
+	if ( !game ) { game = g_engine->GetGame(); }
 	ASSERT( game, "game not set" );
 	m_state->WithGSE(
 		m_state, [ this, game ]( GSE_CALLABLE ) {

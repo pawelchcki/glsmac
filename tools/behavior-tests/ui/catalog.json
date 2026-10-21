@@ -230,6 +230,11 @@
       "id": "unit-menu-orders",
       "cases": "cases/unit-menu-orders.json",
       "observations": "observations/smacx-gog-2.0-unit-menu-orders.json"
+    },
+    {
+      "id": "unit-menu-context",
+      "cases": "cases/unit-menu-context.json",
+      "observations": "observations/smacx-gog-2.0-unit-menu-context.json"
     }
   ]
 }

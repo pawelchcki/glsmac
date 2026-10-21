@@ -4,13 +4,17 @@
     "regression": {
       "hot": [
         "unit-menu-orders",
+        "unit-menu-context-orders",
         "ingame-menu",
         "ui-interactions",
-        "game-modal-input"
+        "game-modal-input",
+        "world-single-player-setup",
+        "natural-first-city-lifecycle",
+        "base-growth-worker-links",
+        "base-growth-regression"
       ],
       "stable": [
         "base-resource-hud",
-        "base-growth-worker-links",
         "base-citizen-reconciliation",
         "colony-join",
         "unit-sentry-activation",
@@ -69,7 +73,6 @@
         "menu-maps",
         "terrain-intel",
         "skip-turn",
-        "base-growth-regression",
         "combat-rollback-regression",
         "faction-retry-regression",
         "popup-sound-regression",
@@ -120,7 +123,8 @@
     "ui": {
       "hot": [
         "ingame-menus",
-        "unit-menu-orders"
+        "unit-menu-orders",
+        "unit-menu-context"
       ],
       "stable": [
         "road-network",
@@ -198,24 +202,18 @@
     },
     "pending-ui": {
       "hot": [
-        "base-open-recalc"
+        "base-open-recalc",
+        "world-base-ownership",
+        "natural-first-city"
       ],
       "stable": []
     },
     "gaps": {
-      "hot": [
-        "unit-menu-context"
-      ],
+      "hot": [],
       "stable": []
     }
   },
-  "gaps": [
-    {
-      "id": "unit-menu-context",
-      "cases": "ui/cases/unit-menu-context.json",
-      "reason": "Twelve input-only context traces; accepted full original evidence and strict transfer are not ready."
-    }
-  ],
+  "gaps": [],
   "archived": [
     {
       "catalog": "factor-v1-historical-catalog.json",
@@ -226,6 +224,15 @@
         "human-nutrient-factor-held-out"
       ],
       "reason": "Archived factor-v1 evidence: metadata/static integrity only, excluded from current runnable lanes."
+    },
+    {
+      "catalog": "unit-menu-context-pilots-catalog.json",
+      "ids": [
+        "unit-menu-context-former-sentry",
+        "unit-menu-context-colony-sentry",
+        "unit-menu-context-former-hold"
+      ],
+      "reason": "Superseded by the complete twelve-case unit-menu-context reference; immutable pilot inputs and evidence remain static integrity checks and are counted only in the full active suite."
     }
   ]
 }

@@ -169,8 +169,8 @@ const process_growth = (game, base) => {
 			if (base_work.workable_tile(game, base, tile) && !tile.has('working_pop') && !base.is_tile_worked(tile)) { eligible :+ tile; }
 		}
 		const best_tile = (find_best_or_worst_tiles(base, eligible, 1, 1))[0];
-		if (#is_defined(best_tile)) {
-			// found tile to work, spawn worker
+		if (#is_defined(best_tile) && get_tile_score(base, best_tile) > 0) {
+			// Automatic growth assigns a Worker only to productive terrain.
 			// TODO: talents logic
 			game.event('add_base_pop', {
 				base: base,
@@ -178,7 +178,7 @@ const process_growth = (game, base) => {
 				worked_tile: best_tile,
 			});
 		} else {
-			// all tiles already worked, spawn doctor
+			// No productive legal vacancy remains, spawn doctor
 			game.event('add_base_pop', {
 				base: base,
 				type: 'DOCTOR',

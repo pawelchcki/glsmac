@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "recorded_adapter_sha256": "9049714a00372454ab6515b73a1656298083c48979d8d14d3d8eb3a0eed15c06",
+  "private_save_sha256": "cb3415774a80a98535f623682f4a43df58c4b37eba0786984c9e3bfbd3597f92",
+  "private_save_committed": false,
+  "files": {
+    "unit_menu_context_saved_original.py": "03953cb97396fd8d8fa89af783a1510083671c7411825c263e25a43963445797",
+    "unit_menu_context_message_original.py": "ca12e2711559fc699c4261f31cff9c74a2f5d58c7b0cdd640b4c1f34539d85b6",
+    "win32_menu_input.py": "a8b3c0cf8acfd8600c1c43d1c427018377fa1e44de4b7c0a16caf75c8da6f78c",
+    "x11_snapshot.py": "b3b07a1e9417534ed0342d3d1e21bdb65ab759d3347f8cde7082bb8c1fad6a8e",
+    "recordings/former-cases.json": "db96e2a50b4e9f99ef1c0d51e4202be97ece5c8aad7be55f820af0d483926cca",
+    "recordings/former-observations.json": "137ecb1c781225055137f0ab7740a0aac98f08483d3e34d727bfb69a23ff66a1",
+    "recordings/colony-cases.json": "54147c5ad33a0d6074e6b8f819ff4d0cc0bbf407e582f1feddafff6e5907eb29",
+    "recordings/colony-observations.json": "1f69f61751a3d0edb96f5884138adb29d17cf0573b542a1b40079a0762218949"
+  }
+}

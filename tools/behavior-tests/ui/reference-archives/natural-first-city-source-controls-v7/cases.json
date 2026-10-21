@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "gaians-stock-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaians-gaian-physics-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "gaian-physics",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "univ-stock-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "UNIV",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "stock",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "univ-univ-ecology-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "UNIV",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "univ-ecology",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaians-gaian-formers-cost-4-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "gaian-formers-cost-4",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    },
+    {
+      "id": "gaians-gaian-formers-cost-8-mineral-control",
+      "algorithm": "game.natural_first_city_source_controls.v1",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "rules": "standard",
+        "text_profile": "gaian-formers-cost-8",
+        "world_width": 40,
+        "world_height": 80,
+        "terrain": "flat-arid",
+        "checkpoint": "first-city-initialized",
+        "preferences": {
+          "pause_at_end": true,
+          "tutorials": false
+        }
+      }
+    }
+  ],
+  "name": "natural-first-city-source-controls",
+  "description": "Fresh flat arid Citizen starts; only explicit TECH exchange or raw Formers cost input differs; observe actual map kind and native city records without expected-answer injection."
+}

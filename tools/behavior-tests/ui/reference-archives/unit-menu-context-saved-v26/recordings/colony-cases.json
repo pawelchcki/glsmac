@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "name": "Action-menu orders after native unit navigation",
+  "description": "Input-only initial Tab navigation, source-slot clicks and subsequent Tab; no supplied effects.",
+  "cases": [
+    {
+      "id": "unit-menu-colony-slot-26-synthetic",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 26
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-colony-slot-29-synthetic",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 29
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-colony-slot-30-synthetic",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 30
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-colony-slot-26-action-edited",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 26
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-colony-slot-29-action-edited",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 29
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "unit-menu-colony-slot-30-action-edited",
+      "algorithm": "ui.unit_menu_context.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "action-edited",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 30
+          },
+          "tab"
+        ]
+      }
+    }
+  ]
+}
