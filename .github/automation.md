@@ -21,6 +21,10 @@ cannot pass. The Runnerless host rollout must include policies.defaultBranchCi
 and refresh dependent PRs on main pushes and workflow transitions; until then the
 check deliberately fails. This is a deployment prerequisite, not a passing check.
 
+The program explicitly subscribes to the host-created `default_branch_ci` event.
+This declaration must be on the trusted default branch before main transitions
+can refresh open PRs; an ordinary `push` subscription does not opt in.
+
 After each main workflow completes, `sync-fork.yml` merges that immutable revision
 into `pawelchcki/glsmac:in_webbrowser`, retaining both parents and the message
 `Synced from wasmsmac <sha>`. The scoped deploy key can write only that fork.
