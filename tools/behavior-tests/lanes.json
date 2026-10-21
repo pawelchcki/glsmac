@@ -8,11 +8,13 @@
         "ingame-menu",
         "ui-interactions",
         "game-modal-input",
-        "world-single-player-setup"
+        "world-single-player-setup",
+        "natural-first-city-lifecycle",
+        "base-growth-worker-links",
+        "base-growth-regression"
       ],
       "stable": [
         "base-resource-hud",
-        "base-growth-worker-links",
         "base-citizen-reconciliation",
         "colony-join",
         "unit-sentry-activation",
@@ -71,7 +73,6 @@
         "menu-maps",
         "terrain-intel",
         "skip-turn",
-        "base-growth-regression",
         "combat-rollback-regression",
         "faction-retry-regression",
         "popup-sound-regression",
@@ -202,7 +203,8 @@
     "pending-ui": {
       "hot": [
         "base-open-recalc",
-        "world-base-ownership"
+        "world-base-ownership",
+        "natural-first-city"
       ],
       "stable": []
     },

@@ -922,6 +922,100 @@
       },
       "baseline_wasm_sha256": "5f84145a267964941e9055bc4bf22e17508c2d719d70bac530f764d3321a5539",
       "baseline_scripts_sha256": "d7e9398770d907765e805752b3747b4834ff39c8f6b90b97772f6b0accb80455"
+    },
+    {
+      "id": "natural-first-city-population-and-stores",
+      "suite": "natural-first-city",
+      "catalog": "pending-catalog.json",
+      "status": "pending-transfer",
+      "property": "Six Gaian stock difficulty cases independently repeated twice have one specialist, no worked tiles and raw mineral field9. The faithful Citizen baseline had one Worker, one worked tile and mineral store0; bounded automatic-growth repair leaves only the mineral-field mismatch.",
+      "scope": "Six independently repeated Gaian standard stock-text flat-arid actual40x80 first-city cases at Citizen/Specialist/Talent/Librarian/Thinker/Transcend. No injected citizens, stores or roster. No exact altitude/contour conversion, general resource semantics, other factions, AI or later turns established.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite natural-first-city",
+      "original_observations_sha256": "bacee299f955022230ce4fc7636e69e7234b75976ed3f357e79c5fc0232c01dd",
+      "baseline_verification": {
+        "errors": 0,
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0
+      },
+      "baseline_output": {
+        "base": {
+          "population": 1,
+          "workers": 1,
+          "specialists": 0,
+          "worked_tiles": 1,
+          "raw_nutrients": 0,
+          "raw_minerals": 0
+        },
+        "human_base_count": 1,
+        "year_delta": 0
+      },
+      "baseline_wasm_sha256": "dc40517785e1d2eac566bd6172ddc5f4f8394b14604eac7929a7a11d8e4ed871",
+      "baseline_scripts_sha256": "e3ac665710910ff464d4905c7068b32d9668c1f80c2c19a672d807a39141c2a1",
+      "diagnosis": "Preserved baseline growth always initializes size0 and chooses the highest-ranked eligible square even if all yields are0. Spawn selects the initial Formers project at turn1; native selection stamps that turn as processed, so first-turn production does not credit minerals. These are candidate source facts, not inferred original rules.",
+      "candidate_diagnostics": {
+        "center_yields": {
+          "nutrients": 2,
+          "minerals": 1,
+          "energy": 2
+        },
+        "all_twenty_neighbor_yields": {
+          "nutrients": 0,
+          "minerals": 0,
+          "energy": 0
+        },
+        "production_choice": "FORMERS",
+        "production_cost": 20,
+        "production_last_processed_turn": 1
+      },
+      "failed_attempts": "Initial build tried extractor download because cached artifact timestamps preceded checkout dependencies (DNS failed); cache timestamp repair reused identical approved candidate bytes. Lifecycle regression observer attempts retained map-before-ready, unsupported GSE property compound assignment and chained-call indexing failures (last also produced an exit GC error). No accepted comparison failure was hidden or reclassified. Initial V2 five-suite focused run retained a120second timeout in the first natural lifecycle scenario. Read-only step-marker replay passed7scenarios45assertions, then exact unmarked replay also passed; no cause or production fix is claimed for the timeout.",
+      "baseline_reference_sha256": "769016261fd611758e41da89983d7fa89fe32f6f544b3ac73f577e724a558ab9",
+      "growth_change": "Automatic growth assigns Worker only when the existing best legal tile has positive weighted resource score. Otherwise it uses the existing Doctor event; shared selector, manual controls, founding and starvation are unchanged.",
+      "citizen_after_growth_verification": {
+        "errors": 0,
+        "matched": 0,
+        "mismatched": 1,
+        "unsupported": 0
+      },
+      "citizen_after_growth_differences": [
+        {
+          "actual": 0,
+          "expected": 9,
+          "path": "$[\"base\"][\"raw_minerals\"]"
+        }
+      ],
+      "citizen_after_growth_wasm_sha256": "dc40517785e1d2eac566bd6172ddc5f4f8394b14604eac7929a7a11d8e4ed871",
+      "citizen_after_growth_scripts_sha256": "bcea958c62d6998e437df9686ba01b7b7b251798f3cf990244c3dbffdec0c35b",
+      "verification": {
+        "errors": 0,
+        "matched": 0,
+        "mismatched": 6,
+        "unsupported": 0
+      },
+      "verification_output_all_six_difficulties": {
+        "base": {
+          "population": 1,
+          "workers": 0,
+          "specialists": 1,
+          "worked_tiles": 0,
+          "raw_nutrients": 0,
+          "raw_minerals": 0
+        },
+        "human_base_count": 1,
+        "year_delta": 0
+      },
+      "verification_wasm_sha256": "7c9e532a0b1a5c5a0a2120c50c9751fdd7ea66f928dd5c8c3e3d9c28d0b6cb16",
+      "verification_scripts_sha256": "299fed8027fa949301ca0d762494b67f39f3028e745b2f657cc2a272ccae7789",
+      "remaining": "All six full-case comparisons remain strict mismatches only in raw_minerals, original9 versus actual0; no partial passes or mineral fixture writes.",
+      "input_context_boundary": "Existing shared fixture initializer supplies default MT_RANDOM/preset2 with actual40x80 grid. Equivalence to original LOAD MAP FILE map-kind/size-kind pricing context remains unverified. Nativecost20 is candidate-only diagnostic evidence; no unconditional mineral credit or pricing-context fix applied.",
+      "native_verification": {
+        "passed": 113,
+        "failed": 0,
+        "scenarios": 1419,
+        "assertions": 10011
+      },
+      "native_verification_wasm_sha256": "7c9e532a0b1a5c5a0a2120c50c9751fdd7ea66f928dd5c8c3e3d9c28d0b6cb16",
+      "native_verification_scripts_sha256": "3bed6602d9e4b65b74bdd5ef1bb2e0996001a8d5c2a9c9b1d5349d9cd2039f53"
     }
   ],
   "verification": {

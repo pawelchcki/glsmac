@@ -112,7 +112,8 @@
     {"id":"starvation-notice-controls","script":"GLSMAC_data/tests/starvation_notice_controls.gls.js","domains":["gameplay","economy","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"native-input-state","script":"GLSMAC_data/tests/native_input_state.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"base-rename","script":"GLSMAC_data/tests/base_rename.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
-    {"id":"world-single-player-setup","script":"GLSMAC_data/tests/world_single_player_setup.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"}
+    {"id":"world-single-player-setup","script":"GLSMAC_data/tests/world_single_player_setup.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
+    {"id":"natural-first-city-lifecycle","script":"GLSMAC_data/tests/natural_first_city_lifecycle.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"human-calibrated-zero-witnesses-v2","cases":"cases/human-calibrated-zero-witnesses-v2.json","observations":"observations/smacx-gog-2.0-human-calibrated-zero-witnesses-v2.json"},

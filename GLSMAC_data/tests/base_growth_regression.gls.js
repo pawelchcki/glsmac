@@ -72,10 +72,10 @@ behavior.scenario('exhausted tiles do not force growth below nutrient threshold'
 	test.assert(state.events == [], 'A full base must still meet its nutrient threshold');
 	test.assert(state.values.accumulated_nutrients == 39, 'Waiting for growth preserves nutrients');
 });
-behavior.scenario('last available zero-yield tile still creates a worker', () => {
+behavior.scenario('last available zero-yield tile leaves growth as a Doctor', () => {
 	const tile = { x: 2, y: 0, get_base: () => { return null; }, has: (name) => { return false; }, get_resources: (owner) => { return { NUTRIENTS: 0, MINERALS: 0, ENERGY: 0 }; } };
 	const state = make_world(3, 40, tile);
 	state.handlers.turn({});
-	test.assert(#sizeof(state.events) == 1 && state.events[0].type == 'WORKER', 'An available tile must create a worker');
-	test.assert(state.events[0].worked_tile.x == 2 && state.events[0].worked_tile.y == 0, 'Worker must receive the available tile');
+	test.assert(#sizeof(state.events) == 1 && state.events[0].type == 'DOCTOR', 'Automatic growth must not assign a zero-yield tile');
+	test.assert(!#is_defined(state.events[0].worked_tile), 'Zero-yield Doctor fallback must not claim terrain');
 });

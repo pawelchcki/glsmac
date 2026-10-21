@@ -36,11 +36,13 @@ python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 ```
 
 Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
-`ui-interactions`, `game-modal-input` and `world-single-player-setup` regression suites
-(102 scenarios/971 assertions), plus
+`ui-interactions`, `game-modal-input`, `world-single-player-setup`,
+`natural-first-city-lifecycle`, `base-growth-worker-links` and
+`base-growth-regression` regression suites
+(123 scenarios/1,095 assertions), plus
 `ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
 (30 recorded cases across three references).
-Stable contains the explicit complement: 106 regression suites, 44 UI references
+Stable contains the explicit complement: 104 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
 on main; PR checks run hot and consult the latest main stable result. CI trigger
@@ -56,9 +58,9 @@ Any executed mismatch, unsupported result, error or failed suite returns nonzero
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
 
-Two recorded `base-open-recalc` cases and one
-[`world-base-ownership`](ui/world-base-ownership-contract.md) case are **pending
-transfer**, outside default passing release groups. Their explicit strict red
+Two recorded `base-open-recalc` cases, one
+[`world-base-ownership`](ui/world-base-ownership-contract.md) case and six
+[natural-first-city](ui/natural-first-city-contract.md) cases are **pending transfer**, outside default passing release groups. Their explicit strict red
 replay remains available:
 
 ```sh
@@ -72,6 +74,16 @@ declared first-city setup. Its candidate uses the actual production
 single-player initializer and queued world startup; the initializer currently
 fills only the human slot. Computer controllers and later turns remain gaps.
 This pending comparison adds no passing original cases.
+
+The natural first-city probe executes native configure/create_world, InitComplete,
+FirstTurn and the settled host queue with shipped mechanical modules. The preserved baseline created
+one Worker and one worked tile with zero stored minerals; stock original
+recordings at all six difficulties have one specialist, no worked tiles and a
+raw mineral field of nine. All six cases now match population
+and worker state after the growth fix; the mineral field remains pending.
+Automatic growth now uses a Doctor when no legal vacant tile has a positive
+resource score. Verification of the bounded change is separate from the full
+strict pending case, which adds no passing original cases.
 
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
@@ -90,8 +102,8 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,407 scenarios and 9,936 assertions** across
-112 suites. It exercises production movement/combat/spawn events, deterministic
+The full regression catalog contains **1,419 scenarios and 10,011 assertions** across
+113 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology

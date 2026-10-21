@@ -34,9 +34,9 @@ class LaneTests(unittest.TestCase):
 
     def test_hot_scope_is_bounded_and_pending_is_separate(self):
         self.assertEqual(set(self.manifest['kinds']['regression']['hot']), {
-            'unit-menu-orders', 'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input', 'world-single-player-setup'})
+            'unit-menu-orders', 'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input', 'world-single-player-setup', 'natural-first-city-lifecycle', 'base-growth-worker-links', 'base-growth-regression'})
         self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context'})
-        for kind, count in [('ui', 30), ('pending-ui', 3), ('gaps', 0)]:
+        for kind, count in [('ui', 30), ('pending-ui', 9), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)

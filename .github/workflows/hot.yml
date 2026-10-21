@@ -37,7 +37,7 @@ jobs:
           cmake --build build/wasm -j4
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city -v
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --jobs 2 --report build/hot-artifacts/hot.json
       - uses: actions/upload-artifact@v4

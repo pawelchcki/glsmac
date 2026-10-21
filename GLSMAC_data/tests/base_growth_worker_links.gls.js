@@ -11,8 +11,8 @@ const fixture = () => {
 	f.with_write(() => { f.add_snapshot_base(0, 2); });
 	for (base of f.game.bm.get_bases()) { if (base != f.base) { f.other = base; } }
 	f.game.tm.on('get_tile_resources', (e) => {
-		const id = key(e.tile); const amount = #is_defined(f.yields[id]) ? f.yields[id] : 0;
-		return {NUTRIENTS: amount, MINERALS: amount, ENERGY: amount};
+		const id = key(e.tile);
+		return #is_defined(f.yields[id]) ? f.yields[id] : {NUTRIENTS: 0, MINERALS: 0, ENERGY: 0};
 	});
 	const rules = {}; const callbacks = {};
 	rules.get_bm = () => { return f.game.bm; }; rules.get_tm = () => { return f.game.tm; };
@@ -42,7 +42,10 @@ const fixture = () => {
 		f.with_write(() => { pop = f.other.create_pop({type: 'WORKER'}); f.game.get('f_base_pop_work_tile')(f.other, pop, tile); });
 		return pop;
 	};
-	f.score = (tile, amount) => { const id = key(tile); f.yields[id] = amount; };
+	f.resources = (tile, nutrients, minerals, energy) => {
+		const id = key(tile); f.yields[id] = {NUTRIENTS: nutrients, MINERALS: minerals, ENERGY: energy};
+	};
+	f.score = (tile, amount) => { f.resources(tile, amount, amount, amount); };
 	return f;
 };
 const one_worker = (f, expected) => {
@@ -79,4 +82,30 @@ behavior.scenario('growth falls back to Doctor when all non-base squares already
 	test.assert(!pops[0].has('worked_tile') && f.base.get_worked_tiles() == [] && !f.other.get_tile().has('working_pop'));
 	for (pop of claims) { const tile = pop.get('worked_tile'); test.assert(tile.get('working_pop') == pop); }
 	test.assert(!#is_defined(f.base.validate_citizen_reconciliation(f.owner.id, 1)));
+});
+
+// Positive-component cases are application invariants; only the declared
+// natural flat-arid zero-yield context has accepted original observations.
+const one_doctor = (f) => {
+	const pops = f.base.get_pops();
+	test.assert(#sizeof(pops) == 1 && pops[0].get_type() == 'DOCTOR');
+	test.assert(!pops[0].has('worked_tile') && f.base.get_worked_tiles() == []);
+	test.assert(!#is_defined(f.base.validate_citizen_reconciliation(f.owner.id, 1)));
+};
+behavior.scenario('automatic growth uses Doctor when legal vacant terrain yields nothing', () => {
+	const f = fixture(); const vacant = f.tile_at(2, 0);
+	const ranked = f.game.get('f_base_find_best_or_worst_tiles')(f.base, [vacant], 1, 1);
+	test.assert(ranked == [vacant], 'Shared selector retains zero-yield squares for other controls');
+	f.grow(f.base); f.flush(); one_doctor(f);
+});
+for (entry of [{name: 'nutrient', n: 1, m: 0, e: 0}, {name: 'mineral', n: 0, m: 1, e: 0}, {name: 'energy', n: 0, m: 0, e: 1}]) {
+	behavior.scenario('automatic growth preserves ' + entry.name + '-only productive Worker terrain', () => {
+		const f = fixture(); const vacant = f.tile_at(2, 0);
+		f.resources(vacant, entry.n, entry.m, entry.e); f.grow(f.base); f.flush(); one_worker(f, vacant);
+	});
+}
+behavior.scenario('productive claimed terrain and other base centers cannot displace zero-yield Doctor fallback', () => {
+	const f = fixture(); const claimed = f.tile_at(2, 0); const existing = f.claim(claimed);
+	f.score(claimed, 9); f.score(f.other.get_tile(), 10); f.grow(f.base); f.flush(); one_doctor(f);
+	test.assert(existing.get('worked_tile') == claimed && claimed.get('working_pop') == existing && f.other.get_worked_tiles() == [claimed]);
 });
