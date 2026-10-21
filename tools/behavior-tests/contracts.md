@@ -324,12 +324,13 @@ source identity, existing order handlers, native receipt authority, failed
 submissions, popup/pending guards, stale callbacks and context row restoration.
 The separate fresh-worker `unit-menu-context-orders` application regression adds
 one Former/Hold restoration scenario and eleven assertions.
-Separate [Former/Sentry](ui/unit-menu-context-former-sentry-contract.md),
-[Colony/Sentry](ui/unit-menu-context-colony-sentry-contract.md) and
-[Former/Hold](ui/unit-menu-context-former-hold-contract.md) records add three
-distinct `ui.unit_menu_context.v1` inputs and nineteen complete checkpoints,
-each independently recorded twice. The Sentry records match strict native-backed
-replay and actual browser input; the Former/Hold frozen native-backed candidate
-also matches, with final current-worktree/browser verification pending. Their
-twenty/twenty-two-row Action children and observed Sentry/Hold paths do not prove
-the other nine inputs or make the full twelve-input suite ready.
+The complete [Action-menu context reference](ui/unit-menu-context-contract.md)
+contains twelve independently repeated inputs and 78 complete checkpoints:
+Former and Colony Sentry/Hold/Skip under synthetic and edited source wording.
+All twelve match strict current-production/native replay. Five selected context
+cases have actual browser pointer/SDL verification; this does not claim a full
+twelve-case rendered replay. The Former/Colony Action children retain twenty and
+twenty-two rows with observed light source labels and four/five separators.
+The full reference supersedes three immutable pilots: nine additional inputs
+are counted, with no duplicate pilot passes. Other rows, initial orders, spent
+movement, active work and turn effects remain outside the contract.

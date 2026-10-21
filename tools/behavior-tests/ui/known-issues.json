@@ -900,13 +900,13 @@
     }
   ],
   "verification": {
-    "cases": 715,
-    "matched": 715,
+    "cases": 724,
+    "matched": 724,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Passing catalog aggregates previously verified contracts and three independently repeated context records. The HOT twenty-one-case group matches current production/native replay; the three context browser wrappers also passed together. Pending contracts and the full twelve-input context gap remain excluded. Not a new all-catalog run or full-game parity.",
+    "scope": "Passing catalog aggregates previously verified contracts and the complete twelve-input context reference, which supersedes three immutable pilots without duplicate cases. All twelve context inputs match current production/native replay; five selected context cases have actual browser verification. Pending base recalculation remains strict red and excluded. Not a new all-catalog run or full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -943,11 +943,9 @@
     "rendered_ingame_menu_matched": 12,
     "rendered_unit_menu_orders_cases": 6,
     "rendered_unit_menu_orders_matched": 6,
-    "rendered_unit_menu_context_former_sentry_cases": 1,
-    "rendered_unit_menu_context_former_sentry_matched": 1,
-    "rendered_unit_menu_context_colony_sentry_cases": 1,
-    "rendered_unit_menu_context_colony_sentry_matched": 1,
-    "rendered_unit_menu_context_former_hold_cases": 1,
-    "rendered_unit_menu_context_former_hold_matched": 1
+    "unit_menu_context_cases": 12,
+    "unit_menu_context_matched": 12,
+    "rendered_unit_menu_context_selected_cases": 5,
+    "rendered_unit_menu_context_selected_matched": 5
   }
 }

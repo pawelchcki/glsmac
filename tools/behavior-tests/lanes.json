@@ -122,9 +122,7 @@
       "hot": [
         "ingame-menus",
         "unit-menu-orders",
-        "unit-menu-context-former-sentry",
-        "unit-menu-context-colony-sentry",
-        "unit-menu-context-former-hold"
+        "unit-menu-context"
       ],
       "stable": [
         "road-network",
@@ -207,19 +205,11 @@
       "stable": []
     },
     "gaps": {
-      "hot": [
-        "unit-menu-context"
-      ],
+      "hot": [],
       "stable": []
     }
   },
-  "gaps": [
-    {
-      "id": "unit-menu-context",
-      "cases": "ui/cases/unit-menu-context.json",
-      "reason": "Twelve declared context inputs remain a not-ready full-suite gap. Separate Former/Sentry, Colony/Sentry and Former/Hold records prove three inputs only; the complete original recording and full transfer are not ready."
-    }
-  ],
+  "gaps": [],
   "archived": [
     {
       "catalog": "factor-v1-historical-catalog.json",
@@ -230,6 +220,15 @@
         "human-nutrient-factor-held-out"
       ],
       "reason": "Archived factor-v1 evidence: metadata/static integrity only, excluded from current runnable lanes."
+    },
+    {
+      "catalog": "unit-menu-context-pilots-catalog.json",
+      "ids": [
+        "unit-menu-context-former-sentry",
+        "unit-menu-context-colony-sentry",
+        "unit-menu-context-former-hold"
+      ],
+      "reason": "Superseded by the complete twelve-case unit-menu-context reference; immutable pilot inputs and evidence remain static integrity checks and are counted only in the full active suite."
     }
   ]
 }

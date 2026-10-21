@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 715 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 724 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -38,9 +38,8 @@ python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
 `ui-interactions` and `game-modal-input` regression suites
 (101 scenarios/960 assertions), plus
-`ingame-menus`, `unit-menu-orders` and the bounded
-`unit-menu-context-former-sentry`, `unit-menu-context-colony-sentry` and
-`unit-menu-context-former-hold` original UI replay (21 recorded cases).
+`ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
+(30 recorded cases across three references).
 Stable contains the explicit complement: 106 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
@@ -66,11 +65,11 @@ python3 tools/behavior-tests/lanes.py --lane hot --pending
 python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
 ```
 
-The full twelve-input `unit-menu-context` suite is a **not-ready gap** and cannot
-execute through the lane dispatcher. Both pending and gap inventories appear in
-`--list`, `--validate-only` and report metadata without contributing to passing
-counts. Separate Former/Sentry, Colony/Sentry and Former/Hold records prove three
-distinct inputs once; they do not make the complete context suite ready. Four historical factor-v1
+The complete twelve-input `unit-menu-context` reference is HOT and supersedes
+three archived pilots. Their case/evidence files remain unchanged and receive
+static integrity validation without duplicate passing counts. The active UI
+catalog has 47 references and 724 cases. Pending base recalculation remains a
+strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
 
@@ -115,17 +114,16 @@ restoration scenario/11 assertions in a fresh worker. Combining all twenty
 fixtures exceeded the frozen WASM runtime's 2 GiB limit during exit; the strict
 failure is retained. The split preserves every assertion and changes no runtime
 limit or production code; it does not establish a product memory-leak cause.
-Separate independently repeated [Former/Sentry](ui/unit-menu-context-former-sentry-contract.md)
-and [Colony/Sentry](ui/unit-menu-context-colony-sentry-contract.md) pilots cover
-two distinct HOT inputs and thirteen checkpoints, matching strict native-backed
-replay and real browser input. A separate repeated
-[Former/Hold record](ui/unit-menu-context-former-hold-contract.md) adds one matching
-native-backed input and six checkpoints, also matching actual browser pointer/SDL
-controls. The three references prove three distinct inputs
-and nineteen checkpoints once. Their Action children have
-twenty and twenty-two rows, with source wording, light text and four/five
-separators. The full twelve-input suite remains not ready: the other nine inputs,
-other rows, initial orders, active work and turn effects remain unobserved.
+The complete [Action-menu context reference](ui/unit-menu-context-contract.md)
+contains twelve independently repeated inputs and 78 complete checkpoints:
+Former and Colony Sentry/Hold/Skip under synthetic and edited source wording.
+All twelve match strict current-production/native replay. Five selected context
+cases have actual browser pointer/SDL verification; this does not claim a full
+twelve-case rendered replay. The Former/Colony Action children retain twenty and
+twenty-two rows with observed light source labels and four/five separators.
+The full reference supersedes three immutable pilots: nine additional inputs
+are counted, with no duplicate pilot passes. Other rows, initial orders, spent
+movement, active work and turn effects remain outside the contract.
 
 The `native-input-state` suite adds seven scenarios/41 assertions for the shared
 production text-edit state used by real UI fields and display-free replay.

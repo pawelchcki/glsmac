@@ -72,13 +72,12 @@ then require two identical complete observations with all native guards. Initial
 rendered Scout selection is checked; later independent hover previews remain
 outside this contract. No click or command is retried based on the outcome.
 
-Twelve input-only `ui.unit_menu_context.v1` sequences declare other initial
-selections but have no accepted full original recording or full-suite transfer
-claim. Separate [Former/Sentry](unit-menu-context-former-sentry-contract.md),
-[Colony/Sentry](unit-menu-context-colony-sentry-contract.md) and
-[Former/Hold](unit-menu-context-former-hold-contract.md) records prove three distinct
-inputs, counted once outside these six Scout cases; the full twelve-input suite
-and its other nine inputs remain a not-ready HOT gap.
+The complete [context reference](unit-menu-context-contract.md) adds twelve
+independently repeated Former/Colony Sentry/Hold/Skip inputs under both source
+profiles and 78 checkpoints, all matching strict native replay. It supersedes
+three earlier pilot references without duplicate case counts. Five selected
+context cases also have actual browser verification. Other initial orders,
+spent movement, active work and turn effects remain outside these contracts.
 
 The historical one-case pilot is retained unchanged for provenance and excluded
 from totals. Its earlier observer fingerprint is preserved in the pilot unit

@@ -317,17 +317,20 @@ def unit_menu_orders_command(args):
     return shlex.join(command)
 
 
-def unit_menu_context_command(args, paced=False, message=False):
+def unit_menu_context_command(args, paced=False, message=False, saved=False):
     if args.browser:
         raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
-    if paced and message:
+    if sum([paced, message, saved]) > 1:
         raise ProtocolError('Choose one original unit-menu context observer')
-    original = 'unit_menu_context_message_original.py' if message else ('unit_menu_context_paced_original.py' if paced else 'unit_menu_context_original.py')
+    original = ('unit_menu_context_saved_original.py' if saved else
+                'unit_menu_context_message_original.py' if message else ('unit_menu_context_paced_original.py' if paced else 'unit_menu_context_original.py'))
     name = original if args.record else 'unit_menu_context_headless.py'
     command = [sys.executable, str(DIRECTORY / name)]
     if args.record:
         command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
                     '--artifacts', str(DIRECTORY.parent / '.build/unit-menu-context-original')]
+        if saved:
+            command += ['--child']
     return shlex.join(command)
 
 
@@ -477,6 +480,8 @@ def main(argv=None):
                 reference_command = ingame_menu_command(args)
             if reference['id'] == 'unit-menu-orders':
                 reference_command = unit_menu_orders_command(args)
+            if reference['id'] == 'unit-menu-context':
+                reference_command = unit_menu_context_command(args, saved=True)
             if reference['id'] == 'unit-menu-context-former-sentry':
                 reference_command = unit_menu_context_command(args)
             if reference['id'] == 'unit-menu-context-colony-sentry':
@@ -543,6 +548,8 @@ def main(argv=None):
                 candidate_command = ingame_menu_command(args)
             if command is not None and reference['id'] == 'unit-menu-orders':
                 candidate_command = unit_menu_orders_command(args)
+            if command is not None and reference['id'] == 'unit-menu-context':
+                candidate_command = unit_menu_context_command(args, saved=True)
             if command is not None and reference['id'] == 'unit-menu-context-former-sentry':
                 candidate_command = unit_menu_context_command(args)
             if command is not None and reference['id'] == 'unit-menu-context-colony-sentry':

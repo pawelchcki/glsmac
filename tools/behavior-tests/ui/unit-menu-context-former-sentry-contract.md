@@ -1,6 +1,8 @@
 # One Former Action-menu Sentry sequence
 
-The HOT reference `unit-menu-context-former-sentry` contains exactly one accepted
+This historical pilot is superseded by the complete [twelve-case reference](unit-menu-context-contract.md). Its case/gold bytes remain unchanged in the pilot archive catalog and contribute no duplicate active cases. Historical baseline/replay results below retain their original scope.
+
+The archived pilot reference `unit-menu-context-former-sentry` contains exactly one accepted
 `ui.unit_menu_context.v1` input: `unit-menu-former-slot-26-synthetic`. Its cases
 and observations are unchanged copies of the accepted pilot, recorded in two
 identical independent original runs. The original observer fingerprint and all
@@ -32,23 +34,15 @@ read native visibility state or assert pixel, clipping or occlusion equivalence.
 
 ```sh
 # Evidence integrity only; executes neither application.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-former-sentry --validate-only
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-former-slot-26-synthetic --validate-only
 # Strict candidate replay, using current host production scripts.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-former-sentry --jobs 1
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-former-slot-26-synthetic --jobs 1
 # Actual browser replay of this pilot only; requires installed assets/runtime.
 npm --prefix tools/wasm-tests run test:unit-menu-context-former-sentry
 ```
 
-The complete [twelve-input context suite](unit-menu-context-contract.md) remains
-a not-ready gap. This pilot, [Colony/Sentry](unit-menu-context-colony-sentry-contract.md)
-and [Former/Hold](unit-menu-context-former-hold-contract.md) prove three distinct
-inputs and nineteen checkpoints, counted once through separate case files.
-The other nine inputs, edited context labels, Skip and Colony Hold contexts,
-initial orders, spent movement, active work, other commands and turn effects
-remain unproven. Edited-label and live-reselection application regressions do not
-add original cases. Future full-suite evidence must supersede all three catalog
-entries without counting their inputs twice.
-The browser command pins the public pilot case/evidence paths and rejects
-conflicting path or case selectors. The full-context browser harness retains its
-strict full-suite defaults. The pilot wrapper also participates in the optional
-`test:hot:browser` and `test:gameplay` commands.
+The full [twelve-input context reference](unit-menu-context-contract.md) now
+supersedes this pilot and the other two pilot entries. Its twelve cases match
+strict native replay; five selected context cases have browser verification.
+Other initial orders, spent movement, active work, commands and turn effects
+remain outside the bounded contract.

@@ -35,8 +35,8 @@ class LaneTests(unittest.TestCase):
     def test_hot_scope_is_bounded_and_pending_is_separate(self):
         self.assertEqual(set(self.manifest['kinds']['regression']['hot']), {
             'unit-menu-orders', 'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input'})
-        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context-former-sentry', 'unit-menu-context-colony-sentry', 'unit-menu-context-former-hold'})
-        for kind, count in [('ui', 21), ('pending-ui', 2), ('gaps', 12)]:
+        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context'})
+        for kind, count in [('ui', 30), ('pending-ui', 2), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)
@@ -79,9 +79,19 @@ class LaneTests(unittest.TestCase):
 
     def test_gap_cannot_reuse_ready_case_file(self):
         data = deepcopy(self.manifest)
-        data['gaps'][0]['cases'] = 'ui/' + self.known['ui'][0]['cases']
+        data['gaps'] = [dict(id='synthetic-gap', cases='ui/' + self.known['ui'][0]['cases'], reason='test duplicate readiness')]
         with self.assertRaisesRegex(ProtocolError, 'multiple readiness'):
             lanes.inventory(data)
+
+    def test_archived_evidence_directory_is_explicit_and_bounded(self):
+        entry = {'catalog': 'test-catalog.json'}
+        for directory in ('', 'ui'):
+            with patch.object(lanes, 'read', return_value={'version': 1, 'references': [], 'directory': directory}):
+                self.assertEqual(lanes.archived_directory(entry), lanes.DIRECTORY / directory)
+        for directory in ('../ui', '/tmp', 'ui/..', 'economy', None, 1):
+            with self.subTest(directory=directory), patch.object(lanes, 'read', return_value={
+                    'version': 1, 'references': [], 'directory': directory}), self.assertRaises(ProtocolError):
+                lanes.archived_directory(entry)
 
     def test_selection_rejects_unknown_ids_and_preserves_order(self):
         rows = list(reversed(self.known['ui']))
@@ -103,6 +113,8 @@ class LaneTests(unittest.TestCase):
             self.assertEqual([row['readiness'] for row in report['deferred']], ['pending-transfer', 'not-ready'])
             self.assertEqual(len(report['archived'][0]['ids']), 4)
             self.assertFalse(report['archived'][0]['candidate_executed'])
+            self.assertEqual(len(report['archived'][1]['ids']), 3)
+            self.assertFalse(report['archived'][1]['candidate_executed'])
 
     def test_release_dispatch_is_sequential_and_never_runs_pending_or_gaps(self):
         calls = []
@@ -164,8 +176,10 @@ class LaneTests(unittest.TestCase):
             report = lanes.read(path)
             self.assertFalse(report['candidate_executed'])
             self.assertTrue(all(not group['candidate_executed'] for group in report['groups']))
-            self.assertEqual(archive.call_count, 4)
+            self.assertEqual(archive.call_count, 7)
             self.assertTrue(report['archived'][0]['observations_validated'])
+            self.assertTrue(report['archived'][1]['observations_validated'])
+            self.assertEqual([call.kwargs['directory'] for call in archive.call_args_list[-3:]], [lanes.DIRECTORY / 'ui'] * 3)
 
     def test_validation_rejects_a_child_execution_claim(self):
         def execute(argv, **kwargs):

@@ -1,6 +1,8 @@
 # One Colony Pod Action-menu Sentry sequence
 
-The HOT reference `unit-menu-context-colony-sentry` contains exactly one accepted
+This historical pilot is superseded by the complete [twelve-case reference](unit-menu-context-contract.md). Its case/gold bytes remain unchanged in the pilot archive catalog and contribute no duplicate active cases. Historical baseline/replay results below retain their original scope.
+
+The archived pilot reference `unit-menu-context-colony-sentry` contains exactly one accepted
 `ui.unit_menu_context.v1` input: `unit-menu-colony-slot-26-synthetic`. Its cases
 and observations are byte-identical copies of a complete pilot recorded in two
 identical independent original runs. This evidence retains its own paced-observer
@@ -44,9 +46,9 @@ the original pilot covers the synthetic profile and declared sequence alone.
 
 ```sh
 # Evidence integrity only; neither application executes.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-colony-sentry --validate-only
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-colony-slot-26-synthetic --validate-only
 # Strict current-production/native candidate replay.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-colony-sentry --jobs 1
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-colony-slot-26-synthetic --jobs 1
 # Actual browser replay of this pilot only; requires installed assets/runtime.
 npm --prefix tools/wasm-tests run test:unit-menu-context-colony-sentry
 ```
@@ -59,11 +61,8 @@ commands and actual input, without independently reading native visibility state
 or asserting pixel, clipping or occlusion equivalence. The full-context browser
 harness retains strict full-suite defaults.
 
-Together with [Former/Sentry](unit-menu-context-former-sentry-contract.md) and
-[Former/Hold](unit-menu-context-former-hold-contract.md), this proves three
-distinct inputs and contributes three cases and nineteen checkpoints once.
-The full [twelve-input context suite](unit-menu-context-contract.md) remains a
-not-ready gap. The other nine inputs, edited context profiles, Skip and Colony
-Hold contexts, initial orders, spent movement, active work, other commands and
-turn effects remain unproven. Future full-suite evidence must supersede these
-bounded references without counting their inputs twice.
+The complete [twelve-input context reference](unit-menu-context-contract.md)
+now supersedes the three pilot entries without duplicate passing counts. All
+twelve match strict native replay; five selected context cases have actual
+browser verification. Other initial orders, spent movement, active work,
+commands and turn effects remain outside the bounded contract.

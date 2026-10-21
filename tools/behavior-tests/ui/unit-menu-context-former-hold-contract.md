@@ -1,6 +1,8 @@
 # One Former Action-menu Hold sequence
 
-The HOT reference `unit-menu-context-former-hold` contains exactly one accepted
+This historical pilot is superseded by the complete [twelve-case reference](unit-menu-context-contract.md). Its case/gold bytes remain unchanged in the pilot archive catalog and contribute no duplicate active cases. Historical baseline/replay results below retain their original scope.
+
+The archived pilot reference `unit-menu-context-former-hold` contains exactly one accepted
 `ui.unit_menu_context.v1` input: `unit-menu-former-slot-29-synthetic`. The case and
 observations are byte-identical copies of a complete original record repeated
 independently twice. Its message-input observer fingerprint is preserved as
@@ -33,16 +35,16 @@ existing suite remains unchanged at nineteen scenarios/443 assertions. Combining
 the twenty fixtures initially passed every assertion but aborted during exit at
 the frozen WASM 2 GiB limit, so that run remains failed evidence. Splitting the
 fixtures changes neither assertions nor runtime limits and does not establish a
-product memory-leak cause. Current strict HOT replay matches all twenty-one
+product memory-leak cause. The historical strict HOT replay matched all twenty-one
 cases with no mismatches, unsupported cases or errors. All three bounded context browser wrappers also passed in one sequential batch,
 including actual Former Hold pointer delivery and all six complete checkpoints.
 Metadata validation does not execute apps.
 
 ```sh
 # Evidence integrity only; neither application executes.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-former-hold --validate-only
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-former-slot-29-synthetic --validate-only
 # Strict current-production/native candidate replay.
-python3 tools/behavior-tests/ui/run.py --suite unit-menu-context-former-hold --jobs 1
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-context --case unit-menu-former-slot-29-synthetic --jobs 1
 # Actual browser replay of this one record; requires installed assets/runtime.
 npm --prefix tools/wasm-tests run test:unit-menu-context-former-hold
 ```
@@ -60,14 +62,11 @@ failures remain failed evidence; no production clipping or reachability defect
 was established. This does not independently read native visibility state or establish pixel,
 clipping or occlusion equivalence. Full-context browser defaults remain strict.
 
-Together with [Former/Sentry](unit-menu-context-former-sentry-contract.md) and
-[Colony/Sentry](unit-menu-context-colony-sentry-contract.md), this proves three
-distinct inputs and contributes three cases and nineteen checkpoints once.
-The full [twelve-input context suite](unit-menu-context-contract.md) remains a
-not-ready gap. The other nine inputs, edited context profiles, Skip and Colony
-Hold contexts, initial orders, spent movement, active work, other commands and
-turn effects remain unproven. Later full-suite evidence must supersede these
-bounded references without counting their inputs twice.
+The complete [twelve-input context reference](unit-menu-context-contract.md)
+now supersedes the three pilot entries without duplicate passing counts. All
+twelve match strict native replay; five selected context cases have actual
+browser verification. Other initial orders, spent movement, active work,
+commands and turn effects remain outside the bounded contract.
 
 Reference-only recording uses queued ordinary Win32 pointer messages and Tab
 press/release, plus fixed X11 wizard keys. `SMAC_UI_WINDOWS_PYTHON_ROOT` points to
