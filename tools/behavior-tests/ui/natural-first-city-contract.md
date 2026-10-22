@@ -119,3 +119,9 @@ read-only diagnostic replay and a subsequent exact unmarked replay passed; the
 strict timeout report is retained and its cause is unestablished. The subsequent
 complete native run passed all113suites,1,419scenarios and10,011assertions,
 including another unmarked seven-scenario lifecycle replay.
+
+The separate [faction/source-profile adapter](natural-first-city-profiles-contract.md)
+replays the seven frozen V6 stock-faction setups and retains V7 source-startup
+diagnostics. It does not widen this six-difficulty Gaian validator or settle the
+pending mineral field. The strict pending inventory now includes those thirteen
+inputs separately; none is promoted into passing totals.

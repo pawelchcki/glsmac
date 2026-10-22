@@ -90,7 +90,7 @@ moves pending contracts into passing totals or runs stable CI on PRs.
 
 Two recorded `base-open-recalc` cases, one
 [`world-base-ownership`](ui/world-base-ownership-contract.md) case and six
-[natural-first-city](ui/natural-first-city-contract.md) cases are **pending transfer**, outside default passing release groups. Their explicit strict red
+[natural-first-city](ui/natural-first-city-contract.md) cases, seven archived faction startup cases and six archived startup source-control cases are **pending transfer**, outside default passing release groups. Their explicit strict red
 replay remains available:
 
 ```sh
@@ -114,6 +114,16 @@ and worker state after the growth fix; the mineral field remains pending.
 Automatic growth now uses a Doctor when no legal vacant tile has a positive
 resource score. Verification of the bounded change is separate from the full
 strict pending case, which adds no passing original cases.
+
+The thirteen preserved faction/source-control startup inputs now have a separate
+[native-backed pending replay](ui/natural-first-city-profiles-contract.md).
+All seven stock-faction comparisons still differ in stored minerals. All six
+full source-control comparisons remain explicitly unsupported because their
+original setup-size scalar has no established native equivalent. Four supported
+stock/TECH inputs also execute native startup and retain diagnostics; those are
+not projected passing comparisons. Raw Formers Cost4/Cost8 are additionally
+unsupported by the production unit parser. These thirteen pending cases add zero
+passing original cases and preserve the exact archived evidence bytes.
 
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
