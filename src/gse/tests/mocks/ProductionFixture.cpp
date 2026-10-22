@@ -78,7 +78,7 @@ struct ProductionFixture : gc::Object {
 	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
 
-	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4, size_t startup_map_height = 0 ) : gc::Object( nullptr ) {
+	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4, size_t startup_map_height = 0, const std::vector< std::string >& land_names = {} ) : gc::Object( nullptr ) {
 		game.Start();
 		{
 			// FixtureObject roots the native graph explicitly. Native managers are
@@ -103,6 +103,8 @@ struct ProductionFixture : gc::Object {
 				return;
 			}
 			state->GetFM()->Add( new backend::faction::Faction( "SYNTHETIC", "Synthetic" ) );
+			// Declared fixture input is installed before any player or city exists.
+			state->GetFM()->Get( "SYNTHETIC" )->m_base_names.land = land_names;
 			owner = std::make_unique< backend::Player >( "Fixture", backend::Player::PR_SINGLE, state->GetFM()->Get( "SYNTHETIC" ), "Citizen" );
 			state->m_slots->Resize( 2 );
 			state->m_slots->GetSlot( 1 ).SetPlayer( owner.get(), 0, "" );
@@ -662,7 +664,7 @@ struct ProductionFixture : gc::Object {
 		game.m_slot = owner->GetSlot();
 		game.m_player = owner.get();
 		game.m_game_state = backend::Game::GS_RUNNING;
-		owner->GetFaction()->m_base_names.land = { "Expansion", "Settlement" };
+		if ( owner->GetFaction()->m_base_names.land.empty() ) { owner->GetFaction()->m_base_names.land = { "Expansion", "Settlement" }; }
 		game.m_bm->m_registered_base_names.insert( base->m_name );
 		auto* morale = new backend::unit::MoraleSet( "SYNTHETIC", { { "One" }, { "Two" }, { "Three" }, { "Four" }, { "Five" }, { "Six" }, { "Seven" } } );
 		game.m_um->DefineMoraleSet( morale );
@@ -1005,6 +1007,17 @@ struct ProductionFixture : gc::Object {
 			auto* tile = unit->GetTile(); tile->moisture = backend::map::tile::MOISTURE_ARID; tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
 			for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
 			tile->Update();
+		}
+		else if ( kind == "flat_arid_world" ) {
+			for ( size_t y = 0; y < game.GetMap()->GetHeight(); ++y ) {
+				for ( size_t x = y % 2; x < game.GetMap()->GetWidth(); x += 2 ) {
+					auto* tile = game.GetMap()->GetTile( x, y );
+					tile->moisture = backend::map::tile::MOISTURE_ARID;
+					tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+					for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
+					tile->features = 0; tile->terraforming = 0; tile->Update();
+				}
+			}
 		}
 		else if ( kind == "arid_road_pair" ) {
 			for ( const auto x : { 0, 2 } ) {
@@ -1362,9 +1375,9 @@ Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, con
 	return object;
 }
 
-Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const std::string& initial_base_name, size_t fixture_map_size ) {
+Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const std::string& initial_base_name, size_t fixture_map_size, const std::vector< std::string >& land_names ) {
 	const auto session = std::make_shared< ProductionSession >();
-	session->current = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size );
+	session->current = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size, 0, land_names );
 	if ( selection ) { session->current->SetupFounding( GSE_CALL ); }
 	if ( founding ) { session->current->SetupFounding( GSE_CALL ); }
 	auto* object = new FixtureObject( GSE_CALL, session );
@@ -1650,9 +1663,9 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 		try { undo->Run( GSE_CALL, { VALUE( value::Int,, 1 ) } ); } catch ( const std::exception& ) { undone = true; }
 		return VALUE( value::Bool,, result->type == VT_STRING && applied && undone );
 	} ), GSE_CALL );
-	object->Set( "reset", NATIVE_CALL( session, object, founding, selection, initial_base_name, fixture_map_size ) {
+	object->Set( "reset", NATIVE_CALL( session, object, founding, selection, initial_base_name, fixture_map_size, land_names ) {
 		N_EXPECT_ARGS( 0 );
-		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size );
+		auto fresh = std::make_shared< ProductionFixture >( GSE_CALL, true, selection, initial_base_name, fixture_map_size, 0, land_names );
 		if ( selection ) { fresh->SetupFounding( GSE_CALL ); }
 		if ( founding ) { fresh->SetupFounding( GSE_CALL ); }
 		session->current->Retire();

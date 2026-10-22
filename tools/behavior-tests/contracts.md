@@ -353,3 +353,16 @@ controls without pixels or original assets. Eleven application scenarios/69
 assertions separately check eligibility, installed prerequisites, live selection
 and lifecycle; no new advanced work command is implemented by this presentation
 change. See [the exact scope](ui/terraform-menu-presentation-contract.md).
+
+
+`ui.colony_found_menu.v1` adds two independently repeated free-tile Colony
+Action naming flows, twenty complete checkpoints, across two synthetic source
+profiles. Real edits, Cancel/OK and Escape/Enter preserve the Pod until native
+confirmation creates the chosen raw-name city and consumes it. Common NEWBASE
+caption/label and native faction name pools supply the actual dialog. Native
+city membership/citizens, surviving units and old-city/year/identity guards
+are compared without rendering. Twenty separate application scenarios/97
+assertions cover input fixtures, draft purity, cancellation, native authority,
+matching receipts and transaction rollback. Post-confirm artwork, general
+founding/name/adjacency policy and AI remain unobserved. See
+[the exact scope](ui/colony-found-menu-contract.md).

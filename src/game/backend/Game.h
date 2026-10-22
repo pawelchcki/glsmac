@@ -313,7 +313,8 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 
 	void ClearEvents();
 	std::string ValidateFoundBase( int64_t unit_id, int64_t caller ) const;
-	gse::Value* FoundBase( GSE_CALLABLE, int64_t unit_id, int64_t caller, gse::value::Callable* chooser );
+	std::string ValidateNamedFoundBase( int64_t unit_id, int64_t caller, int64_t turn, const std::string& name ) const;
+	gse::Value* FoundBase( GSE_CALLABLE, int64_t unit_id, int64_t caller, gse::value::Callable* chooser, const std::string* name = nullptr, int64_t turn = 0 );
 	void RollbackFoundBase( GSE_CALLABLE, int64_t token, int64_t base_id );
 	std::string ValidateJoinBase( int64_t unit_id, int64_t base_id, int64_t caller ) const;
 	gse::Value* JoinBase( GSE_CALLABLE, int64_t unit_id, int64_t base_id, int64_t caller );

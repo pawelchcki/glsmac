@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 737 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 739 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -48,17 +48,14 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains seventeen regression suites around active menu controls, Colony
-joins, Former work, modal input, single-player setup, first-city lifecycle,
-growth/worker links and resource-owner behavior (224 scenarios/1,666 assertions).
-Original UI replay includes `ingame-menus`, `unit-menu-orders`,
-`unit-menu-context`, `terraform-menu-work`, `colony-menu-join` and
-`terraform-menu-presentation` (43 recorded cases across six references).
-Stable contains the explicit complement: 101 regression suites, 44 UI references
-(694 cases), two economy references and 15 current helper references. These are
-bounded catalogs, not a full-game coverage claim. Stable execution belongs only
-on main; PR checks run hot and consult the latest main stable result. CI trigger
-and required-check policy are configured separately from these runner filters.
+Hot contains twenty regression suites around active menu controls, Colony
+naming/joining, Former work, modal input, setup and first-city lifecycle
+(244 scenarios/1,763 assertions). Original UI replay includes seven hot
+references with 45 recorded cases. Stable contains the explicit complement:
+101 regression suites, 44 UI references (694 cases), two economy references and
+15 current helper references. These are bounded catalogs, not a full-game
+coverage claim. Stable execution belongs on main; PR checks run hot and consult
+the latest main stable result. Required-check policy is configured separately.
 
 The lane dispatcher runs groups sequentially, defaults to one worker, and accepts
 only `--jobs 1` or `--jobs 2`. Individual runners accept `--lane hot|stable|all` and
@@ -127,7 +124,7 @@ passing original cases and preserve the exact archived evidence bytes.
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
 static integrity validation without duplicate passing counts. The active UI
-catalog has 50 references and 737 cases. Pending base recalculation remains a
+catalog has 51 references and 739 cases. Pending base recalculation remains a
 strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
@@ -138,7 +135,7 @@ Build the FastDebug WASM app once using [the browser build instructions](../../w
 After that, changing GSE tests or production GSE scripts needs **no relink**:
 
 ```sh
-npm --prefix tools/wasm-tests run test:fast -- --jobs 4
+npm --prefix tools/wasm-tests run test:fast -- --jobs 2
 ```
 
 Eight [Terraform-menu work traces](ui/terraform-menu-work-contract.md) connect Farm,
@@ -164,8 +161,8 @@ original assertion and native path is retained under the same timeout. Optional
 display-fixture dimensions remove redundant per-node wrappers; this changes no
 production renderer or gameplay result.
 
-The full regression catalog contains **1,462 scenarios and 10,230 assertions** across
-118 suites. It exercises production movement/combat/spawn events, deterministic
+The full regression catalog contains **1,482 scenarios and 10,327 assertions** across
+121 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -1216,3 +1213,22 @@ the queued Former without a population charge; normal installed-table gameplay
 grows and constructs a Pod. Static conventional portraits, faction morale bonuses,
 reactor damage, original combat odds, terraforming beyond the bounded work scope and computer players
 remain explicit gaps. This is not complete game parity.
+
+The `colony-found-menu-controls`, `colony-found-menu-authority` and
+`colony-found-native` hot groups add 20 application scenarios/97 assertions.
+Two independently repeated [original city-naming flows](ui/colony-found-menu-contract.md)
+match native replay at twenty checkpoints: Action source0, common NEWBASE
+caption/label, faction name-pool input, edits, button/keyboard cancellation,
+reopening and chosen-name confirmation with native city/Pod effects. Naming
+also shares the B/FOUND controls. Previewing a draft does not reserve it, and
+accepted names are applied within the native founding transaction. These
+observations exclude post-confirm artwork, general adjacency/name policy and
+AI. Current native APIs require a rebuilt engine; subsequent GSE-only iteration
+reuses that engine.
+
+The twelve-case menu-context replay uses sequential four-case workers,
+retaining exact outputs and script/runtime fingerprints. One equal-input local
+measurement reduced peak worker RSS from 2,075,620 to 1,169,536 KiB (43.7%) and
+longest worker time from 33.7 to 12.5 seconds; total time rose from 34.1 to
+38.2 seconds. Naming regressions also use separate small workers to bound
+retained native world graphs. No assertion or timeout was removed.

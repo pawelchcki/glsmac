@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"colony-found-menu-controls","script":"GLSMAC_data/tests/colony_found_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"colony-found-menu-authority","script":"GLSMAC_data/tests/colony_found_menu_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"colony-found-native","script":"GLSMAC_data/tests/colony_found_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"terraform-menu-presentation","script":"GLSMAC_data/tests/terraform_menu_presentation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-menu-controls","script":"GLSMAC_data/tests/colony_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"terraform-menu-controls","script":"GLSMAC_data/tests/terraform_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

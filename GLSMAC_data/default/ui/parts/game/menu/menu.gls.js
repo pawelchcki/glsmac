@@ -237,12 +237,14 @@ return {
 	refresh_action: () => {
 		let former = false;
 		let colony = false;
+		let colony_base = false;
 		if (this.game != null && this.selected_unit_id != null) {
 			const units = this.game.get_um();
 			if (units.has_unit(this.selected_unit_id)) {
 				const unit = units.get_unit(this.selected_unit_id);
 				former = unit.def == 'Formers' && unit.is_land;
 				colony = unit.def == 'ColonyPod' && unit.is_land;
+				colony_base = colony && unit.get_tile().get_base() != null;
 			}
 		}
 		const child = this.menus.left_menu_action;
@@ -253,7 +255,8 @@ return {
 			row.visible = false;
 			if (#is_defined(row.entry.separator)) { separator = row; }
 			else {
-				const omit = (former && row.entry.omit_for_former) || (colony && row.entry.omit_for_colony) || (!colony && row.entry.only_for_colony);
+				const omit = (former && row.entry.omit_for_former) || (colony && row.entry.omit_for_colony) || (!colony && row.entry.only_for_colony) ||
+					(colony_base && row.entry.only_for_free_colony) || (!colony_base && row.entry.only_for_base_colony);
 				if (!omit) {
 					row.visible = true;
 					if (separator != null && has_visible) { separator.visible = true; }
