@@ -120,8 +120,12 @@ behavior.scenario('rollback rejects stale changed base without undoing the chang
 });
 
 behavior.scenario('rollback enforces reverse order for two founding transactions', () => {
-	const f = fixture();
-	const second_id = f.add_colony(0, 2);
+	// This transaction-order test needs two valid free sites. The old 4x4
+	// layout put the second site beside existing cities, which now correctly
+	// rejects founding before a transaction can be created.
+	const f = test.selection_fixture('Fixture Base', 16);
+	f.unit_id = f.add_colony(6, 6);
+	const second_id = f.add_colony(10, 10);
 	const before = f.snapshot();
 	const first = found(f, (b) => { return { type: 'DOCTOR' }; });
 	let second = null;
