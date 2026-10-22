@@ -20,10 +20,15 @@ jobs:
   hot:
     name: Hot tests
     needs: [engine]
-    if: always() && github.repository == 'pawelchcki/wasmsmac' && (needs.engine.result == 'success' || needs.engine.result == 'skipped' && inputs.engine-artifact != '')
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Require a successful engine producer
+        env:
+          TEST_ENGINE_RESULT: ${{ needs.engine.result }}
+          TEST_ENGINE_ARTIFACT: ${{ inputs.engine-artifact }}
+        run: python3 tools/behavior-tests/engine_gate.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16'
@@ -33,7 +38,7 @@ jobs:
           path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_ui_shards -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_ui_shards test_engine_gate -v
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --jobs 2 --report build/hot-artifacts/hot.json
       - uses: actions/upload-artifact@v4
