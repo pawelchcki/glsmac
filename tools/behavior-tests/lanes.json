@@ -12,7 +12,9 @@
         "natural-first-city-lifecycle",
         "base-growth-worker-links",
         "base-growth-regression",
-        "land-resource-sources"
+        "land-resource-sources",
+        "former-controls",
+        "terraform-menu-controls"
       ],
       "stable": [
         "base-resource-hud",
@@ -29,7 +31,6 @@
         "terraforming-rules",
         "unit-work-state",
         "former-work",
-        "former-controls",
         "terraforming-dialog",
         "unit-source-transfer",
         "unit-combat-model",
@@ -124,7 +125,8 @@
       "hot": [
         "ingame-menus",
         "unit-menu-orders",
-        "unit-menu-context"
+        "unit-menu-context",
+        "terraform-menu-work"
       ],
       "stable": [
         "road-network",

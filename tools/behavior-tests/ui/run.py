@@ -354,6 +354,17 @@ def terraform_menu_command(args):
     return shlex.join(command)
 
 
+def colony_menu_command(args):
+    if args.browser:
+        raise ProtocolError('Colony menu join uses native display-free replay; browser controls are checked separately')
+    name = 'colony_menu_original.py' if args.record else 'colony_menu_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/colony-menu-original')]
+    return shlex.join(command)
+
+
 def unit_menu_context_command(args, paced=False, message=False, saved=False):
     if args.browser:
         raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
@@ -537,6 +548,8 @@ def main(argv=None):
                 reference_command = unit_menu_orders_command(args)
             if reference['id'] == 'terraform-menu-work':
                 reference_command = terraform_menu_command(args)
+            if reference['id'] == 'colony-menu-join':
+                reference_command = colony_menu_command(args)
             if reference['id'] == 'unit-menu-context':
                 reference_command = unit_menu_context_command(args, saved=True)
             if reference['id'] == 'unit-menu-context-former-sentry':
@@ -613,6 +626,8 @@ def main(argv=None):
                 candidate_command = unit_menu_orders_command(args)
             if command is not None and reference['id'] == 'terraform-menu-work':
                 candidate_command = terraform_menu_command(args)
+            if command is not None and reference['id'] == 'colony-menu-join':
+                candidate_command = colony_menu_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':
                 candidate_command = unit_menu_context_command(args, saved=True)
             if command is not None and reference['id'] == 'unit-menu-context-former-sentry':

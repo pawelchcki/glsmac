@@ -1052,10 +1052,10 @@
     {
       "id": "terraform-menu-work-bindings",
       "suite": "terraform-menu-work",
-      "status": "pending-transfer",
-      "property": "Mounted native Terraform rows do not submit the work commands that existing keyboard controls submit. Four work identities and source label variants execute as candidate no-ops; original pointer recordings are undergoing independent repetition.",
+      "status": "fixed-in-recorded-contract",
+      "property": "Mounted native Terraform rows now submit the existing work commands by source identity, retain root/close child after matching native acknowledgment, and preserve the recorded selected-unit sequence.",
       "probes": [
-        "GLSMAC_data/tests/_terraform_menu_controls_regression.gls.js"
+        "GLSMAC_data/tests/terraform_menu_controls.gls.js"
       ],
       "before": {
         "candidate_cases": 8,
@@ -1064,7 +1064,16 @@
         "existing_guard_passes": 1,
         "harness_errors": 0
       },
-      "scope": "Application control wiring and guarded pending callbacks; no full Terraform or AI parity claim."
+      "scope": "Application control wiring and guarded pending callbacks; no full Terraform or AI parity claim.",
+      "verification": {
+        "cases": 8,
+        "matched": 8,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "native_scenarios": 12,
+        "native_assertions": 51
+      }
     },
     {
       "id": "terraform-work-receipt-action-identity",
@@ -1087,13 +1096,13 @@
     }
   ],
   "verification": {
-    "cases": 724,
-    "matched": 724,
+    "cases": 732,
+    "matched": 732,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Passing catalog aggregates previously verified contracts and the complete twelve-input context reference, which supersedes three immutable pilots without duplicate cases. All twelve context inputs match current production/native replay; five selected context cases have actual browser verification. Pending base recalculation remains strict red and excluded. Not a new all-catalog run or full-game parity.",
+    "scope": "Prior47references724cases plus8new independently repeated Terraform pointer traces matched in actual native replay;12new native lifecycle regressions pass. Aggregate of verified bounded contracts, not a new all-catalog rerun or full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -1133,6 +1142,8 @@
     "unit_menu_context_cases": 12,
     "unit_menu_context_matched": 12,
     "rendered_unit_menu_context_selected_cases": 5,
-    "rendered_unit_menu_context_selected_matched": 5
+    "rendered_unit_menu_context_selected_matched": 5,
+    "terraform_menu_cases": 8,
+    "terraform_menu_matched": 8
   }
 }
