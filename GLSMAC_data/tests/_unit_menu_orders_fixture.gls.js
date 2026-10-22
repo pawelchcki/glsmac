@@ -7,7 +7,7 @@ const native_fixture = #include('./_unit_selection_fixture');
 
 const fixture = (input) => {
 	const f = {};
-	f.native = native_fixture(input.profile, undefined, input.initial_base.name, 16);
+	f.native = native_fixture(input.profile, undefined, input.initial_base.name, 16, #is_defined(input.land_names) ? input.land_names : undefined);
 	f.game = f.native.game; f.base = f.native.base; f.units = f.native.units;
 	f.native.with_write(() => {
 		f.base.create_pop({type: 'DOCTOR'});

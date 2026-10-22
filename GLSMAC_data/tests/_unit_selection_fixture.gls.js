@@ -3,9 +3,10 @@
 const source = #include('./_startup_unit_rules_fixture');
 const definitions = #include('../default/units/defs');
 const turns = #include('../default/units/turns');
-return (profile, ids, initial_base_name, map_size) => {
+return (profile, ids, initial_base_name, map_size, land_names) => {
 	let f = null;
-	if (#is_defined(map_size)) { f = test.selection_fixture(initial_base_name, map_size); }
+	if (#is_defined(land_names)) { f = test.selection_fixture(initial_base_name, map_size, land_names); }
+	else if (#is_defined(map_size)) { f = test.selection_fixture(initial_base_name, map_size); }
 	else if (#is_defined(initial_base_name)) { f = test.selection_fixture(initial_base_name); }
 	else { f = test.selection_fixture(); }
 	f.enable_economy();
@@ -23,7 +24,8 @@ return (profile, ids, initial_base_name, map_size) => {
 	}}, source.parse());
 	turns.configure(f.game); f.units = [];
 	let index = 0;
-	for (spec of [['ScoutPatrol', 2, 2], ['Formers', profile == 'spread' ? 3 : 2, profile == 'spread' ? 3 : 2], ['ColonyPod', profile == 'spread' ? 1 : 2, profile == 'spread' ? 3 : 2]]) {
+	const spread = profile == 'spread' || profile == 'spread-distant';
+	for (spec of [['ScoutPatrol', 2, 2], ['Formers', spread ? 3 : 2, spread ? 3 : 2], ['ColonyPod', profile == 'spread-distant' ? 0 : (spread ? 1 : 2), profile == 'spread-distant' ? 4 : (spread ? 3 : 2)]]) {
 		f.with_write(() => {
 			const data = {def: spec[0], health: 1.0, morale: 2}; if (#is_defined(ids)) { data.id = ids[index]; }
 			data.owner = f.owner; data.tile = f.game.tm.get_tile(spec[1], spec[2]);
