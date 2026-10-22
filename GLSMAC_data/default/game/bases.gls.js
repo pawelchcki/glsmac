@@ -239,6 +239,7 @@ return (game) => {
 	const bm = game.get_bm();
 
 	bm.on('get_base_intake', (e) => {
+		const owner = e.base.get_owner();
 		let result = {
 			NUTRIENTS: 0,
 			MINERALS: 0,
@@ -246,7 +247,7 @@ return (game) => {
 		};
 
 		const f_add_tile = (tile) => {
-			const r = tile.get_resources();
+			const r = tile.get_resources(owner);
 			result.NUTRIENTS = result.NUTRIENTS + r.NUTRIENTS;
 			result.MINERALS = result.MINERALS + r.MINERALS;
 			result.ENERGY = result.ENERGY + r.ENERGY;

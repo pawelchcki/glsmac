@@ -51,11 +51,11 @@ when investigating isolation or collecting a serial baseline.
 Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
 `ui-interactions`, `game-modal-input`, `world-single-player-setup`,
 `natural-first-city-lifecycle`, `base-growth-worker-links` and
-`base-growth-regression` regression suites
-(123 scenarios/1,095 assertions), plus
+`base-growth-regression` and `land-resource-sources` regression suites
+(137 scenarios/1,129 assertions), plus
 `ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
 (30 recorded cases across three references).
-Stable contains the explicit complement: 104 regression suites, 44 UI references
+Stable contains the explicit complement: 103 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
 on main; PR checks run hot and consult the latest main stable result. CI trigger
@@ -142,7 +142,7 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,419 scenarios and 10,011 assertions** across
+The full regression catalog contains **1,421 scenarios and 10,023 assertions** across
 113 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
@@ -284,6 +284,12 @@ Proceed. Receipt authority, delayed acknowledgement, duplicate/stale input,
 rejection/retry, cleanup and rollback have separate application coverage. Future
 suppression preferences and later notices remain unobserved. Run
 `npm --prefix tools/wasm-tests run test:starvation-notice-controls` with installed assets.
+
+Two native foreign-base income regressions check that center and worked-tile
+yields use the actual owner's technology caps, in both cap directions, and
+preserve city state and reciprocal worker links. This suite remains HOT while
+opponent startup and turns are being developed. These are application
+regressions, not additional original-game observations.
 
 The `land-resource-sources` suite checks installed forest/farm/mine coefficients,
 independent cap prerequisite tokens, actual native faction ownership, detached
