@@ -193,7 +193,7 @@ behavior.scenario('visible colony button and B share guarded join pending action
 		f.events.emit('event_result', ack); button.emit('click', {}); f.action('join');
 		test.assert(#sizeof(f.state.queued) == 1 && f.preview.founding_pending_id == id);
 	}
-	f.events.emit('event_result', {name: 'join_base', caller: owner, data: {unit_id: id}, success: false});
+	f.events.emit('event_result', {name: 'join_base', caller: owner, data: {unit_id: id, base_id: f.base.id}, success: false});
 	test.assert(f.preview.founding_pending_id == null && f.preview.founding_pending_name == null);
 	f.action('join'); button.emit('click', {});
 	test.assert(#sizeof(f.state.queued) == 2 && f.native.snapshot() == before);
@@ -223,4 +223,29 @@ behavior.scenario('sole Pod joins assigned Worker base and clears focus before B
 	test.assert(f.preview.last_object_class == 'Base' && f.preview.rendered_unit_id == null);
 	for (action of ['wait', 'tab']) { f.action(action); test.assert(f.selected_id() == null && tile_notifications == 1); }
 	f.view.root.remove(); test.assert(f.view.running_timers() == 0);
+});
+
+behavior.scenario('pending keyboard join requires its actual city and complete receipt before retry', () => {
+	const f = fixture(['wait', 'wait']); const id = f.units[2].id + 0; const owner = f.native.owner.id + 0; const base = f.base.id + 0;
+	f.preview.frame.emit('keydown', {code: 'B', modifiers: {}});
+	test.assert(#sizeof(f.state.queued) == 1 && f.preview.founding_pending_id == id);
+	for (event of [{name: 'join_base', caller: owner}, {name: 'join_base', caller: owner, data: 'bad', success: true},
+		{name: 'join_base', caller: owner, data: {unit_id: id, base_id: base}},
+		{name: 'join_base', caller: owner, data: {unit_id: id, base_id: base}, success: 'yes'},
+		{name: 'join_base', caller: owner, data: {unit_id: id}, success: true},
+		{name: 'join_base', caller: owner, data: {unit_id: id, base_id: base + 1}, success: true},
+		{name: 'join_base', caller: owner + 1, data: {unit_id: id, base_id: base}, success: true},
+		{name: 'join_base', caller: owner, data: {unit_id: f.units[0].id, base_id: base}, success: true}]) {
+		f.events.emit('event_result', event);
+		test.assert(f.preview.founding_pending_id == id, 'Incomplete or unrelated receipt cannot release pending Colony join');
+	}
+	f.preview.frame.emit('keydown', {code: 'B', modifiers: {}});
+	test.assert(#sizeof(f.state.queued) == 1); citizen_state(f, 1);
+	// The rejected first request was not applied; only the retry reaches native state.
+	f.state.delivered = 1;
+	f.events.emit('event_result', {name: 'join_base', caller: owner, data: {unit_id: id, base_id: base}, success: false});
+	test.assert(f.preview.founding_pending_id == null && f.preview.founding_pending_base_id == null);
+	f.action('join'); citizen_state(f, 2);
+	test.assert(#sizeof(f.state.queued) == 2 && !f.game.um.has_unit(id) && f.preview.founding_pending_id == null);
+	f.view.root.remove();
 });

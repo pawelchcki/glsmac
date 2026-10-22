@@ -108,7 +108,12 @@ const fixture = (input) => {
 				const error = handler.validate(e);
 				if (#is_defined(error)) { throw Error('Actual production command rejected: ' + error); }
 				f.native.with_write(() => { e.applied = handler.apply(e); });
-				if (request.name != 'unit_activate') {
+				if (!f.game.um.has_unit(request.data.unit_id)) {
+					// Deliver the same native removal completion as the frontend.
+					f.native.selection_removed(request.data.unit_id,
+						(id) => { f.events.select_unit(f.game.um.get_unit(id)); },
+						() => { f.events.select_tile(f.base.get_tile()); });
+				} else if (request.name != 'unit_activate') {
 					const next = f.native.selection_next(false);
 					if (next != null) { f.events.select_unit(f.game.um.get_unit(next)); }
 					else { f.events.select_tile(f.base.get_tile()); }
@@ -156,11 +161,12 @@ const source = (profile) => {
  }
  return text + '#END\n';
 };
-return (profile) => {
+return (profile, declared_input) => {
  let terrain = '#TERRAIN\n';
  for (let index = 0; index < 20; index++) { terrain += 'Land,None,Sea,None,4,Shape $STR0,q,Q\n'; }
- const f = fixture({profile: 'stacked', initial_base: {name: 'Gaia\'s Landing', workers: 0, doctors: 1, worked_tiles: 0, nutrients: 0, minerals: 9},
-  sources: [{name: 'menu.txt', source: source(profile)}, {name: 'alphax.txt', source: terrain + '#END\n'}]});
+ const input = #is_defined(declared_input) ? declared_input : {profile: 'stacked', initial_base: {name: 'Gaia\'s Landing', workers: 0, doctors: 1, worked_tiles: 0, nutrients: 0, minerals: 9},
+  sources: [{name: 'menu.txt', source: source(profile)}, {name: 'alphax.txt', source: terrain + '#END\n'}]};
+ const f = fixture(input);
  f.initial_year = f.game.get_year();
  f.open_action = () => {
   if (!f.menu.menus.left_menu.is_open) { f.view.find('button', 'text', 'MENU').emit('click', {button: 'left'}); }

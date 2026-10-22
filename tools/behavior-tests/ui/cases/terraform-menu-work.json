@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "name": "Terraform menu work controls",
+  "description": "Actual row clicks and Tab on native healthy arid Former; source inputs only.",
+  "cases": [
+    {
+      "id": "terraform-menu-0-synthetic",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 0
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-2-synthetic",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 2
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-4-synthetic",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 4
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-5-synthetic",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 5
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-0-terrain-edited",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "terrain-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 0
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-2-terrain-edited",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "terrain-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 2
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-4-terrain-edited",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "terrain-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 4
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "terraform-menu-5-terrain-edited",
+      "algorithm": "ui.terraform_menu_work.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "terrain-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          {
+            "terrain_index": 5
+          },
+          "tab"
+        ]
+      }
+    }
+  ]
+}
