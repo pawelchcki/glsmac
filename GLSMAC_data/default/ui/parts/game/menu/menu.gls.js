@@ -162,6 +162,7 @@ return {
 			}
 		}
 		#include('unit_orders')(this, p);
+		#include('terraform_orders')(this, p);
 		if (this.game != null) {
 			const frame = this.menus.left_menu.el;
 			frame.listen(this.game, 'unit_select', (e) => {

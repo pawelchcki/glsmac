@@ -26,7 +26,10 @@ return (input) => {
 	f.game.set('terraforming_rules', terrain_rules.parse(document));
 	work.configure(f.game);
 	f.events.get_players = () => { return f.game.get_players(); };
-	f.events.select_unit(f.former); f.flush();
+	// The declared spread preparation reaches Former through one real Tab
+	// from ready Scout. Keep that navigation history in the native controller.
+	f.tab();
+	if (f.native.selected_id() != f.former.id) { throw Error('Declared initial Tab did not select the native Former'); }
 	const initial_year = f.game.get_year(); const base = f.base; const base_id = base.id + 0;
 	const base_tile = base.get_tile(); const owner = base.get_owner().id + 0;
 	const initial_pops = base.get_pops(); const doctor = initial_pops[0]; const doctor_id = doctor.id + 0;

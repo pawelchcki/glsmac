@@ -101,8 +101,11 @@ const main = String.raw`
  const preview = #include('ui/parts/game/bottom_bar/object_preview');
  const roles = ['scout', 'former', 'colony']; const defs = ['ScoutPatrol', 'Formers', 'ColonyPod'];
  glsmac.on('configure_game', (e) => {
-  const game = e.game; let selected = null; let started = false; let serial = 0;
-  game.on('unit_select', (e) => { selected = e.unit.id + 0; });
+  const game = e.game; let selected = null; let started = false; let serial = 0; let prepared = false;
+  game.on('unit_select', (e) => {
+   selected = e.unit.id + 0;
+   if (e.unit.def == 'ScoutPatrol') { #print('TMENU_SCOUT_FOCUS'); }
+  });
   for (event of ['tile_select', 'base_select']) { game.on(event, () => { selected = null; }); }
   game.on('event_result', (e) => { if (!e.success) { #print('TMENU_REJECT|' + e.name); } });
   game.on('error', () => { #print('TMENU_GAME_ERROR'); });
@@ -115,8 +118,8 @@ const main = String.raw`
    const production = base.get_production(); const nutrients = base.get('accumulated_nutrients');
    const ids = []; const tiles = [];
    for (spec of [[8, 8], [9, 9], [7, 9]]) {
-    const tile = game.get_tm().get_tile(spec[0], spec[1]); const units = tile.get_units();
-    if (#sizeof(units) != 1 || units[0].def != defs[#sizeof(ids)]) { throw Error('Invalid declared spread unit layout'); }
+    const tile = game.get_tm().get_tile(spec[0], spec[1]); const units = tile.get_units(); const index = #sizeof(ids);
+    if (#sizeof(units) != 1 || units[0].def != defs[index]) { throw Error('Invalid declared spread unit layout'); }
     ids :+ units[0].id + 0; tiles :+ tile;
    }
    const former = um.get_unit(ids[1]); const work_tile = former.get_tile();
@@ -133,6 +136,7 @@ const main = String.raw`
    const report = () => {
     if (popup.is_shown()) { throw Error('Unexpected actual modal'); }
     if (preview.selected_unit_id != selected || menu.selected_unit_id != selected) { return; }
+    if (!prepared && selected == ids[0]) { prepared = true; #print('TMENU_PREPARED_SCOUT'); }
     if (#sizeof(game.get_bm().get_bases()) != 1 || base.id != base_id || base.get_owner().id != owner || base.get_tile() != base_tile || base_tile.get_base() != base || base.name != 'Gaia\'s Landing' || base.get_production() != production || base.get('accumulated_nutrients') != nutrients || #sizeof(base.get_worked_tiles()) != 0) { throw Error('Native city guard changed'); }
     const current = base.get_pops();
     if (#sizeof(current) != 1 || current[0] != doctor || doctor.id != doctor_id || doctor.get_type() != 'DOCTOR' || doctor.has('worked_tile')) { throw Error('Native citizen guard changed'); }
@@ -179,7 +183,7 @@ const main = String.raw`
    #async(0, () => {
     glsmac.ui.root.on('keydown', (e) => {
      if (e.code != 'K' || e.modifiers != {}) { return false; }
-     if (started) { started = false; glsmac.exit(); } else { game.select_unit(former); started = true; }
+     if (started) { started = false; glsmac.exit(); } else { game.select_unit(um.get_unit(ids[0])); started = true; }
      return true;
     });
     #print('TMENU_READY'); return false;
@@ -226,7 +230,7 @@ for (const input of cases) test(`real Terraform pointer control matches recorded
     if (await page.locator('#canvas').isVisible()) await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`terraform-menu-${input.id}-last.png`, artifacts)), timeout: 5000});
   } finally { await browser.close(); } });
   const {sourceReads} = await overrideTextAssets(page, sources);
-  const fatal = /TMENU_REJECT|TMENU_GAME_ERROR|TMENU_PROBE_ERROR|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
+  const fatal = /TMENU_REJECT|TMENU_GAME_ERROR|TMENU_PROBE_ERROR|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|sent an error!|\[Error\]/i;
   await page.goto(address); await page.waitForFunction(() => document.body.dataset.state === 'ready');
   await page.locator('#custom-maps').setInputFiles({name: 'terraform-menu-arid.MP', mimeType: 'application/octet-stream', buffer: terrain()});
   await page.locator('#import-maps').click(); await page.waitForFunction(() => document.querySelector('#custom-map-list').textContent.includes('terraform-menu-arid.MP'));
@@ -237,8 +241,19 @@ for (const input of cases) test(`real Terraform pointer control matches recorded
     Module.FS.writeFile('/terraform-menu-snapshot/GLSMAC_data/default/game/world/browser_terraform_menu.gls.js', world);
     const callMain = Module.callMain; Module.callMain = args => callMain([...args, '--datapath', '/terraform-menu-snapshot/GLSMAC_data', '--mainscript', 'browser_terraform_menu_main', '--worldscript', 'browser_terraform_menu', '--quickstart', '--quickstart-mapfile', '/persist/glsmac/maps/terraform-menu-arid.MP', '--quickstart-faction', 'GAIANS']);
   }, {scripts, main, world});
-  await page.locator('#start').click(); await page.waitForFunction(() => document.querySelector('#log').textContent.includes('TMENU_READY') || document.body.dataset.state === 'failed');
-  assert.doesNotMatch(await page.locator('#log').textContent(), fatal); await page.keyboard.press('k');
+  await page.locator('#start').click(); await page.waitForFunction(pattern => {
+    const text = document.querySelector('#log').textContent;
+    return text.includes('TMENU_READY') || document.body.dataset.state === 'failed' || new RegExp(pattern, 'i').test(text);
+  }, fatal.source);
+  assert.doesNotMatch(await page.locator('#log').textContent(), fatal);
+  // UI startup precedes initial frontend focus. Await that focus and a fresh
+  // acknowledgement of our declared Scout setup before delivering real Tab.
+  await page.waitForFunction(() => document.querySelector('#log').textContent.includes('TMENU_SCOUT_FOCUS'));
+  const scoutFocusCount = (await page.locator('#log').textContent()).split('TMENU_SCOUT_FOCUS').length;
+  await page.keyboard.press('k');
+  await page.waitForFunction(count => document.querySelector('#log').textContent.split('TMENU_SCOUT_FOCUS').length > count, scoutFocusCount);
+  await page.waitForFunction(() => document.querySelector('#log').textContent.includes('TMENU_PREPARED_SCOUT'));
+  await page.keyboard.press('Tab');
   let targets = {};
   const probe = async () => {
     const count = (await page.locator('#log').textContent()).split('TMENU_BROWSE_DONE').length;
