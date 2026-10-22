@@ -108,7 +108,12 @@ const fixture = (input) => {
 				const error = handler.validate(e);
 				if (#is_defined(error)) { throw Error('Actual production command rejected: ' + error); }
 				f.native.with_write(() => { e.applied = handler.apply(e); });
-				if (request.name != 'unit_activate') {
+				if (!f.game.um.has_unit(request.data.unit_id)) {
+					// Deliver the same native removal completion as the frontend.
+					f.native.selection_removed(request.data.unit_id,
+						(id) => { f.events.select_unit(f.game.um.get_unit(id)); },
+						() => { f.events.select_tile(f.base.get_tile()); });
+				} else if (request.name != 'unit_activate') {
 					const next = f.native.selection_next(false);
 					if (next != null) { f.events.select_unit(f.game.um.get_unit(next)); }
 					else { f.events.select_tile(f.base.get_tile()); }
