@@ -12,8 +12,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import audit
 import compare
 import lanes
-from protocol import ProtocolError
+from fast import create_snapshot
+from protocol import ProtocolError, fingerprint
 from ui.drivers import ROOT
+from ui import shards
 
 
 DIRECTORY = Path(__file__).resolve().parent
@@ -359,6 +361,7 @@ def main(argv=None):
     parser.add_argument("--browser", action="store_true", help="optional rendered integration replay")
     parser.add_argument("--render-smoke", action="store_true", help="render a small selection covering real menu inputs")
     parser.add_argument("--case", action="append", help="replay selected case IDs after validating their full reference")
+    parser.add_argument("--shard", help="headless case partition INDEX/COUNT, starting at 1")
     parser.add_argument("--reference-python", default=os.environ.get("SMAC_REFERENCE_PYTHON", sys.executable))
     parser.add_argument("--suite", action="append")
     parser.add_argument("--pending", action="store_true", help="strictly replay recorded contracts still awaiting transfer; failures remain failures")
@@ -381,6 +384,10 @@ def main(argv=None):
         args.suite = list(rendered_cases)
     if args.case and (args.record or not args.suite or len(args.suite) != 1):
         raise ProtocolError("--case requires exactly one --suite and cannot replace evidence")
+    if args.shard:
+        shards.parse_shard(args.shard)
+        if args.record or args.browser or args.case or args.pending or args.validate_only or args.list:
+            raise ProtocolError('--shard requires ordinary headless candidate replay')
     if args.jobs is None:
         args.jobs = 1 if args.browser else 2
     if args.step_timeout is None:
@@ -400,6 +407,13 @@ def main(argv=None):
             raise ProtocolError(f"unknown UI suites: {sorted(unknown)}")
         references = [reference for reference in references if reference["id"] in args.suite]
     references = lanes.select("pending-ui" if args.pending else "ui", references, args.lane)
+    shard_cases = None
+    source_snapshot = None
+    if args.shard:
+        shard_cases = {row['id']: shards.select_cases(compare.read_json(DIRECTORY / row['cases']), args.shard)
+                       for row in references}
+        references = [row for row in references if shard_cases[row['id']]]
+        source_snapshot = fingerprint(create_snapshot())
     if args.list:
         for reference in references:
             print(reference["id"])
@@ -429,7 +443,7 @@ def main(argv=None):
         else:
             evidence = compare.read_json(DIRECTORY / reference["observations"])
             compare.validate_observations(evidence, suite)
-            case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
+            case_ids = shard_cases[reference['id']] if shard_cases is not None else rendered_cases[reference["id"]] if rendered_cases else args.case
             if case_ids:
                 compare.select_cases(suite, evidence, case_ids)
     results = []
@@ -512,7 +526,7 @@ def main(argv=None):
             compare.write_json(DIRECTORY / reference["observations"], record, overwrite=args.force)
             print(f"RECORDED {reference['id']}: {len(suite['cases'])} original traces, two identical runs", flush=True)
         else:
-            case_ids = rendered_cases[reference["id"]] if rendered_cases else args.case
+            case_ids = shard_cases[reference['id']] if shard_cases is not None else rendered_cases[reference["id"]] if rendered_cases else args.case
             candidate_command = size_keyboard_command(args) if command is not None and reference["id"] == "size-keyboard" else command
             if command is not None and reference["id"] == "citizen-job":
                 candidate_command = citizen_job_command(args)
@@ -580,7 +594,9 @@ def main(argv=None):
                 candidate_command = unit_menu_context_command(args, paced=True)
             if command is not None and reference['id'] == 'unit-menu-context-former-hold':
                 candidate_command = unit_menu_context_command(args, message=True)
+            reference_started = time.perf_counter()
             result = audit.check_reference(reference, candidate_command, args.timeout, directory=DIRECTORY, case_ids=case_ids)
+            result['elapsed_ms'] = round((time.perf_counter() - reference_started) * 1000, 2)
             results.append(result)
             counts = result.get("comparison", {}).get("summary")
             print(f"{reference['id']}: {counts if counts is not None else 'evidence valid; apps not executed'}", flush=True)
@@ -595,6 +611,7 @@ def main(argv=None):
         "version": 1, "lane": args.lane, "kind": "original-ui-evidence-validation" if args.validate_only else "original-ui-parity",
         "scope": "Recorded contracts awaiting transfer; an empty queue does not establish full-game parity" if args.pending else "Recorded menus/setup/source text, bounded native identity/ratings/inventory, selected map dimensions, citizen jobs, Scout orders, Former work/roads, unit selection/waiting, Sentry/activation pickers, owned-base Colony joins, bounded citizen management opening, resource/allocation HUD labels, first-starvation notification controls including Escape/modifier/immediate suppression, bounded first-turn mineral credit, owned-base Rename controls and bounded in-game menu presentation/navigation; not full-game parity",
         "pending_transfer": args.pending,
+        **({'shard': args.shard, 'source_snapshot_sha256': source_snapshot} if args.shard else {}),
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
         "summary": summary, "results": results,
     }, overwrite=True)
