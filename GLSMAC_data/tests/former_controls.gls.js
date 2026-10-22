@@ -144,3 +144,28 @@ for (kind of ['turn', 'movement', 'despawn', 'removed-panel']) {
 		f.view.root.remove();
 	});
 }
+
+behavior.scenario('work receipt must match its action before releasing native command authority', () => {
+	const f = fixture(); f.key('F', {});
+	const id = f.former.id + 0; const caller = f.owner.id + 0; const before = f.snapshot();
+	test.assert(#sizeof(f.state.queued) == 1 && preview.order_pending != null && f.former.get_order() == 'NO_ORDERS');
+	for (data of [{unit_id: id, action: 'mine'}, {unit_id: id}, {unit_id: id, action: 42}]) {
+		const result = {name: 'unit_terraform', caller: caller, success: true}; result.data = data;
+		f.ui_game.emit('event_result', result);
+		test.assert(preview.order_pending != null && preview.order_pending.unit_id == id,
+			'A different or missing action cannot acknowledge the pending work request');
+		test.assert(preview.selected_unit_id == id && f.snapshot() == before,
+			'An unrelated work receipt cannot change selection or native work state');
+	}
+	// Reject the Farm request at the transport boundary without applying it.
+	f.ui_game.emit('event_result', {name: 'unit_terraform', caller: caller, data: {unit_id: id, action: 'farm'}, success: false});
+	test.assert(preview.order_pending == null && preview.selected_unit_id == id && f.snapshot() == before);
+	f.key('M', {});
+	test.assert(#sizeof(f.state.queued) == 2 && preview.order_pending != null);
+	// A delayed Farm failure must not release the succeeding Mine request.
+	f.ui_game.emit('event_result', {name: 'unit_terraform', caller: caller, data: {unit_id: id, action: 'farm'}, success: false});
+	test.assert(preview.order_pending != null && preview.selected_unit_id == id && f.snapshot() == before);
+	f.deliver(1); const work = f.former.get_terraforming();
+	test.assert(preview.order_pending == null && f.former.get_order() == 'TERRAFORM' && work.action == 'mine' && work.work_units == 2 && f.former.movement == 0.0);
+	f.view.root.remove();
+});

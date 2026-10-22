@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "name": "Colony Pod owned-base Action menu join",
+  "description": "Actual Tab/Action menu source1/Tab; no result data or commands supplied by fixture.",
+  "cases": [
+    {
+      "id": "colony-menu-join-synthetic",
+      "algorithm": "ui.colony_menu_join.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 1
+          },
+          "tab"
+        ]
+      }
+    },
+    {
+      "id": "colony-menu-join-join-edited",
+      "algorithm": "ui.colony_menu_join.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "join-edited",
+        "actions": [
+          "tab",
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 1
+          },
+          "tab"
+        ]
+      }
+    }
+  ]
+}
