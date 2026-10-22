@@ -1,8 +1,8 @@
 // Stock-equivalent input declarations. These supply no population, resource
 // stores, tile yields or expected city answers. Audio/artwork loading is omitted.
-return (f) => {
+return (f, declared_sources) => {
 	const game = f.game;
-	const sources = #include('./_startup_faction_sources_fixture')({});
+	const sources = #is_defined(declared_sources) ? declared_sources : #include('./_startup_faction_sources_fixture')({});
 	#include('../default/factions').configure({
 		add: (id, data) => { f.fm.add(id, data); },
 		import_colors: (name) => { return f.colors; },

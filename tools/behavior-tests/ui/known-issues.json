@@ -1016,6 +1016,38 @@
       },
       "native_verification_wasm_sha256": "7c9e532a0b1a5c5a0a2120c50c9751fdd7ea66f928dd5c8c3e3d9c28d0b6cb16",
       "native_verification_scripts_sha256": "3bed6602d9e4b65b74bdd5ef1bb2e0996001a8d5c2a9c9b1d5349d9cd2039f53"
+    },
+    {
+      "id": "natural-first-city-faction-mineral-context",
+      "suite": "natural-first-city-factions-v6",
+      "catalog": "pending-catalog.json",
+      "status": "pending-transfer",
+      "property": "All seven independently repeated stock-faction Citizen setups have one specialist and no worked tiles. Actual native startup agrees on every observed field except minerals: zero versus original Gaian9 or other-faction13.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite natural-first-city-factions-v6",
+      "original_observations_sha256": "df68df635ae7a2270ea34e03ed845604fd2140507def9642d7bd23e5f1a29970",
+      "verification": {
+        "matched": 0,
+        "mismatched": 7,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "scope": "Declared flat-arid40x80 Citizen startup only; native map/size provenance equivalence and complete faction bonuses remain unestablished. No seeded stores or guessed mineral initialization formula."
+    },
+    {
+      "id": "natural-first-city-source-context-unestablished",
+      "suite": "natural-first-city-source-controls-v7",
+      "catalog": "pending-catalog.json",
+      "status": "pending-transfer",
+      "property": "All six strict source-control comparisons remain unsupported because original setup-size map_kind has no established candidate equivalent. Four supported stock/TECH inputs execute real native startup as diagnostics only; raw Formers Cost4/Cost8 also remain unsupported by the production parser.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite natural-first-city-source-controls-v7",
+      "original_observations_sha256": "a821f99cde710e56e480f8c3cfcaa541f43950db6397c9251f5b3eab4591f687",
+      "verification": {
+        "matched": 0,
+        "mismatched": 0,
+        "unsupported": 6,
+        "errors": 0
+      },
+      "scope": "No partial comparison passes, map-scalar substitutions, nonzero cost conversion or generic mineral credit are established."
     }
   ],
   "verification": {

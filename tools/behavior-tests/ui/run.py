@@ -157,6 +157,14 @@ def natural_first_city_command(args):
     return shlex.join([sys.executable, str(DIRECTORY / 'natural_first_city_headless.py')])
 
 
+def natural_first_city_profiles_command(args):
+    if args.browser:
+        raise ProtocolError('Startup faction/source profiles use native display-free replay; no rendered contract is recorded')
+    if args.record:
+        raise ProtocolError('Startup profile evidence is immutable; use its fingerprinted archived original recorder separately')
+    return shlex.join([sys.executable, str(DIRECTORY / 'natural_first_city_profiles_headless.py')])
+
+
 def former_work_command(args):
     if args.browser:
         raise ProtocolError('Former work effects use native display-free replay; rendered controls are checked separately')
@@ -468,6 +476,8 @@ def main(argv=None):
                 reference_command = world_base_ownership_command(args)
             if reference['id'] == 'natural-first-city':
                 reference_command = natural_first_city_command(args)
+            if reference['id'] in ('natural-first-city-factions-v6', 'natural-first-city-source-controls-v7'):
+                reference_command = natural_first_city_profiles_command(args)
             if reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 reference_command = former_work_command(args)
             if reference['id'] == 'former-movement':
@@ -540,6 +550,8 @@ def main(argv=None):
                 candidate_command = world_base_ownership_command(args)
             if command is not None and reference['id'] == 'natural-first-city':
                 candidate_command = natural_first_city_command(args)
+            if command is not None and reference['id'] in ('natural-first-city-factions-v6', 'natural-first-city-source-controls-v7'):
+                candidate_command = natural_first_city_profiles_command(args)
             if command is not None and reference['id'] in ('former-work-core', 'former-work-basic', 'former-work-edge', 'former-work-timing'):
                 candidate_command = former_work_command(args)
             if command is not None and reference['id'] == 'former-movement':

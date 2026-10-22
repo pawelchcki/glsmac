@@ -1,6 +1,8 @@
 """Strict city-state transfer schema, replay boundaries and immutable evidence."""
 from copy import deepcopy
+from contextlib import redirect_stdout
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
@@ -13,6 +15,7 @@ import compare
 from protocol import ProtocolError
 from ui import natural_first_city_contract as contract
 from ui import natural_first_city_headless as candidate
+from ui import run as ui_run
 
 DIRECTORY = Path(__file__).resolve().parent / 'ui'
 
@@ -31,8 +34,32 @@ def markers(values='1|1|0|1|0|0|1|0', case_id=None):
 
 
 class NaturalFirstCityTests(unittest.TestCase):
-    def test_completed_research_archives_preserve_original_evidence_without_candidate_passes(self):
-        references = [row['id'] for name in ('catalog.json', 'pending-catalog.json')
+    def test_profile_pending_dispatch_preserves_unsupported_results_and_immutable_inputs(self):
+        requests = []
+
+        def probe(command, request, timeout):
+            self.assertIn('natural_first_city_profiles_headless.py', command)
+            requests.append(request)
+            return {'version': 1, 'implementation': {'name': 'dispatch-test', 'kind': 'candidate'},
+                    'results': [{'id': row['id'], 'status': 'unsupported', 'reason': 'dispatch test only'}
+                                for row in request['cases']]}
+
+        with tempfile.TemporaryDirectory() as temporary, redirect_stdout(io.StringIO()), \
+                patch.object(compare, 'run_probe', side_effect=probe):
+            report = Path(temporary) / 'pending.json'
+            self.assertEqual(ui_run.main(['--pending', '--lane', 'hot',
+                                         '--suite', 'natural-first-city-factions-v6',
+                                         '--suite', 'natural-first-city-source-controls-v7',
+                                         '--report', str(report)]), 1)
+            result = json.loads(report.read_text())
+        self.assertTrue(result['pending_transfer'])
+        self.assertEqual(result['summary'], {'reference_cases': 13, 'candidate_executed': True,
+                                            'matched': 0, 'mismatched': 0, 'unsupported': 13, 'errors': 0})
+        for request, name in zip(requests, ('natural-first-city-factions-v6', 'natural-first-city-source-controls-v7')):
+            self.assertEqual(request['cases'], json.loads((DIRECTORY / 'cases' / (name + '.json')).read_text())['cases'])
+
+    def test_preserved_research_evidence_never_enters_passing_catalog(self):
+        references = [row['id'] for name in ('catalog.json',)
                       for row in json.loads((DIRECTORY / name).read_text())['references']]
         for name, count, gold_hash, source_hash in [
                 ('natural-first-city-factions-v6', 7,
@@ -51,6 +78,12 @@ class NaturalFirstCityTests(unittest.TestCase):
                 self.assertEqual(len(recorded['observations']), count)
                 self.assertEqual(recorded['reference']['kind'], 'original-executable')
                 self.assertNotIn(name, references)
+                self.assertEqual((DIRECTORY / 'cases' / (name + '.json')).read_bytes(),
+                                 (archive / 'cases.json').read_bytes())
+                self.assertEqual((DIRECTORY / 'observations' / ('smacx-gog-2.0-' + name + '.json')).read_bytes(),
+                                 (archive / 'observations.json').read_bytes())
+                pending = json.loads((DIRECTORY / 'pending-catalog.json').read_text())['references']
+                self.assertIn(name, {row['id'] for row in pending})
 
     def test_exact_input_excludes_observed_city_overrides_and_unaccepted_terrain(self):
         value = case()['input']
