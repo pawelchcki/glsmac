@@ -26,7 +26,7 @@ Existing runner commands default to `--lane all` and retain their full catalog
 selection. `--suite` and `--domain` selections intersect with the chosen lane.
 
 ```sh
-# PR/default development gate: regression and recorded UI groups, sequentially.
+# PR gate: regression and recorded UI groups, with two bounded workers.
 npm --prefix tools/wasm-tests run test:hot
 # Stable complement: run only on main, after merge.
 npm --prefix tools/wasm-tests run test:stable
@@ -34,6 +34,19 @@ npm --prefix tools/wasm-tests run test:stable
 npm --prefix tools/wasm-tests run test:lanes
 python3 tools/behavior-tests/lanes.py --lane hot --validate-only
 ```
+
+During an edit, select the suite or individual recorded case first. Both commands
+load the current production scripts into an existing engine without relinking:
+
+```sh
+python3 tools/behavior-tests/fast.py --suite unit-menu-orders --jobs 2
+python3 tools/behavior-tests/ui/run.py --suite unit-menu-orders --case unit-menu-slot-26-synthetic
+```
+
+Use the case IDs from `ui/cases/<suite>.json`; `--case` never substitutes or
+rewrites the original observations. Run the hot gate once the focused checks pass.
+The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
+when investigating isolation or collecting a serial baseline.
 
 Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
 `ui-interactions`, `game-modal-input`, `world-single-player-setup`,
@@ -57,6 +70,23 @@ integrity validation (`candidate_executed: false`) from actual candidate replay.
 Any executed mismatch, unsupported result, error or failed suite returns nonzero.
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
+
+Main CI restores or builds one compatible headless engine and shares its artifact
+with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
+fresh so their embedded application data also matches the checked-out revision.
+Stable regression, economy and helper groups run independently. Stable UI replay
+is partitioned by case position into four CI jobs, with at most two workers in
+each job. Full GSE/native engine tests run alongside the application build.
+
+`ui/run.py --lane stable --shard 1/4 --jobs 2 --report build/ui-shards/ui-1.json`
+selects the first partition after validating its complete original references.
+The other three jobs select `2/4`, `3/4` and `4/4`. The required aggregate uses
+`ui/shards.py --reports build/ui-shards --count 4 --lane stable --report build/stable-ui.json`
+and checks every configured case exactly once, each original evidence hash,
+the current production source snapshot, the shared runtime hash, complete
+candidate execution and zero mismatches/errors/unsupported results. A missing
+partition or stale/partial report fails the release gate. Partitioning never
+moves pending contracts into passing totals or runs stable CI on PRs.
 
 Two recorded `base-open-recalc` cases, one
 [`world-base-ownership`](ui/world-base-ownership-contract.md) case and six

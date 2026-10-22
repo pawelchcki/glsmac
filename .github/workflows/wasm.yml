@@ -9,51 +9,117 @@ permissions:
   contents: read
 
 jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/test-engine.yml
   hot:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [engine]
     uses: ./.github/workflows/hot.yml
+    with:
+      engine-artifact: behavior-engine
   native:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
     uses: ./.github/workflows/buildall.yml
   behavior:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
-    name: Stable headless behavior
+    name: Stable headless behavior (${{ matrix.kind }})
+    needs: [engine]
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [regression, economy, helper]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16'
-      - name: Restore compatible test engine
-        id: behavior-engine
-        uses: actions/cache@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: |
-            build/wasm/bin/GLSMAC.js
-            build/wasm/bin/GLSMAC.wasm
-          # Scripts are loaded fresh by the worker. C++/toolchain changes must
-          # rebuild the engine; test and production GSE edits reuse it safely.
-          key: behavior-engine-${{ runner.os }}-emscripten-4.0.22-v1-${{ hashFiles('src/**', 'cmake/**', 'CMakeLists.txt', 'tools/embedder.cpp', 'tools/CMakeLists.txt', 'tools/innoextract/**', 'tools/build-innoextract.py', 'resource/font/terminus/**') }}
-      - name: Build test engine on cache miss
-        if: steps.behavior-engine.outputs.cache-hit != 'true'
-        run: |
-          git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/behavior-emsdk"
-          "$RUNNER_TEMP/behavior-emsdk/emsdk" install 4.0.22
-          "$RUNNER_TEMP/behavior-emsdk/emsdk" activate 4.0.22
-          source "$RUNNER_TEMP/behavior-emsdk/emsdk_env.sh"
-          emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
-          cmake --build build/wasm -j4
+          name: behavior-engine
+          path: build/wasm/bin
       - name: Validate all evidence and explicit lane membership
+        if: matrix.kind == 'regression'
         run: python3 tools/behavior-tests/lanes.py --lane all --validate-only --report build/behavior-artifacts/evidence.json
       - name: Run stable regressions and recorded original comparisons
         run: |
-          python3 tools/smac-data/run.py --target native --report build/behavior-artifacts/smac-text-native.json
-          python3 tools/behavior-tests/lanes.py --lane stable --jobs 2 --report build/behavior-artifacts/stable.json
+          if [ '${{ matrix.kind }}' = regression ]; then
+            python3 tools/smac-data/run.py --target native --report build/behavior-artifacts/smac-text-native.json
+          fi
+          python3 tools/behavior-tests/lanes.py --lane stable --kind '${{ matrix.kind }}' --jobs 2 --report build/behavior-artifacts/stable.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: headless-behavior
+          name: headless-behavior-${{ matrix.kind }}
           path: build/behavior-artifacts
+
+  ui:
+    name: Stable UI (${{ matrix.shard }}/4)
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [engine]
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Replay this partition of recorded original cases
+        run: python3 tools/behavior-tests/ui/run.py --lane stable --jobs 2 --shard '${{ matrix.shard }}/4' --report build/ui-shards/ui-${{ matrix.shard }}.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stable-ui-${{ matrix.shard }}
+          path: build/ui-shards
+          if-no-files-found: error
+
+  ui-result:
+    name: Complete stable UI coverage
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [engine, ui]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: stable-ui-*
+          merge-multiple: true
+          path: build/ui-shards
+      - name: Require every recorded stable case exactly once
+        run: python3 tools/behavior-tests/ui/shards.py --reports build/ui-shards --count 4 --lane stable --report build/behavior-artifacts/stable-ui.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stable-ui-coverage
+          path: build/behavior-artifacts
+
+  gse:
+    name: Complete GSE engine and script tests
+    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    needs: [engine]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Execute all native engine tests and discovered scripts
+        run: npm --prefix tools/wasm-tests run test:gse
 
   wasm:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
@@ -84,7 +150,6 @@ jobs:
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
           npm --prefix tools/wasm-tests ci
           npm --prefix tools/wasm-tests test
-          npm --prefix tools/wasm-tests run test:gse
           python3 -m unittest discover -s tools -p test_wasm_assets.py
       - name: Compare original-game behavior observations
         run: |
@@ -119,7 +184,7 @@ jobs:
   result:
     name: Main CI
     if: always() && github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
-    needs: [hot, native, behavior, wasm]
+    needs: [engine, hot, native, behavior, ui-result, gse, wasm]
     runs-on: ubuntu-latest
     steps:
       - name: Require every main check
