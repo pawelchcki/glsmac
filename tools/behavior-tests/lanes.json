@@ -4,6 +4,8 @@
     "regression": {
       "hot": [
         "unit-menu-orders",
+        "unit-menu-rows",
+        "unit-menu-order-lifecycle",
         "unit-menu-context-orders",
         "ingame-menu",
         "ui-interactions",

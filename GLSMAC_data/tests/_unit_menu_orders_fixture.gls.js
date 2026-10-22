@@ -14,16 +14,7 @@ const fixture = (input) => {
 		f.base.set('accumulated_nutrients', input.initial_base.nutrients);
 		f.base.restore_production({choice_id: '', minerals: input.initial_base.minerals, last_processed_turn: 0}, '');
 	});
-	f.view = mocks.display(); f.map = mocks.events(); f.events = mocks.events(); f.glsmac = mocks.events();
-	const decorate = (node) => {
-		if (!#is_defined(node.width)) { node.width = 1024; }
-		if (!#is_defined(node.height)) { node.height = 768; }
-		for (kind of ['area', 'panel', 'window', 'surface', 'text', 'input', 'button', 'scrollview', 'listview', 'choicelist', 'widget', 'sound']) {
-			const tag = kind; const create = node[tag];
-			if (#typeof(create) == 'Callable') { node[tag] = (props) => { const child = create(props); decorate(child); return child; }; }
-		}
-	};
-	decorate(f.view.root);
+	f.view = mocks.display({width: 1024, height: 768}); f.map = mocks.events(); f.events = mocks.events(); f.glsmac = mocks.events();
 	f.view.ui.get_width = () => { return 1024; };
 	// Observe real production class declarations, which the shared display mock
 	// otherwise discards. This records presentation; it does not enable controls.
