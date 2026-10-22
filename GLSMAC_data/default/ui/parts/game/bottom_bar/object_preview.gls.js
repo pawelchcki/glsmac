@@ -172,6 +172,7 @@ return {
 			this.update_found_button();
 			const base = unit.get_tile().get_base();
 			this.founding_pending_name = base == null ? 'found_base' : 'join_base';
+			this.founding_pending_base_id = base == null ? null : base.id + 0;
 			if (base == null) { this.p.game.event('found_base', { unit_id: unit.id }); }
 			else { this.p.game.event('join_base', { unit_id: unit.id, base_id: base.id }); }
 		}
@@ -366,7 +367,7 @@ return {
 		this.rendered_unit_id = null;
 		this.is_turn_active = true;
 		this.skip_available = false;
-		this.founding_pending_id = null; this.founding_pending_name = null;
+		this.founding_pending_id = null; this.founding_pending_name = null; this.founding_pending_base_id = null;
 		this.found_available = false;
 		this.work_request_token = #is_defined(this.work_request_token) ? this.work_request_token + 1 : 0;
 		this.activation_token = #is_defined(this.activation_token) ? this.activation_token + 1 : 0;
@@ -481,8 +482,12 @@ return {
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
 			this.finish_unit_order(e);
-			if (e.name == this.founding_pending_name && e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id) {
-				this.founding_pending_id = null; this.founding_pending_name = null;
+			if (this.founding_pending_id != null && e.name == this.founding_pending_name &&
+				#is_defined(e.success) && #typeof(e.success) == 'Bool' &&
+				#is_defined(e.data) && #typeof(e.data) == 'Object' && #is_defined(e.data.unit_id) &&
+				e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id &&
+				(this.founding_pending_name != 'join_base' || (#is_defined(e.data.base_id) && e.data.base_id == this.founding_pending_base_id))) {
+				this.founding_pending_id = null; this.founding_pending_name = null; this.founding_pending_base_id = null;
 				this.update_found_button();
 				this.update_skip_button();
 			}
