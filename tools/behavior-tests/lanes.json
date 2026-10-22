@@ -11,7 +11,8 @@
         "world-single-player-setup",
         "natural-first-city-lifecycle",
         "base-growth-worker-links",
-        "base-growth-regression"
+        "base-growth-regression",
+        "land-resource-sources"
       ],
       "stable": [
         "base-resource-hud",
@@ -30,7 +31,6 @@
         "former-work",
         "former-controls",
         "terraforming-dialog",
-        "land-resource-sources",
         "unit-source-transfer",
         "unit-combat-model",
         "startup-rule-sources",
