@@ -4,40 +4,41 @@ on:
   pull_request:
     branches: [main]
   workflow_call:
+    inputs:
+      engine-artifact:
+        type: string
+        default: ''
+        description: Existing test engine artifact from this workflow run
 
 permissions:
   contents: read
 
 jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac' && inputs.engine-artifact == ''
+    uses: ./.github/workflows/test-engine.yml
   hot:
     name: Hot tests
-    if: github.repository == 'pawelchcki/wasmsmac'
+    needs: [engine]
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Require a successful engine producer
+        env:
+          TEST_ENGINE_RESULT: ${{ needs.engine.result }}
+          TEST_ENGINE_ARTIFACT: ${{ inputs.engine-artifact }}
+        run: python3 tools/behavior-tests/engine_gate.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16'
-      - name: Restore compatible test engine
-        id: engine
-        uses: actions/cache@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: |
-            build/wasm/bin/GLSMAC.js
-            build/wasm/bin/GLSMAC.wasm
-          key: behavior-engine-${{ runner.os }}-emscripten-4.0.22-v1-${{ hashFiles('src/**', 'cmake/**', 'CMakeLists.txt', 'tools/embedder.cpp', 'tools/CMakeLists.txt', 'tools/innoextract/**', 'tools/build-innoextract.py', 'resource/font/terminus/**') }}
-      - name: Build test engine on cache miss
-        if: steps.engine.outputs.cache-hit != 'true'
-        run: |
-          git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
-          "$RUNNER_TEMP/emsdk/emsdk" install 4.0.22
-          "$RUNNER_TEMP/emsdk/emsdk" activate 4.0.22
-          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
-          emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
-          cmake --build build/wasm -j4
+          name: ${{ inputs.engine-artifact || 'behavior-engine' }}
+          path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate -v
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --jobs 2 --report build/hot-artifacts/hot.json
       - uses: actions/upload-artifact@v4
