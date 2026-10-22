@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"terraform-menu-presentation","script":"GLSMAC_data/tests/terraform_menu_presentation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-menu-controls","script":"GLSMAC_data/tests/colony_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"terraform-menu-controls","script":"GLSMAC_data/tests/terraform_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-menu-orders","script":"GLSMAC_data/tests/unit_menu_orders.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

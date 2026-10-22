@@ -65,6 +65,7 @@ const fixture = (input) => {
 	f.events.get_year = () => { return f.game.get_year(); };
 	f.events.get_turn = () => { return f.game.get_turn(); };
 	f.events.get_player = () => { return f.native.owner; };
+	f.events.get_players = () => { return f.game.get_players(); };
 	f.events.get = (key) => { return f.game.get(key); };
 	f.events.is_started = f.game.is_started;
 	f.events.is_turn_complete = f.game.is_turn_complete;
@@ -161,7 +162,8 @@ return (profile, declared_input) => {
  f.initial_year = f.game.get_year();
  f.open_action = () => {
   if (!f.menu.menus.left_menu.is_open) { f.view.find('button', 'text', 'MENU').emit('click', {button: 'left'}); }
-  f.menu.menus.left_menu.items[4].el.emit('click', {button: 'left'});
+  const child = f.menu.menus.left_menu_action;
+  if (!#is_defined(child) || !child.is_open) { f.menu.menus.left_menu.items[4].el.emit('click', {button: 'left'}); }
  };
  f.source_control = (slot) => {
   const child = f.menu.menus.left_menu_action;

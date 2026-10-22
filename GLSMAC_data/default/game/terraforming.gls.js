@@ -6,6 +6,18 @@ const flags = (game, tile) => {
 	const data = game.get_tm().get_terraforming(tile.x, tile.y);
 	return {road: data.road, farm: data.farm, mine: data.mine, forest: data.forest};
 };
+const prerequisite_error = (game, owner, prerequisite) => {
+	if (prerequisite == 'Disable') { return 'Terraforming action is disabled'; }
+	if (prerequisite != 'None') {
+		let owned = false;
+		for (player of game.get_players()) {
+			if (player.id == owner) {
+				for (token of player.get_faction().starting_technologies) { if (token == prerequisite) { owned = true; } }
+			}
+		}
+		if (!owned) { return 'Terraforming prerequisite is not owned'; }
+	}
+};
 const eligible = (game, unit, action) => {
 	if (action != 'farm' && action != 'mine' && action != 'forest' && action != 'road') { return 'Unknown terraforming action'; }
 	const def = unit.get_def(); const tile = unit.get_tile();
@@ -19,16 +31,7 @@ const eligible = (game, unit, action) => {
 	if (data[action]) { return 'Improvement already exists'; }
 	if (data.forest && action != 'road' || action == 'forest' && (data.mine || data.solar)) { return 'This improvement replacement is not supported yet'; }
 	const rules = game.get('terraforming_rules'); const rule = rules[action];
-	if (rule.prerequisite == 'Disable') { return 'Terraforming action is disabled'; }
-	if (rule.prerequisite != 'None') {
-		let owned = false;
-		for (player of game.get_players()) {
-			if (player.id == unit.owner) {
-				for (token of player.get_faction().starting_technologies) { if (token == rule.prerequisite) { owned = true; } }
-			}
-		}
-		if (!owned) { return 'Terraforming prerequisite is not owned'; }
-	}
+	return prerequisite_error(game, unit.owner, rule.prerequisite);
 };
 const needs_confirmation = (game, unit, action) => {
 	return action == 'forest' && game.get_tm().get_terraforming(unit.get_tile().x, unit.get_tile().y).farm;
@@ -65,6 +68,7 @@ const tick = (game, unit, action) => {
 };
 return {
 	flags: flags,
+	prerequisite_error: prerequisite_error,
 	needs_confirmation: needs_confirmation,
 	validate: (e) => {
 		const orders = #include('./unit_orders'); const error = orders.validate(e, false);

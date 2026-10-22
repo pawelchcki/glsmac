@@ -13,7 +13,8 @@ const make_fixture = () => {
 		sources: [{name: 'menu.txt', source: menu + '#END\n'}, {name: 'alphax.txt', source: terrain + '#END\n'}]});
 	f.open_terraform = () => {
 		if (!f.menu.menus.left_menu.is_open) { f.click_menu(); }
-		f.click_header(5);
+		const child = f.menu.menus.left_menu_terraform;
+		if (!#is_defined(child) || !child.is_open) { f.click_header(5); }
 	};
 	// Defer command delivery to inspect pending controls and stale receipts.
 	f.click = (index) => { return f.terrain_control(index).el.emit('click', {button: 'left'}); };
@@ -29,7 +30,7 @@ for (spec of [[0, 'farm'], [2, 'mine'], [4, 'forest'], [5, 'road']]) {
 	const binding = spec;
 	add('Terraform row identity submits existing native ' + binding[1] + ' command once', () => {
 		const f = make_fixture(); const control = f.terrain_control(binding[0]);
-		test.assert(control.entry.terrain_index == binding[0] && control.el.text == 'Shape Work fixture ' + #to_string(binding[0]));
+		test.assert(control.entry.terrain_index == binding[0] && control.el.text == 'Shape Work fixture ' + #to_string(binding[0]) + ' (4 turns)');
 		f.click(binding[0]); f.click(binding[0]); f.click(binding[0] == 0 ? 2 : 0);
 		test.assert(#sizeof(f.pending.requests) == 1, 'Mounted work row must submit one command while its acknowledgement is pending');
 		const request = f.pending.requests[0];

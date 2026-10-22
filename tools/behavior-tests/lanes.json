@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "terraform-menu-presentation",
         "unit-menu-orders",
         "unit-menu-rows",
         "unit-menu-order-lifecycle",

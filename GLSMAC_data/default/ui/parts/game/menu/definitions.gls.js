@@ -30,8 +30,10 @@ return (glsmac) => {
 		if (#sizeof(row) < 8) { throw Error('Incomplete installed TERRAIN menu declaration'); }
 		const land = label(row[0]); const water = label(row[2]);
 		const land_label = format_order(row[5], land); const water_label = format_order(row[5], water);
+		let turns = null;
+		try { turns = #to_int(#trim(row[4])); } catch { : (error) => {} }
 		terrain :+ {label: land_label, land_label: land_label,
-			water_label: water_label, terrain_index: terrain_index, dark: true};
+			water_label: water_label, land_prerequisite: #trim(row[1]), nominal_turns: turns, terrain_index: terrain_index, dark: true};
 		terrain_index++;
 	}
 	const project = #include('presentation');
