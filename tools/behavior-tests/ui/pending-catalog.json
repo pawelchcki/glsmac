@@ -15,6 +15,16 @@
       "id": "natural-first-city",
       "cases": "cases/natural-first-city.json",
       "observations": "observations/smacx-gog-2.0-natural-first-city.json"
+    },
+    {
+      "id": "natural-first-city-factions-v6",
+      "cases": "cases/natural-first-city-factions-v6.json",
+      "observations": "observations/smacx-gog-2.0-natural-first-city-factions-v6.json"
+    },
+    {
+      "id": "natural-first-city-source-controls-v7",
+      "cases": "cases/natural-first-city-source-controls-v7.json",
+      "observations": "observations/smacx-gog-2.0-natural-first-city-source-controls-v7.json"
     }
   ]
 }

@@ -2,10 +2,22 @@
 const f = test.natural_startup_fixture(city_input.world_width, city_input.world_height, city_input.terrain);
 const game = f.game;
 test.assert(#sizeof(game.get_players()) == 0 && #sizeof(game.bm.get_bases()) == 0, 'Native fixture begins without owners or cities');
-#include('./_natural_startup_mechanics')(f);
+#include('./_natural_startup_mechanics')(f, city_sources);
 const difficulties = {CITIZEN: 'Citizen', SPECIALIST: 'Specialist', TALENT: 'Talent', LIBRARIAN: 'Librarian', THINKER: 'Thinker', TRANSCEND: 'Transcend'};
 const difficulty = difficulties[city_input.difficulty];
-const human = f.initialize_single_player(city_input.faction, difficulty);
+// Reference source block IDs differ from the production native faction IDs.
+const factions = {GAIANS: 'GAIANS', HIVE: 'HIVE', UNIV: 'UNIVERSITY', MORGAN: 'MORGANITES',
+	SPARTANS: 'SPARTANS', BELIEVE: 'BELIEVERS', PEACE: 'PEACEKEEPERS'};
+const human = f.initialize_single_player(factions[city_input.faction], difficulty);
+if (#is_defined(city_sources)) {
+	const files = {GAIANS: 'gaians', HIVE: 'hive', UNIV: 'univ', MORGAN: 'morgan',
+		SPARTANS: 'spartans', BELIEVE: 'believe', PEACE: 'peace'};
+	const document = city_sources.glsmac.load_smac_text(files[city_input.faction] + '.txt', 'dialogs');
+	const declared_technologies = #include('../default/game/faction_starting_technologies').parse(document, city_input.faction);
+	test.assert(human.get_faction().starting_technologies == declared_technologies,
+		'Selected source technology tokens reach the actual native human faction');
+	for (token of human.get_faction().starting_technologies) { #print('CITY_DIAGNOSTIC|starting_technology|' + token); }
+}
 test.assert(game.get_settings().global.difficulty_level == difficulty && f.get_player_difficulty() == difficulty,
 	'Declared difficulty reaches actual native State and Player');
 const receipts = {failed: false, count: 0, birth_count: 0};
@@ -44,6 +56,8 @@ const print_yield = (label, square) => {
 print_yield('center', tile);
 for (square of city.get_workable_tiles()) { print_yield(city.is_tile_worked(square) ? 'worked' : 'unworked', square); }
 const production = city.get_production();
+const map_settings = game.get_settings().global.map;
+#print('CITY_DIAGNOSTIC|settings|map_type=' + map_settings.type + '|size_kind=' + #to_string(map_settings.preset_level));
 #print('CITY_DIAGNOSTIC|production|choice=' + production.choice_id + '|minerals=' + #to_string(production.minerals) +
 	'|last_turn=' + #to_string(production.last_processed_turn));
 for (choice of human.get_production_choices()) {

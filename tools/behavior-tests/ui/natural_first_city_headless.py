@@ -30,17 +30,17 @@ def gse_literal(value):
     raise ProtocolError('unsupported natural city fixture value')
 
 
-def headless(cases, runtime, node='node'):
+def headless(cases, runtime, node='node', *, source_prelude='const city_sources = #undefined;\n'):
     snapshot = create_snapshot()
     template = (DIRECTORY / '_natural_first_city_headless.gls.js').read_text()
-    source_hash = hashlib.sha256(canonical([snapshot, template]).encode()).hexdigest()
+    source_hash = hashlib.sha256(canonical([snapshot, template, source_prelude]).encode()).hexdigest()
     hashes = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in (runtime, runtime.with_suffix('.wasm'))}
     rows, script_hashes = [], []
     for case in cases:
         scripts = dict(snapshot)
         script = 'GLSMAC_data/tests/natural_first_city_probe.gls.js'
         scripts[script] = ('const city_case_id = ' + gse_literal(case['id']) + ';\n'
-                           + 'const city_input = ' + gse_literal(case['input']) + ';\n' + template)
+                           + 'const city_input = ' + gse_literal(case['input']) + ';\n' + source_prelude + template)
         script_hashes.append(hashlib.sha256(canonical(scripts).encode()).hexdigest())
         with tempfile.TemporaryDirectory(prefix='glsmac-natural-first-city-') as temporary:
             source = Path(temporary) / 'scripts.json'
