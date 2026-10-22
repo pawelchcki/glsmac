@@ -131,7 +131,8 @@
         "unit-menu-orders",
         "unit-menu-context",
         "terraform-menu-work",
-        "colony-menu-join"
+        "colony-menu-join",
+        "terraform-menu-presentation"
       ],
       "stable": [
         "road-network",

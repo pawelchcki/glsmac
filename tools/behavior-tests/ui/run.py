@@ -354,6 +354,17 @@ def terraform_menu_command(args):
     return shlex.join(command)
 
 
+def terraform_presentation_command(args):
+    if args.browser:
+        raise ProtocolError('Terraform presentation uses native display-free replay; rendered controls are checked separately')
+    name = 'terraform_presentation_original.py' if args.record else 'terraform_presentation_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/terraform-presentation-original')]
+    return shlex.join(command)
+
+
 def colony_menu_command(args):
     if args.browser:
         raise ProtocolError('Colony menu join uses native display-free replay; browser controls are checked separately')
@@ -548,6 +559,8 @@ def main(argv=None):
                 reference_command = unit_menu_orders_command(args)
             if reference['id'] == 'terraform-menu-work':
                 reference_command = terraform_menu_command(args)
+            if reference['id'] == 'terraform-menu-presentation':
+                reference_command = terraform_presentation_command(args)
             if reference['id'] == 'colony-menu-join':
                 reference_command = colony_menu_command(args)
             if reference['id'] == 'unit-menu-context':
@@ -626,6 +639,8 @@ def main(argv=None):
                 candidate_command = unit_menu_orders_command(args)
             if command is not None and reference['id'] == 'terraform-menu-work':
                 candidate_command = terraform_menu_command(args)
+            if command is not None and reference['id'] == 'terraform-menu-presentation':
+                candidate_command = terraform_presentation_command(args)
             if command is not None and reference['id'] == 'colony-menu-join':
                 candidate_command = colony_menu_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':

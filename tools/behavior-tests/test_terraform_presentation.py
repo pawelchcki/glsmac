@@ -3,16 +3,27 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import unittest
+from types import SimpleNamespace
 
 import compare
 from protocol import ProtocolError
 from ui import terraform_presentation_contract as contract
 from ui import terraform_presentation_inputs as inputs
+from ui import run
 
 DIRECTORY = Path(__file__).resolve().parent / 'ui'
 
 
 class TerraformPresentationTests(unittest.TestCase):
+    def test_candidate_dispatch_requires_no_original_assets_or_browser(self):
+        args = SimpleNamespace(browser=False, record=False)
+        command = run.terraform_presentation_command(args)
+        self.assertIn('terraform_presentation_headless.py', command)
+        self.assertNotIn('--assets', command)
+        args.browser = True
+        with self.assertRaises(ProtocolError):
+            run.terraform_presentation_command(args)
+
     def test_public_suite_contains_only_inputs(self):
         suite = json.loads((DIRECTORY / 'cases/terraform-menu-presentation.json').read_text())
         self.assertEqual(suite, inputs.suite())
