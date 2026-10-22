@@ -1,9 +1,12 @@
 {
   "version": 1,
   "suites": [
+    {"id":"terraform-menu-presentation","script":"GLSMAC_data/tests/terraform_menu_presentation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-menu-controls","script":"GLSMAC_data/tests/colony_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"terraform-menu-controls","script":"GLSMAC_data/tests/terraform_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-menu-orders","script":"GLSMAC_data/tests/unit_menu_orders.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"unit-menu-rows","script":"GLSMAC_data/tests/unit_menu_rows.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"unit-menu-order-lifecycle","script":"GLSMAC_data/tests/unit_menu_order_lifecycle.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-menu-context-orders","script":"GLSMAC_data/tests/unit_menu_context_orders.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"ingame-menu","script":"GLSMAC_data/tests/ingame_menu.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"base-resource-hud","script":"GLSMAC_data/tests/base_resource_hud_regression.gls.js","domains":["gameplay","economy","ui","ux"],"evidence":"glsmac-regression"},

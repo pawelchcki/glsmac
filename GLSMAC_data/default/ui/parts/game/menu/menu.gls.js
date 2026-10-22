@@ -17,6 +17,21 @@ return {
 		this.headers = #include('definitions')(p.glsmac);
 		this.ui = p.ui;
 		this.game = #is_defined(p.game) ? p.game : null;
+		this.work_unit = (action) => {
+			if (!#is_defined(p.modules) || !#is_defined(p.modules.bottom_bar)) { return null; }
+			const bar = p.modules.bottom_bar;
+			if (!#is_defined(bar.pp) || !#is_defined(bar.pp.sections) || !#is_defined(bar.pp.sections.object_preview)) { return null; }
+			const preview = bar.pp.sections.object_preview;
+			if (!preview.is_turn_active || preview.order_pending != null || preview.founding_pending_id != null || p.modules.popup.is_shown()) { return null; }
+			const id = this.selected_unit_id;
+			if (id == null) { return null; }
+			// Read the current native identity even when this selection event
+			// reaches the menu before the preview's own focus notification.
+			const request = {caller: p.game.get_player().id, data: {unit_id: id, action: action}}; request.game = p.game;
+			const policy = #include('../../../../game/terraforming');
+			if (#is_defined(policy.validate(request))) { return null; }
+			return p.game.get_um().get_unit(id);
+		};
 		this.selected_unit_id = null;
 		this.selected_tile = null;
 		this.bottom_bar_height = #is_defined(p.modules) ? p.modules.bottom_bar.height : 256;
@@ -112,12 +127,14 @@ return {
 					const control = {}; control.entry = entry; control.el = item; items :+ control;
 					rows :+ control;
 					item.on('click', (e) => {
+						const toggling = #is_defined(entry.toggle) && entry.toggle && active_entry == entry;
 						if (active_entry != null) {
 							if (#is_defined(active_entry.close)) {
 								active_entry.close();
 							}
 							active_item.active = false;
 						}
+						if (toggling) { active_entry = null; active_item = null; return true; }
 						active_entry = entry;
 						active_item = item;
 						active_item.active = true;
@@ -256,15 +273,55 @@ return {
 	},
 
 	refresh_terrain: () => {
-		let tile = this.selected_tile;
+		let tile = this.selected_tile; let former = false; let selected = null;
 		if (this.game != null && this.selected_unit_id != null) {
 			const units = this.game.get_um();
-			if (units.has_unit(this.selected_unit_id)) { tile = units.get_unit(this.selected_unit_id).get_tile(); }
+			if (units.has_unit(this.selected_unit_id)) {
+				const unit = units.get_unit(this.selected_unit_id); tile = unit.get_tile(); selected = unit;
+				if (unit.def == 'Formers' && unit.is_land && unit.needs_orders() && unit.movement == 1.0) {
+					// Use the existing command controller's live eligibility. The
+					// transferred presentation context is an unimproved work tile.
+					for (action of ['farm', 'mine', 'forest', 'road']) { if (this.work_unit(action) != null) { former = true; } }
+					if (former) {
+						const flags = this.game.get_tm().get_terraforming(tile.x, tile.y);
+						former = !flags.road && !flags.farm && !flags.mine && !flags.forest;
+					}
+				}
+			}
 		}
 		const water = tile != null && tile.is_water;
-		for (item of this.menus.left_menu_terraform.items) {
-			if (#is_defined(item.entry.terrain_index)) { item.el.text = water ? item.entry.water_label : item.entry.land_label; }
+		const child = this.menus.left_menu_terraform;
+		let top = 0;
+		for (row of child.rows) {
+			const entry = row.entry;
+			const terrain = #is_defined(entry.terrain_index);
+			const omit = former && !water && terrain && (entry.terrain_index == 1 || entry.terrain_index == 6);
+			if (omit) { row.el.hide(); }
+			else {
+				if (terrain) {
+					let label = water ? entry.water_label : entry.land_label;
+					if (former && !water && entry.nominal_turns != null && entry.nominal_turns > 0) {
+						// Preserve the independently observed literal menu wording.
+						label += ' (' + #to_string(entry.nominal_turns) + (entry.nominal_turns == 2 ? ' turn)' : ' turns)');
+					}
+					row.el.text = label;
+				}
+				if (!#is_defined(entry.separator)) {
+					let light = former && !water;
+					if (light && terrain) {
+						const policy = #include('../../../../game/terraforming');
+						light = !#is_defined(policy.prerequisite_error(this.game, selected.owner, entry.land_prerequisite));
+						for (binding of [[0, 'farm'], [2, 'mine'], [4, 'forest'], [5, 'road']]) {
+							if (entry.terrain_index == binding[0] && this.work_unit(binding[1]) == null) { light = false; }
+						}
+					}
+					row.el.color = light ? 'rgb(176, 212, 235)' : 'black';
+				}
+				row.el.top = top + (#is_defined(entry.separator) ? this.item_height / 2 : 0);
+				row.el.show(); top += this.item_height;
+			}
 		}
+		child.el.height = top;
 	},
 
 	open: (id, style) => {
@@ -287,7 +344,7 @@ return {
 		}
 	},
 
-	close: (id) => {
+	close: (id, preserve_active) => {
 		const m = this.menus[id];
 		if (!#is_defined(m)) {
 			#print('WARNING: menu not found: ' + id);
@@ -295,7 +352,7 @@ return {
 		}
 		if (m.is_open) {
 			m.el.hide();
-			if (#is_defined(m.on_close)) {
+			if (#is_defined(m.on_close) && !(#is_defined(preserve_active) && preserve_active)) {
 				m.on_close();
 			}
 			m.is_open = false;

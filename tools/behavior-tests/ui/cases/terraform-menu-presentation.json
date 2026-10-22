@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "name": "Terraform menu Former and Colony presentation",
+  "description": "Complete observed labels, tones and groups across MENU/header/Escape/Tab; edited names and rates are inputs only.",
+  "cases": [
+    {
+      "id": "terraform-presentation-synthetic",
+      "algorithm": "ui.terraform_menu_presentation.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          "escape",
+          "tab",
+          "menu",
+          {
+            "header": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "terraform-presentation-terrain-edited",
+      "algorithm": "ui.terraform_menu_presentation.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "terrain-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          "escape",
+          "tab",
+          "menu",
+          {
+            "header": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "terraform-presentation-rates-edited",
+      "algorithm": "ui.terraform_menu_presentation.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "rates-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 5
+          },
+          "escape",
+          "tab",
+          "menu",
+          {
+            "header": 5
+          }
+        ]
+      }
+    }
+  ]
+}
