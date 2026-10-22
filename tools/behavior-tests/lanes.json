@@ -14,12 +14,13 @@
         "base-growth-regression",
         "land-resource-sources",
         "former-controls",
-        "terraform-menu-controls"
+        "terraform-menu-controls",
+        "colony-join",
+        "colony-menu-controls"
       ],
       "stable": [
         "base-resource-hud",
         "base-citizen-reconciliation",
-        "colony-join",
         "unit-sentry-activation",
         "unit-sentry",
         "unit-activation",
@@ -126,7 +127,8 @@
         "ingame-menus",
         "unit-menu-orders",
         "unit-menu-context",
-        "terraform-menu-work"
+        "terraform-menu-work",
+        "colony-menu-join"
       ],
       "stable": [
         "road-network",

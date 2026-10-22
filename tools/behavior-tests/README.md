@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 724 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 734 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -48,14 +48,13 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains the `unit-menu-orders`, `unit-menu-context-orders`, `ingame-menu`,
-`ui-interactions`, `game-modal-input`, `world-single-player-setup`,
-`natural-first-city-lifecycle`, `base-growth-worker-links` and
-`base-growth-regression` and `land-resource-sources` regression suites
-(137 scenarios/1,129 assertions), plus
-`ingame-menus`, `unit-menu-orders` and `unit-menu-context` original UI replay
-(30 recorded cases across three references).
-Stable contains the explicit complement: 103 regression suites, 44 UI references
+Hot contains fourteen regression suites around active menu controls, Colony
+joins, Former work, modal input, single-player setup, first-city lifecycle,
+growth/worker links and resource-owner behavior (213 scenarios/1,597 assertions).
+Original UI replay includes `ingame-menus`, `unit-menu-orders`,
+`unit-menu-context`, `terraform-menu-work` and `colony-menu-join`
+(40 recorded cases across five references).
+Stable contains the explicit complement: 101 regression suites, 44 UI references
 (694 cases), two economy references and 15 current helper references. These are
 bounded catalogs, not a full-game coverage claim. Stable execution belongs only
 on main; PR checks run hot and consult the latest main stable result. CI trigger
@@ -128,7 +127,7 @@ passing original cases and preserve the exact archived evidence bytes.
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
 static integrity validation without duplicate passing counts. The active UI
-catalog has 47 references and 724 cases. Pending base recalculation remains a
+catalog has 49 references and 734 cases. Pending base recalculation remains a
 strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
@@ -142,8 +141,16 @@ After that, changing GSE tests or production GSE scripts needs **no relink**:
 npm --prefix tools/wasm-tests run test:fast -- --jobs 4
 ```
 
-The full regression catalog contains **1,421 scenarios and 10,023 assertions** across
-113 suites. It exercises production movement/combat/spawn events, deterministic
+Eight [Terraform-menu work traces](ui/terraform-menu-work-contract.md) connect Farm,
+Mine, Forest and Road to the existing native work handlers, with source identity
+preserved under renamed inputs. Two [Colony-menu join
+traces](ui/colony-menu-join-contract.md) connect the owned-city Action command,
+including actual citizen changes, Pod consumption, selection and menu lifetime. Every
+original trace was recorded twice independently. All ten match native replay; two
+Terraform cases also match actual browser pointer controls.
+
+The full regression catalog contains **1,451 scenarios and 10,161 assertions** across
+115 suites. It exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology

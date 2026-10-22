@@ -1093,16 +1093,59 @@
         "assertions": 151
       },
       "scope": "Native-backed application correctness; no new original comparison claim."
+    },
+    {
+      "id": "colony-owned-base-action-menu-join",
+      "suite": "colony-menu-join",
+      "status": "fixed-in-recorded-contract",
+      "property": "Action source1 now routes an owned-city Colony Pod through its existing native join command, consumes it, adds the observed unassigned Worker and restores the recorded selection/menu sequence.",
+      "before": {
+        "matched": 0,
+        "mismatched": 2,
+        "unsupported": 0,
+        "errors": 0
+      },
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "native_scenarios": 16,
+        "native_assertions": 64
+      },
+      "scope": "Declared owned-city join only; new-city founding and complete Action-menu parity remain outside this contract.",
+      "probes": [
+        "GLSMAC_data/tests/colony_menu_controls.gls.js"
+      ]
+    },
+    {
+      "id": "colony-join-receipt-base-identity",
+      "suite": "colony-join",
+      "status": "fixed-in-application-contract",
+      "property": "A join receipt for the wrong city could release a pending Colony command. The controller now retains and verifies the actual target city and complete receipt shape.",
+      "before": {
+        "failed_scenarios": 1,
+        "assertion": "Wrong city receipt must retain the actual pending join"
+      },
+      "probes": [
+        "GLSMAC_data/tests/colony_join.gls.js"
+      ],
+      "verification": {
+        "focused_suites": 2,
+        "scenarios": 41,
+        "assertions": 317
+      },
+      "scope": "Native-backed application invariant, independent from original join policy."
     }
   ],
   "verification": {
-    "cases": 732,
-    "matched": 732,
+    "cases": 734,
+    "matched": 734,
     "mismatched": 0,
     "errors": 0,
     "rendered_selected_cases": 13,
     "rendered_matched": 13,
-    "scope": "Prior47references724cases plus8new independently repeated Terraform pointer traces matched in actual native replay;12new native lifecycle regressions pass. Aggregate of verified bounded contracts, not a new all-catalog rerun or full-game parity.",
+    "scope": "Prior724cases plus8new Terraform and2owned-city Colony pointer cases match strict native replay; aggregate of verified bounded contracts, not a new all-catalog rerun or full-game parity.",
     "rendered_order_integration_cases": 5,
     "rendered_order_integration_matched": 5,
     "rendered_custom_dimension_integration_paths": 3,
@@ -1144,6 +1187,10 @@
     "rendered_unit_menu_context_selected_cases": 5,
     "rendered_unit_menu_context_selected_matched": 5,
     "terraform_menu_cases": 8,
-    "terraform_menu_matched": 8
+    "terraform_menu_matched": 8,
+    "colony_menu_cases": 2,
+    "colony_menu_matched": 2,
+    "rendered_terraform_menu_cases": 2,
+    "rendered_terraform_menu_matched": 2
   }
 }
