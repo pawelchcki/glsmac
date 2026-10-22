@@ -3,6 +3,9 @@
   "kinds": {
     "regression": {
       "hot": [
+        "colony-found-menu-controls",
+        "colony-found-menu-authority",
+        "colony-found-native",
         "terraform-menu-presentation",
         "unit-menu-orders",
         "unit-menu-rows",
@@ -132,7 +135,8 @@
         "unit-menu-context",
         "terraform-menu-work",
         "colony-menu-join",
-        "terraform-menu-presentation"
+        "terraform-menu-presentation",
+        "colony-found-menu"
       ],
       "stable": [
         "road-network",

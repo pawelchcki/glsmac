@@ -32,7 +32,11 @@ def main():
     for case in supported:
         contract.validate_input(case['input'])
     if len(supported) > 12:
-        raise ProtocolError('Unit-menu adapter accepts twelve cases per worker')
+        raise ProtocolError('Unit-menu adapter accepts twelve supported cases per request')
+    if not supported:
+        write_response(dict(name='glsmac-unit-menu-context', kind='candidate', candidate_executed=False),
+                       [dict(id=case['id'], status='unsupported', reason='Unknown unit-menu contract') for case in cases])
+        return
     runtime = args.runtime.resolve()
     hashes = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in (runtime, runtime.with_suffix('.wasm'))}
     snapshot = create_snapshot(args.scripts_root.resolve())
@@ -46,21 +50,28 @@ def main():
         item['sources'] = [dict(name=name, source=source) for name, source in declarations(item['text_profile']).items()]
         inputs.append(item)
     digest = hashlib.sha256((canonical(snapshot) + template + canonical(inputs)).encode()).hexdigest()
-    snapshot[script] = 'const unit_menu_context_inputs = ' + gse_literal(inputs) + ';\n' + template
-    with tempfile.TemporaryDirectory(prefix='glsmac-unit-menu-context-') as temporary:
-        source = Path(temporary) / 'scripts.json'
-        source.write_text(canonical(snapshot))
-        process = subprocess.run(['node', str(DIRECTORY.parent / 'gse-worker.cjs')],
-                                 input=canonical(dict(runtime=str(runtime), snapshot=str(source), script=script, prefix=temporary)),
-                                 text=True, capture_output=True, timeout=240, cwd=ROOT)
-    args.log.parent.mkdir(parents=True, exist_ok=True)
-    args.log.write_text(process.stdout + process.stderr)
-    if process.returncode or any(hashlib.sha256(path.read_bytes()).hexdigest() != value for path, value in hashes.items()):
-        raise ProtocolError('Unit-menu worker failed or runtime changed: ' + str(args.log))
-    parsed = parse_candidate(process.stdout, supported)
-    for result, case in zip(parsed, supported, strict=True):
-        if result['status'] == 'ok':
-            contract.validate_output(result['output'], case['input']['actions'])
+    # Each batch keeps the same declared native worlds/actions and guards, but
+    # releases its GSE state before starting another isolated four-case worker.
+    logs, parsed = [], []
+    for offset in range(0, len(inputs), 4):
+        batch = supported[offset:offset + 4]
+        snapshot[script] = 'const unit_menu_context_inputs = ' + gse_literal(inputs[offset:offset + 4]) + ';\n' + template
+        with tempfile.TemporaryDirectory(prefix='glsmac-unit-menu-context-') as temporary:
+            source = Path(temporary) / 'scripts.json'
+            source.write_text(canonical(snapshot))
+            process = subprocess.run(['node', str(DIRECTORY.parent / 'gse-worker.cjs')],
+                                     input=canonical(dict(runtime=str(runtime), snapshot=str(source), script=script, prefix=temporary)),
+                                     text=True, capture_output=True, timeout=240, cwd=ROOT)
+        logs.append(process.stdout + process.stderr)
+        args.log.parent.mkdir(parents=True, exist_ok=True)
+        args.log.write_text('\n'.join(logs))
+        if process.returncode or any(hashlib.sha256(path.read_bytes()).hexdigest() != value for path, value in hashes.items()):
+            raise ProtocolError('Unit-menu worker failed or runtime changed: ' + str(args.log))
+        observed = parse_candidate(process.stdout, batch)
+        for result, case in zip(observed, batch, strict=True):
+            if result['status'] == 'ok':
+                contract.validate_output(result['output'], case['input']['actions'])
+        parsed.extend(observed)
     results = iter(parsed)
     write_response(dict(name='glsmac-unit-menu-context', kind='candidate', target='wasm-gse', rendering=False,
                         assets_required=False, runtime_sha256=hashes[runtime.with_suffix('.wasm')], scripts_sha256=digest,

@@ -90,18 +90,16 @@ behavior.scenario('Removed row and saved callback cannot join in a replacement g
 	test.assert(f.native.snapshot() == before && f.menu.menus.left_menu_action.is_open); city(f, 1); f.view.root.remove();
 });
 behavior.scenario('Join-only menu source does not found a city on an eligible empty tile', () => {
-	let menu = '';
-	for (spec of [['GAME', 13], ['HQ', 17], ['NETWORK', 9], ['MAP', 21], ['ACTION', 31], ['TERRAFORM', 10], ['SCENARIO', 28], ['EDITOR', 29], ['HELP', 22]]) {
-		menu += '#' + spec[0] + '\n' + spec[0] + '\n';
-		for (let i = 0; i < spec[1]; i++) { menu += 'Fixture ' + #to_string(i) + '|Unused\n'; }
-	}
-	let terrain = '#TERRAIN\n';
-	for (let i = 0; i < 20; i++) { terrain += 'Land,None,Sea,None,4,Shape $STR0,q,Q\n'; }
-	const f = mounted('synthetic', {profile: 'spread', initial_base: {name: 'Gaia\'s Landing', workers: 0, doctors: 1, worked_tiles: 0, nutrients: 0, minerals: 9},
-		sources: [{name: 'menu.txt', source: menu + '#END\n'}, {name: 'alphax.txt', source: terrain + '#END\n'}]});
-	f.tab(); f.tab(); f.open_action(); const before = f.native.snapshot();
-	test.assert(f.preview.get_found_unit() != null && f.units[2].get_tile().get_base() == null);
-	f.click_source(1); f.flush();
+	const f = make(); const saved = f.source_control(1).entry.open; const pod = f.units[2];
+	// Save the real mounted owned-city Join callback, then establish the empty
+	// tile input through native movement and its normal display acknowledgement.
+	// The free-tile menu has its own Found row; no visible Join row is fabricated.
+	f.native.enable_movement();
+	f.native.with_write(() => { pod.move_to_tile(f.game.tm.get_tile(1, 3), () => {}); });
+	f.native.finish_unit_move(pod.id); f.events.select_unit(pod); f.flush();
+	const before = f.native.snapshot();
+	test.assert(f.preview.get_found_unit() != null && pod.get_tile().get_base() == null);
+	saved(); f.flush();
 	test.assert(#sizeof(f.pending.requests) == 0 && f.native.snapshot() == before); city(f, 1); f.view.root.remove();
 });
 behavior.scenario('Foreign stack invalidation is re-read before a join menu submission', () => {

@@ -25,7 +25,19 @@ return (menu, p) => {
 		if (header.source == 'ACTION') {
 			const child_id = header.id;
 			for (entry of header.entries) {
-				if (#is_defined(entry.source_index) && entry.source_index == 1) {
+				if (#is_defined(entry.source_index) && entry.source_index == 0) {
+					entry.open = () => {
+						if (!state.alive || state.pending != null || !root.is_open) { return; }
+						const child = menu.menus[child_id];
+						if (!#is_defined(child) || !child.is_open || !#is_defined(p.modules) || !#is_defined(p.modules.bottom_bar)) { return; }
+						const bar = p.modules.bottom_bar;
+						if (!#is_defined(bar.pp) || !#is_defined(bar.pp.sections) || !#is_defined(bar.pp.sections.object_preview)) { return; }
+						const preview = bar.pp.sections.object_preview; const unit = preview.get_found_unit();
+						if (unit == null || unit.get_tile().get_base() != null) { return; }
+						preview.start_colony_action();
+						if (preview.founding.dialog != null) { root.clear_active(); }
+					};
+				} else if (#is_defined(entry.source_index) && entry.source_index == 1) {
 					entry.open = () => {
 						if (!state.alive || state.pending != null || !root.is_open) { return; }
 						const child = menu.menus[child_id];

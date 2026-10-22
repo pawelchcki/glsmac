@@ -250,6 +250,11 @@
       "id": "terraform-menu-presentation",
       "cases": "cases/terraform-menu-presentation.json",
       "observations": "observations/smacx-gog-2.0-terraform-menu-presentation.json"
+    },
+    {
+      "id": "colony-found-menu",
+      "cases": "cases/colony-found-menu.json",
+      "observations": "observations/smacx-gog-2.0-colony-found-menu.json"
     }
   ]
 }

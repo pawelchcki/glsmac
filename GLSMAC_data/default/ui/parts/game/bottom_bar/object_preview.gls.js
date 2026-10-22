@@ -165,6 +165,12 @@ return {
 		return unit;
 	},
 
+	start_colony_action: () => {
+		const unit = this.get_found_unit(); if (unit == null) { return true; }
+		if (unit.get_tile().get_base() == null && #is_defined(this.p.glsmac) && #typeof(this.p.glsmac.load_smac_text) == 'Callable') { this.founding.open(); return true; }
+		// Existing non-window callers and owned-city joins retain their path.
+		return this.found_selected_base();
+	},
 	found_selected_base: () => {
 		const unit = this.get_found_unit();
 		if (unit != null) {
@@ -461,7 +467,8 @@ return {
 			color: 'rgb(80,95,90)', background: 'rgb(22,36,30)',
 		});
 		this.found_button = this.frame.button({ class: 'unit-found-button-disabled', text: 'FOUND BASE' });
-		this.found_button.on('click', (e) => { return this.found_selected_base(); });
+		this.founding = #include('./colony_founding'); this.founding.init(p, this);
+		this.found_button.on('click', (e) => { return this.start_colony_action(); });
 		// A panel-local listener is removed with this DOM owner. Child-first
 		// routing lets modal windows consume keys before this command panel.
 		this.frame.on('keydown', (e) => {
@@ -476,13 +483,14 @@ return {
 			}
 			if (e.code == 'F' && e.modifiers == {shift: true} && !this.p.modules.popup.is_shown() && this.is_turn_active) { return this.submit_work('forest'); }
 			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
-				return this.found_selected_base();
+				return this.start_colony_action();
 			}
 			return false;
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
 			this.finish_unit_order(e);
-			if (this.founding_pending_id != null && e.name == this.founding_pending_name &&
+			if (this.founding.active()) { this.founding.finish(e); }
+			else if (this.founding_pending_id != null && e.name == this.founding_pending_name &&
 				#is_defined(e.success) && #typeof(e.success) == 'Bool' &&
 				#is_defined(e.data) && #typeof(e.data) == 'Object' && #is_defined(e.data.unit_id) &&
 				e.caller == this.p.game.get_player().id && e.data.unit_id == this.founding_pending_id &&
@@ -524,6 +532,7 @@ return {
 		// Movement and temporary tile locks change without a scripted UI update
 		// event. This timer belongs to the panel and stops when the UI is removed.
 		this.frame.timer(100, () => {
+			this.founding.refresh();
 			this.update_order_buttons();
 			this.update_skip_button();
 			this.update_found_button();

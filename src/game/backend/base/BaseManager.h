@@ -31,6 +31,7 @@ class Tile;
 namespace slot {
 class Slot;
 }
+namespace faction { class Faction; }
 
 namespace base {
 
@@ -58,6 +59,7 @@ public:
 	void UndefineFacility( GSE_CALLABLE, const std::string& id );
 
 	Base* GetBase( const size_t id ) const;
+	std::string ResolveName( const faction::Faction* faction, bool water, const std::string& requested = "" ) const;
 	void SpawnBase( GSE_CALLABLE, Base* base );
 	void DespawnBase( GSE_CALLABLE, const size_t base_id );
 

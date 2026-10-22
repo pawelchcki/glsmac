@@ -7,7 +7,7 @@ const native_fixture = #include('./_unit_selection_fixture');
 
 const fixture = (input) => {
 	const f = {};
-	f.native = native_fixture(input.profile, undefined, input.initial_base.name, 16);
+	f.native = native_fixture(input.profile, undefined, input.initial_base.name, 16, #is_defined(input.land_names) ? input.land_names : undefined);
 	f.game = f.native.game; f.base = f.native.base; f.units = f.native.units;
 	f.native.with_write(() => {
 		f.base.create_pop({type: 'DOCTOR'});
@@ -71,6 +71,8 @@ const fixture = (input) => {
 	f.events.is_turn_complete = f.game.is_turn_complete;
 	f.events.validate_found_base = f.game.validate_found_base;
 	f.events.validate_join_base = f.game.validate_join_base;
+	f.events.preview_found_base = f.game.preview_found_base;
+	f.events.validate_named_found_base = f.game.validate_named_found_base;
 	// Queue only commands emitted by mounted production controls. No source
 	// slot or input action is translated to a native command by this probe.
 	f.pending = {requests: [], delivered: 0};

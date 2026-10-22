@@ -110,7 +110,7 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			return fixture;
 		} ) },
 		{ "selection_fixture", NATIVE_CALL( production_roots ) {
-			N_EXPECT_ARGS_MIN_MAX( 0, 2 );
+			N_EXPECT_ARGS_MIN_MAX( 0, 3 );
 			std::string initial_base_name = "Fixture Base";
 			if ( !arguments.empty() ) { N_GETVALUE( declared_name, 0, String ); initial_base_name = declared_name; }
 			size_t fixture_map_size = 4;
@@ -119,7 +119,19 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 				if ( declared_size < 4 || declared_size > 64 || declared_size % 2 != 0 ) { GSE_ERROR( EC.INVALID_CALL, "fixture map size must be even and between 4 and 64" ); }
 				fixture_map_size = declared_size;
 			}
-			auto* fixture = MakeProductionFixture( GSE_CALL, false, true, initial_base_name, fixture_map_size );
+			std::vector< std::string > land_names;
+			if ( arguments.size() > 2 ) {
+				N_GETVALUE( declared_names, 2, Array );
+				if ( declared_names.empty() || declared_names.size() > 64 ) { GSE_ERROR( EC.INVALID_CALL, "fixture land-name pool requires one through 64 entries" ); }
+				for ( auto* entry : declared_names ) {
+					if ( entry->type != VT_STRING ) { GSE_ERROR( EC.INVALID_CALL, "fixture land names must be strings" ); }
+					const auto& name = static_cast< value::String* >( entry )->value;
+					if ( name.empty() || name.size() > 24 ) { GSE_ERROR( EC.INVALID_CALL, "fixture land name length must be one through 24" ); }
+					for ( const unsigned char character : name ) { if ( character < 32 || character >= 127 ) { GSE_ERROR( EC.INVALID_CALL, "fixture land names require printable ASCII" ); } }
+					land_names.push_back( name );
+				}
+			}
+			auto* fixture = MakeProductionFixture( GSE_CALL, false, true, initial_base_name, fixture_map_size, land_names );
 			production_roots->value.push_back( fixture );
 			return fixture;
 		} ) },
