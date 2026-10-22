@@ -153,7 +153,7 @@ class ContextInventoryTests(unittest.TestCase):
 
     def test_full_suite_supersedes_pilots_without_counting_inputs_twice(self):
         references = audit.load_references(DIRECTORY / 'catalog.json')
-        self.assertEqual(len(references), 47)
+        self.assertEqual(len(references), 49)
         old = audit.load_references(DIRECTORY.parent / 'unit-menu-context-pilots-catalog.json')
         self.assertEqual(len(old), 3)
         self.assertFalse({r['id'] for r in old} & {r['id'] for r in references})
@@ -166,8 +166,8 @@ class ContextInventoryTests(unittest.TestCase):
                 self.assertEqual(outputs[case['id']], compare.validate_observations(record, suite)[case['id']])
         manifest = lanes.load_manifest(); known = lanes.inventory(manifest)
         hot = lanes.describe('ui', lanes.select('ui', known['ui'], 'hot', manifest))
-        self.assertEqual((hot['suites'], hot['cases']), (3, 30))
-        self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 724)
+        self.assertEqual((hot['suites'], hot['cases']), (5, 40))
+        self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 734)
         self.assertEqual(manifest['gaps'], [])
         self.assertEqual(manifest['kinds']['pending-ui']['hot'], [
             'base-open-recalc', 'world-base-ownership', 'natural-first-city',
