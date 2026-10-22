@@ -387,6 +387,18 @@ def colony_found_menu_command(args):
     return shlex.join(command)
 
 
+
+def colony_near_command(args):
+    if args.browser:
+        raise ProtocolError('Adjacent Colony Action uses native display-free replay; rendered controls are checked separately')
+    name = 'colony_near_original.py' if args.record else 'colony_near_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/colony-adjacent-original')]
+    return shlex.join(command)
+
+
 def unit_menu_context_command(args, paced=False, message=False, saved=False):
     if args.browser:
         raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
@@ -576,6 +588,8 @@ def main(argv=None):
                 reference_command = colony_menu_command(args)
             if reference['id'] == 'colony-found-menu':
                 reference_command = colony_found_menu_command(args)
+            if reference['id'] == 'colony-adjacent-warning':
+                reference_command = colony_near_command(args)
             if reference['id'] == 'unit-menu-context':
                 reference_command = unit_menu_context_command(args, saved=True)
             if reference['id'] == 'unit-menu-context-former-sentry':
@@ -658,6 +672,8 @@ def main(argv=None):
                 candidate_command = colony_menu_command(args)
             if command is not None and reference['id'] == 'colony-found-menu':
                 candidate_command = colony_found_menu_command(args)
+            if command is not None and reference['id'] == 'colony-adjacent-warning':
+                candidate_command = colony_near_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':
                 candidate_command = unit_menu_context_command(args, saved=True)
             if command is not None and reference['id'] == 'unit-menu-context-former-sentry':
