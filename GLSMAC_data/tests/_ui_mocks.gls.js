@@ -32,7 +32,7 @@ const events = () => {
 	return target;
 };
 
-const display = () => {
+const display = (defaults) => {
 	const result = {};
 	result.nodes = [];
 	result.timers = [];
@@ -41,6 +41,13 @@ const display = () => {
 	const create = (kind, properties) => {
 		const node = {};
 		for (key in properties) { node[key] = properties[key]; }
+		// Optional scene defaults preserve explicit node properties without
+		// allocating a decorating closure around every descendant factory.
+		if (#is_defined(defaults)) {
+			for (key in defaults) {
+				if (!#is_defined(node[key])) { node[key] = defaults[key]; }
+			}
+		}
 		node.kind = kind;
 		node.children = [];
 		node.listeners = [];

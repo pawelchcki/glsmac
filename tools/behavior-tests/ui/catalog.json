@@ -245,6 +245,11 @@
       "id": "colony-menu-join",
       "cases": "cases/colony-menu-join.json",
       "observations": "observations/smacx-gog-2.0-colony-menu-join.json"
+    },
+    {
+      "id": "terraform-menu-presentation",
+      "cases": "cases/terraform-menu-presentation.json",
+      "observations": "observations/smacx-gog-2.0-terraform-menu-presentation.json"
     }
   ]
 }

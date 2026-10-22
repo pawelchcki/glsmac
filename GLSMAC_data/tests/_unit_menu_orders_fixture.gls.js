@@ -14,16 +14,7 @@ const fixture = (input) => {
 		f.base.set('accumulated_nutrients', input.initial_base.nutrients);
 		f.base.restore_production({choice_id: '', minerals: input.initial_base.minerals, last_processed_turn: 0}, '');
 	});
-	f.view = mocks.display(); f.map = mocks.events(); f.events = mocks.events(); f.glsmac = mocks.events();
-	const decorate = (node) => {
-		if (!#is_defined(node.width)) { node.width = 1024; }
-		if (!#is_defined(node.height)) { node.height = 768; }
-		for (kind of ['area', 'panel', 'window', 'surface', 'text', 'input', 'button', 'scrollview', 'listview', 'choicelist', 'widget', 'sound']) {
-			const tag = kind; const create = node[tag];
-			if (#typeof(create) == 'Callable') { node[tag] = (props) => { const child = create(props); decorate(child); return child; }; }
-		}
-	};
-	decorate(f.view.root);
+	f.view = mocks.display({width: 1024, height: 768}); f.map = mocks.events(); f.events = mocks.events(); f.glsmac = mocks.events();
 	f.view.ui.get_width = () => { return 1024; };
 	// Observe real production class declarations, which the shared display mock
 	// otherwise discards. This records presentation; it does not enable controls.
@@ -74,6 +65,7 @@ const fixture = (input) => {
 	f.events.get_year = () => { return f.game.get_year(); };
 	f.events.get_turn = () => { return f.game.get_turn(); };
 	f.events.get_player = () => { return f.native.owner; };
+	f.events.get_players = () => { return f.game.get_players(); };
 	f.events.get = (key) => { return f.game.get(key); };
 	f.events.is_started = f.game.is_started;
 	f.events.is_turn_complete = f.game.is_turn_complete;
@@ -170,7 +162,8 @@ return (profile, declared_input) => {
  f.initial_year = f.game.get_year();
  f.open_action = () => {
   if (!f.menu.menus.left_menu.is_open) { f.view.find('button', 'text', 'MENU').emit('click', {button: 'left'}); }
-  f.menu.menus.left_menu.items[4].el.emit('click', {button: 'left'});
+  const child = f.menu.menus.left_menu_action;
+  if (!#is_defined(child) || !child.is_open) { f.menu.menus.left_menu.items[4].el.emit('click', {button: 'left'}); }
  };
  f.source_control = (slot) => {
   const child = f.menu.menus.left_menu_action;

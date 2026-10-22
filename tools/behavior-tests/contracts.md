@@ -334,3 +334,22 @@ twenty-two rows with observed light source labels and four/five separators.
 The full reference supersedes three immutable pilots: nine additional inputs
 are counted, with no duplicate pilot passes. Other rows, initial orders, spent
 movement, active work and turn effects remain outside the contract.
+
+`ui.terraform_menu_work.v1` adds eight independently repeated Farm/Mine/Forest/Road
+pointer traces under two source profiles. Native orders, work counters, movement,
+selection, terrain and menu lifetime are checked; later completion has its own
+work contract. `ui.colony_menu_join.v1` adds two independently repeated owned-city
+Action-menu joins, preserving the city/companions while consuming the Pod and
+adding a Worker. These bounded controls exclude new-city founding and AI.
+
+`ui.terraform_menu_presentation.v1` adds three independently repeated complete
+seven-checkpoint menu traces. It transfers the ready Former visible row list,
+light/dark text, source-driven labels and nominal work times one through four,
+plus Escape/Tab/reopening retained-header behavior. The recorded `(1 TURNS)` and
+`(2 TURN)` strings were independently confirmed by a read-only native-menu audit;
+they are actual original text. This toggle trace does not establish Colony
+Terraform eligibility. Default candidate replay projects actual mounted native
+controls without pixels or original assets. Eleven application scenarios/69
+assertions separately check eligibility, installed prerequisites, live selection
+and lifecycle; no new advanced work command is implemented by this presentation
+change. See [the exact scope](ui/terraform-menu-presentation-contract.md).

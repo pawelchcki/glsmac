@@ -1,0 +1,1142 @@
+{
+  "captured_at": "2026-10-22T21:29:33.981671+00:00",
+  "observations": [
+    {
+      "case_sha256": "f14b93a68680be3943cf59b69398e2d8c8d5d2fd5e26c5312c1d46fda5f63188",
+      "id": "terraform-presentation-synthetic",
+      "output": {
+        "trace": [
+          {
+            "menu": null,
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": {
+                "header_index": 5,
+                "rows": [
+                  {
+                    "label": "SHAPE SITE ONE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE THREE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOUR (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FIVE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE SIX (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHT (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE ELEVEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TWELVE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE THIRTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOURTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FIFTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE SIXTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE SEVENTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINETEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY THREE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FIVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SIX",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TEN",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": null,
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "473092f691e5bf06b5ff7bfd1a51df7691fb8b2c426d7746b1e37e194fc9553b",
+      "id": "terraform-presentation-terrain-edited",
+      "output": {
+        "trace": [
+          {
+            "menu": null,
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": {
+                "header_index": 5,
+                "rows": [
+                  {
+                    "label": "SHAPE CULTIVATE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE EXTRACT (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOUR (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE PLANT TREES (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE LAY ROUTE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHT (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE ELEVEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TWELVE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE THIRTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOURTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FIFTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE SIXTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE SEVENTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINETEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY THREE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FIVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SIX",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TEN",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": null,
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "ba2e471e9ba80a6571bc35435b79475134db1f23bf57cdce2a1d580361c7a8b9",
+      "id": "terraform-presentation-rates-edited",
+      "output": {
+        "trace": [
+          {
+            "menu": null,
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": {
+                "header_index": 5,
+                "rows": [
+                  {
+                    "label": "SHAPE SITE ONE (1 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE THREE (3 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOUR (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FIVE (1 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE SIX (2 TURN)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHT (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINE (1 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TEN (2 TURN)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE ELEVEN (3 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE TWELVE (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE THIRTEEN (1 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FOURTEEN (2 TURN)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE FIFTEEN (3 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "SHAPE SITE SIXTEEN (4 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE SEVENTEEN (1 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE EIGHTEEN (2 TURN)",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "SHAPE SITE NINETEEN (3 TURNS)",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY ONE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TWO",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY THREE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FOUR",
+                    "tone": "light"
+                  },
+                  {
+                    "separator": true
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY FIVE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SIX",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY SEVEN",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY EIGHT",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY NINE",
+                    "tone": "light"
+                  },
+                  {
+                    "label": "TERRAFORM ENTRY TEN",
+                    "tone": "light"
+                  }
+                ]
+              },
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "former",
+            "year_delta": 0
+          },
+          {
+            "menu": null,
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": true,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          },
+          {
+            "menu": {
+              "child": null,
+              "headers": [
+                {
+                  "active": false,
+                  "label": "GAME"
+                },
+                {
+                  "active": false,
+                  "label": "HQ"
+                },
+                {
+                  "active": false,
+                  "label": "NETWORK"
+                },
+                {
+                  "active": false,
+                  "label": "MAP"
+                },
+                {
+                  "active": false,
+                  "label": "ACTION"
+                },
+                {
+                  "active": false,
+                  "label": "TERRAFORM"
+                },
+                {
+                  "active": false,
+                  "label": "SCENARIO"
+                },
+                {
+                  "active": false,
+                  "label": "EDIT MAP"
+                },
+                {
+                  "active": false,
+                  "label": "HELP"
+                }
+              ]
+            },
+            "selected": "colony",
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "d56152a77d43637b93ea48df83c5be3433180ce4e73565b222fc63b46c8e4a87",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Healthy ready land Former then Colony after real Tab navigation, bare arid tile, three synthetic source profiles including varying declared rates; no work execution, other terrain/status/technology contexts, AI or full Terraform parity",
+    "contract": "ui.terraform_menu_presentation.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual MENU/header5/Escape/Tab inputs and independently read full original menu headers/rows/tones; guarded native selection and unchanged work/terrain/city/companion/year at every checkpoint",
+    "source_profiles_sha256": "bc81482290ec52dfe0f4afa209c27a3f31bdab9cea88a8f3606f5a14bdd9bf76"
+  },
+  "repeat": 2,
+  "suite_sha256": "73a4f80ad790253b979b780960df11db49a42625399a2e956f9aa6a0a31c9912",
+  "version": 1
+}

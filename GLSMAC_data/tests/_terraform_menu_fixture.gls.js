@@ -25,7 +25,6 @@ return (input) => {
 	if (document == null || #sizeof(document.rows('TERRAIN')) != 20) { throw Error('Terraform menu requires twenty TERRAIN input rows'); }
 	f.game.set('terraforming_rules', terrain_rules.parse(document));
 	work.configure(f.game);
-	f.events.get_players = () => { return f.game.get_players(); };
 	// The declared spread preparation reaches Former through one real Tab
 	// from ready Scout. Keep that navigation history in the native controller.
 	f.tab();

@@ -3,7 +3,10 @@
   "kinds": {
     "regression": {
       "hot": [
+        "terraform-menu-presentation",
         "unit-menu-orders",
+        "unit-menu-rows",
+        "unit-menu-order-lifecycle",
         "unit-menu-context-orders",
         "ingame-menu",
         "ui-interactions",
@@ -128,7 +131,8 @@
         "unit-menu-orders",
         "unit-menu-context",
         "terraform-menu-work",
-        "colony-menu-join"
+        "colony-menu-join",
+        "terraform-menu-presentation"
       ],
       "stable": [
         "road-network",
