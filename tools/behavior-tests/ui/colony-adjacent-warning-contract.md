@@ -26,9 +26,8 @@ observations. The last checkpoint captures the first frame after the click;
 this observes a transient message without claiming its duration.
 
 Reference acceptance requires fresh fixtures and identical complete outputs
-and metadata in two independent original runs. The immediate-frame record is
-separate from the earlier settled-frame record, which did not retain the brief
-message. Accepted observations are not edited to fit the candidate.
+and metadata in two independent original runs. Accepted observations are not
+edited to fit the candidate.
 
 Candidate replay must invoke the actual mounted production Action row and read
 native units/cities and production UI state. It cannot assign expected message,
@@ -36,3 +35,17 @@ dialog or menu outcomes. The scope covers only the declared southwest neighbor,
 source profiles and immediate command response. Other neighbors, distance
 policies, factions, terrain, later message dismissal, general city founding and
 AI remain outside this contract.
+
+The optional `npm --prefix tools/wasm-tests run test:colony-near` lane loads the
+same public source declarations and drives both traces through Chromium using
+actual Tab keys and pointer input. Every pointer click requires native hover on
+the intended mounted node. It checks all twelve native/control checkpoints,
+source-file reads, actual HUD message content and dialog absence, then exits the
+engine. This verifies real control delivery and native state; independent pixel
+appearance and message duration remain outside this browser observer.
+
+Separate application regressions exercise native owner/readiness guards, both
+founding transactions, B and FOUND controls, duplicate/stale callbacks, pending
+work and popup/inactive-turn guards, actual native movement to a distant site,
+and message replacement/fade/removal. Their additional behavior is not counted
+as original-game comparison cases.

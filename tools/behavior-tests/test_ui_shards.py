@@ -66,8 +66,8 @@ class UiShardTests(unittest.TestCase):
             directory = Path(temporary)
             runtime, reports = self.reports(directory)
             report = shards.aggregate(reports, 'hot', runtime)
-            self.assertEqual(report['summary'], dict(reference_cases=45, candidate_executed=True,
-                                                   matched=45, mismatched=0, unsupported=0, errors=0))
+            self.assertEqual(report['summary'], dict(reference_cases=47, candidate_executed=True,
+                                                   matched=47, mismatched=0, unsupported=0, errors=0))
             self.assertEqual(report['source_snapshot_sha256'], fingerprint(shards.create_snapshot()))
             output = directory / 'aggregate.json'
             with redirect_stdout(io.StringIO()):
@@ -82,7 +82,7 @@ class UiShardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             runtime, reports = self.reports(Path(temporary), count=16)
             self.assertTrue(any(not report['results'] for report in reports))
-            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 45)
+            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 47)
 
     def test_missing_duplicate_failed_unexecuted_and_stale_replay_are_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
