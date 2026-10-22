@@ -169,7 +169,9 @@ class ContextInventoryTests(unittest.TestCase):
         self.assertEqual((hot['suites'], hot['cases']), (3, 30))
         self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 724)
         self.assertEqual(manifest['gaps'], [])
-        self.assertEqual(manifest['kinds']['pending-ui']['hot'], ['base-open-recalc', 'world-base-ownership', 'natural-first-city'])
+        self.assertEqual(manifest['kinds']['pending-ui']['hot'], [
+            'base-open-recalc', 'world-base-ownership', 'natural-first-city',
+            'natural-first-city-factions-v6', 'natural-first-city-source-controls-v7'])
 
     def test_full_validation_is_metadata_only(self):
         with tempfile.TemporaryDirectory() as temporary, redirect_stdout(io.StringIO()), \
