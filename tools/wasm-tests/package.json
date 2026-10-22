@@ -60,7 +60,8 @@
     "test:unit-menu-context-colony-sentry": "node --test --test-concurrency=1 unit-menu-context-colony-sentry.test.mjs",
     "test:unit-menu-context-former-hold": "node --test --test-concurrency=1 unit-menu-context-former-hold.test.mjs",
     "test:unit-menu-context": "node --test --test-concurrency=1 unit-menu-context.test.mjs",
-    "test:terraform-menu": "node --test terraform-menu.test.mjs"
+    "test:terraform-menu": "node --test terraform-menu.test.mjs",
+    "test:colony-found-menu": "node --test --test-concurrency=1 colony-found-menu.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

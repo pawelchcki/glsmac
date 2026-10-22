@@ -1152,8 +1152,8 @@
     {
       "id": "colony-free-tile-action-naming",
       "suite": "colony-found-menu",
-      "status": "pending-transfer",
-      "property": "The actual free-tile Colony Action source0 is absent, so its source-driven naming, cancellation and native confirmation flow cannot be exercised.",
+      "status": "fixed-in-recorded-contract",
+      "property": "Free-tile Colony Action source0 opens the source-driven naming dialog; actual edit/cancel/reopen/confirm preserves the Pod until native confirmation creates the chosen city and consumes it.",
       "examples": [
         "colony-found-menu-synthetic",
         "colony-found-menu-found-edited"
@@ -1166,10 +1166,18 @@
         "errors": 2
       },
       "probes": [
-        "GLSMAC_data/tests/_colony_found_menu_controls.gls.js"
+        "GLSMAC_data/tests/colony_found_menu_controls.gls.js",
+        "GLSMAC_data/tests/colony_found_menu_authority.gls.js",
+        "GLSMAC_data/tests/colony_found_native.gls.js"
       ],
       "strict_replay": "python3 tools/behavior-tests/compare.py compare --cases tools/behavior-tests/ui/cases/colony-found-menu.json --reference tools/behavior-tests/ui/observations/smacx-gog-2.0-colony-found-menu.json --command \"python3 tools/behavior-tests/ui/colony_found_menu_headless.py --runtime /path/to/GLSMAC.js\"",
-      "scope": "Two independently repeated synthetic source profiles; paused distant healthy Pod, real edit/cancel/reopen/confirm, guarded native city membership and unit consumption. No post-confirm artwork, general founding or AI parity."
+      "scope": "Two independently repeated synthetic source profiles; paused distant healthy Pod, real edit/cancel/reopen/confirm, guarded native city membership and unit consumption. No post-confirm artwork, general founding or AI parity.",
+      "verification": {
+        "matched": 2,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0
+      }
     }
   ],
   "verification": {

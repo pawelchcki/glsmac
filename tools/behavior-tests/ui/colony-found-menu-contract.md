@@ -49,3 +49,15 @@ not claim visual parity for the original's following announcement, artwork or
 management screen. This scope also excludes adjacency rules, invalid/duplicate
 names, exhausted movement, other terrain/factions/populations, raw economy,
 turn income, AI and complete city-founding parity.
+
+The optional `npm --prefix tools/wasm-tests run test:colony-found-menu` lane
+uses installed assets and actual Chromium pointer/SDL input for both public
+flows. It installs the same source declarations, prepares the held companions
+through real H keys, and compares all twenty native/control checkpoints with
+the unchanged gold. The fixture's old city is renamed before observation by
+its production native Rename command, removing its temporary pool name from
+the registry. Only that input city receives fixture citizen/store setup; the
+tested city is created solely by the production founding transaction. Window
+geometry supplies pointer estimates and actual native hover is required before
+every click. This verifies real control delivery and native effects, not
+independent glyph/color or post-confirm artwork equivalence.

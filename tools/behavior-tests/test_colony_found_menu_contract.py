@@ -3,15 +3,26 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import unittest
+from types import SimpleNamespace
 
 import compare
 
 from protocol import ProtocolError, validate_cases
 from ui import colony_found_menu_contract as contract
 from ui import colony_found_menu_inputs as inputs
+from ui import run
 
 
 class ColonyFoundMenuContractTests(unittest.TestCase):
+    def test_candidate_dispatch_needs_no_original_assets_or_renderer(self):
+        args = SimpleNamespace(browser=False, record=False)
+        command = run.colony_found_menu_command(args)
+        self.assertIn('colony_found_menu_headless.py', command)
+        self.assertNotIn('--assets', command)
+        args.browser = True
+        with self.assertRaises(ProtocolError):
+            run.colony_found_menu_command(args)
+
     def test_checked_in_cases_are_exact_input_generator_and_distinct_control_paths(self):
         suite = inputs.suite()
         path = Path(__file__).parent / 'ui/cases/colony-found-menu.json'
