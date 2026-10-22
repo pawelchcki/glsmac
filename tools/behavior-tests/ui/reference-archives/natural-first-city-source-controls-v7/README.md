@@ -1,8 +1,9 @@
 # Archived original startup observations
 
 These repeated original-executable observations are preserved research evidence.
-They are outside the active and pending replay catalogs and add zero passing
-candidate cases. No candidate implementation is established by this archive.
+Byte-identical copies of their cases and observations are registered in the
+strict pending replay catalog. They add zero passing candidate cases. The
+archive remains immutable source evidence; candidate replay lives separately.
 
 `cases.json` contains synthetic setup/source inputs; `observations.json` preserves
 the accepted original output bytes. `original.py` is the exact recorder source.

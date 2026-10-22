@@ -204,7 +204,9 @@
       "hot": [
         "base-open-recalc",
         "world-base-ownership",
-        "natural-first-city"
+        "natural-first-city",
+        "natural-first-city-factions-v6",
+        "natural-first-city-source-controls-v7"
       ],
       "stable": []
     },
