@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "name": "Colony Pod Action city naming and cancellation",
+  "description": "Actual source0 menu, edit, cancel, reopen, edit and confirm; source name pools are inputs, never dialog answers.",
+  "cases": [
+    {
+      "id": "colony-found-menu-synthetic",
+      "algorithm": "ui.colony_found_menu.v1",
+      "input": {
+        "profile": "spread-distant",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 0
+          },
+          {
+            "edit": "Birch Gate"
+          },
+          "button-cancel",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 0
+          },
+          {
+            "edit": "Cedar Reach"
+          },
+          "button-ok"
+        ]
+      }
+    },
+    {
+      "id": "colony-found-menu-found-edited",
+      "algorithm": "ui.colony_found_menu.v1",
+      "input": {
+        "profile": "spread-distant",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "found-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 0
+          },
+          {
+            "edit": "Elm Vale"
+          },
+          "cancel",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 0
+          },
+          {
+            "edit": "Maple Haven"
+          },
+          "confirm"
+        ]
+      }
+    }
+  ]
+}

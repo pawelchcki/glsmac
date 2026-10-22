@@ -1,0 +1,625 @@
+{
+  "captured_at": "2026-10-22T22:30:55.323966+00:00",
+  "observations": [
+    {
+      "case_sha256": "f113a4c333a5dd7d7dd7a1f408136459377dcae53b9ad1df98556816b2216593",
+      "id": "colony-found-menu-synthetic",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "NAME YOUR SETTLEMENT.",
+              "label": "NAME:",
+              "value": "DRAFT GROVE"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "NAME YOUR SETTLEMENT.",
+              "label": "NAME:",
+              "value": "BIRCH GATE"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "NAME YOUR SETTLEMENT.",
+              "label": "NAME:",
+              "value": "DRAFT GROVE"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "NAME YOUR SETTLEMENT.",
+              "label": "NAME:",
+              "value": "CEDAR REACH"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": {
+              "doctors": 1,
+              "name": "Cedar Reach",
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "owned_count": 2,
+            "root_open": false,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "fc7c0dd6096db0d4d36da55cc5bdf07665c64888f2ba6ed57aa2a598c184808e",
+      "id": "colony-found-menu-found-edited",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHOOSE A SETTLEMENT NAME.",
+              "label": "BASE:",
+              "value": "DRAFT HARBOR"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHOOSE A SETTLEMENT NAME.",
+              "label": "BASE:",
+              "value": "ELM VALE"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHOOSE A SETTLEMENT NAME.",
+              "label": "BASE:",
+              "value": "DRAFT HARBOR"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "buttons": [
+                "OK",
+                "CANCEL"
+              ],
+              "caption": "CHOOSE A SETTLEMENT NAME.",
+              "label": "BASE:",
+              "value": "MAPLE HAVEN"
+            },
+            "new_base": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "new_base": {
+              "doctors": 1,
+              "name": "Maple Haven",
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "owned_count": 2,
+            "root_open": false,
+            "selected": null,
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 2,
+                "role": "former"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "9a6e7259d1437f614a337e619d1922e7e50f8bde70bc8c31833e4de4c4d4e7b0",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Healthy unspent land Pod two tiles southwest of one owned city, held Scout/Former, flat arid fixture and two synthetic source profiles; no adjacency policy, general name allocation, raw economy, AI, post-confirm announcement/artwork/management or complete founding parity",
+    "contract": "ui.colony_found_menu.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual MENU/Action/source0/edit/cancel/reopen/edit/confirm; independently observed dialog pixels and visible draft glyphs; old-city/year/companion/unit identity and position guards; actual new-city count and membership",
+    "source_profiles_sha256": "2ebf21d8f47daf3be04b28e1fe5a937df43bc119f3f5fff5e584bf99696d5cb2"
+  },
+  "repeat": 2,
+  "suite_sha256": "a67b53c1e6199a8b483c19d8c1691877e4644cb0318563a0c22d3f80290230c2",
+  "version": 1
+}
