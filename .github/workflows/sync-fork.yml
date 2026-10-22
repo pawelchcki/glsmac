@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   sync:
-    if: github.repository == 'pawelchcki/wasmsmac' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'pawelchcki/wasmsmac'
+    if: github.repository == 'pawelchcki/wasmsmac' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'pawelchcki/wasmsmac' && github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

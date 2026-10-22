@@ -25,11 +25,11 @@ The program explicitly subscribes to the host-created `default_branch_ci` event.
 This declaration must be on the trusted default branch before main transitions
 can refresh open PRs; an ordinary `push` subscription does not opt in.
 
-After each main workflow completes, `sync-fork.yml` merges that immutable revision
+After each main workflow succeeds, `sync-fork.yml` merges that immutable revision
 into `pawelchcki/glsmac:in_webbrowser`, retaining both parents and the message
 `Synced from wasmsmac <sha>`. The scoped deploy key can write only that fork.
-The sync also occurs for failed main workflows, preserving history; their Pages
-publication is refused. Existing downstream commits are preserved and conflicts
+Failed or cancelled attempts do not sync, so a successful retry can trigger the
+fork's Pages publication. Existing downstream commits are preserved and conflicts
 fail visibly. An already-linked older revision is never used to rewind the fork.
 
 The fork verifies the sync parents, exact source tree and successful source main
