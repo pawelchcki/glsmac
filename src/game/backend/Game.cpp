@@ -443,6 +443,16 @@ WRAPIMPL_BEGIN( Game )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
 	WRAPIMPL_CUSTOM_SETTERS
+		{ "validate_found_base_unit", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
+			const auto error = ValidateFoundBaseUnit( id, caller );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "is_found_base_adjacent", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
+			const auto error = ValidateFoundBaseUnit( id, caller ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+			return VALUE( gse::value::Bool,, IsFoundBaseAdjacent( id ) );
+		} ) },
 		{ "validate_found_base", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
 			const auto error = ValidateFoundBase( id, caller );

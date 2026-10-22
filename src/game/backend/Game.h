@@ -312,6 +312,8 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 	void AddEventResponse( const std::string& event_id, const bool result, gse::Value* const resolved );
 
 	void ClearEvents();
+	std::string ValidateFoundBaseUnit( int64_t unit_id, int64_t caller ) const;
+	bool IsFoundBaseAdjacent( int64_t unit_id ) const;
 	std::string ValidateFoundBase( int64_t unit_id, int64_t caller ) const;
 	std::string ValidateNamedFoundBase( int64_t unit_id, int64_t caller, int64_t turn, const std::string& name ) const;
 	gse::Value* FoundBase( GSE_CALLABLE, int64_t unit_id, int64_t caller, gse::value::Callable* chooser, const std::string* name = nullptr, int64_t turn = 0 );
