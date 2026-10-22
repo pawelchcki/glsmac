@@ -86,7 +86,7 @@ return {
 	},
 
 	queue_work: (unit, action, confirmed) => {
-		this.order_pending = {name: 'unit_terraform', unit_id: unit.id};
+		this.order_pending = {name: 'unit_terraform', unit_id: unit.id, action: action};
 		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
 		const data = {unit_id: unit.id, action: action}; if (confirmed) { data.replace_existing = true; }
 		this.p.game.event('unit_terraform', data);
@@ -131,6 +131,8 @@ return {
 	finish_unit_order: (e) => {
 		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id) { return false; }
 		if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id) || e.data.unit_id != this.order_pending.unit_id) { return false; }
+		if (this.order_pending.name == 'unit_terraform' &&
+			(!#is_defined(e.data.action) || #typeof(e.data.action) != 'String' || e.data.action != this.order_pending.action)) { return false; }
 		if (!#is_defined(e.success) || #typeof(e.success) != 'Bool') { return false; }
 		const pending = this.order_pending; this.order_pending = null;
 		if (e.success && this.um.has_unit(pending.unit_id)) {
