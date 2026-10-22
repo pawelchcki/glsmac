@@ -1048,6 +1048,42 @@
         "errors": 0
       },
       "scope": "No partial comparison passes, map-scalar substitutions, nonzero cost conversion or generic mineral credit are established."
+    },
+    {
+      "id": "terraform-menu-work-bindings",
+      "suite": "terraform-menu-work",
+      "status": "pending-transfer",
+      "property": "Mounted native Terraform rows do not submit the work commands that existing keyboard controls submit. Four work identities and source label variants execute as candidate no-ops; original pointer recordings are undergoing independent repetition.",
+      "probes": [
+        "GLSMAC_data/tests/_terraform_menu_controls_regression.gls.js"
+      ],
+      "before": {
+        "candidate_cases": 8,
+        "pending_application_scenarios": 12,
+        "genuine_pre_fix_failures": 11,
+        "existing_guard_passes": 1,
+        "harness_errors": 0
+      },
+      "scope": "Application control wiring and guarded pending callbacks; no full Terraform or AI parity claim."
+    },
+    {
+      "id": "terraform-work-receipt-action-identity",
+      "suite": "former-controls",
+      "status": "fixed-in-application-contract",
+      "property": "A mismatched Terraform action receipt could release another action pending in the shared work controller. Pending authority now retains and verifies action identity.",
+      "probes": [
+        "GLSMAC_data/tests/former_controls.gls.js"
+      ],
+      "before": {
+        "failed_scenarios": 1,
+        "assertion": "A different or missing action cannot acknowledge the pending work request"
+      },
+      "verification": {
+        "focused_suites": 3,
+        "scenarios": 53,
+        "assertions": 151
+      },
+      "scope": "Native-backed application correctness; no new original comparison claim."
     }
   ],
   "verification": {
