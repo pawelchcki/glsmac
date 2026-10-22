@@ -39,3 +39,35 @@ behavior.scenario('zero and two argument callers retain their native default poo
 		test.assert(f.base.name == original_name, 'The explicit or default initial city name remains unchanged');
 	}
 });
+
+const named_fixture = () => {
+	const f = test.selection_fixture('Existing City', 16, ['Declared Draft']); f.enable_economy();
+	f.pod_id = f.add_colony(0, 4); return f;
+};
+const reject = (callback) => {
+	let rejected = false; try { callback(); } catch { : (error) => { rejected = true; } }
+	test.assert(rejected, 'Native named-foundation guard must reject');
+};
+behavior.scenario('native name preview is read-only and named safety guards precede allocation', () => {
+	const f = named_fixture(); const before = f.snapshot(); const caller = f.owner.id + 0; const turn = f.game.get_turn();
+	test.assert(f.game.preview_found_base(f.pod_id, caller) == 'Declared Draft');
+	test.assert(f.game.preview_found_base(f.pod_id, caller) == 'Declared Draft' && f.snapshot() == before);
+	for (name of ['', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'Bad\nName', 'Existing City']) {
+		test.assert(#is_defined(f.game.validate_named_found_base(f.pod_id, caller, turn, name)));
+		reject(() => { f.with_write(() => { f.game.found_named_base(f.pod_id, caller, turn, name, (base) => { return {type: 'DOCTOR'}; }); }); });
+		test.assert(f.snapshot() == before);
+	}
+	test.assert(#is_defined(f.game.validate_named_found_base(f.pod_id, caller + 1, turn, 'Allowed')));
+	test.assert(#is_defined(f.game.validate_named_found_base(f.pod_id, caller, turn + 1, 'Allowed')));
+	test.assert(!#is_defined(f.game.validate_named_found_base(f.pod_id, caller, turn, 'ABCDEFGHIJKLMNOPQRSTUVWX')));
+	reject(() => { f.game.found_named_base(f.pod_id, caller, turn, 'Allowed', (base) => { return {type: 'DOCTOR'}; }); });
+	test.assert(f.snapshot() == before);
+});
+behavior.scenario('native named transaction stores raw case and its receipt restores the complete world', () => {
+	const f = named_fixture(); const before = f.snapshot(); let receipt = null;
+	f.with_write(() => { receipt = f.game.found_named_base(f.pod_id, f.owner.id, f.game.get_turn(), 'Raw Case', (base) => { return {type: 'DOCTOR'}; }); });
+	test.assert(receipt.base_name == 'Raw Case' && !f.game.um.has_unit(f.pod_id));
+	test.assert(f.inspect().names == ['Existing City', 'Raw Case']);
+	f.with_write(() => { f.game.rollback_found_base(receipt); }); test.assert(f.snapshot() == before);
+	reject(() => { f.with_write(() => { f.game.rollback_found_base(receipt); }); }); test.assert(f.snapshot() == before);
+});

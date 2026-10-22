@@ -41,10 +41,20 @@ std::string Game::ValidateFoundBase( const int64_t unit_id, const int64_t caller
 	return "";
 }
 
-gse::Value* Game::FoundBase( GSE_CALLABLE, const int64_t unit_id, const int64_t caller, gse::value::Callable* chooser ) {
+std::string Game::ValidateNamedFoundBase( const int64_t unit_id, const int64_t caller, const int64_t turn, const std::string& name ) const {
+	const auto error = ValidateFoundBase( unit_id, caller ); if ( !error.empty() ) { return error; }
+	if ( turn <= 0 || uint64_t( turn ) != GetTurnId() ) { return "Founding turn is stale"; }
+	// Native input/registry safety; original parity covers only the recorded names.
+	if ( name.empty() || name.size() > 24 ) { return "Founding name needs one through 24 ASCII characters"; }
+	for ( const unsigned char character : name ) { if ( character < 32 || character >= 127 ) { return "Founding name requires printable ASCII"; } }
+	if ( m_bm->m_registered_base_names.count( name ) ) { return "Base name is already registered"; }
+	return "";
+}
+
+gse::Value* Game::FoundBase( GSE_CALLABLE, const int64_t unit_id, const int64_t caller, gse::value::Callable* chooser, const std::string* name, const int64_t turn ) {
 	CheckRW( GSE_CALL );
 	struct WriteRestore { std::atomic< size_t >& counter; size_t previous; ~WriteRestore() { counter = previous; } };
-	const auto error = ValidateFoundBase( unit_id, caller );
+	const auto error = name ? ValidateNamedFoundBase( unit_id, caller, turn, *name ) : ValidateFoundBase( unit_id, caller );
 	if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
 	WriteRestore read_only { m_rw_counter, m_rw_counter.exchange( 0 ) };
 	auto* unit = m_um->GetUnit( unit_id );
@@ -65,7 +75,7 @@ gse::Value* Game::FoundBase( GSE_CALLABLE, const int64_t unit_id, const int64_t 
 	std::unique_ptr< unit::Unit > detached;
 	std::unique_ptr< base::Base > created;
 	try {
-		created = std::make_unique< base::Base >( this, record.base_id, unit->m_owner, unit->m_owner->GetPlayer()->GetFaction(), tile, "", base::Base::facilities_t{}, base::Base::pops_t{} );
+		created = std::make_unique< base::Base >( this, record.base_id, unit->m_owner, unit->m_owner->GetPlayer()->GetFaction(), tile, name ? *name : "", base::Base::facilities_t{}, base::Base::pops_t{} );
 		gse::Value* plan_value = nullptr;
 		// A chooser describes a citizen; game mutation remains native-owned.
 		const auto write_depth = m_rw_counter.exchange( 0 );

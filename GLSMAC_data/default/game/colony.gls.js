@@ -20,7 +20,7 @@ return {
 		return game.validate_found_base(unit_id, caller);
 	},
 
-	choose_citizen: (game, base) => {
+	choose_citizen: (game, base, productive_only) => {
 		const eligible = [];
 		for (tile of base.get_unworked_tiles()) {
 			if (!tile.has('working_pop') && tile.get_base() == null) {
@@ -30,6 +30,10 @@ return {
 		const best = game.get('f_base_find_best_or_worst_tiles')(base, eligible, 1, 1);
 		const tile = best[0];
 		if (#is_defined(tile)) {
+			if (#is_defined(productive_only) && productive_only) {
+				const resources = tile.get_resources(base.get_owner());
+				if (resources.NUTRIENTS * 3 + resources.MINERALS * 2 + resources.ENERGY <= 0) { return {type: 'DOCTOR'}; }
+			}
 			const plan = { type: 'WORKER' };
 			plan.worked_tile = tile;
 			return plan;

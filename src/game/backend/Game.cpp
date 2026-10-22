@@ -452,6 +452,21 @@ WRAPIMPL_BEGIN( Game )
 			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GET_CALLABLE( chooser, 2 );
 			return FoundBase( GSE_CALL, id, caller, chooser );
 		} ) },
+		{ "preview_found_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
+			const auto error = ValidateFoundBase( id, caller ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+			const auto* unit = m_um->GetUnit( id );
+			return VALUE( gse::value::String,, m_bm->ResolveName( unit->m_owner->GetPlayer()->GetFaction(), unit->GetTile()->is_water_tile ) );
+		} ) },
+		{ "validate_named_found_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 4 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int ); N_GETVALUE( name, 3, String );
+			const auto error = ValidateNamedFoundBase( id, caller, turn, name );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "found_named_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 5 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int ); N_GETVALUE( name, 3, String ); N_GET_CALLABLE( chooser, 4 );
+			return FoundBase( GSE_CALL, id, caller, chooser, &name, turn );
+		} ) },
 		{ "rollback_found_base", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object );
 			N_GETPROP( token, receipt, "transaction_id", Int ); N_GETPROP( id, receipt, "base_id", Int );

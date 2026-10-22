@@ -27,6 +27,10 @@ def integer(value):
     return int(value)
 
 
+def visible(value):
+    return ' '.join(value.split()).upper()
+
+
 def parse_candidate(text, cases):
     if not re.search(r'^All tests passed\.$', text, re.MULTILINE) or re.search(r'TEST FAILED|Unhandled exception', text):
         raise ProtocolError('Native founding execution did not complete: ' + text[-2500:])
@@ -71,18 +75,18 @@ def parse_candidate(text, cases):
         elif marker == 'FOUND_CAPTION':
             if state is None or 'dialog' in state or len(parts) != 2:
                 raise ProtocolError('Invalid or duplicate native dialog caption')
-            state['dialog'] = dict(caption=parts[1], buttons=[])
+            state['dialog'] = dict(caption=visible(parts[1]), buttons=[])
         elif marker in ('FOUND_LABEL', 'FOUND_VALUE', 'FOUND_BUTTON'):
             if state is None or not isinstance(state.get('dialog'), dict) or len(parts) != 2:
                 raise ProtocolError('Orphan native founding dialog field')
             dialog = state['dialog']
             if marker == 'FOUND_BUTTON':
-                dialog['buttons'].append(parts[1])
+                dialog['buttons'].append(visible(parts[1]))
             else:
                 field = 'label' if marker == 'FOUND_LABEL' else 'value'
                 if field in dialog:
                     raise ProtocolError('Duplicate native founding dialog field')
-                dialog[field] = parts[1]
+                dialog[field] = visible(parts[1])
         elif marker == 'FOUND_STATE_DONE':
             if len(parts) != 1 or state is None:
                 raise ProtocolError('Incomplete native founding checkpoint end')

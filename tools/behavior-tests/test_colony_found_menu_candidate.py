@@ -45,7 +45,7 @@ class ColonyFoundMenuCandidateTests(unittest.TestCase):
                 self.assertEqual(len(rows[0]['output']['trace']), 10)
                 state = rows[0]['output']['trace'][0]
                 self.assertEqual(state['new_base']['name'] if city else state['new_base'], 'Observed City' if city else None)
-                self.assertEqual(state['dialog']['buttons'] if dialog else state['dialog'], ['Accept', 'Dismiss'] if dialog else None)
+                self.assertEqual(state['dialog']['buttons'] if dialog else state['dialog'], ['ACCEPT', 'DISMISS'] if dialog else None)
 
     def test_missing_duplicate_reordered_cases_and_checkpoints_are_rejected(self):
         text = native_log(self.cases)
@@ -86,6 +86,10 @@ class ColonyFoundMenuCandidateTests(unittest.TestCase):
             self.assertEqual(prepared['sources'], [dict(name=n, source=s) for n, s in declarations(case['input']['text_profile']).items()])
             for actual, declared in zip(prepared['actions'], case['input']['actions'], strict=True):
                 self.assertEqual(actual, dict(declared, keys=list(declared['edit'])) if isinstance(declared, dict) and 'edit' in declared else declared)
+
+    def test_native_regression_input_is_the_exact_public_synthetic_declaration(self):
+        expected = '// Public synthetic declaration copied without observed answers.\nreturn ' + candidate.gse_literal(candidate.prepare(self.cases[0])) + ';\n'
+        self.assertEqual((candidate.ROOT / 'GLSMAC_data/tests/_colony_found_menu_regression_input.gls.js').read_text(), expected)
 
     def run_candidate(self, cases=None, *, mutate=None):
         cases = deepcopy(self.cases if cases is None else cases)

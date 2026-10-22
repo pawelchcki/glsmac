@@ -155,20 +155,17 @@ void BaseManager::UndefineFacility( GSE_CALLABLE, const std::string& id ) {
 	m_game->AddFrontendRequest( fr );*/
 }
 
-void BaseManager::SpawnBase( GSE_CALLABLE, Base* base ) {
-
-	auto* tile = base->GetTile();
-
-	// validate and fix name if needed (or assign if empty)
+std::string BaseManager::ResolveName( const faction::Faction* faction, const bool water, const std::string& requested ) const {
+	std::string result = requested;
 	std::vector< std::string > names_to_try = {};
-	if ( base->m_name.empty() ) {
-		const auto& names = base->m_owner->GetPlayer()->GetFaction()->m_base_names;
-		names_to_try = tile->is_water_tile
+	if ( result.empty() ) {
+		const auto& names = faction->m_base_names;
+		names_to_try = water
 			? names.water
 			: names.land;
 	}
-	else if ( m_registered_base_names.find( base->m_name ) != m_registered_base_names.end() ) {
-		names_to_try = { base->m_name };
+	else if ( m_registered_base_names.find( result ) != m_registered_base_names.end() ) {
+		names_to_try = { result };
 	}
 	if ( !names_to_try.empty() ) {
 		size_t cycle = 0;
@@ -176,16 +173,22 @@ void BaseManager::SpawnBase( GSE_CALLABLE, Base* base ) {
 		while ( !found ) {
 			cycle++;
 			for ( const auto& name_to_try : names_to_try ) {
-				base->m_name = cycle == 1
+				result = cycle == 1
 					? name_to_try
 					: name_to_try + " " + std::to_string( cycle );
-				if ( m_registered_base_names.find( base->m_name ) == m_registered_base_names.end() ) {
+				if ( m_registered_base_names.find( result ) == m_registered_base_names.end() ) {
 					found = true;
 					break;
 				}
 			}
 		}
 	}
+	return result;
+}
+
+void BaseManager::SpawnBase( GSE_CALLABLE, Base* base ) {
+	auto* tile = base->GetTile();
+	base->m_name = ResolveName( base->m_owner->GetPlayer()->GetFaction(), tile->is_water_tile, base->m_name );
 	m_registered_base_names.insert( base->m_name );
 
 	Log( "Spawning base #" + std::to_string( base->m_id ) + " ( " + base->m_name + " ) at " + base->GetTile()->ToString() );
