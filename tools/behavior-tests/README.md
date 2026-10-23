@@ -95,7 +95,7 @@ original traces establish ten checkpoints, including native turn counters
 This checks the declared phases and controls; full-frame visuals, the left-hand
 guided Tour route, generated worlds and opponents remain outside these passing cases.
 
-The optional `test:pod-landing` command compares real installed pod frames before
+The optional `test:pod-landing:browser` command compares real installed pod frames before
 first-base naming. Both confirmation paths have independently repeated original
 observations of five rendered frames, horizontal motion and native turn zero.
 See [the landing contract](ui/pod-landing-contract.md). Exact trajectory, cadence,

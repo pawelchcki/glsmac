@@ -28,7 +28,7 @@ controller tests cover modal input, one playback per opening session, metadata
 durations, completion and stale/lifetime cleanup. These application tests are
 not extra original comparisons. No original art or video is committed.
 
-`SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin npm --prefix tools/wasm-tests run test:pod-landing`
+`SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin npm --prefix tools/wasm-tests run test:pod-landing:browser`
 runs the installed-data companion. It is separate from default asset-free UI
 case totals. Actual browser or capture failures remain errors; a healthy app
 that displays no pod reports a mismatch with its observed partial trace.
