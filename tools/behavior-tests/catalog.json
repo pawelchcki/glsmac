@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"research-cost-native","script":"GLSMAC_data/tests/research_cost_native.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"research-setup","script":"GLSMAC_data/tests/research_setup.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"research-controls","script":"GLSMAC_data/tests/research_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"research-native","script":"GLSMAC_data/tests/research_native.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
@@ -143,6 +144,13 @@
     {"id":"natural-first-city-lifecycle","script":"GLSMAC_data/tests/natural_first_city_lifecycle.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
   ],
   "references": [
+    {"id":"human-research-cost-blind-validation","cases":"cases/human-research-cost-blind-validation.json","observations":"observations/human-research-cost-blind-validation.json"},
+    {"id":"human-research-cost-final-blind-validation","cases":"cases/human-research-cost-final-blind-validation.json","observations":"observations/human-research-cost-final-blind-validation.json"},
+    {"id":"human-research-cost-held-out","cases":"cases/human-research-cost-held-out.json","observations":"observations/human-research-cost-held-out.json"},
+    {"id":"human-research-cost-normalization","cases":"cases/human-research-cost-normalization.json","observations":"observations/human-research-cost-normalization.json"},
+    {"id":"human-research-cost-targeted-normalization","cases":"cases/human-research-cost-targeted-normalization.json","observations":"observations/human-research-cost-targeted-normalization.json"},
+    {"id":"human-research-cost-time-ranking","cases":"cases/human-research-cost-time-ranking.json","observations":"observations/human-research-cost-time-ranking.json"},
+    {"id":"human-research-cost","cases":"cases/human-research-cost.json","observations":"observations/human-research-cost.json"},
     {"id":"human-calibrated-zero-witnesses-v2","cases":"cases/human-calibrated-zero-witnesses-v2.json","observations":"observations/smacx-gog-2.0-human-calibrated-zero-witnesses-v2.json"},
     {"id":"custom-map-human-factors-v2","cases":"cases/custom-map-human-factors-v2.json","observations":"observations/smacx-gog-2.0-custom-map-human-factors-v2.json"},
     {"id":"basic-production-switch-loss", "cases":"cases/basic-production-switch-loss.json", "observations":"observations/smacx-gog-2.0-basic-production-switch-loss.json"},

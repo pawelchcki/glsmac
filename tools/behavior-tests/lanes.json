@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "research-cost-native",
         "research-controls",
         "research-setup",
         "research-native",
@@ -236,7 +237,14 @@
         "prototype-cost-held-out",
         "starting-unit-components",
         "human-industry-mineral-factor-v2",
-        "human-industry-mineral-held-out-v2"
+        "human-industry-mineral-held-out-v2",
+        "human-research-cost-blind-validation",
+        "human-research-cost-final-blind-validation",
+        "human-research-cost-held-out",
+        "human-research-cost-normalization",
+        "human-research-cost-targeted-normalization",
+        "human-research-cost-time-ranking",
+        "human-research-cost"
       ]
     },
     "pending-ui": {

@@ -20,6 +20,7 @@ ALGORITHMS = {
     "technology.category.v1": ("category", "category", int),
     "technology.available.v1": ("available", "available", bool),
     "technology.prerequisite.v1": ("prerequisite", "is_prerequisite", bool),
+    "technology.human_research_cost.v1": ("human_research_cost", "science_required", int),
     "economy.human_mineral_factor.v1": ("human_mineral_factor", "factor", int),
     "economy.human_nutrient_factor.v1": ("human_nutrient_factor", "factor", int),
     "economy.custom_map_nutrient_factor.v1": ("custom_map_nutrient_factor", "factor", int),
@@ -70,7 +71,13 @@ def technologies(value):
 def encode_input(algorithm, data):
     """Validate the entire JSON contract before passing integers to native code."""
     operation = ALGORITHMS[algorithm][0]
-    if operation == "same_row":
+    if operation == "human_research_cost":
+        from research_cost_contract import validate_input
+        validate_input(data)
+        values = [data[key] for key in ('faction_id', 'target_id', 'difficulty', 'turn', 'map_area_sqrt',
+                  'saved_earned_techs', 'research_ranking', 'research_rating', 'discovery_rate_percent', 'faction_cost_percent')]
+        values.append(int(data['stagnation']))
+    elif operation == "same_row":
         validate_distance_input(data)
         values = [data[key] for key in ("width", "x1", "x2", "y")]
     elif operation == "raw_vector":
@@ -195,11 +202,12 @@ def main():
     write_response({
         "name": "glsmac", "kind": "candidate", "target": args.target,
         "sources": ["src/game/backend/map/tile/Geometry.h", "src/game/backend/technology/Table.cpp",
+                    "src/game/backend/technology/ResearchCost.h",
                     "src/game/backend/base/ProductionCost.h", "src/game/backend/base/NutrientCost.h",
                     "src/game/backend/base/ProductionSwitchCost.h",
                     "src/game/backend/unit/PrototypeCost.h"],
         "algorithms": list(ALGORITHMS),
-        "scope": "Bounded geometry, technology, human mineral/nutrient factors, basic switch loss and no-ability prototype base costs; excludes complete economy",
+        "scope": "Bounded geometry, technology and uncached human research costs, human mineral/nutrient factors, basic switch loss and no-ability prototype base costs; excludes complete economy/research planning",
     }, results)
 
 

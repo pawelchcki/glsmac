@@ -983,7 +983,7 @@ const program::Operand* JS::GetOperand( const Identifier* element, program::vari
 					return new program::Value( element->m_si, static_var_f( v, m_gc_space ) );
 				}
 				else {
-					const auto v = std::stol( element->m_name.c_str() );
+					const auto v = std::stoll( element->m_name.c_str() );
 					return new program::Value( element->m_si, static_var_i( v, m_gc_space ) );
 				}
 			}

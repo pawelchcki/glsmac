@@ -1,0 +1,293 @@
+{
+  "captured_at": "2026-10-23T21:09:04.763684+00:00",
+  "observations": [
+    {
+      "case_sha256": "7cb0df5f7df6a80065ce41814a88ca998da2b8ff0b726531471868cf0a759312",
+      "id": "research-cost-baseline",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "61306d9b40125344c5ab5c3a22a0744c185180fe86d68823904532b2740b0352",
+      "id": "research-cost-target_id-0",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "ead74f77eb46b471c8de2185650eb92643454a724e57a797feb74b2c89f29256",
+      "id": "research-cost-target_id-78",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "32b3995be02fd422569342a7f1e1f53b0ffce6295cf0d3dec1bf21010009b3a2",
+      "id": "research-cost-difficulty-1",
+      "output": {
+        "science_required": 10
+      }
+    },
+    {
+      "case_sha256": "1698b88650d8c35134e706eebf3811dab298da64140d0c680b5ac7522f46b59d",
+      "id": "research-cost-difficulty-2",
+      "output": {
+        "science_required": 10
+      }
+    },
+    {
+      "case_sha256": "e2cf6b80b501a5821e505eb3f7fe750f4a638a9373008164b1f0d0a7a215a8fb",
+      "id": "research-cost-difficulty-3",
+      "output": {
+        "science_required": 10
+      }
+    },
+    {
+      "case_sha256": "83c045815ef6a7d6f2ee06b7bfc0e663e2e80f260ea5703aae3793240e5ca73f",
+      "id": "research-cost-difficulty-4",
+      "output": {
+        "science_required": 10
+      }
+    },
+    {
+      "case_sha256": "b152de1f7c4a3fa1ae17d21a26191105728deae45eb98a575909c27ce9f14f1e",
+      "id": "research-cost-difficulty-5",
+      "output": {
+        "science_required": 10
+      }
+    },
+    {
+      "case_sha256": "9583c795b09fb8c1b2edcb104f5111dc83b12ef27ce21902fa423d35172b151d",
+      "id": "research-cost-research_rating--3",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "4bb39619117e6a529d7c6d49d412a4750a57ed1613bd1644afeee9310e73384d",
+      "id": "research-cost-research_rating--1",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "fc49c3ba99291820c05174664fc755e0d22a9bdf55967bf8868e3cd66f1156c0",
+      "id": "research-cost-research_rating-1",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "482aee70b209b3821281428216b16e5f6999e53247600ea92533a8af03ca014e",
+      "id": "research-cost-research_rating-3",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "566688021b642bfc470e36ea3f15f122dc1e0c80f1d7fd12b24b72979a0f2bd0",
+      "id": "research-cost-discovery_rate_percent-0",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "6c18168e179f0bcad00b575ae4454c83f09aee1b025112c5a715922926274b6b",
+      "id": "research-cost-discovery_rate_percent-50",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "dd9667656800703a9f92151a1e436a999f004d76edbedbc4679e2c44315aa2fc",
+      "id": "research-cost-discovery_rate_percent-75",
+      "output": {
+        "science_required": 12
+      }
+    },
+    {
+      "case_sha256": "f720365fb09bb741f6f24745448d4bf57cd21cc95ca2165c2da0f6169f335ba2",
+      "id": "research-cost-discovery_rate_percent-125",
+      "output": {
+        "science_required": 7
+      }
+    },
+    {
+      "case_sha256": "bcac56dc438ad9507e264d1d62382f384ed65bd087e0eb0424c1e8b467d08156",
+      "id": "research-cost-discovery_rate_percent-200",
+      "output": {
+        "science_required": 4
+      }
+    },
+    {
+      "case_sha256": "e8016198b61c0763278c3d7d1d20d7eb62e7e8b134213fb590e8a378472aae1b",
+      "id": "research-cost-faction_cost_percent-50",
+      "output": {
+        "science_required": 4
+      }
+    },
+    {
+      "case_sha256": "bdea1bf1e1099546ad31fdd106e2f408c79d5a4f92fd524effc04c9b88ca5608",
+      "id": "research-cost-faction_cost_percent-150",
+      "output": {
+        "science_required": 13
+      }
+    },
+    {
+      "case_sha256": "50a5cd3b4ef2a1abaf9a4a28559724bd920515cde9059b7ee1ec5c39fe19fafb",
+      "id": "research-cost-map_area_sqrt-20",
+      "output": {
+        "science_required": 4
+      }
+    },
+    {
+      "case_sha256": "f70065e6257038a1d2cbf17fecd7a784efe4b52b844d24f8576e5b35df7b1875",
+      "id": "research-cost-map_area_sqrt-56",
+      "output": {
+        "science_required": 13
+      }
+    },
+    {
+      "case_sha256": "129bbc54751af93264446a4f062f37f580241794f871aa7a41854804c1836219",
+      "id": "research-cost-map_area_sqrt-80",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "1559b9725d3559a55796ffec3504c7910e2d6d8be3b2b73e9fa3b15cb30748a9",
+      "id": "research-cost-saved_earned_techs-1",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "b94f8dd86dc9d675bcc56f7ead886c5c85ff729737bccc7bd00fe64bb9bb61f0",
+      "id": "research-cost-saved_earned_techs-2",
+      "output": {
+        "science_required": 20
+      }
+    },
+    {
+      "case_sha256": "6cd4dbb309a87b08df36540e6752f1fe8c400dc638a5e4491e427fa6864b37e3",
+      "id": "research-cost-saved_earned_techs-4",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "b20339f23d3702f410405446dc26af91713633aafc6e038a2dd4faff96e0cb2e",
+      "id": "research-cost-saved_earned_techs-8",
+      "output": {
+        "science_required": 114
+      }
+    },
+    {
+      "case_sha256": "df5272e67e45dfbbabfced83a1ba1abab65b9e7cb7e1fd5fa8b52929a944c90c",
+      "id": "research-cost-research_ranking-2",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "3560289583bb070c454742ce8358d52589f109b0a41018254e03c05957e9e9b3",
+      "id": "research-cost-research_ranking-8",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "1641783e34ff7770b49a296c96ec4ab89f91f49ce3f63b423a6b2bc49476f4f1",
+      "id": "research-cost-research_ranking-16",
+      "output": {
+        "science_required": 114
+      }
+    },
+    {
+      "case_sha256": "9661a2cb8304c3dca020bad50ccf4f827d664f5fc5281411041c28eec9a602ae",
+      "id": "research-cost-turn-0",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "7460a18c891d19788fce17a24b9c82e221a5ff56ac2811c0ed9db2b668ff32f3",
+      "id": "research-cost-turn-8",
+      "output": {
+        "science_required": 8
+      }
+    },
+    {
+      "case_sha256": "ad19fda080d4e3ccda2ac053b6d0697a44ae5eff10838119af4ab4be56234bd6",
+      "id": "research-cost-turn-24",
+      "output": {
+        "science_required": 8
+      }
+    },
+    {
+      "case_sha256": "a079857a50a4ddb3d8f4da1dd3dc428a9914f2eb3b570887f78c7f8bf7373f1c",
+      "id": "research-cost-turn-80",
+      "output": {
+        "science_required": 8
+      }
+    },
+    {
+      "case_sha256": "e8c66dd62fd00116d17cc4552fcb23053b8b743ea6a828356231cc4f616ab4d8",
+      "id": "research-cost-faction_id-7",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "506f74face2549a20f94849897ce447dcf080ced64a6c04d4425cf939b637506",
+      "id": "research-cost-stagnation",
+      "output": {
+        "science_required": 13
+      }
+    },
+    {
+      "case_sha256": "3e7e4a9401a303cda47f8000e0f06cd459b6b2ccea006e9fa25be49d1c0f98c1",
+      "id": "research-cost-interaction-0",
+      "output": {
+        "science_required": 42
+      }
+    },
+    {
+      "case_sha256": "857da51ee439cb14c55a1f8532c80167e52f5c90b0d69a7ae471081f272c73a5",
+      "id": "research-cost-interaction-1",
+      "output": {
+        "science_required": 457
+      }
+    },
+    {
+      "case_sha256": "95506a3cad0686a9bac63d7880eb4b7bcb8ebcddeb73bd7b0c2606d539ee60f5",
+      "id": "research-cost-interaction-2",
+      "output": {
+        "science_required": 376
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "dd7c5e3e602578971e959142fa9069e50913f765e274fc75d015c91e6c47e3dc",
+  "version": 1
+}

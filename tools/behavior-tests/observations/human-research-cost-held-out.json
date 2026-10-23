@@ -1,0 +1,286 @@
+{
+  "captured_at": "2026-10-23T21:13:53.826880+00:00",
+  "observations": [
+    {
+      "case_sha256": "18347d2a35ab9d950c4229ad55555d54fb682cb30a2ff3e17c24899def577526",
+      "id": "cost-held-earned-0",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "136eb35524f8436b6b368d0299d22776e3218063d87050d4a423d9525701fadf",
+      "id": "cost-held-earned-1",
+      "output": {
+        "science_required": 9
+      }
+    },
+    {
+      "case_sha256": "2e257b0d373ca7176a215f40fe47af2a7beb9932d778a107c3c23e6ef083291e",
+      "id": "cost-held-earned-2",
+      "output": {
+        "science_required": 20
+      }
+    },
+    {
+      "case_sha256": "37d0fd04a752cb807aa544bfdaac7709c39d4f9085eb1579c8aca8a3062840cd",
+      "id": "cost-held-earned-3",
+      "output": {
+        "science_required": 32
+      }
+    },
+    {
+      "case_sha256": "2f8bec284f0d913db58c677f0000252f6fe3369a5b2548971f5bdfa4835ccf80",
+      "id": "cost-held-earned-4",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "0c581d271546a9a826ead2997f4a09480b8fedb745c8852b8f4ed693bba5e71e",
+      "id": "cost-held-earned-5",
+      "output": {
+        "science_required": 60
+      }
+    },
+    {
+      "case_sha256": "e51e2e64536bf7ca83e825fdeb5f1db158dbc03517a3fb9338304e131d2f17f4",
+      "id": "cost-held-earned-6",
+      "output": {
+        "science_required": 77
+      }
+    },
+    {
+      "case_sha256": "80e20e8ffda18e41afb0bcfe0ea82ca727792d2c0f729cb03934c350ddd81643",
+      "id": "cost-held-earned-7",
+      "output": {
+        "science_required": 95
+      }
+    },
+    {
+      "case_sha256": "9d9165ce443799533d3a5046f3aa74e2cfbf3503052ee67e9ddc13de8dd41ac9",
+      "id": "cost-held-earned-8",
+      "output": {
+        "science_required": 114
+      }
+    },
+    {
+      "case_sha256": "15784fa249d2353ea44d89e41e125f24fe3b93a85e5080488ec524eebda1207b",
+      "id": "cost-held-earned-4-rating--3",
+      "output": {
+        "science_required": 57
+      }
+    },
+    {
+      "case_sha256": "751879d31ae4c579c785befcb72b345b580f782449287d7671cce37e00966f2b",
+      "id": "cost-held-earned-4-rating--2",
+      "output": {
+        "science_required": 57
+      }
+    },
+    {
+      "case_sha256": "edd32a4b87d2022d1f67e8d6b1014406f6f04f1ea0e77f2a5d6fe4ccb095e62d",
+      "id": "cost-held-earned-4-rating--1",
+      "output": {
+        "science_required": 57
+      }
+    },
+    {
+      "case_sha256": "666c590c1b0a32641b2f146f893aef71c7519cbb2293f4e9d882ede67c51de6f",
+      "id": "cost-held-earned-4-rating-1",
+      "output": {
+        "science_required": 34
+      }
+    },
+    {
+      "case_sha256": "49f42ffcc6b34fa54fefc4782aa01c2730de86ac60fd6d48bf79cb28dd4d7f03",
+      "id": "cost-held-earned-4-rating-2",
+      "output": {
+        "science_required": 34
+      }
+    },
+    {
+      "case_sha256": "48c121486a1215ecaa282e9ccdec58a95a3821b172a72adfeade75abb15f338c",
+      "id": "cost-held-earned-4-rating-3",
+      "output": {
+        "science_required": 34
+      }
+    },
+    {
+      "case_sha256": "d0362cb00df62502036a00141f82f3fad3c76d6ac663b2a049baf07c92f07298",
+      "id": "cost-held-earned-8-rating--3",
+      "output": {
+        "science_required": 128
+      }
+    },
+    {
+      "case_sha256": "3eda7246f405c65af8af4b31f1cfaeef1b6160123f2f34f7dd20af4e8388a27f",
+      "id": "cost-held-earned-8-rating--2",
+      "output": {
+        "science_required": 128
+      }
+    },
+    {
+      "case_sha256": "51e1d61fc0cb1d3269b5d408886f407843f91a99850ec6b846292d6baa496fec",
+      "id": "cost-held-earned-8-rating--1",
+      "output": {
+        "science_required": 128
+      }
+    },
+    {
+      "case_sha256": "22a16f58f4771e035d08ed1a25c7bdfa98d072f729424f4c76672530d059af3e",
+      "id": "cost-held-earned-8-rating-1",
+      "output": {
+        "science_required": 100
+      }
+    },
+    {
+      "case_sha256": "9387b00a749df61df5d5dcee45c9da27cbce0c0cf0f462c70c4491911e4b4d41",
+      "id": "cost-held-earned-8-rating-2",
+      "output": {
+        "science_required": 100
+      }
+    },
+    {
+      "case_sha256": "e51495d0cb93fc511f89a0cf880d206184ac162d574899e8ca45f1b55c0a012c",
+      "id": "cost-held-earned-8-rating-3",
+      "output": {
+        "science_required": 100
+      }
+    },
+    {
+      "case_sha256": "98eba73cd07fc8677e98ddd8670e41c65620ed81de024951c06a207f49b169bf",
+      "id": "cost-held-earned4-turn-0",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "870bc760fe6637e82636d3745ee2288ff8330d1cfa8aee0260a4903a0e85f8d7",
+      "id": "cost-held-earned4-turn-2",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "202e0bbd6848e365a388fd153c06f455757c146ee0665137a69578ad6c19193c",
+      "id": "cost-held-earned4-turn-3",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "bf46e616a9078fa49e372044f481157c1ed992a51af3554a86f5c0a1f905a94f",
+      "id": "cost-held-earned4-turn-4",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "de4757368690273f6a6d3729818b323a45ea384e094a41ee35c6979bc837a1fb",
+      "id": "cost-held-earned4-turn-5",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "84052812bdd7f2b230570a03fe212d2f5540ca53f1ccab6fa5457622ed5b7dd1",
+      "id": "cost-held-earned4-turn-6",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "7303cfde2a0c4f63f8f2dd2b664d9bfa25ac71c194112df626c283093e785022",
+      "id": "cost-held-earned4-turn-7",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "b8843704945d0a84bb451483c3f35ffe67124aad0476f88b977e4ec19f78a2b4",
+      "id": "cost-held-earned4-turn-8",
+      "output": {
+        "science_required": 42
+      }
+    },
+    {
+      "case_sha256": "8b5e3dfeadf5f23e9e4615d7d85728584bb1b4b03823875d67a4998149a2c27d",
+      "id": "cost-held-integer-interaction-0",
+      "output": {
+        "science_required": 73
+      }
+    },
+    {
+      "case_sha256": "dd6f7969714d8c2a94cfc6ddefde56d9b0af5241a97484523b95123cd2ae9ce8",
+      "id": "cost-held-integer-interaction-1",
+      "output": {
+        "science_required": 76
+      }
+    },
+    {
+      "case_sha256": "c72de0f4afc62095fbe3e3be220f4dff93166c5cf01606360c3c9d7d28d1ce70",
+      "id": "cost-held-integer-interaction-2",
+      "output": {
+        "science_required": 151
+      }
+    },
+    {
+      "case_sha256": "3093c5a72eb1c3685d8ddb79da95b3e69c87c311f910413ae67d210b3d897265",
+      "id": "cost-held-integer-interaction-3",
+      "output": {
+        "science_required": 280
+      }
+    },
+    {
+      "case_sha256": "d93e638d17a736938f5a84e3e840ad8d37914a31f48dcd8a56dc11c8b936cc3a",
+      "id": "cost-held-integer-interaction-4",
+      "output": {
+        "science_required": 106
+      }
+    },
+    {
+      "case_sha256": "56cac88e72a9ba8ae8572e31289ed8bba711fa85713af9352c074a2bd2594a61",
+      "id": "cost-held-integer-interaction-5",
+      "output": {
+        "science_required": 38
+      }
+    },
+    {
+      "case_sha256": "c562e85b97b7f6f72424ccffe602ac24ebff089400ef2f0a618013599f4803d7",
+      "id": "cost-held-integer-interaction-6",
+      "output": {
+        "science_required": 159
+      }
+    },
+    {
+      "case_sha256": "0cdad5a6188c11fb6b77930f1321d7454a4a70599938b80fd8370c8798919f13",
+      "id": "cost-held-integer-interaction-7",
+      "output": {
+        "science_required": 158
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "6bed8dd25535d9aac0ee22a4f1279b79271af04be57b63eabeccff6ce8fafc0e",
+  "version": 1
+}

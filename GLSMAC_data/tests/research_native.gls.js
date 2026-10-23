@@ -101,3 +101,34 @@ behavior.scenario('Blind Research rules transfer and legacy records restore the 
 	target.restore_rules_settings(source.rules_settings_snapshot('legacy')); test.assert(read());
 	rejects(() => { alias.set_blind_research(1); });
 });
+
+behavior.scenario('same Game reset clears research and old receipts cannot roll back a new matching session', () => {
+	const f = test.natural_startup_fixture(4, 4, 'flat-arid');
+	const configure = #include('./_natural_startup_mechanics');
+	const start = () => {
+		configure(f); f.initialize_single_player('GAIANS'); f.start_world();
+		const definitions = #include('./_technology_rules_fixture').parse();
+		f.with_write(() => { f.game.technologies.replace(#include('../default/game/technology_rules').plan(definitions, f.game.get_players())); });
+	};
+	const select = () => {
+		f.game.get_settings().global.rules.set_blind_research(false);
+		f.with_write(() => { f.game.select_research_target(0, 1); });
+		f.game.get_settings().global.rules.set_blind_research(true);
+		return f.with_write(() => { return f.game.set_research_priority(0, 1, true); });
+	};
+	start(); const same_game = f.game; const old_receipt = select(); const previous = f.game.get_research_state(0);
+	test.assert(previous.target_id == 1 && previous.priorities == [true, true, false, false]);
+	f.reset_world('flat-arid'); test.assert(f.game == same_game && f.game.get_turn() == 0);
+	for (player of [0, 1, 2, 3, 4, 5, 6]) {
+		const cleared = f.game.get_research_state(player);
+		test.assert(cleared.target_id == (0 - 1) && cleared.priorities == [true, false, false, false]);
+	}
+	start(); const current_receipt = select();
+	test.assert(f.game.get_research_state(0) == previous && old_receipt.turn_id == current_receipt.turn_id && old_receipt.player_id == current_receipt.player_id);
+	test.assert(current_receipt.token > old_receipt.token);
+	rejects(() => { f.with_write(() => { f.game.rollback_research(old_receipt); }); });
+	test.assert(f.game.get_research_state(0) == previous);
+	f.with_write(() => { f.game.rollback_research(current_receipt); });
+	const rolled_back = f.game.get_research_state(0);
+	test.assert(rolled_back.target_id == 1 && rolled_back.priorities == [true, false, false, false]);
+});

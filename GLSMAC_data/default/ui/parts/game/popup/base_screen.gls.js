@@ -204,31 +204,8 @@ return {
 		};
 		this.sections.resources.set(resource_data);
 
-		// Initial allocation shown by the observed Gaian base HUD. Allocation
-		// editing and broader faction/policy rules are not modeled here.
-		const allocation_labs = 0.5;
-		const allocation_psych = 0.0;
-		const specialist_bonus = #include('../../../../game/base_specialist_bonus');
-		const bonuses = specialist_bonus.get(base);
-
 		const total_energy = resource_data.energy.profit - resource_data.energy.loss;
-		const energy_data = {
-			labs: {
-				allocation: allocation_labs,
-				value: #round(#to_float(total_energy) * allocation_labs),
-				bonus: bonuses.labs,
-			},
-			psych: {
-				allocation: allocation_psych,
-				value: #round(#to_float(total_energy) * allocation_psych),
-				bonus: bonuses.psych,
-			},
-		};
-		energy_data.economy = {
-			allocation: 1.0 - energy_data.labs.allocation - energy_data.psych.allocation,
-			value: total_energy - energy_data.labs.value - energy_data.psych.value,
-			bonus: bonuses.economy,
-		};
+		const energy_data = #include('../../../../game/base_energy_allocation').get(base, total_energy);
 		this.sections.energy.set(energy_data);
 
 		this.sections.middle_area.set({

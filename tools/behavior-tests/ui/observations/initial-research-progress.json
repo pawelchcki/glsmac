@@ -1,0 +1,164 @@
+{
+  "captured_at": "2026-10-23T21:10:52.763642+00:00",
+  "observations": [
+    {
+      "case_sha256": "8e4566a9e80f5f623e45efff4a6b38ed547162a1dec4c06d8cf7081f49417cf3",
+      "id": "gaian-mobility-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "trace": [
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 9,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 1
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 10,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 2
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 11,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 3
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 12,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 4
+          },
+          {
+            "accumulated": 1,
+            "city": {
+              "doctors": 1,
+              "minerals": 13,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 1,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 5
+          },
+          {
+            "accumulated": 2,
+            "city": {
+              "doctors": 1,
+              "minerals": 14,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 2,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 6
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "e4c1a686f6652082a8f80715f5f83565231289e37c6294b8e444523710ac3321",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.initial_research_progress.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Synthetic flat arid40x80 map; stock Gaians/Citizen; Blind Research off; first base; Doctrine Mobility chosen; one held Scout; pause at end on/tutorials off; default allocation50/0/50; five real end-turn clicks",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Actual Laboratories report decimals cost/accumulated/per-turn; native target/accumulated/technology ownership and initial city/jobs/stores context; report accumulation cross-checked against native state",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional asset-backed first six turn counters only; no acquisition or general cost/progression algorithm claim"
+  },
+  "repeat": 2,
+  "suite_sha256": "1ef586c6d3f284bd03ebb842fab01514b27827498be269180eb204c951fe012d",
+  "version": 1
+}

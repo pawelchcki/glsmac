@@ -48,19 +48,19 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 29 regression suites around research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
+Hot contains 30 regression suites around research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(271 scenarios/1,909 assertions). Original UI replay includes ten hot references with 43 recorded
+(276 scenarios/1,991 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
-references (711 cases), two economy references and 15 current helper references.
+references (711 cases), two economy references and 22 current helper references.
 These are bounded catalogs, not a full-game
 coverage claim. Stable execution belongs on main; PR checks run hot and consult
 the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 140 native
+and keyboard controls stay hot. The combined partition retains all 141 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -1381,3 +1381,35 @@ filtering/order, keyboard card navigation, Info/Lookup, rendered layout fidelity
 research costs/progress, blind selection probabilities or acquisition effects.
 Common Script.txt is the current presentation policy; common-versus-expansion
 precedence is unverified. Other 17 custom-rule effects remain unimplemented.
+
+
+The separate optional Chromium regression uses real keyboard and pointer input
+through normal setup and both research modes:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin \
+  npm --prefix tools/wasm-tests run test:research
+```
+
+It mounts current production scripts into a compatible application runtime.
+`WASM_SCRIPTS_ROOT` selects a different source checkout; `RESEARCH_ARTIFACTS`
+selects the local screenshot/log directory. Reports bind production and observed
+script snapshots and the runtime with SHA-256 fingerprints. The observations
+read native target/priorities and visible check glyphs. Game actions use browser
+input, including the actual Customize Rules checkbox, Cancel, Standard Rules
+reset, confirmation footer and directed card, plus the blind-priority footer.
+The driver waits for the native slide animation before clicking. This is
+candidate integration coverage, separate from original behavior comparison;
+full-frame rendering fidelity remains unverified. Screenshots, logs and original
+asset bodies are not committed or included in public passing totals.
+
+
+The uncached human research-cost helper has separate public native/WebAssembly
+agreement on 340 independently repeated cases across seven stable references.
+The final64 synthetic inputs were generated with a separate seed after the
+model was frozen, and matched on first replay. GSE cost-query tests cover strict
+object/type/range validation, wide integers, rounding witnesses and no ownership
+mutation. See [the exact cost contract](research-cost-contract.md). The helper
+takes explicit saved-earned/ranking inputs; their world-state mapping and the
+science/acquisition loop remain unimplemented. The locally supplied-asset dense
+and sparse initial science traces remain pending and add no passing UI totals.
