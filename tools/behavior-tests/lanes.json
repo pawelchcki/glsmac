@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "unit-disband-shortcut-controls",
         "unit-recycling-native",
         "unit-recycling-controls",
         "unit-disband-native",
@@ -149,7 +150,8 @@
         "unit-disband-name",
         "unit-recycling",
         "unit-recycling-former-city",
-        "unit-recycling-scout-free"
+        "unit-recycling-scout-free",
+        "unit-disband-shortcut"
       ],
       "stable": [
         "road-network",
