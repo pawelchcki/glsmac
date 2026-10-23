@@ -48,9 +48,9 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 21 regression suites around active unit menus, retirement/recycling,
-keyboard controls, modal input, opening phases, automatic turn completion,
-setup and first-city lifecycle (201 scenarios/1,477
+Hot contains 22 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, opening phases, the interface tour,
+automatic turn completion, setup and first-city lifecycle (207 scenarios/1,556
 assertions). Original UI replay includes nine hot references with 39 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 132 native
+and keyboard controls stay hot. The combined partition retains all 133 native
 suites and 58 UI references (750 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -93,8 +93,18 @@ the playable map and Space into the next turn. Two independently repeated
 original traces establish ten checkpoints, including native turn counters
 0, 0, 1, 1 and 2 for each route. See [the sequence contract](ui/opening-sequence-contract.md).
 This checks the declared phases and controls; full-frame visuals, landing
-animation, the left-hand guided Tour route, generated worlds and opponents
+animation, the guided Tour route, generated worlds and opponents
 remain outside these passing cases.
+
+The optional `test:interface-tour` command separately compares the left-hand
+Tour route. Its two independently repeated original traces cover the Tour/Close
+prompt, first-page pointer End Tour, keyboard Continue/final Close, ordered
+buttons and real MENU/Commlink panel visibility. Eighteen projected checkpoints
+retain native turn one and unchanged human unit state. See [the Tour contract](ui/interface-tour-contract.md).
+Terrain-dependent pages, pointer/keypad geometry and full-frame rendering remain
+outside this contract. The current shared Commlink view proves NO CONTACTS only
+when the actual participant inventory contains the local player alone;
+foreign-participant diplomacy and contact discovery remain unimplemented.
 
 Main CI restores or builds one compatible headless engine and shares its artifact
 with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
