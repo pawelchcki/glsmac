@@ -2,15 +2,20 @@ const behavior = #include('./_behavior');
 const fixture = #include('./_faction_controls_fixture');
 const select_rules = #include('../default/ui/parts/mainmenu/steps/select_rules');
 
-for (index of [0, 1]) {
-	behavior.scenario('rules action ' + #to_string(index) + ' opens faction setup before any start request', () => {
-		const f = fixture.create(); const state = f.state;
-		f.m.sliding = {show: (data) => { state.rules = data; }};
-		f.m.steps = {select_faction: fixture.show};
-		select_rules(f.m); const choose = state.rules.entries[index][1]; choose();
-		test.assert(#sizeof(f.view.live('window')) == 1 && #sizeof(f.view.live('input')) == 0);
-		test.assert(#sizeof(state.attempts) == 0 && f.m.settings.local.player_name == 'Unconfirmed');
-	});
+for (blind of [false, true]) {
+	for (index of [0, 1]) {
+		behavior.scenario('rules action ' + #to_string(index) + ' drafts faction setup with current Blind Research ' + #to_string(blind), () => {
+			const f = fixture.create(); const state = f.state;
+			f.native.game.get_settings().global.rules.set_blind_research(blind);
+			f.m.sliding = {show: (data) => { state.rules = data; }};
+			f.m.steps = {select_faction: fixture.show};
+			select_rules(f.m); const choose = state.rules.entries[index][1]; choose();
+			test.assert(#sizeof(f.view.live('window')) == 1 && #sizeof(f.view.live('input')) == 0);
+			test.assert(#sizeof(state.attempts) == 0 && f.m.settings.local.player_name == 'Unconfirmed');
+			test.assert(f.m.pending_research_blind == (index == 0 ? true : blind));
+			test.assert(f.native.game.get_settings().global.rules.get_blind_research() == blind);
+		});
+	}
 }
 behavior.scenario('actual name input normalizes its value before the start boundary and blocks duplicate requests', () => {
 	const f = fixture.create(); fixture.show(f.m);

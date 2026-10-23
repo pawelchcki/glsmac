@@ -7,7 +7,7 @@ return {
 		data.on_keydown = (e) => {
 			if (e.modifiers != {}) { return false; }
 			if (e.code == 'ESCAPE' || e.code == 'ENTER') {
-				if (this.pending != null || !this.blind) { return true; }
+				if (this.pending != null || (!this.blind && #sizeof(this.rows) > 0)) { return true; }
 				this.finish(true); return true;
 			}
 			return false;
@@ -69,8 +69,6 @@ return {
 				button.on('click', (e) => { this.submit(category, generation); return true; });
 				check.on('click', (e) => { this.submit(category, generation); return true; });
 			}
-			this.ok = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.labels.ok), align: 'bottom center', bottom: 8, left: 200, right: 200, height: 25});
-			this.ok.on('click', (e) => { if (generation == this.generation && this.pending == null && this.is_open()) { this.finish(true); } return true; });
 		} else {
 			const list = this.body.scrollview({left: 0, right: 0, top: 0, bottom: 40, has_hscroll: false, vscroll_class: 'default-scroll-v'});
 			const grid = list.area({left: 0, top: 0, width: 640, height: ((#sizeof(input.choices) + 1) / 2) * 65 + 10});
@@ -83,6 +81,10 @@ return {
 				button.on('click', (e) => { this.submit(ordinal, generation); return true; }); index++;
 			}
 			if (#sizeof(input.choices) == 0) { this.texts :+ this.body.text({class: 'game-popup-text', text: 'No research targets are available.', top: 20, left: 15}); }
+		}
+		if (this.blind || #sizeof(input.choices) == 0) {
+			this.ok = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.labels.ok), align: 'bottom center', bottom: 8, left: 200, right: 200, height: 25});
+			this.ok.on('click', (e) => { if (generation == this.generation && this.pending == null && this.is_open()) { this.finish(true); } return true; });
 		}
 		this.error = this.body.text({class: 'game-popup-text', text: '', align: 'bottom left', bottom: 40, left: 10, font: 'arialnb.ttf:12'});
 		this.refresh();
