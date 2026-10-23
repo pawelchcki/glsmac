@@ -18,10 +18,10 @@ found=previous.previous
 orders=found.previous
 terraform=found.shared.shared
 row_click=FunctionType(previous.row_click.__code__,dict(previous.row_click.__globals__,inputs=inputs))
-# Read native surviving Former/Colony membership after the selected Scout is absent.
+# Read either declared actor's absence; independently guard its companions below.
 _old="not {'scout','colony'} <="
 if _old not in previous._native_source:raise ProtocolError('Original recycling observer layout changed')
-_namespace=dict(previous._namespace);exec(previous._native_source.replace(_old,"not {'former','colony'} <="),_namespace)
+_namespace=dict(previous._namespace);exec(previous._native_source.replace(" or not {'scout','colony'} <= {u['role'] for u in units}", ""),_namespace)
 native=_namespace['native_join']
 
 
@@ -80,6 +80,9 @@ def capture(driver,observer,vision,menu_vision,case,path):
   deadline=time.monotonic()+30;last=None;last_error=None
   while time.monotonic()<deadline:
    image_path=path/f'checkpoint-{index}.png';driver.snapshot(image_path);current=native(driver);city=found.city(driver,origin)
+   actor='former' if case['input']['profile']=='stacked' else 'scout'
+   roles=[u['role'] for u in current['units']]
+   if roles not in [list(contract.ROLES),[r for r in contract.ROLES if r!=actor]]:raise ProtocolError('Recycling removed another actor/companion')
    if current['turn']!=first['turn'] or city_guard(city)!=guarded_city:raise ProtocolError('Recycling changed paused year/city/citizens/non-mineral stores/membership')
    for unit in current['units']:
     original=units[unit['role']]
@@ -104,7 +107,7 @@ def capture(driver,observer,vision,menu_vision,case,path):
   raise ProtocolError('Actual recycling controls did not settle '+str(image_path)+'; '+str(last_error))
  trace=[observe(0)]
  for index,action in enumerate(case['input']['actions'],1):
-  if isinstance(action,str) and action in ('cancel','down','up','confirm'):base.raw_key(driver,dict(cancel='Escape',down='Down',up='Up',confirm='Return')[action])
+  if isinstance(action,str) and action in ('tab','cancel','down','up','confirm'):base.raw_key(driver,dict(tab='Tab',cancel='Escape',down='Down',up='Up',confirm='Return')[action])
   elif action=='menu':transport.click(driver,60,539)
   elif action=='button-ok':
    current_dialog=trace[-1]['dialog']
@@ -145,7 +148,7 @@ def main():
    for name,raw in sorted(files.items()):digest.update(name.encode()+b'\0'+raw)
   write_response(dict(driver.metadata,adapter_sha256=initial,contract=contract.ALGORITHM,source_profiles_sha256=digest.hexdigest(),fixture_transport='guarded-original-created-save',
    observation='Actual ready-city Scout MENU/Action9; independently segmented dialog text/choices/highlight/button; native survivors and actual city mineral delta guarded against prepared baseline',
-   boundaries='One ready conventional Scout in own city and two unchanged off-city companions; two synthetic source profiles; no alternate unit costs, industry, damage, other recycling/overload or AI parity'),rows)
+   boundaries='Declared ready Scout/spread or Former/stacked owned-city contexts with guarded companions; synthetic common DISBAND and conflicting expansion/DISBAND2 declarations; no alternate costs, industry, damage, other recycling/overload or AI parity'),rows)
  finally:
   if driver:driver.close()
   observer.vision.close();vision.vision.close();menu_vision.close()

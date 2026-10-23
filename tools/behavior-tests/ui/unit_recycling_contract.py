@@ -9,9 +9,9 @@ SEQUENCES={
  'recycle-edited':['menu',{'header':4},{'row_source':9},'confirm',{'header':4},{'row_source':9},'up','down','down','button-ok'],
 }
 def validate_input(data):
- if (not isinstance(data,dict) or set(data)!={'profile','initial_base','text_profile','actions'} or data['profile']!='spread'
+ if (not isinstance(data,dict) or set(data)!={'profile','initial_base','text_profile','actions'} or data['profile'] not in ('spread','stacked')
   or not isinstance(data['initial_base'],dict) or data['initial_base']!=INITIAL or any(type(data['initial_base'][key]) is not int for key in INITIAL if key!='name')
-  or data['text_profile'] not in PROFILES or data['actions']!=SEQUENCES[data['text_profile']]
+  or data['text_profile'] not in PROFILES or (data['profile']=='stacked' and data['text_profile']!='synthetic') or data['actions']!=((['tab'] if data['profile']=='stacked' else [])+SEQUENCES[data['text_profile']])
   or any(isinstance(action,dict) and any(type(value) is not int for value in action.values()) for action in data['actions'])):raise ProtocolError('Unsupported ready Scout recycling input')
 def validate_output(output,actions):
  if not isinstance(output,dict) or set(output)!={'trace'} or not isinstance(output['trace'],list) or len(output['trace'])!=len(actions)+1:raise ProtocolError('Incomplete recycling trace')
@@ -27,7 +27,7 @@ def validate_output(output,actions):
    if (not isinstance(unit,dict) or set(unit)!={'role','order_code','movement_spent'} or unit['role'] not in ROLES or type(unit['order_code']) is not int or not 0<=unit['order_code']<=2
     or type(unit['movement_spent']) is not int or not 0<=unit['movement_spent']<=3):raise ProtocolError('Invalid recycling unit state')
    seen.append(unit['role'])
-  if seen not in [list(ROLES),['former','colony']]:raise ProtocolError('Wrong recycling survivor membership/order')
+  if seen not in [list(ROLES),['former','colony'],['scout','colony']]:raise ProtocolError('Wrong recycling survivor membership/order')
   dialog=state['dialog']
   if dialog is not None and (not isinstance(dialog,dict) or set(dialog)!={'caption','body','choices','selected','buttons'} or not text(dialog['caption']) or not text(dialog['body'])
    or not isinstance(dialog['choices'],list) or len(dialog['choices']) not in (2,3) or not all(text(x) for x in dialog['choices'])

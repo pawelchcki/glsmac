@@ -144,7 +144,9 @@
         "colony-found-menu",
         "colony-adjacent-warning",
         "unit-disband",
-        "unit-disband-name"
+        "unit-disband-name",
+        "unit-recycling",
+        "unit-recycling-former-city"
       ],
       "stable": [
         "road-network",

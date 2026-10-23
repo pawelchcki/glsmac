@@ -23,4 +23,7 @@ def suite():
   data=dict(profile='spread',initial_base=deepcopy(INITIAL),text_profile=profile,actions=deepcopy(SEQUENCES[profile]));validate_input(data)
   cases.append(dict(id='unit-recycling-'+profile,algorithm=ALGORITHM,input=data))
  return dict(version=1,name='Ready city Scout disband and recycling',description='Actual Action9, two-choice source declarations, cancellation/default and ordinary confirmation; native city mineral delta measured from prepared baseline.',cases=cases)
+def former_city_suite():
+ data=dict(profile='stacked',initial_base=deepcopy(INITIAL),text_profile='synthetic',actions=['tab']+deepcopy(SEQUENCES['synthetic']));validate_input(data)
+ return dict(version=1,name='Ready Former city disband context',description='Actual Former inside own city, same synthetic source declarations and cancel/reopen/confirm; native mineral delta measured from prepared baseline.',cases=[dict(id='unit-recycling-former-city',algorithm=ALGORITHM,input=data)])
 if __name__=='__main__':print(json.dumps(suite(),indent=2))

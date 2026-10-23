@@ -270,6 +270,16 @@
       "id": "unit-disband-name",
       "cases": "cases/unit-disband-name.json",
       "observations": "observations/smacx-gog-2.0-unit-disband-name.json"
+    },
+    {
+      "id": "unit-recycling",
+      "cases": "cases/unit-recycling.json",
+      "observations": "observations/smacx-gog-2.0-unit-recycling.json"
+    },
+    {
+      "id": "unit-recycling-former-city",
+      "cases": "cases/unit-recycling-former-city.json",
+      "observations": "observations/smacx-gog-2.0-unit-recycling-former-city.json"
     }
   ]
 }

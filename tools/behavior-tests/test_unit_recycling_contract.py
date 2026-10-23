@@ -3,6 +3,8 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import unittest
+from types import SimpleNamespace
+from ui import run
 import compare
 from protocol import ProtocolError,validate_cases
 from ui import unit_recycling_contract as contract
@@ -58,4 +60,20 @@ class UnitRecyclingContractTests(unittest.TestCase):
   with self.assertRaises(ProtocolError):compare.validate_observations(record,changed)
   incomplete=deepcopy(record);incomplete['observations'].pop()
   with self.assertRaises(ProtocolError):compare.validate_observations(incomplete,suite)
+ def test_former_city_supplement_has_independent_repeated_evidence(self):
+  suite=inputs.former_city_suite();self.assertEqual(json.loads((DIRECTORY/'cases/unit-recycling-former-city.json').read_text()),suite)
+  self.assertEqual(len(validate_cases(suite)),1)
+  self.assertEqual(suite['cases'][0]['input']['profile'],'stacked');self.assertEqual(suite['cases'][0]['input']['actions'][0],'tab')
+  contract.validate_input(suite['cases'][0]['input'])
+  record=compare.read_json(DIRECTORY/'observations/smacx-gog-2.0-unit-recycling-former-city.json');outputs=compare.validate_observations(record,suite)
+  self.assertGreaterEqual(record['repeat'],2)
+  for case in suite['cases']:contract.validate_output(outputs[case['id']],case['input']['actions'])
+  self.assertEqual(len(inputs.suite()['cases']),2)
+
+ def test_candidate_dispatch_needs_no_original_assets_or_renderer(self):
+  args=SimpleNamespace(browser=False,record=False);command=run.unit_recycling_command(args)
+  self.assertIn('unit_recycling_headless.py',command);self.assertNotIn('--assets',command)
+  args.browser=True
+  with self.assertRaises(ProtocolError):run.unit_recycling_command(args)
+
 if __name__=='__main__':unittest.main()
