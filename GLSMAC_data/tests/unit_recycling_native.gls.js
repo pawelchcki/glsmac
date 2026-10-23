@@ -30,15 +30,23 @@ behavior.scenario('actual native rule and map pricing changes feed recycling wit
   undo(f, receipt); test.assert(f.snapshot() == before);
  }
 });
-behavior.scenario('missing conflicting or oversized native prices reject before credit or removal', () => {
+behavior.scenario('missing recipes allow retirement while conflicting and oversized prices still reject', () => {
  for (kind of ['missing','conflict','oversize']) {
   const f = fixture(kind == 'oversize' ? 1000001 : 30);
   f.with_write(() => {
    if (kind == 'missing') { f.owner.remove_production_choice('POD'); }
    else if (kind == 'conflict') { f.owner.add_production_choice('ALIAS', {type:'unit',id:'ColonyPod',cost:31,cost_rows:4,population_cost:1}); }
   });
-  const before = f.snapshot(); test.assert(#is_defined(f.game.validate_unit_disband(f.recycling_id,f.owner.id,f.game.get_turn())));
-  reject(() => { remove(f); }); test.assert(f.snapshot() == before);
+  const before = f.snapshot();
+  if (kind == 'missing') {
+   const previous = f.base.get_production();
+   test.assert(!#is_defined(f.game.validate_unit_disband(f.recycling_id,f.owner.id,f.game.get_turn())));
+   const receipt = remove(f); test.assert(!f.game.um.has_unit(f.recycling_id) && f.base.get_production() == previous);
+   undo(f,receipt); test.assert(f.snapshot() == before);
+  } else {
+   test.assert(#is_defined(f.game.validate_unit_disband(f.recycling_id,f.owner.id,f.game.get_turn())));
+   reject(() => { remove(f); }); test.assert(f.snapshot() == before);
+  }
  }
 });
 behavior.scenario('mineral store safety bound rejects overflow and permits the exact bound', () => {
@@ -98,4 +106,58 @@ behavior.scenario('rollback notifies real base listeners after the forward credi
  undo(f,receipt); f.frontend_packets(); f.update_count();
  test.assert(f.base.get_production().minerals == previous, 'Native credit must be undone');
  test.assert(notifications == [{base_id:city_id,minerals:previous + price(f) / 2},{base_id:city_id,minerals:previous}], 'Rollback must deliver restored minerals through update_base');
+});
+
+// Only transport delivery is supplied: shipped validation/apply/rollback and
+// real native acceptance/response queues own the transaction lifecycle.
+const shipped_disband = #include('../default/game/event/unit_disband');
+const event_fixture = () => {
+ const f = fixture(30); f.receipt = null; f.results = [];
+ f.game.register_event('unit_disband',{validate:shipped_disband.validate,apply:(e)=>{ f.receipt = shipped_disband.apply(e); return f.receipt; },rollback:shipped_disband.rollback});
+ f.game.on('event_result',(e)=>{ f.results :+ e; });
+ f.data = {unit_id:f.recycling_id,turn_id:f.game.get_turn(),request_token:1}; return f;
+};
+behavior.scenario('accepted local and remote master commands release only their real native receipt', () => {
+ for (remote of [false,true]) {
+  const f = event_fixture(); const previous = f.base.get_production().minerals + 0;
+  if (remote) { f.remote_event('unit_disband',f.data); } else { f.game.event('unit_disband',f.data); }
+  f.process_events();
+  test.assert(!f.game.um.has_unit(f.recycling_id) && f.base.get_production().minerals == previous + price(f) / 2);
+  test.assert(f.disband_journal_count() == 0 && #sizeof(f.results) == (remote ? 0 : 1));
+  const removed = f.snapshot(); reject(()=>{ undo(f,f.receipt); }); test.assert(f.snapshot() == removed);
+ }
+});
+behavior.scenario('server command accepted by a client releases its applied native receipt', () => {
+ const f = event_fixture(); f.server_event('unit_disband',f.data); f.process_events();
+ test.assert(!f.game.um.has_unit(f.recycling_id) && f.disband_journal_count() == 0 && #sizeof(f.results) == 0);
+ const removed = f.snapshot(); reject(()=>{ undo(f,f.receipt); }); test.assert(f.snapshot() == removed);
+});
+for (accepted of [false,true]) {
+ behavior.scenario('optimistic native journal remains pending then response accepted=' + #to_string(accepted) + ' releases or undoes', () => {
+  const f = event_fixture(); const before = f.snapshot();
+  const id = f.stage_response_event('unit_disband',f.data,true);
+  test.assert(!f.game.um.has_unit(f.recycling_id) && f.disband_journal_count() == 1 && #sizeof(f.results) == 0);
+  f.resolve_response_event(id,accepted);
+  test.assert(f.disband_journal_count() == 0 && #sizeof(f.results) == 1 && f.results[0].success == accepted);
+  test.assert(accepted ? !f.game.um.has_unit(f.recycling_id) : f.snapshot() == before);
+  const resolved = f.snapshot(); reject(()=>{ undo(f,f.receipt); }); test.assert(f.snapshot() == resolved);
+ });
+ behavior.scenario('deferred response accepted=' + #to_string(accepted) + ' applies only on acceptance without retaining a journal', () => {
+  const f = event_fixture(); const before = f.snapshot(); const id = f.stage_response_event('unit_disband',f.data,false);
+  test.assert(f.snapshot() == before && f.disband_journal_count() == 0 && #sizeof(f.results) == 0);
+  f.resolve_response_event(id,accepted);
+  test.assert(f.disband_journal_count() == 0 && #sizeof(f.results) == 1 && f.results[0].success == accepted);
+  test.assert(accepted ? !f.game.um.has_unit(f.recycling_id) : f.snapshot() == before);
+  if (accepted) { const removed = f.snapshot(); reject(()=>{ undo(f,f.receipt); }); test.assert(f.snapshot() == removed); }
+ });
+}
+behavior.scenario('explicit native receipts retain undo and acceptance leaves unrelated journals intact', () => {
+ const f = event_fixture(); const before = f.snapshot(); const receipt = remove(f);
+ test.assert(f.disband_journal_count() == 1); undo(f,receipt);
+ test.assert(f.disband_journal_count() == 0 && f.snapshot() == before);
+ const free_id = f.add_colony(0,2); let direct = null;
+ f.with_write(()=>{ direct = f.game.disband_unit(free_id,f.owner.id,f.game.get_turn()); });
+ f.game.event('unit_disband',f.data); f.process_events();
+ test.assert(f.disband_journal_count() == 1 && !f.game.um.has_unit(free_id) && !f.game.um.has_unit(f.recycling_id));
+ reject(()=>{ undo(f,f.receipt); }); test.assert(f.disband_journal_count() == 1);
 });

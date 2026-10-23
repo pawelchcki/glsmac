@@ -9,6 +9,7 @@
 #include "unit/Unit.h"
 #include "unit/UnitManager.h"
 #include "unit/Def.h"
+#include "event/Event.h"
 #include "gse/value/Int.h"
 #include "gse/value/Object.h"
 #include <cmath>
@@ -40,8 +41,8 @@ std::string Game::ValidateUnitDisband( const int64_t unit_id, const int64_t call
 		if ( !m_bm || m_bm->GetBase( base->m_id ) != base || base->GetGame() != this || base->GetTile() != tile ) { return "Recycling base identity is stale"; }
 		try {
 			const auto cost = unit->m_owner->GetPlayer()->GetUnitMineralCost( unit->m_def->m_id );
-			if ( cost < 0 || cost > 1000000 ) { return "Recycling requires an unambiguous supported native unit price"; }
-			if ( base->m_production.minerals < 0 || base->m_production.minerals > 1000000 - cost / 2 ) { return "Recycling mineral credit exceeds the supported store bound"; }
+			if ( cost && *cost > 1000000 ) { return "Recycling requires a supported native unit price"; }
+			if ( base->m_production.minerals < 0 || base->m_production.minerals > 1000000 - cost.value_or( 0 ) / 2 ) { return "Recycling mineral credit exceeds the supported store bound"; }
 		} catch ( const std::exception& ) { return "Recycling native mineral price is invalid"; }
 	}
 	if ( m_next_disbanding_id == std::numeric_limits< int64_t >::max() ) { return "Disband transaction identities exhausted"; }
@@ -53,6 +54,9 @@ gse::Value* Game::DisbandUnit( GSE_CALLABLE, const int64_t unit_id, const int64_
 	const auto error = ValidateUnitDisband( unit_id, caller, turn ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
 	auto* unit = m_um->GetUnit( unit_id ); auto* tile = unit->GetTile();
 	auto* base = GetUnitDisbandBase( unit_id ) ? tile->base : nullptr;
+	// Missing recipes must not disable ordinary retirement. No credit is
+	// inferred for such units; malformed/conflicting prices still reject.
+	const auto credit = base ? unit->m_owner->GetPlayer()->GetUnitMineralCost( unit->m_def->m_id ).value_or( 0 ) / 2 : 0;
 	DisbandingRecord record;
 	record.unit_id = unit_id; record.owner = caller; record.turn = turn; record.x = tile->coord.x; record.y = tile->coord.y;
 	record.def = unit->m_def->m_id; record.unit_snapshot = unit::Unit::Serialize( unit ).ToString(); record.expected_def = unit::Def::Serialize( unit->m_def ).ToString();
@@ -71,7 +75,7 @@ gse::Value* Game::DisbandUnit( GSE_CALLABLE, const int64_t unit_id, const int64_
 			const gse::Wrappable::CustomMutationGuard custom_guard;
 			// Half of the actual live production price is the application rule.
 			// Recorded evidence is limited to the two declared starting recipes.
-			if ( base ) { base->m_production.minerals += unit->m_owner->GetPlayer()->GetUnitMineralCost( unit->m_def->m_id ) / 2; base->ProductionChanged(); }
+			if ( base && credit ) { base->m_production.minerals += credit; base->ProductionChanged(); }
 			detached.reset( m_um->DetachUnit( GSE_CALL, unit_id ) );
 		}
 		if ( base ) { record.expected_base = base::Base::Serialize( base ).ToString(); }
@@ -113,6 +117,26 @@ void Game::RollbackUnitDisband( GSE_CALLABLE, const int64_t token, const int64_t
 	m_um->m_units.emplace( restored->m_id, restored.get() ); m_um->QueueUnitUpdate( restored.get(), unit::UnitManager::UUO_SPAWN ); restored.release();
 	if ( base ) { base->m_production = record.previous_production; m_bm->RefreshBase( base ); base->TriggerUpdate(); }
 	m_random->SetState( util::random::Random::GetStateFromString( record.previous_rng ) );
+	m_disbanding_records.erase( found );
+}
+
+void Game::FinalizeUnitDisbandEvent( const event::Event* event, gse::Value* applied ) {
+	// Internal acceptance only: explicit native calls retain their guarded undo
+	// receipts, while pending optimistic commands remain rollback-capable.
+	if ( event->GetEventName() != "unit_disband" || !applied || applied->type != gse::VT_OBJECT ) { return; }
+	const auto& receipt = static_cast< gse::value::Object* >( applied )->value;
+	const auto integer = []( const auto& values, const char* name ) -> std::optional< int64_t > {
+		const auto it = values.find( name );
+		if ( it == values.end() || !it->second || it->second->type != gse::VT_INT ) { return std::nullopt; }
+		return static_cast< gse::value::Int* >( it->second )->value;
+	};
+	const auto token = integer( receipt, "transaction_id" ); if ( !token ) { return; }
+	const auto found = m_disbanding_records.find( *token ); if ( found == m_disbanding_records.end() ) { return; }
+	const auto& record = found->second;
+	if ( integer( receipt, "unit_id" ) != record.unit_id || integer( receipt, "owner" ) != record.owner ||
+		integer( receipt, "turn_id" ) != record.turn || integer( receipt, "base_id" ) != record.base_id ||
+		event->GetCaller() != record.owner || integer( event->GetScalarData(), "unit_id" ) != record.unit_id ||
+		integer( event->GetScalarData(), "turn_id" ) != record.turn ) { return; }
 	m_disbanding_records.erase( found );
 }
 
