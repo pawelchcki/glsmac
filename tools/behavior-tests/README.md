@@ -111,7 +111,7 @@ repair PRs verify the four partitions; ordinary PRs retain their hot lane.
 
 `npm --prefix tools/wasm-tests run test:gse` retains the complete serial run.
 Use `node tools/wasm-tests/gse.test.mjs --shard 1/4 --report build/gse-shards/gse-1.json`
-for one partition and `gse-shards.mjs --reports build/gse-shards --count 4 --output build/gse-coverage/summary.json`
+for one partition and `node tools/wasm-tests/gse-shards.mjs --reports build/gse-shards --count 4 --output build/gse-coverage/summary.json`
 for strict aggregation. A subset is not a passing full-suite result.
 
 `ui/run.py --lane stable --shard 1/4 --jobs 2 --report build/ui-shards/ui-1.json`
