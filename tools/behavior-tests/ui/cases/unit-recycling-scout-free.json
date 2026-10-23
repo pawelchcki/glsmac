@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "name": "Ready Scout free-tile disband context",
+  "description": "Ready Scout shares the free southeast tile with Former after actual preparation movement and another turn; same source declarations and cancel/reopen/ordinary confirm.",
+  "cases": [
+    {
+      "id": "unit-recycling-scout-free",
+      "algorithm": "ui.unit_recycling.v1",
+      "input": {
+        "profile": "scout-free",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "cancel",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "down",
+          "confirm"
+        ]
+      }
+    }
+  ]
+}

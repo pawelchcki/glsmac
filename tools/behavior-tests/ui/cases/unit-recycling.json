@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "name": "Ready city Scout disband and recycling",
+  "description": "Actual Action9, two-choice source declarations, cancellation/default and ordinary confirmation; native city mineral delta measured from prepared baseline.",
+  "cases": [
+    {
+      "id": "unit-recycling-synthetic",
+      "algorithm": "ui.unit_recycling.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "cancel",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "down",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "unit-recycling-recycle-edited",
+      "algorithm": "ui.unit_recycling.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "recycle-edited",
+        "actions": [
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "confirm",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "up",
+          "down",
+          "down",
+          "button-ok"
+        ]
+      }
+    }
+  ]
+}

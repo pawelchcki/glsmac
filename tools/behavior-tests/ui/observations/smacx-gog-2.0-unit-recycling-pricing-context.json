@@ -1,0 +1,34 @@
+{
+  "captured_at": "2026-10-23T01:01:16.860527+00:00",
+  "observations": [
+    {
+      "case_sha256": "f52e2bc0235caffb75e067abdb89f8e3469aa3bb9f3fa0b9cb22a497b8ca8fba",
+      "id": "unit-recycling-pricing-context",
+      "output": {
+        "difficulty": 0,
+        "height": 80,
+        "industry": 0,
+        "map_size_kind": 0,
+        "mineral_rule_factor": 10,
+        "width": 40
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "7a7c7e561b9528fe338362c42a552d5ff4c7d6ec101a50c5e22ca43800015bfb",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Preparation audit only, no refund algorithm or native map-file provenance equivalence claim",
+    "contract": "fixture.unit_recycling_pricing.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Read-only initialized size kind, dimensions, difficulty, human INDUSTRY and mineral-rule scalar before disband; actual Save/Load UI and native city/unit fixture guarded"
+  },
+  "repeat": 2,
+  "suite_sha256": "9cb39ec932629775e76c57668c48755075ad0da7b3e731a4b6d06bfef2e24c71",
+  "version": 1
+}

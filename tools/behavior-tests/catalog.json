@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"unit-recycling-native","script":"GLSMAC_data/tests/unit_recycling_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"unit-recycling-controls","script":"GLSMAC_data/tests/unit_recycling_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-native","script":"GLSMAC_data/tests/unit_disband_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-authority","script":"GLSMAC_data/tests/unit_disband_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-controls","script":"GLSMAC_data/tests/unit_disband_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
