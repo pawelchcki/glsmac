@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"interface-tour-controls","script":"GLSMAC_data/tests/interface_tour_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"automatic-end-turn","script":"GLSMAC_data/tests/automatic_end_turn.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"opening-native","script":"GLSMAC_data/tests/opening_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"opening-dialog","script":"GLSMAC_data/tests/opening_dialog.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},

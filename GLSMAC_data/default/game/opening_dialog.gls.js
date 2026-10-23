@@ -1,28 +1,31 @@
 // Bounded installed opening text. This consumer does not implement general SMAC
 // grammar, inflection or rich-text styling; unknown placeholder forms reject.
+const plain = (text) => {
+	const separators = #split(text, '|');
+	if (#sizeof(separators) != 1 || separators[0] != text) { throw Error('Unsupported opening separator'); }
+	// A sentinel retains trailing empty text in GSE's split. Emphasis can span
+	// multiple source words; remove it before substituting any user identity.
+	const sections = #split(text + '|', '{');
+	let result = sections[0];
+	const leading = #split(result, '}');
+	if (#sizeof(leading) != 1 || leading[0] != result) { throw Error('Unbalanced opening emphasis'); }
+	for (let index = 1; index < #sizeof(sections); index++) {
+		const pair = #split(sections[index], '}');
+		if (#sizeof(pair) != 2 || pair[0] == '') { throw Error('Unbalanced opening emphasis'); }
+		result += pair[0] + pair[1];
+	}
+	const output = #split(result, '|');
+	if (#sizeof(output) != 1) { throw Error('Unsupported opening emphasis'); }
+	return output[0];
+};
 const format = (text, fields) => {
 	let result = ''; let first = true;
-	for (word of #split(text, ' ')) {
-		let value = word;
-		let substituted = false;
+	for (word of #split(plain(text), ' ')) {
+		let value = word; let substituted = false;
 		for (key in fields) { if (word == key) { value = fields[key] + ''; substituted = true; } }
 		if (!substituted && word != '') {
 			const dollar = #split(word, '$');
 			if (#sizeof(dollar) != 1 || dollar[0] != word) { throw Error('Unsupported opening placeholder: ' + word); }
-			const separator = #split(word, '|');
-			if (#sizeof(separator) != 1 || separator[0] != word) { throw Error('Unsupported opening separator'); }
-			// Sentinel preserves an empty suffix: GSE split drops trailing empties.
-			const begin = #split(word + '|', '{');
-			if (#sizeof(begin) == 2) {
-				const end = #split(begin[1], '}');
-				if (#sizeof(end) != 2 || end[0] == '') { throw Error('Unbalanced opening emphasis'); }
-				const tail = #split(end[1], '|');
-				if (#sizeof(tail) != 1) { throw Error('Unsupported opening emphasis'); }
-				value = begin[0] + end[0] + tail[0];
-			} else {
-				const end = #split(word, '}');
-				if (#sizeof(begin) != 1 || #sizeof(end) != 1 || end[0] != word) { throw Error('Unsupported opening emphasis'); }
-			}
 		}
 		if (!first) { result += ' '; } first = false; result += value;
 	}
@@ -67,7 +70,7 @@ return {
 		if (planetfall.caption == null || name.caption == null || tour.button == null || #sizeof(name.paragraphs) != 1) { throw Error('Incomplete installed opening definitions'); }
 		const labels = [];
 		for (record of glsmac.load_smac_text('labels.txt', 'dialogs').dialog('LABELS').records) { if (record.kind == 'text') { labels :+ record.text; } }
-		if (#sizeof(labels) < 104) { throw Error('Missing opening confirmation labels'); }
-		return {planetfall: planetfall, name: name, tour: tour, ok: labels[102] + ''};
+		if (#sizeof(labels) < 238) { throw Error('Missing opening confirmation labels'); }
+		return {planetfall: planetfall, name: name, tour: tour, ok: labels[102] + '', close: labels[220] + ''};
 	},
 };

@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "interface-tour-controls",
         "automatic-end-turn",
         "opening-native",
         "opening-dialog",
