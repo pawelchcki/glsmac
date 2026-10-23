@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 30 regression suites around research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
+Hot contains 31 regression suites around directed science and Laboratories, research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(273 scenarios/1,971 assertions). Original UI replay includes ten hot references with 43 recorded
+(291 scenarios/2,080 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 22 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 141 native
+and keyboard controls stay hot. The combined partition retains all 142 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -779,8 +779,10 @@ npm --prefix tools/wasm-tests run test:technology
 Local installed-file checks load the complete table and all fourteen factions'
 concrete TECH declarations without committing asset bodies. These are source
 integration checks, separate from the unchanged 632 recorded native/WASM helper
-cases. Research choice UI, costs/progress, acquisition effects, flag effects and
-complete save/load remain unimplemented or unverified.
+cases. The initial research controls and bounded human cost helper described
+below extend this foundation. Acquisition effects, flag effects, complete
+save/load and broader original research behavior remain unimplemented or
+unverified.
 
 ## Fixed gameplay and UX regressions
 
@@ -1395,9 +1397,14 @@ It mounts current production scripts into a compatible application runtime.
 `WASM_SCRIPTS_ROOT` selects a different source checkout; `RESEARCH_ARTIFACTS`
 selects the local screenshot/log directory. Reports bind production and observed
 script snapshots and the runtime with SHA-256 fingerprints. The observations
-read native target/priorities and visible check glyphs. Game actions use browser
+read native target/priorities, science and visible report/check text. Game actions use browser
 input, including the actual Customize Rules checkbox, Cancel, Standard Rules
 reset, confirmation footer and directed card, plus the blind-priority footer.
+F2 opens the real Laboratories popup; pointer OK, Escape, Enter and reopening
+exercise its lifecycle with and without a selected target. Five actual directed
+end-turn advances (with real confirmation controls) check automatic canonical
+income events and the corresponding visible ledger balance. Native input now
+translates F1 through F12; the browser check guards actual F2 delivery.
 The driver waits for the native slide animation before clicking. This is
 candidate integration coverage, separate from original behavior comparison;
 full-frame rendering fidelity remains unverified. Screenshots, logs and original
@@ -1410,6 +1417,17 @@ The final64 synthetic inputs were generated with a separate seed after the
 model was frozen, and matched on first replay. GSE cost-query tests cover strict
 object/type/range validation, wide integers, rounding witnesses and no ownership
 mutation. See [the exact cost contract](research-cost-contract.md). The helper
-takes explicit saved-earned/ranking inputs; their world-state mapping and the
-science/acquisition loop remain unimplemented. The locally supplied-asset dense
+takes explicit saved-earned/ranking inputs; their world-state mapping, cost
+cache and acquisition remain unimplemented. The locally supplied-asset dense
 and sparse initial science traces remain pending and add no passing UI totals.
+
+Directed science now has a native ledger, host-planned per-turn city income,
+exact rollback, duplicate/overflow protection and versioned transfer with legacy
+defaults. F2/HQ Laboratories exposes the ledger and the shared city income
+estimate without gameplay writes. Repeated Gaian openings across all six stock
+difficulties establish different early credit timing; a universal native-turn-five
+rule was rejected by the independent Talent record. The broader full-state
+comparison remains rejected, with its differing costs and rosters preserved.
+The narrower timing projection was recorded independently. See the
+[implementation scope and exclusions](research-science-implementation.md).
+Neither this ledger nor selecting a target grants technology ownership.

@@ -11,6 +11,12 @@ return (menu, p) => {
 						p.modules.research.open();
 					};
 				}
+				if (#is_defined(entry.source_index) && entry.source_index == 5) {
+					entry.open = () => {
+						if (!state.alive || !root.is_open || !#is_defined(menu.menus.left_menu_hq) || !menu.menus.left_menu_hq.is_open || !#is_defined(p.modules) || !#is_defined(p.modules.research)) { return; }
+						p.modules.research.open_laboratories();
+					};
+				}
 			}
 		}
 	}

@@ -1,0 +1,543 @@
+{
+  "captured_at": "2026-10-23T22:43:27.037589+00:00",
+  "observations": [
+    {
+      "case_sha256": "4f6cec740d66dc2bd73099e1e611401b34ce60a1d447de3d6b699e1adb3b1cba",
+      "id": "gaians-citizen-zero-labs-live-context",
+      "output": {
+        "initial_allocation": {
+          "economy": 100,
+          "labs": 0,
+          "psych": 0
+        },
+        "initial_labs_income": 0,
+        "trace": [
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 9,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 1
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 1,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 10,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 2
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 2,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 11,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 3
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 3,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 12,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 4
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 4,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 13,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 5
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 5,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          },
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 14,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "cost_context": {
+              "auxiliary_adjustment": 0,
+              "cached_cost": -1,
+              "difficulty": 0,
+              "discovery_rate_percent": 100,
+              "faction_cost_percent": 100,
+              "faction_counters": [
+                {
+                  "faction_id": 1,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 2,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 3,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 4,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 5,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 6,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                },
+                {
+                  "faction_id": 7,
+                  "research_ranking": 0,
+                  "saved_earned_techs": 0
+                }
+              ],
+              "faction_id": 1,
+              "global_difficulty": 0,
+              "human": true,
+              "map_area_sqrt": 40,
+              "research_ranking": 0,
+              "research_rating": 0,
+              "saved_earned_techs": 0,
+              "stagnation": false,
+              "target_id": 5,
+              "turn": 6
+            },
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 0
+            },
+            "turn": 6,
+            "units": [
+              {
+                "damage": 0,
+                "movement_spent": 0,
+                "order_code": 2,
+                "prototype_id": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "eb5aa767381f06659a232e1d376f9da5a54f178bb25f39264fcc570946a7e915",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.zero_labs_live_context.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Stock Gaians/Citizen flat-arid40x80 Blind-off target5; actual SE Labs slider decreased five times and confirmed; actual base allocation and Labs total read; six paused native counters; channels declined and ready units held",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Actual Labs report values and native science state, plus read-only live selected/rival cost input context from original process; no owned-ID-derived counters",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional asset-backed zero-income timing/control and live cost-field bridge; no credit algorithm, general cost inference or acquisition claim"
+  },
+  "repeat": 2,
+  "suite_sha256": "75e5fabd676a08a502a6ff915778315ff4c0cec7f5564372f2a5963c81af0f25",
+  "version": 1
+}

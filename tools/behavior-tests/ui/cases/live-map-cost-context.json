@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "name": "live-map-cost-context",
+  "description": "Optional one-checkpoint actual original Labs/live scalar/counter context; physical maps and actual preset prelude controlled independently; no conversion inferred.",
+  "cases": [
+    {
+      "id": "gaians-citizen-map-40x80-load-default",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 40,
+        "map_height": 80,
+        "setup_preset": "load-default",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-map-68x34-load-default",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 68,
+        "map_height": 34,
+        "setup_preset": "load-default",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-map-80x160-load-default",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 80,
+        "map_height": 160,
+        "setup_preset": "load-default",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-map-42x81-load-default",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 42,
+        "map_height": 81,
+        "setup_preset": "load-default",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-map-40x80-tiny",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 40,
+        "map_height": 80,
+        "setup_preset": "tiny",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-map-40x80-standard",
+      "algorithm": "game.live_map_cost_context.v1",
+      "input": {
+        "map_width": 40,
+        "map_height": 80,
+        "setup_preset": "standard",
+        "target_id": 5
+      }
+    }
+  ]
+}

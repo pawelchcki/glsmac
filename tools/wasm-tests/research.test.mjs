@@ -42,9 +42,16 @@ function observedScripts() {
   observe('main.gls.js', 'glsmac.run();', `
 glsmac.on('configure_game', (e) => {
  const game = e.game;
+ game.on('event_result', (e) => {
+  if (e.name == 'credit_research_income' && e.data.player_id == game.get_player().id) {
+   #print('BRS_CREDIT|' + #to_string(e.data.turn_id) + '|' + #to_string(e.data.income) + '|' + #to_string(e.success));
+  }
+ });
  game.on('start_ui', (e) => {
   const opening = #include('ui/parts/game/opening');
   const research = #include('ui/parts/game/popup/research');
+  const labs = #include('ui/parts/game/popup/laboratories');
+  const objects = #include('ui/parts/game/bottom_bar/objects_list');
   glsmac.ui.root.timer(100, () => {
    if (opening.visible_phase == null) { return true; }
    let dx = 0; let dy = 0;
@@ -55,6 +62,8 @@ glsmac.on('configure_game', (e) => {
    let bits = ''; for (enabled of state.priorities) { bits += enabled ? '1' : '0'; }
    let checks = ''; let ids = ''; let top = 0;
    const popup = research.p.modules.popup;
+   const modal = popup.popup;
+   #print('BRS_MODAL|' + (modal == null ? 'none' : modal.id) + '|' + #to_string(popup.sliding_timer == null && !popup.popup_hiding) + '|' + #to_string(modal == null ? 0 : modal.el.top) + '|' + #to_string(game.get_turn()) + '|' + objects.turn_status);
    const shown = popup.popup == research.data;
    const settled = shown && !popup.popup_hiding && popup.sliding_timer == null;
    if (shown) {
@@ -65,6 +74,11 @@ glsmac.on('configure_game', (e) => {
     }
    }
    #print('BRS_STATE|' + #to_string(shown) + '|' + #to_string(settled) + '|' + #to_string(state.target_id) + '|' + bits + '|' + checks + '|' + ids + '|' + #to_string(top) + '|' + #to_string(game.get_turn()));
+   const labs_shown = popup.popup != null && popup.popup.id == 'laboratories';
+   const labs_settled = labs_shown && !popup.popup_hiding && popup.sliding_timer == null;
+   if (#is_defined(labs.accumulated)) {
+    #print('BRS_LABS|' + #to_string(labs_shown) + '|' + #to_string(labs_settled) + '|' + #to_string(popup.popups.laboratories.el.top) + '|' + #to_string(game.get_research_science(game.get_player().id).accumulated) + '|' + labs.accumulated.text + '|' + labs.per_turn.text + '|' + labs.target.text);
+   }
    return true;
   });
  });
@@ -74,7 +88,7 @@ glsmac.run();`);
 }
 
 test('real setup, Shift+R, pointer research commands and persistent native state', {
-  skip: !assets && 'Set SMAC_ASSETS_DIR to the local game installation', timeout: 300000,
+  skip: !assets && 'Set SMAC_ASSETS_DIR to the local game installation', timeout: 600000,
 }, async t => {
   mkdirSync(artifacts, {recursive: true});
   const server = spawn('python3', ['tools/serve-wasm.py', build, '--port', '0', '--assets', assets], {cwd: root});
@@ -115,6 +129,14 @@ test('real setup, Shift+R, pointer research commands and persistent native state
           ids: match[6] ? match[6].split(',').map(Number) : [], top: Number(match[7]), turn: Number(match[8])};
       };
       const opening = text => [...text.matchAll(/BRS_OPENING\|([^|\r\n]+)\|(\d+)\|(\d+)/g)].at(-1);
+      const laboratories = text => {
+        const match = [...text.matchAll(/BRS_LABS\|(true|false)\|(true|false)\|(-?\d+)\|(\d+)\|([^|\r\n]*)\|([^|\r\n]*)\|([^|\r\n]*)/g)].at(-1);
+        return match && {shown: match[1] === 'true', settled: match[2] === 'true', top: Number(match[3]), science: Number(match[4]), accumulated: match[5], perTurn: match[6], target: match[7]};
+      };
+      const modal = text => {
+        const match = [...text.matchAll(/BRS_MODAL\|([^|\r\n]+)\|(true|false)\|(-?\d+)\|(\d+)\|([^|\r\n]+)/g)].at(-1);
+        return match && {id: match[1], settled: match[2] === 'true', top: Number(match[3]), turn: Number(match[4]), status: match[5]};
+      };
       const rule = text => [...text.matchAll(/BRS_RULE\|(true|false)/g)].at(-1)?.[1];
       const click = async (x, y) => { const bounds = await page.locator('#canvas').boundingBox(); await page.mouse.click(bounds.x + x, bounds.y + y); };
       const choose = async (label, nextMenu = true) => {
@@ -165,13 +187,47 @@ test('real setup, Shift+R, pointer research commands and persistent native state
         for (const phase of ['planetfall', 'first-base-name']) { await wait(opening, value => value[1] === phase, phase); await page.keyboard.press('Enter'); }
         const tour = await wait(opening, value => value[1] === 'tour', 'tour prompt'); await click(Number(tour[2]), Number(tour[3]));
         await wait(opening, value => value[1] === 'map', 'playable map');
+        await page.keyboard.press('F2');
+        const labs = await wait(laboratories, value => value.settled, 'Laboratories F2');
+        assert.equal(labs.science, 0); assert.match(labs.accumulated, /: 0$/); assert.match(labs.perTurn, /: [0-9]+$/);
+        assert.equal(labs.target, '');
+        await page.locator('#canvas').screenshot({path: `${artifacts}/${name}-laboratories.png`});
+        await click(512, labs.top + 27 + 220 - 10 - 12);
+        await wait(laboratories, value => !value.shown, 'Laboratories pointer OK');
+        await page.keyboard.press('F2'); await wait(laboratories, value => value.settled, 'Laboratories reopen');
+        await page.keyboard.press('Escape'); await wait(laboratories, value => !value.shown, 'Laboratories Escape');
         await page.keyboard.press('Shift+r'); const before = await wait(state, value => value.settled, 'research popup');
         assert.equal(before.turn, 1); assert.equal(before.target, -1);
         await page.locator('#canvas').screenshot({path: `${artifacts}/${name}-open.png`});
         if (directed) {
           assert.ok(before.ids.length > 0); await click((1024 - 656) / 2 + 3 + 160, before.top + 27 + 27);
           const after = await wait(state, value => !value.shown && value.target === before.ids[0], 'native target receipt');
-          assert.equal(after.turn, before.turn); await page.keyboard.press('Shift+r');
+          assert.equal(after.turn, before.turn);
+          await page.keyboard.press('F2'); const selectedLabs = await wait(laboratories, value => value.settled, 'selected target Laboratories');
+          assert.ok(selectedLabs.target.length > 0); assert.equal(selectedLabs.science, 0);
+          await page.keyboard.press('Enter'); await wait(laboratories, value => !value.shown, 'Laboratories Enter');
+          let expectedScience = 0;
+          for (let turn = 2; turn <= 6; turn++) {
+            await click(899, 585);
+            const ending = await wait(modal, value => value.turn === turn || (value.id === 'turn_confirmation' && value.settled), `end-turn control ${turn}`);
+            if (ending.id === 'turn_confirmation') {
+              await click(512, ending.top + 27 + 68 + 10);
+            }
+            await wait(state, value => value.turn === turn && !value.shown, `native turn ${turn}`);
+            const credit = await wait(text => [...text.matchAll(/BRS_CREDIT\|(\d+)\|(\d+)\|(true|false)/g)].at(-1),
+              value => Number(value[1]) === turn, `science income event ${turn}`);
+            assert.equal(credit[3], 'true');
+            expectedScience += Number(credit[2]);
+            await wait(modal, value => value.id === 'none' && value.turn === turn && (value.status === 'active' || value.status === 'turn_complete'), `playable turn ${turn}`);
+            await page.keyboard.press('F2');
+            const report = await wait(laboratories, value => value.settled, `science report ${turn}`);
+            assert.equal(report.science, expectedScience); assert.match(report.accumulated, new RegExp(`: ${expectedScience}$`));
+            await page.keyboard.press('Enter'); await wait(laboratories, value => !value.shown, `close science report ${turn}`);
+          }
+          assert.ok(expectedScience > 0, 'Real normal-game turn events accumulate positive city science');
+          const credits = [...(await log()).matchAll(/BRS_CREDIT\|(\d+)\|(\d+)\|(true|false)/g)];
+          assert.deepEqual(credits.map(value => Number(value[1])), [2, 3, 4, 5, 6]);
+          await page.keyboard.press('Shift+r');
           await wait(state, value => value.settled && value.target === before.ids[0], 'directed reopen');
           await page.keyboard.press('Escape'); await page.waitForTimeout(300); assert.equal(state(await log()).shown, true);
         } else {

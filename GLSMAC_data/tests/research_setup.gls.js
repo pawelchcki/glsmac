@@ -5,9 +5,8 @@ const source = #include('../default/game/research_dialog');
 const customize = #include('../default/ui/parts/mainmenu/steps/customize_rules');
 const rules_step = #include('../default/ui/parts/mainmenu/steps/select_rules');
 const create = () => {
-	const f = factions.create(); const native = test.founding_fixture();
-	f.rules = native.game.get_settings().global.rules; f.rules.set_blind_research(true);
-	f.m.settings.global = {}; f.m.settings.global.rules = f.rules;
+	const f = factions.create();
+	f.rules = f.native.game.get_settings().global.rules; f.rules.set_blind_research(true);
 	f.m.glsmac.load_smac_text = (name, format) => { return test.parse_smac_text(name == 'script.txt' ? text.script : text.labels, format); };
 	f.m.steps = {select_faction: factions.show, customize_rules: customize};
 	f.button = (label) => { return f.view.find('button', 'text', label).emit('click', {}); };
@@ -63,6 +62,20 @@ behavior.scenario('research source preserves body ampersands and source button m
 	const loaded = source.load(f.m.glsmac);
 	test.assert(loaded.directed.caption == 'Changed Caption' && loaded.directed.buttons == ['Inspect', 'Search']);
 	test.assert(loaded.priorities.lines[0] == 'A & B' && loaded.priorities.lines[3] == 'Explore & Grow');
+});
+behavior.scenario('laboratory report imports caption and exact indexed labels with strict validation', () => {
+	const f = create(); const definition = source.load_laboratories(f.m.glsmac);
+	test.assert(definition.caption == 'Synthetic Laboratory Report' && definition.ok == 'Accept');
+	test.assert(definition.accumulated == 'Synthetic label 377' && definition.per_turn == 'Synthetic label 378' && definition.summary == 'Synthetic label 689');
+	f.m.glsmac.load_smac_text = (name, format) => {
+		return test.parse_smac_text(name == 'script.txt' ? '#STATUSLABS\n#caption Changed Lab Caption\n#END\n' : text.labels, format);
+	};
+	test.assert(source.load_laboratories(f.m.glsmac).caption == 'Changed Lab Caption');
+	f.m.glsmac.load_smac_text = (name, format) => {
+		return test.parse_smac_text(name == 'script.txt' ? text.script : '#LABELS\n1\nOnly label\n#END\n', format);
+	};
+	let rejected = false; try { source.load_laboratories(f.m.glsmac); } catch { : (e) => { rejected = true; } }
+	test.assert(rejected);
 });
 behavior.scenario('malformed research blocks and label counts fail before mounting controls', () => {
 	const f = create();

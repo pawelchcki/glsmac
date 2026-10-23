@@ -1,0 +1,160 @@
+{
+  "captured_at": "2026-10-23T22:13:46.135755+00:00",
+  "observations": [
+    {
+      "case_sha256": "5b652eaa4059f6f9594f933cd25d4961bf238188e0f4263cde9f9ef6b1d26543",
+      "id": "gaian-production-stock-turn1-turn6",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "trace": [
+          {
+            "after": {
+              "city": {
+                "doctors": 1,
+                "nutrients": 0,
+                "population": 1,
+                "worked_tiles": 0,
+                "workers": 0
+              },
+              "current_project_id": 1,
+              "queue_size": 0,
+              "raw_mineral_field": 9,
+              "turn": 1,
+              "units": [
+                {
+                  "damage": 0,
+                  "movement_spent": 0,
+                  "order_code": 2,
+                  "prototype_id": 2
+                }
+              ]
+            },
+            "before": {
+              "city": {
+                "doctors": 1,
+                "nutrients": 0,
+                "population": 1,
+                "worked_tiles": 0,
+                "workers": 0
+              },
+              "current_project_id": 1,
+              "queue_size": 0,
+              "raw_mineral_field": 9,
+              "turn": 1,
+              "units": [
+                {
+                  "damage": 0,
+                  "movement_spent": 0,
+                  "order_code": 2,
+                  "prototype_id": 2
+                }
+              ]
+            },
+            "operations": {
+              "pair": [
+                9,
+                16
+              ],
+              "project": "FORMERS",
+              "turns": 7
+            },
+            "panel": {
+              "bright_grid_samples": 9,
+              "dim_grid_samples": 7,
+              "mineral_consumption": 0,
+              "mineral_intake": 1,
+              "mineral_surplus": 1,
+              "project": "FORMERS",
+              "turns": 7
+            }
+          },
+          {
+            "after": {
+              "city": {
+                "doctors": 1,
+                "nutrients": 0,
+                "population": 1,
+                "worked_tiles": 0,
+                "workers": 0
+              },
+              "current_project_id": 1,
+              "queue_size": 0,
+              "raw_mineral_field": 14,
+              "turn": 6,
+              "units": [
+                {
+                  "damage": 0,
+                  "movement_spent": 0,
+                  "order_code": 2,
+                  "prototype_id": 2
+                }
+              ]
+            },
+            "before": {
+              "city": {
+                "doctors": 1,
+                "nutrients": 0,
+                "population": 1,
+                "worked_tiles": 0,
+                "workers": 0
+              },
+              "current_project_id": 1,
+              "queue_size": 0,
+              "raw_mineral_field": 14,
+              "turn": 6,
+              "units": [
+                {
+                  "damage": 0,
+                  "movement_spent": 0,
+                  "order_code": 2,
+                  "prototype_id": 2
+                }
+              ]
+            },
+            "operations": {
+              "pair": [
+                14,
+                16
+              ],
+              "project": "FORMERS",
+              "turns": 2
+            },
+            "panel": {
+              "bright_grid_samples": 14,
+              "dim_grid_samples": 2,
+              "mineral_consumption": 0,
+              "mineral_intake": 1,
+              "mineral_surplus": 1,
+              "project": "FORMERS",
+              "turns": 2
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "d579dc56927696cd00cce778190e6bef5ca7489db5aa718b586158c805a2dce8",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.initial_production_stock.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Unchanged stock Gaian/Citizen/Blind-off/held-Scout synthetic flat-arid40x80 science fixture, actual50/0/50 allocation; communications channels declined if interrupted; endpoint Base Operations and base-panel observations; five real turn advances",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Independent rendered project/numeric pair/turns in Base Operations, actual base-panel project/turns/mineral resource numerals and16 grid palette samples, read-only raw field/project ID/roster/context before and after panel",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional asset-backed bounded endpoint comparison; numeric pair semantics beyond this fixture and unconditional startup mineral rules are not inferred"
+  },
+  "repeat": 2,
+  "suite_sha256": "a8ab326c57f7f524720933155d769c2ee14b3eda507b68fbe2922b007469f4d6",
+  "version": 1
+}

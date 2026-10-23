@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "research-science",
         "research-cost-native",
         "research-controls",
         "research-setup",

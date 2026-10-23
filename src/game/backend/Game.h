@@ -370,10 +370,13 @@ public:
 	technology::Table& GetTechnologyTable();
 	const technology::Table& GetTechnologyTable() const;
 	gse::Value* GetResearchState( GSE_CALLABLE, int64_t player ) const;
+	gse::Value* GetResearchScience( GSE_CALLABLE, int64_t player ) const;
 	std::string ValidateResearchTarget( int64_t player, int64_t target ) const;
 	std::string ValidateResearchPriority( int64_t player, int64_t priority ) const;
+	std::string ValidateResearchCredit( int64_t player, int64_t turn, int64_t income ) const;
 	gse::Value* SelectResearchTarget( GSE_CALLABLE, int64_t player, int64_t target );
 	gse::Value* SetResearchPriority( GSE_CALLABLE, int64_t player, int64_t priority, bool enabled );
+	gse::Value* CreditResearch( GSE_CALLABLE, int64_t player, int64_t turn, int64_t income );
 	void RollbackResearch( GSE_CALLABLE, int64_t player, int64_t token, int64_t turn );
 
 	gc::Space* const GetGCSpace() const;
