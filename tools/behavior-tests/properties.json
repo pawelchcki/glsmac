@@ -387,9 +387,10 @@
       "contracts": [
         "ui.opening_art.v1",
         "ui.opening_sequence.v1",
-        "ui.interface_tour_controls.v1"
+        "ui.interface_tour_controls.v1",
+        "ui.interface_tour_controls.v2"
       ],
-      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Two independently repeated interface-tour traces establish eighteen mandatory checkpoints: actual Tour/Close, Continue/End Tour/final Close controls, real MENU/Commlink panel visibility, native turn one and unchanged human unit state. Unseeded terrain-dependent pages remain outside that projection. Rendered candidate replay is separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity.",
+      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Two independently repeated installed-data interface-tour traces establish eighteen mandatory checkpoints: actual Tour/Close, Continue/End Tour/final Close controls, real MENU/Commlink visibility, native turn one and unchanged human unit state. Four further independently repeated declared-source traces add thirty-six asset-free checkpoints under two own tutorial/label profiles, including edited Commlink headings. Candidate topic observations read mounted text independently of internal page IDs and production parser output; healthy blank/wrong/stale mutations mismatch. Unseeded terrain-dependent pages remain outside the projection. Installed-data rendered companions are separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity.",
       "remaining": [
         "Launch movies, logos, skip controls and transition frame alignment",
         "Main/setup typography, menu chrome, layout, hover and focus rendering",
