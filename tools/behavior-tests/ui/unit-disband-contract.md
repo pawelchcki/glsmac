@@ -16,10 +16,15 @@ visits the available choice highlights with arrows, and uses the actual OK
 button. Its third choice is visited only as a draft; self-destruct activation
 and its effects are outside this contract.
 
-Two public profiles declare the Action row and common `Script.txt` `DISBAND2`
+Three public profiles declare the Action row and common `Script.txt` `DISBAND2`
 caption, body and three choices, together with conflicting expansion declarations.
-Both recorded profiles display the common declaration, establishing precedence
+All recorded profiles display the common declaration, establishing precedence
 for this bounded dialog.
+The supplementary name profile declares `Retire $UNITTYPE0?`, opens the dialog
+and cancels. The original displays `RETIRE FORMERS?` for the selected Former.
+This observes the unit-name substitution for that token and unit only. The two
+main traces and their accepted original evidence remain unchanged.
+
 The output contains independently read dialog caption/body/choices/highlight/OK,
 menu visibility, native selection, owned city count, surviving unit roles/order
 codes and movement in thirds of a movement point. Display text is uppercase

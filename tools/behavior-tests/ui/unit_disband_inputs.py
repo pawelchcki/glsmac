@@ -5,6 +5,7 @@ from protocol import ProtocolError
 from ui import terraform_menu_inputs as previous
 from ui.unit_disband_contract import ALGORITHM, INITIAL, PROFILES, SEQUENCES, validate_input
 SOURCE_TEXT = {
+ 'disband-name':dict(row='Dismiss Selected Unit',caption='Unit name decision',body='Retire $UNITTYPE0?',choices=['Keep working.','Retire unit.','Overload equipment.']),
  'synthetic':dict(row='Dismiss Worker',caption='Worker decision',body='Retire this worker?',choices=['Keep working.','Retire unit.','Overload equipment.']),
  'disband-edited':dict(row='Retire Selected Unit',caption='Field unit decision',body='Release this field crew?',choices=['Stay on duty.','Release unit.','Overload field kit.']),
 }
@@ -29,10 +30,17 @@ def source_label(profile):return SOURCE_TEXT[profile]['row']
 
 def suite():
     cases=[]
-    for profile in PROFILES:
+    for profile in PROFILES[:2]:
         data=dict(profile='spread',initial_base=deepcopy(INITIAL),text_profile=profile,actions=deepcopy(SEQUENCES[profile]))
         validate_input(data);cases.append(dict(id='unit-disband-'+profile,algorithm=ALGORITHM,input=data))
     return dict(version=1,name='Ready Former Action disband controls',description='Actual menu source9, cancellation/default confirmation, draft navigation and final ordinary disband; self-destruct effects excluded.',cases=cases)
+
+
+def name_suite():
+    profile='disband-name'
+    data=dict(profile='spread',initial_base=deepcopy(INITIAL),text_profile=profile,actions=deepcopy(SEQUENCES[profile]))
+    validate_input(data)
+    return dict(version=1,name='Disband selected unit name source',description='Actual common DISBAND2 unit-name token, real selected Former and cancellation.',cases=[dict(id='unit-disband-name',algorithm=ALGORITHM,input=data)])
 
 
 if __name__=='__main__':print(json.dumps(suite(),indent=2))

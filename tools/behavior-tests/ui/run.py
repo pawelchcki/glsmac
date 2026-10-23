@@ -602,7 +602,7 @@ def main(argv=None):
                 reference_command = colony_found_menu_command(args)
             if reference['id'] == 'colony-adjacent-warning':
                 reference_command = colony_near_command(args)
-            if reference['id'] == 'unit-disband':
+            if reference['id'] in ('unit-disband', 'unit-disband-name'):
                 reference_command = unit_disband_command(args)
             if reference['id'] == 'unit-menu-context':
                 reference_command = unit_menu_context_command(args, saved=True)
@@ -688,7 +688,7 @@ def main(argv=None):
                 candidate_command = colony_found_menu_command(args)
             if command is not None and reference['id'] == 'colony-adjacent-warning':
                 candidate_command = colony_near_command(args)
-            if command is not None and reference['id'] == 'unit-disband':
+            if command is not None and reference['id'] in ('unit-disband', 'unit-disband-name'):
                 candidate_command = unit_disband_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':
                 candidate_command = unit_menu_context_command(args, saved=True)

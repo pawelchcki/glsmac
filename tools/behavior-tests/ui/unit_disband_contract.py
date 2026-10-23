@@ -2,8 +2,9 @@
 from protocol import ProtocolError
 from ui.ingame_menu_contract import INITIAL, text
 ALGORITHM = 'ui.unit_disband.v1'
-PROFILES = ('synthetic', 'disband-edited')
+PROFILES = ('synthetic', 'disband-edited', 'disband-name')
 SEQUENCES = {
+ 'disband-name': ['tab','menu',{'header':4},{'row_source':9},'cancel'],
  'synthetic': ['tab','menu',{'header':4},{'row_source':9},'cancel',{'header':4},{'row_source':9},'down','confirm'],
  'disband-edited': ['tab','menu',{'header':4},{'row_source':9},'confirm',{'header':4},{'row_source':9},'up','down','down','up','button-ok'],
 }

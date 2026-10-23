@@ -87,6 +87,19 @@ class UnitDisbandContractTests(unittest.TestCase):
         with self.assertRaises(ProtocolError): compare.validate_observations(record, changed)
         with self.assertRaises(ProtocolError): compare.validate_observations(incomplete, suite)
 
+    def test_name_source_reference_is_separate_repeated_and_input_bound(self):
+        suite = inputs.name_suite()
+        self.assertEqual(json.loads((DIRECTORY / 'cases/unit-disband-name.json').read_text()), suite)
+        self.assertEqual(len(validate_cases(suite)), 1)
+        record = compare.read_json(DIRECTORY / 'observations/smacx-gog-2.0-unit-disband-name.json')
+        outputs = compare.validate_observations(record, suite)
+        self.assertGreaterEqual(record['repeat'], 2)
+        for case in suite['cases']:
+            contract.validate_input(case['input'])
+            contract.validate_output(outputs[case['id']], case['input']['actions'])
+        self.assertIn('$UNITTYPE0', inputs.SOURCE_TEXT['disband-name']['body'])
+        self.assertEqual(len(inputs.suite()['cases']), 2)
+
     def test_candidate_dispatch_needs_no_original_assets_or_renderer(self):
         args = SimpleNamespace(browser=False, record=False)
         command = run.unit_disband_command(args)

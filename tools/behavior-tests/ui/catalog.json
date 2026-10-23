@@ -260,6 +260,16 @@
       "id": "colony-adjacent-warning",
       "cases": "cases/colony-adjacent-warning.json",
       "observations": "observations/smacx-gog-2.0-colony-adjacent-warning-immediate.json"
+    },
+    {
+      "id": "unit-disband",
+      "cases": "cases/unit-disband.json",
+      "observations": "observations/smacx-gog-2.0-unit-disband.json"
+    },
+    {
+      "id": "unit-disband-name",
+      "cases": "cases/unit-disband-name.json",
+      "observations": "observations/smacx-gog-2.0-unit-disband-name.json"
     }
   ]
 }
