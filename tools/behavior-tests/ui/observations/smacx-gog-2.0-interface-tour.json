@@ -1,0 +1,255 @@
+{
+  "captured_at": "2026-10-23T11:30:43.697174+00:00",
+  "observations": [
+    {
+      "case_sha256": "0c63f2d09f0d0320d1cc03a45362af14656b643dfc838528a797dc25e594a37b",
+      "id": "interface-tour-early-end",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "frames": [
+          {
+            "buttons": [
+              "TOUR",
+              "CLOSE"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "tour-prompt"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "unit-status"
+          },
+          {
+            "buttons": [],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "map"
+          }
+        ],
+        "units_unchanged": true
+      }
+    },
+    {
+      "case_sha256": "4a3294d19e34dd1bde071656242a2763502c0745cc429f9f585d52de5def2894",
+      "id": "interface-tour-full-keyboard",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "frames": [
+          {
+            "buttons": [
+              "TOUR",
+              "CLOSE"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "tour-prompt"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "unit-status"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "movement"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": true,
+            "native_turn": 1,
+            "topic": "menu"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": true,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "commlink"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "unit-window"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "terrain-window"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "stack-window"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "message-window"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "message-button"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "info-button"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "world-window"
+          },
+          {
+            "buttons": [
+              "CONTINUE",
+              "END TOUR"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "date-energy"
+          },
+          {
+            "buttons": [
+              "CLOSE"
+            ],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "finished"
+          },
+          {
+            "buttons": [],
+            "commlink_open": false,
+            "menu_open": false,
+            "native_turn": 1,
+            "topic": "map"
+          }
+        ],
+        "units_unchanged": true
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f149e6fc18e32c1afbc842bfc9a7cadb0ec61d17cb48124aac7105a337e324ba",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Projected mandatory interface-control pages only. Unseeded terrain-dependent pages retained in private captures but excluded from expected packet. No font/layout/arrow/terrain/animation/AI equivalence claim.",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual normal opening, Tour click, Enter Continue/Close or first-page right End Tour. Installed-source topic classification from actual screenshots; native turn and human unit state read only.",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "readonly_fields": [
+      {
+        "bytes": 4,
+        "name": "native_turn",
+        "rva": "0x5a64d4"
+      },
+      {
+        "bytes": 1,
+        "name": "human_owner_mask",
+        "rva": "0x5a64e8"
+      },
+      {
+        "bytes": 4,
+        "name": "unit_count",
+        "rva": "0x5a64c8"
+      },
+      {
+        "limit": 2048,
+        "name": "unit_records",
+        "rva": "0x552828",
+        "stride": 52
+      },
+      {
+        "bytes": 4,
+        "name": "world_width",
+        "rva": "0x549870"
+      },
+      {
+        "bytes": 4,
+        "name": "world_height",
+        "rva": "0x549874"
+      }
+    ],
+    "tutor_sha256": "0bc6564d2650e3c8c5f2e99b7c5c5e12c1e76337acfc1134ae974b3621a12897",
+    "viewport": [
+      1024,
+      768
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "931ac42fb174abbaaa9c66f76cdefa1ca7060195c4d44f9d683e4e3aff76240b",
+  "version": 1
+}
