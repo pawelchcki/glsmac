@@ -134,7 +134,7 @@ return (m) => {
 			right: 0,
 			bottom: 0,
 			zindex: 0.2,
-			background: 'openinga.pcx:stretch()',
+			background: 'xopeninga.pcx:stretch()',
 		});
 
 		music = m.root.sound({
