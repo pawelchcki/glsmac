@@ -150,7 +150,8 @@
         "unit-recycling",
         "unit-recycling-former-city",
         "unit-recycling-scout-free",
-        "unit-disband-shortcut"
+        "unit-disband-shortcut",
+        "interface-tour-synthetic"
       ],
       "stable": [
         "road-network",

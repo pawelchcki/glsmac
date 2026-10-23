@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "name": "synthetic-interface-tour-controls",
+  "description": "Own declared tutorial and button/Commlink label overrides exercised on both original and reproduction; early pointer End and complete keyboard Continue/Close. Native turn/unit preservation and mounted/visible topic text. Unseeded terrain, prelude and whole-world equivalence excluded.",
+  "cases": [
+    {
+      "id": "interface-tour-synthetic-a-early",
+      "algorithm": "ui.interface_tour_controls.v2",
+      "input": {
+        "source_profile": "synthetic-a",
+        "source_sha256": "f998231b8d067649cfae566b9cdc9e54b5f54bd2cc44dbf22ba7d36d799ee14c",
+        "finish": "early"
+      }
+    },
+    {
+      "id": "interface-tour-synthetic-a-full",
+      "algorithm": "ui.interface_tour_controls.v2",
+      "input": {
+        "source_profile": "synthetic-a",
+        "source_sha256": "f998231b8d067649cfae566b9cdc9e54b5f54bd2cc44dbf22ba7d36d799ee14c",
+        "finish": "full"
+      }
+    },
+    {
+      "id": "interface-tour-synthetic-b-early",
+      "algorithm": "ui.interface_tour_controls.v2",
+      "input": {
+        "source_profile": "synthetic-b",
+        "source_sha256": "dfda02a5fb44e2fc729b2359ab188bba04afaf2538c59326e23432fbd11e7e6d",
+        "finish": "early"
+      }
+    },
+    {
+      "id": "interface-tour-synthetic-b-full",
+      "algorithm": "ui.interface_tour_controls.v2",
+      "input": {
+        "source_profile": "synthetic-b",
+        "source_sha256": "dfda02a5fb44e2fc729b2359ab188bba04afaf2538c59326e23432fbd11e7e6d",
+        "finish": "full"
+      }
+    }
+  ]
+}
