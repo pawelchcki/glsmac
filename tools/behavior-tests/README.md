@@ -51,7 +51,7 @@ when investigating isolation or collecting a serial baseline.
 Hot contains 26 regression suites around installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(238 scenarios/1,705 assertions). Original UI replay includes ten hot references with 43 recorded
+(245 scenarios/1,753 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -750,16 +750,25 @@ native growth/technology/wealth/power order. See the precise
 [source schema and exclusions](../smac-data/technology-source-contract.md).
 
 A host startup event initializes the native table and concrete faction starting
-technologies before first-turn effects. GLSMAC slots 0–6 map explicitly to native
+technologies before first-turn effects, including the interactive opening at turn
+zero. The host plans and validates every faction TECH before queuing world
+creation, so incompatible inputs abort without spawning a partial world. Its
+complete scalar table travels in event data; recipients validate that payload
+without recomputing their own installed declarations. GLSMAC slots 0–6 map explicitly to native
 ownership-mask faction IDs 1–7. Duplicate TECH tokens do not duplicate ownership;
 numeric free-tech choices remain outside this batch. The native `replace` binding
 validates all 89 rows before one table replacement; `get` returns detached row
-data. Both retain normal native write authorization and snapshot transfer.
+data, and `validate_replacement` checks a whole plan without mutation. Replacement
+retains native write authorization and snapshot transfer. ResetGame clears the
+initialization marker alongside the native table for the next session.
 
-`technology-sources` and `technology-startup` add 20 application scenarios and
-73 assertions for source parsing, malformed late rows, independent ownership,
+`technology-sources` and `technology-startup` add 27 application scenarios and
+121 assertions for source parsing, malformed late rows, independent ownership,
 availability, atomic replacement, receiving snapshots, actual shipped startup,
-once-only initialization and receipt rollback. The startup fixture supplies
+once-only initialization and receipt rollback. They include ordinary/interactive
+startup, host event serialization with different receiving sources, invalid
+mandatory-plan rejection and an actual reset/second startup on the same native
+Game with changed ownership. The startup fixture supplies
 declared terrain and synthetic text, with artwork/sound definitions explicitly
 omitted; other gameplay events execute their shipped handlers. Run:
 

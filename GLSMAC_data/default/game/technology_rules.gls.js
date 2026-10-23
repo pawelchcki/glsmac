@@ -55,7 +55,11 @@ const plan = (definitions, players) => {
 	for (entry of definitions) {
 		if (#typeof(entry) != 'Object' || entry.id != id || #typeof(entry.token) != 'String' || #is_defined(tokens[entry.token])) { throw Error('Invalid technology definition identity'); }
 		tokens[entry.token] = id;
-		result :+ [entry.prerequisites, 0, entry.weights]; id++;
+		// Event payloads must own scalar arrays, not GSE member references.
+		const prerequisites = []; const weights = [];
+		for (prerequisite of entry.prerequisites) { prerequisites :+ (prerequisite + 0); }
+		for (weight of entry.weights) { weights :+ (weight + 0); }
+		result :+ [prerequisites, 0, weights]; id++;
 	}
 	const seen = {};
 	for (player of players) {

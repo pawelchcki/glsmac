@@ -67,7 +67,11 @@ return (glsmac) => {
 
 			const worldscript = #is_defined(glsmac.config.worldscript) ? glsmac.config.worldscript : 'default';
 			game.on('create_world', (e) => {
-				game.event('initialize_technologies', {});
+				// Resolve every faction TECH before any world events are queued.
+				// Peers receive this complete host plan rather than local asset data.
+				const rows = technology_rules.plan(game.get('technology_rules'), game.get_players());
+				game.technologies.validate_replacement(rows);
+				game.event('initialize_technologies', {rows: rows});
 				const generator = #include('world/' + worldscript);
 				generator(e.game);
 			});

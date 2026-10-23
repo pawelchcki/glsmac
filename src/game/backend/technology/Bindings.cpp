@@ -42,6 +42,17 @@ Table::Technology ReadRow( GSE_CALLABLE, const gse::value::array_elements_t& row
 	return technology;
 }
 
+Table ReadTable( GSE_CALLABLE, const gse::value::array_elements_t& rows ) {
+	if ( rows.size() != Table::COUNT ) { GSE_ERROR( gse::EC.INVALID_CALL, "Technology replacement requires all 89 rows" ); }
+	Table replacement;
+	for ( size_t id = 0; id < rows.size(); ++id ) {
+		const auto* row = rows[ id ]->Deref();
+		if ( row->type != gse::VT_ARRAY ) { GSE_ERROR( gse::EC.INVALID_CALL, "Technology replacement row must be an array" ); }
+		replacement.Set( id, ReadRow( GSE_CALL, static_cast< const gse::value::Array* >( row )->value ) );
+	}
+	return replacement;
+}
+
 gse::Value* WrapRow( GSE_CALLABLE, const Table::Technology& technology ) {
 	gse::value::array_elements_t prerequisites, weights;
 	for ( const auto prerequisite : technology.prerequisites ) { prerequisites.push_back( VALUE( gse::value::Int,, prerequisite ) ); }
@@ -57,6 +68,15 @@ gse::Value* WrapRow( GSE_CALLABLE, const Table::Technology& technology ) {
 gse::Value* WrapTable( GSE_CALLABLE, Table& table, Game* const write_guard ) {
 	gse::value::object_properties_t properties = {
 		{
+			"validate_replacement",
+			NATIVE_CALL() {
+				N_EXPECT_ARGS( 1 );
+				N_GETVALUE( rows, 0, Array );
+				ReadTable( GSE_CALL, rows );
+				return VALUE( gse::value::Bool,, true );
+			} )
+		},
+		{
 			"get",
 			NATIVE_CALL( &table ) {
 				N_EXPECT_ARGS( 1 );
@@ -68,13 +88,7 @@ gse::Value* WrapTable( GSE_CALLABLE, Table& table, Game* const write_guard ) {
 			NATIVE_CALL( &table, write_guard ) {
 				N_EXPECT_ARGS( 1 );
 				N_GETVALUE( rows, 0, Array );
-				if ( rows.size() != Table::COUNT ) { GSE_ERROR( gse::EC.INVALID_CALL, "Technology replacement requires all 89 rows" ); }
-				Table replacement;
-				for ( size_t id = 0; id < rows.size(); ++id ) {
-					const auto* row = rows[ id ]->Deref();
-					if ( row->type != gse::VT_ARRAY ) { GSE_ERROR( gse::EC.INVALID_CALL, "Technology replacement row must be an array" ); }
-					replacement.Set( id, ReadRow( GSE_CALL, static_cast< const gse::value::Array* >( row )->value ) );
-				}
+				const auto replacement = ReadTable( GSE_CALL, rows );
 				if ( write_guard ) { write_guard->CheckRW( GSE_CALL ); }
 				table = replacement;
 				return VALUE( gse::value::Undefined );
