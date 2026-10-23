@@ -9,12 +9,6 @@
         "unit-disband-native",
         "unit-disband-authority",
         "unit-disband-controls",
-        "colony-near-controls",
-        "colony-near-native",
-        "colony-found-menu-controls",
-        "colony-found-menu-authority",
-        "colony-found-native",
-        "terraform-menu-presentation",
         "unit-menu-orders",
         "unit-menu-rows",
         "unit-menu-order-lifecycle",
@@ -26,11 +20,7 @@
         "natural-first-city-lifecycle",
         "base-growth-worker-links",
         "base-growth-regression",
-        "land-resource-sources",
-        "former-controls",
-        "terraform-menu-controls",
-        "colony-join",
-        "colony-menu-controls"
+        "land-resource-sources"
       ],
       "stable": [
         "base-resource-hud",
@@ -133,7 +123,17 @@
         "starvation-mineral",
         "starvation-notice-controls",
         "native-input-state",
-        "base-rename"
+        "base-rename",
+        "colony-join",
+        "colony-menu-controls",
+        "colony-found-menu-controls",
+        "colony-found-menu-authority",
+        "colony-found-native",
+        "colony-near-controls",
+        "colony-near-native",
+        "former-controls",
+        "terraform-menu-controls",
+        "terraform-menu-presentation"
       ]
     },
     "ui": {
@@ -141,11 +141,6 @@
         "ingame-menus",
         "unit-menu-orders",
         "unit-menu-context",
-        "terraform-menu-work",
-        "colony-menu-join",
-        "terraform-menu-presentation",
-        "colony-found-menu",
-        "colony-adjacent-warning",
         "unit-disband",
         "unit-disband-name",
         "unit-recycling",
@@ -197,7 +192,12 @@
         "starvation-dialog",
         "starvation-mineral",
         "starvation-notice-controls",
-        "base-rename"
+        "base-rename",
+        "terraform-menu-work",
+        "colony-menu-join",
+        "terraform-menu-presentation",
+        "colony-found-menu",
+        "colony-adjacent-warning"
       ]
     },
     "economy": {

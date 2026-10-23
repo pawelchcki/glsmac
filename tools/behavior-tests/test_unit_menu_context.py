@@ -166,7 +166,7 @@ class ContextInventoryTests(unittest.TestCase):
                 self.assertEqual(outputs[case['id']], compare.validate_observations(record, suite)[case['id']])
         manifest = lanes.load_manifest(); known = lanes.inventory(manifest)
         hot = lanes.describe('ui', lanes.select('ui', known['ui'], 'hot', manifest))
-        self.assertEqual((hot['suites'], hot['cases']), (14, 56))
+        self.assertEqual((hot['suites'], hot['cases']), (9, 39))
         self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 750)
         self.assertEqual(manifest['gaps'], [])
         self.assertEqual(manifest['kinds']['pending-ui']['hot'], [

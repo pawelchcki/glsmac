@@ -66,8 +66,8 @@ class UiShardTests(unittest.TestCase):
             directory = Path(temporary)
             runtime, reports = self.reports(directory)
             report = shards.aggregate(reports, 'hot', runtime)
-            self.assertEqual(report['summary'], dict(reference_cases=56, candidate_executed=True,
-                                                   matched=56, mismatched=0, unsupported=0, errors=0))
+            self.assertEqual(report['summary'], dict(reference_cases=39, candidate_executed=True,
+                                                   matched=39, mismatched=0, unsupported=0, errors=0))
             self.assertEqual(report['source_snapshot_sha256'], fingerprint(shards.create_snapshot()))
             output = directory / 'aggregate.json'
             with redirect_stdout(io.StringIO()):
@@ -82,7 +82,21 @@ class UiShardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             runtime, reports = self.reports(Path(temporary), count=16)
             self.assertTrue(any(not report['results'] for report in reports))
-            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 56)
+            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 39)
+
+    def test_stable_synthetic_reports_cover_the_full_complement_including_rotated_controls(self):
+        # Transport/partition coverage only: replies above deliberately reuse
+        # recorded outputs and do not execute a game candidate.
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime, reports = self.reports(Path(temporary), lane='stable')
+            report = shards.aggregate(reports, 'stable', runtime)
+            self.assertEqual(report['summary'], dict(reference_cases=711, candidate_executed=True,
+                                                   matched=711, mismatched=0, unsupported=0, errors=0))
+            identifiers = {row['id'] for part in reports for row in part['results']}
+            self.assertTrue({'terraform-menu-work', 'colony-menu-join', 'terraform-menu-presentation',
+                             'colony-found-menu', 'colony-adjacent-warning'} <= identifiers)
+            with self.assertRaises(ProtocolError):
+                shards.aggregate(reports, 'hot', runtime)
 
     def test_missing_duplicate_failed_unexecuted_and_stale_replay_are_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:

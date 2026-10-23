@@ -34,14 +34,44 @@ class LaneTests(unittest.TestCase):
 
     def test_hot_scope_is_bounded_and_pending_is_separate(self):
         self.assertEqual(set(self.manifest['kinds']['regression']['hot']), {
-            'unit-menu-orders', 'unit-menu-rows', 'unit-menu-order-lifecycle', 'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input', 'world-single-player-setup', 'natural-first-city-lifecycle', 'base-growth-worker-links', 'base-growth-regression', 'land-resource-sources', 'former-controls', 'terraform-menu-controls', 'terraform-menu-presentation', 'colony-join', 'colony-menu-controls', 'colony-found-menu-controls', 'colony-found-menu-authority', 'colony-found-native', 'colony-near-controls', 'colony-near-native', 'unit-disband-native', 'unit-disband-authority', 'unit-disband-controls', 'unit-recycling-native', 'unit-recycling-controls', 'unit-disband-shortcut-controls'})
-        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'terraform-menu-work', 'colony-menu-join', 'terraform-menu-presentation', 'colony-found-menu', 'colony-adjacent-warning', 'unit-disband', 'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free', 'unit-disband-shortcut'})
-        for kind, count in [('ui', 56), ('pending-ui', 22), ('gaps', 0)]:
+            'unit-disband-shortcut-controls', 'unit-recycling-native', 'unit-recycling-controls',
+            'unit-disband-native', 'unit-disband-authority', 'unit-disband-controls',
+            'unit-menu-orders', 'unit-menu-rows', 'unit-menu-order-lifecycle',
+            'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input',
+            'world-single-player-setup', 'natural-first-city-lifecycle',
+            'base-growth-worker-links', 'base-growth-regression', 'land-resource-sources'})
+        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {
+            'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'unit-disband',
+            'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city',
+            'unit-recycling-scout-free', 'unit-disband-shortcut'})
+        for kind, count in [('ui', 39), ('pending-ui', 22), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)
         self.assertNotIn('gaps', lanes.RELEASE_KINDS)
         self.assertNotIn('archived', lanes.KINDS)
+
+    def test_completed_colony_and_former_controls_stay_in_the_stable_complement(self):
+        completed = {
+            'regression': {'colony-join', 'colony-menu-controls', 'colony-found-menu-controls',
+                           'colony-found-menu-authority', 'colony-found-native', 'colony-near-controls',
+                           'colony-near-native', 'former-controls', 'terraform-menu-controls',
+                           'terraform-menu-presentation'},
+            'ui': {'terraform-menu-work', 'colony-menu-join', 'terraform-menu-presentation',
+                   'colony-found-menu', 'colony-adjacent-warning'},
+        }
+        for kind, identifiers in completed.items():
+            with self.subTest(kind=kind):
+                self.assertTrue(identifiers <= set(self.manifest['kinds'][kind]['stable']))
+                self.assertFalse(identifiers & set(self.manifest['kinds'][kind]['hot']))
+        self.assertEqual((len(self.manifest['kinds']['regression']['hot']),
+                          len(self.manifest['kinds']['regression']['stable']),
+                          len(self.known['regression'])), (18, 111, 129))
+        for lane, expected in [('hot', (9, 39)), ('stable', (49, 711)), ('all', (58, 750))]:
+            inventory = lanes.describe('ui', lanes.select('ui', self.known['ui'], lane, self.manifest))
+            self.assertEqual((inventory['suites'], inventory['cases']), expected)
+        pending = lanes.describe('pending-ui', self.known['pending-ui'])
+        self.assertEqual((pending['suites'], pending['cases']), (5, 22))
 
     def test_manifest_rejects_duplicate_overlap_missing_unknown_and_new_ids(self):
         changes = []
