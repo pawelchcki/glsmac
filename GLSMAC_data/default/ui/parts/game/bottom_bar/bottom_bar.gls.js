@@ -133,12 +133,7 @@ return {
 		btn_right_menu.on('click', (e) => {
 			if (!btn_right_menu.active) {
 				btn_right_menu.active = true;
-				p.modules.menu.open('right_menu', {
-					align: 'bottom right',
-					right: 0,
-					bottom: parent.height,
-					height: 166, // tmp
-				});
+				p.modules.menu.show_commlink();
 			} else {
 				p.modules.menu.close('right_menu');
 			}

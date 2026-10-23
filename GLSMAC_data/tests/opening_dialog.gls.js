@@ -21,3 +21,10 @@ behavior.scenario('Missing body and duplicate caption cannot become a usable dia
 		test.assert(rejected);
 	}
 });
+behavior.scenario('Multiword source emphasis is removed before substituting literal edited identity', () => {
+	const names = {}; names['$UNITNAME0'] = 'Literal {$VALUE} Name';
+	test.assert(parser.format('Use the {two word} {$UNITNAME0} now.', names) == 'Use the two word Literal {$VALUE} Name now.');
+	for (text of ['{nested {text}}', '{two words', 'two} words', '{two words}}']) {
+		let rejected = false; try { parser.format(text, names); } catch { : (error) => { rejected = true; } } test.assert(rejected);
+	}
+});

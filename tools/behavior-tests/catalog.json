@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"interface-tour-controls","script":"GLSMAC_data/tests/interface_tour_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"texture-filter","script":"GLSMAC_data/tests/texture_filter.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"pod-landing-controls","script":"GLSMAC_data/tests/pod_landing_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"automatic-end-turn","script":"GLSMAC_data/tests/automatic_end_turn.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
