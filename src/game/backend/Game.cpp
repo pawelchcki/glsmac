@@ -2041,6 +2041,7 @@ void Game::ResetGame() {
 	m_next_event_id = 0;
 	m_founding_records.clear();
 	m_joining_records.clear();
+	m_disbanding_records.clear();
 
 	m_tm = nullptr;
 	m_rm = nullptr;
