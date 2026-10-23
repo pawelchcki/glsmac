@@ -3,7 +3,7 @@ const fixture = #include('./_research_ui_fixture');
 
 behavior.scenario('real Shift R opens source-driven directed choices ordered by native category and source ID', () => {
 	const f = fixture(false); test.assert(f.key('R', {shift: true}));
-	test.assert(f.popup.is_shown() && f.dialog.header.text == 'Synthetic Research' && #sizeof(f.dialog.rows) == 4);
+	test.assert(f.popup.is_shown() && f.dialog.header.text == 'SYNTHETIC RESEARCH' && #sizeof(f.dialog.rows) == 4);
 	const ids = []; const labels = [];
 	for (row of f.dialog.rows) { ids :+ row.id; labels :+ row.category.text; }
 	test.assert(ids == [2, 1, 7, 9] && labels == ['EXPLORE 1', 'DISCOVER 1', 'BUILD 1', 'CONQUER 1']);
@@ -19,8 +19,8 @@ behavior.scenario('real Shift R opens source-driven directed choices ordered by 
 
 behavior.scenario('mounted HQ source identity reaches the same research controller', () => {
 	const f = fixture(true); test.assert(f.hq());
-	test.assert(f.popup.is_shown() && f.dialog.header.text == 'Synthetic Priorities' && !f.menu.menus.left_menu.is_open);
-	test.assert(f.dialog.rows[0].el.text == 'Area A' && f.dialog.rows[0].check.text == 'X' && f.dialog.ok.text == 'Accept');
+	test.assert(f.popup.is_shown() && f.dialog.header.text == 'SYNTHETIC PRIORITIES' && !f.menu.menus.left_menu.is_open);
+	test.assert(f.dialog.rows[0].el.text == 'AREA A' && f.dialog.rows[0].check.text == 'X' && f.dialog.ok.text == 'ACCEPT');
 	f.view.root.remove();
 });
 

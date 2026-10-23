@@ -55,7 +55,7 @@ return {
 		this.generation = this.generation + 1; const generation = this.generation;
 		this.caller = input.caller; this.blind = input.blind;
 		this.body.clear(); this.rows = []; this.texts = [];
-		this.header.text = this.blind ? input.definition.priorities.caption : input.definition.directed.caption;
+		this.header.text = #uppercase(this.blind ? input.definition.priorities.caption : input.definition.directed.caption);
 		if (this.blind) {
 			let top = 8;
 			for (line_index of [0, 1, 2]) {
@@ -63,13 +63,13 @@ return {
 			}
 			for (let index = 0; index < 4; index++) {
 				const category = index;
-				const button = this.body.button({class: 'game-popup-button', text: input.definition.priorities.lines[index + 3], top: top + index * 38, left: 46, right: 15, height: 30, textalign: 'left'});
+				const button = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.priorities.lines[index + 3]), top: top + index * 38, left: 46, right: 15, height: 30, textalign: 'left'});
 				const check = this.body.button({class: 'game-popup-button', text: '', top: top + index * 38 + 4, left: 12, width: 25, height: 22});
 				const row = {}; row.el = button; row.check = check; this.rows :+ row;
 				button.on('click', (e) => { this.submit(category, generation); return true; });
 				check.on('click', (e) => { this.submit(category, generation); return true; });
 			}
-			this.ok = this.body.button({class: 'game-popup-button', text: input.definition.labels.ok, bottom: 8, left: 200, right: 200, height: 25});
+			this.ok = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.labels.ok), bottom: 8, left: 200, right: 200, height: 25});
 			this.ok.on('click', (e) => { if (generation == this.generation && this.pending == null && this.is_open()) { this.finish(true); } return true; });
 		} else {
 			const list = this.body.scrollview({left: 0, right: 0, top: 0, bottom: 40, has_hscroll: false, vscroll_class: 'default-scroll-v'});
@@ -77,7 +77,7 @@ return {
 			let index = 0;
 			for (choice of input.choices) {
 				const ordinal = index; const column = index % 2; const line = index / 2;
-				const button = grid.button({class: 'game-popup-button', text: choice.name, top: 10 + line * 65, left: 10 + column * 315, width: 305, height: 35});
+				const button = grid.button({class: 'game-popup-button', text: #uppercase(choice.name), top: 10 + line * 65, left: 10 + column * 315, width: 305, height: 35});
 				const text = grid.text({class: 'game-popup-text', text: choice.category, top: 46 + line * 65, left: 15 + column * 315, font: 'arialnb.ttf:12'});
 				const row = {id: choice.id}; row.el = button; row.category = text; this.rows :+ row;
 				button.on('click', (e) => { this.submit(ordinal, generation); return true; }); index++;

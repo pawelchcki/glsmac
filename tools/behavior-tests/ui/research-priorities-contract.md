@@ -90,3 +90,17 @@ restarts. The separate immutable
 records that turning Blind Research off and proceeding directly through OK into
 the actual game reaches the directed chooser. No altered Standard Rules default
 is inferred.
+
+
+## Optional candidate transfer
+
+`research_headless.py --assets /path/to/game` replays all five priority cases
+(19 checkpoints) through installed source parsing, actual native startup,
+Shift+R, shipped checkbox/close callbacks and native event receipts. Actual
+source text, check glyphs and popup return states match the immutable original
+records, including all-off and Escape retaining edits. It supplies display/audio,
+flat terrain, art definitions and base-name artwork inputs. It excludes pixels,
+setup navigation and the first-use tutorial. These checks require local assets,
+stay outside public release catalogs and do not add public asset-free cases.
+The three complete setup-navigation recordings remain pending candidate replay;
+synthetic setup regressions separately cover the implemented rule draft behavior.

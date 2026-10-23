@@ -12,7 +12,7 @@ return () => {
 	const bridge = {}; const subscriptions = [];
 	for (method of ['get_player', 'get_players', 'get_opening_state', 'get_turn', 'get_um', 'get_bm', 'get_tm', 'validate_opening', 'event']) { bridge[method] = game[method]; }
 	bridge.on = (name, callback) => { const id = game.on(name, callback); subscriptions :+ {name: name, id: id}; return #sizeof(subscriptions) - 1; };
-	bridge.off = (token) => { const subscription = subscriptions[token]; game.off(subscription.name, subscription.id); };
+	bridge.off = (name, token) => { const index = #is_defined(token) ? token : name; const subscription = subscriptions[index]; game.off(subscription.name, subscription.id); };
 	const topics = ['TOUR1', 'TOUR2', 'TOURMENU', 'TOURCOMMLINK', 'TOURUNITSINFO', 'TOURTERRAININFO', 'TOURSTACKINFO', 'TOURMESSAGEINFO', 'TOURBUTTONMESSAGE', 'TOURBUTTONINFO', 'TOURWORLDINFO', 'TOURDATEINFO', 'TOUROVER'];
 	let tutorial = '';
 	for (id of topics) { tutorial += '#' + id + '\n#xs 300\nDeclared {two word} ' + id + ' {$UNITNAME0} text.\n'; }

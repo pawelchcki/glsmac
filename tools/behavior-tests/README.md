@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 26 regression suites around installed technology/startup, active unit menus, retirement/recycling,
+Hot contains 29 regression suites around research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(245 scenarios/1,753 assertions). Original UI replay includes ten hot references with 43 recorded
+(268 scenarios/1,889 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 137 native
+and keyboard controls stay hot. The combined partition retains all 140 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -1344,3 +1344,40 @@ measurement reduced peak worker RSS from 2,075,620 to 1,169,536 KiB (43.7%) and
 longest worker time from 33.7 to 12.5 seconds; total time rose from 34.1 to
 38.2 seconds. Naming regressions also use separate small workers to bound
 retained native world graphs. No assertion or timeout was removed.
+
+
+## Initial research controls
+
+Shift+R and HQ source slot 1 open the source-backed research dialog. With Blind
+Research off, eligible cards use native technology availability and categories;
+a card commits only its target. With Blind Research on, the four independent
+priority toggles persist immediately, including all-off and Escape/Enter close.
+Native state is separate from technology ownership and science income, guarded
+by player/turn/opening authority, copied in world snapshots and reset with the
+session. Strict receipt rollback and malformed snapshot rejection have native
+and WebAssembly coverage. Customize Rules currently implements only the Blind
+Research option, its reset and draft cancellation/launch behavior.
+
+Public hot tests use synthetic source declarations and require no original
+assets. Three additional directed-choice and five blind-priority recordings can
+be replayed optionally with locally supplied installed data. The adapter executes
+native single-player startup, shipped source parsing, Shift+R, actual popup
+callbacks and native backend events. It observes actual labels, check glyphs,
+return screens and selected target IDs; it does not manufacture expected answers.
+
+```sh
+python3 tools/behavior-tests/compare.py compare \
+  --cases tools/behavior-tests/ui/cases/initial-directed-research.json \
+  --reference tools/behavior-tests/ui/observations/initial-directed-research.json \
+  --command 'python3 tools/behavior-tests/ui/research_headless.py --assets /path/to/game'
+# Repeat using initial-blind-priorities.json for both --cases and --reference.
+```
+
+These eight asset-backed cases remain outside public release catalogs and totals.
+The separate three setup recordings remain pending full navigation replay. Local
+source swaps test parser/control consumption, not original edited-source parity.
+The initial Gaian controls do not establish other faction defaults, later card
+filtering/order, keyboard card navigation, Info/Lookup, rendered layout fidelity,
+research costs/progress, blind selection probabilities or acquisition effects.
+Common Script.txt is the current presentation policy; common-versus-expansion
+precedence is unverified. Other 17 custom-rule effects remain unimplemented.

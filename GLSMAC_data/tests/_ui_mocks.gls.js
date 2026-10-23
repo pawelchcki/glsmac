@@ -9,7 +9,10 @@ const events = () => {
 		target.handlers :+ { name: name, callback: callback, active: true };
 		return #sizeof(target.handlers) - 1;
 	};
-	target.off = (id) => { target.handlers[id].active = false; };
+	target.off = (name, id) => {
+		const index = #is_defined(id) ? id : name;
+		if (!#is_defined(id) || target.handlers[index].name == name) { target.handlers[index].active = false; }
+	};
 	target.emit = (name, data) => {
 		let result = false;
 		for (handler of target.handlers) {
@@ -77,14 +80,14 @@ const display = (defaults) => {
 		node.addclass = (name) => { node.class = name; };
 		node.removeclass = (name) => { node.class = ''; };
 		node.listen = (object, name, callback) => {
-			const listener = { id: object.on(name, callback) };
+			const listener = { name: name, id: object.on(name, callback) };
 			listener.object = object;
 			node.listeners :+ listener;
 			return #sizeof(node.listeners) - 1;
 		};
 		node.unlisten = (id) => {
 			const listener = node.listeners[id];
-			listener.object.off(listener.id);
+			listener.object.off(listener.name, listener.id);
 		};
 		node.timer = (interval, callback) => {
 			const timer = { interval: interval, running: true, ticks: 0 };
@@ -105,7 +108,7 @@ const display = (defaults) => {
 				node.removed = true;
 				node.visible = false;
 				for (child of node.children) { child.remove(); }
-				for (listener of node.listeners) { listener.object.off(listener.id); }
+				for (listener of node.listeners) { listener.object.off(listener.name, listener.id); }
 				for (timer of node.timers) { timer.stop(); }
 				// Native Object::Destroy notifies its own removal handlers.
 				handlers.emit('remove', {});

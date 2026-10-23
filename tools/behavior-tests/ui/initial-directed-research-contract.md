@@ -49,7 +49,7 @@ random research exclusions, AI research, other factions, advanced technologies,
 flag effects, Info/Lookup behavior, keyboard card navigation, or rendering
 fidelity. Standard Rules use blind research priorities and are outside this
 directed fixture. Source import schema is documented separately in
-[technology-source-contract.md](technology-source-contract.md).
+[technology-source-contract.md](../../smac-data/technology-source-contract.md).
 
 ## Independent initial eligibility set
 
@@ -102,3 +102,17 @@ Escape leaves this chooser open and preserves the goal, both before the first
 choice and after re-entry. No separate confirmation or cancel button is observed
 in this seven-card page. Choosing a research target is not evidence of acquiring
 that technology. Progress and acquisition remain unsupported by this batch.
+
+
+## Optional candidate transfer
+
+`research_headless.py --assets /path/to/game` now replays all three directed
+cases (ten checkpoints) through installed source parsing, real native Gaian
+single-player startup and the shipped Shift+R/popup/backend-event path. Actual
+card text/category nodes, native selected IDs and popup visibility match all
+three immutable recordings. Display/audio, flat terrain, art definitions and
+base-name artwork inputs form the declared boundary. Setup navigation, tutorial
+presentation and pixels are excluded. These locally supplied-asset checks remain
+outside the default release catalogs. They add no public asset-free case count.
+The independent all-89 eligibility helper record remains unregistered/pending
+its own candidate adapter.
