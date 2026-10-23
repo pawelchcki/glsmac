@@ -290,6 +290,11 @@
       "id": "unit-disband-shortcut",
       "cases": "cases/unit-disband-shortcut.json",
       "observations": "observations/smacx-gog-2.0-unit-disband-shortcut.json"
+    },
+    {
+      "id": "interface-tour-synthetic",
+      "cases": "cases/interface-tour-synthetic.json",
+      "observations": "observations/smacx-gog-2.0-interface-tour-synthetic.json"
     }
   ]
 }

@@ -422,6 +422,17 @@ def unit_recycling_command(args):
     return shlex.join(command)
 
 
+def interface_tour_command(args):
+    if args.browser:
+        raise ProtocolError('Declared Tour inputs use asset-free native replay; installed rendered controls are checked separately')
+    name = 'interface_tour_synthetic_original.py' if args.record else 'interface_tour_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/interface-tour-synthetic-original')]
+    return shlex.join(command)
+
+
 def unit_disband_shortcut_command(args):
     if args.browser:
         raise ProtocolError('Disband shortcut uses native display-free replay; rendered keyboard controls are checked separately')
@@ -630,6 +641,8 @@ def main(argv=None):
                 reference_command = unit_disband_shortcut_command(args)
             if reference['id'] in ('unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free'):
                 reference_command = unit_recycling_command(args)
+            if reference['id'] == 'interface-tour-synthetic':
+                reference_command = interface_tour_command(args)
             if reference['id'] == 'unit-menu-context':
                 reference_command = unit_menu_context_command(args, saved=True)
             if reference['id'] == 'unit-menu-context-former-sentry':
@@ -720,6 +733,8 @@ def main(argv=None):
                 candidate_command = unit_disband_shortcut_command(args)
             if command is not None and reference['id'] in ('unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free'):
                 candidate_command = unit_recycling_command(args)
+            if command is not None and reference['id'] == 'interface-tour-synthetic':
+                candidate_command = interface_tour_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':
                 candidate_command = unit_menu_context_command(args, saved=True)
             if command is not None and reference['id'] == 'unit-menu-context-former-sentry':

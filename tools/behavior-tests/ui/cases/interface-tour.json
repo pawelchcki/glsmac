@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "name": "natural-interface-tour-controls",
+  "description": "Natural explicit Cybernetic Tiny/Citizen/standard opening: first-page pointer End Tour and full keyboard Continue/Close. Compare mandatory interface topics, actual ordered buttons, MENU/Commlink visibility, native turn and human unit preservation. Unseeded terrain-dependent topics remain separate.",
+  "cases": [
+    {"id": "interface-tour-early-end", "algorithm": "ui.interface_tour_controls.v1", "input": {"finish": "early"}},
+    {"id": "interface-tour-full-keyboard", "algorithm": "ui.interface_tour_controls.v1", "input": {"finish": "full"}}
+  ]
+}

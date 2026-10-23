@@ -41,12 +41,13 @@ class LaneTests(unittest.TestCase):
             'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input',
             'world-single-player-setup', 'natural-first-city-lifecycle',
             'opening-native', 'opening-dialog', 'automatic-end-turn', 'pod-landing-controls', 'texture-filter',
+            'interface-tour-controls',
             'base-growth-worker-links', 'base-growth-regression', 'land-resource-sources'})
         self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {
             'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'unit-disband',
             'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city',
-            'unit-recycling-scout-free', 'unit-disband-shortcut'})
-        for kind, count in [('ui', 39), ('pending-ui', 22), ('gaps', 0)]:
+            'unit-recycling-scout-free', 'unit-disband-shortcut', 'interface-tour-synthetic'})
+        for kind, count in [('ui', 43), ('pending-ui', 22), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)
@@ -68,8 +69,8 @@ class LaneTests(unittest.TestCase):
                 self.assertFalse(identifiers & set(self.manifest['kinds'][kind]['hot']))
         self.assertEqual((len(self.manifest['kinds']['regression']['hot']),
                           len(self.manifest['kinds']['regression']['stable']),
-                          len(self.known['regression'])), (25, 111, 136))
-        for lane, expected in [('hot', (9, 39)), ('stable', (49, 711)), ('all', (58, 750))]:
+                          len(self.known['regression'])), (26, 111, 137))
+        for lane, expected in [('hot', (10, 43)), ('stable', (49, 711)), ('all', (59, 754))]:
             inventory = lanes.describe('ui', lanes.select('ui', self.known['ui'], lane, self.manifest))
             self.assertEqual((inventory['suites'], inventory['cases']), expected)
         pending = lanes.describe('pending-ui', self.known['pending-ui'])

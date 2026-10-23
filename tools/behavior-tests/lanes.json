@@ -5,6 +5,7 @@
       "hot": [
         "technology-startup",
         "technology-sources",
+        "interface-tour-controls",
         "texture-filter",
         "pod-landing-controls",
         "automatic-end-turn",
@@ -153,7 +154,8 @@
         "unit-recycling",
         "unit-recycling-former-city",
         "unit-recycling-scout-free",
-        "unit-disband-shortcut"
+        "unit-disband-shortcut",
+        "interface-tour-synthetic"
       ],
       "stable": [
         "road-network",
