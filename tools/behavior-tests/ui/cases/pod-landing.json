@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "name": "natural-pod-landing",
+  "description": "Declared Cybernetic Tiny/Citizen natural opening. Five observed installed pod frames, horizontal motion signs and first-base naming order. World-dependent exact translations, Y trajectory, cadence, smoke, audio and full-frame equivalence excluded.",
+  "cases": [
+    {
+      "id": "pod-landing-keyboard",
+      "algorithm": "ui.pod_landing.v1",
+      "input": {
+        "confirmation": "keyboard",
+        "motion_projection": "horizontal-direction-from-first-sample"
+      }
+    },
+    {
+      "id": "pod-landing-pointer",
+      "algorithm": "ui.pod_landing.v1",
+      "input": {
+        "confirmation": "pointer",
+        "motion_projection": "horizontal-direction-from-first-sample"
+      }
+    }
+  ]
+}
