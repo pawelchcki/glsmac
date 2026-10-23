@@ -1,6 +1,6 @@
 const source = #include('../../../game/interface_tour_dialog');
 return {
-	active: false, frame: null, life: null, controls: [], source_id: null, generation: 0, p: null,
+	active: false, frame: null, life: null, controls: [], paragraph_nodes: [], source_id: null, generation: 0, p: null,
 	valid: (session, generation) => {
 		if (!this.active || this.generation != generation) { return false; }
 		const state = this.p.game.get_opening_state();
@@ -11,7 +11,7 @@ return {
 		if (this.frame != null) { this.frame.remove(); this.frame = null; }
 		if (this.life != null) { const life = this.life; this.life = null; life.remove(); }
 		if (this.p != null) { this.p.modules.menu.close_all(); }
-		this.controls = []; this.source_id = null; this.index = null; this.p = null; this.opening = null; this.definitions = null;
+		this.controls = []; this.paragraph_nodes = []; this.source_id = null; this.index = null; this.p = null; this.opening = null; this.definitions = null;
 	},
 	finish: (session, generation) => {
 		if (!this.valid(session, generation) || this.pending) { return true; }
@@ -31,7 +31,7 @@ return {
 		if (page.id == 'TOURCOMMLINK') { menu.show_commlink(this.definitions.no_contacts); }
 		const width = 700; const height = 300;
 		this.frame = p.root.window({id: 'interface-tour-page', class: 'default-panel', align: 'center', width: width, height: height, header_height: 0, zindex: 0.99, blocker: 'transparent'});
-		this.opening.paragraphs(page.definition.paragraphs, 20, width - 45, this.frame);
+		this.paragraph_nodes = this.opening.paragraphs(page.definition.paragraphs, 20, width - 45, this.frame);
 		const last = index == #sizeof(this.definitions.pages) - 1;
 		const next = () => { if (this.index != index) { return true; } if (last) { return this.finish(session, generation); } return this.show(index + 1, session, generation); };
 		this.controls = [];

@@ -36,10 +36,13 @@ if (view.input != null) { value = #uppercase(view.input.value); }
 if (view.confirm != null) { cx = view.confirm_x; cy = view.confirm_y; }
 if (view.dismiss != null) { dx = view.dismiss_x; dy = view.dismiss_y; }
 ${tourSource}
-let topic = phase == 'tour' ? 'tour-prompt' : phase;
+const stage = guided != null && guided.active ? 'guided' : (phase == 'tour' ? 'tour-prompt' : phase);
+let body = ''; let nodes = [];
+if (stage == 'guided' && #is_defined(guided.paragraph_nodes)) { nodes = guided.paragraph_nodes; }
+else if (stage == 'tour-prompt' && #is_defined(view.paragraph_nodes)) { nodes = view.paragraph_nodes; }
+for (node of nodes) { if (body != '') { body += ' '; } body += node.text; }
 let labels = ''; let points = '';
 if (guided != null && guided.active) {
- topic = guided.source_id;
  for (control of guided.controls) {
   if (labels != '') { labels += '~'; points += '~'; }
   labels += #uppercase(control.node.text); points += #to_string(control.x) + ',' + #to_string(control.y);
@@ -51,8 +54,9 @@ if (guided != null && guided.active) {
  if (view.dismiss != null) { labels += #uppercase(view.dismiss.text); points += #to_string(dx) + ',' + #to_string(dy); }
 }
 const menu = view.p.modules.menu;
-if (topic != last_topic) {
- last_topic = topic;
+const key = stage + '|' + body + '|' + labels;
+if (key != last_view) {
+ last_view = key; observed_serial++;
  let units = ''; const tm = game.get_tm();
  for (let y = 0; y < tm.get_map_height(); y++) {
   for (let x = y % 2; x < tm.get_map_width(); x += 2) {
@@ -63,16 +67,25 @@ if (topic != last_topic) {
    }
   }
  }
- #print('ITOUR_UNITS|' + topic + '|' + units);
+ #print('ITOUR_UNITS|' + #to_string(observed_serial) + '|' + units);
 }
-#print('ITOUR_STATE|' + topic + '|' + labels + '|' + #to_string(menu.menus.left_menu.is_open) + '|' + #to_string(menu.menus.right_menu.is_open) + '|' + #to_string(game.get_turn()) + '|' + points);
+let base_name = ''; let unit_name = '';
+const state = game.get_opening_state();
+for (base of game.get_bm().get_bases()) {
+ if (base.id == state.base_id) {
+  base_name = base.name + '';
+  for (unit of base.get_tile().get_units()) { if (unit.owner == game.get_player().id && unit_name == '') { unit_name = unit.get_def().name + ''; } }
+ }
+}
+#print('ITOUR_STATE|' + #to_string(observed_serial) + '|' + stage + '|' + labels + '|' + #to_string(menu.menus.left_menu.is_open) + '|' + #to_string(menu.menus.right_menu.is_open) + '|' + #to_string(game.get_turn()) + '|' + points + '|' + body + '|' + base_name + '|' + unit_name);
+
 `;
 observe('GLSMAC_data/default/main.gls.js','glsmac.run();',`
 glsmac.on('configure_game', (e) => {
  const game = e.game;
  game.on('start_ui', (e) => {
   #print('OSEQ_FACTION|' + game.get_player().get_faction().id);
-  let last_topic = null;
+  let last_view = null; let observed_serial = 0;
   glsmac.ui.root.timer(100, () => {
    ${viewObservation}
    #print('OSEQ_STATE|' + phase + '|' + caption + '|' + value + '|' + #to_string(game.get_turn()) + '|' + #to_string(cx) + '|' + #to_string(cy) + '|' + #to_string(dx) + '|' + #to_string(dy));
@@ -109,34 +122,34 @@ try{
     await page.waitForFunction(phase=>[...document.querySelector('#log').textContent.matchAll(/OSEQ_STATE\|([^|\r\n]+)/g)].at(-1)?.[1]===phase,phase);
     await page.keyboard.press('Enter');
    }
-   await page.waitForFunction(()=>{const current=[...document.querySelector('#log').textContent.matchAll(/ITOUR_STATE\|([^|\r\n]+)/g)].at(-1);return current?.[1]==='tour-prompt'||current?.[1]==='map';});
+   await page.waitForFunction(()=>{const current=[...document.querySelector('#log').textContent.matchAll(/ITOUR_STATE\|\d+\|([^|\r\n]+)/g)].at(-1);return current?.[1]==='tour-prompt'||current?.[1]==='map';});
    let baselineUnits=null;
    const readTour=async()=>{
-    const text=await log();const m=[...text.matchAll(/ITOUR_STATE\|([^|\r\n]+)\|([^|\r\n]*)\|(true|false)\|(true|false)\|(\d+)\|([^\r\n]*)/g)].at(-1);
+    const text=await log();const m=[...text.matchAll(/ITOUR_STATE\|(\d+)\|([^|\r\n]+)\|([^|\r\n]*)\|(true|false)\|(true|false)\|(\d+)\|([^|\r\n]*)\|([^|\r\n]*)\|([^|\r\n]*)\|([^\r\n]*)/g)].at(-1);
     assert.ok(m,'Actual Tour view is observable');
     const units=[...text.matchAll(/ITOUR_UNITS\|([^|\r\n]+)\|([^\r\n]*)/g)].filter(x=>x[1]===m[1]).at(-1);
     assert.ok(units,'Actual native human units were observed');
     const state=units[2].split(';').filter(Boolean).sort();
     if(baselineUnits===null)baselineUnits=state;
     unitsUnchanged=(unitsUnchanged??true)&&JSON.stringify(state)===JSON.stringify(baselineUnits);
-    return {frame:{topic:request.topics[m[1]]||m[1],buttons:m[2]?m[2].split('~'):[],menu_open:m[3]==='true',commlink_open:m[4]==='true',native_turn:Number(m[5])},points:m[6]?m[6].split('~').map(x=>x.split(',').map(Number)):[],raw:m[1]};
+    return {frame:{observed_stage:m[2],mounted_body:m[8],native_bindings:{'$BASENAME0':m[9],'$UNITNAME0':m[10],'$UNITNAME1':m[10]},buttons:m[3]?m[3].split('~'):[],menu_open:m[4]==='true',commlink_open:m[5]==='true',native_turn:Number(m[6])},points:m[7]?m[7].split('~').map(x=>x.split(',').map(Number)):[],raw:m[1]};
    };
    const limit=item.input.finish==='early'?3:15;
    for(let step=0;step<limit;step++){
     await healthy();const observed=await readTour();frames.push(observed.frame);await picture(`tour-${step}`);
     let action;
     if(step===0) action='TOUR';
-    else if(observed.frame.topic==='map'){if(step!==limit-1)failure={step,reason:`Tour returned to actual map after ${frames.length} checkpoints`};break;}
+    else if(observed.frame.observed_stage==='map'){if(step!==limit-1)failure={step,reason:`Tour returned to actual map after ${frames.length} checkpoints`};break;}
     else if(item.input.finish==='early') action='END TOUR';
-    else action=observed.frame.topic==='finished'?'CLOSE':'CONTINUE';
+    else action=observed.frame.buttons.length===1&&observed.frame.buttons[0]==='CLOSE'?'CLOSE':'CONTINUE';
     const index=observed.frame.buttons.indexOf(action);
     if(index<0){failure={step,reason:`Actual ${action} control absent; visible controls ${observed.frame.buttons.join(', ')}`};break;}
     if(step===0||item.input.finish==='early')await click(observed.points[index]);else await page.keyboard.press('Enter');
     let changed=false;
     for(let n=0;n<100;n++){await healthy();if((await readTour()).raw!==observed.raw){changed=true;break;}await page.waitForTimeout(100);}
-    if(!changed){failure={step,reason:`Actual ${action} control did not change visible topic ${observed.frame.topic}`};break;}
+    if(!changed){failure={step,reason:`Actual ${action} control did not change mounted paragraph text`};break;}
    }
-   if(failure===null&&(frames.length!==limit||frames.at(-1)?.topic!=='map'))failure={step:Math.min(frames.length,limit-1),reason:'Actual Tour did not reach its final playable-map checkpoint'};
+   if(failure===null&&(frames.length!==limit||frames.at(-1)?.observed_stage!=='map'))failure={step:Math.min(frames.length,limit-1),reason:'Actual Tour did not reach its final playable-map checkpoint'};
 
   }catch(error){runtimeFailure=String(error);await page.locator('#canvas').screenshot({path:`${dir}/failure.png`,timeout:3000}).catch(()=>{});}
   finally{writeFileSync(`${dir}/application.log`,await log().catch(()=>''));writeFileSync(`${dir}/metadata.json`,JSON.stringify({implementation,errors},null,2));await context.close();}

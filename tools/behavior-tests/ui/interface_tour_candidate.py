@@ -4,6 +4,7 @@
 Use SMAC_ASSETS_DIR and WASM_APP_DIR. INTERFACE_TOUR_ARTIFACTS selects the private
 screenshot/log directory; NODE selects Node.js. No original assets enter reports.
 """
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,6 +14,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from protocol import ProtocolError, decode_json, load_request, validate_response
 from ui.interface_tour_contract import ALGORITHM, TOPICS, validate_input, validate_output
+from ui.interface_tour_observation import classify_frames
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -34,6 +36,15 @@ def main():
         if process.returncode:
             raise ProtocolError('Rendered interface-tour worker failed: ' + process.stdout[-2000:])
         response = decode_json(process.stdout)
+        assets = Path(os.environ['SMAC_ASSETS_DIR'])
+        matches = [path for path in assets.iterdir() if path.name.lower() == 'tutor.txt']
+        if len(matches) != 1:
+            raise ProtocolError('Installed tutorial input is missing or ambiguous')
+        source = matches[0].read_text(encoding='latin1')
+        response['implementation']['source_input_sha256'] = hashlib.sha256(matches[0].read_bytes()).hexdigest()
+        for result in response['results']:
+            if result['status'] == 'ok':
+                classify_frames(result['output'], source, TOPICS)
         results = validate_response(response, request)
         for case in request['cases']:
             if results[case['id']]['status'] == 'ok':

@@ -68,7 +68,8 @@
     "test:unit-recycling": "node --test --test-concurrency=1 unit-recycling.test.mjs",
     "test:opening-art": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/opening-art.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-opening-art.json --command 'python3 tools/behavior-tests/ui/opening_art_candidate.py' --timeout 240 --report build/artifacts/opening-art-report.json",
     "test:opening-sequence": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/opening-sequence.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-opening-sequence.json --command 'python3 tools/behavior-tests/ui/opening_sequence_candidate.py' --timeout 240 --report build/artifacts/opening-sequence-report.json",
-    "test:interface-tour": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/interface-tour.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-interface-tour.json --command 'python3 tools/behavior-tests/ui/interface_tour_candidate.py' --timeout 240 --report build/artifacts/interface-tour-report.json"
+    "test:interface-tour": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/interface-tour-synthetic.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-interface-tour-synthetic.json --command 'python3 tools/behavior-tests/ui/interface_tour_headless.py' --timeout 240 --report build/artifacts/interface-tour-report.json",
+    "test:interface-tour:browser": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/interface-tour.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-interface-tour.json --command 'python3 tools/behavior-tests/ui/interface_tour_candidate.py' --timeout 240 --report build/artifacts/interface-tour-browser-report.json"
   },
   "devDependencies": {
     "playwright": "1.61.1",
