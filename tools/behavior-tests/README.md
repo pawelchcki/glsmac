@@ -77,6 +77,14 @@ Any executed mismatch, unsupported result, error or failed suite returns nonzero
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
 
+Opening artwork has a separate optional rendered comparison:
+`SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin npm --prefix tools/wasm-tests run test:opening-art`.
+It replays six real menu checkpoints against independently repeated original RGB
+observations at twelve declared backdrop coordinates. These pixel checks require
+installed assets and add no cases to the asset-free default UI totals. See
+[the bounded contract](ui/opening-art-contract.md); full opening-through-first-round
+fidelity remains explicitly partial in `properties.json`.
+
 Main CI restores or builds one compatible headless engine and shares its artifact
 with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
 fresh so their embedded application data also matches the checked-out revision.

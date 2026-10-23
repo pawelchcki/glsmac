@@ -380,6 +380,26 @@
         "Original custom-dimension defaults under edited world-size source rows",
         "Other in-game menu row effects, enabled semantics, shortcuts and unit/game contexts"
       ]
+    },
+    {
+      "id": "opening-journey",
+      "status": "partial",
+      "contracts": [
+        "ui.opening_art.v1"
+      ],
+      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Rendered candidate replay is separate from the asset-free default UI catalog. This bounded artwork contract does not establish full-frame opening or first-round parity.",
+      "remaining": [
+        "Launch movies, logos, skip controls and transition frame alignment",
+        "Main/setup typography, menu chrome, layout, hover and focus rendering",
+        "Complete setup branch graph, backtracking and cancellation",
+        "Rule editing, file/save/scenario and multiplayer setup paths",
+        "Faction information, roster editing, random choices and identity controls across profiles",
+        "Generation/loading visuals, deterministic worlds, camera, visibility and initial native state",
+        "Planetfall and faction-specific opening narratives with actual acknowledgement semantics",
+        "Landing, first-base naming, initial-base resources and tour/tutorial flow",
+        "Every first-round management, unit action, menu, dialog and turn-confirmation path",
+        "Initial opponent roster and actual computer-player decisions through next-year transition"
+      ]
     }
   ]
 }

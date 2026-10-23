@@ -112,7 +112,7 @@ async function startGame(page, measureImport = false) {
 async function mainMenu(page, name, timeout = 60000) {
   await page.waitForFunction(() => document.body.dataset.state === 'failed'
     || (document.body.dataset.state === 'ready' && !document.querySelector('#start').disabled) || (
-    Module.assetStore.loaded.has('openinga.pcx')
+    Module.assetStore.loaded.has('xopeninga.pcx')
     && Module.assetStore.loaded.has('fx/opening menu.wav') && Module.assetStore.pending.size === 0
   ), null, { timeout });
   assert.equal(await page.locator('body').getAttribute('data-state'), 'running',
