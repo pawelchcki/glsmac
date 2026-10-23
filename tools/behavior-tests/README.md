@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 24 regression suites around active unit menus, retirement/recycling,
+Hot contains 26 regression suites around installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(218 scenarios/1,632 assertions). Original UI replay includes ten hot references with 43 recorded
+(245 scenarios/1,753 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 135 native
+and keyboard controls stay hot. The combined partition retains all 137 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -232,8 +232,7 @@ original assertion and native path is retained under the same timeout. Optional
 display-fixture dimensions remove redundant per-node wrappers; this changes no
 production renderer or gameplay result.
 
-The full regression catalog contains **1,482 scenarios and 10,327 assertions** across
-121 suites. It exercises production movement/combat/spawn events, deterministic
+The regression catalog exercises production movement/combat/spawn events, deterministic
 random draws and rollback, base growth/starvation and worker decisions, menus,
 map/faction selection, base navigation, turn controls, popups, prompts, timer
 cleanup, terrain labels, the visible Skip Turn action, geometry and technology
@@ -702,8 +701,8 @@ the WASM interpreter with controlled native inputs and is separate from the
 The bounded C++ contracts are implemented by shared production GLSMAC helpers.
 The vector helpers expose the original vector score separately from tile steps.
 The technology table implements possession, weight classification, availability
-and bounded prerequisite queries; it does not add a full research planner or
-populate the shipped technology rules. The mineral-factor helper transfers the
+and bounded prerequisite queries. The installed-source consumer populates that
+table at world creation; research planning remains unimplemented. The mineral-factor helper transfers the
 recorded map-preset and industry behavior. Recycling Tanks now uses its explicit
 row declaration with known named presets, installed multipliers and initial faction INDUSTRY; social policy choices,
 AI/difficulty and per-base cost effects remain outside this integration. The candidate adapter calls these same
@@ -740,6 +739,48 @@ table, and world snapshots carry its definitions, weights and ownership. Faction
 arguments are original ownership-mask IDs (0 for native life, 1–7 for factions),
 separate from GLSMAC player slot indices. The `behavior-rules` suite exercises
 these production bindings, lifecycle reset and snapshot validation.
+
+## Installed technology definitions and starting ownership
+
+Normal and Quick Start configuration now parse all 89 `TECHNOLOGY` declarations
+from installed `alphax.txt`. Source order supplies native IDs; abbreviated tokens
+resolve both prerequisites after the complete table has been read. Names and
+validated flag text remain metadata. The four source AI weights map to the
+native growth/technology/wealth/power order. See the precise
+[source schema and exclusions](../smac-data/technology-source-contract.md).
+
+A host startup event initializes the native table and concrete faction starting
+technologies before first-turn effects, including the interactive opening at turn
+zero. The host plans and validates every faction TECH before queuing world
+creation, so incompatible inputs abort without spawning a partial world. Its
+complete scalar table travels in event data; recipients validate that payload
+without recomputing their own installed declarations. GLSMAC slots 0–6 map explicitly to native
+ownership-mask faction IDs 1–7. Duplicate TECH tokens do not duplicate ownership;
+numeric free-tech choices remain outside this batch. The native `replace` binding
+validates all 89 rows before one table replacement; `get` returns detached row
+data, and `validate_replacement` checks a whole plan without mutation. Replacement
+retains native write authorization and snapshot transfer. ResetGame clears the
+initialization marker alongside the native table for the next session.
+
+`technology-sources` and `technology-startup` add 27 application scenarios and
+121 assertions for source parsing, malformed late rows, independent ownership,
+availability, atomic replacement, receiving snapshots, actual shipped startup,
+once-only initialization and receipt rollback. They include ordinary/interactive
+startup, host event serialization with different receiving sources, invalid
+mandatory-plan rejection and an actual reset/second startup on the same native
+Game with changed ownership. The startup fixture supplies
+declared terrain and synthetic text, with artwork/sound definitions explicitly
+omitted; other gameplay events execute their shipped handlers. Run:
+
+```sh
+npm --prefix tools/wasm-tests run test:technology
+```
+
+Local installed-file checks load the complete table and all fourteen factions'
+concrete TECH declarations without committing asset bodies. These are source
+integration checks, separate from the unchanged 632 recorded native/WASM helper
+cases. Research choice UI, costs/progress, acquisition effects, flag effects and
+complete save/load remain unimplemented or unverified.
 
 ## Fixed gameplay and UX regressions
 

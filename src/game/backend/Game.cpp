@@ -2051,6 +2051,7 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 
 void Game::ResetGame() {
 	m_technologies.Clear();
+	CustomUnset( "technologies_initialized" );
 
 	ClearHandlers();
 

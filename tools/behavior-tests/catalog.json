@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"technology-startup","script":"GLSMAC_data/tests/technology_startup.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"technology-sources","script":"GLSMAC_data/tests/technology_sources.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"interface-tour-controls","script":"GLSMAC_data/tests/interface_tour_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"texture-filter","script":"GLSMAC_data/tests/texture_filter.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"pod-landing-controls","script":"GLSMAC_data/tests/pod_landing_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

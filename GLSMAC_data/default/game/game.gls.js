@@ -8,6 +8,7 @@ return (glsmac) => {
 	const mineral_rules = #include('mineral_rules');
 	const world_sizes = #include('world_sizes');
 	const unit_rules = #include('unit_rules');
+	const technology_rules = #include('technology_rules');
 	const land_resource_rules = #include('land_resource_rules');
 	const terraforming_rules = #include('terraforming_rules');
 	const movement_rules = #include('movement_rules');
@@ -53,6 +54,7 @@ return (glsmac) => {
 
 			units.configure(game);
 			const document = glsmac.load_smac_text('alphax.txt', 'rules');
+			game.set('technology_rules', technology_rules.parse(document));
 			game.set('terraforming_rules', terraforming_rules.parse(document));
 			game.set('movement_rules', movement_rules.parse(document));
 			#include('terraforming').configure(game);
@@ -65,6 +67,11 @@ return (glsmac) => {
 
 			const worldscript = #is_defined(glsmac.config.worldscript) ? glsmac.config.worldscript : 'default';
 			game.on('create_world', (e) => {
+				// Resolve every faction TECH before any world events are queued.
+				// Peers receive this complete host plan rather than local asset data.
+				const rows = technology_rules.plan(game.get('technology_rules'), game.get_players());
+				game.technologies.validate_replacement(rows);
+				game.event('initialize_technologies', {rows: rows});
 				const generator = #include('world/' + worldscript);
 				generator(e.game);
 			});
