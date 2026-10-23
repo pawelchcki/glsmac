@@ -16,6 +16,7 @@ return {
 		// native loader owns caching and errors; no labels are fabricated here.
 		this.headers = #include('definitions')(p.glsmac);
 		this.ui = p.ui;
+		this.glsmac = p.glsmac;
 		this.game = #is_defined(p.game) ? p.game : null;
 		this.work_unit = (action) => {
 			if (!#is_defined(p.modules) || !#is_defined(p.modules.bottom_bar)) { return null; }
@@ -326,6 +327,37 @@ return {
 			}
 		}
 		child.el.height = top;
+	},
+
+	show_commlink: (no_contacts) => {
+		if (this.game == null) { throw Error('Commlink needs the live participant inventory'); }
+		const self = this.game.get_player().id; let single = true;
+		for (player of this.game.get_players()) {
+			// Participant membership does not establish diplomatic contact.
+			// The transferred opening has one actual participant. Foreign-player
+			// contact discovery and negotiation require their own native model.
+			if (player.id != self) { single = false; }
+		}
+		const menu = this.menus.right_menu; const bottom = this.bottom_bar_height;
+		if (!single) {
+			// Preserve the existing empty panel for ordinary shared controls.
+			// Foreign participant membership supplies no met-faction answers.
+			if (#is_defined(menu.empty_label)) { menu.empty_label.hide(); }
+			this.close_all(); this.open('right_menu', {align: 'bottom right', right: 0, bottom: bottom, height: 166}); return;
+		}
+		let label = no_contacts;
+		if (!#is_defined(label)) {
+			const labels = [];
+			for (record of this.glsmac.load_smac_text('labels.txt', 'dialogs').dialog('LABELS').records) { if (record.kind == 'text') { labels :+ record.text; } }
+			if (#sizeof(labels) < 630) { throw Error('Missing installed Commlink label'); }
+			label = labels[629] + '';
+		}
+		if (#typeof(label) != 'String' || #trim(label) == '') { throw Error('Empty installed Commlink label'); }
+		this.close_all();
+		if (!#is_defined(menu.empty_label)) { menu.empty_label = menu.el.text({text: label, left: 10, top: 8, font: 'arialnb.ttf:17', color: 'rgb(176,212,235)'}); }
+		menu.empty_label.text = label;
+		menu.empty_label.show();
+		this.open('right_menu', {align: 'bottom right', right: 0, bottom: bottom, height: 166});
 	},
 
 	open: (id, style) => {

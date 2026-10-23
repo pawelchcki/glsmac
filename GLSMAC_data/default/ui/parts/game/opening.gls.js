@@ -1,13 +1,15 @@
 const source = #include('../../../game/opening_dialog');
 return {
 	visible_phase: null, frame: null, background: null, caption_node: null, input: null,
-	confirm: null, dismiss: null, phase: null, pending: false, p: null,
+	confirm: null, dismiss: null, tour_control: null, guided: null, paragraph_nodes: [], phase: null, pending: false, p: null,
 	landing: null, phase_session: null,
 	close: () => {
+		if (this.guided != null && this.guided.active) { this.guided.stop(); }
 		if (this.landing != null) { this.landing.cancel(); this.landing = null; }
 		if (this.frame != null) { this.frame.remove(); this.frame = null; }
 		if (this.background != null) { this.background.remove(); this.background = null; }
-		this.caption_node = null; this.input = null; this.confirm = null; this.dismiss = null;
+		this.caption_node = null; this.input = null; this.confirm = null; this.dismiss = null; this.tour_control = null;
+		this.paragraph_nodes = [];
 	},
 	base: (id) => {
 		for (base of this.p.game.get_bm().get_bases()) { if (base.id == id) { return base; } }
@@ -24,19 +26,21 @@ return {
 		if (#is_defined(error)) { this.error.text = error; return true; }
 		this.pending = true; this.p.game.event('opening_command', data); return true;
 	},
-	paragraphs: (paragraphs, top, width) => {
-		let y = top;
+	paragraphs: (paragraphs, top, width, frame) => {
+		const target = #is_defined(frame) ? frame : this.frame;
+		let y = top; const nodes = [];
 		for (paragraph of paragraphs) {
-			let line = ''; let node = this.frame.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: ''});
+			let line = ''; let node = target.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: ''});
+			nodes :+ node;
 			for (word of #split(paragraph, ' ')) {
 				const candidate = line == '' ? word : line + ' ' + word;
 				node.text = candidate;
-				if (node.get_width() > width && line != '') { node.text = line; y += 22; node = this.frame.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: word}); line = word; }
+				if (node.get_width() > width && line != '') { node.text = line; y += 22; node = target.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: word}); nodes :+ node; line = word; }
 				else { line = candidate; }
 			}
 			y += 36;
 		}
-		return y;
+		return nodes;
 	},
 	show: (state) => {
 		const p = this.p; const base = this.base(state.base_id); if (base == null) { return; }
@@ -52,16 +56,25 @@ return {
 			this.frame.text({class: 'popup-text', left: 20, top: 62, text: definitions.name.paragraphs[0]});
 			this.input = this.frame.input({class: 'popup-input', left: 100, top: 55, width: 575, height: 26, max_length: 24, value: base.name + ''});
 			this.input.on('input', () => { return this.submit('name', session, phase); });
-		} else { this.paragraphs(definition.paragraphs, phase == 'planetfall' ? 55 : 20, width - 45); }
+		} else { this.paragraph_nodes = this.paragraphs(definition.paragraphs, phase == 'planetfall' ? 55 : 20, width - 45); }
 		const button_width = phase == 'tour' ? 310 : 660;
 		const button_left = phase == 'tour' ? 370 : 20;
-		const button = this.frame.button({class: 'popup-button', text: definitions.ok, left: button_left, top: height - 42, width: button_width, height: 26});
+		const button = this.frame.button({class: 'popup-button', text: phase == 'tour' ? definitions.close : definitions.ok, left: button_left, top: height - 42, width: button_width, height: 26});
 		const action = phase == 'planetfall' ? 'planetfall' : (phase == 'first-base-name' ? 'name' : 'dismiss');
 		button.on('click', () => { return this.submit(action, session, phase); });
 		const x = (p.ui.get_width() - width) / 2 + button_left + button_width / 2;
 		const y = (p.ui.get_height() - height) / 2 + height - 42 + 13;
 		if (phase == 'tour') { this.dismiss = button; this.dismiss_x = x; this.dismiss_y = y; }
 		else { this.confirm = button; this.confirm_x = x; this.confirm_y = y; }
+		if (phase == 'tour') {
+			this.tour_control = this.frame.button({class: 'popup-button', text: definitions.tour.button, left: 20, top: height - 42, width: 310, height: 26});
+			this.tour_x = (p.ui.get_width() - width) / 2 + 175; this.tour_y = y;
+			this.tour_control.on('click', () => {
+				const current = p.game.get_opening_state();
+				if (!this.pending && this.frame != null && current.phase == 'tour' && current.session == session) { return this.guided.start(p, this, session, base); }
+				return true;
+			});
+		}
 		this.frame.on('keydown', (e) => { if (e.modifiers == {} && e.code == 'ENTER' && phase != 'tour') { this.submit(action, session, phase); } return true; });
 		this.visible_phase = phase;
 	},
@@ -86,6 +99,7 @@ return {
 		return true;
 	},
 	init: (p) => {
+		this.guided = #include('interface_tour');
 		this.p = p; this.phase = null; this.visible_phase = null; this.pending = false; this.auto_pending = null;
 		if (!#is_defined(p.game.get_opening_state)) { this.visible_phase = 'map'; return; }
 		const life = p.root.area({id: 'opening-lifecycle', width: 0, height: 0});

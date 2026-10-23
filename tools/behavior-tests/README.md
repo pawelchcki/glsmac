@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 750 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 754 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 23 regression suites around active unit menus, retirement/recycling,
-keyboard controls, modal input, opening phases, pod landing, automatic turn completion,
-setup, first-city lifecycle and texture filter chains (212 scenarios/1,553
-assertions). Original UI replay includes nine hot references with 39 recorded
+Hot contains 24 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, opening phases, pod landing, the interface tour,
+automatic turn completion, setup, first-city lifecycle and texture filter chains
+(218 scenarios/1,632 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,8 +60,8 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 134 native
-suites and 58 UI references (750 recorded cases), with five pending references/22
+and keyboard controls stay hot. The combined partition retains all 135 native
+suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
 two workers and the standard 120-second per-suite limit took 227.96 seconds before
@@ -107,6 +107,25 @@ See [the landing contract](ui/pod-landing-contract.md). Exact trajectory, cadenc
 smoke compositing, audio and world visuals remain outside that projection.
 The default hot lane separately checks the production playback controller and
 synthetic FLIC decoder without installed game assets or pixel rendering.
+
+The default `test:interface-tour` command is asset-free native/WASM replay.
+Four independently repeated original traces exercise two own tutorial/label
+profiles through first-page End or complete Continue/Close. Thirty-six checkpoints
+read displayed topics, controls, MENU/Commlink visibility and edited heading text,
+native turn one and unchanged human unit state. See [the declared input contract](ui/interface-tour-synthetic-contract.md).
+It needs no installed game, browser or browser dependencies.
+
+The optional `test:interface-tour:browser` command retains installed-data Tour
+coverage. Its two independently repeated original traces cover the Tour/Close
+prompt, first-page pointer End Tour, keyboard Continue/final Close, ordered
+buttons and real MENU/Commlink panel visibility. Eighteen projected checkpoints
+retain native turn one and unchanged human unit state. See [the Tour contract](ui/interface-tour-contract.md).
+Terrain-dependent pages, pointer/keypad geometry and full-frame rendering remain
+outside these contracts. Topic checks read mounted text independently of page
+IDs; healthy blank/wrong/stale body mutations are strict mismatches. The current
+shared Commlink view proves NO CONTACTS only
+when the actual participant inventory contains the local player alone;
+foreign-participant diplomacy and contact discovery remain unimplemented.
 
 Main CI restores or builds one compatible headless engine and shares its artifact
 with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
