@@ -1,0 +1,115 @@
+{
+  "captured_at": "2026-10-23T15:00:05.575088+00:00",
+  "observations": [
+    {
+      "case_sha256": "36c0bc0e34b90f82d3201cd1eac1590fdbfb16f08b6c4798d77ab987e20d0914",
+      "id": "pod-landing-keyboard",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "frames": [
+          {
+            "index": 1,
+            "motion_x": 0
+          },
+          {
+            "index": 7,
+            "motion_x": -1
+          },
+          {
+            "index": 15,
+            "motion_x": -1
+          },
+          {
+            "index": 21,
+            "motion_x": -1
+          },
+          {
+            "index": 27,
+            "motion_x": -1
+          }
+        ],
+        "name_after_animation": true,
+        "phases": [
+          {
+            "native_turn": 0,
+            "phase": "planetfall"
+          },
+          {
+            "native_turn": 0,
+            "phase": "landing"
+          },
+          {
+            "native_turn": 0,
+            "phase": "first-base-name"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "a01e26589d30e3ae68d49d035785a1b9cc00b868d0df80daa47c132d7c4bd06d",
+      "id": "pod-landing-pointer",
+      "output": {
+        "completed": true,
+        "failure": null,
+        "frames": [
+          {
+            "index": 1,
+            "motion_x": 0
+          },
+          {
+            "index": 7,
+            "motion_x": -1
+          },
+          {
+            "index": 15,
+            "motion_x": -1
+          },
+          {
+            "index": 21,
+            "motion_x": -1
+          },
+          {
+            "index": 27,
+            "motion_x": -1
+          }
+        ],
+        "name_after_animation": true,
+        "phases": [
+          {
+            "native_turn": 0,
+            "phase": "planetfall"
+          },
+          {
+            "native_turn": 0,
+            "phase": "landing"
+          },
+          {
+            "native_turn": 0,
+            "phase": "first-base-name"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "52bd4fab41dddd78aff10c0fb9d0c84a216cf22bdc4e22b51c8eaa4674f85ed9",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Only declared Tiny/Citizen/Cybernetic path and sampled installed frames. Unseeded world excluded. Exact translations, vertical movement, frame presentation cadence, complete trajectory, smoke compositing, audio, map, camera, fog, fonts and full-frame parity remain unmeasured.",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual Enter or pointer Planetfall acknowledgement, unchanged natural new game; actual rendered asset frames recognized by multiple independent pixel strips; horizontal translation signs relative to first sampled frame; native turns read only.",
+    "pod_sha256": "2fe43eacb52d5778f7e33d88b09e3f9b737fa601087f9d78a912a8481165ea54",
+    "viewport": [
+      1024,
+      768
+    ]
+  },
+  "repeat": 2,
+  "suite_sha256": "51ebd3268311464d44f240608f84fc8538ee04b4749fb3612d96fb49e6ed6041",
+  "version": 1
+}

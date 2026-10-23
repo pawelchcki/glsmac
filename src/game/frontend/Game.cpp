@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <map>
+#include <limits>
 
 #include "engine/Engine.h"
 #include "util/random/Random.h"
@@ -561,6 +562,31 @@ void Game::SetCameraPosition( const types::Vec3 camera_position ) {
 			UpdateCameraScale();
 		}
 	}
+}
+
+bool Game::FocusOwnedBase( size_t id, types::Vec2< float >& screen ) {
+	const auto* base = m_bm ? m_bm->GetBaseById( id ) : nullptr;
+	if ( !m_is_initialized || !m_camera || !base || !base->IsOwned() ) { return false; }
+	const auto* tile = base->GetTile();
+	const auto target = GetTileWindowCoordinates( tile );
+	m_scroller.Stop();
+	SetCameraPosition( { -target.x, -target.y, m_camera_position.z } );
+	// Use the same world instance coordinates and camera matrix as the renderer.
+	// Choose the visible copy across the horizontally wrapping map.
+	const auto& matrix = m_camera->GetMatrix();
+	const auto c = tile->GetRenderData().coords.InvertY();
+	const float wrap = m_map_data.width * backend::map::s_consts.tile.radius.x;
+	float best_distance = std::numeric_limits< float >::max();
+	for ( int instance = -1; instance <= 1; instance++ ) {
+		const float x = c.x + instance * wrap;
+		const float clip_x = matrix.m[0][0] * x + matrix.m[0][1] * c.y + matrix.m[0][2] * c.z + matrix.m[0][3];
+		const float clip_y = matrix.m[1][0] * x + matrix.m[1][1] * c.y + matrix.m[1][2] * c.z + matrix.m[1][3];
+		if ( fabs( clip_x ) < best_distance ) {
+			best_distance = fabs( clip_x );
+			screen = { ( clip_x + 1 ) * m_viewport.window_width / 2, ( 1 - clip_y ) * m_viewport.window_height / 2 };
+		}
+	}
+	return true;
 }
 
 void Game::FixCameraX() {

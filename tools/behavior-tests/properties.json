@@ -386,9 +386,10 @@
       "status": "partial",
       "contracts": [
         "ui.opening_art.v1",
-        "ui.opening_sequence.v1"
+        "ui.opening_sequence.v1",
+        "ui.pod_landing.v1"
       ],
-      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Rendered candidate replay is separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity.",
+      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Rendered candidate replay is separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity. Two further independently repeated original routes identify five installed pod-animation frames and their horizontal motion signs before first-base naming, retaining native turn zero. Exact world-dependent translations were rejected as nondeterministic and remain outside this projection. Synthetic asset-free FLIC decoder and production-controller regressions cover format handling and playback lifecycle separately. Both routes match actual browser replay at all ten sampled pod frames; this is separate from default asset-free case totals.",
       "remaining": [
         "Launch movies, logos, skip controls and transition frame alignment",
         "Main/setup typography, menu chrome, layout, hover and focus rendering",
@@ -397,7 +398,7 @@
         "Faction information, roster editing, random choices and identity controls across profiles",
         "Generation/loading visuals, deterministic worlds, camera, visibility and initial native state",
         "Other faction-specific opening narratives and acknowledgement/cancellation semantics",
-        "Landing animation, first-base edits/cancellation, initial-base resources and guided Tour flow; the left-hand Tour control is not yet implemented",
+        "Exact landing trajectory, cadence, smoke compositing and sound; first-base edits/cancellation, initial-base resources and guided Tour flow; the left-hand Tour control is not yet implemented",
         "Every first-round management, unit action, menu, dialog and turn-confirmation path",
         "Initial opponent roster and actual computer-player decisions through next-year transition"
       ]

@@ -48,9 +48,9 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 21 regression suites around active unit menus, retirement/recycling,
-keyboard controls, modal input, opening phases, automatic turn completion,
-setup and first-city lifecycle (201 scenarios/1,477
+Hot contains 22 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, opening phases, pod landing, automatic turn completion,
+setup and first-city lifecycle (207 scenarios/1,511
 assertions). Original UI replay includes nine hot references with 39 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 132 native
+and keyboard controls stay hot. The combined partition retains all 133 native
 suites and 58 UI references (750 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -92,9 +92,16 @@ the main menu through Planetfall, the first-base name, the tutorial prompt,
 the playable map and Space into the next turn. Two independently repeated
 original traces establish ten checkpoints, including native turn counters
 0, 0, 1, 1 and 2 for each route. See [the sequence contract](ui/opening-sequence-contract.md).
-This checks the declared phases and controls; full-frame visuals, landing
-animation, the left-hand guided Tour route, generated worlds and opponents
-remain outside these passing cases.
+This checks the declared phases and controls; full-frame visuals, the left-hand
+guided Tour route, generated worlds and opponents remain outside these passing cases.
+
+The optional `test:pod-landing:browser` command compares real installed pod frames before
+first-base naming. Both confirmation paths have independently repeated original
+observations of five rendered frames, horizontal motion and native turn zero.
+See [the landing contract](ui/pod-landing-contract.md). Exact trajectory, cadence,
+smoke compositing, audio and world visuals remain outside that projection.
+The default hot lane separately checks the production playback controller and
+synthetic FLIC decoder without installed game assets or pixel rendering.
 
 Main CI restores or builds one compatible headless engine and shares its artifact
 with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
