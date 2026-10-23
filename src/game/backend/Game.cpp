@@ -443,6 +443,21 @@ WRAPIMPL_BEGIN( Game )
 	WRAPIMPL_PROPS
 	WRAPIMPL_TRIGGERS
 	WRAPIMPL_CUSTOM_SETTERS
+		{ "validate_unit_disband", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
+			const auto error = ValidateUnitDisband( id, caller, turn );
+			return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "disband_unit", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
+			return DisbandUnit( GSE_CALL, id, caller, turn );
+		} ) },
+		{ "rollback_unit_disband", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object );
+			N_GETPROP( token, receipt, "transaction_id", Int ); N_GETPROP( id, receipt, "unit_id", Int );
+			N_GETPROP( caller, receipt, "owner", Int ); N_GETPROP( turn, receipt, "turn_id", Int );
+			RollbackUnitDisband( GSE_CALL, token, id, caller, turn ); return VALUE( gse::value::Undefined );
+		} ) },
 		{ "validate_found_base_unit", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
 			const auto error = ValidateFoundBaseUnit( id, caller );
@@ -2026,6 +2041,7 @@ void Game::ResetGame() {
 	m_next_event_id = 0;
 	m_founding_records.clear();
 	m_joining_records.clear();
+	m_disbanding_records.clear();
 
 	m_tm = nullptr;
 	m_rm = nullptr;

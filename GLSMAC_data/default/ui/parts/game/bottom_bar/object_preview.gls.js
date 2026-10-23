@@ -129,6 +129,7 @@ return {
 	},
 
 	finish_unit_order: (e) => {
+		if (this.order_pending != null && (this.order_pending.name == 'unit_disband' || this.order_pending.name == 'unit_disband_draft')) { return false; }
 		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id) { return false; }
 		if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id) || e.data.unit_id != this.order_pending.unit_id) { return false; }
 		if (this.order_pending.name == 'unit_terraform' &&
@@ -468,6 +469,7 @@ return {
 		});
 		this.found_button = this.frame.button({ class: 'unit-found-button-disabled', text: 'FOUND BASE' });
 		this.founding = #include('./colony_founding'); this.founding.init(p, this);
+		this.disband = #include('./unit_disband'); this.disband.init(p, this);
 		this.found_button.on('click', (e) => { return this.start_colony_action(); });
 		// A panel-local listener is removed with this DOM owner. Child-first
 		// routing lets modal windows consume keys before this command panel.
@@ -488,6 +490,7 @@ return {
 			return false;
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
+			this.disband.finish(e);
 			this.finish_unit_order(e);
 			if (this.founding.active()) { this.founding.finish(e); }
 			else if (this.founding_pending_id != null && e.name == this.founding_pending_name &&
@@ -532,6 +535,7 @@ return {
 		// Movement and temporary tile locks change without a scripted UI update
 		// event. This timer belongs to the panel and stops when the UI is removed.
 		this.frame.timer(100, () => {
+			this.disband.refresh();
 			this.founding.refresh();
 			this.update_order_buttons();
 			this.update_skip_button();

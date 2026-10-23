@@ -1,0 +1,193 @@
+{
+  "captured_at": "2026-10-23T00:09:17.738031+00:00",
+  "observations": [
+    {
+      "case_sha256": "cdab2d19b3489fc94a4ad8ff2696fe694a81fd2eda287ecfa76a628905fb27e6",
+      "id": "unit-disband-name",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE FORMERS?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "UNIT NAME DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "8dfde23fc41c91e5a39eb14c1f549acf336b4b7708978e262ce601293be42e18",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Single ready Former one southeast step from own city, flat arid land, no active work, two source profiles; ordinary disband only, no self-destruct activation, city recycling, other units/context/terrain/AI or general disband parity",
+    "contract": "ui.unit_disband.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ready-Former Tab/MENU/Action9; independently segmented dialog caption/body/three choices/highlight/button; selected HUD crosschecked against native units; survivor roles/positions/health/orders/movement and native city/year guarded",
+    "source_profiles_sha256": "ec503f615afe0d5607eb3efd542ca573c47b1370b6ae7c656766c4ebf1a12531"
+  },
+  "repeat": 2,
+  "suite_sha256": "2257f61fd8e6fc743f103f1743a5206a47ac0ed2815978565772e59a00049cbf",
+  "version": 1
+}

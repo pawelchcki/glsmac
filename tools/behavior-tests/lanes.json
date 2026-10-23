@@ -3,6 +3,9 @@
   "kinds": {
     "regression": {
       "hot": [
+        "unit-disband-native",
+        "unit-disband-authority",
+        "unit-disband-controls",
         "colony-near-controls",
         "colony-near-native",
         "colony-found-menu-controls",
@@ -139,7 +142,9 @@
         "colony-menu-join",
         "terraform-menu-presentation",
         "colony-found-menu",
-        "colony-adjacent-warning"
+        "colony-adjacent-warning",
+        "unit-disband",
+        "unit-disband-name"
       ],
       "stable": [
         "road-network",
