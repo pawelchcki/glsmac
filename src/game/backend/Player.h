@@ -72,6 +72,7 @@ CLASS2( Player, types::Serializable, gse::Wrappable )
 	void AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse::value::object_properties_t& data );
 	Game* GetGame() const;
 	const base::production::Production* GetProductionChoice( const std::string& id ) const;
+	int64_t GetUnitMineralCost( const std::string& unit_id ) const;
 	gse::value::Array* GetProductionChoices( GSE_CALLABLE ) const;
 	void RemoveProductionChoice( GSE_CALLABLE, const std::string& id );
 

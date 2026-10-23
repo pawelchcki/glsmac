@@ -20,6 +20,7 @@
 #include "game/BackendRequest.h"
 #include "game/backend/turn/Turn.h"
 #include "game/backend/technology/Table.h"
+#include "game/backend/base/ProductionState.h"
 
 // TODO: remove those
 #include "game/backend/map/tile/Tile.h"
@@ -322,8 +323,9 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 	gse::Value* JoinBase( GSE_CALLABLE, int64_t unit_id, int64_t base_id, int64_t caller );
 	void RollbackJoinBase( GSE_CALLABLE, int64_t token, int64_t base_id );
 	std::string ValidateUnitDisband( int64_t unit_id, int64_t caller, int64_t turn ) const;
+	size_t GetUnitDisbandBase( int64_t unit_id ) const;
 	gse::Value* DisbandUnit( GSE_CALLABLE, int64_t unit_id, int64_t caller, int64_t turn );
-	void RollbackUnitDisband( GSE_CALLABLE, int64_t token, int64_t unit_id, int64_t caller, int64_t turn );
+	void RollbackUnitDisband( GSE_CALLABLE, int64_t token, int64_t unit_id, int64_t caller, int64_t turn, int64_t base_id );
 
 	WRAPDEFS_PTR( Game )
 
@@ -477,6 +479,10 @@ private:
 		size_t unit_id = 0, owner = 0, x = 0, y = 0, next_base_id = 0, next_unit_id = 0;
 		uint64_t turn = 0;
 		std::string def, unit_snapshot, expected_def, previous_rng, expected_rng;
+		size_t base_id = 0;
+		gse::value::Object* base_identity = nullptr;
+		base::ProductionState previous_production;
+		std::string expected_base;
 	};
 	std::map< int64_t, DisbandingRecord > m_disbanding_records;
 	int64_t m_next_disbanding_id = 0;

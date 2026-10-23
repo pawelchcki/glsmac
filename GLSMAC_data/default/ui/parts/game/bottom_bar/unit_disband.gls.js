@@ -18,18 +18,20 @@ return {
 			this.p.modules.popup.is_shown() || pending == null || pending.name != 'unit_disband_draft' || pending.request_token != session.request_token ||
 			#is_defined(game.validate_unit_disband(session.unit_id, session.owner, session.turn_id))) { return null; }
 		const unit = game.get_um().get_unit(session.unit_id);
-		if (unit != session.unit || unit.get_tile() != session.tile || unit.movement != session.movement || unit.moved_this_turn != session.moved || unit.health != session.health || unit.get_order() != session.order) { return null; }
+		if (unit != session.unit || unit.get_tile() != session.tile || unit.movement != session.movement || unit.moved_this_turn != session.moved || unit.health != session.health || unit.get_order() != session.order || unit.get_tile().get_base() != session.base ||
+			game.get_unit_disband_base(session.unit_id, session.owner, session.turn_id) != session.base_id) { return null; }
 		return unit;
 	},
 	refresh: () => { if (this.session != null && this.resolve(this.session) == null) { this.cancel(); } },
 	finish: (e) => {
 		const pending = this.waiting;
 		if (pending == null || e.name != 'unit_disband' || !#is_defined(e.success) || #typeof(e.success) != 'Bool' || e.caller != pending.owner || !#is_defined(e.data) || #typeof(e.data) != 'Object') { return; }
-		for (field of ['unit_id', 'turn_id', 'request_token']) { if (!#is_defined(e.data[field]) || e.data[field] != pending.data[field]) { return; } }
+		for (field of ['unit_id', 'turn_id', 'request_token', 'base_id']) { if (!#is_defined(e.data[field]) || e.data[field] != pending.data[field]) { return; } }
 		this.waiting = null; this.release();
 		this.preview.update_order_buttons(); this.preview.update_skip_button(); this.preview.update_found_button();
 	},
 	select: (session, index) => {
+		if (this.dialog == null || #typeof(index) != 'Int' || index < 0 || index >= #sizeof(this.dialog.rows)) { return; }
 		if (this.session == null || this.session.request_token != session.request_token) { return; }
 		if (this.resolve(session) == null) { this.cancel(); return; }
 		this.dialog.selected = index; let position = 0;
@@ -43,7 +45,7 @@ return {
 		// Only ordinary disband has a command. The third source choice remains
 		// a draft; self-destruct effects are outside the recorded transfer.
 		if (selected != 1) { this.p.modules.bottom_bar.process_message('Self-destruct is not available yet.'); return; }
-		const data = {unit_id: session.unit_id, turn_id: session.turn_id, request_token: session.request_token};
+		const data = {unit_id: session.unit_id, turn_id: session.turn_id, request_token: session.request_token, base_id: session.base_id};
 		session.data = data; this.waiting = session;
 		this.preview.order_pending = {name: 'unit_disband', unit_id: session.unit_id, turn_id: session.turn_id, request_token: session.request_token};
 		this.close(); this.p.game.event('unit_disband', data);
@@ -53,9 +55,10 @@ return {
 		const unit = this.preview.get_order_unit(false); if (unit == null) { return false; }
 		const game = this.p.game; const owner = game.get_player().id; const turn = game.get_turn();
 		if (#is_defined(game.validate_unit_disband(unit.id, owner, turn))) { return false; }
-		const definition = source(this.p.glsmac, unit.get_def().name + '');
+		const base_id = game.get_unit_disband_base(unit.id, owner, turn);
+		const definition = source(this.p.glsmac, unit.get_def().name + '', base_id != 0);
 		this.token = this.token + 1; const token = this.token;
-		const session = {unit_id: unit.id + 0, owner: owner, turn_id: turn, request_token: token, movement: unit.movement + 0.0, moved: unit.moved_this_turn == true, health: unit.health + 0.0, order: unit.get_order()}; session.unit = unit; session.tile = unit.get_tile();
+		const session = {unit_id: unit.id + 0, owner: owner, turn_id: turn, request_token: token, movement: unit.movement + 0.0, moved: unit.moved_this_turn == true, health: unit.health + 0.0, order: unit.get_order(), base_id: base_id}; session.unit = unit; session.tile = unit.get_tile(); session.base = session.tile.get_base();
 		this.session = session; this.preview.order_pending = {name: 'unit_disband_draft', unit_id: unit.id + 0, request_token: token};
 		const frame = this.p.ui.root.window({class: 'default-panel', width: 460, height: 240, align: 'center', zindex: 0.95, blocker: 'rgba(0,0,0,120)', header_height: 0});
 		const dialog = {selected: 0, rows: []}; dialog.frame = frame;
@@ -74,7 +77,7 @@ return {
 				if (e.code == 'ESCAPE') { this.cancel(); }
 				else if (e.code == 'ENTER') { this.commit(session); }
 				else if (e.code == 'UP' && this.dialog.selected > 0) { this.select(session, this.dialog.selected - 1); }
-				else if (e.code == 'DOWN' && this.dialog.selected < 2) { this.select(session, this.dialog.selected + 1); }
+				else if (e.code == 'DOWN' && this.dialog.selected + 1 < #sizeof(this.dialog.rows)) { this.select(session, this.dialog.selected + 1); }
 			}
 			return true;
 		});

@@ -212,6 +212,19 @@ const base::production::Production* Player::GetProductionChoice( const std::stri
 	return it == m_production_choices.end() ? nullptr : it->second;
 }
 
+int64_t Player::GetUnitMineralCost( const std::string& unit_id ) const {
+	int64_t price = -1;
+	for ( const auto& entry : m_production_choices ) {
+		if ( entry.second->GetType() != base::production::Production::PT_UNIT ) { continue; }
+		const auto* recipe = static_cast< const base::production::Unit* >( entry.second );
+		if ( recipe->unit_id != unit_id ) { continue; }
+		const auto cost = recipe->GetMineralCost( GetGame(), this );
+		if ( cost < 0 || ( price >= 0 && price != cost ) ) { return -1; }
+		price = cost;
+	}
+	return price;
+}
+
 gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
 	gse::value::array_elements_t choices;
 	std::vector< std::string > ids;

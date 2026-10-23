@@ -452,11 +452,17 @@ WRAPIMPL_BEGIN( Game )
 			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
 			return DisbandUnit( GSE_CALL, id, caller, turn );
 		} ) },
+		{ "get_unit_disband_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
+			const auto error = ValidateUnitDisband( id, caller, turn ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+			return VALUE( gse::value::Int,, GetUnitDisbandBase( id ) );
+		} ) },
 		{ "rollback_unit_disband", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object );
 			N_GETPROP( token, receipt, "transaction_id", Int ); N_GETPROP( id, receipt, "unit_id", Int );
 			N_GETPROP( caller, receipt, "owner", Int ); N_GETPROP( turn, receipt, "turn_id", Int );
-			RollbackUnitDisband( GSE_CALL, token, id, caller, turn ); return VALUE( gse::value::Undefined );
+			N_GETPROP( base, receipt, "base_id", Int );
+			RollbackUnitDisband( GSE_CALL, token, id, caller, turn, base ); return VALUE( gse::value::Undefined );
 		} ) },
 		{ "validate_found_base_unit", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
@@ -899,6 +905,7 @@ void Game::GetReachableObjects( std::unordered_set< Object* >& reachable_objects
 	}
 
 	for ( const auto& entry : m_joining_records ) { GC_REACHABLE( entry.second.base_identity ); }
+	for ( const auto& entry : m_disbanding_records ) { if ( entry.second.base_identity ) { GC_REACHABLE( entry.second.base_identity ); } }
 
 	GC_DEBUG_BEGIN( "events" );
 	{
