@@ -1,0 +1,273 @@
+{
+  "captured_at": "2026-10-23T19:57:08.417887+00:00",
+  "observations": [
+    {
+      "case_sha256": "4c16ae09891770793d48dde91d63933a0772e906a0156276173751df245a9481",
+      "id": "gaian-directed-escape-mobility",
+      "output": {
+        "trace": [
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": -1,
+            "screen": "research"
+          },
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": -1,
+            "screen": "research"
+          },
+          {
+            "goal_id": 5,
+            "screen": "map"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7ab8101395dd23da5321b7f40e827340b53e702e96ff9f771f908325c4969173",
+      "id": "gaian-directed-biogenetics-reentry",
+      "output": {
+        "trace": [
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": -1,
+            "screen": "research"
+          },
+          {
+            "goal_id": 0,
+            "screen": "map"
+          },
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": 0,
+            "screen": "research"
+          },
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": 0,
+            "screen": "research"
+          },
+          {
+            "goal_id": 3,
+            "screen": "map"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "6cdae3c7f562b4bf84f4d9ce648861a4c0a2dd392722c18040d8e299c8d33e9e",
+      "id": "gaian-directed-industrial",
+      "output": {
+        "trace": [
+          {
+            "caption": "SELECT RESEARCH GOAL",
+            "choices": [
+              {
+                "category": "EXPLORE 1",
+                "name": "DOCTRINE: MOBILITY"
+              },
+              {
+                "category": "EXPLORE 1",
+                "name": "PROGENITOR PSYCH"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "BIOGENETICS"
+              },
+              {
+                "category": "DISCOVER 1",
+                "name": "INFORMATION NETWORKS"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "INDUSTRIAL BASE"
+              },
+              {
+                "category": "BUILD 1",
+                "name": "SOCIAL PSYCH"
+              },
+              {
+                "category": "CONQUER 1",
+                "name": "APPLIED PHYSICS"
+              }
+            ],
+            "goal_id": -1,
+            "screen": "research"
+          },
+          {
+            "goal_id": 1,
+            "screen": "map"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "8deefdd364f2c74c83cb849108839a75d8d33df50095b63c9b6459f0526bf1f0",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.initial_directed_research.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Tiny/Citizen/Gaians; Customize Rules; only Blind Research toggled off; first base; no turn advanced; Shift+R and About Research OK",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ordered research card titles/categories and read-only native selected research ID; human faction1 and turn1 guarded",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "11f2059e8832f73f80e6e6d18460eecd35fd1ecdf8c67bd775e58c09774f57f1",
+  "version": 1
+}

@@ -7,6 +7,8 @@ return (game) => {
 		'define_moraleset',
 		'define_unit',
 		'initialize_technologies',
+		'set_research_target',
+		'set_research_priority',
 		'game_settings',
 		'select_faction',
 		'ready_or_not',

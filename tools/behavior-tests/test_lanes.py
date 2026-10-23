@@ -34,6 +34,7 @@ class LaneTests(unittest.TestCase):
 
     def test_hot_scope_is_bounded_and_pending_is_separate(self):
         self.assertEqual(set(self.manifest['kinds']['regression']['hot']), {
+            'research-native', 'research-controls', 'research-setup',
             'technology-sources', 'technology-startup',
             'unit-disband-shortcut-controls', 'unit-recycling-native', 'unit-recycling-controls',
             'unit-disband-native', 'unit-disband-authority', 'unit-disband-controls',
@@ -69,7 +70,7 @@ class LaneTests(unittest.TestCase):
                 self.assertFalse(identifiers & set(self.manifest['kinds'][kind]['hot']))
         self.assertEqual((len(self.manifest['kinds']['regression']['hot']),
                           len(self.manifest['kinds']['regression']['stable']),
-                          len(self.known['regression'])), (26, 111, 137))
+                          len(self.known['regression'])), (29, 111, 140))
         for lane, expected in [('hot', (10, 43)), ('stable', (49, 711)), ('all', (59, 754))]:
             inventory = lanes.describe('ui', lanes.select('ui', self.known['ui'], lane, self.manifest))
             self.assertEqual((inventory['suites'], inventory['cases']), expected)

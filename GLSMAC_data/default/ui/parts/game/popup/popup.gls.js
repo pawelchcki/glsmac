@@ -6,6 +6,7 @@ return {
 		'base_screen',
 		'terraforming_replacement',
 		'unit_activation',
+		'research',
 		'starvation',
 	],
 

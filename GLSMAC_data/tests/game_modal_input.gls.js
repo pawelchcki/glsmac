@@ -77,7 +77,7 @@ const f = fixture();
 behavior.scenario('game UI initializes its real popup menu and bottom bar', () => {
 	test.assert(!f.popup.is_shown());
 	test.assert(f.view.find('button', 'text', 'MENU').handler_count('click') == 1);
-	test.assert(f.view.root.handler_count('keydown') == 1);
+	test.assert(f.view.root.handler_count('keydown') == 2, 'Quit and research shortcuts each own one root registration');
 	test.assert(f.view.find('button', 'text', 'TURN COMPLETE').handler_count('click') == 1);
 });
 behavior.scenario('Escape cancels a dialog once before root quit handling', () => {
@@ -152,7 +152,7 @@ behavior.scenario('restart shortcut retains its reset result and supports cancel
 behavior.scenario('repeated start_ui replaces root handlers instead of accumulating them', () => {
 	for (let i = 0; i < 3; i++) {
 		f.start();
-		test.assert(f.view.root.handler_count('keydown') == 1);
+		test.assert(f.view.root.handler_count('keydown') == 2);
 	}
 	test.assert(f.key('ESCAPE', {}));
 	f.finish_animation();

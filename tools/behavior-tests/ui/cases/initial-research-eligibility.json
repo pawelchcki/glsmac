@@ -1,0 +1,1 @@
+{"version":1,"name":"initial-research-eligibility","description":"Installed source supplied at runtime; no asset rows embedded; bounded Gaian ownership fixture.","cases":[{"id":"gaian-initial-all89-eligibility","algorithm":"technology.initial_source_eligibility.v1","input":{"owned_ids":[6],"faction_id":1,"expansion_enabled":true}}]}

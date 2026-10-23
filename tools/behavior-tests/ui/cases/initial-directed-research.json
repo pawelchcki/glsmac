@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "initial-directed-research",
+  "description": "Fresh Tiny/Citizen/Gaian initial directed choices; explicit Blind Research off; real cards, Escape, selection and re-entry; no turns advanced.",
+  "cases": [
+    {"id":"gaian-directed-escape-mobility","algorithm":"ui.initial_directed_research.v1","input":{"actions":["Escape",{"choose":0}]}},
+    {"id":"gaian-directed-biogenetics-reentry","algorithm":"ui.initial_directed_research.v1","input":{"actions":[{"choose":2},"open","Escape",{"choose":6}]}},
+    {"id":"gaian-directed-industrial","algorithm":"ui.initial_directed_research.v1","input":{"actions":[{"choose":4}]}}
+  ]
+}

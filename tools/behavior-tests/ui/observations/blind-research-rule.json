@@ -1,0 +1,210 @@
+{
+  "captured_at": "2026-10-23T20:10:56.494745+00:00",
+  "observations": [
+    {
+      "case_sha256": "5f3300ff3aa2e5c2d5df9cbcea48785caaa962ddd970dd6d145f3ad0f590e624",
+      "id": "blind-rule-cancel-reentry",
+      "output": {
+        "trace": [
+          {
+            "blind": {
+              "checked": true,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "blind": {
+              "checked": false,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "screen": "menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "blind": {
+              "checked": true,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "0f65ea075b950cf478554271dbeea4696a569997f0b918c68227f004984a91e9",
+      "id": "blind-rule-off-current-play",
+      "output": {
+        "trace": [
+          {
+            "blind": {
+              "checked": true,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "blind": {
+              "checked": false,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "caption": "CHOOSE YOUR FACTIONS",
+            "screen": "factions"
+          },
+          {
+            "caption": "PICK A DIFFICULTY LEVEL",
+            "entries": [
+              "CITIZEN",
+              "SPECIALIST",
+              "TALENT",
+              "LIBRARIAN",
+              "THINKER",
+              "TRANSCEND"
+            ],
+            "screen": "menu",
+            "selected": [
+              "CITIZEN"
+            ]
+          },
+          {
+            "caption": "GAME RULES",
+            "entries": [
+              "PLAY WITH STANDARD RULES",
+              "PLAY WITH CURRENT RULES",
+              "CUSTOMIZE RULES"
+            ],
+            "screen": "menu",
+            "selected": [
+              "CUSTOMIZE RULES"
+            ]
+          },
+          {
+            "caption": "CHOOSE YOUR FACTIONS",
+            "screen": "factions"
+          },
+          {
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "screen": "priorities"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "f96533375a25ab602feb4de6f961028ace50c28f0d5e6f9efd553c8ce1bfff5b",
+      "id": "blind-rule-reset-standard-play",
+      "output": {
+        "trace": [
+          {
+            "blind": {
+              "checked": true,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "blind": {
+              "checked": false,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "blind": {
+              "checked": true,
+              "label": "BLIND RESEARCH: CANNOT SET PRECISE RESEARCH GOALS."
+            },
+            "buttons": [
+              "STANDARD RULES",
+              "OK",
+              "CANCEL"
+            ],
+            "caption": "CUSTOMIZE GAME RULES",
+            "screen": "custom-rules"
+          },
+          {
+            "caption": "CHOOSE YOUR FACTIONS",
+            "screen": "factions"
+          },
+          {
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "screen": "priorities"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "fb6053ed6ef5692d6d588ada0c568fd3005ce8ee4ae6d7e649154897e93de3f4",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.blind_research_rule.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Tiny/Citizen custom rules; only Blind Research toggle or Standard Rules reset; optional current-rules Gaian first-base handoff; no gameplay turn advanced",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual source caption/button/Blind Research label and checked glyph; real return menus, faction selector and first research screen; optional asset-backed evidence",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "c2ba9e281dcd7dd5e00e44027c6e3e05f898e5a698fddb158b0c610e86f5ef4e",
+  "version": 1
+}

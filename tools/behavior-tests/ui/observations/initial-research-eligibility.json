@@ -1,0 +1,42 @@
+{
+  "captured_at": "2026-10-23T19:47:55.195019+00:00",
+  "observations": [
+    {
+      "case_sha256": "e5ebb93dae8e8913a9295a0d86a02aa59558b57a6d5457daeee6bcbb9dc754d1",
+      "id": "gaian-initial-all89-eligibility",
+      "output": {
+        "available_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          78
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "b9896346dc84c774e9e67d3c4201811874acaab880c6191a4def59a1919cbe65",
+    "adapter_version": 2,
+    "contract": "technology.initial_source_eligibility.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "functions": [
+      {
+        "address": "0x005BAC20",
+        "algorithm": "technology.available.v1",
+        "function": "tech_avail"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original",
+    "scope": "Installed 89-row prerequisites, only Ecology owned by mask faction1, expansion enabled; existing original availability helper queried independently for all89 IDs",
+    "source_sha256": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42"
+  },
+  "repeat": 2,
+  "suite_sha256": "24e20399a16b12e6a010d94377870a2afdef5b4b1f4e044ff92f7412f1803c88",
+  "version": 1
+}

@@ -36,6 +36,8 @@ CLASS2( Rules, types::Serializable, gse::Wrappable )
 	void SetNutrientCostFactor( int64_t factor );
 	int64_t GetMineralCostFactor() const;
 	void SetMineralCostFactor( int64_t factor );
+	bool IsBlindResearch() const { return m_blind_research; }
+	void SetBlindResearch( bool enabled ) { m_blind_research = enabled; }
 	struct world_size_t {
 		std::string name;
 		std::string description;
@@ -64,6 +66,7 @@ private:
 	bool m_is_initialized = false;
 	int64_t m_nutrient_cost_factor = 10;
 	int64_t m_mineral_cost_factor = 10;
+	bool m_blind_research = true;
 	// Exact historical records retain the earlier reproduction's dimensions.
 	// Actual startup replaces this table with the complete installed definition.
 	static const world_sizes_t& LegacyWorldSizes();
