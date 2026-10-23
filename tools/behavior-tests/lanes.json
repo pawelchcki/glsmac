@@ -3,6 +3,8 @@
   "kinds": {
     "regression": {
       "hot": [
+        "technology-startup",
+        "technology-sources",
         "texture-filter",
         "pod-landing-controls",
         "automatic-end-turn",

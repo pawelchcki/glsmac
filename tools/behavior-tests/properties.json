@@ -122,11 +122,12 @@
         "technology.prerequisite.v1"
       ],
       "remaining": [
-        "Shipped rules database",
+        "Technology flag effects and numeric free-tech choices",
         "Research choice UI",
         "Research costs and progress",
         "Technology acquisition effects"
-      ]
+      ],
+      "coverage": "Normal and Quick Start configuration import all 89 installed TECHNOLOGY rows into the existing native table. Source tokens resolve prerequisites; source AI weights are reordered explicitly. A host startup event initializes concrete faction TECH ownership using slot-to-mask mapping 0-6 to 1-7. Twenty application scenarios/73 assertions cover malformed-source rejection, atomic guarded table replacement, detached reads, ownership/availability, receiving snapshots, actual shipped game startup, initialization once and receipt rollback. Installed-file smoke checks additionally load all fourteen factions' concrete TECH declarations. This is source/application coverage; the unchanged 632 helper cases retain their independent original evidence. Research choice UI, costs/progress/acquisition, numeric free-tech choices, flag effects and complete save/load remain gaps."
     },
     {
       "id": "unit-actions",

@@ -12,6 +12,7 @@
     "test:app": "node --test app.test.mjs",
     "test:gse": "node gse.test.mjs",
     "test:fast": "python3 ../behavior-tests/fast.py",
+    "test:technology": "python3 ../behavior-tests/fast.py --suite technology-sources --suite technology-startup",
     "test:parity": "python3 ../behavior-tests/audit.py",
     "test:economy-parity": "python3 ../behavior-tests/economy/run.py",
     "test:ui-discover": "python3 ../behavior-tests/ui/discover.py",
