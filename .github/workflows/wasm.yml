@@ -4,13 +4,19 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/wasm.yml'
+      - 'tools/wasm-tests/gse*.mjs'
+      - 'tools/wasm-tests/gse*.cjs'
 
 permissions:
   contents: read
 
 jobs:
   engine:
-    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    if: github.repository == 'pawelchcki/wasmsmac' && (github.ref == 'refs/heads/main' || github.event_name == 'pull_request')
     uses: ./.github/workflows/test-engine.yml
   hot:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
@@ -105,9 +111,13 @@ jobs:
           path: build/behavior-artifacts
 
   gse:
-    name: Complete GSE engine and script tests
-    if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
+    name: Complete GSE (${{ matrix.shard }}/4)
+    if: github.repository == 'pawelchcki/wasmsmac' && (github.ref == 'refs/heads/main' || github.event_name == 'pull_request')
     needs: [engine]
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -118,8 +128,43 @@ jobs:
         with:
           name: behavior-engine
           path: build/wasm/bin
-      - name: Execute all native engine tests and discovered scripts
-        run: npm --prefix tools/wasm-tests run test:gse
+      - name: Validate coverage aggregation
+        run: node tools/wasm-tests/gse-shards.test.mjs
+      - name: Execute native engine tests and this script partition
+        run: node tools/wasm-tests/gse.test.mjs --shard '${{ matrix.shard }}/4' --report 'build/gse-shards/gse-${{ matrix.shard }}.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gse-${{ matrix.shard }}
+          path: build/gse-shards
+          if-no-files-found: error
+
+  gse-result:
+    name: Complete GSE coverage
+    if: always() && github.repository == 'pawelchcki/wasmsmac' && (github.ref == 'refs/heads/main' || github.event_name == 'pull_request')
+    needs: [gse]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - name: Require every partition to succeed
+        env:
+          PARTITION_RESULT: ${{ needs.gse.result }}
+        run: python3 -c 'import os; assert os.environ["PARTITION_RESULT"] == "success"'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: gse-*
+          merge-multiple: true
+          path: build/gse-shards
+      - name: Require every current script exactly once and native engine coverage
+        run: node tools/wasm-tests/gse-shards.mjs --reports build/gse-shards --count 4 --output build/gse-coverage/summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: complete-gse-coverage
+          path: build/gse-coverage
 
   wasm:
     if: github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
@@ -184,7 +229,7 @@ jobs:
   result:
     name: Main CI
     if: always() && github.repository == 'pawelchcki/wasmsmac' && github.ref == 'refs/heads/main'
-    needs: [engine, hot, native, behavior, ui-result, gse, wasm]
+    needs: [engine, hot, native, behavior, ui-result, gse-result, wasm]
     runs-on: ubuntu-latest
     steps:
       - name: Require every main check

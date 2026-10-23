@@ -101,7 +101,18 @@ with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
 fresh so their embedded application data also matches the checked-out revision.
 Stable regression, economy and helper groups run independently. Stable UI replay
 is partitioned by case position into four CI jobs, with at most two workers in
-each job. Full GSE/native engine tests run alongside the application build.
+each job. Full GSE/native engine tests run in four partitions alongside the
+application build. Every partition executes the native C++ engine tests and
+retains all production scripts and underscore helpers. The aggregate requires
+every current script entrypoint exactly once, matching complete source and
+runtime hashes, actual scanned-directory membership and successful native engine
+tests. Each process keeps the existing twenty-minute limit. Runner/workflow
+repair PRs verify the four partitions; ordinary PRs retain their hot lane.
+
+`npm --prefix tools/wasm-tests run test:gse` retains the complete serial run.
+Use `node tools/wasm-tests/gse.test.mjs --shard 1/4 --report build/gse-shards/gse-1.json`
+for one partition and `node tools/wasm-tests/gse-shards.mjs --reports build/gse-shards --count 4 --output build/gse-coverage/summary.json`
+for strict aggregation. A subset is not a passing full-suite result.
 
 `ui/run.py --lane stable --shard 1/4 --jobs 2 --report build/ui-shards/ui-1.json`
 selects the first partition after validating its complete original references.
