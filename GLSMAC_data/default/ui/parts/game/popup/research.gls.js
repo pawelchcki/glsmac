@@ -63,13 +63,13 @@ return {
 			}
 			for (let index = 0; index < 4; index++) {
 				const category = index;
-				const button = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.priorities.lines[index + 3]), top: top + index * 38, left: 46, right: 15, height: 30, textalign: 'left'});
+				const button = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.priorities.lines[index + 3]), top: top + index * 38, left: 46, right: 15, height: 30, textalign: 'left center'});
 				const check = this.body.button({class: 'game-popup-button', text: '', top: top + index * 38 + 4, left: 12, width: 25, height: 22});
 				const row = {}; row.el = button; row.check = check; this.rows :+ row;
 				button.on('click', (e) => { this.submit(category, generation); return true; });
 				check.on('click', (e) => { this.submit(category, generation); return true; });
 			}
-			this.ok = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.labels.ok), bottom: 8, left: 200, right: 200, height: 25});
+			this.ok = this.body.button({class: 'game-popup-button', text: #uppercase(input.definition.labels.ok), align: 'bottom center', bottom: 8, left: 200, right: 200, height: 25});
 			this.ok.on('click', (e) => { if (generation == this.generation && this.pending == null && this.is_open()) { this.finish(true); } return true; });
 		} else {
 			const list = this.body.scrollview({left: 0, right: 0, top: 0, bottom: 40, has_hscroll: false, vscroll_class: 'default-scroll-v'});
@@ -84,7 +84,7 @@ return {
 			}
 			if (#sizeof(input.choices) == 0) { this.texts :+ this.body.text({class: 'game-popup-text', text: 'No research targets are available.', top: 20, left: 15}); }
 		}
-		this.error = this.body.text({class: 'game-popup-text', text: '', bottom: 40, left: 10, font: 'arialnb.ttf:12'});
+		this.error = this.body.text({class: 'game-popup-text', text: '', align: 'bottom left', bottom: 40, left: 10, font: 'arialnb.ttf:12'});
 		this.refresh();
 	},
 	on_hide: () => { this.generation = this.generation + 1; },
