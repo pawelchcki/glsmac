@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "name": "original-opening-artwork",
+  "description": "Exact RGB at12 declared visible backdrop points, originalmain and random setup; bounded visual transfer only, wholejourney remains pending.",
+  "cases": [
+    {
+      "id": "opening-art-main",
+      "algorithm": "ui.opening_art.v1",
+      "input": {
+        "viewport": [
+          1024,
+          768
+        ],
+        "probes": [
+          [
+            139,
+            428
+          ],
+          [
+            311,
+            410
+          ],
+          [
+            513,
+            410
+          ],
+          [
+            228,
+            460
+          ],
+          [
+            411,
+            460
+          ],
+          [
+            120,
+            510
+          ],
+          [
+            328,
+            510
+          ],
+          [
+            525,
+            510
+          ],
+          [
+            222,
+            561
+          ],
+          [
+            410,
+            560
+          ],
+          [
+            120,
+            630
+          ],
+          [
+            310,
+            612
+          ]
+        ],
+        "actions": []
+      }
+    },
+    {
+      "id": "opening-art-random-setup",
+      "algorithm": "ui.opening_art.v1",
+      "input": {
+        "viewport": [
+          1024,
+          768
+        ],
+        "probes": [
+          [
+            139,
+            428
+          ],
+          [
+            311,
+            410
+          ],
+          [
+            513,
+            410
+          ],
+          [
+            228,
+            460
+          ],
+          [
+            411,
+            460
+          ],
+          [
+            120,
+            510
+          ],
+          [
+            328,
+            510
+          ],
+          [
+            525,
+            510
+          ],
+          [
+            222,
+            561
+          ],
+          [
+            410,
+            560
+          ],
+          [
+            120,
+            630
+          ],
+          [
+            310,
+            612
+          ]
+        ],
+        "actions": [
+          {
+            "choose": "START GAME"
+          },
+          {
+            "choose": "MAKE RANDOM MAP"
+          },
+          {
+            "choose": "TINY PLANET"
+          },
+          {
+            "choose": "CITIZEN"
+          }
+        ]
+      }
+    }
+  ]
+}
