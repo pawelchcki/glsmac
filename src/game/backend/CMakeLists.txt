@@ -19,6 +19,7 @@ SET( SRC ${SRC}
 	${PWD}/State.cpp
 	${PWD}/Game.cpp
 	${PWD}/GameColony.cpp
+	${PWD}/GameUnitDisband.cpp
 	${PWD}/Account.cpp
 	${PWD}/Player.cpp
 	${PWD}/MapObject.cpp

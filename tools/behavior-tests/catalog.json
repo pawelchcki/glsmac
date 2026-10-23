@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"unit-disband-native","script":"GLSMAC_data/tests/unit_disband_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"unit-disband-authority","script":"GLSMAC_data/tests/unit_disband_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"unit-disband-controls","script":"GLSMAC_data/tests/unit_disband_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-near-controls","script":"GLSMAC_data/tests/colony_near_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-near-native","script":"GLSMAC_data/tests/colony_near_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-menu-controls","script":"GLSMAC_data/tests/colony_found_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

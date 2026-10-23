@@ -70,6 +70,7 @@ const fixture = (input) => {
 	f.events.is_started = f.game.is_started;
 	f.events.is_turn_complete = f.game.is_turn_complete;
 	f.events.validate_found_base = f.game.validate_found_base;
+	f.events.validate_unit_disband = f.game.validate_unit_disband;
 	f.events.validate_found_base_unit = f.game.validate_found_base_unit;
 	f.events.is_found_base_adjacent = f.game.is_found_base_adjacent;
 	f.events.validate_join_base = f.game.validate_join_base;
