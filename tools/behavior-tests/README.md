@@ -51,7 +51,7 @@ when investigating isolation or collecting a serial baseline.
 Hot contains 29 regression suites around research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(268 scenarios/1,889 assertions). Original UI replay includes ten hot references with 43 recorded
+(269 scenarios/1,903 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -1381,3 +1381,24 @@ filtering/order, keyboard card navigation, Info/Lookup, rendered layout fidelity
 research costs/progress, blind selection probabilities or acquisition effects.
 Common Script.txt is the current presentation policy; common-versus-expansion
 precedence is unverified. Other 17 custom-rule effects remain unimplemented.
+
+
+The separate optional Chromium regression uses real keyboard and pointer input
+through normal setup and both research modes:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin \
+  npm --prefix tools/wasm-tests run test:research
+```
+
+It mounts current production scripts into a compatible application runtime.
+`WASM_SCRIPTS_ROOT` selects a different source checkout; `RESEARCH_ARTIFACTS`
+selects the local screenshot/log directory. Reports bind production and observed
+script snapshots and the runtime with SHA-256 fingerprints. The observations
+read native target/priorities and visible check glyphs. Game actions use browser
+input, including the actual Customize Rules checkbox, Cancel, Standard Rules
+reset, confirmation footer and directed card, plus the blind-priority footer.
+The driver waits for the native slide animation before clicking. This is
+candidate integration coverage, separate from original behavior comparison;
+full-frame rendering fidelity remains unverified. Screenshots, logs and original
+asset bodies are not committed or included in public passing totals.
