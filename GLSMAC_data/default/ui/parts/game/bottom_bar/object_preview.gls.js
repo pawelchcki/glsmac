@@ -487,6 +487,7 @@ return {
 			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
 				return this.start_colony_action();
 			}
+			if (e.code == 'D' && e.modifiers == {shift: true}) { return this.disband.open(); }
 			return false;
 		});
 		this.frame.listen(p.game, 'event_result', (e) => {
