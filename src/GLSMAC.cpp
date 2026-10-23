@@ -1,4 +1,5 @@
 #include "GLSMAC.h"
+#include <cmath>
 
 #include "util/FS.h"
 #include "engine/Engine.h"
@@ -11,6 +12,7 @@
 #include "ui/UI.h"
 #include "loader/txt/TXTLoaders.h"
 #include "loader/txt/SmacTextLoader.h"
+#include "loader/texture/TextureLoader.h"
 
 #include "gse/GSE.h"
 #include "gse/ExecutionPointer.h"
@@ -288,6 +290,31 @@ WRAPIMPL_BEGIN( GLSMAC )
 			} )
 		},
 		{
+			"load_flic_info",
+			NATIVE_CALL() {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( filename, 0, String );
+				try {
+					const auto& animation = g_engine->GetTextureLoader()->LoadFlic( filename );
+					gse::value::array_elements_t durations;
+					for ( const auto& frame : animation.frames ) { durations.push_back( VALUE( gse::value::Int,, frame.duration_ms ) ); }
+					gse::value::array_elements_t palette;
+					for ( const auto& color : animation.frames.front().palette ) {
+						palette.push_back( VALUE( gse::value::Array,, ( gse::value::array_elements_t{
+							VALUE( gse::value::Int,, color[0] ), VALUE( gse::value::Int,, color[1] ), VALUE( gse::value::Int,, color[2] ),
+						} ) ) );
+					}
+					return VALUEEXT( gse::value::Object, GSE_CALL, ( gse::value::object_properties_t{
+						{ "width", VALUE( gse::value::Int,, animation.width ) },
+						{ "height", VALUE( gse::value::Int,, animation.height ) },
+						{ "frames", VALUE( gse::value::Int,, animation.frames.size() ) },
+						{ "durations_ms", VALUE( gse::value::Array,, durations ) },
+						{ "palette_rgb", VALUE( gse::value::Array,, palette ) },
+					} ) );
+				}
+				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+			} )
+		},
+		{
 			"load_smac_text",
 			NATIVE_CALL() {
 				N_EXPECT_ARGS( 2 ); N_GETVALUE( filename, 0, String ); N_GETVALUE( format, 1, String );
@@ -297,6 +324,17 @@ WRAPIMPL_BEGIN( GLSMAC )
 					return loader::txt::WrapSmacTextDocument( GSE_CALL, loaders->smac_text->Load( filename, format ) );
 				}
 				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+			} )
+		},
+		{
+			"focus_owned_base", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+				types::Vec2< float > screen;
+				if ( !m_game || id <= 0 || !m_game->FocusOwnedBase( id, screen ) ) { GSE_ERROR( gse::EC.INVALID_CALL, "Only a live owned base in the current rendered game can be focused" ); }
+				return VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "x", VALUE( gse::value::Int,, static_cast< int >( std::round( screen.x ) ) ) },
+					{ "y", VALUE( gse::value::Int,, static_cast< int >( std::round( screen.y ) ) ) },
+				} );
 			} )
 		},
 		{

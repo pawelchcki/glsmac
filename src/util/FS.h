@@ -52,7 +52,7 @@ CLASS( FS, Util )
 
 #endif
 
-	static void ReadFile( std::vector< unsigned char >& buffer, const std::string& path, const char path_separator = PATH_SEPARATOR );
+	static void ReadFile( std::vector< unsigned char >& buffer, const std::string& path, const char path_separator = PATH_SEPARATOR, const size_t max_bytes = 0 );
 	static const std::string ReadTextFile( const std::string& path, const char path_separator = PATH_SEPARATOR );
 	static const void WriteFile( const std::string& path, const std::string& data, const char path_separator = PATH_SEPARATOR );
 

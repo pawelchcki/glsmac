@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 22 regression suites around active unit menus, retirement/recycling,
-keyboard controls, modal input, opening phases, the interface tour,
-automatic turn completion, setup and first-city lifecycle (207 scenarios/1,556
-assertions). Original UI replay includes ten hot references with 43 recorded
+Hot contains 24 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, opening phases, pod landing, the interface tour,
+automatic turn completion, setup, first-city lifecycle and texture filter chains
+(218 scenarios/1,632 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 133 native
+and keyboard controls stay hot. The combined partition retains all 135 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -78,6 +78,11 @@ Any executed mismatch, unsupported result, error or failed suite returns nonzero
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
 
+The separate [popup latency benchmark](../performance/README.md) measures real
+setup windows with installed assets and matched Release builds. It retains
+before/after screenshots and timing scope; its performance samples are not part
+of the recorded Original comparison totals.
+
 Opening artwork has a separate optional rendered comparison:
 `SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin npm --prefix tools/wasm-tests run test:opening-art`.
 It replays six real menu checkpoints against independently repeated original RGB
@@ -92,9 +97,16 @@ the main menu through Planetfall, the first-base name, the tutorial prompt,
 the playable map and Space into the next turn. Two independently repeated
 original traces establish ten checkpoints, including native turn counters
 0, 0, 1, 1 and 2 for each route. See [the sequence contract](ui/opening-sequence-contract.md).
-This checks the declared phases and controls; full-frame visuals, landing
-animation, the guided Tour route, generated worlds and opponents
-remain outside these passing cases.
+This checks the declared phases and controls; full-frame visuals, the left-hand
+guided Tour route, generated worlds and opponents remain outside these passing cases.
+
+The optional `test:pod-landing:browser` command compares real installed pod frames before
+first-base naming. Both confirmation paths have independently repeated original
+observations of five rendered frames, horizontal motion and native turn zero.
+See [the landing contract](ui/pod-landing-contract.md). Exact trajectory, cadence,
+smoke compositing, audio and world visuals remain outside that projection.
+The default hot lane separately checks the production playback controller and
+synthetic FLIC decoder without installed game assets or pixel rendering.
 
 The default `test:interface-tour` command is asset-free native/WASM replay.
 Four independently repeated original traces exercise two own tutorial/label
@@ -120,7 +132,18 @@ with hot, stable and full GSE jobs. The full browser Debug/Release builds remain
 fresh so their embedded application data also matches the checked-out revision.
 Stable regression, economy and helper groups run independently. Stable UI replay
 is partitioned by case position into four CI jobs, with at most two workers in
-each job. Full GSE/native engine tests run alongside the application build.
+each job. Full GSE/native engine tests run in four partitions alongside the
+application build. Every partition executes the native C++ engine tests and
+retains all production scripts and underscore helpers. The aggregate requires
+every current script entrypoint exactly once, matching complete source and
+runtime hashes, actual scanned-directory membership and successful native engine
+tests. Each process keeps the existing twenty-minute limit. Runner/workflow
+repair PRs verify the four partitions; ordinary PRs retain their hot lane.
+
+`npm --prefix tools/wasm-tests run test:gse` retains the complete serial run.
+Use `node tools/wasm-tests/gse.test.mjs --shard 1/4 --report build/gse-shards/gse-1.json`
+for one partition and `node tools/wasm-tests/gse-shards.mjs --reports build/gse-shards --count 4 --output build/gse-coverage/summary.json`
+for strict aggregation. A subset is not a passing full-suite result.
 
 `ui/run.py --lane stable --shard 1/4 --jobs 2 --report build/ui-shards/ui-1.json`
 selects the first partition after validating its complete original references.

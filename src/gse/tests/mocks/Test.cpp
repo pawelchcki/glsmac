@@ -24,6 +24,8 @@
 #include "game/backend/technology/Bindings.h"
 #include "game/backend/technology/Serialization.h"
 #include "loader/txt/SmacTextLoader.h"
+#include "types/texture/Filter.h"
+#include "types/texture/Texture.h"
 
 namespace gse {
 namespace tests {
@@ -223,6 +225,58 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 			"get_script_path",
 			NATIVE_CALL( test_info ) {
 				return VALUE( value::String,, test_info.script_path );
+			} )
+		},
+		{
+			"texture_filter",
+			NATIVE_CALL() {
+				// Own synthetic input through the real native Texture/Color/Filter.
+				N_EXPECT_ARGS( 4 ); N_GETVALUE( width, 0, Int ); N_GETVALUE( height, 1, Int );
+				N_GETVALUE( pixels, 2, Array ); N_GETVALUE( operations, 3, Array );
+				if ( width < 1 || height < 1 || width > 64 || height > 64 || pixels.size() != width * height || operations.size() > 16 ) { GSE_ERROR( EC.INVALID_CALL, "Invalid synthetic texture dimensions/operations" ); }
+				const auto integer = [ & ]( Value* v ) -> int64_t {
+					if ( v->type != VT_INT ) { GSE_ERROR( EC.INVALID_CALL, "Texture fixture expects integers" ); }
+					return static_cast< value::Int* >( v )->value;
+				};
+				types::texture::Texture source( width, height );
+				for ( size_t i = 0; i < pixels.size(); i++ ) {
+					const auto color = integer(pixels[i]);
+					if ( color < 0 || color > UINT32_MAX ) { GSE_ERROR( EC.INVALID_CALL, "Texture fixture pixel out of range" ); }
+					source.SetPixel( i % width, i / width, static_cast< types::Color::rgba_t >( color ) );
+				}
+				types::texture::Filter filter( &source );
+				for ( auto* operation : operations ) {
+					if ( operation->type != VT_ARRAY ) { GSE_ERROR( EC.INVALID_CALL, "Texture fixture operation must be array" ); }
+					const auto& args = static_cast< value::Array* >( operation )->value;
+					if ( args.empty() || args[0]->type != VT_STRING ) { GSE_ERROR( EC.INVALID_CALL, "Texture fixture operation needs a name" ); }
+					const auto& name = static_cast< value::String* >( args[0] )->value;
+					if ( name == "crop" && args.size() == 5 ) {
+						const auto x1=integer(args[1]), y1=integer(args[2]), x2=integer(args[3]), y2=integer(args[4]);
+						if ( x1<0 || y1<0 || x2<x1 || y2<y1 || x2>=filter.GetWidth() || y2>=filter.GetHeight() ) { GSE_ERROR( EC.INVALID_CALL, "Texture fixture crop out of range" ); }
+						filter.Crop(x1,y1,x2,y2);
+					}
+					else if ( name == "tint" && args.size() == 2 ) {
+						const auto percent=integer(args[1]); if ( percent<0 || percent>100 ) { GSE_ERROR( EC.INVALID_CALL, "Invalid tint fixture" ); }
+						filter.Tint(types::Color::FromRGB(255,0,0),percent/100.0f);
+					}
+					else if ( name == "contrast" && args.size() == 2 ) {
+						const auto percent=integer(args[1]); if ( percent<0 || percent>1000 ) { GSE_ERROR( EC.INVALID_CALL, "Invalid contrast fixture" ); }
+						filter.Contrast(percent/100.0f);
+					}
+					else if ( name == "rotate" && args.size() == 1 ) { filter.Rotate(); }
+					else if ( name == "flipv" && args.size() == 1 ) { filter.FlipV(); }
+					else if ( name == "fliph" && args.size() == 1 ) { filter.FlipH(); }
+					else { GSE_ERROR( EC.INVALID_CALL, "Unknown texture fixture operation" ); }
+				}
+				const auto result = filter.GetTexture();
+				std::unique_ptr< types::texture::Texture > owned( result.is_owned ? result.texture : nullptr );
+				value::array_elements_t output, unchanged;
+				for ( size_t y=0; y<result.texture->GetHeight(); y++ ) { for ( size_t x=0; x<result.texture->GetWidth(); x++ ) { output.push_back(VALUE(value::Int,,result.texture->GetPixel(x,y))); } }
+				for ( size_t y=0; y<height; y++ ) { for ( size_t x=0; x<width; x++ ) { unchanged.push_back(VALUE(value::Int,,source.GetPixel(x,y))); } }
+				return VALUEEXT( value::Object, GSE_CALL, (value::object_properties_t{
+					{"width",VALUE(value::Int,,filter.GetWidth())}, {"height",VALUE(value::Int,,filter.GetHeight())},
+					{"pixels",VALUE(value::Array,,output)}, {"source",VALUE(value::Array,,unchanged)},
+				}) );
 			} )
 		},
 		{

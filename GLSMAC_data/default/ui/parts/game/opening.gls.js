@@ -2,8 +2,10 @@ const source = #include('../../../game/opening_dialog');
 return {
 	visible_phase: null, frame: null, background: null, caption_node: null, input: null,
 	confirm: null, dismiss: null, tour_control: null, guided: null, paragraph_nodes: [], phase: null, pending: false, p: null,
+	landing: null, phase_session: null,
 	close: () => {
 		if (this.guided != null && this.guided.active) { this.guided.stop(); }
+		if (this.landing != null) { this.landing.cancel(); this.landing = null; }
 		if (this.frame != null) { this.frame.remove(); this.frame = null; }
 		if (this.background != null) { this.background.remove(); this.background = null; }
 		this.caption_node = null; this.input = null; this.confirm = null; this.dismiss = null; this.tour_control = null;
@@ -80,8 +82,18 @@ return {
 		const state = this.p.game.get_opening_state();
 		if (state.phase == 'preparing' || state.phase == 'starting') { return true; }
 		if (state.phase == 'failed') { this.close(); this.visible_phase = null; this.p.glsmac.reset(); return false; }
-		if (state.phase == this.phase) { return true; }
-		this.close(); this.pending = false; this.phase = state.phase;
+		if (state.phase == this.phase && state.session == this.phase_session) { return true; }
+		const land = this.phase == 'planetfall' && state.phase == 'first-base-name' && state.session == this.phase_session;
+		this.close(); this.pending = false; this.phase = state.phase; this.phase_session = state.session;
+		if (land) {
+			this.visible_phase = 'landing';
+			this.landing = #include('pod_landing')(this.p, state, () => {
+				this.landing = null;
+				const now = this.p.game.get_opening_state();
+				if (now.session == state.session && now.phase == 'first-base-name' && now.base_id == state.base_id) { this.show(now); }
+			});
+			return true;
+		}
 		if (state.phase == 'none' || state.phase == 'map') { this.visible_phase = 'map'; }
 		else { this.show(state); }
 		return true;

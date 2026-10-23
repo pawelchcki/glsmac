@@ -8,6 +8,7 @@
 
 #include "types/Color.h"
 #include "types/texture/Types.h"
+#include "Flic.h"
 
 namespace types::texture {
 class Texture;
@@ -30,6 +31,8 @@ CLASS( TextureLoader, Loader )
 	types::texture::Texture* LoadTexture( const resource::resource_t res, const types::texture::texture_flag_t flags = types::texture::TF_NONE );
 	types::texture::Texture* TryLoadCustomTexture( const std::string& filename, const types::texture::texture_flag_t flags = types::texture::TF_NONE );
 	types::texture::Texture* LoadCustomTexture( const std::string& filename, const types::texture::texture_flag_t flags = types::texture::TF_NONE );
+	const Flic& LoadFlic( const std::string& filename );
+	types::texture::Texture* LoadFlicFrame( const std::string& filename, size_t frame, int transparent_index = -1, const types::texture::texture_flag_t flags = types::texture::TF_NONE );
 
 	// load part of texture
 	types::texture::Texture* LoadTexture( const resource::resource_t res, const size_t x1, const size_t y1, const size_t x2, const size_t y2, const uint8_t flags = types::texture::LT_NONE, const float value = 1.0, const types::texture::texture_flag_t texture_flags = types::texture::TF_NONE );
@@ -52,6 +55,8 @@ private:
 	const transparent_colors_t& GetTCs( const resource::resource_t res );
 
 	std::unordered_map< std::string, types::texture::LazyTexture* > m_lazy_textures = {};
+	std::unordered_map< std::string, Flic > m_flics;
+	std::unordered_map< std::string, types::texture::Texture* > m_flic_frames;
 };
 
 }

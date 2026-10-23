@@ -387,10 +387,11 @@
       "contracts": [
         "ui.opening_art.v1",
         "ui.opening_sequence.v1",
+        "ui.pod_landing.v1",
         "ui.interface_tour_controls.v1",
         "ui.interface_tour_controls.v2"
       ],
-      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Two independently repeated installed-data interface-tour traces establish eighteen mandatory checkpoints: actual Tour/Close, Continue/End Tour/final Close controls, real MENU/Commlink visibility, native turn one and unchanged human unit state. Four further independently repeated declared-source traces add thirty-six asset-free checkpoints under two own tutorial/label profiles, including edited Commlink headings. Candidate topic observations read mounted text independently of internal page IDs and production parser output; healthy blank/wrong/stale mutations mismatch. Unseeded terrain-dependent pages remain outside the projection. Installed-data rendered companions are separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity.",
+      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Rendered candidate replay is separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity. Two further independently repeated original routes identify five installed pod-animation frames and their horizontal motion signs before first-base naming, retaining native turn zero. Exact world-dependent translations were rejected as nondeterministic and remain outside this projection. Synthetic asset-free FLIC decoder and production-controller regressions cover format handling and playback lifecycle separately. Both routes match actual browser replay at all ten sampled pod frames; this is separate from default asset-free case totals. Two independently repeated installed-data interface-tour traces establish eighteen mandatory checkpoints: actual Tour/Close, Continue/End Tour/final Close controls, real MENU/Commlink visibility, native turn one and unchanged human unit state. Four further independently repeated declared-source traces add thirty-six asset-free checkpoints under two own tutorial/label profiles, including edited Commlink headings. Candidate topic observations read mounted text independently of internal page IDs and production parser output; healthy blank/wrong/stale mutations mismatch. Unseeded terrain-dependent pages remain outside the projection. Installed-data rendered companions are separate from the asset-free default UI catalog.",
       "remaining": [
         "Launch movies, logos, skip controls and transition frame alignment",
         "Main/setup typography, menu chrome, layout, hover and focus rendering",
@@ -399,10 +400,10 @@
         "Faction information, roster editing, random choices and identity controls across profiles",
         "Generation/loading visuals, deterministic worlds, camera, visibility and initial native state",
         "Other faction-specific opening narratives and acknowledgement/cancellation semantics",
-        "Landing animation, first-base edits/cancellation and initial-base resources",
-        "Tour terrain-dependent pages, keypad/pointer geometry, mid-tour cancellation contexts, Help-menu replay and other tutorial branches",
         "Every first-round management, unit action, menu, dialog and turn-confirmation path",
-        "Initial opponent roster and actual computer-player decisions through next-year transition"
+        "Initial opponent roster and actual computer-player decisions through next-year transition",
+        "Exact landing trajectory, cadence, smoke compositing and sound; first-base edits/cancellation and initial-base resources",
+        "Tour terrain-dependent pages, keypad/pointer geometry, mid-tour cancellation contexts, Help-menu replay and other tutorial branches"
       ]
     }
   ]

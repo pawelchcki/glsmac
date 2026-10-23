@@ -185,6 +185,9 @@ CLASS( Game, common::Module )
 	sprite::InstancedSprite* GetTerrainInstancedSprite( const backend::map::sprite_actor_t& actor );
 
 	void CenterAtCoordinatePercents( const ::types::Vec2< float > position_percents );
+	// Center the actual world camera without selecting/opening a base screen.
+	// Returns the owned base tile's pixel projection in the current viewport.
+	bool FocusOwnedBase( size_t id, ::types::Vec2< float >& screen );
 
 	void SmoothScroll( const float scroll_value );
 	void SmoothScroll( const ::types::Vec2< float > position, const float scroll_value );

@@ -38,7 +38,9 @@ jobs:
           path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation -v
+      - name: Test FLIC decoding with synthetic assets
+        run: python3 tools/texture-tests/run.py
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --jobs 2 --report build/hot-artifacts/hot.json
       - uses: actions/upload-artifact@v4
