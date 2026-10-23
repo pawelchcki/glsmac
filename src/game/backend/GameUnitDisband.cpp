@@ -111,7 +111,7 @@ void Game::RollbackUnitDisband( GSE_CALLABLE, const int64_t token, const int64_t
 	auto restored = std::unique_ptr< unit::Unit >( unit::Unit::Deserialize( GSE_CALL, bytes, m_um ) );
 	std::unique_ptr< unit::Def > decoded( restored->m_def ); restored->m_def = def;
 	m_um->m_units.emplace( restored->m_id, restored.get() ); m_um->QueueUnitUpdate( restored.get(), unit::UnitManager::UUO_SPAWN ); restored.release();
-	if ( base ) { base->m_production = record.previous_production; m_bm->RefreshBase( base ); }
+	if ( base ) { base->m_production = record.previous_production; m_bm->RefreshBase( base ); base->TriggerUpdate(); }
 	m_random->SetState( util::random::Random::GetStateFromString( record.previous_rng ) );
 	m_disbanding_records.erase( found );
 }

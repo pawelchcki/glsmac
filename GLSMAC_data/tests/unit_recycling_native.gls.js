@@ -88,3 +88,14 @@ behavior.scenario('removing the actual credited city invalidates its retained na
  reject(() => { undo(f,receipt); });
  test.assert(!f.game.um.has_unit(f.recycling_id) && #sizeof(f.game.bm.get_bases()) == 0);
 });
+behavior.scenario('rollback notifies real base listeners after the forward credit update was delivered', () => {
+ const f = fixture(30); const city_id = f.base.id + 0; const previous = f.base.get_production().minerals + 0;
+ f.frontend_packets(); f.update_count(); const notifications = [];
+ f.game.on('update_base', (e) => { notifications :+ {base_id:e.base.id + 0,minerals:e.base.get_production().minerals + 0}; });
+ const receipt = remove(f); f.frontend_packets(); f.update_count();
+ test.assert(notifications == [{base_id:city_id,minerals:previous + price(f) / 2}], 'Forward credit must reach the actual base listener');
+ f.update_count(); test.assert(#sizeof(notifications) == 1, 'The forward trigger must be drained before rollback');
+ undo(f,receipt); f.frontend_packets(); f.update_count();
+ test.assert(f.base.get_production().minerals == previous, 'Native credit must be undone');
+ test.assert(notifications == [{base_id:city_id,minerals:previous + price(f) / 2},{base_id:city_id,minerals:previous}], 'Rollback must deliver restored minerals through update_base');
+});

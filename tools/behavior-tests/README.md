@@ -50,7 +50,7 @@ when investigating isolation or collecting a serial baseline.
 
 Hot contains 27 regression suites around active menu controls, Colony
 naming/joining, Former work, unit retirement/recycling, modal input, setup and
-first-city lifecycle (289 scenarios/2,029 assertions). Original UI replay includes
+first-city lifecycle (290 scenarios/2,033 assertions). Original UI replay includes
 13 hot references with 54 recorded cases. Stable contains the explicit complement:
 101 regression suites, 44 UI references (694 cases), two economy references and
 15 current helper references. These are bounded catalogs, not a full-game
