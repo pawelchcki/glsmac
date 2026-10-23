@@ -1,0 +1,637 @@
+{
+  "captured_at": "2026-10-23T00:41:35.858257+00:00",
+  "observations": [
+    {
+      "case_sha256": "e318fe23564af1a490f1cdde020b7b977d9ac9a83ca3139dce5c30623c21abe6",
+      "id": "unit-recycling-synthetic",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 1
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 4,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "081cf2c5b25b11faca361d490c871c24708f5f4658ff357e26636ab950e362ac",
+      "id": "unit-recycling-recycle-edited",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CITY PATROL DECISION",
+              "choices": [
+                "STAY ON PATROL.",
+                "RELEASE PATROL."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CITY PATROL DECISION",
+              "choices": [
+                "STAY ON PATROL.",
+                "RELEASE PATROL."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CITY PATROL DECISION",
+              "choices": [
+                "STAY ON PATROL.",
+                "RELEASE PATROL."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CITY PATROL DECISION",
+              "choices": [
+                "STAY ON PATROL.",
+                "RELEASE PATROL."
+              ],
+              "selected": 1
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE SCOUT PATROL?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "CITY PATROL DECISION",
+              "choices": [
+                "STAY ON PATROL.",
+                "RELEASE PATROL."
+              ],
+              "selected": 1
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 4,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "5f7bec496dc7c4af7eeb390367f4a8fd0ca7bb4c9fa69a46f2c70506a84e5e96",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "One ready conventional Scout in own city and two unchanged off-city companions; two synthetic source profiles; no alternate unit costs, industry, damage, other recycling/overload or AI parity",
+    "contract": "ui.unit_recycling.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ready-city Scout MENU/Action9; independently segmented dialog text/choices/highlight/button; native survivors and actual city mineral delta guarded against prepared baseline",
+    "source_profiles_sha256": "e54a1400284048a53f25f4b99c5732532dc77aa06c847fa66d43ad0f9e2c9bce"
+  },
+  "repeat": 2,
+  "suite_sha256": "ed25c982c152ea7bb54cd765555854e4484fa911b54556a00eadc2f9a24515f7",
+  "version": 1
+}

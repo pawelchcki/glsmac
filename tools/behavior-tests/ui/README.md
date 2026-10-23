@@ -160,11 +160,12 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-744 passing cases, including eight independently repeated Sentry lifecycle
+748 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| [`ui.unit_recycling.v1`](unit-recycling-contract.md) | 4 | Owned-city Scout/Former Action9, common DISBAND two-choice dialog, cancellation/reopening/clamping and ordinary retirement with native mineral deltas, 39 checkpoints including a free-tile Scout control | Fresh complete original traces repeated twice; alternate costs/industry and overload excluded |
 | [`ui.unit_disband.v1`](unit-disband-contract.md) | 3 | Ready Former Action9, common DISBAND2 precedence, default/Escape cancellation, reopen/draft arrows and ordinary confirmation, 29 native/control checkpoints including selected-unit name substitution | Every full original trace independently repeated twice; self-destruct activation and city recycling excluded |
 | [`ui.colony_adjacent_warning.v1`](colony-adjacent-warning-contract.md) | 2 | One southwest adjacent city, actual Action source0, immediate source-driven warning, no naming dialog, unchanged native units/city/year and retained root/cleared child | Fresh whole original captures repeated twice under two synthetic source profiles |
 | [`ui.colony_found_menu.v1`](colony-found-menu-contract.md) | 2 | Free-square Action source0, source-derived naming draft, edit/cancel/reopen/confirm through buttons and Escape/Enter, native named city and Pod consumption | Fresh whole original captures repeated twice; native replay and both actual browser flows |

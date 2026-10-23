@@ -56,7 +56,7 @@ namespace backend = game::backend;
 // inspected to exercise publish ordering and wrapper lifetime at that boundary.
 class ProbeConnection : public backend::connection::Connection {
 public:
-	ProbeConnection() : Connection( nullptr, network::CM_SERVER, nullptr ) {}
+	ProbeConnection( bool client = false ) : Connection( nullptr, client ? network::CM_CLIENT : network::CM_SERVER, nullptr ) {}
 	void UpdateSlot( const size_t, backend::slot::Slot*, const bool ) override {}
 	void SendMessage( const std::string& ) override {}
 protected:
@@ -972,7 +972,12 @@ struct ProductionFixture : gc::Object {
 		return VALUEEXT( value::Object, GSE_CALL, result );
 	}
 	void Process() { game.ProcessEvents(); }
-	void Response( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data, bool accepted, bool applied ) {
+	size_t DisbandJournalCount() const { return game.m_disbanding_records.size(); }
+	void ServerEvent( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data ) {
+		if ( !transport ) { transport = std::make_unique< ProbeConnection >( true ); state->m_connection = transport.get(); }
+		game.AddEvent( new backend::event::Event( &game, backend::event::Event::ES_SERVER, game.m_slot_num, GSE_CALL, name, data ) );
+	}
+	std::string StageResponse( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data, bool applied ) {
 		auto* event = new backend::event::Event( &game, backend::event::Event::ES_LOCAL, game.m_slot_num, GSE_CALL, name, data );
 		Value* rollback = nullptr;
 		if ( applied ) {
@@ -980,8 +985,14 @@ struct ProductionFixture : gc::Object {
 			game.WithRW( [ & ]() { rollback = game.m_event_handlers.at( name )->Apply( GSE_CALL, { obj } ); } );
 		}
 		game.m_events_waiting_for_responses.emplace( event->GetId(), backend::Game::event_waiting_for_response_t { event, rollback, applied } );
-		game.AddEventResponse( event->GetId(), accepted, nullptr );
+		return event->GetId();
+	}
+	void ResolveResponse( const std::string& id, bool accepted ) {
+		game.AddEventResponse( id, accepted, nullptr );
 		game.ProcessEventResponses();
+	}
+	void Response( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data, bool accepted, bool applied ) {
+		ResolveResponse( StageResponse( GSE_CALL, name, data, applied ), accepted );
 	}
 	std::string FoundingSnapshot() {
 		types::Buffer bytes;
@@ -1721,6 +1732,21 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 		N_EXPECT_ARGS( 4 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object ); N_GETVALUE( accepted, 2, Bool ); N_GETVALUE( applied, 3, Bool );
 		session->current->Response( GSE_CALL, name, data, accepted, applied );
 		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "stage_response_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 3 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object ); N_GETVALUE( applied, 2, Bool );
+		return VALUE( value::String,, session->current->StageResponse( GSE_CALL, name, data, applied ) );
+	} ), GSE_CALL );
+	object->Set( "resolve_response_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, String ); N_GETVALUE( accepted, 1, Bool );
+		session->current->ResolveResponse( id, accepted ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "disband_journal_count", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Int,, session->current->DisbandJournalCount() );
+	} ), GSE_CALL );
+	object->Set( "server_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object );
+		session->current->ServerEvent( GSE_CALL, name, data ); return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	object->Set( "remote_event", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 2 ); N_GETVALUE( name, 0, String ); N_GET( data, 1, Object );

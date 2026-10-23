@@ -452,11 +452,17 @@ WRAPIMPL_BEGIN( Game )
 			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
 			return DisbandUnit( GSE_CALL, id, caller, turn );
 		} ) },
+		{ "get_unit_disband_base", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int ); N_GETVALUE( turn, 2, Int );
+			const auto error = ValidateUnitDisband( id, caller, turn ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+			return VALUE( gse::value::Int,, GetUnitDisbandBase( id ) );
+		} ) },
 		{ "rollback_unit_disband", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object );
 			N_GETPROP( token, receipt, "transaction_id", Int ); N_GETPROP( id, receipt, "unit_id", Int );
 			N_GETPROP( caller, receipt, "owner", Int ); N_GETPROP( turn, receipt, "turn_id", Int );
-			RollbackUnitDisband( GSE_CALL, token, id, caller, turn ); return VALUE( gse::value::Undefined );
+			N_GETPROP( base, receipt, "base_id", Int );
+			RollbackUnitDisband( GSE_CALL, token, id, caller, turn, base ); return VALUE( gse::value::Undefined );
 		} ) },
 		{ "validate_found_base_unit", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, Int ); N_GETVALUE( caller, 1, Int );
@@ -899,6 +905,7 @@ void Game::GetReachableObjects( std::unordered_set< Object* >& reachable_objects
 	}
 
 	for ( const auto& entry : m_joining_records ) { GC_REACHABLE( entry.second.base_identity ); }
+	for ( const auto& entry : m_disbanding_records ) { if ( entry.second.base_identity ) { GC_REACHABLE( entry.second.base_identity ); } }
 
 	GC_DEBUG_BEGIN( "events" );
 	{
@@ -1486,7 +1493,11 @@ void Game::ProcessEventResponses() {
 				if ( waiting.rollback_data ) { obj->Set( "applied", waiting.rollback_data, GSE_CALL ); }
 				const gse::value::function_arguments_t args { obj };
 				if ( !response.is_accepted && waiting.applied ) { WithRW( [ & ]() { handler->Rollback( GSE_CALL, args ); } ); }
-				else if ( response.is_accepted && !waiting.applied ) { WithRW( [ & ]() { handler->Apply( GSE_CALL, args ); } ); }
+				else if ( response.is_accepted ) {
+					auto* applied = waiting.rollback_data;
+					if ( !waiting.applied ) { WithRW( [ & ]() { applied = handler->Apply( GSE_CALL, args ); } ); }
+					FinalizeUnitDisbandEvent( waiting.event, applied );
+				}
 			} catch ( const std::exception& error ) { success = false; MTModule::Log( "Event response failed: " + std::string( error.what() ) ); }
 			NotifyEventResult( GSE_CALL, waiting.event, success );
 		} );
@@ -1540,7 +1551,7 @@ void Game::ProcessEvents() {
 							if ( resolved ) { event->SetResolved( resolved ); obj->Set( "resolved", resolved, GSE_CALL ); }
 						}
 						const auto wire = m_state->m_connection ? event->Serialize().ToString() : std::string{};
-						WithRW( [ & ]() { apply(); } );
+						WithRW( [ & ]() { FinalizeUnitDisbandEvent( event, apply() ); } );
 						success = true;
 						// A failed native apply must never be published as accepted.
 						if ( m_state->m_connection ) {
@@ -1566,6 +1577,7 @@ void Game::ProcessEvents() {
 							m_events_waiting_for_responses.emplace( event->GetId(), event_waiting_for_response_t { event, rollback, process_now } );
 							m_state->m_connection->SendSerializedGameEvent( event->GetCaller(), event->GetEventName(), wire );
 						}
+						else { FinalizeUnitDisbandEvent( event, rollback ); }
 					}
 				}
 			} catch ( const std::exception& failure ) { error = failure.what(); }

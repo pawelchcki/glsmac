@@ -63,7 +63,8 @@
     "test:terraform-menu": "node --test terraform-menu.test.mjs",
     "test:colony-found-menu": "node --test --test-concurrency=1 colony-found-menu.test.mjs",
     "test:colony-near": "node --test --test-concurrency=1 colony-near.test.mjs",
-    "test:unit-disband": "node --test --test-concurrency=1 unit-disband.test.mjs"
+    "test:unit-disband": "node --test --test-concurrency=1 unit-disband.test.mjs",
+    "test:unit-recycling": "node --test --test-concurrency=1 unit-recycling.test.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1",

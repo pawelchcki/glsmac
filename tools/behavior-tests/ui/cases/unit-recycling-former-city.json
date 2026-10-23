@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Ready Former city disband context",
+  "description": "Actual Former inside own city, same synthetic source declarations and cancel/reopen/confirm; native mineral delta measured from prepared baseline.",
+  "cases": [
+    {
+      "id": "unit-recycling-former-city",
+      "algorithm": "ui.unit_recycling.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "menu",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "cancel",
+          {
+            "header": 4
+          },
+          {
+            "row_source": 9
+          },
+          "down",
+          "confirm"
+        ]
+      }
+    }
+  ]
+}

@@ -3,6 +3,8 @@
   "kinds": {
     "regression": {
       "hot": [
+        "unit-recycling-native",
+        "unit-recycling-controls",
         "unit-disband-native",
         "unit-disband-authority",
         "unit-disband-controls",
@@ -144,7 +146,10 @@
         "colony-found-menu",
         "colony-adjacent-warning",
         "unit-disband",
-        "unit-disband-name"
+        "unit-disband-name",
+        "unit-recycling",
+        "unit-recycling-former-city",
+        "unit-recycling-scout-free"
       ],
       "stable": [
         "road-network",

@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 739 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 748 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -48,10 +48,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains twenty regression suites around active menu controls, Colony
-naming/joining, Former work, modal input, setup and first-city lifecycle
-(244 scenarios/1,763 assertions). Original UI replay includes seven hot
-references with 45 recorded cases. Stable contains the explicit complement:
+Hot contains 27 regression suites around active menu controls, Colony
+naming/joining, Former work, unit retirement/recycling, modal input, setup and
+first-city lifecycle (297 scenarios/2,067 assertions). Original UI replay includes
+13 hot references with 54 recorded cases. Stable contains the explicit complement:
 101 regression suites, 44 UI references (694 cases), two economy references and
 15 current helper references. These are bounded catalogs, not a full-game
 coverage claim. Stable execution belongs on main; PR checks run hot and consult
@@ -124,7 +124,7 @@ passing original cases and preserve the exact archived evidence bytes.
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
 static integrity validation without duplicate passing counts. The active UI
-catalog has 51 references and 739 cases. Pending base recalculation remains a
+catalog has 57 references and 748 cases. Pending base recalculation remains a
 strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.

@@ -1,0 +1,319 @@
+{
+  "captured_at": "2026-10-23T00:46:23.887838+00:00",
+  "observations": [
+    {
+      "case_sha256": "1620deef96c4076c5e2d45e08dd3ff9ff77f513b24e8b431fe894fb0a48c5e87",
+      "id": "unit-recycling-former-city",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE FORMERS?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE FORMERS?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE FORMERS?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "SERVICE DECISION",
+              "choices": [
+                "KEEP SERVING.",
+                "RETIRE UNIT."
+              ],
+              "selected": 1
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 8,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "1b392a1ee01960079017365a455f56d13bd7de600ad4176c5b782ede172c93f6",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Declared ready Scout/spread or Former/stacked owned-city contexts with guarded companions; synthetic common DISBAND and conflicting expansion/DISBAND2 declarations; no alternate costs, industry, damage, other recycling/overload or AI parity",
+    "contract": "ui.unit_recycling.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ready-city Scout MENU/Action9; independently segmented dialog text/choices/highlight/button; native survivors and actual city mineral delta guarded against prepared baseline",
+    "source_profiles_sha256": "e54a1400284048a53f25f4b99c5732532dc77aa06c847fa66d43ad0f9e2c9bce"
+  },
+  "repeat": 2,
+  "suite_sha256": "0846598d6f15bd59fb644b836927c88a85c61c9988132ed1d9971178bce46cfb",
+  "version": 1
+}
