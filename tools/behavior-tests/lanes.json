@@ -3,6 +3,8 @@
   "kinds": {
     "regression": {
       "hot": [
+        "unit-recycling-native",
+        "unit-recycling-controls",
         "unit-disband-native",
         "unit-disband-authority",
         "unit-disband-controls",
