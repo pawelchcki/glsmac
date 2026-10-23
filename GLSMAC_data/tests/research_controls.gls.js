@@ -17,6 +17,26 @@ behavior.scenario('real Shift R opens source-driven directed choices ordered by 
 	f.view.root.remove();
 });
 
+for (closing of ['escape', 'enter', 'ok']) {
+	const close = closing;
+	behavior.scenario('empty native directed research closes through ' + close + ' without a target change', () => {
+		const f = fixture(false); const definitions = f.game.get('technology_rules');
+		for (entry of definitions) { entry.prerequisites = [(0 - 2), (0 - 2)]; }
+		f.with_write(() => { f.game.technologies.replace(#include('../default/game/technology_rules').plan(definitions, f.game.get_players())); });
+		f.game.set('technology_rules', definitions);
+		const before = f.game.get_research_state(f.owner.id);
+		test.assert(f.key('R', {shift: true}) && f.popup.is_shown() && #sizeof(f.dialog.rows) == 0);
+		test.assert(f.view.find('text', 'text', 'No research targets are available.').text == 'No research targets are available.');
+		if (close == 'ok') { f.dialog.ok.emit('click', {}); }
+		else { test.assert(f.key(close == 'escape' ? 'ESCAPE' : 'ENTER')); }
+		test.assert(!f.popup.is_shown() && #sizeof(f.pending.requests) == 0);
+		test.assert(f.game.get_research_state(f.owner.id) == before);
+		test.assert(f.open() && #sizeof(f.dialog.rows) == 0);
+		f.key('ESCAPE'); test.assert(!f.popup.is_shown());
+		f.view.root.remove();
+	});
+}
+
 behavior.scenario('mounted HQ source identity reaches the same research controller', () => {
 	const f = fixture(true); test.assert(f.hq());
 	test.assert(f.popup.is_shown() && f.dialog.header.text == 'SYNTHETIC PRIORITIES' && !f.menu.menus.left_menu.is_open);
