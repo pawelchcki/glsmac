@@ -8,6 +8,8 @@
 #include "engine/Engine.h"
 #include "loader/font/FontLoader.h"
 #include "util/String.h"
+#include "gse/value/Int.h"
+#include "gse/callable/Native.h"
 
 namespace ui {
 namespace dom {
@@ -25,6 +27,13 @@ Text::Text( DOM_ARGS )
 	UpdateFont();
 	m_geometry->AsText()->SetActor( m_actor );
 	Actor( m_actor );
+
+	// Text is intrinsically sized, unlike Area. Expose the actual font metrics
+	// so source-driven dialogs can wrap edited identities without guessing widths.
+	Method( GSE_CALL, "get_width", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 0 );
+		return VALUE( gse::value::Int,, m_actor->GetWidth() );
+	} ) );
 
 	Property(
 		GSE_CALL, "text", gse::VT_STRING, nullptr, PF_NONE, [ this ]( GSE_CALLABLE, gse::Value* const v ) {

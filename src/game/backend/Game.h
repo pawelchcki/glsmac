@@ -146,6 +146,7 @@ typedef union {
 struct MT_Request {
 	op_t op;
 	union {
+		struct { bool interactive_opening; } init;
 		struct {
 			tile_query_purpose_t purpose;
 			size_t tile_x;
@@ -269,7 +270,7 @@ CLASS2( Game, MTModule, gse::GCWrappable )
 	common::mt_id_t MT_Ping();
 
 	// initialize map and other things
-	common::mt_id_t MT_Init( State* state );
+	common::mt_id_t MT_Init( State* state, bool interactive_opening = false );
 
 	// get map data for display
 	common::mt_id_t MT_GetMapData();
@@ -354,6 +355,9 @@ public:
 
 	void GlobalFinalizeTurn( GSE_CALLABLE );
 	void FirstTurn( GSE_CALLABLE );
+	gse::Value* GetOpeningState( GSE_CALLABLE ) const;
+	std::string ValidateOpening( GSE_CALLABLE, int64_t caller, int64_t session, const std::string& action, int64_t base_id, const std::string& previous, const std::string& name ) const;
+	void ApplyOpening( GSE_CALLABLE, int64_t caller, int64_t session, const std::string& action, int64_t base_id, const std::string& previous, const std::string& name );
 
 	faction::Faction* GetFaction( const std::string& id ) const;
 
@@ -405,7 +409,7 @@ private:
 
 	std::vector< FrontendRequest >* m_pending_frontend_requests = nullptr;
 
-	void InitGame( MT_Response& response, MT_CANCELABLE );
+	void InitGame( MT_Response& response, const bool interactive_opening, MT_CANCELABLE );
 	void ResetGame();
 
 	// seed needs to be consistent during session (to prevent save-scumming and for easier reproduction of bugs)
@@ -447,6 +451,17 @@ private:
 	std::atomic< size_t > m_rw_counter = 0;
 	void WithRW( const std::function< void() >& f );
 
+	enum OpeningPhase { OPENING_NONE, OPENING_PREPARING, OPENING_PLANETFALL, OPENING_NAME, OPENING_STARTING, OPENING_TOUR, OPENING_MAP, OPENING_FAILED };
+	OpeningPhase m_opening_phase = OPENING_NONE;
+	int64_t m_opening_session = 0;
+	size_t m_opening_base_id = 0;
+	base::Base* m_opening_base = nullptr;
+	bool m_auto_end_turn = false;
+	bool m_opening_first_turn_dispatched = false;
+	bool m_opening_first_turn_applied = false;
+	void UpdateOpening( GSE_CALLABLE );
+	bool IsOpeningPending() const;
+	bool IsOpeningEventAllowed( const std::string& name ) const;
 	void InitComplete( GSE_CALLABLE );
 	void InitFailed( const std::string& error_text );
 

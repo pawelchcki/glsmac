@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "name": "natural-opening-sequence",
+  "description": "Declared explicitCyberneticTinyCitizenstandard first-game dialog/editor/native-turn spine; confirms bykeyboardorpointer, dismissesTourrightbutton, Spacefirstturnprogression. Remainingallflows/visual/statepropertiesuncovered.",
+  "cases": [
+    {
+      "id": "opening-sequence-keyboard",
+      "algorithm": "ui.opening_sequence.v1",
+      "input": {
+        "confirmation": "keyboard"
+      }
+    },
+    {
+      "id": "opening-sequence-pointer",
+      "algorithm": "ui.opening_sequence.v1",
+      "input": {
+        "confirmation": "pointer"
+      }
+    }
+  ]
+}

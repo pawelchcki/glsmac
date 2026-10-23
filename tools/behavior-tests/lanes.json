@@ -3,6 +3,9 @@
   "kinds": {
     "regression": {
       "hot": [
+        "automatic-end-turn",
+        "opening-native",
+        "opening-dialog",
         "unit-disband-shortcut-controls",
         "unit-recycling-native",
         "unit-recycling-controls",

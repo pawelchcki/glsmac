@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 import { chromium } from 'playwright';
@@ -38,10 +38,37 @@ async function serveAssets(t) {
 async function startGame(page) {
   // Skip only the timed intro. Startup, original resources, UI scripting,
   // graphics, sound and worker-to-browser asset reads all remain production.
-  await page.evaluate(() => {
+  // Mount current host production scripts, including a read-only opening
+  // observer. Cached WASM must not silently test its older embedded UI.
+  const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, { recursive: true })
+    .filter((name) => name.endsWith('.gls.js')).map((name) => [name, readFileSync(`${root}GLSMAC_data/default/${name}`, 'utf8')]));
+  const marker = 'glsmac.run();';
+  assert.equal(scripts['main.gls.js'].split(marker).length, 2);
+  scripts['main.gls.js'] = scripts['main.gls.js'].replace(marker, `
+    glsmac.on('configure_game', (e) => {
+      const game = e.game;
+      game.on('start_ui', (e) => {
+        const opening = #include('ui/parts/game/opening');
+        glsmac.ui.root.timer(100, () => {
+          if (opening.visible_phase != null) {
+            let x = 0; let y = 0;
+            if (opening.dismiss != null) { x = opening.dismiss_x; y = opening.dismiss_y; }
+            #print('ASSET_OPENING|' + opening.visible_phase + '|' + #to_string(game.get_turn()) + '|' + #to_string(x) + '|' + #to_string(y));
+          }
+          return true;
+        });
+      });
+    });
+    glsmac.run();`);
+  await page.evaluate((scripts) => {
+    for (const [name, source] of Object.entries(scripts)) {
+      const path = `/assets-snapshot/GLSMAC_data/default/${name}`;
+      Module.FS.mkdirTree(path.slice(0, path.lastIndexOf('/')));
+      Module.FS.writeFile(path, source);
+    }
     const callMain = Module.callMain;
-    Module.callMain = (args) => callMain([...args, '--skipintro']);
-  });
+    Module.callMain = (args) => callMain([...args, '--skipintro', '--datapath', '/assets-snapshot/GLSMAC_data']);
+  }, scripts);
   await page.locator('#start').click();
 }
 
@@ -252,8 +279,31 @@ async function chooseGameAssets(page, address) {
 }
 
 async function terrainScreenshot(page, filename, menuPixels, errors, graphicsErrors) {
+  // Terrain pixels cannot be inferred from nonblack opening artwork. Reach the
+  // actual map through the real controls before retaining the original checks.
+  for (const [phase, turn] of [['planetfall', 0], ['first-base-name', 0], ['tour', 1], ['map', 1]]) {
+    await page.waitForFunction((phase) => {
+      const log = document.querySelector('#log').textContent;
+      const current = [...log.matchAll(/ASSET_OPENING\|([^|\r\n]+)\|(\d+)\|(\d+)\|(\d+)/g)].at(-1);
+      return document.body.dataset.state === 'failed' || current?.[1] === phase;
+    }, phase, { timeout: 120000 });
+    assert.deepEqual(errors, []);
+    assert.deepEqual(graphicsErrors, []);
+    const log = await page.locator('#log').textContent();
+    const current = [...log.matchAll(/ASSET_OPENING\|([^|\r\n]+)\|(\d+)\|(\d+)\|(\d+)/g)].at(-1);
+    assert.ok(current, `Actual opening phase ${phase} is observable`);
+    assert.equal(current[1], phase);
+    assert.equal(+current[2], turn, 'The real native turn follows the opening phase');
+    if (phase === 'planetfall' || phase === 'first-base-name') await page.keyboard.press('Enter');
+    else if (phase === 'tour') {
+      assert.ok(+current[3] > 0 && +current[4] > 0, 'The actual right dismissal control exists');
+      await clickCanvas(page, +current[3], +current[4]);
+    }
+  }
   await page.waitForFunction(() => document.body.dataset.state === 'failed' || (
-    [...Module.assetStore.loaded].some((path) => /(?:^|\/)units\.pcx$/i.test(path))
+    // Actual terrain inputs; a natural Scout uses newicons.pcx and never needs
+    // the native-lifeform units.pcx atlas.
+    ['texture.pcx', 'ter1.pcx'].every((name) => Module.assetStore.loaded.has(name))
     && Module.assetStore.pending.size === 0
   ), null, { timeout: 120000 });
   let terrainPixels = 0;

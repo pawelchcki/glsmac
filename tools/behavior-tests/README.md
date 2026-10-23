@@ -48,8 +48,9 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 18 regression suites around active unit menus, retirement/recycling,
-keyboard controls, modal input, setup and first-city lifecycle (187 scenarios/1,406
+Hot contains 21 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, opening phases, automatic turn completion,
+setup and first-city lifecycle (201 scenarios/1,477
 assertions). Original UI replay includes nine hot references with 39 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
@@ -59,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 129 native
+and keyboard controls stay hot. The combined partition retains all 132 native
 suites and 58 UI references (750 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -84,6 +85,16 @@ observations at twelve declared backdrop coordinates. These pixel checks require
 installed assets and add no cases to the asset-free default UI totals. See
 [the bounded contract](ui/opening-art-contract.md); full opening-through-first-round
 fidelity remains explicitly partial in `properties.json`.
+
+The separate optional `test:opening-sequence` command uses the same installed
+assets and application runtime. It follows actual keyboard or pointer input from
+the main menu through Planetfall, the first-base name, the tutorial prompt,
+the playable map and Space into the next turn. Two independently repeated
+original traces establish ten checkpoints, including native turn counters
+0, 0, 1, 1 and 2 for each route. See [the sequence contract](ui/opening-sequence-contract.md).
+This checks the declared phases and controls; full-frame visuals, landing
+animation, the left-hand guided Tour route, generated worlds and opponents
+remain outside these passing cases.
 
 Main CI restores or builds one compatible headless engine and shares its artifact
 with hot, stable and full GSE jobs. The full browser Debug/Release builds remain

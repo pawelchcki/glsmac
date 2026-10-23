@@ -39,6 +39,7 @@ return (game) => {
 		'join_base',
 		'reconcile_base_citizens',
 		'rename_base',
+		'opening_command',
 	]) {
 		game.register_event(e, #include('event/' + e));
 	}

@@ -101,6 +101,8 @@ private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class BaseManager;
 	friend class game::backend::Game;
+	std::string ValidateName( GSE_CALLABLE, int64_t caller, const std::string& previous_name, const std::string& name );
+	int64_t RenameValidated( GSE_CALLABLE, const std::string& name );
 	// Incoming snapshots stay detached until every center and worker claim is valid.
 	static void AttachSnapshots( GSE_CALLABLE, const std::vector< Base* >& bases );
 	std::vector< std::pair< size_t, map::tile::Tile* > > m_snapshot_work;

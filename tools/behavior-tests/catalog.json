@@ -1,6 +1,9 @@
 {
   "version": 1,
   "suites": [
+    {"id":"automatic-end-turn","script":"GLSMAC_data/tests/automatic_end_turn.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"opening-native","script":"GLSMAC_data/tests/opening_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"opening-dialog","script":"GLSMAC_data/tests/opening_dialog.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-shortcut-controls","script":"GLSMAC_data/tests/unit_disband_shortcut_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-recycling-native","script":"GLSMAC_data/tests/unit_recycling_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-recycling-controls","script":"GLSMAC_data/tests/unit_recycling_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
