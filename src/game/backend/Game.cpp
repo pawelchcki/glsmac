@@ -522,6 +522,21 @@ WRAPIMPL_BEGIN( Game )
 			return VALUE( gse::value::Undefined );
 		} ) },
 		{ "technologies", technology::WrapTable( GSE_CALL, m_technologies, this ) },
+		{ "get_research_state", NATIVE_CALL( this ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( player, 0, Int ); return GetResearchState( GSE_CALL, player ); } ) },
+		{ "validate_research_target", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( target, 1, Int );
+			const auto error = ValidateResearchTarget( player, target ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "validate_research_priority", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 2 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( priority, 1, Int );
+			const auto error = ValidateResearchPriority( player, priority ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "select_research_target", NATIVE_CALL( this ) { N_EXPECT_ARGS( 2 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( target, 1, Int ); return SelectResearchTarget( GSE_CALL, player, target ); } ) },
+		{ "set_research_priority", NATIVE_CALL( this ) { N_EXPECT_ARGS( 3 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( priority, 1, Int ); N_GETVALUE( enabled, 2, Bool ); return SetResearchPriority( GSE_CALL, player, priority, enabled ); } ) },
+		{ "rollback_research", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Object ); N_GETPROP( player, receipt, "player_id", Int ); N_GETPROP( token, receipt, "token", Int ); N_GETPROP( turn, receipt, "turn_id", Int );
+			RollbackResearch( GSE_CALL, player, token, turn ); return VALUE( gse::value::Undefined );
+		} ) },
 		{ "geometry", map::tile::WrapGeometry( GSE_CALL ) },
 		{
 			"is_master",
@@ -1777,6 +1792,7 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 					// send turn info
 					MTModule::Log( "Sending turn ID: " + std::to_string( m_current_turn.GetId() ) );
 					buf.WriteInt( m_current_turn.GetId() );
+					buf.WriteString( m_research.Serialize().ToString() );
 
 					return buf.ToString();
 				};
@@ -2005,6 +2021,10 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 
 								// get turn info
 								const auto turn_id = buf.ReadInt();
+								technology::Research research;
+								if ( buf.lenr != buf.lenw ) { research.Deserialize( types::Buffer( buf.ReadString() ) ); }
+								if ( buf.lenr != buf.lenw ) { THROW( "Trailing world research snapshot data" ); }
+								m_research = research;
 								if ( turn_id > 0 ) {
 									MTModule::Log( "Received turn ID: " + std::to_string( turn_id ) );
 									AdvanceTurn( turn_id );
@@ -2051,6 +2071,8 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 
 void Game::ResetGame() {
 	m_technologies.Clear();
+	m_research.Clear();
+	for ( auto& receipt : m_research_receipts ) { receipt.reset(); }
 	CustomUnset( "technologies_initialized" );
 
 	ClearHandlers();

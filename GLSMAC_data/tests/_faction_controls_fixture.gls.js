@@ -13,6 +13,9 @@ const create = () => {
 		import_colors: (filename) => { return {}; }, import_base_names: (filename) => { return {}; },
 	});
 	f.m.popup = f.popup; f.m.settings = {local: {player_name: 'Unconfirmed'}};
+	// Retain the native owner while production rule controls use its settings.
+	f.native = test.founding_fixture();
+	f.m.settings.global = f.native.game.get_settings().global;
 	f.m.smac_data = installed.bundle;
 	f.m.glsmac.game = {get_fm: () => { return {list: () => { return state.available; }}; }};
 	f.m.glsmac.start_game = (id) => {

@@ -20,6 +20,7 @@
 #include "game/BackendRequest.h"
 #include "game/backend/turn/Turn.h"
 #include "game/backend/technology/Table.h"
+#include "game/backend/technology/Research.h"
 #include "game/backend/base/ProductionState.h"
 
 // TODO: remove those
@@ -368,6 +369,12 @@ public:
 	animation::AnimationManager* GetAM() const;
 	technology::Table& GetTechnologyTable();
 	const technology::Table& GetTechnologyTable() const;
+	gse::Value* GetResearchState( GSE_CALLABLE, int64_t player ) const;
+	std::string ValidateResearchTarget( int64_t player, int64_t target ) const;
+	std::string ValidateResearchPriority( int64_t player, int64_t priority ) const;
+	gse::Value* SelectResearchTarget( GSE_CALLABLE, int64_t player, int64_t target );
+	gse::Value* SetResearchPriority( GSE_CALLABLE, int64_t player, int64_t priority, bool enabled );
+	void RollbackResearch( GSE_CALLABLE, int64_t player, int64_t token, int64_t turn );
 
 	gc::Space* const GetGCSpace() const;
 
@@ -385,6 +392,16 @@ private:
 	base::BaseManager* m_bm = nullptr;
 	animation::AnimationManager* m_am = nullptr;
 	technology::Table m_technologies;
+	technology::Research m_research;
+	struct research_receipt_t {
+		int64_t token;
+		size_t turn;
+		technology::Research::State previous, expected;
+	};
+	std::array< std::unique_ptr< research_receipt_t >, technology::Research::PLAYERS > m_research_receipts;
+	int64_t m_next_research_receipt = 0;
+	std::string ValidateResearchPlayer( int64_t player ) const;
+	gse::Value* ApplyResearch( GSE_CALLABLE, int64_t player, const technology::Research::State& state );
 
 	enum game_state_t {
 		GS_NONE,

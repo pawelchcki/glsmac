@@ -2,6 +2,7 @@
 
 #include "gse/value/Array.h"
 #include "gse/value/Int.h"
+#include "gse/value/Bool.h"
 #include "gse/value/Undefined.h"
 #include "gse/value/String.h"
 #include "game/backend/settings/Settings.h"
@@ -16,6 +17,7 @@ Rules::Rules( const Rules& other )
 	, m_is_initialized( other.m_is_initialized )
 	, m_nutrient_cost_factor( other.m_nutrient_cost_factor )
 	, m_mineral_cost_factor( other.m_mineral_cost_factor )
+	, m_blind_research( other.m_blind_research )
 	, m_world_sizes( other.m_world_sizes )
 	, m_has_world_sizes( other.m_has_world_sizes ) {}
 
@@ -31,6 +33,7 @@ Rules& Rules::operator=( const Rules& other ) {
 		m_is_initialized = other.m_is_initialized;
 		m_nutrient_cost_factor = other.m_nutrient_cost_factor;
 		m_mineral_cost_factor = other.m_mineral_cost_factor;
+		m_blind_research = other.m_blind_research;
 		m_world_sizes = other.m_world_sizes;
 		m_has_world_sizes = other.m_has_world_sizes;
 	}
@@ -136,6 +139,21 @@ void Rules::Initialize() {
 WRAPIMPL_DYNAMIC_GETTERS( Rules )
 			WRAPIMPL_GET_CUSTOM( "difficulty_levels", Array, WrapDifficultyLevels( gc_space ) )
 	{
+		"get_blind_research", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 0 ); auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			return VALUE( gse::value::Bool,, rules->IsBlindResearch() );
+		} )
+	},
+	{
+		"set_blind_research", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( enabled, 0, Bool ); auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			CheckCustomMutation( GSE_CALL ); rules->SetBlindResearch( enabled );
+			return VALUE( gse::value::Undefined );
+		} )
+	},
+	{
 		"get_nutrient_cost_factor", NATIVE_CALL( handle = m_nutrient_handle ) {
 			N_EXPECT_ARGS( 0 );
 			auto* rules = *handle;
@@ -226,6 +244,9 @@ const types::Buffer Rules::Serialize() const {
 			buf.WriteInt( size.size_x ); buf.WriteInt( size.size_y );
 		}
 	}
+	// Preserve historical default records exactly; only a changed research
+	// mode needs an extension, including when no world-size table is loaded.
+	if ( !m_blind_research ) { buf.WriteString( "research-mode-v1" ); buf.WriteBool( false ); }
 
 	return buf;
 }
@@ -238,9 +259,11 @@ void Rules::Deserialize( types::Buffer buf ) {
 	const auto nutrient = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
 	const auto mineral = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
 	auto sizes = LegacyWorldSizes();
-	const bool loaded_sizes = buf.lenr != buf.lenw;
-	if ( loaded_sizes ) {
-		if ( buf.ReadString() != "world-sizes-v1" || buf.ReadInt() != 5 ) { THROW( "Invalid serialized world-size table header" ); }
+	bool loaded_sizes = false; bool blind_research = true;
+	auto extension = buf.lenr == buf.lenw ? std::string{} : buf.ReadString();
+	if ( extension == "world-sizes-v1" ) {
+		loaded_sizes = true;
+		if ( buf.ReadInt() != 5 ) { THROW( "Invalid serialized world-size table header" ); }
 		sizes.clear();
 		for ( size_t level = 0; level < 5; ++level ) {
 			const auto name = buf.ReadString(); const auto description = buf.ReadString();
@@ -248,12 +271,15 @@ void Rules::Deserialize( types::Buffer buf ) {
 			sizes.push_back( { name, description, width, height } );
 		}
 		ValidateWorldSizes( sizes );
+		extension = buf.lenr == buf.lenw ? std::string{} : buf.ReadString();
 	}
-	if ( nutrient < 1 || nutrient > 100 || mineral < 1 || mineral > 100 || buf.lenr != buf.lenw ) { THROW( "Invalid serialized rules record" ); }
+	if ( extension == "research-mode-v1" ) { blind_research = buf.ReadBool(); extension.clear(); }
+	if ( nutrient < 1 || nutrient > 100 || mineral < 1 || mineral > 100 || !extension.empty() || buf.lenr != buf.lenw ) { THROW( "Invalid serialized rules record" ); }
 	SetNutrientCostFactor( nutrient );
 	SetMineralCostFactor( mineral );
 	m_world_sizes = std::move( sizes );
 	m_has_world_sizes = loaded_sizes;
+	m_blind_research = blind_research;
 	m_is_initialized = true;
 
 }

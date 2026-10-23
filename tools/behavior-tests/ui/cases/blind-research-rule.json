@@ -1,0 +1,5 @@
+{"version":1,"name":"blind-research-rule","description":"Optional asset-backed Blind Research toggle, cancel/reset and Current Rules first-research handoff; other custom rules excluded.","cases":[
+{"id":"blind-rule-cancel-reentry","algorithm":"ui.blind_research_rule.v1","input":{"actions":["toggle","cancel",{"choose":"CUSTOMIZE RULES"}]}},
+{"id":"blind-rule-off-current-play","algorithm":"ui.blind_research_rule.v1","input":{"actions":["toggle","OK","Escape",{"choose":"CITIZEN"},{"choose":"PLAY WITH CURRENT RULES"},"play"]}},
+{"id":"blind-rule-reset-standard-play","algorithm":"ui.blind_research_rule.v1","input":{"actions":["toggle","standard-button","OK","play"]}}
+]}
