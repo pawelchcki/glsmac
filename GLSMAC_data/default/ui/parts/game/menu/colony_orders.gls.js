@@ -34,8 +34,7 @@ return (menu, p) => {
 						if (!#is_defined(bar.pp) || !#is_defined(bar.pp.sections) || !#is_defined(bar.pp.sections.object_preview)) { return; }
 						const preview = bar.pp.sections.object_preview; const unit = preview.get_found_unit();
 						if (unit == null || unit.get_tile().get_base() != null) { return; }
-						preview.start_colony_action();
-						if (preview.founding.dialog != null) { root.clear_active(); }
+						if (preview.start_colony_action()) { root.clear_active(); }
 					};
 				} else if (#is_defined(entry.source_index) && entry.source_index == 1) {
 					entry.open = () => {

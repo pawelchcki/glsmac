@@ -160,11 +160,13 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-734 passing cases, including eight independently repeated Sentry lifecycle
+741 passing cases, including eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
 | --- | ---: | --- | --- |
+| [`ui.colony_adjacent_warning.v1`](colony-adjacent-warning-contract.md) | 2 | One southwest adjacent city, actual Action source0, immediate source-driven warning, no naming dialog, unchanged native units/city/year and retained root/cleared child | Fresh whole original captures repeated twice under two synthetic source profiles |
+| [`ui.colony_found_menu.v1`](colony-found-menu-contract.md) | 2 | Free-square Action source0, source-derived naming draft, edit/cancel/reopen/confirm through buttons and Escape/Enter, native named city and Pod consumption | Fresh whole original captures repeated twice; native replay and both actual browser flows |
 | `ui.terraform_menu_work.v1` | 8 | Farm/Mine/Forest/Road pointer commands, movement/work/terrain, actual Tab selection history and root/child lifetime; native replay plus two actual browser cases | Whole original traces independently repeated twice under synthetic and edited labels |
 | `ui.colony_menu_join.v1` | 2 | Owned-city Action source1, citizen/store changes, Pod consumption, native selection and root/child lifetime | Whole original pointer traces independently repeated twice with renamed source row |
 | `ui.unit_menu_context.v1` | 12 | Former/Colony Sentry/Hold/Skip, both source profiles, initial/final Tab, twenty/twenty-two-row children and 78 complete checkpoints; full native agreement and five selected browser cases | Each case independently repeated twice; lossless six-case partition provenance retained; three superseded pilots excluded from totals |

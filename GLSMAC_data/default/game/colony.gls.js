@@ -17,6 +17,9 @@ return {
 		if (!um.has_unit(unit_id)) { return 'Colony unit no longer exists'; }
 		const base = um.get_unit(unit_id).get_tile().get_base();
 		if (base != null) { return game.validate_join_base(unit_id, base.id, caller); }
+		// A ready Pod can explain an invalid site through the shared controller.
+		// The actual transaction still validates the complete founding site.
+		if (#is_defined(game.validate_found_base_unit)) { return game.validate_found_base_unit(unit_id, caller); }
 		return game.validate_found_base(unit_id, caller);
 	},
 

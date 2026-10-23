@@ -41,6 +41,9 @@ const display = (defaults) => {
 	const create = (kind, properties) => {
 		const node = {};
 		for (key in properties) { node[key] = properties[key]; }
+		// Native Text starts empty. Do not accidentally expose the generic
+		// descendant factory under its text property when no text was supplied.
+		if (kind == 'text' && !#is_defined(node.text)) { node.text = ''; }
 		// Optional scene defaults preserve explicit node properties without
 		// allocating a decorating closure around every descendant factory.
 		if (#is_defined(defaults)) {

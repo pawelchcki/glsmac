@@ -43,7 +43,12 @@ return {
 	open: () => {
 		if (!this.alive || this.active()) { return false; }
 		const unit = this.preview.get_found_unit(); if (unit == null || unit.get_tile().get_base() != null) { return false; }
-		const definition = source(this.p.glsmac); const game = this.p.game; const owner = game.get_player().id;
+		const game = this.p.game; const owner = game.get_player().id;
+		if (game.is_found_base_adjacent(unit.id, owner)) {
+			game.message(#include('../../../../game/colony_site_warning')(this.p.glsmac));
+			return true;
+		}
+		const definition = source(this.p.glsmac);
 		const draft = game.preview_found_base(unit.id, owner);
 		this.token = this.token + 1; const token = this.token;
 		const session = {unit_id: unit.id + 0, owner: owner, turn_id: game.get_turn(), request_token: token}; session.unit = unit; session.tile = unit.get_tile();
