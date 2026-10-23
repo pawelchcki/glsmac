@@ -77,12 +77,23 @@ void Filter::Crop( const size_t x1, const size_t y1, const size_t x2, const size
 	const auto w = x2 - x1 + 1;
 	const auto h = y2 - y1 + 1;
 
-	Prepare();
-
 	auto* colormap = (types::Color::color_t*)malloc( h * w * sizeof( types::Color::color_t ) );
-	for ( auto y = 0 ; y < h ; y++ ) {
-		for ( auto x = 0 ; x < w ; x++ ) {
-			colormap[ y * w + x ] = m_colormap[ ( y1 + y ) * m_width + ( x1 + x ) ];
+	if ( m_colormap ) {
+		// A previous filter has already transformed the pixels.
+		for ( size_t y = 0 ; y < h ; y++ ) {
+			for ( size_t x = 0 ; x < w ; x++ ) {
+				colormap[ y * w + x ] = m_colormap[ ( y1 + y ) * m_width + x1 + x ];
+			}
+		}
+	}
+	else {
+		// UI skins take small rectangles from large atlases. Convert only the
+		// selected region, with the same RGBA conversion used by Prepare().
+		const auto* source = (const types::Color::rgba_t*)m_source_texture->GetBitmap();
+		for ( size_t y = 0 ; y < h ; y++ ) {
+			for ( size_t x = 0 ; x < w ; x++ ) {
+				types::Color::Convert( source[ ( y1 + y ) * m_width + x1 + x ], colormap[ y * w + x ] );
+			}
 		}
 	}
 

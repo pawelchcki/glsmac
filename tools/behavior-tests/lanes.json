@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "texture-filter",
         "pod-landing-controls",
         "automatic-end-turn",
         "opening-native",
