@@ -1,0 +1,296 @@
+{
+  "captured_at": "2026-10-23T00:57:05.171664+00:00",
+  "observations": [
+    {
+      "case_sha256": "bffeb2d9c60e8befa56ff914e7d370f226af33ee9fe6e5b240f15a05b6ced2f7",
+      "id": "unit-recycling-scout-free",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": 4,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 0
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 1
+            },
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "mineral_delta": 0,
+            "owned_count": 1,
+            "root_open": true,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "cd5644542a896aa8874b170ee1bcda6dc2d69af2fee3b663ada2baa05efd5d5e",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "Declared ready Scout city/free-tile or Former stacked-city contexts with guarded companions; synthetic common DISBAND and conflicting expansion/DISBAND2 declarations; no alternate costs, industry, damage, other recycling/overload or AI parity",
+    "contract": "ui.unit_recycling.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ready-city Scout MENU/Action9; independently segmented dialog text/choices/highlight/button; native survivors and actual city mineral delta guarded against prepared baseline",
+    "source_profiles_sha256": "e54a1400284048a53f25f4b99c5732532dc77aa06c847fa66d43ad0f9e2c9bce"
+  },
+  "repeat": 2,
+  "suite_sha256": "d08a08800779a0c4db8d6b0a9b2ffa7816348a5b693ce76eb4d1f27915ae93a6",
+  "version": 1
+}

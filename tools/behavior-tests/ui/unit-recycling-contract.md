@@ -37,6 +37,28 @@ accepted. The candidate must invoke mounted production controls and native
 commands and read their actual state. Source declarations and input actions
 cannot supply observed choices, success, selection or mineral changes.
 
+A fourth independently repeated trace moves the Scout onto the free southeast
+tile shared with the Former, handles all units, advances another turn and uses
+actual Tab controls to focus the ready Scout before its first checkpoint. It
+uses the same synthetic source declarations. It displays the three-choice common
+`DISBAND2` dialog and ordinary retirement adds zero city minerals. Its raw
+preparation income remains outside the cross-engine comparison. Together with
+the existing free-tile Former evidence, this separates the city context from
+unit identity; overload effects remain unobserved.
+
 The scope excludes other unit costs, industry ratings, faction modifiers,
 damaged/spent units, other cities, overload effects and complete disband,
 recycling, economy or AI behavior.
+
+The independent `fixture.unit_recycling_pricing.v1` preparation audit loads a
+fresh original saved fixture twice and reads its initialized pricing globals
+before any Disband action: raw map-size kind zero, mineral rule multiplier ten
+and human INDUSTRY zero. It also records original difficulty ordinal zero and
+40x80 grid dimensions. `unit_recycling_inputs.PRICING_CONTEXT` declares only the
+three pricing inputs; these values are not inferred from the refund. Candidate
+preparation supplies them through existing native pricing settings and reads the
+live unit recipe prices. The compact synthetic native terrain remains a local
+layout fixture; this does not establish general imported-map size provenance or
+change the deferred startup/map contracts. The preparation audit is not counted
+as an additional passing gameplay comparison. Existing accepted gameplay records
+remain immutable.

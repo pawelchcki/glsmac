@@ -35,8 +35,8 @@ class LaneTests(unittest.TestCase):
     def test_hot_scope_is_bounded_and_pending_is_separate(self):
         self.assertEqual(set(self.manifest['kinds']['regression']['hot']), {
             'unit-menu-orders', 'unit-menu-rows', 'unit-menu-order-lifecycle', 'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input', 'world-single-player-setup', 'natural-first-city-lifecycle', 'base-growth-worker-links', 'base-growth-regression', 'land-resource-sources', 'former-controls', 'terraform-menu-controls', 'terraform-menu-presentation', 'colony-join', 'colony-menu-controls', 'colony-found-menu-controls', 'colony-found-menu-authority', 'colony-found-native', 'colony-near-controls', 'colony-near-native', 'unit-disband-native', 'unit-disband-authority', 'unit-disband-controls'})
-        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'terraform-menu-work', 'colony-menu-join', 'terraform-menu-presentation', 'colony-found-menu', 'colony-adjacent-warning', 'unit-disband', 'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city'})
-        for kind, count in [('ui', 53), ('pending-ui', 22), ('gaps', 0)]:
+        self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'terraform-menu-work', 'colony-menu-join', 'terraform-menu-presentation', 'colony-found-menu', 'colony-adjacent-warning', 'unit-disband', 'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free'})
+        for kind, count in [('ui', 54), ('pending-ui', 22), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)

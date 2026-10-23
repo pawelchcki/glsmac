@@ -13,6 +13,8 @@ from ui import unit_disband_original as previous
 from ui import unit_recycling_contract as contract
 from ui import unit_recycling_inputs as inputs
 from ui.vision import VisionError
+from ui.faction_setup_native import NativeMemory
+from ui import faction_ratings_original as ratings
 base,transport=previous.base,previous.transport
 found=previous.previous
 orders=found.previous
@@ -29,6 +31,16 @@ def fingerprint():
  digest=hashlib.sha256(previous.fingerprint().encode())
  for module in (contract,inputs):digest.update(Path(module.__file__).read_bytes())
  digest.update(Path(__file__).read_bytes());return digest.hexdigest()
+
+
+def pricing_context(driver):
+ m=NativeMemory(driver)
+ try:
+  mask=m.read(m.address(0x009A64E8),1)[0]
+  if mask not in (2,4,8,16,32,64,128):raise ProtocolError('Recycling pricing requires one human faction')
+  owner=mask.bit_length()-1
+  return dict(map_size_kind=m.image_word(0x0094A2A0,signed=True),mineral_rule_factor=m.image_word(ratings.MINERAL_RULE,signed=True),industry=m.image_word(ratings.INDUSTRY+owner*ratings.STRIDE,signed=True))
+ finally:m.close()
 
 
 class DialogVision:
@@ -69,9 +81,26 @@ def profiles(assets):
 
 
 def capture(driver,observer,vision,menu_vision,case,path):
- path.mkdir();first,origin=base.prepare(driver,observer,vision,case,path,60)
+ path.mkdir()
+ prepared_case=case
+ if case['input']['profile']=='scout-free':
+  prepared_case=dict(case,input=dict(case['input'],profile='spread'))
+ first,origin=base.prepare(driver,observer,vision,prepared_case,path,60)
+ if case['input']['profile']=='scout-free':
+  for index,action in enumerate(('southeast','skip','skip','advance')):
+   first=base.act(driver,vision,first,action,path/f'extra-prepare-{index}-{action}.png',60)
+  for focus_index in range(3):
+   if first['selected']=='scout':break
+   first=base.act(driver,vision,first,'tab',path/f'extra-focus-{focus_index}.png',60)
+  expected={'scout':(1,1),'former':(1,1),'colony':(-1,1)}
+  if first['selected']!='scout':raise ProtocolError('Free-tile preparation did not select ready Scout')
+  for unit in first['units']:
+   offset=((unit['x']-origin[0]+20)%40-20,unit['y']-origin[1])
+   if offset!=expected[unit['role']] or unit['order']!='none' or unit['movement_spent']:raise ProtocolError('Free Scout preparation differs from declared ready positions')
+
  saved=json.loads((path/'saved-fixture-transport.json').read_text())
  if {key:saved['town']['city'][key] for key in contract.INITIAL}!=case['input']['initial_base']:raise ProtocolError('Recycling saved fixture differs from declared city')
+ if pricing_context(driver)!=inputs.PRICING_CONTEXT:raise ProtocolError('Recycling original pricing differs from declared audited inputs')
  town=found.city(driver,origin);units={unit['role']:unit for unit in first['units']};dialog=DialogVision(vision.vision)
  def city_guard(value):
   result=json.loads(json.dumps(value));result['city'].pop('minerals');return result
@@ -83,7 +112,7 @@ def capture(driver,observer,vision,menu_vision,case,path):
    actor='former' if case['input']['profile']=='stacked' else 'scout'
    roles=[u['role'] for u in current['units']]
    if roles not in [list(contract.ROLES),[r for r in contract.ROLES if r!=actor]]:raise ProtocolError('Recycling removed another actor/companion')
-   if current['turn']!=first['turn'] or city_guard(city)!=guarded_city:raise ProtocolError('Recycling changed paused year/city/citizens/non-mineral stores/membership')
+   if current['turn']!=first['turn'] or city_guard(city)!=guarded_city or pricing_context(driver)!=inputs.PRICING_CONTEXT:raise ProtocolError('Recycling changed paused year/city/citizens/non-mineral stores/membership')
    for unit in current['units']:
     original=units[unit['role']]
     if {k:v for k,v in unit.items() if k!='index'}!={k:v for k,v in original.items() if k!='index'}:raise ProtocolError('Recycling changed surviving role/position/health/order/movement')
@@ -148,7 +177,7 @@ def main():
    for name,raw in sorted(files.items()):digest.update(name.encode()+b'\0'+raw)
   write_response(dict(driver.metadata,adapter_sha256=initial,contract=contract.ALGORITHM,source_profiles_sha256=digest.hexdigest(),fixture_transport='guarded-original-created-save',
    observation='Actual ready-city Scout MENU/Action9; independently segmented dialog text/choices/highlight/button; native survivors and actual city mineral delta guarded against prepared baseline',
-   boundaries='Declared ready Scout/spread or Former/stacked owned-city contexts with guarded companions; synthetic common DISBAND and conflicting expansion/DISBAND2 declarations; no alternate costs, industry, damage, other recycling/overload or AI parity'),rows)
+   boundaries='Declared ready Scout city/free-tile or Former stacked-city contexts with guarded companions; synthetic common DISBAND and conflicting expansion/DISBAND2 declarations; no alternate costs, industry, damage, other recycling/overload or AI parity'),rows)
  finally:
   if driver:driver.close()
   observer.vision.close();vision.vision.close();menu_vision.close()

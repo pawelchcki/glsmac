@@ -70,6 +70,23 @@ class UnitRecyclingContractTests(unittest.TestCase):
   for case in suite['cases']:contract.validate_output(outputs[case['id']],case['input']['actions'])
   self.assertEqual(len(inputs.suite()['cases']),2)
 
+ def test_free_scout_supplement_has_independent_repeated_evidence(self):
+  suite=inputs.scout_free_suite();self.assertEqual(json.loads((DIRECTORY/'cases/unit-recycling-scout-free.json').read_text()),suite)
+  self.assertEqual(len(validate_cases(suite)),1);contract.validate_input(suite['cases'][0]['input'])
+  record=compare.read_json(DIRECTORY/'observations/smacx-gog-2.0-unit-recycling-scout-free.json');outputs=compare.validate_observations(record,suite)
+  self.assertGreaterEqual(record['repeat'],2)
+  for case in suite['cases']:contract.validate_output(outputs[case['id']],case['input']['actions'])
+  self.assertEqual(len(inputs.suite()['cases']),2)
+
+ def test_pricing_preparation_inputs_are_bound_to_independent_original_audit(self):
+  suite=json.loads((DIRECTORY/'cases/unit-recycling-pricing-context.json').read_text())
+  record=compare.read_json(DIRECTORY/'observations/smacx-gog-2.0-unit-recycling-pricing-context.json')
+  outputs=compare.validate_observations(record,suite);self.assertGreaterEqual(record['repeat'],2)
+  observed=outputs['unit-recycling-pricing-context']
+  self.assertEqual(inputs.PRICING_CONTEXT,{key:observed[key] for key in inputs.PRICING_CONTEXT})
+  self.assertEqual(set(inputs.PRICING_CONTEXT),{'map_size_kind','mineral_rule_factor','industry'})
+  self.assertNotIn('mineral_delta',inputs.PRICING_CONTEXT)
+
  def test_candidate_dispatch_needs_no_original_assets_or_renderer(self):
   args=SimpleNamespace(browser=False,record=False);command=run.unit_recycling_command(args)
   self.assertIn('unit_recycling_headless.py',command);self.assertNotIn('--assets',command)

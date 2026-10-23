@@ -146,7 +146,8 @@
         "unit-disband",
         "unit-disband-name",
         "unit-recycling",
-        "unit-recycling-former-city"
+        "unit-recycling-former-city",
+        "unit-recycling-scout-free"
       ],
       "stable": [
         "road-network",

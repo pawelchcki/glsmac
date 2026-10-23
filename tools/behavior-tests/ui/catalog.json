@@ -280,6 +280,11 @@
       "id": "unit-recycling-former-city",
       "cases": "cases/unit-recycling-former-city.json",
       "observations": "observations/smacx-gog-2.0-unit-recycling-former-city.json"
+    },
+    {
+      "id": "unit-recycling-scout-free",
+      "cases": "cases/unit-recycling-scout-free.json",
+      "observations": "observations/smacx-gog-2.0-unit-recycling-scout-free.json"
     }
   ]
 }

@@ -9,9 +9,9 @@ SEQUENCES={
  'recycle-edited':['menu',{'header':4},{'row_source':9},'confirm',{'header':4},{'row_source':9},'up','down','down','button-ok'],
 }
 def validate_input(data):
- if (not isinstance(data,dict) or set(data)!={'profile','initial_base','text_profile','actions'} or data['profile'] not in ('spread','stacked')
+ if (not isinstance(data,dict) or set(data)!={'profile','initial_base','text_profile','actions'} or data['profile'] not in ('spread','stacked','scout-free')
   or not isinstance(data['initial_base'],dict) or data['initial_base']!=INITIAL or any(type(data['initial_base'][key]) is not int for key in INITIAL if key!='name')
-  or data['text_profile'] not in PROFILES or (data['profile']=='stacked' and data['text_profile']!='synthetic') or data['actions']!=((['tab'] if data['profile']=='stacked' else [])+SEQUENCES[data['text_profile']])
+  or data['text_profile'] not in PROFILES or (data['profile']!='spread' and data['text_profile']!='synthetic') or data['actions']!=((['tab'] if data['profile']=='stacked' else [])+SEQUENCES[data['text_profile']])
   or any(isinstance(action,dict) and any(type(value) is not int for value in action.values()) for action in data['actions'])):raise ProtocolError('Unsupported ready Scout recycling input')
 def validate_output(output,actions):
  if not isinstance(output,dict) or set(output)!={'trace'} or not isinstance(output['trace'],list) or len(output['trace'])!=len(actions)+1:raise ProtocolError('Incomplete recycling trace')

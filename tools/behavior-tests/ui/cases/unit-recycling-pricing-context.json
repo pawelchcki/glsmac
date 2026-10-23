@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "name": "Original saved recycling pricing globals",
+  "description": "Read-only fixed-fixture preparation audit, independently recorded before applying any Disband action.",
+  "cases": [
+    {
+      "id": "unit-recycling-pricing-context",
+      "algorithm": "fixture.unit_recycling_pricing.v1",
+      "input": {
+        "profile": "stacked",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic"
+      }
+    }
+  ]
+}
