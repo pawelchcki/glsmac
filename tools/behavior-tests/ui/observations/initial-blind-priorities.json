@@ -1,0 +1,428 @@
+{
+  "captured_at": "2026-10-23T20:09:24.374837+00:00",
+  "observations": [
+    {
+      "case_sha256": "de62bc1d22e3a1f78c26db9ad6177e66be756d7f74845ca82c6fc36e656891c6",
+      "id": "gaian-priority-default-ok",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "screen": "map"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "9328c18e42040b29f7cf336a9a4ffd0aed38e6ac51ce94c94723dd840849efe6",
+      "id": "gaian-priority-discover-ok",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": true,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "screen": "map"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": true,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e62988621ee9b54e8cc732e32d84a170ceadd20195ce76b0ccd296b9f5e24e59",
+      "id": "gaian-priority-all-off",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": false,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "screen": "map"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": false,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "b05f85768f8701098b8462fe5e8b3f4cc533cfec67daa7d28ca3fac134ec9a15",
+      "id": "gaian-priority-build-escape",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": true,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "screen": "map"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": true,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "7c911f77e880b9dedd3ed67ada570aa660069e6fdfe492a3b7e97ac3cbbf72ad",
+      "id": "gaian-priority-conquer-enter",
+      "output": {
+        "trace": [
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": false,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": true,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          },
+          {
+            "screen": "map"
+          },
+          {
+            "buttons": [
+              "OK"
+            ],
+            "caption": "CONFIRM RESEARCH PRIORITIES",
+            "rows": [
+              {
+                "checked": true,
+                "label": "EXPLORE: COLONIZATION & POPULATION GROWTH"
+              },
+              {
+                "checked": false,
+                "label": "DISCOVER: ADVANCE OF PURE KNOWLEDGE"
+              },
+              {
+                "checked": false,
+                "label": "BUILD: WEALTH AND INFRASTRUCTURE"
+              },
+              {
+                "checked": true,
+                "label": "CONQUER: DIRECT MILITARY APPLICATIONS"
+              }
+            ],
+            "screen": "priorities"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "eb1b1086900d7d52e8bcb9486e673e81584f13e75a83f12907eae56e6ddf8698",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.initial_blind_priorities.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh Tiny/Citizen/Standard Rules/base Gaians; first base and Tour closed; Shift+R; no turn advanced",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Rendered caption, four source labels and checkbox glyph states, actual OK label and map/dialog return state; optional asset-backed evidence",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "2af4c4bd8f6d069d07bf40e55f203d342a27438a17c4f1249842272202631690",
+  "version": 1
+}

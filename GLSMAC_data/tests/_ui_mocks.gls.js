@@ -62,6 +62,7 @@ const display = (defaults) => {
 		node.stops = 0;
 		const handlers = events();
 		node.on = handlers.on;
+		node.off = handlers.off;
 		node.emit = handlers.emit;
 		node.handler_count = handlers.count;
 		node.get_handlers = () => { return handlers.handlers; };

@@ -13,7 +13,12 @@ return (i) => {
 	const launch = (id, name) => {
 		if (starting) { return true; }
 		if (!available(id)) { i.popup.error('Choose an available faction.'); return true; }
+		let previous_research_mode = null;
 		try {
+			if (#is_defined(i.pending_research_blind)) {
+				previous_research_mode = i.settings.global.rules.get_blind_research();
+				i.settings.global.rules.set_blind_research(i.pending_research_blind);
+			}
 			i.settings.local.player_name = name;
 			if (id == 'RANDOM') { i.glsmac.start_game(id + ''); }
 			else {
@@ -23,7 +28,10 @@ return (i) => {
 				i.glsmac.start_game(id + '', identity);
 			}
 			starting = true;
-		} catch { GSEGameError: (error) => { i.popup.error(error.reason); } }
+		} catch { GSEGameError: (error) => {
+			if (previous_research_mode != null) { i.settings.global.rules.set_blind_research(previous_research_mode); }
+			i.popup.error(error.reason);
+		} }
 		return true;
 	};
 	let customize = null;

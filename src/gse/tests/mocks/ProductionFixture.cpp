@@ -654,6 +654,21 @@ struct ProductionFixture : gc::Object {
 		else { THROW( "unknown fixture owner role" ); }
 	}
 	size_t NextPopId() const { return base->m_next_pop_id; }
+	std::string ResearchSnapshot( const std::string& kind ) {
+		const auto bytes = game.m_research.Serialize().ToString();
+		if ( kind == "current" ) { return bytes; }
+		if ( kind == "truncated" ) { return bytes.substr( 0, bytes.size() - 1 ); }
+		if ( kind == "trailing" ) { return bytes + "trailing"; }
+		types::Buffer invalid;
+		invalid.WriteInt( kind == "version" ? 2 : 1 ); invalid.WriteInt( kind == "count" ? 8 : 7 );
+		for ( size_t player = 0; player < 7; ++player ) {
+			const auto& state = game.m_research.Get( player );
+			invalid.WriteInt( player == 6 && kind == "target" ? 89 : state.target );
+			invalid.WriteInt( player == 6 && kind == "priorities" ? 16 : state.priorities );
+		}
+		return invalid.ToString();
+	}
+	void RestoreResearch( const std::string& bytes ) { game.m_research.Deserialize( types::Buffer( bytes ) ); }
 	void EnableEconomy() {
 		if ( game.m_rm ) { THROW( "fixture economy already enabled" ); }
 		game.m_rm = new backend::resource::ResourceManager( &game, false );
@@ -1577,6 +1592,14 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 	object->Set( "enable_economy", NATIVE_CALL( session, object ) {
 		N_EXPECT_ARGS( 0 ); session->current->EnableEconomy();
 		UpdateWrappers( GSE_CALL, object );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "research_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( kind, 0, String ); return VALUE( value::String,, session->current->ResearchSnapshot( kind ) );
+	} ), GSE_CALL );
+	object->Set( "restore_research", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( bytes, 0, String );
+		try { session->current->RestoreResearch( bytes ); } catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	object->Set( "tile_at", NATIVE_CALL( session ) {

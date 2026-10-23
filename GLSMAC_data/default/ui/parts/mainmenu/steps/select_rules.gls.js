@@ -4,16 +4,15 @@ return (i) => {
 		cancel_scope: 'rules',
 		entries: [
 			['Play with Standard Rules', () => {
-				// TODO: rules
+				i.pending_research_blind = true;
 				i.steps.select_faction(i);
 			}],
 			['Play with Current Rules', () => {
-				// TODO: rules
+				i.pending_research_blind = i.settings.global.rules.get_blind_research();
 				i.steps.select_faction(i);
 			}],
 			['Customize Rules', () => {
-				// TODO: custom rules
-				i.steps.notimpl(i);
+				i.steps.customize_rules(i);
 			}],
 		]
 	});

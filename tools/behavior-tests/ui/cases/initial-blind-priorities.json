@@ -1,0 +1,7 @@
+{"version":1,"name":"initial-blind-priorities","description":"Optional asset-backed fresh Gaian Standard Rules priority controls; no research progression or other factions.","cases":[
+{"id":"gaian-priority-default-ok","algorithm":"ui.initial_blind_priorities.v1","input":{"actions":["OK","open"]}},
+{"id":"gaian-priority-discover-ok","algorithm":"ui.initial_blind_priorities.v1","input":{"actions":[{"toggle":1},"OK","open"]}},
+{"id":"gaian-priority-all-off","algorithm":"ui.initial_blind_priorities.v1","input":{"actions":[{"toggle":0},"OK","open"]}},
+{"id":"gaian-priority-build-escape","algorithm":"ui.initial_blind_priorities.v1","input":{"actions":[{"toggle":2},"Escape","open"]}},
+{"id":"gaian-priority-conquer-enter","algorithm":"ui.initial_blind_priorities.v1","input":{"actions":[{"toggle":3},"Enter","open"]}}
+]}

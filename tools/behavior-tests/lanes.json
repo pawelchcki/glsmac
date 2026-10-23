@@ -3,6 +3,9 @@
   "kinds": {
     "regression": {
       "hot": [
+        "research-controls",
+        "research-setup",
+        "research-native",
         "technology-startup",
         "technology-sources",
         "interface-tour-controls",
