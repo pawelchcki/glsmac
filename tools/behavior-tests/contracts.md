@@ -366,3 +366,15 @@ assertions cover input fixtures, draft purity, cancellation, native authority,
 matching receipts and transaction rollback. Post-confirm artwork, general
 founding/name/adjacency policy and AI remain unobserved. See
 [the exact scope](ui/colony-found-menu-contract.md).
+
+
+## `technology.human_research_cost.v1`
+
+The complete input/units and exclusions are specified in
+[research-cost-contract.md](research-cost-contract.md). Seven registered suites
+supply 340 independently repeated cases (333 unique inputs), including the
+separately generated final64 blind validation inputs. Native and WebAssembly
+replay call production `technology::HumanResearchCost` with strict scalar bounds.
+The output is an uncached human requirement in science points. This does not
+establish ownership-to-earned/ranking mapping, map-dimension conversion, cache
+lifecycle, turn credit scheduling, acquisition or AI research.

@@ -1,5 +1,6 @@
 #include "game/backend/map/tile/Geometry.h"
 #include "game/backend/technology/Table.h"
+#include "game/backend/technology/ResearchCost.h"
 #include "game/backend/base/ProductionCost.h"
 #include "game/backend/base/NutrientCost.h"
 #include "game/backend/base/ProductionSwitchCost.h"
@@ -45,6 +46,19 @@ void ReadTechnologies( std::istringstream& input, Table& table ) {
 int Evaluate( std::istringstream& input ) {
 	std::string algorithm;
 	input >> algorithm;
+	if ( algorithm == "human_research_cost" ) {
+		ReadInteger( input, 1, 7 ); ReadInteger( input, 0, 88 ); // fixture identities
+		const auto difficulty = ReadInteger( input, 0, 5 );
+		const auto turn = ReadInteger( input, 0, 100 );
+		const auto area = ReadInteger( input, 10, 100 );
+		const auto earned = ReadInteger( input, 0, 8 );
+		const auto ranking = ReadInteger( input, 0, 16 );
+		const auto rating = ReadInteger( input, -3, 3 );
+		const auto discovery = ReadInteger( input, 0, 200 );
+		const auto faction = ReadInteger( input, 50, 150 );
+		const auto stagnation = ReadInteger( input, 0, 1 );
+		return game::backend::technology::HumanResearchCost( earned, ranking, rating, difficulty, turn, area, discovery, faction, stagnation );
+	}
 	if ( algorithm == "same_row" ) {
 		const auto width = ReadInteger( input, 4, 4096 );
 		const auto x1 = ReadInteger( input, 0, width - 1 );

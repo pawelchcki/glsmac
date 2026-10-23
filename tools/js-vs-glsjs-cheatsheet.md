@@ -10,6 +10,7 @@
 | Functions | `function`/arrow both | Arrow only: `let f = (a, b) => { ... };`. No hoisting — declare before use. |
 | Reserved bindings | `parent` can be a local variable | GSE reserves the bindings `this` and `parent`; use another local name. This is separate from parser keywords. (`src/gse/context/Context.cpp`) |
 | Modules | `import`/`export` | `#include('path')` returns whatever that file's top-level `return` produced; call the result yourself. (`GLSMAC_data/default/main.gls.js:1-4`) |
+| Integers | `Number` uses binary floating point | Whole-number literals and `Int` values are signed 64-bit on native and WebAssembly; invalid large inputs must be range-checked before narrowing. |
 | Strings | Single or double quotes | Single quotes only; escape an apostrophe with `\'`. Double quotes produce a parse error. (`src/gse/parser/JS.h`, `CHARS_QUOTES`) |
 | Splitting strings | `'aWORDb'.split('WORD')` | `#split` accepts a single-character separator. For terraforming `$STR0` substitutions, reuse the production formatter in `default/game/terraforming_rules.gls.js`. |
 | Object keys | Quoted strings allowed in literals | Literal keys must be identifiers. For names such as `68x34`, create `{}` then assign `obj['68x34'] = value`. (`src/gse/parser/JS.cpp:1045-1061`) |

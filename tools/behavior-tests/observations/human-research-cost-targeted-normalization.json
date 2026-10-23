@@ -1,0 +1,139 @@
+{
+  "captured_at": "2026-10-23T21:37:48.543414+00:00",
+  "observations": [
+    {
+      "case_sha256": "18e25f951f7b51443de108cb08e0581e2de094fef11caec1b522036a93f33d97",
+      "id": "cost-targeted-difficulty0-stagnation0",
+      "output": {
+        "science_required": 312
+      }
+    },
+    {
+      "case_sha256": "19dba30c081d1aa81e66dd4a140fdd0dcfcbe95ed92b2d11ab0ea686277c7969",
+      "id": "cost-targeted-difficulty0-stagnation1",
+      "output": {
+        "science_required": 487
+      }
+    },
+    {
+      "case_sha256": "b0575e188ccf67835ece7e5ed1d540b79869cc0d2ae5879273ae0234e5cf2151",
+      "id": "cost-targeted-difficulty1-stagnation0",
+      "output": {
+        "science_required": 364
+      }
+    },
+    {
+      "case_sha256": "84cf7fddab9292bff8602221c66b5d168c26e204ee9069230e8d9f96c09ef6a9",
+      "id": "cost-targeted-difficulty1-stagnation1",
+      "output": {
+        "science_required": 565
+      }
+    },
+    {
+      "case_sha256": "43487bbcdef987201525b9247dc913f22eb3b20cf9b1fd741ed20c70f2044a38",
+      "id": "cost-targeted-difficulty2-stagnation0",
+      "output": {
+        "science_required": 416
+      }
+    },
+    {
+      "case_sha256": "f1ddf636e2a42c042e59ee1ae4356329328cd551a091616ee0855d6ec5333c4f",
+      "id": "cost-targeted-difficulty2-stagnation1",
+      "output": {
+        "science_required": 643
+      }
+    },
+    {
+      "case_sha256": "0e2cf4a60402fdc5c813ca5965c9d2213a3ee4656ce0cfcc7442f1c7cbd79c98",
+      "id": "cost-targeted-difficulty3-stagnation0",
+      "output": {
+        "science_required": 416
+      }
+    },
+    {
+      "case_sha256": "2e9675f2b339e9e1b868a62a1c6b4742132a642bc4baa94a676080f8be649928",
+      "id": "cost-targeted-difficulty3-stagnation1",
+      "output": {
+        "science_required": 643
+      }
+    },
+    {
+      "case_sha256": "4dfaed54d7d18f834909cc73d6489d7059800c5e514d506d1beddd79d089edb7",
+      "id": "cost-targeted-difficulty4-stagnation0",
+      "output": {
+        "science_required": 468
+      }
+    },
+    {
+      "case_sha256": "64bb3fec54cf337e0e87e1e8adb5bb9be0970b91790f504d26a2b8c914b5acc1",
+      "id": "cost-targeted-difficulty4-stagnation1",
+      "output": {
+        "science_required": 721
+      }
+    },
+    {
+      "case_sha256": "2ee7b3292408a725559e080a817dc60382a0ebd6543397f1c62cecce97d89e5c",
+      "id": "cost-targeted-difficulty5-stagnation0",
+      "output": {
+        "science_required": 481
+      }
+    },
+    {
+      "case_sha256": "b4e49db623a33457dec5ae3f8bc4cb68941fed89eab0da050d3c3adedb49be91",
+      "id": "cost-targeted-difficulty5-stagnation1",
+      "output": {
+        "science_required": 741
+      }
+    },
+    {
+      "case_sha256": "e3b9ffff45b6485dee4d14d295ab24119dfa3fcd462706572845faafd9c823e9",
+      "id": "cost-targeted-ratingminus3-stagnation0",
+      "output": {
+        "science_required": 448
+      }
+    },
+    {
+      "case_sha256": "d028a1b0fde0ca45eaa2da92d64b5c4ff8dd5c5e7e672a69683f7facf8c427f6",
+      "id": "cost-targeted-ratingminus3-stagnation1",
+      "output": {
+        "science_required": 693
+      }
+    },
+    {
+      "case_sha256": "c41a4684daf59d990a7ac4e22732379f5e3630713752373e77f19de82e7c86c2",
+      "id": "cost-targeted-earned8-ranking10",
+      "output": {
+        "science_required": 643
+      }
+    },
+    {
+      "case_sha256": "d531f7fa7c9d55f62b677efdf08fc5397e21ae5cd06fd1b0c91c0d6008deea9c",
+      "id": "cost-targeted-blind43-anchor",
+      "output": {
+        "science_required": 172
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "60077e7462561be4ee189c6b34fb50844a9f8572c621e9568b1ac4e4a065756e",
+  "version": 1
+}

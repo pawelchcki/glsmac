@@ -1,6 +1,7 @@
 #include "Bindings.h"
 
 #include "Table.h"
+#include "ResearchCost.h"
 #include "game/backend/Game.h"
 #include "gse/Exception.h"
 #include "gse/callable/Native.h"
@@ -67,6 +68,22 @@ gse::Value* WrapRow( GSE_CALLABLE, const Table::Technology& technology ) {
 
 gse::Value* WrapTable( GSE_CALLABLE, Table& table, Game* const write_guard ) {
 	gse::value::object_properties_t properties = {
+		{
+			"human_research_cost",
+			NATIVE_CALL() {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( parameters, 0, Object );
+				if ( parameters.size() != 11 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected the complete human research cost fixture" ); }
+				N_GETPROP( faction, parameters, "faction_id", Int ); N_GETPROP( target, parameters, "target_id", Int );
+				if ( faction < 1 || faction > 7 || target < 0 || target >= Table::COUNT ) { GSE_ERROR( gse::EC.INVALID_CALL, "Invalid research cost identity" ); }
+				N_GETPROP( earned, parameters, "saved_earned_techs", Int ); N_GETPROP( ranking, parameters, "research_ranking", Int );
+				N_GETPROP( rating, parameters, "research_rating", Int ); N_GETPROP( difficulty, parameters, "difficulty", Int );
+				N_GETPROP( turn, parameters, "turn", Int ); N_GETPROP( area, parameters, "map_area_sqrt", Int );
+				N_GETPROP( discovery, parameters, "discovery_rate_percent", Int ); N_GETPROP( modifier, parameters, "faction_cost_percent", Int );
+				N_GETPROP( stagnation, parameters, "stagnation", Bool );
+				try { return VALUE( gse::value::Int,, HumanResearchCost( earned, ranking, rating, difficulty, turn, area, discovery, modifier, stagnation ) ); }
+				catch ( const std::invalid_argument& error ) { GSE_ERROR( gse::EC.INVALID_CALL, error.what() ); }
+			} )
+		},
 		{
 			"validate_replacement",
 			NATIVE_CALL() {

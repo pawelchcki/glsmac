@@ -1,0 +1,545 @@
+{
+  "captured_at": "2026-10-23T21:33:15.503050+00:00",
+  "observations": [
+    {
+      "case_sha256": "5910e2c8992b5c2f7016b61ce2a38d016528f15eb9a951553fc763d0f50f8b93",
+      "id": "cost-blind-seed20261023-00",
+      "output": {
+        "science_required": 145
+      }
+    },
+    {
+      "case_sha256": "295763ac7072cd65a2827163628b9899c8bbd60ce62016c3315571fde0abc7db",
+      "id": "cost-blind-seed20261023-01",
+      "output": {
+        "science_required": 194
+      }
+    },
+    {
+      "case_sha256": "affd609b6ba1d7719d46e206cb2a9aa6f91f82eec5294a17e20891c18efc9969",
+      "id": "cost-blind-seed20261023-02",
+      "output": {
+        "science_required": 97
+      }
+    },
+    {
+      "case_sha256": "eee4568f219705b7f5a6f45f8819fff8434ee7d8c937918ec06d0f809e277068",
+      "id": "cost-blind-seed20261023-03",
+      "output": {
+        "science_required": 61
+      }
+    },
+    {
+      "case_sha256": "9d3bfb129cec9f0458f7f7f5d0c67f8308ae4980b52945f9d4c961b3ab67cc01",
+      "id": "cost-blind-seed20261023-04",
+      "output": {
+        "science_required": 155
+      }
+    },
+    {
+      "case_sha256": "da111495bece4e6b1bc2d42569a9a63a29ea21be60a7b35a12683e70d4f47940",
+      "id": "cost-blind-seed20261023-05",
+      "output": {
+        "science_required": 6
+      }
+    },
+    {
+      "case_sha256": "7fad6b43c066c7dbf5d83824d47e344bb9595bc7a9330b7edd1339afb552b30c",
+      "id": "cost-blind-seed20261023-06",
+      "output": {
+        "science_required": 285
+      }
+    },
+    {
+      "case_sha256": "cba750400a7a336ba6216dd0154c20ba3e20faacf336a3af98f891cd23a8fb42",
+      "id": "cost-blind-seed20261023-07",
+      "output": {
+        "science_required": 20
+      }
+    },
+    {
+      "case_sha256": "51630e0cf3ef42ea7cf438d8b582ecb7ce90627ec3ca4bff701ac59d929a5c0a",
+      "id": "cost-blind-seed20261023-08",
+      "output": {
+        "science_required": 229
+      }
+    },
+    {
+      "case_sha256": "122a29755bba2449f6cb2c09ea1c336c7735c979a2f088680e2fe8d593dc5398",
+      "id": "cost-blind-seed20261023-09",
+      "output": {
+        "science_required": 501
+      }
+    },
+    {
+      "case_sha256": "4bd67a8c44a77295be8da66444f2e0c9377c590049e34f64e9196a049860ed72",
+      "id": "cost-blind-seed20261023-10",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "98fe1697874fc746dbee8e5fccd0c03dec1410a89c3b029410bc495963657f8c",
+      "id": "cost-blind-seed20261023-11",
+      "output": {
+        "science_required": 257
+      }
+    },
+    {
+      "case_sha256": "5f0fda81783845d56f274e05dead0f52545b73b7853be5a20e4cb9ef2e2f91f2",
+      "id": "cost-blind-seed20261023-12",
+      "output": {
+        "science_required": 11013
+      }
+    },
+    {
+      "case_sha256": "58c96ef7bba780036b4de2e125070666d3a8cd1b5ad848555459e564c8b9219d",
+      "id": "cost-blind-seed20261023-13",
+      "output": {
+        "science_required": 37
+      }
+    },
+    {
+      "case_sha256": "ecb732368b422ca26277706ae9a75215623d6b83a40f132c8ab2fe7c96b541fe",
+      "id": "cost-blind-seed20261023-14",
+      "output": {
+        "science_required": 43
+      }
+    },
+    {
+      "case_sha256": "f659fa012128e50d1af8d12bfda4d2a6e0261ceef4bb29047c264f38396d7248",
+      "id": "cost-blind-seed20261023-15",
+      "output": {
+        "science_required": 66
+      }
+    },
+    {
+      "case_sha256": "f55e73681a4d69f937f413933ea30e0fb78ad9a5cc1317a0001f9f1ba7aac204",
+      "id": "cost-blind-seed20261023-16",
+      "output": {
+        "science_required": 306
+      }
+    },
+    {
+      "case_sha256": "ce3998c31f9463ecdd6f6c48df72b6b5bf31ec432d9ad75ef8e17c3db6fff6db",
+      "id": "cost-blind-seed20261023-17",
+      "output": {
+        "science_required": 373
+      }
+    },
+    {
+      "case_sha256": "5bd48174d3d3a9d7f1246d73563c76ccb6773c5912a15d586072a3a240ee770a",
+      "id": "cost-blind-seed20261023-18",
+      "output": {
+        "science_required": 110
+      }
+    },
+    {
+      "case_sha256": "68025abb8e5d0a3ed769858f7eabd473aa9812ae361211646cea5176456b2db1",
+      "id": "cost-blind-seed20261023-19",
+      "output": {
+        "science_required": 37675
+      }
+    },
+    {
+      "case_sha256": "bd6df78c82161ea3a2f731c0a55b6faac780c7721ea2a13cca542720f507cb35",
+      "id": "cost-blind-seed20261023-20",
+      "output": {
+        "science_required": 25
+      }
+    },
+    {
+      "case_sha256": "80a8daca3bdbbd4eccbba4df82d030b73dfb7da46998f08b71baf29e31685ec9",
+      "id": "cost-blind-seed20261023-21",
+      "output": {
+        "science_required": 265
+      }
+    },
+    {
+      "case_sha256": "b2483af3c7480100aa1c320e0b858b7c0160e28da12dc40b50bf6639d65d3af0",
+      "id": "cost-blind-seed20261023-22",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "c1ae19d33a520ad93626256aadd5130325814112c398df3a936d8769d8792f66",
+      "id": "cost-blind-seed20261023-23",
+      "output": {
+        "science_required": 160
+      }
+    },
+    {
+      "case_sha256": "923d975cf0308320b7386871e31e2a3d27a881e9e346e553579bdc4819fd7f9d",
+      "id": "cost-blind-seed20261023-24",
+      "output": {
+        "science_required": 127
+      }
+    },
+    {
+      "case_sha256": "bc8574fd1fa175f12bf9ab4876276fb6fe940a186c91bb2d31cea223ca8415e8",
+      "id": "cost-blind-seed20261023-25",
+      "output": {
+        "science_required": 36069
+      }
+    },
+    {
+      "case_sha256": "66246cc5dba7e7da4b52ea43c6cc86b9573accb56835ff7cbe117552e124a9a2",
+      "id": "cost-blind-seed20261023-26",
+      "output": {
+        "science_required": 55
+      }
+    },
+    {
+      "case_sha256": "fe6c11ef884c776d08ac0a96b286688718f650414feadd3463780662f75b5b53",
+      "id": "cost-blind-seed20261023-27",
+      "output": {
+        "science_required": 271
+      }
+    },
+    {
+      "case_sha256": "45fc2e0dc9497c7661d0bb71854068f7bba023e996dfc9b987701bb0784ea886",
+      "id": "cost-blind-seed20261023-28",
+      "output": {
+        "science_required": 123
+      }
+    },
+    {
+      "case_sha256": "f6d6b51e46e672fa7318debc64196bed804823fa4c6acf666d8452912db50630",
+      "id": "cost-blind-seed20261023-29",
+      "output": {
+        "science_required": 409
+      }
+    },
+    {
+      "case_sha256": "0340b1028d2267b85c2e948a6361f915aeadaa62d2bcbc180fa96e327de6f887",
+      "id": "cost-blind-seed20261023-30",
+      "output": {
+        "science_required": 258
+      }
+    },
+    {
+      "case_sha256": "3d113963f2621ab636d0fbef4a958cb1457d2745364639a25d693d2a905eff33",
+      "id": "cost-blind-seed20261023-31",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "ed37432cd7d61479611322a289123ee3aa2b1bb9bb4ced1a9354c3e8a7b0457b",
+      "id": "cost-blind-seed20261023-32",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "f0c7ad9fe656548d4f8cb2c5270f674abf6e36e9e4509572457894db84e21445",
+      "id": "cost-blind-seed20261023-33",
+      "output": {
+        "science_required": 47
+      }
+    },
+    {
+      "case_sha256": "058dfa51a08d51a251a37b79c91b50840760bfdfd83fca2d07a995e7ef6b8856",
+      "id": "cost-blind-seed20261023-34",
+      "output": {
+        "science_required": 204
+      }
+    },
+    {
+      "case_sha256": "d09002da7db8c4d279cd3a9ffde01385b86cddf4ac4366b882612e7c658c5e98",
+      "id": "cost-blind-seed20261023-35",
+      "output": {
+        "science_required": 101
+      }
+    },
+    {
+      "case_sha256": "d2150976c754d679168c170370cc93663e441f865ad45066c26d5d838a8cb8a3",
+      "id": "cost-blind-seed20261023-36",
+      "output": {
+        "science_required": 28
+      }
+    },
+    {
+      "case_sha256": "62ebc0996f38e911b619560d5ec70e0e62137bdbd1d47bc3164d0269f17d644c",
+      "id": "cost-blind-seed20261023-37",
+      "output": {
+        "science_required": 114
+      }
+    },
+    {
+      "case_sha256": "ca7d75c9df1afac5eb0bde1d1f73e973f519b8d823e3c166c8f4f45053e80c8c",
+      "id": "cost-blind-seed20261023-38",
+      "output": {
+        "science_required": 15
+      }
+    },
+    {
+      "case_sha256": "adfb343a1793de7e7cd08d992b78567886c4cd250f3e6214c8a79c382cf8eadd",
+      "id": "cost-blind-seed20261023-39",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "815f2e89d597c870b146c857296540eec3feccd4490fff5ff15d6482be987a7d",
+      "id": "cost-blind-seed20261023-40",
+      "output": {
+        "science_required": 303
+      }
+    },
+    {
+      "case_sha256": "02ed57b58e44378801dc28bf14d03d9dd2fbc74fc9fd4cf97e54131256cf777f",
+      "id": "cost-blind-seed20261023-41",
+      "output": {
+        "science_required": 396
+      }
+    },
+    {
+      "case_sha256": "dfdee8b2404a7e9f3093c6bf4f927872ad99857b4818cdbe33321bcb52dc2e77",
+      "id": "cost-blind-seed20261023-42",
+      "output": {
+        "science_required": 180
+      }
+    },
+    {
+      "case_sha256": "ce22032d51b02928f4445c3dc29f82dbf214077eaffbec3215a7aac703bf7728",
+      "id": "cost-blind-seed20261023-43",
+      "output": {
+        "science_required": 172
+      }
+    },
+    {
+      "case_sha256": "d4efde72e47c3b8b07b3f5b2f5f6045e6c51cd5af9198b4f5ccba7fe0e12bba1",
+      "id": "cost-blind-seed20261023-44",
+      "output": {
+        "science_required": 38
+      }
+    },
+    {
+      "case_sha256": "2f77c18e22b34e6c8782368b3851106c5ab0f5c689e4c44bcf8819a5ce8633b0",
+      "id": "cost-blind-seed20261023-45",
+      "output": {
+        "science_required": 130
+      }
+    },
+    {
+      "case_sha256": "72037d2ea668f54b62a6e74076d9db4746c321c019ce03d6005ffd58a4370513",
+      "id": "cost-blind-seed20261023-46",
+      "output": {
+        "science_required": 19
+      }
+    },
+    {
+      "case_sha256": "0dd37729d5b3f504a3a6bb809264cb360d003b2a2a942e1b7ca6722663a137d4",
+      "id": "cost-blind-seed20261023-47",
+      "output": {
+        "science_required": 591
+      }
+    },
+    {
+      "case_sha256": "d8fe65c207f2f69341dbef338bbf7568d2c9334c1714d3a35c84a76746a7316c",
+      "id": "cost-blind-seed20261023-48",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "21ddd953815e765bcaafe19df52d51ee60ceaf759aa432336ed4e9eae03ff855",
+      "id": "cost-blind-seed20261023-49",
+      "output": {
+        "science_required": 393
+      }
+    },
+    {
+      "case_sha256": "1764c09fb8e71fb42b8dad497963820aac1fad81f9af3b90728ecce817c01317",
+      "id": "cost-blind-seed20261023-50",
+      "output": {
+        "science_required": 391
+      }
+    },
+    {
+      "case_sha256": "e60c872ef504e234d08b1157508f024c8ea6f0c9fc8f95d140e31cbf4bc38230",
+      "id": "cost-blind-seed20261023-51",
+      "output": {
+        "science_required": 40
+      }
+    },
+    {
+      "case_sha256": "c77a4130b05641cd8f86fa4e37b1e133fae668d4d370cc17c629a82a62769ebb",
+      "id": "cost-blind-seed20261023-52",
+      "output": {
+        "science_required": 306
+      }
+    },
+    {
+      "case_sha256": "e783699716898f65bd2dfbf69982f244aa71ec34a092ccb37d1f43f8917126ec",
+      "id": "cost-blind-seed20261023-53",
+      "output": {
+        "science_required": 38
+      }
+    },
+    {
+      "case_sha256": "e5ecbf49ab3998b5fe44a5bfc3cf2724132fab364faf206ed1ee51e0da95f877",
+      "id": "cost-blind-seed20261023-54",
+      "output": {
+        "science_required": 331
+      }
+    },
+    {
+      "case_sha256": "e8dbb3a385bedaf82fbe862a18465537ffb10c858ac615f9e03a83909c52e18f",
+      "id": "cost-blind-seed20261023-55",
+      "output": {
+        "science_required": 19
+      }
+    },
+    {
+      "case_sha256": "3ec14ac15045ac006eaf70186939a8193cb231e22c6c767d99da7c7951cd99cf",
+      "id": "cost-blind-seed20261023-56",
+      "output": {
+        "science_required": 259
+      }
+    },
+    {
+      "case_sha256": "907ff0ca40c8d78387bda4a981594d241f371de330092399ae383da11b7522d1",
+      "id": "cost-blind-seed20261023-57",
+      "output": {
+        "science_required": 146
+      }
+    },
+    {
+      "case_sha256": "ec98fc8f3ab644aaa73da97d3edf9bb1c928b1e1b82bea47967e2f4400f2f0ef",
+      "id": "cost-blind-seed20261023-58",
+      "output": {
+        "science_required": 400
+      }
+    },
+    {
+      "case_sha256": "311ee1b76451a7d2aae523cfb0e27c4842bdbe07dc88335f03f6ec5d7e135523",
+      "id": "cost-blind-seed20261023-59",
+      "output": {
+        "science_required": 5478
+      }
+    },
+    {
+      "case_sha256": "ffcd3fd87fec0174c9ba7045d36290c2f3725ff173ed0a29302b1f93a722f066",
+      "id": "cost-blind-seed20261023-60",
+      "output": {
+        "science_required": 34482
+      }
+    },
+    {
+      "case_sha256": "8622e8c635bd6a4017dfa6dbab832f9b78c0fe83f7dc4d184e6ff745be66b178",
+      "id": "cost-blind-seed20261023-61",
+      "output": {
+        "science_required": 135
+      }
+    },
+    {
+      "case_sha256": "84b0258cc9b07a7922da11875ace3543eff93de2d57d923661230a82bc27f21d",
+      "id": "cost-blind-seed20261023-62",
+      "output": {
+        "science_required": 182
+      }
+    },
+    {
+      "case_sha256": "a1dc1d2ea0392d13f4bcdf30dfd46991dcaa4e10e7ce864001f5ad148d0f62f5",
+      "id": "cost-blind-seed20261023-63",
+      "output": {
+        "science_required": 999999999
+      }
+    },
+    {
+      "case_sha256": "d7d62f1c4ad8843fc550ea5c51682a1bd2fc2eb11784bb0f38680d0337452b57",
+      "id": "cost-blind-corner-earned6-difficulty1-turn0",
+      "output": {
+        "science_required": 132
+      }
+    },
+    {
+      "case_sha256": "f301a1063f1f6cb9fe6708805c11657c9bf074d10fc0d616b4fd18e21fac3e48",
+      "id": "cost-blind-corner-earned6-difficulty1-turn8",
+      "output": {
+        "science_required": 126
+      }
+    },
+    {
+      "case_sha256": "276a3a1e902bf44eceaee8515823d95b4e923d69b9832010c0079b5862dce427",
+      "id": "cost-blind-corner-earned6-difficulty1-turn16",
+      "output": {
+        "science_required": 120
+      }
+    },
+    {
+      "case_sha256": "67c2f87fddfa1bca2ded8a3af62b07b64fc72ce57a302ab527b8fec9707b20f6",
+      "id": "cost-blind-corner-earned6-difficulty1-turn24",
+      "output": {
+        "science_required": 114
+      }
+    },
+    {
+      "case_sha256": "db31bc8d8fc6bcfd054ad83e100cf4e37ce1bae3fca0ae1c8abec4dac083cf68",
+      "id": "cost-blind-corner-earned6-difficulty1-turn80",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "e4c3cb5be0e6d0617407b4e589e567dabe2224e3f88d8640450d863fcfe0ac53",
+      "id": "cost-blind-corner-earned8-difficulty5-turn0",
+      "output": {
+        "science_required": 224
+      }
+    },
+    {
+      "case_sha256": "0e209da04a32aa00c1de6be9cdf1bc3cafd948b8cb97a74ef06cf6e184c64b6d",
+      "id": "cost-blind-corner-earned8-difficulty5-turn8",
+      "output": {
+        "science_required": 216
+      }
+    },
+    {
+      "case_sha256": "664e162aa754e79aec6a4ccb22705aab3a9ba2b1ac6b140dd8630d0fd5f119e3",
+      "id": "cost-blind-corner-earned8-difficulty5-turn16",
+      "output": {
+        "science_required": 208
+      }
+    },
+    {
+      "case_sha256": "580ad19e497e6ae1616a2818120c799d7575f1126f6e48caae8b14f45dc26775",
+      "id": "cost-blind-corner-earned8-difficulty5-turn24",
+      "output": {
+        "science_required": 200
+      }
+    },
+    {
+      "case_sha256": "5034669ae314da86e88e240f6f3e4a243f3f809af6ee8fbb41d38498016c8395",
+      "id": "cost-blind-corner-earned8-difficulty5-turn80",
+      "output": {
+        "science_required": 160
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "ebb113c1a048ea6f43add6cac77eba11209409b38ee93c51ff2ce2f4b41b621f",
+  "version": 1
+}

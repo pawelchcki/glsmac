@@ -1,0 +1,160 @@
+{
+  "captured_at": "2026-10-23T21:18:51.470941+00:00",
+  "observations": [
+    {
+      "case_sha256": "8de4fe2403cea84d960e8969df9ce056a86739b0855d40182f60d67502f6bb63",
+      "id": "cost-normalized-earned-0",
+      "output": {
+        "science_required": 13
+      }
+    },
+    {
+      "case_sha256": "bb143174b7bcbc7f3dae8203009e05d1837bd57a892cfc17e9c7f3cc5b7124ee",
+      "id": "cost-normalized-earned-1",
+      "output": {
+        "science_required": 13
+      }
+    },
+    {
+      "case_sha256": "ae0946bc954c9769812391fb8d7da98787bb750324404bb322b9bd136a8bb0d4",
+      "id": "cost-normalized-earned-2",
+      "output": {
+        "science_required": 28
+      }
+    },
+    {
+      "case_sha256": "4bc880ceab6416525a7a11573d7d5a470c016cc4e371f8881038104d947f1a8c",
+      "id": "cost-normalized-earned-3",
+      "output": {
+        "science_required": 45
+      }
+    },
+    {
+      "case_sha256": "e09a7c2ab1730cb496a6445e5af58edf0c97369568c123f1c67811e183535008",
+      "id": "cost-normalized-earned-4",
+      "output": {
+        "science_required": 64
+      }
+    },
+    {
+      "case_sha256": "72c608c7dc5086626b22945877b91dd85d51a7c8bdad9fc0e2cb3a402da61a28",
+      "id": "cost-normalized-earned-5",
+      "output": {
+        "science_required": 85
+      }
+    },
+    {
+      "case_sha256": "651d2ace6a01b9c4809fbe2a470f06de23c9466cb22a3993f4574ec3ef2691b1",
+      "id": "cost-normalized-earned-6",
+      "output": {
+        "science_required": 108
+      }
+    },
+    {
+      "case_sha256": "9e2d0f57ed5f0c5421f8d72198013cda97147c9b03423f2dd606e3c2d1930b7c",
+      "id": "cost-normalized-earned-7",
+      "output": {
+        "science_required": 133
+      }
+    },
+    {
+      "case_sha256": "c318e1aadf5d4bd9471b27eea41deb1c565c51cde7616ca79f095334e9a14977",
+      "id": "cost-normalized-earned-8",
+      "output": {
+        "science_required": 160
+      }
+    },
+    {
+      "case_sha256": "98be87f724ee6922f63ad37446bee998310441a3352e584311efb61ab870d372",
+      "id": "cost-ranking16-turn-1-stagnation-false",
+      "output": {
+        "science_required": 384
+      }
+    },
+    {
+      "case_sha256": "3aa47211a356d0fa0f024698cfbc9e1dbd4b43e685b2a8071e72831a649ac30a",
+      "id": "cost-ranking16-turn-1-stagnation-true",
+      "output": {
+        "science_required": 672
+      }
+    },
+    {
+      "case_sha256": "e4d752929e37f88da1a13eb8016ccd3d2510233c1088918306d95c27d6b7bec9",
+      "id": "cost-ranking16-turn-8-stagnation-false",
+      "output": {
+        "science_required": 384
+      }
+    },
+    {
+      "case_sha256": "c07e61962a552de17b9009e4e70204ef89c729152b572062bad37092cae9c8a0",
+      "id": "cost-ranking16-turn-8-stagnation-true",
+      "output": {
+        "science_required": 672
+      }
+    },
+    {
+      "case_sha256": "91c82857bad577d2583cc6c172fae3bd024f45895e846c56908e7dc179c77cec",
+      "id": "cost-ranking16-turn-80-stagnation-false",
+      "output": {
+        "science_required": 288
+      }
+    },
+    {
+      "case_sha256": "c41c75690769645f313fd548a6e5b8a0d401438a0735923f8065096d78d24bd4",
+      "id": "cost-ranking16-turn-80-stagnation-true",
+      "output": {
+        "science_required": 528
+      }
+    },
+    {
+      "case_sha256": "556aadf2b7e3d6cd1c61a71ccb6300ab2799df0d64754a0ab172f51a9c365e3d",
+      "id": "cost-normalized-earned-4-rating--1",
+      "output": {
+        "science_required": 80
+      }
+    },
+    {
+      "case_sha256": "a41d36e9dc136643d157e5644adfa76d0614d495b603a56f36f79b69c7d2944e",
+      "id": "cost-normalized-earned-4-rating-1",
+      "output": {
+        "science_required": 48
+      }
+    },
+    {
+      "case_sha256": "fdfd96f9e1ebedbe320a8f736707c625148a5220567b10f0873636d80ef28318",
+      "id": "cost-normalized-earned-8-rating--1",
+      "output": {
+        "science_required": 180
+      }
+    },
+    {
+      "case_sha256": "a1a04ad91bccc141c428c337e83bcecd0f91757a162195e7d21dafce95081c02",
+      "id": "cost-normalized-earned-8-rating-1",
+      "output": {
+        "science_required": 140
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "b61fd1248b18757a5dfb7a2190f02d3520ad07b1c6d83a6a52c6b5e33eb99032",
+  "version": 1
+}
