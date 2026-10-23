@@ -25,3 +25,21 @@ This is a rendered comparison requiring a locally supplied game installation.
 It is separate from the asset-free default UI catalog and its passing totals.
 The Python contract tests validate evidence and transport completeness; they do
 not execute either game and are not visual-agreement evidence.
+
+The named choices are semantic inputs: the original observer clicks rendered
+controls, and the reproduction adapter uses actual SDL arrows and Enter to select
+the same controls. Matching these backdrop samples does not establish pointer,
+focus or timing equivalence between the two transports.
+
+With the browser dependencies and a built application available:
+
+```sh
+SMAC_ASSETS_DIR=/path/to/installed/game WASM_APP_DIR=/path/to/app/bin \
+  npm --prefix tools/wasm-tests run test:opening-art
+```
+
+The browser adapter mounts the current production GSE snapshot before launch and
+adds read-only menu telemetry for control discovery and settling. Pixel answers
+are read from the actual canvas PNG. The native backing store and screenshot must
+both be exactly 1024 by 768; the HTML host is aligned to integer device pixels
+without resizing the game. Blank transition frames cannot satisfy settling.
