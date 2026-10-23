@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <optional>
 
 #include "types/Serializable.h"
 #include "gse/Wrappable.h"
@@ -72,7 +73,8 @@ CLASS2( Player, types::Serializable, gse::Wrappable )
 	void AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse::value::object_properties_t& data );
 	Game* GetGame() const;
 	const base::production::Production* GetProductionChoice( const std::string& id ) const;
-	int64_t GetUnitMineralCost( const std::string& unit_id ) const;
+	// No recipe is distinct from an invalid or ambiguous live recipe.
+	std::optional< int64_t > GetUnitMineralCost( const std::string& unit_id ) const;
 	gse::value::Array* GetProductionChoices( GSE_CALLABLE ) const;
 	void RemoveProductionChoice( GSE_CALLABLE, const std::string& id );
 

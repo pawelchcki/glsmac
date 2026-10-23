@@ -1493,7 +1493,11 @@ void Game::ProcessEventResponses() {
 				if ( waiting.rollback_data ) { obj->Set( "applied", waiting.rollback_data, GSE_CALL ); }
 				const gse::value::function_arguments_t args { obj };
 				if ( !response.is_accepted && waiting.applied ) { WithRW( [ & ]() { handler->Rollback( GSE_CALL, args ); } ); }
-				else if ( response.is_accepted && !waiting.applied ) { WithRW( [ & ]() { handler->Apply( GSE_CALL, args ); } ); }
+				else if ( response.is_accepted ) {
+					auto* applied = waiting.rollback_data;
+					if ( !waiting.applied ) { WithRW( [ & ]() { applied = handler->Apply( GSE_CALL, args ); } ); }
+					FinalizeUnitDisbandEvent( waiting.event, applied );
+				}
 			} catch ( const std::exception& error ) { success = false; MTModule::Log( "Event response failed: " + std::string( error.what() ) ); }
 			NotifyEventResult( GSE_CALL, waiting.event, success );
 		} );
@@ -1547,7 +1551,7 @@ void Game::ProcessEvents() {
 							if ( resolved ) { event->SetResolved( resolved ); obj->Set( "resolved", resolved, GSE_CALL ); }
 						}
 						const auto wire = m_state->m_connection ? event->Serialize().ToString() : std::string{};
-						WithRW( [ & ]() { apply(); } );
+						WithRW( [ & ]() { FinalizeUnitDisbandEvent( event, apply() ); } );
 						success = true;
 						// A failed native apply must never be published as accepted.
 						if ( m_state->m_connection ) {
@@ -1573,6 +1577,7 @@ void Game::ProcessEvents() {
 							m_events_waiting_for_responses.emplace( event->GetId(), event_waiting_for_response_t { event, rollback, process_now } );
 							m_state->m_connection->SendSerializedGameEvent( event->GetCaller(), event->GetEventName(), wire );
 						}
+						else { FinalizeUnitDisbandEvent( event, rollback ); }
 					}
 				}
 			} catch ( const std::exception& failure ) { error = failure.what(); }
