@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-23T11:30:43.697174+00:00",
+  "captured_at": "2026-10-23T11:40:39.455130+00:00",
   "observations": [
     {
       "case_sha256": "0c63f2d09f0d0320d1cc03a45362af14656b643dfc838528a797dc25e594a37b",
@@ -198,7 +198,7 @@
     }
   ],
   "reference": {
-    "adapter_sha256": "f149e6fc18e32c1afbc842bfc9a7cadb0ec61d17cb48124aac7105a337e324ba",
+    "adapter_sha256": "33fdb7537825c34fadf1225084b18f22dfa7bf496b8c42d8e77e1f8a2941d458",
     "adapter_version": 1,
     "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
     "boundaries": "Projected mandatory interface-control pages only. Unseeded terrain-dependent pages retained in private captures but excluded from expected packet. No font/layout/arrow/terrain/animation/AI equivalence claim.",

@@ -30,4 +30,3 @@ def read(vision, image):
             text='OCR ERROR '+str(error)
         lines.append({'y':band[0],'text':text})
     return lines
-
