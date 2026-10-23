@@ -48,9 +48,9 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 22 regression suites around active unit menus, retirement/recycling,
+Hot contains 23 regression suites around active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, automatic turn completion,
-setup and first-city lifecycle (207 scenarios/1,511
+setup, first-city lifecycle and texture filter chains (212 scenarios/1,553
 assertions). Original UI replay includes nine hot references with 39 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 15 current helper references.
@@ -60,7 +60,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 133 native
+and keyboard controls stay hot. The combined partition retains all 134 native
 suites and 58 UI references (750 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
@@ -77,6 +77,11 @@ integrity validation (`candidate_executed: false`) from actual candidate replay.
 Any executed mismatch, unsupported result, error or failed suite returns nonzero.
 Rendered comparisons stay optional and separate:
 `npm --prefix tools/wasm-tests run test:hot:browser`.
+
+The separate [popup latency benchmark](../performance/README.md) measures real
+setup windows with installed assets and matched Release builds. It retains
+before/after screenshots and timing scope; its performance samples are not part
+of the recorded Original comparison totals.
 
 Opening artwork has a separate optional rendered comparison:
 `SMAC_ASSETS_DIR=/path/to/game WASM_APP_DIR=/path/to/app/bin npm --prefix tools/wasm-tests run test:opening-art`.
