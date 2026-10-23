@@ -72,9 +72,10 @@ common::mt_id_t Game::MT_Ping() {
 	return MT_CreateRequest( request );
 }
 
-common::mt_id_t Game::MT_Init( State* state ) {
+common::mt_id_t Game::MT_Init( State* state, const bool interactive_opening ) {
  	MT_Request request = {};
 	request.op = OP_INIT;
+	request.data.init.interactive_opening = interactive_opening;
 	return MT_CreateRequest( request );
 }
 
@@ -305,7 +306,7 @@ void Game::Iterate() {
 						InitFailed( e.what() );
 						return;
 					}
-					if ( m_game_state == GS_RUNNING ) {
+					if ( m_game_state == GS_RUNNING && m_opening_phase == OPENING_NONE ) {
 						FirstTurn( GSE_CALL );
 					}
 				}
@@ -338,6 +339,7 @@ void Game::Iterate() {
 				if ( m_bm ) {
 					m_bm->TriggerUpdates( GSE_CALL );
 				}
+				UpdateOpening( GSE_CALL );
 			}
 		);
 
@@ -579,6 +581,10 @@ WRAPIMPL_BEGIN( Game )
 				return VALUE( gse::value::Array,, elements );
 			} )
 		},
+		{ "get_opening_state", NATIVE_CALL( this ) { N_EXPECT_ARGS( 0 ); return GetOpeningState( GSE_CALL ); } ) },
+		{ "set_auto_end_turn", NATIVE_CALL( this ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( enabled, 0, Bool ); if ( !m_state || m_state->m_connection || m_state->m_settings.local.game_mode != settings::LocalSettings::GM_SINGLEPLAYER ) { GSE_ERROR( gse::EC.GAME_ERROR, "Automatic end turn requires offline single-player" ); } m_auto_end_turn = enabled; return VALUE( gse::value::Undefined ); } ) },
+		{ "validate_opening", NATIVE_CALL( this ) { N_EXPECT_ARGS( 6 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( session, 1, Int ); N_GETVALUE( action, 2, String ); N_GETVALUE( id, 3, Int ); N_GETVALUE( previous, 4, String ); N_GETVALUE( name, 5, String ); const auto error = ValidateOpening( GSE_CALL, caller, session, action, id, previous, name ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error ); } ) },
+		{ "apply_opening", NATIVE_CALL( this ) { N_EXPECT_ARGS( 6 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( session, 1, Int ); N_GETVALUE( action, 2, String ); N_GETVALUE( id, 3, Int ); N_GETVALUE( previous, 4, String ); N_GETVALUE( name, 5, String ); ApplyOpening( GSE_CALL, caller, session, action, id, previous, name ); return VALUE( gse::value::Undefined ); } ) },
 		{
 			"get_turn",
 			NATIVE_CALL( this ) {
@@ -976,7 +982,11 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 			);
 			//m_state->SetGame( this );
 
-			InitGame( response, MT_C );
+			const bool interactive = request.data.init.interactive_opening;
+			if ( interactive && ( m_state->m_connection || m_state->m_settings.local.game_mode != settings::LocalSettings::GM_SINGLEPLAYER || g_engine->GetConfig()->GetWorldScript() != "default" ) ) {
+				response.result = R_ERROR; NEW( response.data.error.error_text, std::string, "Interactive opening requires a new offline single-player world" ); break;
+			}
+			InitGame( response, interactive, MT_C );
 			if ( response.result == R_SUCCESS ) {
 				response.data.init.slot_index = m_slot_num;
 			}
@@ -1203,6 +1213,7 @@ const bool Game::IsTurnChecksumValid( const util::crc32::crc_t checksum ) const 
 }
 
 void Game::CompleteTurn( GSE_CALLABLE, const size_t slot_num ) {
+	if ( IsOpeningPending() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Confirm the opening before completing a turn" ); }
 	const auto& slot = m_state->m_slots->GetSlot( slot_num );
 	ASSERT( slot.GetState() == slot::Slot::SS_PLAYER, "slot is not player" );
 	auto* player = slot.GetPlayer();
@@ -1227,6 +1238,10 @@ void Game::UncompleteTurn( const size_t slot_num ) {
 }
 
 void Game::AdvanceTurn( const size_t turn_id ) {
+	if ( IsOpeningPending() ) {
+		if ( m_opening_phase != OPENING_STARTING || turn_id != 1 || !m_opening_first_turn_dispatched || m_opening_first_turn_applied ) { THROW( "Confirm the opening before advancing a turn" ); }
+		m_opening_first_turn_applied = true;
+	}
 	m_current_turn.AdvanceTurn( turn_id );
 	m_is_turn_complete = false;
 	MTModule::Log( "Turn started: " + std::to_string( turn_id ) );
@@ -1304,8 +1319,10 @@ void Game::GlobalFinalizeTurn( GSE_CALLABLE ) {
 
 void Game::FirstTurn( GSE_CALLABLE ) {
 	ASSERT( m_state->IsMaster(), "not master" );
+	if ( m_current_turn.GetId() != 0 || ( IsOpeningPending() && m_opening_phase != OPENING_STARTING ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "First turn is not ready or has already started" ); }
 
 	// reset some states
+	if ( m_opening_phase == OPENING_STARTING ) { m_opening_first_turn_dispatched = true; }
 	m_current_turn.AdvanceTurn( 1 );
 	m_verified_turn_checksum_slots.clear();
 	m_turn_checksum = 0;
@@ -1455,7 +1472,8 @@ static const std::unordered_map< backend::turn::turn_status_t, std::string > s_t
 	{ turn::TS_WAITING_FOR_PLAYERS, "waiting_for_players" },
 };
 
-void Game::SetTurnStatus( const backend::turn::turn_status_t status ) {
+void Game::SetTurnStatus( const backend::turn::turn_status_t requested_status ) {
+	const auto status = IsOpeningPending() ? turn::TS_PLEASE_WAIT : requested_status;
 	auto fr = FrontendRequest( FrontendRequest::FR_TURN_STATUS );
 	fr.data.turn_status.status = status;
 	AddFrontendRequest( fr );
@@ -1532,7 +1550,8 @@ void Game::ProcessEvents() {
 			bool success = false;
 			std::string error;
 			try {
-				if ( !handler ) { error = "Unknown event: " + event->GetEventName(); }
+				if ( !IsOpeningEventAllowed( event->GetEventName() ) ) { error = "Confirm the opening before issuing gameplay commands"; }
+				else if ( !handler ) { error = "Unknown event: " + event->GetEventName(); }
 				else {
 					std::unique_ptr< const std::string > rejected( handler->Validate( GSE_CALL, args ) );
 					if ( rejected ) { error = *rejected; }
@@ -1606,7 +1625,7 @@ void Game::AddFrontendRequest( const FrontendRequest& request ) {
 	m_pending_frontend_requests->push_back( request );
 }
 
-void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
+void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_CANCELABLE ) {
 
 	if ( m_game_state != GS_NONE ) {
 		ResetGame();
@@ -1614,6 +1633,12 @@ void Game::InitGame( MT_Response& response, MT_CANCELABLE ) {
 
 	ASSERT( !m_state || !m_state->m_connection || m_game_state == GS_NONE, "multiplayer game already initializing or running" );
 	ASSERT( m_game_state == GS_NONE, "game still initializing" );
+
+	m_opening_phase = interactive_opening ? OPENING_PREPARING : OPENING_NONE;
+	m_auto_end_turn = interactive_opening;
+	m_opening_first_turn_dispatched = m_opening_first_turn_applied = false;
+	m_opening_base = nullptr; m_opening_base_id = 0; ++m_opening_session;
+
 
 	MTModule::Log( "Initializing game" );
 
@@ -2071,6 +2096,7 @@ void Game::ResetGame() {
 	m_pending_frontend_requests->clear();
 
 	m_current_turn.Reset();
+	m_opening_phase = OPENING_NONE; m_opening_base = nullptr; m_opening_base_id = 0; m_auto_end_turn = false; m_opening_first_turn_dispatched = m_opening_first_turn_applied = false; ++m_opening_session;
 	m_is_turn_complete = false;
 
 	if ( m_state ) {
@@ -2092,6 +2118,7 @@ const technology::Table& Game::GetTechnologyTable() const {
 }
 
 void Game::CheckTurnComplete() {
+	if ( IsOpeningPending() ) { return; }
 
 	const bool is_turn_complete = !m_um->HasReadyUnit( m_slot_num );
 

@@ -11,6 +11,10 @@ namespace game::backend::base {
 
 std::string Base::ValidateRename( GSE_CALLABLE, const int64_t caller, const int64_t turn, const std::string& previous_name, const std::string& name ) {
 	if ( !m_game->IsRunning() || turn <= 0 || uint64_t( turn ) != m_game->GetTurnId() ) { return "Base rename turn is stale"; }
+	return ValidateName( GSE_CALL, caller, previous_name, name );
+}
+
+std::string Base::ValidateName( GSE_CALLABLE, const int64_t caller, const std::string& previous_name, const std::string& name ) {
 	if ( !m_game->GetBM() || m_game->GetBM()->GetBase( m_id ) != this || !m_owner || caller < 0 || size_t( caller ) != m_owner->GetIndex() || !m_owner->GetPlayer() ) { return "Only the live base owner may rename it"; }
 	if ( !m_game->GetMap() || !m_tile || m_tile->base != this || m_tile->tiles != m_game->GetMap()->GetTilesPtr() || m_tile->IsLocked() ) { return "Base rename needs its live unlocked tile"; }
 	if ( previous_name != m_name ) { return "Base rename name is stale"; }
@@ -24,6 +28,11 @@ int64_t Base::Rename( GSE_CALLABLE, const int64_t caller, const int64_t turn, co
 	m_game->CheckRW( GSE_CALL );
 	const auto error = ValidateRename( GSE_CALL, caller, turn, previous_name, name );
 	if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+	return RenameValidated( GSE_CALL, name );
+}
+
+int64_t Base::RenameValidated( GSE_CALLABLE, const std::string& name ) {
+	m_game->CheckRW( GSE_CALL );
 	if ( name == m_name ) { return 0; }
 	if ( m_next_rename == std::numeric_limits< int64_t >::max() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base rename receipts exhausted" ); }
 	auto* bm = m_game->GetBM();

@@ -126,7 +126,7 @@ void Game::Start() {
 			return false;
 		}
 	);
-	m_mt_ids.init = game->MT_Init( m_state );
+	m_mt_ids.init = game->MT_Init( m_state, !m_state->m_connection && m_state->m_settings.local.game_mode == backend::settings::LocalSettings::GM_SINGLEPLAYER && config->GetWorldScript() == "default" );
 }
 
 void Game::Stop() {

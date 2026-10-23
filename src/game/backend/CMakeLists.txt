@@ -18,6 +18,7 @@ SET( SRC ${SRC}
 	${PWD}/Bindings.cpp
 	${PWD}/State.cpp
 	${PWD}/Game.cpp
+	${PWD}/GameOpening.cpp
 	${PWD}/GameColony.cpp
 	${PWD}/GameUnitDisband.cpp
 	${PWD}/Account.cpp
