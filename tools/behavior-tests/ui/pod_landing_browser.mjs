@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {chromium} from '../../wasm-tests/node_modules/playwright/index.mjs';
 import {PNG} from '../../wasm-tests/node_modules/pngjs/lib/png.js';
@@ -11,8 +11,10 @@ const build = process.env.WASM_APP_DIR || `${root}build/wasm/bin`;
 const sourceRoot = process.env.WASM_SCRIPTS_ROOT || root;
 const assets = process.env.SMAC_ASSETS_DIR;
 assert.ok(assets, 'SMAC_ASSETS_DIR is required');
-const artifacts = process.env.POD_LANDING_ARTIFACTS || `${root}tools/wasm-tests/build/artifacts/pod-landing`;
-mkdirSync(artifacts, {recursive:true});
+const artifactBase = process.env.POD_LANDING_ARTIFACTS || `${root}tools/wasm-tests/build/artifacts/pod-landing`;
+mkdirSync(artifactBase, {recursive:true});
+// Preserve earlier evidence, but never include it in this execution's frames.
+const artifacts = mkdtempSync(`${artifactBase}/run-`);
 const request = JSON.parse(await new Promise(resolve => {let text='';process.stdin.setEncoding('utf8');process.stdin.on('data',x=>text+=x);process.stdin.on('end',()=>resolve(text));}));
 const hash = x=>createHash('sha256').update(x).digest('hex');
 const production = Object.fromEntries(readdirSync(`${sourceRoot}/GLSMAC_data/default`,{recursive:true}).filter(x=>x.endsWith('.gls.js')).sort().map(x=>[`GLSMAC_data/default/${x}`,readFileSync(`${sourceRoot}/GLSMAC_data/default/${x}`,'utf8')]));
@@ -48,7 +50,7 @@ glsmac.on('configure_game', (e) => {
  });
 });
 glsmac.run();`);
-const implementation={name:'GLSMAC rendered pod landing through Chromium/SDL',kind:'candidate',scripts_sha256:hash(JSON.stringify(production)),observed_scripts_sha256:hash(JSON.stringify(scripts)),runtime_js_sha256:hash(readFileSync(`${build}/GLSMAC.js`)),runtime_wasm_sha256:hash(readFileSync(`${build}/GLSMAC.wasm`))};
+const implementation={name:'GLSMAC rendered pod landing through Chromium/SDL',kind:'candidate',capture_root:artifacts,scripts_sha256:hash(JSON.stringify(production)),observed_scripts_sha256:hash(JSON.stringify(scripts)),runtime_js_sha256:hash(readFileSync(`${build}/GLSMAC.js`)),runtime_wasm_sha256:hash(readFileSync(`${build}/GLSMAC.wasm`))};
 const server=spawn('python3',['tools/serve-wasm.py',build,'--port','0','--assets',assets],{cwd:root});let serverLog='';server.stderr.on('data',x=>serverLog+=x);
 let browser;const results=[];
 try{

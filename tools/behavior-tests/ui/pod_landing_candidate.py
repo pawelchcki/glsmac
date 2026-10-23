@@ -56,10 +56,13 @@ def main():
         raise ProtocolError('Rendered landing worker failed: ' + process.stdout[-2000:])
     response = decode_json(process.stdout)
     results = validate_response(response, request)
+    capture_root = Path(response['implementation']['capture_root']).resolve()
+    if capture_root.parent != artifacts.resolve() or not capture_root.name.startswith('run-'):
+        raise ProtocolError('Browser captures must belong to this configured artifact root')
     for case in request['cases']:
         result = results[case['id']]
         if result['status'] == 'ok':
-            result['output'] = observe(artifacts / case['id'], assets, result['output'])
+            result['output'] = observe(capture_root / case['id'], assets, result['output'])
             validate_output(result['output'], case)
     print(json.dumps(response))
 

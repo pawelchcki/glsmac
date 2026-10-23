@@ -32,6 +32,8 @@ not extra original comparisons. No original art or video is committed.
 runs the installed-data companion. It is separate from default asset-free UI
 case totals. Actual browser or capture failures remain errors; a healthy app
 that displays no pod reports a mismatch with its observed partial trace.
+Each execution uses a fresh directory beneath the artifact root. Earlier
+captures remain available as evidence and cannot supply frames to a new run.
 
 The contract does not establish full-frame fidelity, exact path or presentation
 cadence, smoke compositing, audio, camera equivalence, fog, generated worlds,
