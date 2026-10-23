@@ -1,11 +1,13 @@
 #include "TextureLoader.h"
 
 #include <algorithm>
+#include <stdexcept>
 
 #include "types/texture/Texture.h"
 #include "types/texture/LazyTexture.h"
 #include "engine/Engine.h"
 #include "resource/ResourceManager.h"
+#include "util/FS.h"
 
 namespace loader {
 namespace texture {
@@ -249,6 +251,7 @@ static const std::unordered_map< resource::resource_t, TextureLoader::transparen
 static const TextureLoader::transparent_colors_t s_no_transparent_colors = {};
 
 TextureLoader::~TextureLoader() {
+	for ( const auto& it : m_flic_frames ) { delete it.second; }
 	for ( const auto& it : m_color_textures ) {
 		DELETE( it.second );
 	}
@@ -316,6 +319,31 @@ types::texture::Texture* TextureLoader::LoadCustomTexture( const std::string& fi
 		THROW( "could not load texture: " + filename );
 	}
 	return result;
+}
+
+const Flic& TextureLoader::LoadFlic( const std::string& filename ) {
+	const auto path = GetCustomFilename( filename );
+	auto found = m_flics.find( path );
+	if ( found == m_flics.end() ) {
+		std::vector< unsigned char > bytes;
+		util::FS::ReadFile( bytes, path, util::FS::PATH_SEPARATOR, 64 * 1024 * 1024 );
+		found = m_flics.emplace( path, Flic::Decode( bytes ) ).first;
+	}
+	return found->second;
+}
+
+types::texture::Texture* TextureLoader::LoadFlicFrame( const std::string& filename, size_t frame, int transparent_index, const types::texture::texture_flag_t flags ) {
+	const auto& animation = LoadFlic( filename );
+	if ( frame >= animation.frames.size() ) { throw std::runtime_error( "FLIC frame out of range" ); }
+	if ( transparent_index < -1 || transparent_index > 255 ) { throw std::runtime_error( "FLIC transparent index out of range" ); }
+	const auto key = GetCustomFilename( filename ) + ":frame(" + std::to_string( frame ) + "," + std::to_string( transparent_index ) + "):" + std::to_string( flags );
+	const auto found = m_flic_frames.find( key );
+	if ( found != m_flic_frames.end() ) { return found->second; }
+	const auto rgba = animation.frames.at( frame ).RGBA( transparent_index );
+	auto* texture = new types::texture::Texture( key, animation.width, animation.height, flags );
+	memcpy( texture->GetBitmap(), rgba.data(), rgba.size() );
+	m_flic_frames.emplace( key, texture );
+	return texture;
 }
 
 types::texture::Texture* TextureLoader::LoadTexture( const resource::resource_t res, const size_t x1, const size_t y1, const size_t x2, const size_t y2, const uint8_t flags, const float value, const types::texture::texture_flag_t texture_flags ) {

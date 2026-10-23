@@ -67,7 +67,8 @@
     "test:unit-disband-shortcut": "node --test --test-concurrency=1 unit-disband-shortcut.test.mjs",
     "test:unit-recycling": "node --test --test-concurrency=1 unit-recycling.test.mjs",
     "test:opening-art": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/opening-art.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-opening-art.json --command 'python3 tools/behavior-tests/ui/opening_art_candidate.py' --timeout 240 --report build/artifacts/opening-art-report.json",
-    "test:opening-sequence": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/opening-sequence.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-opening-sequence.json --command 'python3 tools/behavior-tests/ui/opening_sequence_candidate.py' --timeout 240 --report build/artifacts/opening-sequence-report.json"
+    "test:opening-sequence": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/opening-sequence.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-opening-sequence.json --command 'python3 tools/behavior-tests/ui/opening_sequence_candidate.py' --timeout 240 --report build/artifacts/opening-sequence-report.json",
+    "test:pod-landing:browser": "python3 ../behavior-tests/compare.py compare --cases ../behavior-tests/ui/cases/pod-landing.json --reference ../behavior-tests/ui/observations/smacx-gog-2.0-pod-landing.json --command 'python3 tools/behavior-tests/ui/pod_landing_candidate.py' --timeout 240 --report build/artifacts/pod-landing-report.json"
   },
   "devDependencies": {
     "playwright": "1.61.1",
