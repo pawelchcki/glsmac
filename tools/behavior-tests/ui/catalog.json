@@ -285,6 +285,11 @@
       "id": "unit-recycling-scout-free",
       "cases": "cases/unit-recycling-scout-free.json",
       "observations": "observations/smacx-gog-2.0-unit-recycling-scout-free.json"
+    },
+    {
+      "id": "unit-disband-shortcut",
+      "cases": "cases/unit-disband-shortcut.json",
+      "observations": "observations/smacx-gog-2.0-unit-disband-shortcut.json"
     }
   ]
 }

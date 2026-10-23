@@ -9,7 +9,7 @@ test infrastructure belong in this directory.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 748 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 750 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -48,14 +48,24 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 27 regression suites around active menu controls, Colony
-naming/joining, Former work, unit retirement/recycling, modal input, setup and
-first-city lifecycle (297 scenarios/2,067 assertions). Original UI replay includes
-13 hot references with 54 recorded cases. Stable contains the explicit complement:
-101 regression suites, 44 UI references (694 cases), two economy references and
-15 current helper references. These are bounded catalogs, not a full-game
+Hot contains 18 regression suites around active unit menus, retirement/recycling,
+keyboard controls, modal input, setup and first-city lifecycle (187 scenarios/1,406
+assertions). Original UI replay includes nine hot references with 39 recorded
+cases. Stable contains the explicit complement: 111 regression suites, 49 UI
+references (711 cases), two economy references and 15 current helper references.
+These are bounded catalogs, not a full-game
 coverage claim. Stable execution belongs on main; PR checks run hot and consult
 the latest main stable result. Required-check policy is configured separately.
+
+Completed Colony joining, founding and nearby city warnings, together with Former
+and Terraform controls, run in stable. Active unit menus, retirement, recycling
+and keyboard controls stay hot. The combined partition retains all 129 native
+suites and 58 UI references (750 recorded cases), with five pending references/22
+cases still excluded from passing release groups. One local native run pair with
+identical scripts/runtime,
+two workers and the standard 120-second per-suite limit took 227.96 seconds before
+rotation and 122.70 seconds after (46.2% less). These are native replay timings;
+CI and UI replay latency require separate measurements.
 
 The lane dispatcher runs groups sequentially, defaults to one worker, and accepts
 only `--jobs 1` or `--jobs 2`. Individual runners accept `--lane hot|stable|all` and
@@ -124,7 +134,7 @@ passing original cases and preserve the exact archived evidence bytes.
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
 static integrity validation without duplicate passing counts. The active UI
-catalog has 57 references and 748 cases. Pending base recalculation remains a
+catalog has 58 references and 750 cases. Pending base recalculation remains a
 strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
@@ -1215,7 +1225,7 @@ reactor damage, original combat odds, terraforming beyond the bounded work scope
 remain explicit gaps. This is not complete game parity.
 
 The `colony-found-menu-controls`, `colony-found-menu-authority` and
-`colony-found-native` hot groups add 20 application scenarios/97 assertions.
+`colony-found-native` stable groups add 20 application scenarios/97 assertions.
 Two independently repeated [original city-naming flows](ui/colony-found-menu-contract.md)
 match native replay at twenty checkpoints: Action source0, common NEWBASE
 caption/label, faction name-pool input, edits, button/keyboard cancellation,

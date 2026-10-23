@@ -422,6 +422,17 @@ def unit_recycling_command(args):
     return shlex.join(command)
 
 
+def unit_disband_shortcut_command(args):
+    if args.browser:
+        raise ProtocolError('Disband shortcut uses native display-free replay; rendered keyboard controls are checked separately')
+    name = 'unit_disband_shortcut_original.py' if args.record else 'unit_disband_shortcut_headless.py'
+    command = [sys.executable, str(DIRECTORY / name)]
+    if args.record:
+        command += ['--assets', str(args.assets.resolve()), '--wine', args.wine,
+                    '--artifacts', str(DIRECTORY.parent / '.build/unit-disband-shortcut-original')]
+    return shlex.join(command)
+
+
 def unit_menu_context_command(args, paced=False, message=False, saved=False):
     if args.browser:
         raise ProtocolError('Action-menu contexts use native display-free replay; browser controls are checked separately')
@@ -615,6 +626,8 @@ def main(argv=None):
                 reference_command = colony_near_command(args)
             if reference['id'] in ('unit-disband', 'unit-disband-name'):
                 reference_command = unit_disband_command(args)
+            if reference['id'] == 'unit-disband-shortcut':
+                reference_command = unit_disband_shortcut_command(args)
             if reference['id'] in ('unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free'):
                 reference_command = unit_recycling_command(args)
             if reference['id'] == 'unit-menu-context':
@@ -703,6 +716,8 @@ def main(argv=None):
                 candidate_command = colony_near_command(args)
             if command is not None and reference['id'] in ('unit-disband', 'unit-disband-name'):
                 candidate_command = unit_disband_command(args)
+            if command is not None and reference['id'] == 'unit-disband-shortcut':
+                candidate_command = unit_disband_shortcut_command(args)
             if command is not None and reference['id'] in ('unit-recycling', 'unit-recycling-former-city', 'unit-recycling-scout-free'):
                 candidate_command = unit_recycling_command(args)
             if command is not None and reference['id'] == 'unit-menu-context':
