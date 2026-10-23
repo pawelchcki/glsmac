@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fast import create_snapshot
 from protocol import ProtocolError, canonical, load_request, write_response
 from ui import unit_recycling_contract as contract
-from ui.unit_recycling_inputs import declarations
+from ui.unit_recycling_inputs import declarations, PRICING_CONTEXT
 from ui.headless import gse_literal
 
 DIRECTORY = Path(__file__).resolve().parent
@@ -108,7 +108,7 @@ def parse_candidate(text, cases):
 
 
 def prepare(case):
-    return dict(deepcopy(case['input']), id=case['id'], sources=[dict(name=name, source=text)
+    return dict(deepcopy(case['input']), id=case['id'], pricing_context=deepcopy(PRICING_CONTEXT), sources=[dict(name=name, source=text)
                 for name, text in declarations(case['input']['text_profile']).items()])
 
 

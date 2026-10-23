@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 from protocol import ProtocolError, canonical
 from ui import unit_recycling_headless as candidate
-from ui.unit_recycling_inputs import declarations, suite
+from ui.unit_recycling_inputs import declarations, suite, former_city_suite, scout_free_suite, PRICING_CONTEXT
 
 
 def native_log(cases, *, dialog=None, survivors=None, minerals=0, choices=3):
@@ -115,12 +115,13 @@ class UnitRecyclingCandidateTests(unittest.TestCase):
         self.assertEqual(rows[1]['status'], 'ok')
 
     def test_preparation_uses_live_public_declarations_without_mutating_inputs(self):
-        for case in self.cases:
+        for case in self.cases + former_city_suite()['cases'] + scout_free_suite()['cases']:
             before = deepcopy(case); data = candidate.prepare(case)
             self.assertEqual(case, before)
             self.assertEqual(data['actions'], before['input']['actions'])
             self.assertEqual(data['sources'], [dict(name=n, source=s) for n, s in declarations(case['input']['text_profile']).items()])
-            self.assertEqual(set(data), set(before['input']) | {'id', 'sources'})
+            self.assertEqual(data['pricing_context'], PRICING_CONTEXT)
+            self.assertEqual(set(data), set(before['input']) | {'id', 'sources', 'pricing_context'})
 
     def run_candidate(self, cases=None, *, mutate=None, exit_code=0):
         cases = deepcopy(self.cases if cases is None else cases); self.commands = []; self.output = io.StringIO()

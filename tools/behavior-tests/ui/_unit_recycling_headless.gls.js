@@ -11,6 +11,7 @@ const run = (input) => {
 		}
 		const role_of = (id) => { if (id == null) { return 'none'; } for (let index = 0; index < 3; index++) { if (records[index].id == id) { return roles[index]; } } throw Error('Unknown native Recycling focus'); };
 		const observe = (index) => {
+			f.assert_pricing();
 			const pops = base.get_pops(); const bases = f.game.bm.get_bases(); const current_production = base.get_production();
 			if (#sizeof(bases) != 1 || bases[0] != base || base.id != base_id || base.name != input.initial_base.name || base.get_owner().id != owner || base.get_tile() != origin || origin.get_base() != base ||
 				base.get_size() != 1 || #sizeof(pops) != 1 || pops[0] != doctor || doctor.get_type() != 'DOCTOR' || doctor.has('worked_tile') || #sizeof(base.get_worked_tiles()) != 0 ||
@@ -23,7 +24,8 @@ const run = (input) => {
 			let survivors = 0;
 			for (let unit_index = 0; unit_index < 3; unit_index++) {
 				const record = records[unit_index];
-				if (!f.game.um.has_unit(record.id)) { if (unit_index != 0 || #sizeof(record.tile.get_units()) != 0) { throw Error('Recycling removed another unit or left stale membership'); } }
+				if (!f.game.um.has_unit(record.id)) { if (record.id != f.retirement_target) { throw Error('Recycling removed another native unit'); }
+					for (occupant of record.tile.get_units()) { if (occupant.id == record.id) { throw Error('Recycling left stale tile membership'); } } }
 				else {
 					const unit = f.game.um.get_unit(record.id); survivors++;
 					if (unit != record.unit || unit.def != record.def || unit.owner != record.owner || unit.health != record.health || unit.get_tile() != record.tile || unit.movement != record.movement || unit.get_order() != record.order) { throw Error('Recycling changed surviving native unit identity/position/health'); }
