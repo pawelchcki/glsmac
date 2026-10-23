@@ -255,6 +255,11 @@
       "id": "colony-found-menu",
       "cases": "cases/colony-found-menu.json",
       "observations": "observations/smacx-gog-2.0-colony-found-menu.json"
+    },
+    {
+      "id": "colony-adjacent-warning",
+      "cases": "cases/colony-adjacent-warning.json",
+      "observations": "observations/smacx-gog-2.0-colony-adjacent-warning-immediate.json"
     }
   ]
 }

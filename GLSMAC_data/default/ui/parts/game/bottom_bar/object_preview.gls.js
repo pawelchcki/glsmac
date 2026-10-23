@@ -167,7 +167,7 @@ return {
 
 	start_colony_action: () => {
 		const unit = this.get_found_unit(); if (unit == null) { return true; }
-		if (unit.get_tile().get_base() == null && #is_defined(this.p.glsmac) && #typeof(this.p.glsmac.load_smac_text) == 'Callable') { this.founding.open(); return true; }
+		if (unit.get_tile().get_base() == null && #is_defined(this.p.glsmac) && #typeof(this.p.glsmac.load_smac_text) == 'Callable') { return this.founding.open(); }
 		// Existing non-window callers and owned-city joins retain their path.
 		return this.found_selected_base();
 	},

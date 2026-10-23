@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"colony-near-controls","script":"GLSMAC_data/tests/colony_near_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"colony-near-native","script":"GLSMAC_data/tests/colony_near_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-menu-controls","script":"GLSMAC_data/tests/colony_found_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-menu-authority","script":"GLSMAC_data/tests/colony_found_menu_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-native","script":"GLSMAC_data/tests/colony_found_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

@@ -24,7 +24,7 @@
 
 namespace game::backend {
 
-std::string Game::ValidateFoundBase( const int64_t unit_id, const int64_t caller ) const {
+std::string Game::ValidateFoundBaseUnit( const int64_t unit_id, const int64_t caller ) const {
 	if ( !IsRunning() || !m_current_turn.GetId() ) { return "Game is not active"; }
 	if ( unit_id <= 0 || caller < 0 || !m_um ) { return "Invalid colony unit or owner"; }
 	const auto* unit = m_um->GetUnit( unit_id );
@@ -38,6 +38,18 @@ std::string Game::ValidateFoundBase( const int64_t unit_id, const int64_t caller
 	for ( const auto& entry : tile->units ) {
 		if ( entry.second->m_owner != unit->m_owner ) { return "Foreign units occupy the founding tile"; }
 	}
+	return "";
+}
+
+bool Game::IsFoundBaseAdjacent( const int64_t unit_id ) const {
+	const auto* tile = m_um->GetUnit( unit_id )->GetTile();
+	for ( const auto* neighbour : tile->neighbours ) { if ( neighbour && neighbour->base ) { return true; } }
+	return false;
+}
+
+std::string Game::ValidateFoundBase( const int64_t unit_id, const int64_t caller ) const {
+	const auto error = ValidateFoundBaseUnit( unit_id, caller ); if ( !error.empty() ) { return error; }
+	if ( IsFoundBaseAdjacent( unit_id ) ) { return "Base site is adjacent to an existing base"; }
 	return "";
 }
 
