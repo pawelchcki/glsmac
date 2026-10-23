@@ -90,8 +90,8 @@ def capture(driver,observer,vision,menu_vision,case,path):
         raise ProtocolError('Actual disband controls did not settle '+str(image_path)+'; '+str(last_error))
     trace=[observe(0)]
     for index,action in enumerate(case['input']['actions'],1):
-        if isinstance(action,str) and action in ('tab','cancel','down','up','confirm'):
-            base.raw_key(driver,dict(tab='Tab',cancel='Escape',down='Down',up='Up',confirm='Return')[action])
+        if isinstance(action,str) and action in ('tab','cancel','down','up','confirm','disband-shortcut'):
+            base.raw_key(driver,dict(tab='Tab',cancel='Escape',down='Down',up='Up',confirm='Return',**{'disband-shortcut':'shift+d'})[action])
         elif action=='menu':transport.click(driver,60,539)
         elif action=='button-ok':previous.click_control(driver,510,498)
         elif 'header' in action:

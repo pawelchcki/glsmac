@@ -1,0 +1,562 @@
+{
+  "captured_at": "2026-10-23T01:54:57.607717+00:00",
+  "observations": [
+    {
+      "case_sha256": "3fa8f0316fd115193a79d0f45623f26d0d7667c6bba94684228a8a67dce644a2",
+      "id": "unit-disband-shortcut-synthetic",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RETIRE THIS WORKER?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "WORKER DECISION",
+              "choices": [
+                "KEEP WORKING.",
+                "RETIRE UNIT.",
+                "OVERLOAD EQUIPMENT."
+              ],
+              "selected": 1
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "d59a62d41d840244885cd30d434b0a0ce92d2f49c47c0e9ea546a5c9dd9e0791",
+      "id": "unit-disband-shortcut-disband-edited",
+      "output": {
+        "trace": [
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "scout",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 0
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 1
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 2
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": {
+              "body": "RELEASE THIS FIELD CREW?",
+              "buttons": [
+                "OK"
+              ],
+              "caption": "FIELD UNIT DECISION",
+              "choices": [
+                "STAY ON DUTY.",
+                "RELEASE UNIT.",
+                "OVERLOAD FIELD KIT."
+              ],
+              "selected": 1
+            },
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "former",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "former"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          },
+          {
+            "child_header": null,
+            "dialog": null,
+            "owned_count": 1,
+            "root_open": false,
+            "selected": "colony",
+            "units": [
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "scout"
+              },
+              {
+                "movement_spent": 0,
+                "order_code": 0,
+                "role": "colony"
+              }
+            ],
+            "year_delta": 0
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "6454fe174f448b5bf3cbd697660187ce70b17265483ac2af2407f6de2a0317a7",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "boundaries": "One healthy ready Former on the declared free southeast tile; two installed source profiles; cancellation/reopening/navigation and ordinary confirmation only; no overload, city, alternate modifiers or general shortcut/AI parity",
+    "contract": "ui.unit_disband_shortcut.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture_transport": "guarded-original-created-save",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual ready-Former Tab/Shift+D with no MENU/Action click; independently segmented common dialog text/choices/highlight/button and native selected-unit/city/survivor guards",
+    "source_profiles_sha256": "5f25f2c0d24bbaa54eb13bbfa622bf56983e2a4f437265651194f3f62f23b7f0"
+  },
+  "repeat": 2,
+  "suite_sha256": "54d933cacb5ab10ff3bc33ffdc740ecc42ab536c9f136853052db79201f5d853",
+  "version": 1
+}

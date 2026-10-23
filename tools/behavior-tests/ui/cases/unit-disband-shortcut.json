@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "name": "Ready Former Disband keyboard controls",
+  "description": "Actual Tab and Shift+D, cancellation, reopening, draft choice navigation and ordinary confirmation; no menu-pointer substitution.",
+  "cases": [
+    {
+      "id": "unit-disband-shortcut-synthetic",
+      "algorithm": "ui.unit_disband_shortcut.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "synthetic",
+        "actions": [
+          "tab",
+          "disband-shortcut",
+          "cancel",
+          "disband-shortcut",
+          "down",
+          "confirm"
+        ]
+      }
+    },
+    {
+      "id": "unit-disband-shortcut-disband-edited",
+      "algorithm": "ui.unit_disband_shortcut.v1",
+      "input": {
+        "profile": "spread",
+        "initial_base": {
+          "name": "Gaia's Landing",
+          "workers": 0,
+          "doctors": 1,
+          "worked_tiles": 0,
+          "nutrients": 0,
+          "minerals": 9
+        },
+        "text_profile": "disband-edited",
+        "actions": [
+          "tab",
+          "disband-shortcut",
+          "confirm",
+          "disband-shortcut",
+          "up",
+          "down",
+          "down",
+          "up",
+          "button-ok"
+        ]
+      }
+    }
+  ]
+}
