@@ -385,9 +385,10 @@
       "id": "opening-journey",
       "status": "partial",
       "contracts": [
-        "ui.opening_art.v1"
+        "ui.opening_art.v1",
+        "ui.opening_sequence.v1"
       ],
-      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Rendered candidate replay is separate from the asset-free default UI catalog. This bounded artwork contract does not establish full-frame opening or first-round parity.",
+      "coverage": "Fresh independently repeated original screenshots establish twelve exact backdrop RGB probes at six main/random-setup checkpoints. Two further independently repeated natural opening traces establish Planetfall, first-base naming, the tutorial prompt, map entry and Space into the next turn through keyboard or pointer confirmation, including actual native counters 0,0,1,1,2. Rendered candidate replay is separate from the asset-free default UI catalog. These bounded contracts do not establish full-frame opening or first-round parity.",
       "remaining": [
         "Launch movies, logos, skip controls and transition frame alignment",
         "Main/setup typography, menu chrome, layout, hover and focus rendering",
@@ -395,8 +396,8 @@
         "Rule editing, file/save/scenario and multiplayer setup paths",
         "Faction information, roster editing, random choices and identity controls across profiles",
         "Generation/loading visuals, deterministic worlds, camera, visibility and initial native state",
-        "Planetfall and faction-specific opening narratives with actual acknowledgement semantics",
-        "Landing, first-base naming, initial-base resources and tour/tutorial flow",
+        "Other faction-specific opening narratives and acknowledgement/cancellation semantics",
+        "Landing animation, first-base edits/cancellation, initial-base resources and guided Tour flow; the left-hand Tour control is not yet implemented",
         "Every first-round management, unit action, menu, dialog and turn-confirmation path",
         "Initial opponent roster and actual computer-player decisions through next-year transition"
       ]
