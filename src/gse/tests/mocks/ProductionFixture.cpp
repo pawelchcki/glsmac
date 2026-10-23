@@ -212,6 +212,30 @@ struct ProductionFixture : gc::Object {
 		game.m_current_turn.Reset();
 		game.m_game_state = backend::Game::GS_NONE;
 	}
+	void RestartNaturalStartup( GSE_CALLABLE, const std::string& terrain ) {
+		const auto width = game.m_map->GetWidth();
+		const auto height = game.m_map->GetHeight();
+		// Retire calls the actual Game::Stop/ResetGame lifecycle. Retain the
+		// same native Game object, then supply only the new declared world.
+		Retire();
+		stopped = false;
+		game.Start();
+		state = new backend::State( gc_space, ctx, nullptr, false );
+		state->SetGame( &game );
+		game.SetState( state );
+		game.m_bm = new backend::base::BaseManager( &game, false );
+		game.m_map = new backend::map::Map( &game, false );
+		backend::map::tile::Tiles tiles( nullptr, width, height );
+		tiles.Clear();
+		auto bytes = tiles.Serialize();
+		if ( game.m_map->LoadFromBuffer( bytes ) != backend::map::Map::EC_NONE ) { THROW( "fixture restart terrain failed" ); }
+		game.m_tm = new backend::map::tile::TileManager( &game, false );
+		game.m_rm = new backend::resource::ResourceManager( &game, false );
+		game.m_um = new backend::unit::UnitManager( &game, false );
+		game.m_game_state = backend::Game::GS_RUNNING;
+		game.m_current_turn.AdvanceTurn( 1 );
+		PrepareNaturalStartup( terrain );
+	}
 	void RunNaturalStartup( GSE_CALLABLE, const bool interactive_opening = false ) {
 		if ( game.m_game_state != backend::Game::GS_NONE || !game.m_player ||
 			!game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
@@ -1393,6 +1417,20 @@ Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, con
 	auto* object = static_cast< FixtureObject* >( MakeWorldStartupFixture( GSE_CALL, width, height ) );
 	const auto session = object->session;
 	session->current->PrepareNaturalStartup( terrain );
+	object->Set( "reset_world", NATIVE_CALL( session, object ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( declared_terrain, 0, String );
+		session->current->RestartNaturalStartup( GSE_CALL, declared_terrain );
+		object->Set( "game", session->current->game.Wrap( GSE_CALL ), GSE_CALL );
+		object->Set( "fm", session->current->state->GetFM()->Wrap( GSE_CALL ), GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "roundtrip_event", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( name, 0, String ); N_GETVALUE( data, 1, Object );
+		auto& game = session->current->game;
+		auto* outgoing = new backend::event::Event( &game, backend::event::Event::ES_LOCAL, 0, GSE_CALL, name, data );
+		auto* incoming = backend::event::Event::Deserialize( &game, backend::event::Event::ES_SERVER, GSE_CALL, outgoing->Serialize() );
+		return VALUEEXT( value::Object, GSE_CALL, incoming->GetData() );
+	} ), GSE_CALL );
 	object->Set( "initialize_single_player", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS_MIN_MAX( 1, 2 ); N_GETVALUE( faction_id, 0, String );
 		std::string difficulty = "Citizen";

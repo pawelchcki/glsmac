@@ -41,6 +41,14 @@ this contract establishes no flag effects. Unknown references, duplicate tokens,
 malformed row counts/fields, invalid weights and malformed flags require explicit
 handling by the importer; no original malformed-input behavior is claimed.
 
+The application computes and validates the complete ownership plan before
+queuing any world-creation events. The host sends owned scalar arrays through
+the existing event codec. Recipients validate and apply that plan independently
+of their locally installed rules; this is a bounded transfer check, not complete
+multiplayer synchronization. Interactive opening accepts initialization during
+its preparing phase, and the native reset clears both table and initialization
+marker before the same Game can start another session.
+
 This source schema is separate from original-executable behavior observations.
 It does not establish research choice filtering, ordering, cost, progress,
 acquisition, random exclusion, faction bonuses or UI behavior. No installed

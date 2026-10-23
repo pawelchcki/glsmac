@@ -75,6 +75,7 @@ behavior.scenario('invalid player mapping and unknown initial technologies canno
 behavior.scenario('late malformed bulk input and read-only replacement preserve all native rows', () => {
 	const f = test.rules_fixture(); const planned = consumer.plan(fixture.parse(), []);
 	f.technologies.replace(planned); const before = f.snapshot();
+	test.assert(f.game.technologies.validate_replacement(planned) && f.snapshot() == before);
 	for (kind of ['count', 'row', 'prerequisite', 'owners', 'weights', 'read-only']) {
 		const rows = #clone(planned);
 		if (kind == 'count') { rows :+ rows[0]; }
@@ -82,6 +83,7 @@ behavior.scenario('late malformed bulk input and read-only replacement preserve 
 		if (kind == 'prerequisite') { rows[88][0][1] = 89; }
 		if (kind == 'owners') { rows[88][1] = 256; }
 		if (kind == 'weights') { rows[88][2][3] = true; }
+		if (kind != 'read-only') { rejects(() => { f.game.technologies.validate_replacement(rows); }); }
 		rejects(() => { if (kind == 'read-only') { f.game.technologies.replace(rows); } else { f.technologies.replace(rows); } });
 		test.assert(f.snapshot() == before);
 	}

@@ -2073,6 +2073,7 @@ void Game::ResetGame() {
 	m_technologies.Clear();
 	m_research.Clear();
 	for ( auto& receipt : m_research_receipts ) { receipt.reset(); }
+	CustomUnset( "technologies_initialized" );
 
 	ClearHandlers();
 
