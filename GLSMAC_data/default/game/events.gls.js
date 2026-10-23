@@ -18,6 +18,7 @@ return (game) => {
 		'unit_sentry',
 		'unit_activate',
 		'unit_terraform',
+		'unit_disband',
 		'define_base_pop',
 		'define_base_facility',
 		'spawn_base',
