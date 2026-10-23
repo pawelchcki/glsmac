@@ -49,7 +49,7 @@ async function menuScreenshot(page, filename) {
   await page.waitForFunction(() => {
     const store = Module.assetStore;
     return document.body.dataset.state === 'failed' || (
-      store.loaded.has('openinga.pcx') && store.loaded.has('fx/opening menu.wav')
+      store.loaded.has('xopeninga.pcx') && store.loaded.has('fx/opening menu.wav')
       && store.pending.size === 0
     );
   });
