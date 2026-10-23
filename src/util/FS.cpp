@@ -343,7 +343,7 @@ std::vector< std::string > FS::ListDirectory( const std::string& directory, cons
 	return result;
 }
 
-void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path, const char path_separator ) {
+void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path, const char path_separator, const size_t max_bytes ) {
 
 	//Log( "Reading file: " + path );
 #ifdef __EMSCRIPTEN_PTHREADS__
@@ -353,6 +353,9 @@ void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path
 		std::ifstream in( NormalizePath( path, path_separator ), std::ios_base::binary );
 		in.seekg( 0, std::ios::end );
 		const auto sz = in.tellg();
+		if ( sz < 0 || ( max_bytes && static_cast< uint64_t >( sz ) > max_bytes ) ) {
+			THROW( "file exceeds read size limit: " + path );
+		}
 		in.seekg( 0, std::ios::beg );
 		buffer.resize( sz );
 		in.read( (char*)buffer.data(), sz );
@@ -362,6 +365,7 @@ void FS::ReadFile( std::vector< unsigned char >& buffer, const std::string& path
 
 	const auto& it = s_embedded_files.find( GetEmbedPath( path ) );
 	if ( it != s_embedded_files.end() ) {
+		if ( max_bytes && it->second.size() > max_bytes ) { THROW( "embedded file exceeds read size limit: " + path ); }
 		buffer.resize( it->second.size() );
 		std::copy( it->second.begin(), it->second.end(), buffer.begin() );
 		return;

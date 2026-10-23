@@ -56,13 +56,34 @@ Surface::Surface( DOM_ARGS_T )
 				//   texture.pcx:filter1(arg1,arg2,...):filter2():...
 				const auto params = util::String::Split( str, ':' );
 				ASSERT( !params.empty(), "texture params empty" );
-				auto* texture = g_engine->GetTextureLoader()->TryLoadCustomTexture( params.front() );
+				// FLIC frame selection precedes spatial/color filters. Frame textures
+				// are immutable and cached independently of their palette/key variants.
+				size_t first_filter = 1;
+				types::texture::Texture* texture = nullptr;
+				if ( params.size() > 1 && params.at( 1 ).compare( 0, 6, "frame(" ) == 0 ) {
+					const auto& selector = params.at( 1 );
+					if ( selector.back() != ')' ) { GSE_ERROR( gse::EC.UI_ERROR, "Unclosed FLIC frame selector" ); }
+					const auto values = util::String::Split( selector.substr( 6, selector.size() - 7 ), ',' );
+					if ( values.empty() || values.size() > 2 || selector.at( selector.size() - 2 ) == ',' ) { GSE_ERROR( gse::EC.UI_ERROR, "Expected frame(index[,transparent_index])" ); }
+					long index = 0;
+					long transparent_index = -1;
+					for ( const auto& value : values ) {
+						if ( value.empty() || value.find_first_not_of( "0123456789" ) != std::string::npos || value.size() > 9 ) { GSE_ERROR( gse::EC.UI_ERROR, "FLIC frame selector expects nonnegative integers" ); }
+					}
+					if ( !util::String::ParseInt( values.front(), index ) || ( values.size() == 2 && ( !util::String::ParseInt( values.at( 1 ), transparent_index ) || transparent_index > 255 ) ) ) {
+						GSE_ERROR( gse::EC.UI_ERROR, "Invalid FLIC frame selector" );
+					}
+					try { texture = g_engine->GetTextureLoader()->LoadFlicFrame( params.front(), index, transparent_index ); }
+					catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+					first_filter = 2;
+				}
+				else { texture = g_engine->GetTextureLoader()->TryLoadCustomTexture( params.front() ); }
 				if ( !texture ) {
 					GSE_ERROR( gse::EC.LOADER_ERROR, "Could not load texture: " + params.front() );
 				}
 				types::texture::Filter filter( texture );
 				std::vector< std::string > args = {};
-				for ( auto it = params.begin() + 1 ; it != params.end() ; it++ ) {
+				for ( auto it = params.begin() + first_filter ; it != params.end() ; it++ ) {
 					const auto brackets_begin = it->find( '(' );
 					args = {};
 					std::string f;

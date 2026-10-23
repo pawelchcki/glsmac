@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "pod-landing-controls",
         "automatic-end-turn",
         "opening-native",
         "opening-dialog",
