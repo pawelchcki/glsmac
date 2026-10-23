@@ -5,9 +5,8 @@ const source = #include('../default/game/research_dialog');
 const customize = #include('../default/ui/parts/mainmenu/steps/customize_rules');
 const rules_step = #include('../default/ui/parts/mainmenu/steps/select_rules');
 const create = () => {
-	const f = factions.create(); const native = test.founding_fixture();
-	f.rules = native.game.get_settings().global.rules; f.rules.set_blind_research(true);
-	f.m.settings.global = {}; f.m.settings.global.rules = f.rules;
+	const f = factions.create();
+	f.rules = f.native.game.get_settings().global.rules; f.rules.set_blind_research(true);
 	f.m.glsmac.load_smac_text = (name, format) => { return test.parse_smac_text(name == 'script.txt' ? text.script : text.labels, format); };
 	f.m.steps = {select_faction: factions.show, customize_rules: customize};
 	f.button = (label) => { return f.view.find('button', 'text', label).emit('click', {}); };
