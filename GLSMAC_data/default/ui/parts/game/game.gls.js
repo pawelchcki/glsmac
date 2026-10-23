@@ -72,6 +72,8 @@ return (m) => {
 			for (m of modules) {
 				p.modules[m].init(p);
 			}
+			p.modules.opening = #include('opening');
+			p.modules.opening.init(p);
 
 			m.root.on('keydown', (e) => {
 				if (e.modifiers == {} && e.code == 'ESCAPE') {

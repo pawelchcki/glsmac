@@ -1,4 +1,4 @@
-// Run every native engine test and every current GSE test in a fresh filesystem.
+// Run native engine tests and the supplied current GSE partition in a fresh FS.
 // Omitting --gse-tests-script is intentional: that flag skips the C++ tests.
 const fs = require('node:fs');
 const path = require('node:path');
@@ -25,4 +25,8 @@ Module.onRuntimeInitialized = () => {
   }
   // Includes removed from the host cannot fall back to old embedded scripts.
   Module.FS.chdir(root);
+  const mounted = Module.FS.readdir(`${root}/GLSMAC_data/tests`)
+    .filter(name=>/^[^_/.][^/]*\.gls\.js$/.test(name)).sort()
+    .map(name=>`GLSMAC_data/tests/${name}`);
+  console.log('GSE_MOUNTED_ENTRIES|' + JSON.stringify(mounted));
 };

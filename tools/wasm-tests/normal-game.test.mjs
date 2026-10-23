@@ -48,8 +48,9 @@ function recordedNormalFactors(level = 0, nutrientRule = 10, mineralRule = 10, g
 }
 
 // Test-only GSE entry. Production menus, settings, random terrain generation,
-// world/default, units and commands are unchanged. Every addition observes;
-// no game event, selection, setting or random value is supplied by this script.
+// world/default, units and commands remain production. Mechanical setup below
+// acknowledges each real opening phase and explicitly pauses automatic turns.
+// The separate opening-sequence comparison uses only actual UI confirmations.
 const normalMain = String.raw`
 #main((glsmac) => {
   // Observe the real event boundaries before game/game registers these exact
@@ -201,7 +202,23 @@ const normalMain = String.raw`
       #print('NORMAL_TURN|' + #to_string(game.get_turn()) + '|' + #to_string(e.year));
     });
     game.on('start_ui', (e) => {
-      #async(0, () => {
+      let acknowledged = null;
+      glsmac.ui.root.timer(50, () => {
+        const opening = game.get_opening_state();
+        game.set_auto_end_turn(false);
+        if (opening.phase != 'map' && opening.phase != 'none') {
+          if (opening.phase != acknowledged) {
+            const data = {session: opening.session, action: '', base_id: 0, previous_name: '', name: ''};
+            if (opening.phase == 'planetfall') { data.action = 'planetfall'; }
+            else if (opening.phase == 'first-base-name') {
+              for (base of game.get_bm().get_bases()) {
+                if (base.id == opening.base_id) { data.action = 'name'; data.base_id = base.id; data.previous_name = base.name + ''; data.name = base.name + ''; }
+              }
+            } else if (opening.phase == 'tour') { data.action = 'dismiss'; }
+            if (data.action != '') { game.event('opening_command', data); acknowledged = opening.phase; }
+          }
+          return true;
+        }
         glsmac.ui.root.on('keydown', (e) => {
           if (e.code != 'P' || e.modifiers != {}) { return false; }
           const owner = game.get_player();
@@ -907,7 +924,13 @@ catch { : (error) => { #print('NORMAL_FACTION_ERROR|' + error.type + '|' + error
   assert.deepEqual(initial.models, [{id: initial.units[0].id, kind: 'conventional', offense: 1, defense: 1, reactor: 1, morale: 'STANDARD'}]);
   const initialProject = profile.technology?.project ?? (profile.faction ? 'COLONY_POD' : 'FORMERS');
   assert.equal(initial.economies[0].choice, initialProject, 'Native startup queues the source-available initial unit');
-  assert.equal(initial.economies[0].minerals, 0, 'The initial project has no seeded mineral credit');
+  const startupLog = await page.locator('#log').textContent();
+  const initialProduction = [...startupLog.matchAll(/NORMAL_PRODUCTION_BOUNDARY\|(\d+)\|1\|\d+\|\d+\|(-?\d+)\|(-?\d+)\|(-?\d+)\|([^|\r\n]*)/g)]
+    .find((entry) => +entry[1] === headquarters.id);
+  assert.ok(initialProduction, 'The real first turn processes the installed Headquarters project');
+  assert.equal(+initialProduction[2], 0, 'The initial project has no seeded mineral credit');
+  assert.equal(+initialProduction[4], +initialProduction[2] + +initialProduction[3], 'Turn one credits actual pending production');
+  assert.equal(initial.economies[0].minerals, +initialProduction[4], 'The visible store matches the committed first-turn boundary');
   assert.equal(initial.startingTechnologies.includes('Ecology'), initialProject === 'FORMERS');
   if (profile.technology) assert.equal(rulesAsset.sourceReads.get(profile.technology.file), 1, 'The modified faction input was hash-verified and loaded once');
   for (const unit of initial.units) {

@@ -212,7 +212,7 @@ struct ProductionFixture : gc::Object {
 		game.m_current_turn.Reset();
 		game.m_game_state = backend::Game::GS_NONE;
 	}
-	void RunNaturalStartup( GSE_CALLABLE ) {
+	void RunNaturalStartup( GSE_CALLABLE, const bool interactive_opening = false ) {
 		if ( game.m_game_state != backend::Game::GS_NONE || !game.m_player ||
 			!game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
 			GSE_ERROR( EC.INVALID_CALL, "Natural startup requires configured participants and an unstarted empty world" );
@@ -224,13 +224,24 @@ struct ProductionFixture : gc::Object {
 		// The map is a declared input, so only rendering/map generation are
 		// supplied. Execute the same native post-map lifecycle as Game::Iterate.
 		game.m_game_state = backend::Game::GS_STARTING;
+		game.m_opening_phase = interactive_opening ? backend::Game::OPENING_PREPARING : backend::Game::OPENING_NONE;
+		game.m_auto_end_turn = interactive_opening; ++game.m_opening_session;
 		state->TriggerObject( &game, "create_world", ARGS_F( this ) { { "game", game.Wrap( GSE_CALL ) } }; } );
 		game.InitComplete( GSE_CALL );
 		if ( !game.IsRunning() ) { GSE_ERROR( EC.INVALID_CALL, "Native natural startup did not reach the running state" ); }
-		game.FirstTurn( GSE_CALL );
+		if ( !interactive_opening ) { game.FirstTurn( GSE_CALL ); }
 		DrainStartupEvents( GSE_CALL );
+		game.UpdateOpening( GSE_CALL );
 		game.CheckTurnComplete();
 		Flush( GSE_CALL );
+	}
+	void OpeningTick( GSE_CALLABLE ) { game.UpdateOpening( GSE_CALL ); DrainStartupEvents( GSE_CALL ); game.UpdateOpening( GSE_CALL ); Flush( GSE_CALL ); }
+	bool OpeningOwnerProbe( GSE_CALLABLE ) {
+		auto* base = game.m_opening_base;
+		if ( !base ) { GSE_ERROR( EC.INVALID_CALL, "Opening owner probe needs a pending Headquarters" ); }
+		auto* original = base->m_owner; base->m_owner = &state->m_slots->GetSlot( 1 );
+		const auto error = game.ValidateOpening( GSE_CALL, 0, game.m_opening_session, "name", base->m_id, base->m_name, "Synthetic New Name" );
+		base->m_owner = original; return !error.empty();
 	}
 	void WithWrite( const std::function< void() >& callback ) { game.WithRW( callback ); }
 	void EnableMovement( GSE_CALLABLE ) {
@@ -1380,7 +1391,25 @@ Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, con
 		return VALUE( value::String,, player->GetDifficultyLevel() );
 	} ), GSE_CALL );
 	object->Set( "start_world", NATIVE_CALL( session ) {
-		N_EXPECT_ARGS( 0 ); session->current->RunNaturalStartup( GSE_CALL );
+		N_EXPECT_ARGS_MAX( 1 ); bool interactive = false; if ( !arguments.empty() ) { N_GETVALUE( requested, 0, Bool ); interactive = requested; }
+		session->current->RunNaturalStartup( GSE_CALL, interactive ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "opening_tick", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); auto& f = *session->current;
+		f.OpeningTick( GSE_CALL );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "first_turn", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->game.FirstTurn( GSE_CALL ); return VALUE( value::Undefined ); } ), GSE_CALL );
+	object->Set( "retire", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->Retire(); return VALUE( value::Undefined ); } ), GSE_CALL );
+	object->Set( "opening_owner_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->OpeningOwnerProbe( GSE_CALL ) );
+	} ), GSE_CALL );
+	// The display acknowledgement completes the actual native movement callback;
+	// publishing its queued unit updates emits the real readiness notification.
+	object->Set( "enable_movement", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->EnableMovement( GSE_CALL ); return VALUE( value::Undefined ); } ), GSE_CALL );
+	object->Set( "finish_unit_move", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( id, 0, Int );
+		session->current->FinishUnitMove( GSE_CALL, id ); session->current->EnableRenderCoordinates(); session->current->game.GetUM()->PushUpdates();
 		return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	return object;
