@@ -178,3 +178,11 @@ terrain, RNG draws, general AI decisions, diplomacy and combat remain outside
 these profiles. The original identity contract also rejects unobserved
 birth/deletion/compaction cases. The separate native exporter regression covers
 movement, detached snapshots, deletion and reused-handle birth identities.
+
+
+The opt-in [presentation observer prototype](presentation-contract.md) captures
+native UI mutations and overlapping audio requests between checkpoints. Raw
+engine events remain diagnostic; the separate `presentation.trace.v1` runner
+supports pre-world menu/intro sessions without inventing map/player state.
+Both pinned presentation cases currently remain unsupported for complete
+semantic coverage. They add no passing original cases.

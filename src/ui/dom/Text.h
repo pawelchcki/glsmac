@@ -18,6 +18,8 @@ class Text : public Drawable {
 public:
 	Text( DOM_ARGS );
 
+	void TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const override;
+
 	void SetText( const std::string& text );
 
 	enum transform_t {

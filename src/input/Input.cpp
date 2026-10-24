@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "PresentationTrace.h"
 
 namespace input {
 
@@ -18,12 +19,21 @@ void Input::RemoveHandler( const void* const owner ) {
 }
 
 const bool Input::ProcessEvent( const Event& event ) {
+	const bool tracing = ui::presentation::Get().LedgerEnabled();
+	ui::presentation::InputDispatchScope scope( tracing ? event.presentation_ingress : 0 );
+	if ( tracing ) {
+		ui::presentation::Event( "input.dispatch", "input", PresentationDispatchData( event, ui::presentation::Get().Action() ) );
+	}
+	const auto finish = [ & ]( const bool handled ) {
+		if ( tracing ) { ui::presentation::Event( "input.dispatch", "input", "{\"phase\":\"end\",\"ingress\":" + std::to_string( event.presentation_ingress ) + ",\"handled\":" + ( handled ? "true" : "false" ) + "}" ); }
+		return handled;
+	};
 	for ( const auto& it : m_input_handlers ) {
 		if ( it.second( event ) ) {
-			return true;
+			return finish( true );
 		}
 	}
-	return false;
+	return finish( false );
 }
 
 }

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "status": "diagnostic-only-not-reference-gold",
+  "original_only_adapters": [
+    "presentation_original_win_debug.py"
+  ],
+  "files": {
+    "presentation-original-capability-v1.json": "bb9300fe9bf0d19f6a901fc49dd836b051760d4e89c67f5c9b0cc428b23681de",
+    "presentation_original_win_debug.py": "2c2a5b60b35484e7b6d477f26d21388a20e2805da146d0cf095328a59e897ca5",
+    "presentation-cases.json": "4ca90feaa1e5c799fa896158e1ff5c4ba7e9b6111ff126ccb32dfb52da1ef7ec"
+  }
+}

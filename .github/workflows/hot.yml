@@ -18,10 +18,14 @@ jobs:
     if: github.repository == 'pawelchcki/wasmsmac' && inputs.engine-artifact == ''
     uses: ./.github/workflows/test-engine.yml
   hot:
-    name: Hot tests
+    name: Hot lane (${{ matrix.kind }})
     needs: [engine]
     if: always() && github.repository == 'pawelchcki/wasmsmac'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [regression, ui]
     steps:
       - uses: actions/checkout@v4
       - name: Require a successful engine producer
@@ -39,10 +43,38 @@ jobs:
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
         run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference -v
+      - name: Test all asset-free presentation invariants
+        working-directory: tools/behavior-tests
+        run: python3 -m unittest discover -p 'test_presentation*.py' -v
+      - name: Test bounded presentation transport without assets
+        run: |
+          node tools/behavior-tests/state_trace/presentation_bridge.test.mjs
+          node tools/behavior-tests/state_trace/presentation_inputs.test.mjs
+          node --test tools/wasm-tests/streaming-worker.test.mjs
       - name: Test FLIC decoding with synthetic assets
         run: python3 tools/texture-tests/run.py
       - name: Replay hot production controls and original comparisons
-        run: python3 tools/behavior-tests/lanes.py --lane hot --jobs 2 --report build/hot-artifacts/hot.json
+        run: python3 tools/behavior-tests/lanes.py --lane hot --kind '${{ matrix.kind }}' --jobs 2 --report build/hot-artifacts/hot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hot-behavior-${{ matrix.kind }}
+          path: build/hot-artifacts
+  complete:
+    name: Hot tests
+    needs: [hot]
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require both hot lanes to succeed
+        env:
+          HOT_LANES_RESULT: ${{ needs.hot.result }}
+        run: test "$HOT_LANES_RESULT" = success
+      - uses: actions/download-artifact@v4
+        if: always()
+        with:
+          pattern: hot-behavior-*
+          path: build/hot-artifacts
       - uses: actions/upload-artifact@v4
         if: always()
         with:

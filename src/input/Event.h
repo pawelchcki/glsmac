@@ -39,6 +39,8 @@ public:
 	} event_data_t;
 
 	event_data_t data = {};
+	// Diagnostic provenance only; never affects input handling.
+	uint64_t presentation_ingress = 0;
 
 	void SetType( const event_type_t type );
 

@@ -2,6 +2,9 @@
 
 #include <atomic>
 #include <algorithm>
+#include "ui/PresentationTrace.h"
+#include "gse/value/Float.h"
+#include "gse/value/Int.h"
 
 #include "Container.h"
 #include "util/String.h"
@@ -32,6 +35,20 @@ namespace dom {
 
 static std::atomic< dom_id_t > s_next_dom_id = 0;
 
+static void TraceProperty( const dom_id_t id, const std::string& key, const gse::Value* value ) {
+	if ( !presentation::Get().Enabled() ) { return; }
+	std::string json;
+	if ( !value || value->type == gse::VT_NULL || value->type == gse::VT_UNDEFINED ) { json = "null"; }
+	else if ( value->type == gse::VT_STRING ) { json = presentation::Quote( ((const gse::value::String*)value)->value ); }
+	else if ( value->type == gse::VT_FLOAT ) { json = presentation::Float( ((const gse::value::Float*)value)->value ); }
+	else if ( value->type == gse::VT_BOOL || value->type == gse::VT_INT ) { json = value->ToString(); }
+	else {
+		PRESENTATION_EVENT( "node.opaque", presentation::Node( id ), "{\"key\":" + presentation::Quote( key ) + ",\"type\":" + presentation::Quote( value->GetTypeString() ) + "}" );
+		return;
+	}
+	PRESENTATION_EVENT( "node.property", presentation::Node( id ), "{\"key\":" + presentation::Quote( key ) + ",\"value\":" + json + "}" );
+}
+
 const gse::value::Object::object_class_t Object::WRAP_CLASS = "Object";
 
 Object::Object( DOM_ARGS_T )
@@ -42,6 +59,9 @@ Object::Object( DOM_ARGS_T )
 	, m_dom_id( ++s_next_dom_id )
 	, m_parent( parent )
 	, m_initial_properties( properties ) {
+	if ( presentation::Get().Enabled() ) {
+		PRESENTATION_EVENT( "node.create", presentation::Node( m_dom_id ), "{\"parent\":" + ( m_parent ? presentation::Quote( presentation::Node( m_parent->m_dom_id ) ) : "null" ) + ",\"tag\":" + presentation::Quote( m_tag ) + "}" );
+	}
 	Property( GSE_CALL, "id", gse::VT_STRING, nullptr, PF_NONE,
 		[ this ]( GSE_CALLABLE, gse::Value* const value ) {
 			m_id = ((gse::value::String*)value)->value;
@@ -279,12 +299,22 @@ void Object::Destroy( GSE_CALLABLE ) {
 		( (geometry::Rectangle*)g )->Clear();
 	}
 	m_is_destroyed = true;
+	PRESENTATION_EVENT( "node.destroy", presentation::Node( m_dom_id ) );
+}
+
+void Object::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || !visited.insert( m_dom_id ).second ) { return; }
+	PRESENTATION_EVENT( "node.create", presentation::Node( m_dom_id ), "{\"parent\":" + ( m_parent ? presentation::Quote( presentation::Node( m_parent->m_dom_id ) ) : "null" ) + ",\"tag\":" + presentation::Quote( m_tag ) + "}" );
+	for ( const auto& property : m_properties ) { TraceProperty( m_dom_id, property.first, property.second ); }
+	for ( const auto modifier : m_modifiers ) { PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"modifier." + std::to_string( modifier ) + "\",\"value\":true}" ); }
+	if ( m_is_visible ) { PRESENTATION_EVENT( "node.show", presentation::Node( m_dom_id ) ); }
 }
 
 void Object::Show() {
 	ASSERT( !m_is_destroyed, "Show: object is destroyed" );
 	if ( !m_is_visible ) {
 		m_is_visible = true;
+		PRESENTATION_EVENT( "node.show", presentation::Node( m_dom_id ) );
 		{
 			std::lock_guard guard( m_actors_mutex );
 			for ( const auto& actor : m_actors ) {
@@ -304,6 +334,7 @@ void Object::Hide() {
 			}
 		}
 		m_is_visible = false;
+		PRESENTATION_EVENT( "node.hide", presentation::Node( m_dom_id ) );
 	}
 }
 
@@ -391,9 +422,14 @@ const bool Object::ProcessEventImpl( GSE_CALLABLE, const input::Event& event ) {
 	return false;
 }
 
+void Object::TraceStoredProperty( const std::string& key, const gse::Value* value ) const {
+	TraceProperty( m_dom_id, key, value );
+}
+
 void Object::UpdateProperty( const std::string& k, gse::Value* const v ) {
 	ASSERT( !m_is_destroyed, "UpdateProperty: object is destroyed" );
 	m_properties.insert_or_assign( k, v );
+	TraceProperty( m_dom_id, k, v );
 	if ( m_wrapobj ) {
 		m_wrapobj->Assign( k, v );
 	}
@@ -610,6 +646,7 @@ void Object::WrapEvent( GSE_CALLABLE, const input::Event& e, gse::value::object_
 void Object::AddModifier( GSE_CALLABLE, const class_modifier_t modifier ) {
 	if ( !m_is_destroyed && m_modifiers.find( modifier ) == m_modifiers.end() ) {
 		m_modifiers.insert( modifier );
+		PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"modifier." + std::to_string( modifier ) + "\",\"value\":true}" );
 		for ( const auto& c : m_classes ) {
 			c->AddObjectModifier( GSE_CALL, this, modifier );
 		}
@@ -619,6 +656,7 @@ void Object::AddModifier( GSE_CALLABLE, const class_modifier_t modifier ) {
 void Object::RemoveModifier( GSE_CALLABLE , const class_modifier_t modifier ) {
 	if ( !m_is_destroyed && m_modifiers.find( modifier ) != m_modifiers.end() ) {
 		m_modifiers.erase( modifier );
+		PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"modifier." + std::to_string( modifier ) + "\",\"value\":false}" );
 		for ( const auto& c : m_classes ) {
 			c->RemoveObjectModifier( GSE_CALL, this, modifier );
 		}
@@ -727,6 +765,7 @@ void Object::SetProperty( GSE_CALLABLE, properties_t* const properties, const st
 	else {
 		if ( ( ( it->second == nullptr ) != ( value == nullptr ) ) || ( value && ( *it->second != *value ) ) ) {
 			it->second = value;
+			if ( properties == &m_properties ) { TraceProperty( m_dom_id, key, value ); }
 			if ( m_is_initialized && properties == &m_properties ) {
 				OnPropertyChange( GSE_CALL, key, value );
 			}
@@ -750,6 +789,7 @@ void Object::UnsetProperty( GSE_CALLABLE, properties_t* const properties, const 
 		}
 		properties->erase( it );
 		if ( properties == &m_properties ) {
+			PRESENTATION_EVENT( "node.unset", presentation::Node( m_dom_id ), "{\"key\":" + presentation::Quote( key ) + "}" );
 			if ( m_wrapobj ) {
 				m_wrapobj->Assign( key, nullptr );
 			}

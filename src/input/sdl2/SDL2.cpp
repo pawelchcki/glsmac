@@ -1,4 +1,5 @@
 #include "SDL2.h"
+#include "ui/PresentationTrace.h"
 
 #include "engine/Engine.h"
 #include "graphics/Graphics.h"
@@ -30,6 +31,17 @@ int filter( void* userdata, SDL_Event* event ) {
 		case SDL_WINDOWEVENT:
 			return 1;
 		default:
+			if ( ui::presentation::Get().LedgerEnabled() ) {
+				std::string data = "{\"sdl_type\":" + std::to_string( event->type );
+#if SDL_VERSION_ATLEAST( 2, 0, 22 )
+				if ( event->type == SDL_POLLSENTINEL ) { data += ",\"classification\":\"poll-sentinel\""; }
+				else
+#endif
+				{ data += ",\"classification\":\"unrecognized\""; }
+				if ( event->type == SDL_TEXTINPUT ) { data += ",\"text\":" + ui::presentation::Quote( event->text.text ); }
+				if ( event->type == SDL_TEXTEDITING ) { data += ",\"text\":" + ui::presentation::Quote( event->edit.text ) + ",\"start\":" + std::to_string( event->edit.start ) + ",\"length\":" + std::to_string( event->edit.length ); }
+				ui::presentation::Event( "input.filtered", "input", data + "}" );
+			}
 			return 0;
 	}
 }
@@ -53,6 +65,25 @@ void SDL2::Iterate() {
 
 	while ( SDL_PollEvent( &event ) ) {
 		e.SetType( EV_NONE );
+		e.presentation_ingress = 0;
+		if ( ui::presentation::Get().LedgerEnabled() ) {
+			e.presentation_ingress = ui::presentation::Get().NextIngress();
+			std::string data = "{\"ingress\":" + std::to_string( e.presentation_ingress ) + ",\"sdl_type\":" + std::to_string( event.type ) + ",\"action\":" + std::to_string( ui::presentation::Get().Action() );
+			switch ( event.type ) {
+				case SDL_KEYDOWN: case SDL_KEYUP:
+					data += ",\"type\":" + ui::presentation::Quote( event.type == SDL_KEYDOWN ? "keydown" : "keyup" ) + ",\"keycode\":" + std::to_string( event.key.keysym.sym ) + ",\"scancode\":" + std::to_string( event.key.keysym.scancode ) + ",\"modifiers\":" + std::to_string( event.key.keysym.mod ) + ",\"repeat\":" + std::to_string( event.key.repeat ); break;
+				case SDL_MOUSEMOTION:
+					data += ",\"type\":\"mousemove\",\"x\":" + std::to_string( event.motion.x ) + ",\"y\":" + std::to_string( event.motion.y ); break;
+				case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
+					data += ",\"type\":" + ui::presentation::Quote( event.type == SDL_MOUSEBUTTONDOWN ? "mousedown" : "mouseup" ) + ",\"x\":" + std::to_string( event.button.x ) + ",\"y\":" + std::to_string( event.button.y ) + ",\"button\":" + std::to_string( event.button.button ); break;
+				case SDL_MOUSEWHEEL:
+					data += ",\"type\":\"wheel\",\"scroll_y\":" + std::to_string( event.wheel.y ); break;
+				case SDL_WINDOWEVENT:
+					data += ",\"type\":\"window\",\"subtype\":" + std::to_string( event.window.event ) + ",\"data1\":" + std::to_string( event.window.data1 ) + ",\"data2\":" + std::to_string( event.window.data2 ); break;
+				default: data += ",\"type\":\"unrecognized\"";
+			}
+			ui::presentation::Event( "input.ingress", "input", data + "}" );
+		}
 		switch ( event.type ) {
 			case SDL_QUIT: {
 				g_engine->ShutDown();
@@ -69,6 +100,8 @@ void SDL2::Iterate() {
 					event.motion.x,
 					event.motion.y
 				};
+				if ( e_mouse_move.presentation_ingress ) { ui::presentation::Event( "input.disposition", "input", "{\"ingress\":" + std::to_string( e_mouse_move.presentation_ingress ) + ",\"status\":\"coalesced\",\"replaced_by\":" + std::to_string( e.presentation_ingress ) + "}" ); }
+				e_mouse_move.presentation_ingress = e.presentation_ingress;
 				e_mouse_move.SetType( EV_MOUSE_MOVE );
 				e_mouse_move.data.mouse.x = event.motion.x;
 				e_mouse_move.data.mouse.y = event.motion.y;
@@ -148,11 +181,14 @@ void SDL2::Iterate() {
 
 		if ( e.type != EV_NONE ) {
 			ProcessEvent( e );
+		} else if ( e.presentation_ingress && event.type != SDL_MOUSEMOTION ) {
+			ui::presentation::Event( "input.disposition", "input", "{\"ingress\":" + std::to_string( e.presentation_ingress ) + ",\"status\":\"not-dispatched\"}" );
 		}
 	}
 	if ( e_mouse_move.type != EV_NONE ) {
 		ProcessEvent( e_mouse_move );
 	}
+	ui::presentation::Get().InputBarrier();
 }
 
 const std::string SDL2::GetClipboardText() const {
