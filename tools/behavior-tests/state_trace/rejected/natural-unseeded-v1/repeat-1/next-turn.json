@@ -1,0 +1,301 @@
+{
+  "turn": 2,
+  "map": {
+    "width": 40,
+    "height": 80
+  },
+  "players": [
+    {
+      "id": 1,
+      "is_human": true,
+      "identity": {
+        "leader_name": "Deirdre",
+        "formal_name": "Gaia's Stepdaughters",
+        "noun": "Gaians",
+        "adjective": "Gaian",
+        "leader_title": "Lady",
+        "leader_description": "beautiful"
+      },
+      "owned_tech_ids": [
+        6
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 2,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Yang",
+        "formal_name": "Human Hive",
+        "noun": "Hive",
+        "adjective": "Hive",
+        "leader_title": "Chairman",
+        "leader_description": "ruthless"
+      },
+      "owned_tech_ids": [
+        43
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 3,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Zakharov",
+        "formal_name": "University of Planet",
+        "noun": "University",
+        "adjective": "University",
+        "leader_title": "Provost",
+        "leader_description": "brilliant"
+      },
+      "owned_tech_ids": [
+        0,
+        2
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 4,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Morgan",
+        "formal_name": "Morgan Industries",
+        "noun": "Morganites",
+        "adjective": "Morganic",
+        "leader_title": "CEO",
+        "leader_description": "shrewd"
+      },
+      "owned_tech_ids": [
+        1
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 5,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Santiago",
+        "formal_name": "Spartan Federation",
+        "noun": "Spartans",
+        "adjective": "Spartan",
+        "leader_title": "Colonel",
+        "leader_description": "vigilant"
+      },
+      "owned_tech_ids": [
+        5
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 6,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Miriam",
+        "formal_name": "The Lord's Believers",
+        "noun": "Believers",
+        "adjective": "Believing",
+        "leader_title": "Sister",
+        "leader_description": "pious"
+      },
+      "owned_tech_ids": [
+        4
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    },
+    {
+      "id": 7,
+      "is_human": false,
+      "identity": {
+        "leader_name": "Lal",
+        "formal_name": "Peacekeeping Forces",
+        "noun": "Peacekeepers",
+        "adjective": "Peacekeeper",
+        "leader_title": "Brother",
+        "leader_description": "humane"
+      },
+      "owned_tech_ids": [
+        0
+      ],
+      "research_target": -1,
+      "research_accumulated": 0
+    }
+  ],
+  "units": [
+    {
+      "runtime_id": 0,
+      "owner": 1,
+      "x": 14,
+      "y": 44,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 2,
+      "movement_spent": 0,
+      "work": 0
+    },
+    {
+      "runtime_id": 1,
+      "owner": 2,
+      "x": 33,
+      "y": 11,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 3,
+      "work": 0
+    },
+    {
+      "runtime_id": 2,
+      "owner": 3,
+      "x": 23,
+      "y": 25,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 3,
+      "work": 0
+    },
+    {
+      "runtime_id": 3,
+      "owner": 4,
+      "x": 34,
+      "y": 48,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 3,
+      "work": 0
+    },
+    {
+      "runtime_id": 4,
+      "owner": 5,
+      "x": 7,
+      "y": 59,
+      "prototype_id": 320,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 6,
+      "work": 0
+    },
+    {
+      "runtime_id": 5,
+      "owner": 6,
+      "x": 24,
+      "y": 58,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 3,
+      "work": 0
+    },
+    {
+      "runtime_id": 6,
+      "owner": 7,
+      "x": 17,
+      "y": 75,
+      "prototype_id": 2,
+      "damage": 0,
+      "order_code": 0,
+      "movement_spent": 3,
+      "work": 0
+    }
+  ],
+  "bases": [
+    {
+      "runtime_id": 0,
+      "owner": 1,
+      "x": 14,
+      "y": 44,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 10,
+      "project_id": 1
+    },
+    {
+      "runtime_id": 1,
+      "owner": 2,
+      "x": 31,
+      "y": 11,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    },
+    {
+      "runtime_id": 2,
+      "owner": 3,
+      "x": 21,
+      "y": 25,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    },
+    {
+      "runtime_id": 3,
+      "owner": 4,
+      "x": 32,
+      "y": 48,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    },
+    {
+      "runtime_id": 4,
+      "owner": 5,
+      "x": 4,
+      "y": 60,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    },
+    {
+      "runtime_id": 5,
+      "owner": 6,
+      "x": 22,
+      "y": 58,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    },
+    {
+      "runtime_id": 6,
+      "owner": 7,
+      "x": 15,
+      "y": 75,
+      "population": 1,
+      "workers": 0,
+      "specialists": 1,
+      "worked_mask": 1,
+      "raw_nutrients": 0,
+      "raw_minerals": 6,
+      "project_id": 0
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "rejected-nondeterministic",
+  "accepted_reference": false,
+  "input_sha256": "d333ae8758184f96dd12dbed9996a02fcc121dc4f789b6e4165e1e5a089d2ebd",
+  "reason": "Full all-player initial and next-turn positions differed between fresh original processes. No fields removed or answers edited.",
+  "files": {
+    "repeat-1/first-city.json": "4c018347ef57b04cac5d679adcd50a0e0c2f7e5441964a3ca2be75a04aad9fe0",
+    "repeat-1/held-human-units.json": "cf9d2156e1957186b275f3705a2e1489fa0464f3325a7a2cdc81ef008e11e45b",
+    "repeat-1/next-turn.json": "663d72b3bf0c16a603beba52d1f6a541d3be9672d075373525fe56619cfbbcdb",
+    "repeat-1/metadata.json": "64870de192d2625cd0cb12431fa13f6ec54aff52a3afbe2e1c4e0d7ee5d8cd70",
+    "repeat-2/first-city.json": "49be66552964991d27b2cb2a7a1193578af7d126d8fb0c5a10ffa4b71b48b391",
+    "repeat-2/held-human-units.json": "9a7feed36d51ac962fae58dd4c8d72f5f1ff362b10cc97a2bfa2a0920f57240f",
+    "repeat-2/next-turn.json": "ebc19518640e4e354237755f6246d0dda28edb7e3b10deefe5e70c2c4a3fde9a",
+    "repeat-2/metadata.json": "64870de192d2625cd0cb12431fa13f6ec54aff52a3afbe2e1c4e0d7ee5d8cd70"
+  }
+}

@@ -6,6 +6,15 @@ locally supplied original executable. The candidate runner calls production
 GLSMAC code. Only synthetic inputs, observed outputs, build fingerprints and
 test infrastructure belong in this directory.
 
+The [state-trace harness](state_trace/README.md) compares ordered scenario
+checkpoints across the complete player roster and every native unit and city,
+including foreign and hidden entities. It reports the first differing
+checkpoint and field, keeps immutable original evidence separate from candidate
+execution, and rejects missing coverage. Candidate scenarios collect multiple
+checkpoints in one WASM launch without relinking scripts. The exporter has a
+separate native regression with two actual players; that invariant test is
+distinct from original-game agreement and from natural startup gaps.
+
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
@@ -48,10 +57,10 @@ rewrites the original observations. Run the hot gate once the focused checks pas
 The npm hot/stable commands default to two workers; use `--jobs 1` explicitly
 when investigating isolation or collecting a serial baseline.
 
-Hot contains 31 regression suites around directed science and Laboratories, research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
+Hot contains 32 regression suites around complete state observation, directed science and Laboratories, research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(291 scenarios/2,080 assertions). Original UI replay includes ten hot references with 43 recorded
+(292 scenarios/2,091 assertions). Original UI replay includes ten hot references with 43 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 22 current helper references.
 These are bounded catalogs, not a full-game
@@ -60,7 +69,7 @@ the latest main stable result. Required-check policy is configured separately.
 
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
-and keyboard controls stay hot. The combined partition retains all 142 native
+and keyboard controls stay hot. The combined partition retains all 143 native
 suites and 59 UI references (754 recorded cases), with five pending references/22
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,

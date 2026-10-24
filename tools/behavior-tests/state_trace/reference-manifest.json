@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "status": "accepted-original-repeat2",
+  "candidate_executed": false,
+  "records": [
+    {
+      "suite": "natural-startup",
+      "repeat": 2,
+      "checkpoints": 3,
+      "case_sha256": "fd8876964fbb3f05dc85cce665cb47c7aa4a664cf49ab8a7ee1d93506045f26d",
+      "observation_sha256": "dba70ad978aba3b24c92d52554bd7db8fcb5dec6319ae08f2d5bbd11e6a6b7d3",
+      "adapter_fingerprint": "b9a1bb65fc3e1c9000f33b4a68e176ecf5a1020dbfbd7a4f08b0df2785903558"
+    },
+    {
+      "suite": "natural-startup-economy-research",
+      "repeat": 2,
+      "checkpoints": 3,
+      "case_sha256": "c477fe251a50e091b369fdd9ee18a6e1c5f9a70872a31db1f39f15d4361b0bda",
+      "observation_sha256": "d57ceceb13cd15105cafc90a2fafb25bb32a290c6b171d7d1ef6278d9ccdb959",
+      "adapter_fingerprint": "b9a1bb65fc3e1c9000f33b4a68e176ecf5a1020dbfbd7a4f08b0df2785903558"
+    }
+  ],
+  "original_only_adapters": [
+    "original.py",
+    "seed_control_win.py"
+  ],
+  "files": {
+    "cases/natural-startup-economy-research.json": "114a5d9699bc7963f26ba5541f6422dd0395514f0fbbd2e848489e2dacf0f44b",
+    "cases/natural-startup.json": "ecfd71c8074cbc384546df4e3fb101ae716e15e7c8234b35d11fc04254517f43",
+    "observations/smacx-gog-2.0-natural-startup-economy-research.json": "d57ceceb13cd15105cafc90a2fafb25bb32a290c6b171d7d1ef6278d9ccdb959",
+    "observations/smacx-gog-2.0-natural-startup.json": "dba70ad978aba3b24c92d52554bd7db8fcb5dec6319ae08f2d5bbd11e6a6b7d3",
+    "original.py": "655765074dd13a99634d4f1ca9b2130dff0743e4eea558cbf5c8ca07b349f955",
+    "reference-profile-contract.md": "78f2d16939d4c7db9c52ad266fee0a598a584e88b4134d567e700c5fc6bfe1f2",
+    "rejected/natural-unseeded-v1/README.md": "afd667cba0216feeeeab4a1bb7725dc078c57e3d5c60ebd5192c9dead6cf2f01",
+    "rejected/natural-unseeded-v1/input.json": "d333ae8758184f96dd12dbed9996a02fcc121dc4f789b6e4165e1e5a089d2ebd",
+    "rejected/natural-unseeded-v1/manifest.json": "66ec1cfc04fa29b620efc3f623de826082457d4a73896f77be30bf72590685cc",
+    "rejected/natural-unseeded-v1/repeat-1/first-city.json": "4c018347ef57b04cac5d679adcd50a0e0c2f7e5441964a3ca2be75a04aad9fe0",
+    "rejected/natural-unseeded-v1/repeat-1/held-human-units.json": "cf9d2156e1957186b275f3705a2e1489fa0464f3325a7a2cdc81ef008e11e45b",
+    "rejected/natural-unseeded-v1/repeat-1/metadata.json": "64870de192d2625cd0cb12431fa13f6ec54aff52a3afbe2e1c4e0d7ee5d8cd70",
+    "rejected/natural-unseeded-v1/repeat-1/next-turn.json": "663d72b3bf0c16a603beba52d1f6a541d3be9672d075373525fe56619cfbbcdb",
+    "rejected/natural-unseeded-v1/repeat-2/first-city.json": "49be66552964991d27b2cb2a7a1193578af7d126d8fb0c5a10ffa4b71b48b391",
+    "rejected/natural-unseeded-v1/repeat-2/held-human-units.json": "9a7feed36d51ac962fae58dd4c8d72f5f1ff362b10cc97a2bfa2a0920f57240f",
+    "rejected/natural-unseeded-v1/repeat-2/metadata.json": "64870de192d2625cd0cb12431fa13f6ec54aff52a3afbe2e1c4e0d7ee5d8cd70",
+    "rejected/natural-unseeded-v1/repeat-2/next-turn.json": "ebc19518640e4e354237755f6246d0dda28edb7e3b10deefe5e70c2c4a3fde9a",
+    "seed_control_win.py": "26afe01d6bf3a2a6c51a7607c3013b682e41b55c004f8303c5bad509e76a1069"
+  }
+}

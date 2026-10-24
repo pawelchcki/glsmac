@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "natural-gaian-citizen-flat40x80-economy-research",
+      "algorithm": "game.state_trace.v1",
+      "input": {
+        "fixture": {
+          "kind": "natural-startup",
+          "width": 40,
+          "height": 80,
+          "terrain": "flat-arid",
+          "faction": "GAIANS",
+          "difficulty": "Citizen",
+          "reference_rng_seed": 1,
+          "profile": "economy-research-v1"
+        },
+        "actions": [
+          {
+            "id": "first-city",
+            "kind": "snapshot"
+          },
+          {
+            "id": "held-human-units",
+            "kind": "hold-all-ready-human-units"
+          },
+          {
+            "id": "next-turn",
+            "kind": "end-turn"
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "first-city",
+            "after_action": "first-city"
+          },
+          {
+            "id": "held-human-units",
+            "after_action": "held-human-units"
+          },
+          {
+            "id": "next-turn",
+            "after_action": "next-turn"
+          }
+        ]
+      }
+    }
+  ]
+}
