@@ -473,6 +473,14 @@ WRAPIMPL_BEGIN( BaseManager )
 
 				N_GETVALUE( info, 2, Object );
 				N_GETPROP_OPT( std::string, name, info, "name", String, "" );
+				ProductionState initial_production;
+				if ( info.find( "initial_production" ) != info.end() ) {
+					N_GETPROP( plan, info, "initial_production", Object );
+					if ( plan.size() != 2 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Initial production requires choice_id and minerals" ); }
+					N_GETPROP( choice, plan, "choice_id", String ); N_GETPROP( minerals, plan, "minerals", Int );
+					initial_production = { choice, minerals, 0 };
+					Base::ValidateInitialProduction( GSE_CALL, m_game, owner, initial_production );
+				}
 
 				std::map< std::string, const FacilityDef* > facilities = {};
 				{
@@ -509,6 +517,7 @@ WRAPIMPL_BEGIN( BaseManager )
 					{}
 				);
 
+				base->m_production = initial_production;
 				SpawnBase( GSE_CALL, base );
 
 				return base->Wrap( GSE_CALL );

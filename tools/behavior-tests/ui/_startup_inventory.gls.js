@@ -30,7 +30,7 @@ for (input of faction_inputs) {
 	const game = {};
 	// An explicit player boundary avoids storing native wrapper references in
 	// a GSE-created array. Event payloads resolve it back to the actual owner.
-	const owner = { id: f.owner.id, get_faction: () => { return f.owner.get_faction(); } };
+	const owner = { id: f.owner.id, is_master: false, get_faction: () => { return f.owner.get_faction(); } };
 	const players = []; players :+ owner;
 	game.get_players = () => { return players; };
 	game.get_tm = () => { return f.game.tm; };

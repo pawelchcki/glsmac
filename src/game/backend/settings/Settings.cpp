@@ -23,6 +23,9 @@ WRAPMAP( type, MapSettings::type_t,
 )
 
 WRAPIMPL_DYNAMIC_GETTERS( MapSettings )
+			{ "get_rule_size_kind", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 0 ); return VALUE( gse::value::Int,, GetRuleSizeKind() );
+			} ) },
 			WRAPIMPL_GET_MAPPED( type )
 			WRAPIMPL_GET_PTR( "filename", filename )
 			WRAPIMPL_GET_PTR( "size_x", size_x )

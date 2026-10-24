@@ -26,7 +26,8 @@ return (f, declared_sources, declared_factions) => {
 		const resources = #include('../default/resources');
 		resources.configure(game, #include('../default/game/land_resource_rules').parse(#include('./_land_resource_rules_fixture')('default')));
 		resources.define(game);
-		const rules = #include('./_startup_unit_rules_fixture').parse();
+		if (#is_defined(sources.mineral_rule_factor)) { game.get_settings().global.rules.set_mineral_cost_factor(sources.mineral_rule_factor); }
+		const rules = #include('./_startup_unit_rules_fixture').parse(sources.former_rows);
 		game.set('starting_unit_rules', #include('../default/game/unit_rules').materialize(game.um, rules));
 		#include('../default/units/defs').define(game, rules);
 		game.on('create_world', (world) => { #include('../default/game/world/default')(world.game); });

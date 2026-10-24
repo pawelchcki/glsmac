@@ -40,7 +40,7 @@ bool HasDeclaredMineralCost( const Game* game, const Player* player, const int64
 	const auto role = player->GetRole();
 	if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return false; }
 	const auto& map = game->GetState()->m_settings.global.map;
-	return map.HasKnownSizeKind();
+	return settings::MapSettings::IsKnownSizeKind( map.GetRuleSizeKind() );
 }
 
 int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64_t fallback, const int64_t rows ) {
@@ -49,7 +49,7 @@ int64_t DeclaredMineralCost( const Game* game, const Player* player, const int64
 	// Initial faction ratings are source data; later social policy effects remain
 	// outside this bounded no-base factor. Item rows are declared separately.
 	const auto* faction = player->GetFaction();
-	const auto factor = HumanMineralFactor( settings.map.preset_level, int( settings.rules.GetMineralCostFactor() ), faction ? faction->m_industry : 0 );
+	const auto factor = HumanMineralFactor( settings.map.GetRuleSizeKind(), int( settings.rules.GetMineralCostFactor() ), faction ? faction->m_industry : 0 );
 	if ( factor > 0 && rows > std::numeric_limits< int64_t >::max() / factor ) {
 		throw std::overflow_error( "Declared mineral price overflow" );
 	}

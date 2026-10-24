@@ -143,7 +143,12 @@
     {"id":"native-input-state","script":"GLSMAC_data/tests/native_input_state.gls.js","domains":["ui","ux"],"evidence":"glsmac-regression"},
     {"id":"base-rename","script":"GLSMAC_data/tests/base_rename.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"world-single-player-setup","script":"GLSMAC_data/tests/world_single_player_setup.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
-    {"id":"natural-first-city-lifecycle","script":"GLSMAC_data/tests/natural_first_city_lifecycle.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
+    {"id":"natural-first-city-lifecycle","script":"GLSMAC_data/tests/natural_first_city_lifecycle.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"startup-production","script":"GLSMAC_data/tests/startup_production.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"startup-production-profiles","script":"GLSMAC_data/tests/startup_production_profiles.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"startup-production-source-profiles","script":"GLSMAC_data/tests/startup_production_source_profiles.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"startup-production-epoch","script":"GLSMAC_data/tests/startup_production_epoch.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"startup-production-zero-credit","script":"GLSMAC_data/tests/startup_production_zero_credit.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"human-research-cost-blind-validation","cases":"cases/human-research-cost-blind-validation.json","observations":"observations/human-research-cost-blind-validation.json"},

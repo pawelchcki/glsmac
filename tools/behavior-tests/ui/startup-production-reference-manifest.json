@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "status": "accepted-original-repeat2; integrity-only, candidate results separate",
+  "reference_kind": "original-executable",
+  "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+  "case_count": 8,
+  "repeat": 2,
+  "files": {
+    "cases/initial-production-controls-core.json": "c66cc1abdc7d21abd9d48e110abafe6281e2ccf28587bacb5d4266dc49d25f50",
+    "cases/initial-production-controls-source.json": "918e977a6c0d385eee76e2312f2a131a5e4ad3c9f97c11c2b53b0d77d28a3266",
+    "observations/initial-production-controls-core.json": "2922cebf9417b7ae4b013b86c6a81a7d6053ab1f28c3b0f8bda9a95e3f4a2032",
+    "observations/initial-production-controls-source.json": "1036ddefbcb14f98313f4eee7209f095c720a410775d2ca6e9588e9594eb78b8",
+    "initial-production-controls-contract.md": "f51f1699fe8a6094ae8bfae72258eb0ea87f6d17b69fe1d63be8378a0a1a9305",
+    "original-pricing-size-source-contract.md": "8a03fb69a63eb4012551b110b324df3ff69bb6312611b67193e3e9c07f78e9a7",
+    "reference-archives/initial-production-controls-v2/README.md": "48ca3cbc78c46bc38884ec89bb96955872f9763b768ceedf61c8939e0c616cbb",
+    "reference-archives/initial-production-controls-v2/core-run-a.json": "4609bbec07de0ead9d8feb5c599dcce9d34f0e55a138287dce17b5b998dbf229",
+    "reference-archives/initial-production-controls-v2/core-run-b.json": "86cc9cb2d8e78f9f8e28ed816b077fc82fd429ec0631bd404f04ac037f98b141",
+    "reference-archives/initial-production-controls-v2/source-run-a.json": "61d5a1de8b5e88d1715474d35f3ee02224a7d27c7f29beea059c7704a0f5059f",
+    "reference-archives/initial-production-controls-v2/source-run-b.json": "cb57f1b405d2667aaa9e67661b5260d5421c1b8c997550656a239083bf7f575b"
+  },
+  "boundary": "Only clean contracts, inputs, recorded observations and complete original contexts copied; original adapters stay opaque in preserved worktree"
+}

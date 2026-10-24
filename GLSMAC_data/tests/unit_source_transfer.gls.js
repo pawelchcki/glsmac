@@ -49,7 +49,7 @@ const install = (input) => {
 			f.game.bm.despawn_base(f.base);
 			for (id of ['HEADQUARTERS', 'RECYCLING_TANKS', 'STOCKPILE_ENERGY']) { f.owner.remove_production_choice(id); }
 		});
-		const owner = {id: f.owner.id, get_faction: () => { return f.owner.get_faction(); }};
+		const owner = {id: f.owner.id, is_master: false, get_faction: () => { return f.owner.get_faction(); }};
 		const players = []; players :+ owner;
 		const world = {get_players: () => { return players; }, get_tm: () => { return f.game.tm; },
 			get: (key) => { return f.game.get(key); }, random: {get_int: (low, high) => { return low; }}};

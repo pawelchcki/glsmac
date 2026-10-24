@@ -24,6 +24,7 @@ namespace game {
 namespace backend {
 
 class Game;
+class Player;
 namespace slot {
 class Slot;
 }
@@ -63,6 +64,7 @@ public:
 
 	const Game* const GetGame() const;
 	const ProductionState& GetProductionState() const { return m_production; }
+	static void ValidateInitialProduction( GSE_CALLABLE, Game* game, Player* player, const ProductionState& state );
 	int64_t GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_id ) const;
 	ProductionState SelectProduction( GSE_CALLABLE, const std::string& choice_id );
 	struct ProductionResult { ProductionState previous; std::string added_facility; int64_t unit_receipt = 0; };

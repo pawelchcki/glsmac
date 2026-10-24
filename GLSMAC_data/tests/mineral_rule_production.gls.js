@@ -106,13 +106,13 @@ behavior.scenario('authoritative receiving rules change the completion threshold
 	test.assert(f.base.has_facility('RECYCLING_TANKS') && f.base.get_production().minerals == 11);
 });
 
-behavior.scenario('unknown imported unmodeled and undeclared prices retain explicit fallbacks', () => {
+behavior.scenario('unknown unmodeled and undeclared prices retain explicit fallbacks; Load Map has input zero', () => {
 	const f = fixture(2, 11);
 	f.game.get_settings().global.map.preset_level = (0 - 1);
 	test.assert(choice(f, 'RECYCLING_TANKS').cost == 32 && choice(f, 'COLONY_POD').cost == 30);
 	f.game.get_settings().global.map.preset_level = 2;
 	f.game.get_settings().global.map.type = 'mapfile';
-	test.assert(choice(f, 'RECYCLING_TANKS').cost == 32 && choice(f, 'COLONY_POD').cost == 30);
+	test.assert(choice(f, 'RECYCLING_TANKS').cost == 32 && choice(f, 'COLONY_POD').cost == 24);
 	const other = fixture(2, 11); other.set_owner_role('none');
 	test.assert(choice(other, 'RECYCLING_TANKS').cost == 32 && choice(other, 'COLONY_POD').cost == 30);
 	const plain = fixture(2, 11);

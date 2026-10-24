@@ -37,7 +37,8 @@ return {
 			const c = find(chassis, 0, field(row, 1)); const w = find(weapons, 1, field(row, 2));
 			const a = find(armors, 1, field(row, 3)); const name = field(row, 0); const prerequisite = field(row, 7);
 			if (name == '' || prerequisite == '' || field(row, 9) != '00000000000000000000000000') { throw Error('Unsupported SMAC basic unit declaration'); }
-			integer(row, 5, 0, 0); integer(row, 6, 0, 0); integer(row, 8, (0 - 1), (0 - 1));
+			const declared_rows = integer(row, 5, 0, 100);
+			integer(row, 6, 0, 0); integer(row, 8, (0 - 1), (0 - 1));
 			integer(c, 9, 0, 0); // land triad
 			const mode = integer(w, 3, 0, 14);
 			if (mode != entry.mode) { throw Error('SMAC basic unit weapon role changed'); }
@@ -45,6 +46,7 @@ return {
 			if ((mode == 0 && offense == 0) || (mode != 0 && offense != 0)) { throw Error('Invalid SMAC basic unit offense'); }
 			definitions :+ {
 				id: entry.id, choice: entry.choice, name: name, prerequisite: prerequisite, population: entry.population,
+				declared_rows: declared_rows,
 				movement: integer(c, 8, 1, 8), chassis_cost: integer(c, 12, 1, 32),
 				weapon_mode: mode, weapon_cost: integer(w, 4, 1, 32), armor_cost: integer(a, 4, 1, 32),
 				combat: {kind: mode == 0 ? 'conventional' : 'civilian', offense: offense, defense: defense, reactor: 1},
@@ -64,7 +66,7 @@ return {
 		const result = [];
 		for (entry of rules.definitions) {
 			const row = #clone(entry);
-			row.rows = um.get_prototype_base_cost(entry.chassis_cost, 0, false, entry.combat.offense,
+			row.rows = entry.declared_rows > 0 ? entry.declared_rows : um.get_prototype_base_cost(entry.chassis_cost, 0, false, entry.combat.offense,
 				entry.weapon_mode, entry.weapon_cost, entry.armor_cost, entry.combat.reactor);
 			result :+ row;
 		}

@@ -47,6 +47,9 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 	static constexpr int64_t CUSTOM_SIZE = 99;
 	static bool IsKnownSizeKind( const int64_t kind ) { return ( kind >= 0 && kind <= 4 ) || kind == CUSTOM_SIZE; }
 	bool HasKnownSizeKind() const { return ( type == MT_RANDOM || type == MT_CUSTOM ) && IsKnownSizeKind( preset_level ); }
+	// The observed Load Map route resets the original factor input to zero,
+	// independently of physical dimensions and any preceding selected preset.
+	int64_t GetRuleSizeKind() const { return type == MT_MAPFILE ? 0 : ( HasKnownSizeKind() ? preset_level : -1 ); }
 	int64_t preset_level = -1;
 
 	/*
