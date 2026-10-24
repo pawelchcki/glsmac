@@ -41,6 +41,8 @@ CLASS( Sound, Actor )
 
 private:
 	const types::Sound* m_sound = nullptr;
+	const uint64_t m_presentation_id;
+	uint64_t m_presentation_epoch = 0;
 
 	bool m_is_repeatable = false;
 	bool m_is_muted = false;

@@ -1,4 +1,5 @@
 #include "Text.h"
+#include "ui/PresentationTrace.h"
 
 #include "Container.h"
 #include "ui/UI.h"
@@ -110,6 +111,12 @@ Text::Text( DOM_ARGS )
 Text::~Text() {
 }
 
+void Text::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || visited.count( m_dom_id ) ) { return; }
+	Object::TraceSnapshot( visited );
+	PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"rendered_text\",\"value\":" + presentation::Quote( m_text ) + "}" );
+}
+
 void Text::SetText( const std::string& text ) {
 	if ( m_geometry->IsDestroying() ) {
 		return;
@@ -129,6 +136,7 @@ void Text::SetText( const std::string& text ) {
 	}
 	if ( transformed_text != m_text ) {
 		m_text = transformed_text;
+		PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"rendered_text\",\"value\":" + presentation::Quote( m_text ) + "}" );
 		m_actor->SetText( m_text );
 		m_geometry->SetWidth( m_actor->GetWidth() );
 		m_geometry->SetHeight( m_actor->GetHeight() );

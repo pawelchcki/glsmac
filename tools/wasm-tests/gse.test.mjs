@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import {runStreamingWorker} from './streaming-worker.mjs';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,14 +21,14 @@ console.log(`Full GSE source SHA-256: ${partition.source_sha256}; partition ${pa
 // Every process includes native engine tests and its declared script partition.
 // Without --shard this retains the complete serial run. Keep the existing
 // process limit; CI coverage aggregation requires all disjoint partitions.
-const result = spawnSync(process.execPath, [
+const result = await runStreamingWorker(process.execPath, [
   fileURLToPath(new URL('gse-full-worker.cjs', import.meta.url)),
-], {cwd: root, encoding: 'utf8', timeout: 1200000, maxBuffer: 10 * 1024 * 1024,
+], {cwd: root, timeout: 1200000, maxBuffer: 10 * 1024 * 1024,
   input: JSON.stringify({runtime, snapshot:partition.mounted, prefix: `/tmp/glsmac-full-gse-${partition.index}-${partition.count}`})});
-// Flush complete child output before a failing assertion exits the parent.
-// Otherwise CI can lose the final progress lines needed to diagnose a timeout.
-await new Promise(resolve => process.stdout.write(result.stdout || '', resolve));
-await new Promise(resolve => process.stderr.write(result.stderr || '', resolve));
+// Progress was forwarded while executing; complete bounded output remains here
+// for the same strict failure, completion and partition assertions.
+await Promise.all([new Promise(resolve=>process.stdout.write('',resolve)),
+  new Promise(resolve=>process.stderr.write('',resolve))]);
 assert.ifError(result.error);
 assert.equal(result.status, 0, 'WASM game exits successfully');
 assert.doesNotMatch(result.stdout, /TEST FAILED|Testing complete, passed:/);

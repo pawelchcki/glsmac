@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "status": "diagnostic-original-capability-only",
+  "accepted_original_presentation_observations": 0,
+  "original_executed": true,
+  "candidate_executed": false,
+  "input_sha256": "4ca90feaa1e5c799fa896158e1ff5c4ba7e9b6111ff126ccb32dfb52da1ef7ec",
+  "executed_scope": "intro-disabled frozen opening prefix: main menu through default Cybernetic leader editor; no first-turn completion claim",
+  "observer": "Windows debug events plus guest-thread hardware contexts",
+  "armed_before_process_creation": true,
+  "original_instruction_patches": false,
+  "counts": {
+    "native_constructor_entries": 600,
+    "native_destructor_entries": 42,
+    "focus_write_hits": 14,
+    "actual_focus_value_transitions": 2,
+    "modal_write_hits": 13,
+    "actual_modal_scalar_transitions": 13,
+    "duplicate_live_constructor_identities": 0,
+    "destructors_without_constructor": 0,
+    "live_observed_identities_at_cutoff": 558
+  },
+  "independent_native_crosscheck": {
+    "observed_focus_nonzero": true,
+    "observed_modal_scalar": 1
+  },
+  "coverage": {
+    "windows": false,
+    "widgets": false,
+    "focus": false,
+    "modal": false,
+    "animation.requests": false,
+    "video.requests": false,
+    "sfx.requests": false,
+    "sfx.controls": false,
+    "music.requests": false,
+    "music.controls": false,
+    "animation.frames": false,
+    "video.frames": false,
+    "mixer": false,
+    "device": false,
+    "timing": false
+  },
+  "coverage_reasons": {
+    "windows_widgets": "Central native lifetimes fire continuously; semantic classes, property completeness and parent graph not yet verified. Common-field availability inventory is pending.",
+    "focus": "Native focus-reference writes observed; semantic widget reference mapping incomplete.",
+    "modal": "Native modal scalar writes observed; this is not a complete modal stack.",
+    "media": "Wine API diagnostics are only a capability boundary; no complete request/control/playhead/actual frame/PCM observation established.",
+    "timing": "Ordinal observations only; raw clocks are diagnostic. No timing parity.",
+    "intro": "This successful prefix has intro disabled. Intro-enabled input remains separately frozen and unobserved."
+  },
+  "failed_attempts": "Seven Linux-debugger attempts retained privately; zero native events made them unsupported, never accepted observations. One full opening diagnostic reached a playable map but failed an old OCR completion predicate; retained as failed diagnostic.",
+  "raw_artifacts_published": false,
+  "raw_artifacts_reason": "Private logs contain runtime addresses; clean proof contains only semantic capability/count/coverage facts."
+}

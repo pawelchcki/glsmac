@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "name": "presentation-opening-inventory-v1",
+  "description": "Two independently declared bounded pre-world presentation capture inputs. No accepted original presentation observations exist yet; every requested channel remains strict.",
+  "cases": [
+    {
+      "id": "presentation-opening-keyboard",
+      "algorithm": "presentation.trace.v1",
+      "input": {
+        "fixture": {
+          "profile": "opening-first-turn-v1",
+          "intro": "disabled",
+          "audio_preferences": "stock-default",
+          "display": {
+            "width": 1024,
+            "height": 768
+          },
+          "final_quiet_interval_ms": 150,
+          "requested_coverage": [
+            "windows",
+            "widgets",
+            "focus",
+            "modal",
+            "animation.requests",
+            "video.requests",
+            "sfx.requests",
+            "sfx.controls",
+            "music.requests",
+            "music.controls"
+          ]
+        },
+        "actions": [
+          {
+            "id": "launch",
+            "kind": "launch"
+          },
+          {
+            "id": "start-game",
+            "kind": "menu.choose",
+            "args": {
+              "label": "START GAME"
+            }
+          },
+          {
+            "id": "random-map",
+            "kind": "menu.choose",
+            "args": {
+              "label": "MAKE RANDOM MAP"
+            }
+          },
+          {
+            "id": "tiny",
+            "kind": "menu.choose",
+            "args": {
+              "label": "TINY PLANET"
+            }
+          },
+          {
+            "id": "citizen",
+            "kind": "menu.choose",
+            "args": {
+              "label": "CITIZEN"
+            }
+          },
+          {
+            "id": "standard-rules",
+            "kind": "confirm.key",
+            "args": {
+              "key": "ENTER"
+            }
+          },
+          {
+            "id": "initial-cybernetic-faction",
+            "kind": "confirm.key",
+            "args": {
+              "key": "ENTER"
+            }
+          },
+          {
+            "id": "default-leader",
+            "kind": "confirm.key",
+            "args": {
+              "key": "ENTER"
+            }
+          },
+          {
+            "id": "planetfall",
+            "kind": "confirm.key",
+            "args": {
+              "key": "ENTER"
+            }
+          },
+          {
+            "id": "first-base-name",
+            "kind": "confirm.key",
+            "args": {
+              "key": "ENTER"
+            }
+          },
+          {
+            "id": "dismiss-tour",
+            "kind": "tour.dismiss",
+            "args": {
+              "control": "right",
+              "method": "pointer"
+            }
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "main-menu",
+            "after_action": "launch"
+          },
+          {
+            "id": "planetfall",
+            "after_action": "default-leader"
+          },
+          {
+            "id": "first-base-name",
+            "after_action": "planetfall"
+          },
+          {
+            "id": "tour",
+            "after_action": "first-base-name"
+          },
+          {
+            "id": "first-playable-turn",
+            "after_action": "dismiss-tour"
+          }
+        ]
+      }
+    },
+    {
+      "id": "presentation-intro-launch",
+      "algorithm": "presentation.trace.v1",
+      "input": {
+        "fixture": {
+          "profile": "intro-launch-v1",
+          "intro": "enabled",
+          "audio_preferences": "stock-default",
+          "display": {
+            "width": 1024,
+            "height": 768
+          },
+          "final_quiet_interval_ms": 150,
+          "requested_coverage": [
+            "windows",
+            "widgets",
+            "focus",
+            "modal",
+            "animation.requests",
+            "video.requests",
+            "sfx.requests",
+            "sfx.controls",
+            "music.requests",
+            "music.controls"
+          ]
+        },
+        "actions": [
+          {
+            "id": "launch",
+            "kind": "launch"
+          },
+          {
+            "id": "intro-first-outcome",
+            "kind": "intro.observe-until",
+            "args": {
+              "outcomes": [
+                "first-video-frame",
+                "decoder-failure",
+                "main-menu-without-video"
+              ],
+              "timeout_ms": 15000
+            }
+          },
+          {
+            "id": "skip-if-playing",
+            "kind": "intro.skip-if-playing",
+            "args": {
+              "key": "ESCAPE"
+            }
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "intro-first-outcome",
+            "after_action": "intro-first-outcome"
+          },
+          {
+            "id": "after-conditional-skip",
+            "after_action": "skip-if-playing"
+          }
+        ]
+      }
+    }
+  ]
+}

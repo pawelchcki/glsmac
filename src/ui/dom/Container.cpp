@@ -1,4 +1,5 @@
 #include "Container.h"
+#include "ui/PresentationTrace.h"
 
 #include "ui/geometry/Geometry.h"
 #include "ui/UI.h"
@@ -197,6 +198,15 @@ const bool Container::ProcessEvent( GSE_CALLABLE, const input::Event& event ) {
 	return Area::ProcessEvent( GSE_CALL, event );
 }
 
+void Container::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
+	Object::TraceSnapshot( visited );
+	for ( const auto& child : m_children ) {
+		child.second.object->TraceSnapshot( visited );
+		PRESENTATION_EVENT( "node.attach", presentation::Node( child.first ), "{\"parent\":" + presentation::Quote( presentation::Node( m_dom_id ) ) + "}" );
+	}
+}
+
 void Container::Show() {
 	if ( !m_is_visible ) {
 		Area::Show();
@@ -273,6 +283,7 @@ void Container::WrapSet( const std::string& key, gse::Value* const value, GSE_CA
 		}
 		m_manual_properties.insert_or_assign( key, value );
 		m_properties.insert_or_assign( key, value );
+		TraceStoredProperty( key, value );
 	}
 	else {
 		Object::WrapSet( key, value, GSE_CALL );
@@ -316,6 +327,7 @@ void Container::ForwardProperty( GSE_CALLABLE, const std::string& srcname, const
 		target->WrapSet( dstname, it->second, GSE_CALL );
 		m_manual_properties.insert_or_assign( srcname, it->second );
 		m_properties.insert_or_assign( srcname, it->second );
+		TraceStoredProperty( srcname, it->second );
 	}
 }
 
@@ -347,6 +359,7 @@ void Container::Factory( GSE_CALLABLE, const std::string& name, const std::funct
 			throw e;
 		}
 		m_factory_owner->m_children.insert({ obj->m_dom_id, { obj, false } });
+		PRESENTATION_EVENT( "node.attach", presentation::Node( obj->m_dom_id ), "{\"parent\":" + presentation::Quote( presentation::Node( m_factory_owner->m_dom_id ) ) + "}" );
 		auto* const geometry = obj->GetGeometry();
 		if ( geometry ) {
 			m_factory_owner->UpdateChildZIndex( obj->m_dom_id, {}, geometry->GetZIndex() );
@@ -406,11 +419,23 @@ void Container::SetMouseOverChild( GSE_CALLABLE, Object* obj, const types::Vec2<
 		e.data.mouse = { mouse_coords.x, mouse_coords.y };
 		if ( m_mouse_over_object ) {
 			e.SetType( input::EV_MOUSE_OUT );
+			if ( presentation::Get().LedgerEnabled() ) {
+				presentation::Event( "input.ui-transition", presentation::Node( m_mouse_over_object->m_dom_id ),
+					"{\"type\":" + presentation::Quote( e.GetTypeStr() ) + ",\"container\":" + presentation::Quote( presentation::Node( m_dom_id ) ) +
+					",\"source_ingress\":" + std::to_string( presentation::dispatch_ingress ) + ",\"action\":" + std::to_string( presentation::Get().Action() ) +
+					",\"x\":" + std::to_string( mouse_coords.x ) + ",\"y\":" + std::to_string( mouse_coords.y ) + "}" );
+			}
 			m_mouse_over_object->ProcessEvent( GSE_CALL, e );
 		}
 		m_mouse_over_object = obj;
 		if ( m_mouse_over_object ) {
 			e.SetType( input::EV_MOUSE_OVER );
+			if ( presentation::Get().LedgerEnabled() ) {
+				presentation::Event( "input.ui-transition", presentation::Node( m_mouse_over_object->m_dom_id ),
+					"{\"type\":" + presentation::Quote( e.GetTypeStr() ) + ",\"container\":" + presentation::Quote( presentation::Node( m_dom_id ) ) +
+					",\"source_ingress\":" + std::to_string( presentation::dispatch_ingress ) + ",\"action\":" + std::to_string( presentation::Get().Action() ) +
+					",\"x\":" + std::to_string( mouse_coords.x ) + ",\"y\":" + std::to_string( mouse_coords.y ) + "}" );
+			}
 			m_mouse_over_object->ProcessEvent( GSE_CALL, e );
 		}
 	}
@@ -481,6 +506,7 @@ void Container::AddChild( GSE_CALLABLE, Object* obj, const bool is_visible, cons
 		throw e;
 	}
 	m_children.insert({ obj->m_dom_id, { obj, is_embed } } );
+	PRESENTATION_EVENT( "node.attach", presentation::Node( obj->m_dom_id ), "{\"parent\":" + presentation::Quote( presentation::Node( m_dom_id ) ) + "}" );
 	ASSERT( m_mouse_over_object != obj, "unexpected child mouseover" );
 	const auto* geometry = obj->GetGeometry();
 	if ( geometry ) {
@@ -504,6 +530,7 @@ void Container::RemoveChild( GSE_CALLABLE, Object* obj, const bool nodestroy ) {
 		m_on_remove_child( obj );
 	}
 	m_children.erase( obj->m_dom_id );
+	PRESENTATION_EVENT( "node.detach", presentation::Node( obj->m_dom_id ), "{\"parent\":" + presentation::Quote( presentation::Node( m_dom_id ) ) + "}" );
 	auto* const geometry = obj->GetGeometry();
 	if ( geometry ) {
 		UpdateChildZIndex( obj->m_dom_id, geometry->GetZIndex(), {} );
