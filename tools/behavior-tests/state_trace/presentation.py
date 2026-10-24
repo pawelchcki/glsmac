@@ -33,7 +33,7 @@ class RawRecorder:
     text/coordinates or compacted after deletion. Cross-engine correspondence
     belongs to the scenario's declared identity profile.
     """
-    def __init__(self, coverage=None, max_events=100000):
+    def __init__(self, coverage=None, max_events=500000):
         _require(type(max_events) is int and max_events > 0, 'invalid event bound')
         self.coverage = {name: False for name in DOMAINS}
         for name, observed in (coverage or {}).items():
@@ -131,6 +131,33 @@ class RawRecorder:
             else:
                 self.media[target].update(data)
                 self.media[target]['lifecycle'] = kind.removeprefix('media.')
+        elif kind.startswith('semantic.'):
+            layouts = {
+                'semantic.protocol': {'version'}, 'semantic.role': {'role', 'source', 'constructor'},
+                'semantic.part': {'owner', 'relation'}, 'semantic.factory': {'owner', 'factory'},
+                'semantic.forward': {'target', 'source_property', 'target_property'},
+                'semantic.field': {'key', 'value'},
+                'semantic.geometry': {'area', 'left', 'top', 'right', 'bottom', 'zindex'},
+                'semantic.choices': {'count'}, 'semantic.choice': {'key', 'label', 'index', 'node'}}
+            _require(kind in layouts and set(data) == layouts[kind], 'unknown/malformed semantic diagnostic kind')
+            if kind == 'semantic.protocol':
+                _require(data == {'version': 2}, 'semantic observer protocol v2 required; rebuild candidate runtime')
+                _require(not getattr(self, 'semantic_protocol', False), 'duplicate semantic diagnostic protocol')
+                self.semantic_protocol = True
+            else:
+                _require(getattr(self, 'semantic_protocol', False) and target in self.nodes, 'semantic diagnostic without protocol/live node')
+                if kind == 'semantic.role':
+                    _require(type(data['role']) is str and type(data['source']) is str and type(data['constructor']) is bool, 'invalid native constructor provenance')
+                elif kind == 'semantic.field':
+                    _require(type(data['key']) is str and data['key'], 'invalid semantic field key')
+                elif kind == 'semantic.geometry':
+                    _require(data['area'] in ('layout', 'effective') and all(type(data[k]) in (int, float) for k in ('left', 'top', 'right', 'bottom', 'zindex')), 'invalid native geometry')
+                elif kind == 'semantic.choices':
+                    _require(type(data['count']) is int and data['count'] >= 0, 'invalid choice count')
+                elif kind == 'semantic.choice':
+                    _require(type(data['index']) is int and data['index'] >= 0 and all(type(data[k]) is str for k in ('key', 'label', 'node')), 'invalid choice item')
+                else:
+                    _require(all(type(value) is str for value in data.values()), 'invalid semantic registration fields')
         elif kind in ('trace.protocol', 'trace.action', 'trace.checkpoint', 'input.ingress', 'input.dispatch', 'input.disposition', 'input.filtered', 'input.ui-transition'):
             pass  # Ordered diagnostic ledger; independently validated by input reducer.
         elif kind == 'trace.error':
@@ -197,6 +224,8 @@ class SemanticRecorder:
             else:
                 _require(target in inventory, 'semantic update without birth')
                 inventory[target].update(deepcopy(fields))
+        elif domain in ('input', 'action', 'diagnostic'):
+            _require(kind == 'observed', 'invalid observation operation')
         elif domain == 'focus':
             _require(kind == 'change' and fields.get('node') in (None, *self.objects), 'unknown semantic focus')
             self.focus = fields['node']

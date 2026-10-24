@@ -85,6 +85,8 @@ private:
 	std::vector< std::pair< Object*, bool > > m_embedded_objects = {};
 	std::vector< Object* > m_lazy_embedded_objects = {};
 	std::map< std::string, std::vector< std::pair< Object*, std::string > > > m_forwarded_properties = {};
+	struct trace_forward_t { dom_id_t target; std::string source, destination; };
+	std::vector< trace_forward_t > m_trace_forwards;
 
 	void InitAndValidate( GSE_CALLABLE ) override;
 

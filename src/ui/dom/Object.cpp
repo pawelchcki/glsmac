@@ -115,6 +115,30 @@ Object::Object( DOM_ARGS_T )
 		}
 		return nullptr;
 	} ) );
+	Method( GSE_CALL, "presentation_role", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( role, 0, String ); N_GETVALUE( source, 1, String );
+		TraceRole( role, source ); return nullptr;
+	} ) );
+	Method( GSE_CALL, "presentation_part", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 2 ); N_GET( wrapped, 0, Object ); N_GETVALUE( relation, 1, String );
+		auto* part = dynamic_cast< Object* >( wrapped->wrapobj );
+		if ( !part ) { GSE_ERROR( gse::EC.TYPE_ERROR, "Expected actual UI part" ); }
+		TracePart( part, relation ); return nullptr;
+	} ) );
+	Method( GSE_CALL, "presentation_selection", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 1 ); N_GET( wrapped, 0, Object );
+		auto* selected = dynamic_cast< Object* >( wrapped->wrapobj );
+		if ( !selected ) { GSE_ERROR( gse::EC.TYPE_ERROR, "Expected actual UI selection" ); }
+		m_trace_selection = selected->m_dom_id;
+		if ( presentation::Get().Enabled() ) { TraceField( "selected_node", presentation::Quote( presentation::Node( m_trace_selection ) ) ); }
+		return nullptr;
+	} ) );
+	Method( GSE_CALL, "presentation_text", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( text, 0, String );
+		m_trace_has_fulltext = true; m_trace_fulltext = text;
+		if ( presentation::Get().Enabled() ) { TraceField( "full_text", presentation::Quote( text ) ); }
+		return nullptr;
+	} ) );
 	Method( GSE_CALL, "remove", NATIVE_CALL( this ) {
 		ASSERT( m_parent, "remove without parent" );
 		m_parent->RemoveChild( GSE_CALL, this );
@@ -302,9 +326,40 @@ void Object::Destroy( GSE_CALLABLE ) {
 	PRESENTATION_EVENT( "node.destroy", presentation::Node( m_dom_id ) );
 }
 
+void Object::TraceRole( const std::string& role, const std::string& source ) {
+	m_trace_role = role; m_trace_source = source; m_trace_role_is_constructor = false;
+	TraceRegistration();
+}
+
+void Object::TraceConstructorRole( const std::string& role ) {
+	m_trace_role = role; m_trace_source.clear(); m_trace_role_is_constructor = true;
+	TraceRegistration();
+}
+
+void Object::TracePart( Object* part, const std::string& relation ) {
+	part->m_trace_owner = m_dom_id; part->m_trace_relation = relation;
+	part->TraceRegistration();
+}
+
+void Object::TraceField( const std::string& key, const std::string& json ) const {
+	PRESENTATION_EVENT( "semantic.field", presentation::Node( m_dom_id ), "{\"key\":" + presentation::Quote( key ) + ",\"value\":" + json + "}" );
+}
+
+void Object::TraceRegistration() const {
+	if ( !m_trace_role.empty() ) {
+		PRESENTATION_EVENT( "semantic.role", presentation::Node( m_dom_id ), "{\"role\":" + presentation::Quote( m_trace_role ) + ",\"source\":" + presentation::Quote( m_trace_source ) + ",\"constructor\":" + ( m_trace_role_is_constructor ? "true" : "false" ) + "}" );
+	}
+	if ( m_trace_owner ) {
+		PRESENTATION_EVENT( "semantic.part", presentation::Node( m_dom_id ), "{\"owner\":" + presentation::Quote( presentation::Node( m_trace_owner ) ) + ",\"relation\":" + presentation::Quote( m_trace_relation ) + "}" );
+	}
+}
+
 void Object::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
 	if ( !presentation::Get().Enabled() || !visited.insert( m_dom_id ).second ) { return; }
 	PRESENTATION_EVENT( "node.create", presentation::Node( m_dom_id ), "{\"parent\":" + ( m_parent ? presentation::Quote( presentation::Node( m_parent->m_dom_id ) ) : "null" ) + ",\"tag\":" + presentation::Quote( m_tag ) + "}" );
+	TraceRegistration();
+	if ( m_trace_has_fulltext ) { TraceField( "full_text", presentation::Quote( m_trace_fulltext ) ); }
+	if ( m_trace_selection ) { TraceField( "selected_node", presentation::Quote( presentation::Node( m_trace_selection ) ) ); }
 	for ( const auto& property : m_properties ) { TraceProperty( m_dom_id, property.first, property.second ); }
 	for ( const auto modifier : m_modifiers ) { PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"modifier." + std::to_string( modifier ) + "\",\"value\":true}" ); }
 	if ( m_is_visible ) { PRESENTATION_EVENT( "node.show", presentation::Node( m_dom_id ) ); }

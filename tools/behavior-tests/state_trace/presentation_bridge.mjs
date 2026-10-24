@@ -103,7 +103,7 @@ export async function installPresentationTransport(page) {
             if(window.__presentationSealed)throw Error('presentation batch after terminal native seal');
             const batch=JSON.parse(text.slice(batchPrefix[0].length));
             count+=batch.events.length;
-            if(count>100000)throw Error('browser presentation transport event bound exceeded');
+            if(count>500000)throw Error('browser presentation transport event bound exceeded');
             window.__presentationBatches.push(batch);
           }catch(error){window.__presentationTransportError=String(error);}
         };

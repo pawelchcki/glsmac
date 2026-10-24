@@ -47,7 +47,7 @@ test('transport intercepts before application-log mutation and stays bounded', a
   assert.deepEqual(visible,['real application output']);
   assert.equal(sandbox.window.__presentationBatches.length,1);
   assert.equal(sandbox.window.__presentationTransportError,null);
-  sandbox.window.Module.print('PTRACE|'+JSON.stringify({events:Array(100001).fill(event)}));
+  sandbox.window.Module.print('PTRACE|'+JSON.stringify({events:Array(500001).fill(event)}));
   assert.match(sandbox.window.__presentationTransportError,/bound exceeded/);
   assert.equal(sandbox.window.__presentationBatches.length,1,'overflow batch never enters transport');
   sandbox.window.Module.print('PTRACE_SEALED');

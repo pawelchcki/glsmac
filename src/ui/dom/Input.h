@@ -15,6 +15,7 @@ class Input : public Panel, public Focusable {
 public:
 	Input( DOM_ARGS );
 
+	void TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const override;
 	void OnFocus() override;
 	void OnDefocus() override;
 
@@ -37,6 +38,7 @@ private:
 	bool m_is_blink_cursor_visible = false;
 	util::Timer m_blinker;
 
+	void TraceNativeState() const;
 	void SetValue( GSE_CALLABLE, const std::string& value );
 	void ValueChanged( GSE_CALLABLE );
 	void FixAlign();

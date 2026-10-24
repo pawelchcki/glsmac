@@ -22,11 +22,55 @@ test('threaded pinned captures reconcile all observed inputs and preserve exact 
   const metadata=response.implementation.captures[id];
   assert.equal(metadata.launch_method,'trusted-host-button-space');
   assert.equal(metadata.launch_user_activation.has_been_active,true,'stock trusted browser activation preserved');
+  const semantic=JSON.parse(await readFile(metadata.semantic_path,'utf8'));
+  assert.equal(semantic.checkpoints.length,count,'real semantic five/two checkpoint projection');
+  assert.equal(semantic.diagnostics.all_births_disposed,true);
+  assert.equal(semantic.diagnostics.cross_engine_correspondence,false);
+  assert.equal(metadata.semantic_checkpoint_paths.length,count);
+  for(const point of semantic.checkpoints) {
+   assert.equal(point.state.presentation.schema,'presentation.trace.v1');
+   assert.ok(Object.values(point.coverage).every(value=>value===false),'missing semantic/media/output channels remain incomplete');
+   assert.ok(Object.values(point.state.presentation.objects).every(control=>control.enabled===null),'active/group styling never implies enabled');
+  }
   const ledger=metadata.input_ledger;
   const capture=JSON.parse(await readFile(ledger.raw_path,'utf8'));
   assert.equal(validatePresentationInputCapture(capture,{final:true}).checkpoint_count,count);
   assert.equal(reconcilePresentationInputs(capture.batches.flatMap(batch=>batch.events),capture.browser_inputs).complete,true);
   assert.equal(capture.capture.terminal_drain_observed,true);
+  const rawEvents=capture.batches.flatMap(batch=>batch.events);
+  assert.ok(rawEvents.some(event=>event.kind==='semantic.protocol'&&event.data.version===2),'fresh v2 constructor provenance is required');
+  const semanticEvents=[...semantic.checkpoints.flatMap(point=>point.state.presentation.events),...semantic.diagnostics.tail_presentation.events];
+  const live=new Set(),selected=new Map(),membership=new Map();
+  for(const event of semanticEvents){
+   if(event.kind==='create')live.add(event.object_id);
+   if(event.kind==='update'&&Object.hasOwn(event.fields,'selected')){
+    if(event.fields.field_availability?.selected==='actual native live logical selection target'){
+     assert.ok(live.has(event.fields.selected),'selected logical target must already be born');
+     selected.set(event.object_id,event.fields.selected);
+    }else selected.delete(event.object_id);
+   }
+   if(event.kind==='update'&&Object.hasOwn(event.fields,'items'))membership.set(event.object_id,event.fields.items);
+   if(event.kind==='destroy'){
+    assert.ok(![...selected.values()].includes(event.object_id),'selected references clear before target retirement');
+    live.delete(event.object_id);selected.delete(event.object_id);membership.delete(event.object_id);
+   }
+   for(const items of membership.values())for(const item of items||[])assert.ok(live.has(item.control),'choice membership must never reference an unborn or retired control');
+   if(event.kind==='observed'&&event.fields.kind.startsWith('media.'))assert.equal(event.fields.disposition,'unknown-media');
+  }
+  const windows=new Set(rawEvents.filter(event=>event.kind==='semantic.role'&&event.data.constructor===true&&event.data.role==='window').map(event=>event.target));
+  if(id==='presentation-opening-keyboard')assert.ok(windows.size>0,'real native Window constructor path executed');
+  for(const nativeId of windows){
+   if(semantic.diagnostics.dispositions[nativeId].disposition!=='logical')continue;
+   const birth=semanticEvents.find(event=>event.kind==='create'&&event.object_id===`candidate-birth:${nativeId}`);
+   assert.ok(birth,'native logical Window has a canonical birth');assert.equal(birth.domain,'windows');
+  }
+  const births=rawEvents.filter(event=>event.kind==='node.create'||event.kind==='media.create');
+  assert.equal(Object.keys(semantic.diagnostics.dispositions).length,births.length,'every real native/media birth has a disposition');
+  assert.equal(semantic.diagnostics.observed_events,rawEvents.length,'every raw event survives projection including transients');
+  for(const path of metadata.semantic_checkpoint_paths){
+   const prefix=JSON.parse(await readFile(path,'utf8'));
+   assert.deepEqual(prefix.checkpoints,semantic.checkpoints.slice(0,prefix.checkpoints.length),'semantic prefixes are invariant at their native fence');
+  }
   assert.equal(capture.input_attribution.physical_os_complete,false);
   assert.equal(ledger.checkpoint_paths.length,count);
   for(const path of ledger.checkpoint_paths){

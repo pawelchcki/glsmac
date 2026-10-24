@@ -67,6 +67,7 @@ Select::Select( DOM_ARGS )
 		}
 	};
 	Embed( m_choicelist );
+	TracePart( m_choicelist, "choice-popup" );
 	m_choicelist->Hide();
 
 	ForwardProperty( GSE_CALL, "itemclass", "itemclass", m_choicelist );

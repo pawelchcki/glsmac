@@ -12,9 +12,11 @@ namespace dom {
 Button::Button( DOM_ARGS )
 	: Panel( DOM_ARGS_PASS, "button", true ) {
 
+	TraceConstructorRole( "button" );
 	m_label = new Text( GSE_CALL, ui, this, {} );
 	m_label->GetGeometry()->SetAlign( geometry::Geometry::ALIGN_CENTER );
 	Embed( m_label );
+	TracePart( m_label, "label" );
 	ForwardProperty( GSE_CALL, "text", m_label );
 	ForwardProperty( GSE_CALL, "transform", m_label );
 	ForwardProperty( GSE_CALL, "color", m_label );
@@ -25,6 +27,7 @@ Button::Button( DOM_ARGS )
 
 	m_sound = new Sound( GSE_CALL, ui, this, {} );
 	Embed( m_sound );
+	TracePart( m_sound, "audio-support" );
 	ForwardProperty( GSE_CALL, "sound", m_sound );
 	ForwardProperty( GSE_CALL, "volume", m_sound );
 

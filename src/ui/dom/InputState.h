@@ -17,6 +17,7 @@ public:
 	};
 
 	const std::string& GetValue() const;
+	size_t GetMaxLength() const;
 	bool SetValue( const std::string& value );
 	bool SetMaxLength( size_t max_length );
 	KeyResult KeyDown( input::key_code_t code, bool is_printable, char key, input::key_modifier_t modifiers, const std::string& clipboard = "" );

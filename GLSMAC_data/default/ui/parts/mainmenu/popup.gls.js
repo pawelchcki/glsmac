@@ -54,6 +54,8 @@ return (m) => {
 				blocker: 'transparent',
 			});
 
+			if (#is_defined(current_menublock.presentation_role)) { current_menublock.presentation_role('dialog', 'mainmenu.popup'); }
+
 			let body_class = 'popup-body popup-body-noheader';
 			if (!#is_defined(data.buttons)) {
 				body_class += ' popup-body-nofooter';
@@ -61,6 +63,8 @@ return (m) => {
 			const body = current_menublock.panel({
 				class: body_class,
 			});
+
+			if (#is_defined(current_menublock.presentation_part)) { current_menublock.presentation_part(body, 'body'); }
 
 			if (#is_defined(data.generator)) {
 				data.generator(body);

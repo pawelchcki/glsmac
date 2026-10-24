@@ -7,6 +7,7 @@ import {mkdirSync,readFileSync,readdirSync,writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {chromium} from '../../wasm-tests/node_modules/playwright/index.mjs';
 import {instrumentPresentation,installPresentationTransport,capturePresentation,waitPresentationQuiet} from './presentation_bridge.mjs';
+import {instrumentNativeControlFixture} from './presentation_controls_fixture.mjs';
 import {createPresentationInputSession,presentationCheckpointPrefix} from './presentation_inputs.mjs';
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const build=process.env.WASM_APP_DIR||`${root}build/wasm/bin`;
@@ -15,6 +16,7 @@ const artifacts=process.env.PRESENTATION_ARTIFACTS;assert.ok(artifacts,'PRESENTA
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const production=Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`,{recursive:true}).filter(name=>name.endsWith('.gls.js')).sort().map(name=>[`GLSMAC_data/default/${name}`,readFileSync(`${root}GLSMAC_data/default/${name}`,'utf8')]));
 const scripts={...production};instrumentPresentation(scripts);
+if(process.env.PRESENTATION_CONTROL_PROBE==='1')instrumentNativeControlFixture(scripts);
 const sliding='GLSMAC_data/default/ui/parts/mainmenu/sliding.gls.js';
 const marker='current_menublock.right = 0;';assert.equal(scripts[sliding].split(marker).length,2);
 scripts[sliding]=scripts[sliding].replace(marker,marker+" #print('PRESENTATION_MENU_READY');");
@@ -33,6 +35,19 @@ try{
  const plan=JSON.parse(readFileSync(`${root}tools/behavior-tests/state_trace/presentation-cases.json`,'utf8')).cases.find(c=>c.id==='presentation-intro-launch').input;
  const ledger=createPresentationInputSession(page,plan);await ledger.validate();await ledger.end();await ledger.begin('intro-first-outcome');
  await page.waitForFunction(()=>document.querySelector('#log').textContent.includes('PRESENTATION_MENU_READY'),null,{timeout:15000});
+ if(process.env.PRESENTATION_CONTROL_PROBE==='1'){
+   await page.waitForFunction(()=>document.querySelector('#log').textContent.includes('PRESENTATION_NATIVE_CONTROL_READY'));
+   await page.keyboard.press('z');
+   await page.waitForTimeout(350); // Observe actual cursor paint without deriving editor value from it.
+   await page.keyboard.press('ArrowDown');
+   await page.keyboard.press('Enter');
+   await page.waitForFunction(()=>document.querySelector('#log').textContent.includes('PRESENTATION_NATIVE_CONTROL_MUTATED'));
+   await page.waitForTimeout(350);
+   const canvas=await page.locator('#canvas').boundingBox();
+   await page.mouse.click(canvas.x+415*canvas.width/1024,canvas.y+163*canvas.height/768);
+   await page.keyboard.press('Enter');
+   await page.waitForFunction(()=>document.querySelector('#log').textContent.includes('PRESENTATION_NATIVE_CAPPED_VALUE|'));
+ }
  if(process.env.PRESENTATION_INPUT_PROBE==='1'){
    // Test-only trusted CDP mouse input; normal pinned route never executes it.
    const box=await page.locator('#canvas').boundingBox();

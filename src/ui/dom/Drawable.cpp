@@ -1,4 +1,5 @@
 #include "Drawable.h"
+#include "ui/PresentationGeometry.h"
 
 #include "Container.h"
 #include "ui/geometry/Rectangle.h"
@@ -37,6 +38,10 @@ static const std::unordered_map< std::string, geometry::Geometry::align_t > s_al
 Drawable::Drawable( DOM_ARGS_T, geometry::Geometry* const geometry )
 	: Object( DOM_ARGS_PASS_T )
 	, m_geometry( geometry ) {
+
+	GeometryHandler( GH_ON_AREA_UPDATE, [ this ]() { TraceGeometry(); } );
+	GeometryHandler( GH_ON_EFFECTIVE_AREA_UPDATE, [ this ]() { TraceGeometry(); } );
+	TraceGeometry();
 
 #define GEOMSETTER( _key, _type ) \
     Property( \
@@ -112,6 +117,19 @@ Drawable::Drawable( DOM_ARGS_T, geometry::Geometry* const geometry )
 		}
 	);
 
+}
+
+void Drawable::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
+	Object::TraceSnapshot( visited ); TraceGeometry();
+}
+
+void Drawable::TraceGeometry() const {
+	if ( !presentation::Get().Enabled() ) { return; }
+	const auto emit = [ this ]( const std::string& kind, const geometry::Geometry::area_t& a ) {
+		PRESENTATION_EVENT( "semantic.geometry", presentation::Node( m_dom_id ), presentation::GeometryFields( kind, a.left, a.top, a.right, a.bottom, a.zindex ) );
+	};
+	emit( "layout", m_geometry->m_area ); emit( "effective", m_geometry->GetEffectiveArea() );
 }
 
 Drawable::~Drawable() {

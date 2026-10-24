@@ -8,6 +8,10 @@ const std::string& InputState::GetValue() const {
 	return m_value;
 }
 
+size_t InputState::GetMaxLength() const {
+	return m_max_length;
+}
+
 bool InputState::SetValue( const std::string& value ) {
 	const auto next = m_max_length ? value.substr( 0, m_max_length ) : value;
 	if ( next == m_value ) { return false; }

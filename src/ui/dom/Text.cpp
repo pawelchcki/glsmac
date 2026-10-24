@@ -112,8 +112,9 @@ Text::~Text() {
 }
 
 void Text::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
-	if ( !presentation::Get().Enabled() || visited.count( m_dom_id ) ) { return; }
-	Object::TraceSnapshot( visited );
+	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
+	Drawable::TraceSnapshot( visited );
+	TraceField( "rendered_text", presentation::Quote( m_text ) );
 	PRESENTATION_EVENT( "node.property", presentation::Node( m_dom_id ), "{\"key\":\"rendered_text\",\"value\":" + presentation::Quote( m_text ) + "}" );
 }
 

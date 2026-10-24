@@ -151,6 +151,7 @@ WRAPIMPL_BEGIN( UI )
 				NATIVE_CALL( this ) {
 					N_EXPECT_ARGS( 0 );
 					presentation::Get().Start();
+					presentation::Event( "semantic.protocol", "trace", "{\"version\":2}" );
 					std::unordered_set< dom_id_t > visited;
 					m_root->TraceSnapshot( visited );
 					// Births precede references, including an already-open native singleton.
