@@ -331,18 +331,12 @@ return {
 	},
 
 	show_commlink: (no_contacts) => {
-		if (this.game == null) { throw Error('Commlink needs the live participant inventory'); }
-		const self = this.game.get_player().id; let single = true;
-		for (player of this.game.get_players()) {
-			// Participant membership does not establish diplomatic contact.
-			// The transferred opening has one actual participant. Foreign-player
-			// contact discovery and negotiation require their own native model.
-			if (player.id != self) { single = false; }
-		}
+		if (this.game == null) { throw Error('Commlink needs the live contact inventory'); }
+		const no_established_contacts = #sizeof(this.game.get_contacts()) == 0;
 		const menu = this.menus.right_menu; const bottom = this.bottom_bar_height;
-		if (!single) {
+		if (!no_established_contacts) {
 			// Preserve the existing empty panel for ordinary shared controls.
-			// Foreign participant membership supplies no met-faction answers.
+			// Contact negotiation controls remain unimplemented.
 			if (#is_defined(menu.empty_label)) { menu.empty_label.hide(); }
 			this.close_all(); this.open('right_menu', {align: 'bottom right', right: 0, bottom: bottom, height: 166}); return;
 		}

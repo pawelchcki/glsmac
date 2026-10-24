@@ -1,0 +1,336 @@
+{
+  "captured_at": "2026-10-24T02:56:39.199805+00:00",
+  "observations": [
+    {
+      "case_sha256": "4acbfd8f2bd172d23109ebf62e5cece73df1fb6848a8254d8d3eebd4ca44838f",
+      "id": "duplicate-gaia-seven-identity-control-name",
+      "output": {
+        "after_launch": {
+          "human_owner": 1,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "GAIANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Gaian",
+                "formal_name": "Gaia's Stepdaughters",
+                "leader_description": "beautiful",
+                "leader_name": "Deirdre",
+                "leader_title": "Lady",
+                "noun": "Gaians"
+              },
+              "is_human": true,
+              "owner": 1,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "GAIANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Gaian",
+                "formal_name": "Gaia's Stepdaughters-2",
+                "leader_description": "beautiful",
+                "leader_name": "Deirdre-2",
+                "leader_title": "Lady",
+                "noun": "Gaians-2"
+              },
+              "is_human": false,
+              "owner": 2,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "UNIV",
+              "gender": null,
+              "identity": {
+                "adjective": "University",
+                "formal_name": "University of Planet",
+                "leader_description": "brilliant",
+                "leader_name": "Zakharov",
+                "leader_title": "Provost",
+                "noun": "University"
+              },
+              "is_human": false,
+              "owner": 3,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "MORGAN",
+              "gender": null,
+              "identity": {
+                "adjective": "Morganic",
+                "formal_name": "Morgan Industries",
+                "leader_description": "shrewd",
+                "leader_name": "Morgan",
+                "leader_title": "CEO",
+                "noun": "Morganites"
+              },
+              "is_human": false,
+              "owner": 4,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "SPARTANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Spartan",
+                "formal_name": "Spartan Federation",
+                "leader_description": "vigilant",
+                "leader_name": "Santiago",
+                "leader_title": "Colonel",
+                "noun": "Spartans"
+              },
+              "is_human": false,
+              "owner": 5,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "BELIEVE",
+              "gender": null,
+              "identity": {
+                "adjective": "Believing",
+                "formal_name": "The Lord's Believers",
+                "leader_description": "pious",
+                "leader_name": "Miriam",
+                "leader_title": "Sister",
+                "noun": "Believers"
+              },
+              "is_human": false,
+              "owner": 6,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "PEACE",
+              "gender": null,
+              "identity": {
+                "adjective": "Peacekeeper",
+                "formal_name": "Peacekeeping Forces",
+                "leader_description": "humane",
+                "leader_name": "Lal",
+                "leader_title": "Brother",
+                "noun": "Peacekeepers"
+              },
+              "is_human": false,
+              "owner": 7,
+              "player_display_name": null
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "Gaia's Stepdaughters|(The Green)",
+            "Gaia's Stepdaughters|(The Green)",
+            "University of Planet|(The Scientist)",
+            "Morgan Industries|(The Mogul)",
+            "Spartan Federation|(The Survivalist)",
+            "The Lord's Believers|(The Fundamentalist)",
+            "Peacekeeping Forces|(The Humanitarian)"
+          ],
+          "random": false,
+          "selected": 0
+        },
+        "coverage": {
+          "all_seven_faction_files": true,
+          "all_seven_gender": false,
+          "all_seven_human_flags": true,
+          "all_seven_six_identity_strings": true,
+          "distinct_player_display_name": false,
+          "rendered_other_player_identity": false
+        },
+        "leader_initial_value": "Deirdre",
+        "leader_prompt": {
+          "buttons": [
+            "CHANGE GENDER",
+            "OK",
+            "CANCEL"
+          ],
+          "caption": "ENTER YOUR NAME",
+          "label": "NAME (FEMALE):"
+        },
+        "leader_prompt_confirmed": true,
+        "rendered_human": {
+          "caption": "PLANETFALL!",
+          "first_narrative_line": "DEIRDRE, A NEW ERA OF STRUGGLE AND OPPORTUNITY AWAITS YOU. THE UN STARSHIP UNITY HAS"
+        },
+        "unsupported": {
+          "gender": "No verified per-owner native gender read in this profile. Human editor label is separate UI evidence.",
+          "player_display_name": "Leader name verified; distinct scoreboard/network-player display name unverified.",
+          "rendered_other_players": "No contact or diplomacy action; offscreen identity is native readback only."
+        }
+      }
+    },
+    {
+      "case_sha256": "46c139188402b0834616c9b80fd085b08916910319095f3f7f3d587536fc91ae",
+      "id": "duplicate-gaia-seven-identity-authored-name",
+      "output": {
+        "after_launch": {
+          "human_owner": 1,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "GAIANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Gaian",
+                "formal_name": "Gaia's Stepdaughters",
+                "leader_description": "beautiful",
+                "leader_name": "Trace Commander",
+                "leader_title": "Lady",
+                "noun": "Gaians"
+              },
+              "is_human": true,
+              "owner": 1,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "GAIANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Gaian",
+                "formal_name": "Gaia's Stepdaughters-2",
+                "leader_description": "beautiful",
+                "leader_name": "Deirdre",
+                "leader_title": "Lady",
+                "noun": "Gaians-2"
+              },
+              "is_human": false,
+              "owner": 2,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "UNIV",
+              "gender": null,
+              "identity": {
+                "adjective": "University",
+                "formal_name": "University of Planet",
+                "leader_description": "brilliant",
+                "leader_name": "Zakharov",
+                "leader_title": "Provost",
+                "noun": "University"
+              },
+              "is_human": false,
+              "owner": 3,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "MORGAN",
+              "gender": null,
+              "identity": {
+                "adjective": "Morganic",
+                "formal_name": "Morgan Industries",
+                "leader_description": "shrewd",
+                "leader_name": "Morgan",
+                "leader_title": "CEO",
+                "noun": "Morganites"
+              },
+              "is_human": false,
+              "owner": 4,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "SPARTANS",
+              "gender": null,
+              "identity": {
+                "adjective": "Spartan",
+                "formal_name": "Spartan Federation",
+                "leader_description": "vigilant",
+                "leader_name": "Santiago",
+                "leader_title": "Colonel",
+                "noun": "Spartans"
+              },
+              "is_human": false,
+              "owner": 5,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "BELIEVE",
+              "gender": null,
+              "identity": {
+                "adjective": "Believing",
+                "formal_name": "The Lord's Believers",
+                "leader_description": "pious",
+                "leader_name": "Miriam",
+                "leader_title": "Sister",
+                "noun": "Believers"
+              },
+              "is_human": false,
+              "owner": 6,
+              "player_display_name": null
+            },
+            {
+              "faction_file": "PEACE",
+              "gender": null,
+              "identity": {
+                "adjective": "Peacekeeper",
+                "formal_name": "Peacekeeping Forces",
+                "leader_description": "humane",
+                "leader_name": "Lal",
+                "leader_title": "Brother",
+                "noun": "Peacekeepers"
+              },
+              "is_human": false,
+              "owner": 7,
+              "player_display_name": null
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "Gaia's Stepdaughters|(The Green)",
+            "Gaia's Stepdaughters|(The Green)",
+            "University of Planet|(The Scientist)",
+            "Morgan Industries|(The Mogul)",
+            "Spartan Federation|(The Survivalist)",
+            "The Lord's Believers|(The Fundamentalist)",
+            "Peacekeeping Forces|(The Humanitarian)"
+          ],
+          "random": false,
+          "selected": 0
+        },
+        "coverage": {
+          "all_seven_faction_files": true,
+          "all_seven_gender": false,
+          "all_seven_human_flags": true,
+          "all_seven_six_identity_strings": true,
+          "distinct_player_display_name": false,
+          "rendered_other_player_identity": false
+        },
+        "leader_initial_value": "Deirdre",
+        "leader_prompt": {
+          "buttons": [
+            "CHANGE GENDER",
+            "OK",
+            "CANCEL"
+          ],
+          "caption": "ENTER YOUR NAME",
+          "label": "NAME (FEMALE):"
+        },
+        "leader_prompt_confirmed": true,
+        "rendered_human": {
+          "caption": "PLANETFALL!",
+          "first_narrative_line": "TRACE COMMANDER, A NEW ERA OF STRUGGLE AND OPPORTUNITY AWAITS YOU. THE UN STARSHIP"
+        },
+        "unsupported": {
+          "gender": "No verified per-owner native gender read in this profile. Human editor label is separate UI evidence.",
+          "player_display_name": "Leader name verified; distinct scoreboard/network-player display name unverified.",
+          "rendered_other_players": "No contact or diplomacy action; offscreen identity is native readback only."
+        }
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "3553fe97c94a77f4a1d0dc6818758bb718d29c00b74bc8a3d152601919ab10c7",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.all_player_identity.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "scope": "Frozen duplicate-Gaia all-seven actual identities, two authored human-name controls; no template substitutions; unverified gender/player-display-name explicit"
+  },
+  "repeat": 2,
+  "suite_sha256": "f1e79228b929f36601e484e9b15b57fabbcc407354a204e35a9669641d7463de",
+  "version": 1
+}

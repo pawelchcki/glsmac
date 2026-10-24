@@ -1,0 +1,9 @@
+{
+  "status": "rejected-input-before-execution",
+  "reason": "Action ID initial is reserved for the initial-state sentinel by the shared schema. No post-action output was observed for v1.",
+  "original_executed": false,
+  "files": {
+    "explicit-seven-world-v1.json": "67e8fd8527a5965f3be340aee7c2afe361d4e9c44f84c97a013fecd06cb2bc33",
+    "explicit-world-contract-v1.md": "cddb32a4e45137c8cab65341f2afeee6f2a1c0792fd6b545369a03125576cc0b"
+  }
+}

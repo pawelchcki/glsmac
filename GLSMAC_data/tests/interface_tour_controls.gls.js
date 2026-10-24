@@ -34,17 +34,19 @@ behavior.scenario('Tour modal keys preserve units and owner removal invalidates 
 	test.assert(!f.guided.active && f.game.get_opening_state().phase == 'tour' && f.view.running_timers() == 0);
 	f.f.retire(); end({}); test.assert(f.game.get_turn() == 0);
 });
-behavior.scenario('Ordinary Commlink preserves an empty foreign-participant panel without inventing contact labels', () => {
+behavior.scenario('Commlink reads established contacts independently of participant membership', () => {
 	const f = fixture(); f.menu.open('left_menu');
-	f.menu.game = {get_player: () => { return {id: 0}; }, get_players: () => { return [{id: 0}, {id: 7}]; }};
+	f.menu.game = {get_player: () => { return {id: 0}; }, get_players: () => { return [{id: 0}, {id: 7}]; }, get_contacts: () => { return [7]; }};
 	f.menu.show_commlink();
 	test.assert(f.menu.menus.right_menu.is_open && !#is_defined(f.menu.menus.right_menu.empty_label) && !f.menu.menus.left_menu.is_open);
 	f.menu.game = f.p.game; f.menu.show_commlink();
 	test.assert(f.menu.menus.right_menu.empty_label.text == 'Nobody reachable' && !f.menu.menus.left_menu.is_open);
-	f.menu.game = {get_player: () => { return {id: 0}; }, get_players: () => { return [{id: 0}, {id: 7}]; }};
+	f.menu.game = {get_player: () => { return {id: 0}; }, get_players: () => { return [{id: 0}, {id: 7}]; }, get_contacts: () => { return [7]; }};
 	f.menu.show_commlink(); test.assert(f.menu.menus.right_menu.is_open && !f.menu.menus.right_menu.empty_label.is_visible());
 	f.menu.game = f.p.game;
 	f.p.game.get_players = () => { return [{id: 0}, {id: 7}]; };
+	f.menu.show_commlink(); test.assert(f.menu.menus.right_menu.empty_label.is_visible(), 'Foreign participants without established contact retain the source no-contact label');
+	f.p.game.get_contacts = () => { return [7]; };
 	const prompt = f.opening.frame; let rejected = false; try { f.start(); } catch { : (error) => { rejected = true; } }
 	test.assert(rejected && !f.guided.active && f.opening.frame == prompt && !prompt.is_removed());
 	f.view.root.remove();

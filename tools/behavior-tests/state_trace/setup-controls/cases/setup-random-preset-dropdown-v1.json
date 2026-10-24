@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "name": "setup-random-preset-dropdown-v1",
+  "description": "Additional declared setup controls frozen before launch observations: expansion preset RandomMode and base selected row0 RANDOM dropdown. Complete seven-player outputs retained.",
+  "cases": [
+    {
+      "id": "random-mode-expansion-seven-named",
+      "algorithm": "game.setup_roster_resolution.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "expansion",
+        "roster_edits": [],
+        "mode": "random",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Trace Commander"
+      }
+    },
+    {
+      "id": "random-dropdown-base-human-named",
+      "algorithm": "game.setup_roster_resolution.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "base",
+        "roster_edits": [
+          {
+            "slot": 0,
+            "option": 14
+          }
+        ],
+        "mode": "selected",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Trace Commander"
+      }
+    }
+  ]
+}

@@ -262,7 +262,8 @@ const std::string& Map::GetErrorString( const error_code_t& code ) {
 	static const std::unordered_map< error_code_t, const std::string > m_error_code_strings = {
 		{ EC_UNKNOWN,              "Unknown error" },
 		{ EC_MAPFILE_FORMAT_ERROR, "Invalid map file format" },
-		{ EC_MAPFILE_NOT_FOUND,    "Map file not found" }
+		{ EC_MAPFILE_NOT_FOUND,    "Map file not found" },
+		{ EC_SINGLE_PLAYER_CAPACITY, "Choose a larger map: seven factions need starting tiles at least two steps apart" }
 	};
 
 	auto it = m_error_code_strings.find( code );
@@ -737,19 +738,26 @@ void Map::GetReachableObjects( std::unordered_set< Object* >& reachable_objects 
 
 const Map::error_code_t Map::Generate( settings::MapSettings* map_settings, MT_CANCELABLE ) {
 	auto* random = m_game->GetRandom();
-	generator::SimplePerlin generator( m_game, random );
 #ifdef DEBUG
 	util::Timer timer;
 	timer.Start();
 #endif
 	const auto* c = g_engine->GetConfig();
+	if ( c->HasLaunchFlag( config::Config::LF_QUICKSTART ) && c->HasLaunchFlag( config::Config::LF_QUICKSTART_MAP_SIZE ) ) {
+		const auto size = c->GetQuickstartMapSize();
+		map_settings->size_x = size.x;
+		map_settings->size_y = size.y;
+		map_settings->preset_level = -1;
+	}
+	const auto dimensions = map_settings->GetGenerationDimensions();
+	const auto* state = m_game->m_state; // Map is a Game friend; generation may have no player State.
+	if ( state && state->HasOfflineSinglePlayerRoster() && !State::GetSinglePlayerMapError( dimensions.first, dimensions.second ).empty() ) {
+		// Reject impossible effective CLI dimensions before terrain generation
+		// can enter its land-percentage retry loop on a tiny grid.
+		return EC_SINGLE_PLAYER_CAPACITY;
+	}
+	generator::SimplePerlin generator( m_game, random );
 	if ( c->HasLaunchFlag( config::Config::LF_QUICKSTART ) ) {
-		if ( c->HasLaunchFlag( config::Config::LF_QUICKSTART_MAP_SIZE ) ) {
-			const auto size = c->GetQuickstartMapSize();
-			map_settings->size_x = size.x;
-			map_settings->size_y = size.y;
-			map_settings->preset_level = -1;
-		}
 		map_settings->ocean_coverage = c->HasLaunchFlag( config::Config::LF_QUICKSTART_MAP_OCEAN )
 			? c->GetQuickstartMapOceanCoverage()
 			: random->GetFloat( 0.2f, 0.8f );
@@ -763,9 +771,9 @@ const Map::error_code_t Map::Generate( settings::MapSettings* map_settings, MT_C
 			? c->GetQuickstartMapCloudCover()
 			: random->GetFloat( 0.2, 0.8f );
 	}
-	Log( "Generating map of size " + std::to_string( map_settings->size_x ) + "x" + std::to_string( map_settings->size_y ) );
+	Log( "Generating map of size " + std::to_string( dimensions.first ) + "x" + std::to_string( dimensions.second ) );
 	ASSERT( !m_tiles, "tiles already set" );
-	NEW( m_tiles, tile::Tiles, this, map_settings->size_x, map_settings->size_y );
+	NEW( m_tiles, tile::Tiles, this, dimensions.first, dimensions.second );
 	generator.Generate( m_tiles, map_settings, MT_C );
 	if ( canceled ) {
 		Log( "Map generation canceled" );

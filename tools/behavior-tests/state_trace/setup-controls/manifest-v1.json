@@ -1,0 +1,21 @@
+{
+  "candidate_inspected_or_executed": false,
+  "case_count": 8,
+  "files": {
+    "cases/custom-grid-minimum-2x2-v1.json": "992204958c11d7b6c9008f0e8eb3e0534c62022303b8b21cd65b164c2bf8d9e6",
+    "cases/custom-grid-minimum-axes-v1.json": "8bb89964d7d0de2db0f69a5ceb43740ed882a716e57992922f1b67e2dc720ab9",
+    "cases/setup-random-preset-dropdown-v1.json": "ca65a9ed6706461a0a1b6c298613af216245a915933637790a40b0d011090b41",
+    "cases/setup-roster-decisions-v3-named.json": "78fb65448f73dd321fa125c9948230dec000e1faf5f35b248e4e3b658e9294f6",
+    "contract-v1.md": "101826510c22863febb4e0673e3c1e594b369349d2ca5a6cf030e1dd3fdd3ac5",
+    "observations/custom-grid-minimum-2x2-v1.json": "ca95c0cfd69609f6ae1bd977f1cd97c7bc66d24f884bc3e1eb99ece533197327",
+    "observations/custom-grid-minimum-axes-v1.json": "dd32808a1e9b533e7ac477c05c8362f1e9240b3098417be70c7a40c75b617ff6",
+    "observations/setup-random-preset-dropdown-v1.json": "a183b78156ecdbe6fa9acbc40f21a92f43e8dc6a1cb04067731417da9355a5e0",
+    "observations/setup-roster-decisions-v3-named.json": "53d35a1093eb4fee2f6fe0b31a5769a418e1ec32e15080b24c2e6cf65e6fa7c4",
+    "provenance-v1.json": "7588f9fa74160f7f728d85a71fcc4e59772b2ab254c06f431206fdbdc0f52474"
+  },
+  "original_only_adapters_included": [],
+  "passing_catalog": false,
+  "repeat": 2,
+  "status": "accepted-original-repeat2-bounded-setup-controls",
+  "version": 1
+}

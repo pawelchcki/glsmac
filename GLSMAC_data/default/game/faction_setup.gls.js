@@ -1,6 +1,7 @@
 // Import only the declared UI header records and verified editor definitions.
 // Faction mechanics and formatted prose are outside this consumer.
 const catalog = #include('../factions').source_catalog();
+const identity = #include('./faction_identity');
 const plain = (value) => {
 	if (#typeof(value) != 'String' || #trim(value) == '') { throw Error('Empty SMAC faction setup text'); }
 	for (marker of ['^', '|', '$', '{', '}']) {
@@ -57,6 +58,7 @@ return (glsmac, rules, common) => {
 	for (ordinal of [174, 175, 176, 177, 483, 484, 485]) { setup.labels :+ label(ordinal); }
 	setup.genders = genders;
 	setup.name = [editor(common, 'NAME', 1, true), editor(common, 'NAME2', 1, true)];
+	setup.random_name = editor(common, 'NAME3', 1, false);
 	setup.customize = editor(common, 'CUSTOMNAMES', 0, true);
 	const imported = {};
 	for (group of [['FACTIONS', 'base'], ['NEWFACTIONS', 'expansion']]) {
@@ -68,11 +70,12 @@ return (glsmac, rules, common) => {
 			let id = null;
 			for (entry of catalog) { if (entry.file == filename && entry.block == block) { id = entry.id; } }
 			if (id == null || #is_defined(imported[id])) { throw Error('Unknown or duplicate SMAC faction roster record'); }
-			const header = glsmac.load_smac_text(filename + '.txt', 'dialogs').rows(block);
+			const document = glsmac.load_smac_text(filename + '.txt', 'dialogs');
+			const header = document.rows(block);
 			if (#sizeof(header) < 7 || #sizeof(header[0]) < 7 || #sizeof(header[4]) < 1 || #sizeof(header[6]) < 2) { throw Error('Incomplete SMAC faction header'); }
 			const leader_gender = #uppercase(header[0][6]);
 			if (leader_gender != 'M' && leader_gender != 'F') { throw Error('Unsupported SMAC faction leader gender'); }
-			const values = [plain(header[0][5]), plain(header[0][0]), plain(header[0][2]), plain(header[4][0]), plain(header[6][0]), plain(header[6][1]), genders[leader_gender == 'M' ? 0 : 1] + ''];
+			const values = identity.parse(document, block) + [genders[leader_gender == 'M' ? 0 : 1] + ''];
 			setup.factions :+ {id: id, role: plain(header[0][1]), leader_gender: leader_gender, values: values};
 			const target = group[1]; setup[target] :+ id; imported[id] = true;
 		}

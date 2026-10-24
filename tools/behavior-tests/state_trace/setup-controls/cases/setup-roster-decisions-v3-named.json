@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "random-mode-base-seven-named",
+      "algorithm": "game.setup_roster_resolution.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "base",
+        "roster_edits": [],
+        "mode": "random",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Trace Commander"
+      }
+    },
+    {
+      "id": "duplicate-explicit-gaian-pair-named",
+      "algorithm": "game.setup_roster_resolution.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "base",
+        "roster_edits": [
+          {
+            "slot": 1,
+            "option": 0
+          }
+        ],
+        "mode": "selected",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Trace Commander"
+      }
+    }
+  ],
+  "description": "Bounded original setup decisions only; no candidate predictions or full-game parity claim. Inputs frozen before new observations.",
+  "name": "setup-roster-decisions-v3-named"
+}

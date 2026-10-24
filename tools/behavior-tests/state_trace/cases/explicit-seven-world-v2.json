@@ -1,0 +1,1064 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "explicit-seven-human-move",
+      "algorithm": "game.state_trace.v1",
+      "input": {
+        "fixture": {
+          "kind": "explicit-world",
+          "profile": "economy-research-v1",
+          "width": 40,
+          "height": 80,
+          "terrain": "flat-arid",
+          "turn": 1,
+          "difficulty": "Citizen",
+          "rules": "standard",
+          "blind_research": true,
+          "reference_rng_seed": 1,
+          "calling_player": "player:1",
+          "selected_player": "player:1",
+          "selected_unit": "scout-p1",
+          "players": [
+            {
+              "id": "player:1",
+              "faction": "GAIANS",
+              "is_human": true,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:2",
+              "faction": "HIVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:3",
+              "faction": "UNIV",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:4",
+              "faction": "MORGAN",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:5",
+              "faction": "SPARTANS",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:6",
+              "faction": "BELIEVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:7",
+              "faction": "PEACE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            }
+          ],
+          "bases": [
+            {
+              "id": "base-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            }
+          ],
+          "units": [
+            {
+              "id": "scout-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            }
+          ]
+        },
+        "actions": [
+          {
+            "id": "before",
+            "kind": "snapshot"
+          },
+          {
+            "id": "moved-east",
+            "kind": "move-unit",
+            "args": {
+              "unit": "scout-p1",
+              "direction": "E"
+            }
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "initial",
+            "after_action": "before"
+          },
+          {
+            "id": "moved-east",
+            "after_action": "moved-east"
+          }
+        ]
+      }
+    },
+    {
+      "id": "explicit-seven-human-hold",
+      "algorithm": "game.state_trace.v1",
+      "input": {
+        "fixture": {
+          "kind": "explicit-world",
+          "profile": "economy-research-v1",
+          "width": 40,
+          "height": 80,
+          "terrain": "flat-arid",
+          "turn": 1,
+          "difficulty": "Citizen",
+          "rules": "standard",
+          "blind_research": true,
+          "reference_rng_seed": 1,
+          "calling_player": "player:1",
+          "selected_player": "player:1",
+          "selected_unit": "scout-p1",
+          "players": [
+            {
+              "id": "player:1",
+              "faction": "GAIANS",
+              "is_human": true,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:2",
+              "faction": "HIVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:3",
+              "faction": "UNIV",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:4",
+              "faction": "MORGAN",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:5",
+              "faction": "SPARTANS",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:6",
+              "faction": "BELIEVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:7",
+              "faction": "PEACE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            }
+          ],
+          "bases": [
+            {
+              "id": "base-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            }
+          ],
+          "units": [
+            {
+              "id": "scout-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            }
+          ]
+        },
+        "actions": [
+          {
+            "id": "before",
+            "kind": "snapshot"
+          },
+          {
+            "id": "held",
+            "kind": "hold-unit",
+            "args": {
+              "unit": "scout-p1"
+            }
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "initial",
+            "after_action": "before"
+          },
+          {
+            "id": "held",
+            "after_action": "held"
+          }
+        ]
+      }
+    },
+    {
+      "id": "explicit-seven-next-turn",
+      "algorithm": "game.state_trace.v1",
+      "input": {
+        "fixture": {
+          "kind": "explicit-world",
+          "profile": "economy-research-v1",
+          "width": 40,
+          "height": 80,
+          "terrain": "flat-arid",
+          "turn": 1,
+          "difficulty": "Citizen",
+          "rules": "standard",
+          "blind_research": true,
+          "reference_rng_seed": 1,
+          "calling_player": "player:1",
+          "selected_player": "player:1",
+          "selected_unit": "scout-p1",
+          "players": [
+            {
+              "id": "player:1",
+              "faction": "GAIANS",
+              "is_human": true,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:2",
+              "faction": "HIVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:3",
+              "faction": "UNIV",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:4",
+              "faction": "MORGAN",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:5",
+              "faction": "SPARTANS",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:6",
+              "faction": "BELIEVE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            },
+            {
+              "id": "player:7",
+              "faction": "PEACE",
+              "is_human": false,
+              "research": {
+                "owned_tech_ids": [
+                  6
+                ],
+                "target_id": -1,
+                "accumulated": 0
+              }
+            }
+          ],
+          "bases": [
+            {
+              "id": "base-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            },
+            {
+              "id": "base-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "population": 1,
+              "jobs": {
+                "workers": 0,
+                "doctors": 1
+              },
+              "resources": {
+                "minerals": 3
+              },
+              "raw_nutrients": 0,
+              "project": "colony-pod",
+              "facilities": [
+                "headquarters"
+              ]
+            }
+          ],
+          "units": [
+            {
+              "id": "scout-p1",
+              "owner": "player:1",
+              "x": 6,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p2",
+              "owner": "player:2",
+              "x": 22,
+              "y": 12,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p3",
+              "owner": "player:3",
+              "x": 6,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p4",
+              "owner": "player:4",
+              "x": 22,
+              "y": 32,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p5",
+              "owner": "player:5",
+              "x": 6,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p6",
+              "owner": "player:6",
+              "x": 22,
+              "y": 52,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            },
+            {
+              "id": "scout-p7",
+              "owner": "player:7",
+              "x": 6,
+              "y": 72,
+              "prototype": "scout-patrol",
+              "health": 1.0,
+              "morale": "disciplined",
+              "movement": "full",
+              "order": "none",
+              "home_base": null
+            }
+          ]
+        },
+        "actions": [
+          {
+            "id": "before",
+            "kind": "snapshot"
+          },
+          {
+            "id": "held",
+            "kind": "hold-all-ready-human-units"
+          },
+          {
+            "id": "next-turn",
+            "kind": "end-turn"
+          }
+        ],
+        "checkpoints": [
+          {
+            "id": "initial",
+            "after_action": "before"
+          },
+          {
+            "id": "held",
+            "after_action": "held"
+          },
+          {
+            "id": "next-turn",
+            "after_action": "next-turn"
+          }
+        ]
+      }
+    }
+  ]
+}

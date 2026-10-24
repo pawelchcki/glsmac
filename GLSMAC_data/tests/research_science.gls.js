@@ -1,3 +1,4 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 const behavior = #include('./_behavior');
 const research = #include('../default/game/research');
 const rejects = (callback) => {
@@ -6,7 +7,7 @@ const rejects = (callback) => {
 };
 const start = (f, difficulty) => {
 	#include('./_natural_startup_mechanics')(f);
-	research.configure(f.game); f.initialize_single_player('GAIANS', #is_defined(difficulty) ? difficulty : 'Citizen'); f.game.get_settings().global.rules.set_blind_research(false);
+	research.configure(f.game); f.initialize_isolated_player('GAIANS', #is_defined(difficulty) ? difficulty : 'Citizen'); f.game.get_settings().global.rules.set_blind_research(false);
 	f.start_world();
 	const definitions = #include('./_technology_rules_fixture').parse();
 	f.with_write(() => { f.game.technologies.replace(#include('../default/game/technology_rules').plan(definitions, f.game.get_players())); });

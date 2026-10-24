@@ -1,3 +1,4 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 // Full shipped game configuration and native startup on declared terrain.
 // Only asset text/art loading and world generation are supplied boundaries.
 const behavior = #include('./_behavior');
@@ -61,7 +62,7 @@ const startup = (profile, corrupt, unmatched) => {
 		};
 		#include('../default/game/game')(glsmac);
 		const configured = {}; configured.game = f.game; glsmac.emit('configure_game', configured);
-		f.human = f.initialize_single_player('GAIANS');
+		f.human = f.initialize_isolated_player('GAIANS');
 	};
 	f.reconfigure(profile);
 	return f;

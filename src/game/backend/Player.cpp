@@ -287,7 +287,7 @@ WRAPIMPL_BEGIN( Player )
 			},
 			{
 				"type",
-				VALUE( gse::value::String, , "human" )
+				VALUE( gse::value::String, , m_role == PR_COMPUTER ? "computer" : "human" )
 			},
 			{
 				"name",

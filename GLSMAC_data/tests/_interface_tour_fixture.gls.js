@@ -1,8 +1,9 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 // Synthetic declared documents and explicit display delivery. Native startup,
 // first-turn gating, Headquarters, unit state and opening commands remain real.
 return () => {
 	const f = test.natural_startup_fixture(16, 16, 'flat-arid');
-	#include('./_natural_startup_mechanics')(f); f.initialize_single_player('GAIANS'); f.start_world(true);
+	#include('./_natural_startup_mechanics')(f); f.initialize_isolated_player('GAIANS'); f.start_world(true);
 	const game = f.game; const state = game.get_opening_state(); const bases = game.bm.get_bases(); const base = bases[0];
 	game.event('opening_command', {session: state.session, action: 'planetfall', base_id: 0, previous_name: '', name: ''}); f.process_events();
 	game.event('opening_command', {session: state.session, action: 'name', base_id: base.id, previous_name: base.name + '', name: 'Synthetic Haven'}); f.process_events(); f.opening_tick();
@@ -10,7 +11,7 @@ return () => {
 	view.ui.get_width = () => { return 1024; }; view.ui.get_height = () => { return 768; };
 	// Adapt only EventEmitter unsubscribe signatures across the display boundary.
 	const bridge = {}; const subscriptions = [];
-	for (method of ['get_player', 'get_players', 'get_opening_state', 'get_turn', 'get_um', 'get_bm', 'get_tm', 'validate_opening', 'event']) { bridge[method] = game[method]; }
+	for (method of ['get_contacts', 'get_player', 'get_players', 'get_opening_state', 'get_turn', 'get_um', 'get_bm', 'get_tm', 'validate_opening', 'event']) { bridge[method] = game[method]; }
 	bridge.on = (name, callback) => { const id = game.on(name, callback); subscriptions :+ {name: name, id: id}; return #sizeof(subscriptions) - 1; };
 	bridge.off = (name, token) => { const index = #is_defined(token) ? token : name; const subscription = subscriptions[index]; game.off(subscription.name, subscription.id); };
 	const topics = ['TOUR1', 'TOUR2', 'TOURMENU', 'TOURCOMMLINK', 'TOURUNITSINFO', 'TOURTERRAININFO', 'TOURSTACKINFO', 'TOURMESSAGEINFO', 'TOURBUTTONMESSAGE', 'TOURBUTTONINFO', 'TOURWORLDINFO', 'TOURDATEINFO', 'TOUROVER'];

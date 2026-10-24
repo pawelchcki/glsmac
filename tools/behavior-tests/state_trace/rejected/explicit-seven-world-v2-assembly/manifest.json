@@ -1,0 +1,12 @@
+{
+  "status": "rejected-original-fixture-assembly",
+  "reason": "The first assembler zeroed internal unit/map metadata outside the declared initial controls. Full repeated outputs retained; no AI policy inferred. Re-record after preserving original engine-produced defaults.",
+  "repeat": 2,
+  "original_only_adapters": [
+    "explicit_world_original.py"
+  ],
+  "files": {
+    "explicit_world_original.py": "cfa56c08b132b215fd929b2995fe7fe305f28e7dbc499c9684defb9f905dd1f2",
+    "smacx-gog-2.0-explicit-seven-world-v2.json": "0096df75291bbd63f7bffd13a7a8dc35929ec3c43b9849265b7bcca979dcb251"
+  }
+}

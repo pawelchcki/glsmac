@@ -160,7 +160,7 @@ three road steps per turn and work after partial movement. Each entire original
 capture was repeated independently. Two further [road-network traces](road-network-contract.md)
 cover base entry/exit without an explicit road flag and non-base forest roads;
 both were recorded in two whole independent runs. The full catalog contains
-754 passing cases, including four declared-source interface-tour cases and eight independently repeated Sentry lifecycle
+755 passing cases, including four declared-source interface-tour cases and eight independently repeated Sentry lifecycle
 traces. This does not establish full-game parity.
 
 | Contract | Cases | Observations | Original evidence source |
@@ -403,13 +403,14 @@ commands and turn effects are executed by production code. Optional synthetic-wo
 browser paths additionally check the actual frontend and SDL input. These do not
 add original-input parity cases. See the [precise scope](unit-orders-contract.md).
 
-The [pending catalog](pending-catalog.json) also retains one
+The [passing catalog](catalog.json) includes one
 [first-city ownership recording](world-base-ownership-contract.md): seven
 actual owners with bases after declared ordinary Gaian setup. Its candidate
 uses the shared production single-player initializer, actual native player
-enumeration, shipped startup and native event queue. Production currently
-occupies only the human slot; computer controllers and later turns remain gaps.
-This comparison is excluded from passing totals and remains a strict failure.
+enumeration, shipped startup and native event queue. Production now creates
+actual disconnected computer participants and the frozen ownership comparison
+matches. Full rosters, AI decisions, natural inventory/placement and later turns
+are outside that ownership-only observation.
 
 The [pending catalog](pending-catalog.json) retains the signed nutrient-counter
 contract: its unchanged-city control agrees, while the joined-city counter

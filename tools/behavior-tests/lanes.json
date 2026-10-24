@@ -161,7 +161,8 @@
         "unit-recycling-former-city",
         "unit-recycling-scout-free",
         "unit-disband-shortcut",
-        "interface-tour-synthetic"
+        "interface-tour-synthetic",
+        "world-base-ownership"
       ],
       "stable": [
         "road-network",
@@ -252,7 +253,6 @@
     "pending-ui": {
       "hot": [
         "base-open-recalc",
-        "world-base-ownership",
         "natural-first-city",
         "natural-first-city-factions-v6",
         "natural-first-city-source-controls-v7"

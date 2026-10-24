@@ -34,7 +34,7 @@ CLASS( Space, common::Class )
 
 	typedef std::function< void() > f_accum_t;
 
-	void Accumulate( gc::Object* const owner, const f_accum_t& f, const f_accum_t& f_cleanup = nullptr, const bool need_now = false );
+	void Accumulate( gc::Object* const owner, const f_accum_t& f, const f_accum_t& f_cleanup = nullptr, const bool need_now = false, Object* const context_owner = nullptr );
 	const bool IsAccumulating();
 	bool IsOwnerThread() const;
 
@@ -72,6 +72,7 @@ private:
 	std::optional< std::thread::id > m_thread_id = {}; // callbacks from same thread will be executed immediately
 	common::Mutex m_pending_accumulations_mutex; // callbacks from other threads will be deferred and executed on Iterate()
 	struct accum_info_t {
+		gc::Object* context_owner; // additional script context lifetime root
 		gc::Object* owner; // owning object that issued accumulation callback, will be kept alive until accumulation is executed
 		f_accum_t cleanup; // cleaner, executed after accumulation was called or when space is being destroyed
 	};

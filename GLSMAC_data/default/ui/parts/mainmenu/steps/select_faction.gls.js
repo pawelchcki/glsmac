@@ -13,6 +13,9 @@ return (i) => {
 	const launch = (id, name) => {
 		if (starting) { return true; }
 		if (!available(id)) { i.popup.error('Choose an available faction.'); return true; }
+		// Keep the displayed roster and the human-selection mode distinct.
+		// Native initialization moves the eventual human to local slot zero.
+		const participants = {factions: #clone(roster), human_slot: selected_slot, random_human: random};
 		let previous_research_mode = null;
 		try {
 			if (#is_defined(i.pending_research_blind)) {
@@ -20,12 +23,12 @@ return (i) => {
 				i.settings.global.rules.set_blind_research(i.pending_research_blind);
 			}
 			i.settings.local.player_name = name;
-			if (id == 'RANDOM') { i.glsmac.start_game(id + ''); }
+			if (id == 'RANDOM') { i.glsmac.start_game(id + '', null, participants); }
 			else {
 				const identity = []; const values = definitions[id].values;
 				for (let index = 0; index < 6; index++) { identity :+ values[index] + ''; }
 				identity[0] = name + '';
-				i.glsmac.start_game(id + '', identity);
+				i.glsmac.start_game(id + '', identity, participants);
 			}
 			starting = true;
 		} catch { GSEGameError: (error) => {
@@ -37,16 +40,25 @@ return (i) => {
 	let customize = null;
 	const choose_name = () => {
 		if (starting) { return true; }
-		if (random) { return launch('RANDOM', 'Player'); }
-		const id = roster[selected_slot];
-		if (id == 'RANDOM') { return launch(id, 'Player'); }
+		const id = random ? 'RANDOM' : roster[selected_slot];
+		if (!random && id == 'RANDOM') { return launch(id, 'Player'); }
+		const random_name = id == 'RANDOM';
 		if (!available(id)) { i.popup.error('Choose an available faction.'); return true; }
-		const faction = definitions[id]; const values = faction.values;
 		// The original name prompt follows the header's leader-gender flag;
 		// editing the free-form Gender description does not change that flag.
-		const dialog = setup.name[faction.leader_gender == 'M' ? 0 : 1];
-		let name = values[0] + ''; let field = null;
+		let dialog = setup.random_name; let name = '';
+		if (!random_name) {
+			const faction = definitions[id];
+			dialog = setup.name[faction.leader_gender == 'M' ? 0 : 1]; name = faction.values[0] + '';
+		}
+		let field = null;
 		const submit = (e) => { return launch(id, field.value); };
+		const buttons = [];
+		if (!random_name) {
+			buttons :+ {style: {text: dialog.button, align: 'left', width: 210}, onclick: (e) => { i.popup.complete(); customize(id); return true; }};
+		}
+		buttons :+ {style: {text: setup.buttons[2] + '', align: random_name ? 'left' : 'center', width: 210, is_ok: true}, onclick: submit};
+		buttons :+ {style: {text: setup.buttons[3] + '', align: 'right', width: 210, is_cancel: true}, onclick: (e) => { i.popup.back(); return true; }};
 		i.popup.show({
 			title: dialog.caption, width: 660, height: 130,
 			generator: (body) => {
@@ -55,11 +67,7 @@ return (i) => {
 				field.on('change', (e) => { field.value = (field.value + '')[0::23]; name = field.value; return true; });
 				field.on('input', submit);
 			},
-			buttons: [
-				{style: {text: dialog.button, align: 'left', width: 210}, onclick: (e) => { i.popup.complete(); customize(id); return true; }},
-				{style: {text: setup.buttons[2] + '', align: 'center', width: 210, is_ok: true}, onclick: submit},
-				{style: {text: setup.buttons[3] + '', align: 'right', width: 210, is_cancel: true}, onclick: (e) => { i.popup.back(); return true; }},
-			],
+			buttons: buttons,
 		}); return true;
 	};
 	customize = (id) => {

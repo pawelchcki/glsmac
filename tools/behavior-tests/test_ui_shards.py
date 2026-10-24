@@ -66,8 +66,8 @@ class UiShardTests(unittest.TestCase):
             directory = Path(temporary)
             runtime, reports = self.reports(directory)
             report = shards.aggregate(reports, 'hot', runtime)
-            self.assertEqual(report['summary'], dict(reference_cases=43, candidate_executed=True,
-                                                   matched=43, mismatched=0, unsupported=0, errors=0))
+            self.assertEqual(report['summary'], dict(reference_cases=44, candidate_executed=True,
+                                                   matched=44, mismatched=0, unsupported=0, errors=0))
             self.assertEqual(report['source_snapshot_sha256'], fingerprint(shards.create_snapshot()))
             output = directory / 'aggregate.json'
             with redirect_stdout(io.StringIO()):
@@ -82,7 +82,7 @@ class UiShardTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             runtime, reports = self.reports(Path(temporary), count=16)
             self.assertTrue(any(not report['results'] for report in reports))
-            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 43)
+            self.assertEqual(shards.aggregate(reports, 'hot', runtime)['summary']['matched'], 44)
 
     def test_stable_synthetic_reports_cover_the_full_complement_including_rotated_controls(self):
         # Transport/partition coverage only: replies above deliberately reuse

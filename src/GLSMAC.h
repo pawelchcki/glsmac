@@ -6,6 +6,8 @@
 #include <functional>
 #include <atomic>
 #include <thread>
+#include <vector>
+#include <array>
 
 #include "common/Common.h"
 #include "gse/Bindings.h"
@@ -52,6 +54,7 @@ CLASS2( GLSMAC, gse::GCWrappable, gse::Bindings )
 	void HideLoader();
 
 	void ShowError( const std::string& text, const std::function< void() >& on_close );
+	void RecoverFromGameError();
 
 	typedef std::function< void( GSE_CALLABLE, gse::value::object_properties_t& args ) > f_args_t;
 	gse::Value* const TriggerObject( gse::GCWrappable* object, const std::string& event, const f_args_t& f_args = nullptr );
@@ -101,7 +104,7 @@ private:
 	void InitGameState( GSE_CALLABLE );
 	void RandomizeSettings( GSE_CALLABLE );
 
-	void AddSinglePlayerSlot( game::backend::faction::Faction* const faction, bool name_confirmed = false );
+	void AddSinglePlayerSlot( game::backend::faction::Faction* const faction, bool name_confirmed = false, const std::vector< game::backend::faction::Faction* >& roster = {}, bool random_human = false, const std::array< std::string, 6 >* identity = nullptr );
 	void StartGame( GSE_CALLABLE );
 
 	game::frontend::Game* m_game = nullptr;

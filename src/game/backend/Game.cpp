@@ -179,9 +179,10 @@ void Game::Stop() {
 void Game::Iterate() {
 	MTModule::Iterate();
 
-	if ( m_state ) {
-		m_state->Iterate();
-	}
+	State* state;
+	uint64_t generation;
+	{ std::lock_guard guard( m_startup_mutex ); state = m_state; generation = m_startup_generation; }
+	if ( state ) { state->Iterate(); }
 
 	if ( m_game_state == GS_INITIALIZING ) {
 
@@ -287,7 +288,9 @@ void Game::Iterate() {
 
 			m_game_state = GS_STARTING;
 
-			m_state->WithGSE( this, [ this ]( GSE_CALLABLE ) {
+			state->WithGSE( this, [ this, generation ]( GSE_CALLABLE ) {
+				std::lock_guard guard( m_startup_mutex );
+				if ( generation != m_startup_generation || !m_state ) { return; }
 
 				if ( m_state->IsMaster() ) {
 					try {
@@ -326,34 +329,30 @@ void Game::Iterate() {
 			InitFailed( map::Map::GetErrorString( ec ) );
 		}
 	}
-	if ( m_state ) {
-
-		m_state->m_gc_space->Accumulate( this, [ this ]() {
-
+	if ( state ) {
+		// Queue outside the startup mutex: the owner drain holds the pending
+		// accumulation lock before entering these guarded callbacks.
+		state->WithGSE( this, [ this, generation ]( GSE_CALLABLE ) {
+			std::lock_guard guard( m_startup_mutex );
+			if ( generation != m_startup_generation || !m_state ) { return; }
 			ProcessEventResponses();
 			ProcessEvents();
 		});
-
-		m_state->WithGSE(
-			this, [ this ]( GSE_CALLABLE ) {
-				if ( m_bm ) {
-					m_bm->TriggerUpdates( GSE_CALL );
-				}
-				UpdateOpening( GSE_CALL );
-			}
-		);
-
+		state->WithGSE( this, [ this, generation ]( GSE_CALLABLE ) {
+			std::lock_guard guard( m_startup_mutex );
+			if ( generation != m_startup_generation || !m_state ) { return; }
+			if ( m_bm ) { m_bm->TriggerUpdates( GSE_CALL ); }
+			UpdateOpening( GSE_CALL );
+			// These operations can call WithGSE themselves. On the owner thread
+			// nested accumulation is immediate, avoiding a reverse pending lock.
+			if ( m_um ) { m_um->PushUpdates(); }
+			if ( m_tm ) { m_tm->ProcessTileLockRequests(); }
+		});
 	}
+	// These native-only update paths do not enqueue script callbacks.
+	std::lock_guard guard( m_startup_mutex );
 	if ( m_map ) { m_map->PushUpdates(); }
-	if ( m_um ) {
-		m_um->PushUpdates();
-	}
-	if ( m_bm ) {
-		m_bm->PushUpdates();
-	}
-	if ( m_tm ) {
-		m_tm->ProcessTileLockRequests();
-	}
+	if ( m_bm ) { m_bm->PushUpdates(); }
 }
 
 const bool Game::IsStarted() const {
@@ -605,6 +604,12 @@ WRAPIMPL_BEGIN( Game )
 				return VALUE( gse::value::Array,, elements );
 			} )
 		},
+		{ "get_contacts", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 0 );
+			gse::value::array_elements_t contacts;
+			for ( const auto id : m_contacts.at( m_slot_num ) ) { contacts.push_back( VALUE( gse::value::Int,, id ) ); }
+			return VALUE( gse::value::Array,, contacts );
+		} ) },
 		{ "get_opening_state", NATIVE_CALL( this ) { N_EXPECT_ARGS( 0 ); return GetOpeningState( GSE_CALL ); } ) },
 		{ "set_auto_end_turn", NATIVE_CALL( this ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( enabled, 0, Bool ); if ( !m_state || m_state->m_connection || m_state->m_settings.local.game_mode != settings::LocalSettings::GM_SINGLEPLAYER ) { GSE_ERROR( gse::EC.GAME_ERROR, "Automatic end turn requires offline single-player" ); } m_auto_end_turn = enabled; return VALUE( gse::value::Undefined ); } ) },
 		{ "validate_opening", NATIVE_CALL( this ) { N_EXPECT_ARGS( 6 ); N_GETVALUE( caller, 0, Int ); N_GETVALUE( session, 1, Int ); N_GETVALUE( action, 2, String ); N_GETVALUE( id, 3, Int ); N_GETVALUE( previous, 4, String ); N_GETVALUE( name, 5, String ); const auto error = ValidateOpening( GSE_CALL, caller, session, action, id, previous, name ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error ); } ) },
@@ -991,19 +996,8 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 
 			ASSERT( m_state, "state not set" );
 
-			m_state->WithGSE(
-				this,
-				[ this ]( GSE_CALLABLE ) {
-					m_state->TriggerObject(
-						this, "initialize", ARGS_F( this ) {
-							{
-								"game",
-								Wrap( GSE_CALL )
-							}
-						}; }
-					);
-				}
-			);
+			if ( m_game_state != GS_NONE ) { ResetGame(); }
+			QueueStartupInitialize();
 			//m_state->SetGame( this );
 
 			const bool interactive = request.data.init.interactive_opening;
@@ -1014,9 +1008,14 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 			if ( response.result == R_SUCCESS ) {
 				response.data.init.slot_index = m_slot_num;
 			}
+			else if ( response.result == R_ERROR ) {
+				NEW( response.data.error.error_text, std::string, m_initialization_error );
+				response.data.error.already_notified = m_initialization_error_notified;
+			}
 			break;
 		}
 		case OP_GET_MAP_DATA: {
+			std::lock_guard startup_guard( m_startup_mutex );
 			//MTModule::Log( "Got get-map-data request" );
 			if ( m_game_state != GS_RUNNING ) {
 				if ( m_initialization_error.empty() ) {
@@ -1025,6 +1024,7 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 				else {
 					response.result = R_ERROR;
 					NEW( response.data.error.error_text, std::string, m_initialization_error );
+					response.data.error.already_notified = m_initialization_error_notified;
 				}
 			}
 			else if ( m_response_map_data ) {
@@ -1046,6 +1046,7 @@ const MT_Response Game::ProcessRequest( const MT_Request& request, MT_CANCELABLE
 			else {
 				response.result = R_ERROR;
 				NEW( response.data.error.error_text, std::string, m_initialization_error );
+				response.data.error.already_notified = m_initialization_error_notified;
 			}
 			break;
 		}
@@ -1163,6 +1164,9 @@ void Game::DestroyRequest( const MT_Request& request ) {
 }
 
 void Game::DestroyResponse( const MT_Response& response ) {
+	if ( response.result == R_ERROR && ( response.op == OP_INIT || response.op == OP_GET_MAP_DATA ) ) {
+		DELETE( response.data.error.error_text );
+	}
 	if ( response.result == R_SUCCESS ) {
 		switch ( response.op ) {
 			case OP_GET_MAP_DATA: {
@@ -1321,7 +1325,16 @@ void Game::AdvanceTurn( const size_t turn_id ) {
 
 	for ( const auto& slot : m_state->m_slots->GetSlots() ) {
 		if ( slot.GetState() == slot::Slot::SS_PLAYER ) {
-			slot.GetPlayer()->UncompleteTurn();
+			auto* player = slot.GetPlayer();
+			player->UncompleteTurn();
+			// Offline computer participants have no socket from which to receive
+			// completion. Their current controller submits no orders; per-turn
+			// unit/base mechanics above still execute for every participant.
+			// AI decisions and movement remain unimplemented. Never complete a
+			// remote human (or any network participant) through this controller.
+			if ( !m_state->m_connection && m_state->m_settings.local.game_mode == settings::LocalSettings::GM_SINGLEPLAYER && player->GetRole() == Player::PR_COMPUTER ) {
+				player->CompleteTurn();
+			}
 		}
 	}
 
@@ -1444,8 +1457,16 @@ void Game::InitComplete( GSE_CALLABLE ) {
 	}
 }
 
+std::string Game::GetStartupMapError() const {
+	if ( !m_state->m_connection && m_state->m_settings.local.game_mode == settings::LocalSettings::GM_SINGLEPLAYER ) {
+		return State::GetSinglePlayerMapError( m_map->GetWidth(), m_map->GetHeight() );
+	}
+	return "";
+}
+
 void Game::InitFailed( const std::string& error_text ) {
 	HideLoader();
+	std::lock_guard startup_guard( m_startup_mutex );
 	// need to delete these here because they weren't passed to main thread
 	if ( m_map->m_textures.terrain ) {
 		DELETE( m_map->m_textures.terrain );
@@ -1464,18 +1485,23 @@ void Game::InitFailed( const std::string& error_text ) {
 	if ( m_state->m_connection ) {
 		m_state->m_connection->Disconnect( "Failed to initialize game" );
 	}
-	m_state->TriggerObject(
-		this, "error", ARGS_F( this, &error_text ) {
-			{
-				"game",
-				Wrap( GSE_CALL )
-			},
-			{
-				"error",
-				VALUE( gse::value::String, , error_text ),
-			},
-		}; }
-	);
+	// Script failures reached while already executing GSE retain the script hook.
+	// Native backend failures travel through their owned MT response instead.
+	m_initialization_error_notified = HasHandlers( "error" ) && m_state->m_gc_space->IsOwnerThread() && m_state->m_gc_space->IsAccumulating();
+	if ( m_initialization_error_notified ) {
+		m_state->TriggerObject(
+			this, "error", ARGS_F( this, &error_text ) {
+				{
+					"game",
+					Wrap( GSE_CALL )
+				},
+				{
+					"error",
+					VALUE( gse::value::String, , error_text ),
+				},
+			}; }
+		);
+	}
 
 	ResetGame();
 	m_state = nullptr;
@@ -1485,7 +1511,8 @@ void Game::InitFailed( const std::string& error_text ) {
 	if ( m_old_map ) {
 		MTModule::Log( "Restoring old map state" );
 		DELETE( m_map );
-		m_map = m_old_map; // restore old state // TODO: test
+		m_map = m_old_map;
+		m_old_map = nullptr;
 	}
 }
 
@@ -1649,24 +1676,32 @@ void Game::AddFrontendRequest( const FrontendRequest& request ) {
 	m_pending_frontend_requests->push_back( request );
 }
 
-void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_CANCELABLE ) {
+void Game::QueueStartupInitialize() {
+	uint64_t generation;
+	{ std::lock_guard guard( m_startup_mutex ); generation = ++m_startup_generation; }
+	m_state->WithGSE(
+		this,
+		[ this, generation ]( GSE_CALLABLE ) {
+			std::lock_guard guard( m_startup_mutex );
+			if ( generation != m_startup_generation || !m_state ) { return; }
+			m_state->TriggerObject(
+				this, "initialize", ARGS_F( this ) {
+					{
+						"game",
+						Wrap( GSE_CALL )
+					}
+				}; }
+			);
+		}
+	);
+}
 
-	if ( m_game_state != GS_NONE ) {
-		ResetGame();
-	}
-
-	ASSERT( !m_state || !m_state->m_connection || m_game_state == GS_NONE, "multiplayer game already initializing or running" );
-	ASSERT( m_game_state == GS_NONE, "game still initializing" );
-
-	m_opening_phase = interactive_opening ? OPENING_PREPARING : OPENING_NONE;
-	m_auto_end_turn = interactive_opening;
-	m_opening_first_turn_dispatched = m_opening_first_turn_applied = false;
-	m_opening_base = nullptr; m_opening_base_id = 0; ++m_opening_session;
-
-
-	MTModule::Log( "Initializing game" );
-
-	m_state->WithGSE( this, [ this ]( GSE_CALLABLE ) {
+void Game::QueueStartupConfigure() {
+	uint64_t generation;
+	{ std::lock_guard guard( m_startup_mutex ); generation = m_startup_generation; }
+	m_state->WithGSE( this, [ this, generation ]( GSE_CALLABLE ) {
+		std::lock_guard guard( m_startup_mutex );
+		if ( generation != m_startup_generation || !m_state ) { return; }
 		ASSERT( !m_tm, "tm not null" );
 		m_tm = new map::tile::TileManager( this );
 		ASSERT( !m_rm, "rm not null" );
@@ -1684,16 +1719,37 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 			},
 		}; } );
 	});
+}
+
+void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_CANCELABLE ) {
+
+	ASSERT( !m_state || !m_state->m_connection || m_game_state == GS_NONE, "multiplayer game already initializing or running" );
+	ASSERT( m_game_state == GS_NONE, "game still initializing" );
+
+	m_opening_phase = interactive_opening ? OPENING_PREPARING : OPENING_NONE;
+	m_auto_end_turn = interactive_opening;
+	m_opening_first_turn_dispatched = m_opening_first_turn_applied = false;
+	m_opening_base = nullptr; m_opening_base_id = 0; ++m_opening_session;
+
+
+	MTModule::Log( "Initializing game" );
+
+	QueueStartupConfigure();
 
 	ASSERT( m_pending_frontend_requests, "pending events not set" );
 	m_pending_frontend_requests->clear();
 
 	m_game_state = GS_PREPARING_MAP;
 	m_initialization_error = "";
+	m_initialization_error_notified = false;
 
 	auto* const connection = m_state->m_connection;
 
 	if ( m_state->IsMaster() ) {
+
+		if ( !m_state->m_connection && m_state->m_settings.local.game_mode == settings::LocalSettings::GM_SINGLEPLAYER ) {
+			m_state->FinalizeSinglePlayerRoster();
+		}
 
 		// assign random factions to players
 		auto factions = m_state->GetFM()->GetAll();
@@ -1950,6 +2006,14 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 		}
 
 		if ( !ec ) {
+			// Validate the actual map after import or CLI overrides, before any
+			// world entities are created. Setup dimensions may describe another map.
+			const auto error = GetStartupMapError();
+			if ( !error.empty() ) {
+				InitFailed( error );
+				response.result = R_ERROR;
+				return;
+			}
 			auto& completed_map = m_state->m_settings.global.map;
 			if ( completed_map.type != settings::MapSettings::MT_RANDOM && completed_map.type != settings::MapSettings::MT_CUSTOM ) { completed_map.preset_level = -1; }
 			m_state->m_settings.global.map.size_x = m_map->GetWidth();
@@ -2082,6 +2146,9 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 }
 
 void Game::ResetGame() {
+	std::lock_guard startup_guard( m_startup_mutex );
+	++m_startup_generation;
+	for ( auto& contacts : m_contacts ) { contacts.clear(); }
 	m_technologies.Clear();
 	m_research.Clear();
 	for ( auto& receipt : m_research_receipts ) { receipt.reset(); }
@@ -2121,6 +2188,20 @@ void Game::ResetGame() {
 	m_bm = nullptr;
 	m_am = nullptr;
 
+	if ( m_response_map_data ) {
+		ASSERT( m_map, "pending map response without map" );
+		// Before transfer the response borrows map resources. InitFailed may
+		// already have freed them, so use the current fields rather than stale
+		// response pointers. On normal cancellation this destructor owns them.
+		m_response_map_data->terrain_texture = m_map->m_textures.terrain;
+		m_response_map_data->terrain_mesh = m_map->m_meshes.terrain;
+		m_response_map_data->terrain_data_mesh = m_map->m_meshes.terrain_data;
+		m_map->m_textures.terrain = nullptr;
+		m_map->m_meshes.terrain = nullptr;
+		m_map->m_meshes.terrain_data = nullptr;
+		DELETE( m_response_map_data );
+		m_response_map_data = nullptr;
+	}
 	if ( m_map ) {
 		MTModule::Log( "Resetting map" );
 		DELETE( m_map );

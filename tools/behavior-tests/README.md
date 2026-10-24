@@ -18,7 +18,7 @@ distinct from original-game agreement and from natural startup gaps.
 For automatic discovery and replay of **real application UI flows**, including
 menu choices, selection defaults, keyboard navigation and cancellation, use the
 [dual-application UI harness](ui/README.md). Its default replay executes production
-GSE menus and native-backed citizen/unit/work behavior without graphics against 754 recorded original cases. The original
+GSE menus and native-backed citizen/unit/work behavior without graphics against 755 recorded original cases. The original
 custom-map controller also executes headlessly in Unicorn; an optional
 Wine/Chromium lane discovers and checks rendered controls. The strict recorder
 requires independent repeated original runs. This is separate from both the
@@ -60,7 +60,7 @@ when investigating isolation or collecting a serial baseline.
 Hot contains 32 regression suites around complete state observation, directed science and Laboratories, research setup/controls, native research state, installed technology/startup, active unit menus, retirement/recycling,
 keyboard controls, modal input, opening phases, pod landing, the interface tour,
 automatic turn completion, setup, first-city lifecycle and texture filter chains
-(292 scenarios/2,091 assertions). Original UI replay includes ten hot references with 43 recorded
+(297 scenarios/2,192 assertions). Original UI replay includes eleven hot references with 44 recorded
 cases. Stable contains the explicit complement: 111 regression suites, 49 UI
 references (711 cases), two economy references and 22 current helper references.
 These are bounded catalogs, not a full-game
@@ -70,7 +70,7 @@ the latest main stable result. Required-check policy is configured separately.
 Completed Colony joining, founding and nearby city warnings, together with Former
 and Terraform controls, run in stable. Active unit menus, retirement, recycling
 and keyboard controls stay hot. The combined partition retains all 143 native
-suites and 59 UI references (754 recorded cases), with five pending references/22
+suites and 60 UI references (755 recorded cases), with four pending references/21
 cases still excluded from passing release groups. One local native run pair with
 identical scripts/runtime,
 two workers and the standard 120-second per-suite limit took 227.96 seconds before
@@ -164,8 +164,7 @@ candidate execution and zero mismatches/errors/unsupported results. A missing
 partition or stale/partial report fails the release gate. Partitioning never
 moves pending contracts into passing totals or runs stable CI on PRs.
 
-Two recorded `base-open-recalc` cases, one
-[`world-base-ownership`](ui/world-base-ownership-contract.md) case and six
+Two recorded `base-open-recalc` cases and six
 [natural-first-city](ui/natural-first-city-contract.md) cases, seven archived faction startup cases and six archived startup source-control cases are **pending transfer**, outside default passing release groups. Their explicit strict red
 replay remains available:
 
@@ -175,11 +174,21 @@ python3 tools/behavior-tests/lanes.py --lane hot --pending
 python3 tools/behavior-tests/lanes.py --lane hot --kind pending-ui
 ```
 
-The ownership recording observes seven owners with one base each after the
-declared first-city setup. Its candidate uses the actual production
-single-player initializer and queued world startup; the initializer currently
-fills only the human slot. Computer controllers and later turns remain gaps.
-This pending comparison adds no passing original cases.
+The [ownership recording](ui/world-base-ownership-contract.md) now matches seven
+owners with one base each after declared first-city setup. It executes the
+production single-player initializer and queued world startup with disconnected
+computer participants. This bounded ownership case is in the hot lane. Complete
+natural inventory/placement and AI decision behavior remain separate gaps.
+
+The [shared explicit-world trace](state_trace/README.md#shared-explicit-world-comparison)
+now runs three independently repeated original scenarios against actual native
+state for all seven participants: human movement and Hold match, while end turn
+remains a strict mismatch (2 matched, 1 mismatched, 0 unsupported, 0 errors).
+All six opponent projects remain Colony Pod versus original Formers, and
+University owns technology `[6]` versus original `[3, 6]`. This fixture supplies
+declared initial controls only; it establishes no general AI algorithm. Natural
+starting coordinates, stocks and the Spartan Scout Rover remain gaps. All
+18 files bound by the preexisting original manifest retain their exact bytes.
 
 The natural first-city probe executes native configure/create_world, InitComplete,
 FirstTurn and the settled host queue with shipped mechanical modules. The preserved baseline created
@@ -204,7 +213,7 @@ passing original cases and preserve the exact archived evidence bytes.
 The complete twelve-input `unit-menu-context` reference is HOT and supersedes
 three archived pilots. Their case/evidence files remain unchanged and receive
 static integrity validation without duplicate passing counts. The active UI
-catalog has 58 references and 750 cases. Pending base recalculation remains a
+catalog has 60 references and 755 cases. Pending base recalculation remains a
 strict red comparison outside passing totals. Four historical factor-v1
 helper references are archived metadata with
 static integrity validation only; they are outside current runnable groups.
@@ -952,6 +961,61 @@ With the optional dependencies installed, use the virtual environment's Python
 to also run emulator guard tests. Those tests contain explicitly synthetic x86
 instructions and need no original executable; without Unicorn they report
 skips. They are separate from the genuine game observations.
+
+Seven-participant startup verification requires the full Python harness with
+`STATE_TRACE_RUNTIME` and `STATE_TRACE_ASSETS` set. Installed-source tests
+execute real native movement/Hold and initialized economy/research state; their
+synthetic natural startup map is 16x16 to accommodate all seven participants.
+The hot gate includes 32 regression suites and all 44 recorded cases across
+eleven UI references. Complete GSE/native coverage additionally requires all
+152 discovered executable scripts exactly once, including the 143-suite
+regression catalog, and successful native C++ engine checks. Disjoint
+partitions must pass strict coverage aggregation; the fast catalog alone is
+not a full-engine result.
+
+The separate [bounded setup controls](state_trace/setup-controls/contract-v1.md)
+record actual original Planetfall rosters, Random-mode naming and custom-size
+minima. Production setup preserves every displayed faction, including explicit
+duplicates. Random human mode chooses within that roster; a selected `RANDOM`
+dropdown row remains a separate deferred faction choice. Native human slot zero
+is the candidate's convention, not a claim of original owner-index parity.
+Custom fields remain editable as entered; world generation applies independent
+minimum native dimensions of 32 columns and 16 rows while retaining Custom kind
+99. These clean setup observations remain outside default passing comparison
+totals until a versioned public replay adapter is integrated. They do not claim
+matching RNG draws, placement, AI decisions or naval production fidelity.
+
+Every offline participant owns an independent faction instance copied from the
+configured template, including naval/progenitor flags, base names, rendering,
+ratings and starting technologies. Human identity customization changes that
+instance without modifying a duplicate opponent or the catalog. Separate
+[all-player identity controls](state_trace/all-player-identity/contract-v1.md)
+retain the observed original fields and unsupported values outside passing
+totals; duplicate collision suffixes and general identity parity remain gaps.
+Generation validates effective dimensions after CLI overrides and custom-size
+normalization, before allocating tiles or entering the terrain generator. The
+seven-player rule applies to the actual offline roster, preserving editor,
+network and pure-map contexts. Startup separately checks the actual imported or
+generated map before world entities are created.
+
+Native backend initialization errors travel as owned, copied response text to
+the global UI. Errors already delivered by an accumulating script's game hook
+are marked to prevent a second popup. The error dialog wraps measured text,
+supports pointer/Enter/Escape acknowledgment and closes once. Quickstart errors
+exit; ordinary setup returns to the menu and supports a valid retry. Pending
+startup callbacks retain both their owner and State/context and reject a failed
+session before reading its managers. GC and thread-affinity checks remain active.
+
+The optional actual Chromium recovery probes use declared fault inputs: an
+impossible CLI size, Planet files removed only from the disposable mounted VFS,
+and a single caught script initialization exception. They assert real diagnostic
+delivery, acknowledgment, reset and valid retry; they add no original comparison
+totals. Run these alone before CPU-intensive headless gates:
+
+```sh
+RESEARCH_CASES=init-cli-error,init-menu-retry,init-script-retry \
+  npm --prefix tools/wasm-tests run test:research
+```
 
 ## Ability-free prototype base costs
 

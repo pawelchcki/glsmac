@@ -49,12 +49,12 @@ behavior.scenario('Empty declared terrain reaches first playable turn through na
 		if (e.name == 'add_base_pop') { observed.population = observed.population + 1; }
 	});
 	f.start_world();
-	test.assert(observed.phases == '|configure|world|start|base|turn', 'Real post-map phases and deferred city spawn retain production order');
+	test.assert(observed.phases == '|configure|world|start|base|base|base|base|base|base|base|turn', 'Real post-map phases and deferred city spawn retain production order');
 	test.assert(game.get_turn() == 1 && observed.turns == 1, 'Native FirstTurn advances exactly once to playable epoch1');
-	test.assert(observed.bases == 1 && #sizeof(game.bm.get_bases()) == 1, 'World generator creates actual single human city');
+	test.assert(observed.bases == 7 && #sizeof(game.bm.get_bases()) == 7, 'World generator creates an actual city for every participant');
 	test.assert(!observed.failed, 'No authoritative event validation failed');
-	test.assert(observed.growth == 1 && observed.population == 1, 'First turn dispatches actual queued growth and population child');
-	const bases = game.bm.get_bases(); const base = bases[0];
+	test.assert(observed.growth == 7 && observed.population == 7, 'First turn dispatches actual queued growth and population child');
+	const bases = game.bm.get_bases(); let base = null; for (city of bases) { if (city.get_owner().id == human.id) { base = city; } }
 	test.assert(base.get_owner().id == human.id, 'City retains production-initialized native owner');
 	test.assert(base.get_size() == 1 && #sizeof(base.get_pops()) == 1, 'Production growth initializes one actual citizen');
 	test.assert(#typeof(base.get('accumulated_nutrients')) == 'Int', 'Production growth initializes nutrient storage');
@@ -63,17 +63,17 @@ behavior.scenario('Empty declared terrain reaches first playable turn through na
 	try { f.start_world(); } catch { : (error) => { rejected = true; } }
 	test.assert(rejected && game.get_turn() == 1, 'Repeated startup rejects without advancing another turn');
 	f.process_events();
-	test.assert(observed.turns == 1 && observed.population == 1, 'Draining settled queue cannot replay first-turn population');
+	test.assert(observed.turns == 1 && observed.population == 7, 'Draining settled queue cannot replay first-turn population');
 });
 
 for (difficulty of ['Citizen', 'Specialist', 'Talent', 'Librarian', 'Thinker', 'Transcend']) {
 	behavior.scenario('declared ' + difficulty + ' initializes actual native State and human Player', () => {
-		const f = test.natural_startup_fixture(4, 4, 'flat-arid'); const game = f.game;
+		const f = test.natural_startup_fixture(16, 16, 'flat-arid'); const game = f.game;
 		#include('./_natural_startup_mechanics')(f);
 		const human = f.initialize_single_player('GAIANS', difficulty);
 		test.assert(game.get_settings().global.difficulty_level == difficulty);
 		test.assert(f.get_player_difficulty() == difficulty);
-		test.assert(#sizeof(game.get_players()) == 1 && game.get_player().id == human.id);
+		test.assert(#sizeof(game.get_players()) == 7 && game.get_player().id == human.id);
 		test.assert(game.get_turn() == 0 && #sizeof(game.bm.get_bases()) == 0, 'Difficulty setup cannot pre-initialize world or turn');
 	});
 }

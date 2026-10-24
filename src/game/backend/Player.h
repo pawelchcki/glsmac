@@ -34,6 +34,8 @@ CLASS2( Player, types::Serializable, gse::Wrappable )
 		PR_SINGLE,
 		PR_HOST,
 		PR_PLAYER,
+		// Append roles to preserve existing serialized human role values.
+		PR_COMPUTER,
 	};
 
 	Player( types::Buffer buf );

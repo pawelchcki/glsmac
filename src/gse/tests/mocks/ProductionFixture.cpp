@@ -77,6 +77,8 @@ struct ProductionFixture : gc::Object {
 	size_t colony_id = 0;
 	game::frontend::unit::SelectionController selection;
 	std::unique_ptr< ProbeConnection > transport;
+	bool declared_world = false;
+	bool isolated_player = false;
 
 	ProductionFixture( GSE_CALLABLE, bool defaults = true, bool selection_world = false, const std::string& initial_base_name = "Fixture Base", size_t fixture_map_size = 4, size_t startup_map_height = 0, const std::vector< std::string >& land_names = {} ) : gc::Object( nullptr ) {
 		game.Start();
@@ -163,17 +165,33 @@ struct ProductionFixture : gc::Object {
 		delete state;
 		state = nullptr;
 	}
-	backend::slot::Slot* InitializeSinglePlayer( GSE_CALLABLE, const std::string& faction_id, const std::string& difficulty = "Citizen" ) {
+	backend::slot::Slot* InitializeSinglePlayer( GSE_CALLABLE, const std::string& faction_id, const std::string& difficulty = "Citizen", const bool isolated = false, const bool random_faction = false, const std::vector< backend::faction::Faction* >& roster = {}, const bool random_human = false, const backend::faction::Faction::identity_t* identity = nullptr ) {
 		if ( state->m_slots->GetCount() || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
 			GSE_ERROR( EC.INVALID_CALL, "Single-player initialization requires an empty world" );
 		}
-		auto* faction = state->GetFM()->Get( faction_id );
-		if ( !faction ) { GSE_ERROR( EC.INVALID_CALL, "Unknown startup faction" ); }
+		auto* faction = random_faction ? nullptr : state->GetFM()->Get( faction_id );
+		if ( !faction && !random_faction ) { GSE_ERROR( EC.INVALID_CALL, "Unknown startup faction" ); }
 		const auto difficulty_value = state->m_settings.global.rules.m_difficulty_levels.GetValue( GSE_CALL, difficulty );
 		state->m_settings.global.Initialize();
 		state->m_settings.global.difficulty_level = difficulty_value;
 		state->m_settings.global.map.SelectWorldSize( game.m_map->GetWidth(), game.m_map->GetHeight(), 2 );
-		state->AddSinglePlayerSlot( faction );
+		isolated_player = isolated;
+		if ( isolated ) {
+			// Explicit test-only single-participant world for bounded mechanics.
+			// Ordinary startup below always executes the production full roster.
+			state->m_slots->Resize( 7 );
+			auto* player = new backend::Player( "Player", backend::Player::PR_SINGLE, faction, difficulty );
+			state->AddPlayer( player );
+			state->AddCIDSlot( 0, 0 );
+			auto& slot = state->m_slots->GetSlot( 0 );
+			slot.SetPlayer( player, 0, "" );
+			slot.SetPlayerFlag( backend::slot::PF_READY );
+		}
+		else {
+			const auto error = state->GetSinglePlayerMapError();
+			if ( !error.empty() ) { GSE_ERROR( EC.GAME_ERROR, error ); }
+			state->AddSinglePlayerSlot( faction, identity != nullptr, roster, random_human, identity );
+		}
 		game.m_slot_num = 0;
 		game.m_slot = &state->m_slots->GetSlot( 0 );
 		game.m_player = game.m_slot->GetPlayer();
@@ -184,6 +202,113 @@ struct ProductionFixture : gc::Object {
 			if ( drain >= 1000 ) { GSE_ERROR( EC.INVALID_CALL, "Startup event queue did not settle" ); }
 			Process();
 		}
+	}
+	std::string StartupMapError() const { return game.GetStartupMapError(); }
+	bool ProbeQueuedInitFailure() {
+		// The declared fixture retains its native manager ownership separately
+		// while actual failure teardown detaches them from the live game graph.
+		auto* bm = game.m_bm; auto* um = game.m_um;
+		auto* tm = game.m_tm; auto* rm = game.m_rm;
+		bool owned_error = false;
+		std::exception_ptr failure;
+		std::thread backend( [ & ](){
+			try {
+				game.QueueStartupInitialize();
+				game.QueueStartupConfigure();
+				game.InitFailed( "Declared native startup failure after owner drain" );
+				backend::MT_Request request = {}; request.op = backend::OP_GET_MAP_DATA;
+				common::mt_flag_t cancelled = false;
+				auto response = game.ProcessRequest( request, cancelled );
+				owned_error = response.result == backend::R_ERROR && response.data.error.error_text && *response.data.error.error_text == "Declared native startup failure after owner drain";
+				game.DestroyResponse( response );
+			}
+			catch ( ... ) { failure = std::current_exception(); }
+		} );
+		backend.join();
+		// Deliver only after the native failure has already returned its response.
+		// The real queued callbacks must reject the failed epoch.
+		state->m_gc_space->ProcessAccumulations();
+		const bool stale_rejected = !game.m_state && !game.m_tm && !game.m_rm && !game.m_um && !game.m_bm && !game.m_am && game.m_game_state == backend::Game::GS_NONE;
+		// Restore only fixture-owned teardown handles after the assertion boundary.
+		game.m_bm = bm; game.m_um = um; game.m_tm = tm; game.m_rm = rm;
+		if ( failure ) { std::rethrow_exception( failure ); }
+		return owned_error && stale_rejected;
+	}
+
+	bool ParticipantCodecInvariant() {
+		if ( state->GetCidSlots().size() != 1 || state->GetCidSlots().at( 0 ) != 0 ) { return false; }
+		for ( auto& slot : state->m_slots->GetSlots() ) {
+			if ( slot.GetState() != backend::slot::Slot::SS_PLAYER ) { continue; }
+			auto* player = slot.GetPlayer();
+			backend::Player decoded( player->Serialize() );
+			const auto* decoded_faction = decoded.GetFaction();
+			const bool matches = decoded.GetRole() == player->GetRole() && decoded_faction && decoded_faction->m_id == player->GetFaction()->m_id && decoded.GetPlayerName() == player->GetPlayerName() && decoded.GetDifficultyLevel() == player->GetDifficultyLevel() && !decoded.IsConnected() && !player->IsConnected();
+			delete decoded_faction;
+			if ( !matches ) { return false; }
+		}
+		return true;
+	}
+	void InitializeDeclaredPlayers( GSE_CALLABLE, const std::vector< Value* >& ids, const std::string& difficulty ) {
+		if ( state->m_slots->GetCount() || ids.empty() || ids.size() > 7 || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			GSE_ERROR( EC.INVALID_CALL, "Declared participants require an empty world and one to seven factions" );
+		}
+		std::vector< backend::faction::Faction* > factions;
+		std::set< std::string > seen;
+		for ( auto* id : ids ) {
+			if ( id->type != VT_STRING ) { GSE_ERROR( EC.INVALID_CALL, "Declared faction must be a string" ); }
+			const auto& name = static_cast< value::String* >( id )->value;
+			auto* faction = state->GetFM()->Get( name );
+			if ( !faction || !seen.insert( name ).second ) { GSE_ERROR( EC.INVALID_CALL, "Unknown or duplicate declared faction" ); }
+			factions.push_back( faction );
+		}
+		const auto selected = state->m_settings.global.rules.m_difficulty_levels.GetValue( GSE_CALL, difficulty );
+		state->m_settings.global.Initialize();
+		state->m_settings.global.difficulty_level = selected;
+		state->m_settings.global.map.SelectWorldSize( game.m_map->GetWidth(), game.m_map->GetHeight(), 2 );
+		state->m_slots->Resize( 7 );
+		for ( size_t index = 0; index < factions.size(); ++index ) {
+			auto* player = new backend::Player( index ? factions[index]->m_name : "Player", index ? backend::Player::PR_COMPUTER : backend::Player::PR_SINGLE, factions[index], difficulty );
+			state->AddPlayer( player );
+			auto& slot = state->m_slots->GetSlot( index );
+			slot.SetPlayer( player, 0, "" );
+			slot.SetPlayerFlag( backend::slot::PF_READY );
+		}
+		state->AddCIDSlot( 0, 0 );
+		game.m_slot_num = 0; game.m_slot = &state->m_slots->GetSlot( 0 ); game.m_player = game.m_slot->GetPlayer();
+		declared_world = true;
+	}
+	void ConfigureDeclaredWorld( GSE_CALLABLE ) {
+		if ( !declared_world || game.m_game_state != backend::Game::GS_NONE || !game.m_player || !game.m_bm->GetBases().empty() || !game.m_um->GetUnits().empty() ) {
+			GSE_ERROR( EC.INVALID_CALL, "Declared world requires declared participants and an unstarted empty world" );
+		}
+		state->TriggerObject( &game, "configure", ARGS_F( this ) { { "game", game.Wrap( GSE_CALL ) } }; } );
+		game.m_game_state = backend::Game::GS_STARTING;
+		game.InitComplete( GSE_CALL );
+		if ( !game.IsRunning() ) { GSE_ERROR( EC.INVALID_CALL, "Declared world configuration failed" ); }
+		// Turn one is an authored initial condition. Do not run natural world
+		// placement or FirstTurn income before the declared input snapshot.
+		game.m_current_turn.AdvanceTurn( 1 );
+		for ( auto& slot : state->m_slots->GetSlots() ) {
+			if ( slot.GetState() == backend::slot::Slot::SS_PLAYER && slot.GetPlayer()->GetRole() == backend::Player::PR_COMPUTER ) { slot.GetPlayer()->CompleteTurn(); }
+		}
+		DrainStartupEvents( GSE_CALL );
+	}
+	void SetDeclaredResearch( GSE_CALLABLE, int64_t player, const std::vector< Value* >& owned, int64_t target, int64_t science ) {
+		if ( !declared_world || game.GetTurnId() != 1 || player < 0 || player >= 7 || state->m_slots->GetSlot( player ).GetState() != backend::slot::Slot::SS_PLAYER || target < -1 || target >= 89 || science < 0 ) { GSE_ERROR( EC.INVALID_CALL, "Invalid declared research input" ); }
+		std::set< int > technologies;
+		for ( auto* id : owned ) {
+			if ( id->type != VT_INT ) { GSE_ERROR( EC.INVALID_CALL, "Declared technology must be an integer" ); }
+			const auto value = static_cast< value::Int* >( id )->value;
+			if ( value < 0 || value >= 89 || !technologies.insert( int( value ) ).second ) { GSE_ERROR( EC.INVALID_CALL, "Invalid or duplicate declared technology" ); }
+		}
+		const uint8_t mask = uint8_t( 1u << ( player + 1 ) );
+		for ( int id = 0; id < 89; ++id ) {
+			auto row = game.GetTechnologyTable().Get( id );
+			row.owners = uint8_t( ( row.owners & ~mask ) | ( technologies.count( id ) ? mask : 0 ) );
+			game.GetTechnologyTable().Set( id, row );
+		}
+		auto research = game.m_research.Get( player ); research.target = target; research.science = science; research.income_turn = 1;
+		game.m_research.Set( player, research );
 	}
 	void PrepareNaturalStartup( const std::string& terrain ) {
 		backend::map::tile::moisture_t moisture;
@@ -245,6 +370,7 @@ struct ProductionFixture : gc::Object {
 		for ( const auto* name : { "spawn_base", "spawn_unit", "advance_turn", "process_base_growth", "add_base_pop" } ) {
 			if ( !game.m_event_handlers.count( name ) ) { GSE_ERROR( EC.INVALID_CALL, "Natural startup handler is missing: " + std::string( name ) ); }
 		}
+		if ( !isolated_player ) { state->FinalizeSinglePlayerRoster(); }
 		// The map is a declared input, so only rendering/map generation are
 		// supplied. Execute the same native post-map lifecycle as Game::Iterate.
 		game.m_game_state = backend::Game::GS_STARTING;
@@ -1405,6 +1531,36 @@ Value* MakeWorldStartupFixture( GSE_CALLABLE, size_t width, size_t height ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( faction_id, 0, String );
 		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id )->Wrap( GSE_CALL );
 	} ), GSE_CALL );
+	object->Set( "participant_codec_invariant", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->ParticipantCodecInvariant() ); } ), GSE_CALL );
+	object->Set( "initialize_roster", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS_MIN_MAX( 2, 3 ); N_GETVALUE( id, 0, String ); N_GETVALUE( setup, 1, Object );
+		auto& f = *session->current;
+		const bool random = id == "RANDOM";
+		auto* human = random ? nullptr : f.state->GetFM()->Get( id );
+		if ( !human && !random ) { GSE_ERROR( EC.GAME_ERROR, "Unknown startup faction" ); }
+		bool random_human = false;
+		const auto roster = f.state->ParseSinglePlayerRoster( GSE_CALL, setup, human, random_human );
+		backend::faction::Faction::identity_t identity;
+		if ( arguments.size() == 3 ) {
+			if ( !human ) { GSE_ERROR( EC.GAME_ERROR, "Identity requires an explicitly selected faction" ); }
+			N_GETVALUE( fields, 2, Array ); identity = backend::faction::Faction::ParseIdentity( GSE_CALL, fields );
+			f.state->m_settings.local.player_name = identity[ 0 ];
+		}
+		return f.InitializeSinglePlayer( GSE_CALL, id, "Citizen", false, random, roster, random_human, arguments.size() == 3 ? &identity : nullptr )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "startup_map_error", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->StartupMapError() );
+	} ), GSE_CALL );
+	object->Set( "probe_queued_init_failure", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->ProbeQueuedInitFailure() );
+	} ), GSE_CALL );
+	object->Set( "has_offline_single_player_roster", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Bool,, session->current->state->HasOfflineSinglePlayerRoster() );
+	} ), GSE_CALL );
+	object->Set( "initialize_random_single_player", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->InitializeSinglePlayer( GSE_CALL, "", "Citizen", false, true )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "enable_transport", NATIVE_CALL( session ) { N_EXPECT_ARGS( 0 ); session->current->EnableTransport(); return VALUE( value::Undefined ); } ), GSE_CALL );
 	object->Set( "with_write", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 1 ); N_GET_CALLABLE( callback, 0 ); Value* result = nullptr;
 		session->current->WithWrite( [ & ]() { result = callback->Run( GSE_CALL, {} ); } );
@@ -1441,11 +1597,31 @@ Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, con
 		if ( arguments.size() == 2 ) { N_GETVALUE( selected, 1, String ); difficulty = selected; }
 		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id, difficulty )->Wrap( GSE_CALL );
 	} ), GSE_CALL );
+	object->Set( "initialize_isolated_player", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS_MIN_MAX( 1, 2 ); N_GETVALUE( faction_id, 0, String );
+		std::string difficulty = "Citizen";
+		if ( arguments.size() == 2 ) { N_GETVALUE( selected, 1, String ); difficulty = selected; }
+		return session->current->InitializeSinglePlayer( GSE_CALL, faction_id, difficulty, true )->Wrap( GSE_CALL );
+	} ), GSE_CALL );
 	object->Set( "get_player_difficulty", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 );
 		if ( !session->current->state->m_slots->GetCount() ) { GSE_ERROR( EC.INVALID_CALL, "Natural startup has no initialized player" ); }
 		const auto* player = session->current->game.GetPlayer();
 		return VALUE( value::String,, player->GetDifficultyLevel() );
+	} ), GSE_CALL );
+	object->Set( "initialize_declared_players", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS_MIN_MAX( 1, 2 ); N_GETVALUE( ids, 0, Array );
+		std::string difficulty = "Citizen";
+		if ( arguments.size() == 2 ) { N_GETVALUE( selected, 1, String ); difficulty = selected; }
+		session->current->InitializeDeclaredPlayers( GSE_CALL, ids, difficulty );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "configure_declared_world", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->ConfigureDeclaredWorld( GSE_CALL ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "set_declared_research", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 4 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( owned, 1, Array ); N_GETVALUE( target, 2, Int ); N_GETVALUE( science, 3, Int );
+		session->current->SetDeclaredResearch( GSE_CALL, player, owned, target, science ); return VALUE( value::Undefined );
 	} ), GSE_CALL );
 	object->Set( "start_world", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS_MAX( 1 ); bool interactive = false; if ( !arguments.empty() ) { N_GETVALUE( requested, 0, Bool ); interactive = requested; }

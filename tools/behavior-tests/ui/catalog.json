@@ -295,6 +295,11 @@
       "id": "interface-tour-synthetic",
       "cases": "cases/interface-tour-synthetic.json",
       "observations": "observations/smacx-gog-2.0-interface-tour-synthetic.json"
+    },
+    {
+      "id": "world-base-ownership",
+      "cases": "cases/world-base-ownership.json",
+      "observations": "observations/smacx-gog-2.0-world-base-ownership.json"
     }
   ]
 }

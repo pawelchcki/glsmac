@@ -1,0 +1,152 @@
+{
+  "captured_at": "2026-10-24T02:43:34.464134+00:00",
+  "observations": [
+    {
+      "case_sha256": "09ace29264b0c36657878b37d5f1350445a68197abc95cb6f9014b24a371f131",
+      "id": "random-mode-base-seven-named",
+      "output": {
+        "after_launch": {
+          "human_owner": 7,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "GAIANS",
+              "owner": 1
+            },
+            {
+              "faction_file": "HIVE",
+              "owner": 2
+            },
+            {
+              "faction_file": "UNIV",
+              "owner": 3
+            },
+            {
+              "faction_file": "MORGAN",
+              "owner": 4
+            },
+            {
+              "faction_file": "SPARTANS",
+              "owner": 5
+            },
+            {
+              "faction_file": "BELIEVE",
+              "owner": 6
+            },
+            {
+              "faction_file": "PEACE",
+              "owner": 7
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "Gaia's Stepdaughters|(The Green)",
+            "Human Hive|(The Despot)",
+            "University of Planet|(The Scientist)",
+            "Morgan Industries|(The Mogul)",
+            "Spartan Federation|(The Survivalist)",
+            "The Lord's Believers|(The Fundamentalist)",
+            "Peacekeeping Forces|(The Humanitarian)"
+          ],
+          "random": true,
+          "selected": -1
+        },
+        "leader_initial_value": null,
+        "leader_prompt": {
+          "buttons": [
+            "OK",
+            "CANCEL"
+          ],
+          "caption": "ENTER YOUR NAME",
+          "label": "NAME:"
+        },
+        "leader_prompt_confirmed": true
+      }
+    },
+    {
+      "case_sha256": "1fbcdc383ead6bd0eed53ff3c26f4a23959db33c5f847a11096b1171a8835d96",
+      "id": "duplicate-explicit-gaian-pair-named",
+      "output": {
+        "after_launch": {
+          "human_owner": 1,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "GAIANS",
+              "owner": 1
+            },
+            {
+              "faction_file": "GAIANS",
+              "owner": 2
+            },
+            {
+              "faction_file": "UNIV",
+              "owner": 3
+            },
+            {
+              "faction_file": "MORGAN",
+              "owner": 4
+            },
+            {
+              "faction_file": "SPARTANS",
+              "owner": 5
+            },
+            {
+              "faction_file": "BELIEVE",
+              "owner": 6
+            },
+            {
+              "faction_file": "PEACE",
+              "owner": 7
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "Gaia's Stepdaughters|(The Green)",
+            "Gaia's Stepdaughters|(The Green)",
+            "University of Planet|(The Scientist)",
+            "Morgan Industries|(The Mogul)",
+            "Spartan Federation|(The Survivalist)",
+            "The Lord's Believers|(The Fundamentalist)",
+            "Peacekeeping Forces|(The Humanitarian)"
+          ],
+          "random": false,
+          "selected": 0
+        },
+        "leader_initial_value": "Deirdre",
+        "leader_prompt": {
+          "buttons": [
+            "CHANGE GENDER",
+            "OK",
+            "CANCEL"
+          ],
+          "caption": "ENTER YOUR NAME",
+          "label": "NAME (FEMALE):"
+        },
+        "leader_prompt_confirmed": true
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "694fd5d7cbd49b8829733a95ab5680d52d67f7b9903bb5ba1a1dd9d3e5d9d055",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "clean_export": {
+      "omitted_metadata": [],
+      "semantic_observations_unchanged": true,
+      "source_record_sha256": "06cba5d35e94508a912cfc6cab0618c71c5c6487c013170d707ac886e99f7f11"
+    },
+    "contract": "game.setup_roster_resolution.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "scope": "Frozen stock base-seven RandomMode/duplicate-pair setup decisions; full actual faction-file roster and actual human owner after ordinary creation, no source row assignment guessed"
+  },
+  "repeat": 2,
+  "suite_sha256": "7180a958f651580e1f17717d3f7fdd9ac5f4e005837a4cb6458fa1727cb74b6c",
+  "version": 1
+}

@@ -1,3 +1,4 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 // Asset-free controller tests: native opening authority and timers/display at
 // the existing unrendered UI boundary, with explicitly synthetic source frames.
 const behavior = #include('./_behavior');
@@ -5,7 +6,7 @@ const begin = #include('../default/ui/parts/game/pod_landing');
 const make = () => {
 	const f = test.natural_startup_fixture(16, 16, 'flat-arid');
 	#include('./_natural_startup_mechanics')(f);
-	f.initialize_single_player('GAIANS'); f.start_world(true);
+	f.initialize_isolated_player('GAIANS'); f.start_world(true);
 	const game = f.game; const state = game.get_opening_state();
 	game.event('opening_command', {session: state.session, action: 'planetfall', base_id: 0, previous_name: '', name: ''}); f.process_events();
 	const display = #include('./_ui_mocks').display();

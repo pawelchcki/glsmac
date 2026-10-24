@@ -153,7 +153,7 @@ class ContextInventoryTests(unittest.TestCase):
 
     def test_full_suite_supersedes_pilots_without_counting_inputs_twice(self):
         references = audit.load_references(DIRECTORY / 'catalog.json')
-        self.assertEqual(len(references), 59)
+        self.assertEqual(len(references), 60)
         old = audit.load_references(DIRECTORY.parent / 'unit-menu-context-pilots-catalog.json')
         self.assertEqual(len(old), 3)
         self.assertFalse({r['id'] for r in old} & {r['id'] for r in references})
@@ -166,11 +166,11 @@ class ContextInventoryTests(unittest.TestCase):
                 self.assertEqual(outputs[case['id']], compare.validate_observations(record, suite)[case['id']])
         manifest = lanes.load_manifest(); known = lanes.inventory(manifest)
         hot = lanes.describe('ui', lanes.select('ui', known['ui'], 'hot', manifest))
-        self.assertEqual((hot['suites'], hot['cases']), (10, 43))
-        self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 754)
+        self.assertEqual((hot['suites'], hot['cases']), (11, 44))
+        self.assertEqual(lanes.describe('ui', known['ui'])['cases'], 755)
         self.assertEqual(manifest['gaps'], [])
         self.assertEqual(manifest['kinds']['pending-ui']['hot'], [
-            'base-open-recalc', 'world-base-ownership', 'natural-first-city',
+            'base-open-recalc', 'natural-first-city',
             'natural-first-city-factions-v6', 'natural-first-city-source-controls-v7'])
 
     def test_full_validation_is_metadata_only(self):

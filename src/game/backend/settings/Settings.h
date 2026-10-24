@@ -2,6 +2,7 @@
 
 #include <set>
 #include <string>
+#include <utility>
 
 #include "types/Serializable.h"
 
@@ -76,6 +77,7 @@ CLASS2( MapSettings, types::Serializable, gse::Wrappable )
 	 */
 	float cloud_cover = 0.5f;
 	void SelectWorldSize( int64_t width, int64_t height, int64_t level );
+	std::pair< int64_t, int64_t > GetGenerationDimensions() const;
 
 	WRAPDEFS_DYNAMIC( MapSettings );
 

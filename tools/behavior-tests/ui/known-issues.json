@@ -901,10 +901,10 @@
     {
       "id": "single-player-world-base-ownership",
       "suite": "world-base-ownership",
-      "catalog": "pending-catalog.json",
-      "status": "pending-transfer",
-      "property": "Two fresh original first-city runs have seven actual owners with one base each; production single-player initialization occupies only the human slot. The pending native replay uses shared production initialization, actual get_players, and shipped queued startup handlers. Computer controllers and later turns are outside the observations.",
-      "strict_replay": "python3 tools/behavior-tests/ui/run.py --pending --suite world-base-ownership",
+      "catalog": "catalog.json",
+      "status": "fixed-in-recorded-contract",
+      "property": "The unchanged twice-recorded original ownership input now matches shared production single-player initialization and queued native startup: seven owners have one base each. Explicit disconnected computer participants complete ordinary rounds; AI decisions and natural inventory/placement remain separate gaps.",
+      "strict_replay": "python3 tools/behavior-tests/ui/run.py --suite world-base-ownership",
       "original_observations_sha256": "71a75678cc7288fc9b90c8653864e154357e6fea600c125352bab97152b72436",
       "scope": "Counts of owners with bases only, after declared Gaian/Citizen actual 40x80 flat-grid first-city input; no full player roster, opponent identities/composition, AI decisions, natural starting inventory/placement or later turns.",
       "baseline_verification": {
@@ -921,7 +921,17 @@
         "other_owner_base_counts": []
       },
       "baseline_wasm_sha256": "5f84145a267964941e9055bc4bf22e17508c2d719d70bac530f764d3321a5539",
-      "baseline_scripts_sha256": "d7e9398770d907765e805752b3747b4834ff39c8f6b90b97772f6b0accb80455"
+      "baseline_scripts_sha256": "d7e9398770d907765e805752b3747b4834ff39c8f6b90b97772f6b0accb80455",
+      "verification": {
+        "matched": 1,
+        "mismatched": 0,
+        "unsupported": 0,
+        "errors": 0,
+        "candidate_executed": true
+      },
+      "verification_wasm_sha256": "206327679ea3206e96e98734e2011e10f741de21ceea3c58949dca65cf276d67",
+      "verification_scripts_sha256": "01351c037a38e30b3f062ea3e581ffd19d48b86dd1c5defbade6554e43b234e7",
+      "verification_scope": "Recorded C++ State/base-manager replay in WASM: all eleven references / 44 cases matched, including this ownership projection. This is separate from the full-discovery GSE/C++ engine gate and does not claim a desktop-native binary run."
     },
     {
       "id": "natural-first-city-population-and-stores",
@@ -1178,6 +1188,21 @@
         "unsupported": 0,
         "errors": 0
       }
+    },
+    {
+      "id": "explicit-seven-world-turn-production-and-technology",
+      "suite": "state-trace-explicit-seven-world-v2",
+      "status": "pending-native-transfer",
+      "property": "Actual shared explicit-world movement and Hold scenarios match for all seven participants. End turn remains a strict mismatch: all six opponent projects retain Colony Pod versus original Formers; University owns technology [6] versus original [3,6].",
+      "strict_replay": "python3 tools/behavior-tests/state_trace/run.py compare --cases tools/behavior-tests/state_trace/cases/explicit-seven-world-v2.json --reference tools/behavior-tests/state_trace/observations/smacx-gog-2.0-explicit-seven-world-v2-native-defaults.json --command \"python3 tools/behavior-tests/state_trace/candidate.py --assets /path/to/installed/game\"",
+      "verification": {
+        "matched": 2,
+        "mismatched": 1,
+        "unsupported": 0,
+        "errors": 0,
+        "candidate_executed": true
+      },
+      "scope": "One declared initial world with seven players, bases and Scouts; observed orders, projects, mineral stores, jobs and research. No full AI algorithm is inferred. Natural starting coordinates, stocks and Spartan Scout Rover inventory remain gaps; the preexisting 18-file original manifest is unchanged."
     }
   ],
   "verification": {

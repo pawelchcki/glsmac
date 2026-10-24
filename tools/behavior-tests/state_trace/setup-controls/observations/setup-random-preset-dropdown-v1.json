@@ -1,0 +1,144 @@
+{
+  "captured_at": "2026-10-24T02:44:44.973654+00:00",
+  "observations": [
+    {
+      "case_sha256": "b7fcfe3bdee0dbc42d26843c77285edf31643284cfe3f24d71c8e8e4d87c7dba",
+      "id": "random-mode-expansion-seven-named",
+      "output": {
+        "after_launch": {
+          "human_owner": 7,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "CYBORG",
+              "owner": 1
+            },
+            {
+              "faction_file": "PIRATES",
+              "owner": 2
+            },
+            {
+              "faction_file": "DRONE",
+              "owner": 3
+            },
+            {
+              "faction_file": "ANGELS",
+              "owner": 4
+            },
+            {
+              "faction_file": "FUNGBOY",
+              "owner": 5
+            },
+            {
+              "faction_file": "CARETAKE",
+              "owner": 6
+            },
+            {
+              "faction_file": "USURPER",
+              "owner": 7
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "The Cybernetic Consciousness|(The Algorithm)",
+            "Nautilus Pirates|(The Buccaneer)",
+            "The Free Drones|(The Laborer)",
+            "The Data Angels|(The Infogrrrrl)",
+            "The Cult of Planet|(The Voice)",
+            "Manifold Caretakers|(The Conservator)",
+            "Manifold Usurpers|(The Insurgent)"
+          ],
+          "random": true,
+          "selected": -1
+        },
+        "leader_initial_value": null,
+        "leader_prompt": {
+          "buttons": [
+            "OK",
+            "CANCEL"
+          ],
+          "caption": "ENTER YOUR NAME",
+          "label": "NAME:"
+        },
+        "leader_prompt_confirmed": true
+      }
+    },
+    {
+      "case_sha256": "1d832fd19edc6c20d70b101ecd82d4bb7d0652319d635e2a6bd53b97580d3a1b",
+      "id": "random-dropdown-base-human-named",
+      "output": {
+        "after_launch": {
+          "human_owner": 1,
+          "native_turn": 0,
+          "players": [
+            {
+              "faction_file": "GAIANS",
+              "owner": 1
+            },
+            {
+              "faction_file": "HIVE",
+              "owner": 2
+            },
+            {
+              "faction_file": "UNIV",
+              "owner": 3
+            },
+            {
+              "faction_file": "MORGAN",
+              "owner": 4
+            },
+            {
+              "faction_file": "SPARTANS",
+              "owner": 5
+            },
+            {
+              "faction_file": "BELIEVE",
+              "owner": 6
+            },
+            {
+              "faction_file": "PEACE",
+              "owner": 7
+            }
+          ]
+        },
+        "before_launch": {
+          "items": [
+            "RANDOM",
+            "Human Hive|(The Despot)",
+            "University of Planet|(The Scientist)",
+            "Morgan Industries|(The Mogul)",
+            "Spartan Federation|(The Survivalist)",
+            "The Lord's Believers|(The Fundamentalist)",
+            "Peacekeeping Forces|(The Humanitarian)"
+          ],
+          "random": false,
+          "selected": 0
+        },
+        "leader_initial_value": null,
+        "leader_prompt": null,
+        "leader_prompt_confirmed": false
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "3c9a590bfa5c49670a9e78e045e6e6ebbca3f6432d08ee61f7e5e30112023bda",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "clean_export": {
+      "omitted_metadata": [],
+      "semantic_observations_unchanged": true,
+      "source_record_sha256": "3e144d2347c124e73586f43bdaa9a754de7c944c28b4b3621680758cb671067d"
+    },
+    "contract": "game.setup_roster_resolution.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "scope": "Frozen stock base-seven RandomMode/duplicate-pair setup decisions; full actual faction-file roster and actual human owner after ordinary creation, no source row assignment guessed"
+  },
+  "repeat": 2,
+  "suite_sha256": "bb38dd86db4c23955f4baae313d0eaaf13ed50c5985b055642fa4dc7949495e4",
+  "version": 1
+}

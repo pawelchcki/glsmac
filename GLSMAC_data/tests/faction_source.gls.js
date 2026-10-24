@@ -19,6 +19,7 @@ behavior.scenario('faction setup loads the installed roster headers and common e
 	test.assert(setup.caption == 'CHOOSE YOUR FACTIONS');
 	test.assert(setup.labels == ['Name:', 'Formal:', 'Noun:', 'Adjective:', 'Title', 'Description', 'Gender']);
 	test.assert(setup.name[0].label == 'Name (Male):' && setup.name[1].label == 'Name (Female):');
+	test.assert(setup.random_name.label == 'Name:' && setup.random_name.button == null, 'Random uses the separate installed NAME3 editor without Change Gender');
 	test.assert(setup.name[0].button == 'Change Gender' && setup.customize.button == 'Restore Defaults');
 	test.assert(#sizeof(f.loads) == before + 16, 'Common script, labels and fourteen header documents are loaded once');
 });
@@ -27,6 +28,7 @@ for (profile of ['default', 'common', 'expansion', 'both']) {
 		const f = make(profile); const setup = f.bundle.faction_setup();
 		const common = profile == 'common' || profile == 'both';
 		test.assert(#uppercase(setup.name[0].caption) == (common ? 'CORE PILOT' : 'ENTER YOUR NAME'));
+		test.assert(#uppercase(setup.random_name.caption) == (common ? 'CORE PILOT' : 'ENTER YOUR NAME') && setup.random_name.button == null);
 		test.assert(setup.customize.caption == (common ? 'Core Crew' : 'Customize Your Faction'));
 		if (profile == 'both') {
 			test.assert(setup.caption == 'CHOOSE ORBIT CREWS');

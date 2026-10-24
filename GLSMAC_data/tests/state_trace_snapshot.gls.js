@@ -27,6 +27,16 @@ behavior.scenario('full native graph snapshots retain foreign entities and stabl
  let seen = false;
  for (u of moved.units) { if (u.raw_id == foreign.id) { seen = true; test.assert(u.id == foreign_logical && u.x == 12 && u.y == 10, 'Movement retains persistent logical identity'); } }
  test.assert(seen && before == again, 'Stored snapshots remain detached after native mutation');
+ game.register_event('move_unit', #include('../default/game/event/move_unit'));
+ const destination = observer_api.destination(foreign, 'E');
+ const request = {}; request.unit = foreign; request.tile = destination;
+ game.event('move_unit', request); f.process_events(); f.finish_unit_move(foreign.id);
+ const commanded = observer.read();
+ for (u of commanded.units) {
+  if (u.raw_id == foreign.id) {
+   test.assert(u.id == foreign_logical && u.x == 14 && u.y == 10 && u.movement == 0.0, 'Shared destination lookup executes a real directional command and movement cost');
+  }
+ }
  const foreign_id = foreign.id + 0;
  f.with_write(() => { game.um.despawn_unit(foreign_id); });
  const removed = observer.read();

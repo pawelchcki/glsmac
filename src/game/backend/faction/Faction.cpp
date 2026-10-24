@@ -39,6 +39,21 @@ bool ValidIdentity( const Faction::identity_t& identity ) {
 }
 }
 
+std::unique_ptr< Faction > Faction::Clone() const {
+	// Wrappable state belongs to each instance. The persistence codec omits
+	// flags and base-name pools, so it cannot serve as a complete template copy.
+	auto copy = std::make_unique< Faction >( m_id, m_name );
+	copy->m_flags = m_flags;
+	copy->m_colors = m_colors;
+	copy->m_base_names = m_base_names;
+	copy->m_bases_render = m_bases_render;
+	copy->m_growth = m_growth;
+	copy->m_industry = m_industry;
+	copy->m_identity = m_identity;
+	copy->m_starting_technologies = m_starting_technologies;
+	return copy;
+}
+
 Faction::identity_t Faction::ParseIdentity( GSE_CALLABLE, const std::vector< gse::Value* >& values ) {
 	identity_t identity;
 	if ( values.size() != identity.size() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Faction identity requires six strings" ); }

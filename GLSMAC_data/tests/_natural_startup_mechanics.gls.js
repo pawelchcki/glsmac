@@ -1,10 +1,14 @@
 // Stock-equivalent input declarations. These supply no population, resource
 // stores, tile yields or expected city answers. Audio/artwork loading is omitted.
-return (f, declared_sources) => {
+return (f, declared_sources, declared_factions) => {
 	const game = f.game;
 	const sources = #is_defined(declared_sources) ? declared_sources : #include('./_startup_faction_sources_fixture')({});
 	#include('../default/factions').configure({
-		add: (id, data) => { f.fm.add(id, data); },
+		add: (id, data) => {
+			let included = !#is_defined(declared_factions);
+			if (#is_defined(declared_factions)) { for (allowed of declared_factions) { if (id == allowed) { included = true; } } }
+			if (included) { f.fm.add(id, data); }
+		},
 		import_colors: (name) => { return f.colors; },
 		import_base_names: (name) => { return {land: ['Synthetic City'], water: ['Synthetic Port']}; },
 	}, sources.glsmac);

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "custom-grid-minimum-two-by-two",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "2",
+        "vertical": "2"
+      }
+    }
+  ]
+}
