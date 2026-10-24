@@ -523,6 +523,15 @@ WRAPIMPL_BEGIN( Game )
 		} ) },
 		{ "technologies", technology::WrapTable( GSE_CALL, m_technologies, this ) },
 		{ "get_research_state", NATIVE_CALL( this ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( player, 0, Int ); return GetResearchState( GSE_CALL, player ); } ) },
+		{ "get_research_science", NATIVE_CALL( this ) { N_EXPECT_ARGS( 1 ); N_GETVALUE( player, 0, Int ); return GetResearchScience( GSE_CALL, player ); } ) },
+		{ "validate_research_credit", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( turn, 1, Int ); N_GETVALUE( income, 2, Int );
+			const auto error = ValidateResearchCredit( player, turn, income ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
+		} ) },
+		{ "credit_research", NATIVE_CALL( this ) {
+			N_EXPECT_ARGS( 3 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( turn, 1, Int ); N_GETVALUE( income, 2, Int );
+			return CreditResearch( GSE_CALL, player, turn, income );
+		} ) },
 		{ "validate_research_target", NATIVE_CALL( this ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( player, 0, Int ); N_GETVALUE( target, 1, Int );
 			const auto error = ValidateResearchTarget( player, target ); return error.empty() ? (gse::Value*)VALUE( gse::value::Undefined ) : VALUE( gse::value::String,, error );
@@ -2024,6 +2033,9 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 								technology::Research research;
 								if ( buf.lenr != buf.lenw ) { research.Deserialize( types::Buffer( buf.ReadString() ) ); }
 								if ( buf.lenr != buf.lenw ) { THROW( "Trailing world research snapshot data" ); }
+								for ( size_t player = 0; player < technology::Research::PLAYERS; ++player ) {
+									if ( research.Get( player ).income_turn > turn_id ) { THROW( "Future research credit in world snapshot" ); }
+								}
 								m_research = research;
 								if ( turn_id > 0 ) {
 									MTModule::Log( "Received turn ID: " + std::to_string( turn_id ) );

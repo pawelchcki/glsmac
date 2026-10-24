@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "name": "early-science-difficulties",
+  "description": "Optional actual stock Gaian difficulty timing witnesses, no generalized suppression threshold.",
+  "cases": [
+    {
+      "id": "gaians-specialist-first-five-advances",
+      "algorithm": "game.early_science_difficulties.v1",
+      "input": {
+        "difficulty": "specialist",
+        "target_id": 5,
+        "advances": 5,
+        "contact_policy": "decline-channel"
+      }
+    },
+    {
+      "id": "gaians-librarian-first-five-advances",
+      "algorithm": "game.early_science_difficulties.v1",
+      "input": {
+        "difficulty": "librarian",
+        "target_id": 5,
+        "advances": 5,
+        "contact_policy": "decline-channel"
+      }
+    },
+    {
+      "id": "gaians-thinker-first-five-advances",
+      "algorithm": "game.early_science_difficulties.v1",
+      "input": {
+        "difficulty": "thinker",
+        "target_id": 5,
+        "advances": 5,
+        "contact_policy": "decline-channel"
+      }
+    },
+    {
+      "id": "gaians-transcend-first-five-advances",
+      "algorithm": "game.early_science_difficulties.v1",
+      "input": {
+        "difficulty": "transcend",
+        "target_id": 5,
+        "advances": 5,
+        "contact_policy": "decline-channel"
+      }
+    }
+  ]
+}

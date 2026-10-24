@@ -684,11 +684,15 @@ struct ProductionFixture : gc::Object {
 		if ( kind == "truncated" ) { return bytes.substr( 0, bytes.size() - 1 ); }
 		if ( kind == "trailing" ) { return bytes + "trailing"; }
 		types::Buffer invalid;
-		invalid.WriteInt( kind == "version" ? 2 : 1 ); invalid.WriteInt( kind == "count" ? 8 : 7 );
+		invalid.WriteInt( kind == "version" ? 99 : ( kind == "legacy" ? 1 : 2 ) ); invalid.WriteInt( kind == "count" ? 8 : 7 );
 		for ( size_t player = 0; player < 7; ++player ) {
 			const auto& state = game.m_research.Get( player );
 			invalid.WriteInt( player == 6 && kind == "target" ? 89 : state.target );
 			invalid.WriteInt( player == 6 && kind == "priorities" ? 16 : state.priorities );
+			if ( kind != "legacy" ) {
+				invalid.WriteInt( player == 6 && kind == "science" ? -1 : state.science );
+				invalid.WriteInt( player == 6 && kind == "income_turn" ? -1 : state.income_turn );
+			}
 		}
 		return invalid.ToString();
 	}

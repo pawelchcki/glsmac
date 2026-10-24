@@ -59,6 +59,7 @@ return (glsmac) => {
 			game.set('movement_rules', movement_rules.parse(document));
 			#include('terraforming').configure(game);
 			resources.configure(game, land_resource_rules.parse(document));
+			#include('research').configure(game);
 
 			resources.define(game);
 			const starting_rules = unit_rules.parse(document);

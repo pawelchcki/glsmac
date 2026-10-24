@@ -1,0 +1,889 @@
+{
+  "version": 1,
+  "kind": "actual-original-context-archive",
+  "source_artifact_directory": "/tmp/research-science-difficulties-recording-v2/capture-4o7n7aow",
+  "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+  "adapter_sha256": "6a641b53a493de9461166ac5af0f97281db339fcd47a0db9b287209ea8b35be1",
+  "observations": [
+    {
+      "id": "gaians-librarian-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "psych": 0,
+          "labs": 50
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "turn": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 9
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 1,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 10
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 1,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 2,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 11
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 2,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 3,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 12
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 3,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 4,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 13
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 4,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 6,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 5,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 14
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 5,
+              "per_turn": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gaians-specialist-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "psych": 0,
+          "labs": 50
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "turn": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 9
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 10
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 11
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 12
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 1,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 13
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 1,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 6,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 2,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 14
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 2,
+              "per_turn": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gaians-thinker-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "psych": 0,
+          "labs": 50
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "turn": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 9
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 1,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 10
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 1,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 2,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 11
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 2,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 3,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 12
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 3,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 4,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 13
+            },
+            "report": {
+              "cost": 9,
+              "accumulated": 4,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 6,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 5,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 14
+            },
+            "report": {
+              "cost": 9,
+              "accumulated": 5,
+              "per_turn": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gaians-transcend-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "psych": 0,
+          "labs": 50
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "turn": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 0,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 9
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 0,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 1,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 10
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 1,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 2,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 11
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 2,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 3,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 12
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 3,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 4,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 13
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 4,
+              "per_turn": 1
+            }
+          },
+          {
+            "turn": 6,
+            "faction_id": 1,
+            "goal_id": 5,
+            "accumulated": 5,
+            "owned_ids": [
+              6
+            ],
+            "units": [
+              {
+                "prototype_id": 2,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              },
+              {
+                "prototype_id": 0,
+                "order_code": 2,
+                "movement_spent": 0,
+                "damage": 0
+              }
+            ],
+            "city": {
+              "population": 1,
+              "workers": 0,
+              "doctors": 1,
+              "worked_tiles": 0,
+              "nutrients": 0,
+              "minerals": 14
+            },
+            "report": {
+              "cost": 10,
+              "accumulated": 5,
+              "per_turn": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -63,6 +63,20 @@ behavior.scenario('research source preserves body ampersands and source button m
 	test.assert(loaded.directed.caption == 'Changed Caption' && loaded.directed.buttons == ['Inspect', 'Search']);
 	test.assert(loaded.priorities.lines[0] == 'A & B' && loaded.priorities.lines[3] == 'Explore & Grow');
 });
+behavior.scenario('laboratory report imports caption and exact indexed labels with strict validation', () => {
+	const f = create(); const definition = source.load_laboratories(f.m.glsmac);
+	test.assert(definition.caption == 'Synthetic Laboratory Report' && definition.ok == 'Accept');
+	test.assert(definition.accumulated == 'Synthetic label 377' && definition.per_turn == 'Synthetic label 378' && definition.summary == 'Synthetic label 689');
+	f.m.glsmac.load_smac_text = (name, format) => {
+		return test.parse_smac_text(name == 'script.txt' ? '#STATUSLABS\n#caption Changed Lab Caption\n#END\n' : text.labels, format);
+	};
+	test.assert(source.load_laboratories(f.m.glsmac).caption == 'Changed Lab Caption');
+	f.m.glsmac.load_smac_text = (name, format) => {
+		return test.parse_smac_text(name == 'script.txt' ? text.script : '#LABELS\n1\nOnly label\n#END\n', format);
+	};
+	let rejected = false; try { source.load_laboratories(f.m.glsmac); } catch { : (e) => { rejected = true; } }
+	test.assert(rejected);
+});
 behavior.scenario('malformed research blocks and label counts fail before mounting controls', () => {
 	const f = create();
 	for (script of ['#TECHNOLOGY\n#caption Duplicate\n#caption Again\n#END\n', '#RULES\n#caption Missing Options\n#button Reset\n#END\n']) {

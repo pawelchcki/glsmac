@@ -365,6 +365,13 @@ WRAPIMPL_BEGIN( Player )
 				VALUE( gse::value::Bool, , m_role == PR_SINGLE || m_role == PR_HOST )
 			},
 			{
+				"get_difficulty_level",
+				NATIVE_CALL( this ) {
+					N_EXPECT_ARGS( 0 );
+					return VALUE( gse::value::String,, GetDifficultyLevel() );
+				} )
+			},
+			{
 				"add_production_choice",
 				NATIVE_CALL( this, game ) {
 

@@ -1,0 +1,321 @@
+{
+  "captured_at": "2026-10-23T23:04:29.705959+00:00",
+  "observations": [
+    {
+      "case_sha256": "242c06509d4dfa495cdb30c6c6c2c706892d2c0cadfd4c6a3b1aebf9633a84fa",
+      "id": "gaians-specialist-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 1
+          },
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 2
+          },
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 3
+          },
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 4
+          },
+          {
+            "accumulated": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 5
+          },
+          {
+            "accumulated": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 6
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "036fcc7c7f6383d6c7fe2d72db27f682bb8ac6f6ec44b4bac6bbde2fabfc4fef",
+      "id": "gaians-librarian-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 1
+          },
+          {
+            "accumulated": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 2
+          },
+          {
+            "accumulated": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 3
+          },
+          {
+            "accumulated": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 4
+          },
+          {
+            "accumulated": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 5
+          },
+          {
+            "accumulated": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 6
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "c8625259dca22e959b6675b5a3a8688a66f2189f10ab7fa5bbd1a570a928a497",
+      "id": "gaians-thinker-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 1
+          },
+          {
+            "accumulated": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 2
+          },
+          {
+            "accumulated": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 3
+          },
+          {
+            "accumulated": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 4
+          },
+          {
+            "accumulated": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 5
+          },
+          {
+            "accumulated": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 6
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "2a357ef84136ee6703a03bbc9ae212261c6f6bcb45398339d5c311aac8fa0449",
+      "id": "gaians-transcend-first-five-advances",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "trace": [
+          {
+            "accumulated": 0,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 1
+          },
+          {
+            "accumulated": 1,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 2
+          },
+          {
+            "accumulated": 2,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 3
+          },
+          {
+            "accumulated": 3,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 4
+          },
+          {
+            "accumulated": 4,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 5
+          },
+          {
+            "accumulated": 5,
+            "faction_id": 1,
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "per_turn": 1,
+            "turn": 6
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "01412a261d80815b40b2af5675889ac25b26c3f1e325e6d0dd32e387ac42b584",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.early_science_difficulty_timing.v2",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Stock Gaians with Specialist/Librarian/Thinker/Transcend setup choices, flat-arid40x80, Blind-off target5; actual allocation/base Labs total; ready units held; channels declined; five real advances",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Actual Laboratories values and native timing/ownership/city/unit context, actual initial base Labs income; fresh private game per case",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional timing-only projection; report cost and rosters vary in prior full contexts and remain unverified; full current contexts retained locally; no threshold or acquisition claim"
+  },
+  "repeat": 2,
+  "suite_sha256": "79356223dc190d850d5df3ade25b6211139c9c3eb79a52dc034837cb1ce35367",
+  "version": 1
+}

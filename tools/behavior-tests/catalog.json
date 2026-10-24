@@ -1,6 +1,7 @@
 {
   "version": 1,
   "suites": [
+    {"id":"research-science","script":"GLSMAC_data/tests/research_science.gls.js","domains":["gameplay","economy","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"research-cost-native","script":"GLSMAC_data/tests/research_cost_native.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"research-setup","script":"GLSMAC_data/tests/research_setup.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"research-controls","script":"GLSMAC_data/tests/research_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

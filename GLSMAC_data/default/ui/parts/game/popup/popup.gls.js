@@ -7,6 +7,7 @@ return {
 		'terraforming_replacement',
 		'unit_activation',
 		'research',
+		'laboratories',
 		'starvation',
 	],
 

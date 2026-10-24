@@ -22,6 +22,14 @@ gse::Value* Game::GetResearchState( GSE_CALLABLE, int64_t player ) const {
 	} );
 }
 
+gse::Value* Game::GetResearchScience( GSE_CALLABLE, int64_t player ) const {
+	if ( player < 0 || player >= technology::Research::PLAYERS ) { GSE_ERROR( gse::EC.INVALID_CALL, "Invalid research player" ); }
+	const auto& state = m_research.Get( player );
+	return VALUEEXT( gse::value::Object, GSE_CALL, {
+		{ "accumulated", VALUE( gse::value::Int,, state.science ) }, { "income_turn", VALUE( gse::value::Int,, state.income_turn ) },
+	} );
+}
+
 std::string Game::ValidateResearchPlayer( int64_t player ) const {
 	if ( !IsRunning() || !GetTurnId() || IsOpeningPending() ) { return "Research requires an active playable world"; }
 	if ( player < 0 || player >= technology::Research::PLAYERS || !m_state || size_t( player ) >= m_state->m_slots->GetCount() ) { return "Invalid research player"; }
@@ -42,6 +50,18 @@ std::string Game::ValidateResearchPriority( int64_t player, int64_t priority ) c
 	const auto error = ValidateResearchPlayer( player ); if ( !error.empty() ) { return error; }
 	if ( !m_state->m_settings.global.rules.IsBlindResearch() ) { return "Priorities require Blind Research on"; }
 	if ( priority < 0 || priority > 3 ) { return "Invalid research priority"; }
+	return "";
+}
+
+std::string Game::ValidateResearchCredit( int64_t player, int64_t turn, int64_t income ) const {
+	const auto error = ValidateResearchPlayer( player ); if ( !error.empty() ) { return error; }
+	if ( turn < 1 || uint64_t( turn ) != GetTurnId() ) { return "Research credit requires the current turn"; }
+	if ( m_state->m_settings.global.rules.IsBlindResearch() ) { return "Science credit currently requires directed research"; }
+	const auto& state = m_research.Get( player );
+	if ( state.target == technology::Table::NONE || !m_technologies.IsAvailable( state.target, player + 1, true ) ) { return "Science credit requires an eligible selected target"; }
+	if ( state.income_turn >= turn ) { return "Research income was already processed for this turn"; }
+	if ( income < 0 ) { return "Research income cannot be negative"; }
+	if ( income > std::numeric_limits< int64_t >::max() - state.science ) { return "Research science store overflow"; }
 	return "";
 }
 
@@ -67,6 +87,14 @@ gse::Value* Game::SetResearchPriority( GSE_CALLABLE, int64_t player, int64_t pri
 	const auto error = ValidateResearchPriority( player, priority ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
 	auto next = m_research.Get( player );
 	const auto bit = 1u << priority; next.priorities = enabled ? next.priorities | bit : next.priorities & ~bit;
+	return ApplyResearch( GSE_CALL, player, next );
+}
+
+gse::Value* Game::CreditResearch( GSE_CALLABLE, int64_t player, int64_t turn, int64_t income ) {
+	CheckRW( GSE_CALL ); gse::Wrappable::CheckCustomMutation( GSE_CALL );
+	const auto error = ValidateResearchCredit( player, turn, income ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+	auto next = m_research.Get( player ); next.income_turn = turn;
+	next.science += income;
 	return ApplyResearch( GSE_CALL, player, next );
 }
 
