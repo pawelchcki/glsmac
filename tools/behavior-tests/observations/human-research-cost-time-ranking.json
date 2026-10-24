@@ -1,0 +1,671 @@
+{
+  "captured_at": "2026-10-23T21:24:01.298629+00:00",
+  "observations": [
+    {
+      "case_sha256": "487b428eaddeb4ef27a20444b728bf73923cf2416e8d90d7077411fcdc2ab604",
+      "id": "cost-time-earned0-rank0-turn1-stagnation1",
+      "output": {
+        "science_required": 19
+      }
+    },
+    {
+      "case_sha256": "87848d159e2245e43318ef84535cfdc65a739cc9cdd81530e548e74f16af6dad",
+      "id": "cost-time-earned0-rank0-turn8-stagnation0",
+      "output": {
+        "science_required": 12
+      }
+    },
+    {
+      "case_sha256": "7c1c4d2003d2f186426fac233b95f63f06349a0dcc3eba4864b98b8eda719691",
+      "id": "cost-time-earned0-rank0-turn8-stagnation1",
+      "output": {
+        "science_required": 19
+      }
+    },
+    {
+      "case_sha256": "05093820c312f59c77df0a763c33954bcd70f63510cb29e1d05ce1eebabbe3da",
+      "id": "cost-time-earned0-rank0-turn24-stagnation0",
+      "output": {
+        "science_required": 12
+      }
+    },
+    {
+      "case_sha256": "1b23208e0b397500507711ec3eef5ababd82c50ecea342fdb68bb576f85ef734",
+      "id": "cost-time-earned0-rank0-turn24-stagnation1",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "4665bf8325103697aa7a84d195fe69e94c234cec27a96e2cb20b13deafee9b0d",
+      "id": "cost-time-earned0-rank0-turn80-stagnation0",
+      "output": {
+        "science_required": 12
+      }
+    },
+    {
+      "case_sha256": "2b930bb0c797aa1953dd865756c13748cdbaa711638a2c9d4fec6da4530bb257",
+      "id": "cost-time-earned0-rank0-turn80-stagnation1",
+      "output": {
+        "science_required": 18
+      }
+    },
+    {
+      "case_sha256": "6995adab54353dcabd283906bf71c1529cea4e32ad9d95210a4400726b5a2a40",
+      "id": "cost-time-earned0-rank8-turn1-stagnation0",
+      "output": {
+        "science_required": 64
+      }
+    },
+    {
+      "case_sha256": "479ba58bed03b56ab70d77668f2c7854c4c112113f6cec2933ffea949a2e47f6",
+      "id": "cost-time-earned0-rank8-turn1-stagnation1",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "0509ba190e4ddfdfd51f9effd6315d316db3715811ce07acc0e56b97916a1725",
+      "id": "cost-time-earned0-rank8-turn8-stagnation0",
+      "output": {
+        "science_required": 60
+      }
+    },
+    {
+      "case_sha256": "92dfa4262492fd662e7b657f3f6f0b1eda9e4f2b3c2551f04993ec6333680aeb",
+      "id": "cost-time-earned0-rank8-turn8-stagnation1",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "30125dc1bf114789d021e98d41d98220bc6579907784327b84af240a319c1caa",
+      "id": "cost-time-earned0-rank8-turn24-stagnation0",
+      "output": {
+        "science_required": 52
+      }
+    },
+    {
+      "case_sha256": "ad6d84c942465915f84e04f37c41ecefb8a0e0c7cc64bfbfd1d06ebdd7a982b4",
+      "id": "cost-time-earned0-rank8-turn24-stagnation1",
+      "output": {
+        "science_required": 84
+      }
+    },
+    {
+      "case_sha256": "afaaec317d549239e514e189257587c2ed135116132ec511c83a9f0520102d28",
+      "id": "cost-time-earned0-rank8-turn80-stagnation0",
+      "output": {
+        "science_required": 48
+      }
+    },
+    {
+      "case_sha256": "0917f51b2b7dfc59463cb2d85bb409dcbc6b45bf98bd1f05785975b1e6ea7a5d",
+      "id": "cost-time-earned0-rank8-turn80-stagnation1",
+      "output": {
+        "science_required": 72
+      }
+    },
+    {
+      "case_sha256": "51feccec0cd992743ee7a98c4084b12f87133aca49799a79f76684a09974fc3e",
+      "id": "cost-time-earned0-rank16-turn1-stagnation0",
+      "output": {
+        "science_required": 160
+      }
+    },
+    {
+      "case_sha256": "4e85fbd4182a2c2cba646e52bb72472c1c600d15be2d31182512682b6e98ced7",
+      "id": "cost-time-earned0-rank16-turn1-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "af5a567e3edc123a31f9c0100b747aa72020697f6682655a007bcbe10228c229",
+      "id": "cost-time-earned0-rank16-turn8-stagnation0",
+      "output": {
+        "science_required": 152
+      }
+    },
+    {
+      "case_sha256": "8ef8317eab940994ebe8defb8fbaaa209350508e09826939118dc0ca31fb1f4e",
+      "id": "cost-time-earned0-rank16-turn8-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "e3e3ee5cd424063cfd8b82e75349f8e7bb3f2f3046eb9bb29fef57e25b73db77",
+      "id": "cost-time-earned0-rank16-turn24-stagnation0",
+      "output": {
+        "science_required": 136
+      }
+    },
+    {
+      "case_sha256": "e7bfb045eb14399f604f492a9e0b08c062b2b6580e0796e2c12bc3d64c29af45",
+      "id": "cost-time-earned0-rank16-turn24-stagnation1",
+      "output": {
+        "science_required": 216
+      }
+    },
+    {
+      "case_sha256": "80958acae99a38494ecf12a9476b656cd4a76db22b2687ef23e9dedcf1a2a5e2",
+      "id": "cost-time-earned0-rank16-turn80-stagnation0",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "bdc8d9c2d9bf11521b26a7f83c05f1d0b8f71ef500536aa0a110195fff30ce1e",
+      "id": "cost-time-earned0-rank16-turn80-stagnation1",
+      "output": {
+        "science_required": 168
+      }
+    },
+    {
+      "case_sha256": "83f2eee67803dc1d9222f92c271f9d367007017c7900eec715d20c0ed049d69b",
+      "id": "cost-time-earned2-rank0-turn1-stagnation1",
+      "output": {
+        "science_required": 42
+      }
+    },
+    {
+      "case_sha256": "68583728e9e0435f93d0b5c620a58f40b074da596b2cd46053b50172347c1dad",
+      "id": "cost-time-earned2-rank0-turn8-stagnation0",
+      "output": {
+        "science_required": 26
+      }
+    },
+    {
+      "case_sha256": "d166f87b309770ac7e3e19a43449d30e0c3a3bafff21fb2c8481d68945abac56",
+      "id": "cost-time-earned2-rank0-turn8-stagnation1",
+      "output": {
+        "science_required": 42
+      }
+    },
+    {
+      "case_sha256": "74f924bd19a72fdd2f1728bb156e095bc84046fe4a0144ce4fd5fea91edee61c",
+      "id": "cost-time-earned2-rank0-turn24-stagnation0",
+      "output": {
+        "science_required": 24
+      }
+    },
+    {
+      "case_sha256": "36b71833bca8f0dea941efd72da8cf37b88c2030146dd5318313ec130bad2e87",
+      "id": "cost-time-earned2-rank0-turn24-stagnation1",
+      "output": {
+        "science_required": 36
+      }
+    },
+    {
+      "case_sha256": "552d42e602bbf2ebc0eaf4a5ba062a1de3be6918684dcff656509d0f6620e83a",
+      "id": "cost-time-earned2-rank0-turn80-stagnation0",
+      "output": {
+        "science_required": 24
+      }
+    },
+    {
+      "case_sha256": "d8fbcbf6c3d0747b504bc40ce4ff4b2cd3cc2924168874249ba52739839cea2d",
+      "id": "cost-time-earned2-rank0-turn80-stagnation1",
+      "output": {
+        "science_required": 36
+      }
+    },
+    {
+      "case_sha256": "5862e579302407b563f104e5ebf9fcd70338ade7b57561de7c518a336677c2bf",
+      "id": "cost-time-earned2-rank8-turn1-stagnation0",
+      "output": {
+        "science_required": 108
+      }
+    },
+    {
+      "case_sha256": "6a1007af2235c43a35dcc09bef98d0541b2e28d836edf2e0c10b2d4d67f341c1",
+      "id": "cost-time-earned2-rank8-turn1-stagnation1",
+      "output": {
+        "science_required": 162
+      }
+    },
+    {
+      "case_sha256": "0ad1187fbccb777f021c6dafcdedb6fe7e671445e7807cb9a1c34133332e04f8",
+      "id": "cost-time-earned2-rank8-turn8-stagnation0",
+      "output": {
+        "science_required": 102
+      }
+    },
+    {
+      "case_sha256": "cc542ddc4a2e6c6aeebac70260bae4b8181d4adbe8e657e42aa1cdfc323db76d",
+      "id": "cost-time-earned2-rank8-turn8-stagnation1",
+      "output": {
+        "science_required": 162
+      }
+    },
+    {
+      "case_sha256": "cfaacbf10067b0bc359344adc427740236163eb473622aed871b0c38c86e10d0",
+      "id": "cost-time-earned2-rank8-turn24-stagnation0",
+      "output": {
+        "science_required": 90
+      }
+    },
+    {
+      "case_sha256": "a678df1b92eb213d411af8b3b251048e9e00c3d9a9ea42ff7523ecf2a9191c98",
+      "id": "cost-time-earned2-rank8-turn24-stagnation1",
+      "output": {
+        "science_required": 144
+      }
+    },
+    {
+      "case_sha256": "9268351879bd1e684d7de84f1c253c64a4bf5079687bd388f2bb2bf43f66642f",
+      "id": "cost-time-earned2-rank8-turn80-stagnation0",
+      "output": {
+        "science_required": 72
+      }
+    },
+    {
+      "case_sha256": "1ce731b72fbd1c48cec416c58d952f64687919ff158d1ff0337bf85019296b65",
+      "id": "cost-time-earned2-rank8-turn80-stagnation1",
+      "output": {
+        "science_required": 108
+      }
+    },
+    {
+      "case_sha256": "b3da04b363133aa32759971fb4e733e5538287180aaed5d33f1094fefdc1ab9b",
+      "id": "cost-time-earned2-rank16-turn1-stagnation0",
+      "output": {
+        "science_required": 220
+      }
+    },
+    {
+      "case_sha256": "7a3b6bc1c31e38528889aeb880a5e38d079a9cdbea58a1a4bc5b5c8881e64a0f",
+      "id": "cost-time-earned2-rank16-turn1-stagnation1",
+      "output": {
+        "science_required": 330
+      }
+    },
+    {
+      "case_sha256": "0043db3a0f405515f6cbc71a0e8e2ff999028c493e75dc97d747e1c77e75fa63",
+      "id": "cost-time-earned2-rank16-turn8-stagnation0",
+      "output": {
+        "science_required": 210
+      }
+    },
+    {
+      "case_sha256": "873f9290c03556cd5b5ba5a8b2e0fc7044a32b36a5acf2a3cb889d6e3b466f0e",
+      "id": "cost-time-earned2-rank16-turn8-stagnation1",
+      "output": {
+        "science_required": 330
+      }
+    },
+    {
+      "case_sha256": "6c9a5f3e8222a9b2b07b6d23cbe02297462dcd65f8941dcf507e27b124e0e676",
+      "id": "cost-time-earned2-rank16-turn24-stagnation0",
+      "output": {
+        "science_required": 190
+      }
+    },
+    {
+      "case_sha256": "0f921bab065b8b2638709c320ac624688f8f4d0f478230e5fe4c38b1f709aa7c",
+      "id": "cost-time-earned2-rank16-turn24-stagnation1",
+      "output": {
+        "science_required": 300
+      }
+    },
+    {
+      "case_sha256": "e7c2b27ccf73509f6a7ea29b8c2b9a5861730f2d000d494045254c1c6616ecca",
+      "id": "cost-time-earned2-rank16-turn80-stagnation0",
+      "output": {
+        "science_required": 120
+      }
+    },
+    {
+      "case_sha256": "a1044379778e051385eb32d6dc71f3d84c24525c6274ecbbe81e13df44d3272d",
+      "id": "cost-time-earned2-rank16-turn80-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "63de18c6e14e5614f916815bf336b1ff363bc80b88bdb57ed1f7299c16fecc9a",
+      "id": "cost-time-earned4-rank0-turn1-stagnation1",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "d8bd3b4cdafe7808004c39fee9adb42d787552163ca51ced7bbd72b2d2fe3997",
+      "id": "cost-time-earned4-rank0-turn8-stagnation0",
+      "output": {
+        "science_required": 60
+      }
+    },
+    {
+      "case_sha256": "9c58a78b2b52e83464af56515a800d11b4037c826bc891dbae455f4baf294b39",
+      "id": "cost-time-earned4-rank0-turn8-stagnation1",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "c36c97e0827f47e43ba4a607cfdc7eb818e648da406cb9d7671e2c477dc3104f",
+      "id": "cost-time-earned4-rank0-turn24-stagnation0",
+      "output": {
+        "science_required": 52
+      }
+    },
+    {
+      "case_sha256": "e33d59879356f0b5efdbd52ed2f05b5cca0830f1127ece5c9f8621ef75e56be2",
+      "id": "cost-time-earned4-rank0-turn24-stagnation1",
+      "output": {
+        "science_required": 84
+      }
+    },
+    {
+      "case_sha256": "0a9b408a7ac7ad74085d944ca99cba54aabc0bc5de00672b9dadfb62417afef2",
+      "id": "cost-time-earned4-rank0-turn80-stagnation0",
+      "output": {
+        "science_required": 48
+      }
+    },
+    {
+      "case_sha256": "810b5c92d27f5200532523d714cf4a426eae1ab827a65f8a91262254925a634b",
+      "id": "cost-time-earned4-rank0-turn80-stagnation1",
+      "output": {
+        "science_required": 72
+      }
+    },
+    {
+      "case_sha256": "fc426201c382531a33040e65e7688f2e6557f2f886ea72c255665d690b68e00a",
+      "id": "cost-time-earned4-rank8-turn1-stagnation0",
+      "output": {
+        "science_required": 160
+      }
+    },
+    {
+      "case_sha256": "0030a7fe8d5189d03f8f2042af80a0025b0e0fbbaab7523ae25b7cc38e0b4b0d",
+      "id": "cost-time-earned4-rank8-turn1-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "791d83e2e8533ae091658583ea3ade5d4134a723aefcddae5aef79b249511796",
+      "id": "cost-time-earned4-rank8-turn8-stagnation0",
+      "output": {
+        "science_required": 152
+      }
+    },
+    {
+      "case_sha256": "8ac4a5eb8f292e7698ba3f245be6bb77dbc8b448af0fab5b20522a9b171153aa",
+      "id": "cost-time-earned4-rank8-turn8-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "811b952ace4f4081183c1e85d605cd1253b00739230ad1ec152be9c0f333a432",
+      "id": "cost-time-earned4-rank8-turn24-stagnation0",
+      "output": {
+        "science_required": 136
+      }
+    },
+    {
+      "case_sha256": "9e5e4633818728c77e86d33fab7b4ce2b5d7a11eb810d8b3cf30b95eaff218a5",
+      "id": "cost-time-earned4-rank8-turn24-stagnation1",
+      "output": {
+        "science_required": 216
+      }
+    },
+    {
+      "case_sha256": "598b54a036e895a0de5526e3bc9d865176b9657d357f866c5a446a9014647d4c",
+      "id": "cost-time-earned4-rank8-turn80-stagnation0",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "292d68142dcaad07c39d15b0d0a13d18fc9cc35d69c38f4826d5f62394790cc7",
+      "id": "cost-time-earned4-rank8-turn80-stagnation1",
+      "output": {
+        "science_required": 168
+      }
+    },
+    {
+      "case_sha256": "b5466a7df7e440233f7c34d582a96dfaf917df9447c8ccd4178093b0795e63d0",
+      "id": "cost-time-earned4-rank16-turn1-stagnation0",
+      "output": {
+        "science_required": 288
+      }
+    },
+    {
+      "case_sha256": "45cd84a5bfb02a7048a5e04139605b94358e3bb3a8d6771f1c3fbc0dd90add4b",
+      "id": "cost-time-earned4-rank16-turn1-stagnation1",
+      "output": {
+        "science_required": 432
+      }
+    },
+    {
+      "case_sha256": "594f7aac90a3d54cb6a3535f658bf799f52c5fff773f56441b47a6ff7d04e8a6",
+      "id": "cost-time-earned4-rank16-turn8-stagnation0",
+      "output": {
+        "science_required": 276
+      }
+    },
+    {
+      "case_sha256": "6425e48e10f56c25b3e9e27c6687d3ee5a3201354eb6e0b1f938f3a75dfa2385",
+      "id": "cost-time-earned4-rank16-turn8-stagnation1",
+      "output": {
+        "science_required": 432
+      }
+    },
+    {
+      "case_sha256": "45525054ba83c431d8e0e3c90747a261cb67d93091f8c218e105859ba16f674d",
+      "id": "cost-time-earned4-rank16-turn24-stagnation0",
+      "output": {
+        "science_required": 252
+      }
+    },
+    {
+      "case_sha256": "4a05da7adb53e7e1a43d5bc43ec228a928c228dd407d8805266fa72a9c774a31",
+      "id": "cost-time-earned4-rank16-turn24-stagnation1",
+      "output": {
+        "science_required": 396
+      }
+    },
+    {
+      "case_sha256": "cb0f68c3636b0a2293ceffe0666d23af1e1168c78114a3987581f177859fa1f6",
+      "id": "cost-time-earned4-rank16-turn80-stagnation0",
+      "output": {
+        "science_required": 168
+      }
+    },
+    {
+      "case_sha256": "1bdf2de698f9d22951dde1895ce482d7d5bc1b41d886eb93b9ec1b748b9a074b",
+      "id": "cost-time-earned4-rank16-turn80-stagnation1",
+      "output": {
+        "science_required": 324
+      }
+    },
+    {
+      "case_sha256": "0d2e4d78901a638c0fc9c6d70d16bae428c26dd72b44954dcede706ff2d0c83f",
+      "id": "cost-time-earned8-rank0-turn1-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "6e0814e79ac4e20ec118f704278f6a14992c9f97550007ee9a55a5621d0915c9",
+      "id": "cost-time-earned8-rank0-turn8-stagnation0",
+      "output": {
+        "science_required": 152
+      }
+    },
+    {
+      "case_sha256": "1675d23e4c22d54dc4564ac5e261ba99501d84e9a358d329d74094506b24bf76",
+      "id": "cost-time-earned8-rank0-turn8-stagnation1",
+      "output": {
+        "science_required": 240
+      }
+    },
+    {
+      "case_sha256": "350348d5a3b95b0404199535ebf1932429688eda6cfbaa8d3315cf4c0d222f70",
+      "id": "cost-time-earned8-rank0-turn24-stagnation0",
+      "output": {
+        "science_required": 136
+      }
+    },
+    {
+      "case_sha256": "bfe92f73421136ce7cf3a82523a2836133f789cb7c8beebffc2c76f46a58cd4e",
+      "id": "cost-time-earned8-rank0-turn24-stagnation1",
+      "output": {
+        "science_required": 216
+      }
+    },
+    {
+      "case_sha256": "6a6cbb9d4471b7540700eaa59d39a7b27e06196b06faaf9a462ff6902ef6f5ba",
+      "id": "cost-time-earned8-rank0-turn80-stagnation0",
+      "output": {
+        "science_required": 96
+      }
+    },
+    {
+      "case_sha256": "d963bab18080aebe953675dbcca545a5cda002e7d81b9067b050346a2ae676b5",
+      "id": "cost-time-earned8-rank0-turn80-stagnation1",
+      "output": {
+        "science_required": 168
+      }
+    },
+    {
+      "case_sha256": "13f93dfff9c665a1cdcea73eaea790a27407a21bd9fe3cde06fe0eba5792f053",
+      "id": "cost-time-earned8-rank8-turn1-stagnation0",
+      "output": {
+        "science_required": 288
+      }
+    },
+    {
+      "case_sha256": "af2baba11f9a9da82d467312db2c168d3195dc9ee138e84139a9958844ec0646",
+      "id": "cost-time-earned8-rank8-turn1-stagnation1",
+      "output": {
+        "science_required": 432
+      }
+    },
+    {
+      "case_sha256": "ca8be96e803b26b12c31303927bb2bdf4bf587c16edf4c8ea1d196e67fbf98c9",
+      "id": "cost-time-earned8-rank8-turn8-stagnation0",
+      "output": {
+        "science_required": 276
+      }
+    },
+    {
+      "case_sha256": "1e57d7e05c6730069b92001b280d4267dcb3e681a4f582150ecbad9f1cac998f",
+      "id": "cost-time-earned8-rank8-turn8-stagnation1",
+      "output": {
+        "science_required": 432
+      }
+    },
+    {
+      "case_sha256": "1424629d483f632eb2a06064813a30cc0277d565ed9b93d637460c96b52587d5",
+      "id": "cost-time-earned8-rank8-turn24-stagnation0",
+      "output": {
+        "science_required": 252
+      }
+    },
+    {
+      "case_sha256": "5cc9478b8d10df0af80eac1456a881d289ab90d9e30d59027598481958de0d4e",
+      "id": "cost-time-earned8-rank8-turn24-stagnation1",
+      "output": {
+        "science_required": 396
+      }
+    },
+    {
+      "case_sha256": "9d99160918002c69e0a85329f306d824b75f9a27a5defaeacb02e1e4ca587e75",
+      "id": "cost-time-earned8-rank8-turn80-stagnation0",
+      "output": {
+        "science_required": 168
+      }
+    },
+    {
+      "case_sha256": "07ea023867f1dae78901e643ace38a9d4ffc7492e8c20aaac90983ce49687573",
+      "id": "cost-time-earned8-rank8-turn80-stagnation1",
+      "output": {
+        "science_required": 324
+      }
+    },
+    {
+      "case_sha256": "06674d2c4c3f2ca6617bc16a9887afd3f6a126f88435ca00c87915b8e8c13583",
+      "id": "cost-time-earned8-rank16-turn24-stagnation0",
+      "output": {
+        "science_required": 384
+      }
+    },
+    {
+      "case_sha256": "66770497d301667773c72be12cd83e5d9562124cbf67592575a15ec5bb35a4fe",
+      "id": "cost-time-earned8-rank16-turn24-stagnation1",
+      "output": {
+        "science_required": 624
+      }
+    },
+    {
+      "case_sha256": "fecada590370a956924a69d9f832b3e98b8fbb3b1802712637444c0b2422d7f0",
+      "id": "cost-time-difficulty1-earned2-turn1",
+      "output": {
+        "science_required": 32
+      }
+    },
+    {
+      "case_sha256": "4fd446fa6624038a2885075568e7cf3951e21a44c0c6dc116d0d87e1503e0dc0",
+      "id": "cost-time-difficulty1-earned2-turn80",
+      "output": {
+        "science_required": 28
+      }
+    },
+    {
+      "case_sha256": "3b4064984ee86ef08cb92350d5b84be2e9c247a5e46f8578ef818fbbc56b2d91",
+      "id": "cost-time-difficulty1-earned4-turn1",
+      "output": {
+        "science_required": 80
+      }
+    },
+    {
+      "case_sha256": "990e3a2d05dd5278865e948e9441cbed74ad2c7bc5cf4f114d6f4c22af284719",
+      "id": "cost-time-difficulty1-earned4-turn80",
+      "output": {
+        "science_required": 64
+      }
+    },
+    {
+      "case_sha256": "4616b591c60a729ebb65b28d15b1395ab2ac219304d7987c4006b367047059f4",
+      "id": "cost-time-difficulty1-earned8-turn1",
+      "output": {
+        "science_required": 192
+      }
+    },
+    {
+      "case_sha256": "d404a10e98efde578eed933eb7b91c960e66ab2d7b56d36dfa4667c0234a8842",
+      "id": "cost-time-difficulty1-earned8-turn80",
+      "output": {
+        "science_required": 128
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "f3edd95ac3674bed07083453a82983854aef01b46fed809efff01eeae425a99f",
+    "adapter_version": 1,
+    "contract": "technology.human_research_cost.v1",
+    "engine": "unicorn",
+    "engine_version": "2.1.4",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Human-only, selected faction1..7, cache -1, complete synthetic faction records; rival saved-earned/ranking counters and selected auxiliary adjustment zero; global difficulty0; no diplomacy/base/ownership mapping claim",
+    "functions": [
+      {
+        "address": "0x5be6b0",
+        "end": "0x5be931",
+        "name": "tech_rate"
+      }
+    ],
+    "kind": "original-executable",
+    "name": "smacx-original-research-cost",
+    "units": "Integer science points; original helper return only; not a cost formula or complete research progression contract"
+  },
+  "repeat": 2,
+  "suite_sha256": "ec3b86c897733d02852b8d91f5f3662b786373801704e6334a55e13be7670642",
+  "version": 1
+}

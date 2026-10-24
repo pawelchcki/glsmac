@@ -1,0 +1,80 @@
+{
+  "captured_at": "2026-10-23T21:21:58.460157+00:00",
+  "observations": [
+    {
+      "case_sha256": "d75b26ebddb4a9a2085dc85c2c383fff3de22bba436c34290befb5d184937f55",
+      "id": "gaian-mobility-five-advances-sparse-reports",
+      "output": {
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "trace": [
+          {
+            "accumulated": 0,
+            "city": {
+              "doctors": 1,
+              "minerals": 9,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 0,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 1
+          },
+          {
+            "accumulated": 2,
+            "city": {
+              "doctors": 1,
+              "minerals": 14,
+              "nutrients": 0,
+              "population": 1,
+              "worked_tiles": 0,
+              "workers": 0
+            },
+            "goal_id": 5,
+            "owned_ids": [
+              6
+            ],
+            "report": {
+              "accumulated": 2,
+              "cost": 9,
+              "per_turn": 1
+            },
+            "turn": 6
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "855a37a1f44cd1f7500016dee873290e4a29e8816c563bf9d44b44cd8dd6ed05",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.initial_research_progress_sparse.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Same synthetic map/stock Gaian/Citizen/Blind-off/target5/held Scout/default50-0-50 allocation fixture as initial research progress; five real end-turn clicks; Labs opened only initially and finally",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Independent initial/final report decimals with native accumulation/target/ownership/city cross-checks; no intermediate Labs openings",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional asset-backed observation-effect control only; no acquisition or general science-credit timing claim"
+  },
+  "repeat": 2,
+  "suite_sha256": "71cfe9e69b466a0cb743b14f90c3f6d4e53e728eea6efd588a6d446b048b0342",
+  "version": 1
+}

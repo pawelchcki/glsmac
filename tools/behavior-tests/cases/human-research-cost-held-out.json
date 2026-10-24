@@ -1,0 +1,636 @@
+{
+  "version": 1,
+  "name": "human-research-cost-held-out",
+  "description": "Separate original cost matrix: 32 new inputs and 5 repeated anchors; original38 unchanged; pending/unregistered.",
+  "cases": [
+    {
+      "id": "cost-held-earned-0",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 0,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 1,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 2,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 3,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-5",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 5,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-6",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 6,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-7",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 7,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating--3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": -3,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating--2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": -2,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating--1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": -1,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating-1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 1,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating-2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 2,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-4-rating-3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 3,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating--3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": -3,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating--2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": -2,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating--1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": -1,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating-1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 1,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating-2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 2,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned-8-rating-3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 3,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-0",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 0,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 2,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 3,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-4",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 4,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-5",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 5,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-6",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 6,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-7",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 7,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-earned4-turn-8",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 8,
+        "map_area_sqrt": 40,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 100,
+        "faction_cost_percent": 100,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-0",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 3,
+        "turn": 1,
+        "map_area_sqrt": 41,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 1,
+        "discovery_rate_percent": 75,
+        "faction_cost_percent": 125,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-1",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 56,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 125,
+        "faction_cost_percent": 150,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-2",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 80,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 75,
+        "faction_cost_percent": 50,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-3",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 41,
+        "saved_earned_techs": 8,
+        "research_ranking": 16,
+        "research_rating": 0,
+        "discovery_rate_percent": 101,
+        "faction_cost_percent": 101,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-4",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 56,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 75,
+        "faction_cost_percent": 125,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-5",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 56,
+        "saved_earned_techs": 4,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 125,
+        "faction_cost_percent": 75,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-6",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 55,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 99,
+        "faction_cost_percent": 101,
+        "stagnation": false
+      }
+    },
+    {
+      "id": "cost-held-integer-interaction-7",
+      "algorithm": "technology.human_research_cost.v1",
+      "input": {
+        "faction_id": 1,
+        "target_id": 5,
+        "difficulty": 0,
+        "turn": 1,
+        "map_area_sqrt": 57,
+        "saved_earned_techs": 8,
+        "research_ranking": 0,
+        "research_rating": 0,
+        "discovery_rate_percent": 101,
+        "faction_cost_percent": 99,
+        "stagnation": false
+      }
+    }
+  ]
+}
