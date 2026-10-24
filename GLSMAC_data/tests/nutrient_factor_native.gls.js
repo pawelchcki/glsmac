@@ -47,7 +47,9 @@ for (change of ['size_x', 'size_y', 'mapfile', 'planet', 'huge_planet']) {
 		if (change == 'size_x') { map.size_x = 88; }
 		else if (change == 'size_y') { map.size_y = 44; }
 		else { map.type = change; }
-		test.assert(map.preset_level == (0 - 1) && !#is_defined(f.base.get_nutrient_factor()));
+		test.assert(map.preset_level == (0 - 1));
+		if (change == 'mapfile') { test.assert(f.base.get_nutrient_factor() == 8); }
+		else { test.assert(!#is_defined(f.base.get_nutrient_factor())); }
 	});
 }
 

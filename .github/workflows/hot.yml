@@ -46,6 +46,9 @@ jobs:
       - name: Test all asset-free presentation invariants
         working-directory: tools/behavior-tests
         run: python3 -m unittest discover -p 'test_presentation*.py' -v
+      - name: Validate production observation and projection contracts
+        working-directory: tools/behavior-tests
+        run: python3 -m unittest test_production_controls test_production_controls_native -v
       - name: Test bounded presentation transport without assets
         run: |
           node tools/behavior-tests/state_trace/presentation_bridge.test.mjs
@@ -55,6 +58,13 @@ jobs:
         run: python3 tools/texture-tests/run.py
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --kind '${{ matrix.kind }}' --jobs 2 --report build/hot-artifacts/hot.json
+      - name: Replay all eight recorded startup production projections
+        if: matrix.kind == 'regression'
+        run: >-
+          python3 tools/behavior-tests/ui/production_controls_native.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --report build/hot-artifacts/production-native.json
+          --logs build/hot-artifacts/production-native-logs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

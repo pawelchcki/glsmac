@@ -106,6 +106,7 @@ return (game) => {
 			},
 		});
 		let initial_project = #undefined;
+		let initial_rows = 0;
 		if (!faction.is_naval) {
 			for (unit of starting_units) {
 				let available = unit.prerequisite == 'None';
@@ -113,20 +114,31 @@ return (game) => {
 				if (available) {
 					game.event('add_production_choice', {player: player, id: unit.choice,
 						data: {type: 'unit', id: unit.id, cost: unit.rows * 10, cost_rows: unit.rows, population_cost: unit.population}});
-					if (unit.id == 'ColonyPod' || unit.id == 'Formers') { initial_project = unit.choice + ''; }
+					if (unit.id == 'ColonyPod' || unit.id == 'Formers') { initial_project = unit.choice + ''; initial_rows = unit.rows + 0; }
 				}
 			}
 		}
 
 		// spawn headquarters base
-		game.event('spawn_base', {
+		const headquarters = {
 			owner: player,
 			tile: tile,
 			facilities: [
 				'HEADQUARTERS',
 			],
-			production_choice: initial_project,
-		});
+		};
+		if (#is_defined(initial_project)) {
+			let bonus = #undefined;
+			if (player.is_master) {
+				bonus = game.get_initial_production_bonus(initial_rows);
+			}
+			if (#is_defined(bonus)) {
+				// A creation plan precedes the first production tick. Ordinary
+				// active-turn selections retain their existing processing epoch.
+				headquarters.initial_production = {choice_id: initial_project + '', minerals: bonus + 0};
+			} else { headquarters.production_choice = initial_project + ''; }
+		}
+		game.event('spawn_base', headquarters);
 
 		// The basic land inventory is one conventional Scout; expansion pods
 		// are constructed. Naval starting inventory remains uncalibrated.

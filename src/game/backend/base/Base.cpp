@@ -102,6 +102,21 @@ static const production::Unit* ResolveUnitProduction( Game* game, slot::Slot* ow
 	return def && def->m_type == unit::DT_STATIC && def->GetMovementType() == unit::MT_LAND && recipe->GetMineralCost( game, owner->GetPlayer() ) >= 0 ? recipe : nullptr;
 }
 
+void Base::ValidateInitialProduction( GSE_CALLABLE, Game* game, Player* player, const ProductionState& state ) {
+	if ( !game->CanInitializeProduction() || state.choice_id.empty() || state.minerals < 0 || state.minerals > 1000000 || state.last_processed_turn != 0 ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Invalid initial production plan" );
+	}
+	if ( player->GetRole() != Player::PR_SINGLE || !game->GetState()->HasOfflineSinglePlayerRoster() || game->GetState()->m_settings.global.map.type != settings::MapSettings::MT_MAPFILE ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires offline single-player Load Map startup" );
+	}
+	for ( const auto& entry : game->GetBM()->GetBases() ) {
+		if ( entry.second->m_owner == player->GetSlot() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires the first city" ); }
+	}
+	try {
+		if ( !ResolveUnitProduction( game, player->GetSlot(), state.choice_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires an available land-unit recipe" ); }
+	} catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
+}
+
 static gse::value::Object* WrapProduction( GSE_CALLABLE, const ProductionState& state ) {
 	return VALUEEXT( gse::value::Object, GSE_CALL, {
 		{ "choice_id", VALUE( gse::value::String,, state.choice_id ) },
@@ -497,9 +512,9 @@ WRAPIMPL_DYNAMIC_GETTERS( Base )
 			const auto role = player->GetRole();
 			if ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) { return VALUE( gse::value::Undefined ); }
 			const auto& map = state->m_settings.global.map;
-			if ( !map.HasKnownSizeKind() ) { return VALUE( gse::value::Undefined ); }
+			if ( !settings::MapSettings::IsKnownSizeKind( map.GetRuleSizeKind() ) ) { return VALUE( gse::value::Undefined ); }
 			const auto* faction = player->GetFaction();
-			return VALUE( gse::value::Int,, HumanNutrientFactor( map.preset_level, int( state->m_settings.global.rules.GetNutrientCostFactor() ), faction ? faction->m_growth : 0 ) );
+			return VALUE( gse::value::Int,, HumanNutrientFactor( map.GetRuleSizeKind(), int( state->m_settings.global.rules.GetNutrientCostFactor() ), faction ? faction->m_growth : 0 ) );
 		} )
 	},
 	{

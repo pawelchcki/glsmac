@@ -39,7 +39,10 @@ for (change of [
 	['WEAPONS', 2, 3, '8'],
 	['WEAPONS', 0, 2, '1.0'],
 	['UNITS', 1, 9, '10000000000000000000000000'],
-	['UNITS', 1, 5, '7'],
+	['UNITS', 1, 5, '101'],
+	['UNITS', 2, 5, '-1'],
+	['UNITS', 2, 5, '9223372036854775808'],
+	['UNITS', 2, 5, '4.0'],
 ]) {
 	behavior.scenario('unsupported basic-unit source rejects before definitions or costs are installed ' + #to_string(index), () => {
 		let caught = false;
@@ -48,6 +51,18 @@ for (change of [
 		test.assert(caught);
 	}); index++;
 }
+
+behavior.scenario('positive declared prototype rows take precedence while zero keeps component pricing', () => {
+	const f = test.founding_fixture();
+	for (rows of [4, 8]) {
+		const input = blocks(); set(input, 'UNITS', 2, 5, #to_string(rows));
+		// A different component price must not overwrite an explicit declaration.
+		set(input, 'WEAPONS', 2, 4, '12');
+		const units = consumer.materialize(f.game.um, consumer.parse(input.document));
+		test.assert(units[1].declared_rows == rows && units[1].rows == rows);
+		test.assert(units[0].declared_rows == 0 && units[0].rows == 3);
+	}
+});
 
 behavior.scenario('concrete starting technologies deduplicate independently of numeric free research choices', () => {
 	const document = test.parse_smac_text('#SYNTHETIC\nHeader\nTECH,Ecology,TECH,Physic,TECH,Ecology,TECH,1,SOCIAL,+GROWTH\n#END\n', 'dialogs');

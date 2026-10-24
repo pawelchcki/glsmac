@@ -56,7 +56,8 @@ for (field of ['size_x', 'size_y', 'mapfile', 'planet', 'huge_planet']) {
 			rejects(() => { alias.preset_level = 99; });
 		}
 		test.assert(map.preset_level == (0 - 1) && alias.preset_level == (0 - 1));
-		test.assert(!#is_defined(f.base.get_nutrient_factor()) && cost(f) == 32);
+		if (field == 'mapfile') { test.assert(f.base.get_nutrient_factor() == 8 && cost(f) == 32); }
+		else { test.assert(!#is_defined(f.base.get_nutrient_factor()) && cost(f) == 32); }
 	});
 }
 

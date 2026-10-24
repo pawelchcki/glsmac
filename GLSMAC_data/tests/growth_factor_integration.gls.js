@@ -43,7 +43,7 @@ for (entry of [[0, 8], [1, 9], [2, 10], [3, 10], [4, 10]]) {
 	});
 }
 
-for (kind of ['unknown', 'custom', 'mapfile', 'planet', 'huge_planet', 'none']) {
+for (kind of ['unknown', 'custom', 'planet', 'huge_planet', 'none']) {
 	behavior.scenario('unsupported growth context retains area fallback for threshold reset and screen ' + kind, () => {
 		const f = fixture(1); const map = f.game.get_settings().global.map;
 		if (kind == 'unknown') { map.preset_level = (0 - 1); }
@@ -58,6 +58,14 @@ for (kind of ['unknown', 'custom', 'mapfile', 'planet', 'huge_planet', 'none']) 
 		test.assert(f.base.get_size() == 2 && f.base.get('accumulated_nutrients') == 3);
 	});
 }
+
+behavior.scenario('loaded map uses the independently observed zero pricing input', () => {
+	const f = fixture(2); f.game.get_settings().global.map.type = 'mapfile';
+	f.store(0);
+	test.assert(food_cells(f) == 16);
+	f.store(15); f.turn(); test.assert(f.base.get_size() == 1);
+	f.store(19); f.turn(); test.assert(f.base.get_size() == 2 && f.base.get('accumulated_nutrients') == 3);
+});
 
 behavior.scenario('live preset changes reach threshold reset and screen without restarting callbacks', () => {
 	const f = fixture(2); f.store(18); f.turn();

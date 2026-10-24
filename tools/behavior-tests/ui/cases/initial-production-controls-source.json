@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "name": "initial-production-controls-source",
+  "description": "Optional first-city native before any base/report, actual production pair/resources and after-panel source controls; no calculated costs or stock. Nondeterministic complete roster context is retained separately; strict phase fields exclude roster.",
+  "cases": [
+    {
+      "id": "gaians-citizen-gaian-formers-cost-4",
+      "algorithm": "ui.initial_production_controls.v2",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "text_profile": "gaian-formers-cost-4",
+        "world_width": 40,
+        "world_height": 80,
+        "map_route": "load-map",
+        "research": "directed",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-gaian-formers-cost-8",
+      "algorithm": "ui.initial_production_controls.v2",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "text_profile": "gaian-formers-cost-8",
+        "world_width": 40,
+        "world_height": 80,
+        "map_route": "load-map",
+        "research": "directed",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-gaian-mineral-rule-12",
+      "algorithm": "ui.initial_production_controls.v2",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "text_profile": "gaian-mineral-rule-12",
+        "world_width": 40,
+        "world_height": 80,
+        "map_route": "load-map",
+        "research": "directed",
+        "target_id": 5
+      }
+    },
+    {
+      "id": "gaians-citizen-gaian-industry-minus-1",
+      "algorithm": "ui.initial_production_controls.v2",
+      "input": {
+        "faction": "GAIANS",
+        "difficulty": "CITIZEN",
+        "text_profile": "gaian-industry-minus-1",
+        "world_width": 40,
+        "world_height": 80,
+        "map_route": "load-map",
+        "research": "directed",
+        "target_id": 5
+      }
+    }
+  ]
+}

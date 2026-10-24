@@ -1,0 +1,796 @@
+{
+  "version": 1,
+  "kind": "actual-original-context-archive",
+  "source_artifact_directory": "/tmp/research-production-controls-core-recording-v3/capture-tgzbmzmj",
+  "reference": {
+    "adapter_sha256": "34c4b5c1cf45378278a35f2213cc00669d5a4e78d1334555a8dc1fafe34bb29e",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "ui.initial_production_controls.v2",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Declared stock or synthetic source profile, stock first-city initialization; flat-arid40x80 Load Map/rawkind0; actual faction/difficulty/Blind-off/target5; first native before any base/report then held units and actual Operations/base/Social panels; no turn advances",
+    "kind": "original-executable",
+    "map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+    "name": "smacx-original-ui",
+    "observation": "Read-only native production/stock/Industry/rules/roster/population at declared UI phases, literal rendered project/progress pair/required cost/turns, resource numerals/allocation/Labs and Industry row",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional strict production-phase evidence; complete rosters retained separately because Talent roster varied in prior full-context runs; costs read from actual full UI row; no stock, unit-cost, Industry or rules conversion algorithm inferred",
+    "source_profiles_sha256": {
+      "gaian-formers-cost-4": {
+        "alphax.txt": "ea370314178f8afd8df03e518489699aca8ae47b29008e1a3d7b2f31a76fbf9d",
+        "gaians.txt": "6c25fe3492f83a9ac3a8da7c7e2ddc0a62134c46e244f8872e1e9067b2564cf2"
+      },
+      "gaian-formers-cost-8": {
+        "alphax.txt": "a9a02968bc77abe916477d9e1612219eeb71456b477ea537f712285990e2cf01",
+        "gaians.txt": "6c25fe3492f83a9ac3a8da7c7e2ddc0a62134c46e244f8872e1e9067b2564cf2"
+      },
+      "gaian-industry-minus-1": {
+        "alphax.txt": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42",
+        "gaians.txt": "7ed18a2eb4d1a53cf50c145c184d10c11f7505b5a718aa1d0e9e82431ecd927b"
+      },
+      "gaian-mineral-rule-12": {
+        "alphax.txt": "c11b5ed41b982c7a0c9ad88dade403368f337958797561974520fbc3cff6275b",
+        "gaians.txt": "6c25fe3492f83a9ac3a8da7c7e2ddc0a62134c46e244f8872e1e9067b2564cf2"
+      },
+      "gaian-physics": {
+        "alphax.txt": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42",
+        "gaians.txt": "4d02241e4e0e75bd93bd14ad724d616c820769c6c0d52e5cc2bd3669cb6fc963"
+      },
+      "stock": {
+        "alphax.txt": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42",
+        "gaians.txt": "6c25fe3492f83a9ac3a8da7c7e2ddc0a62134c46e244f8872e1e9067b2564cf2"
+      }
+    }
+  },
+  "observations": [
+    {
+      "id": "gaians-citizen-gaian-physics",
+      "output": {
+        "first_city_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            3
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 0,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "ready_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            3
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "operations": {
+          "project": "COLONY POD",
+          "pair": [
+            13,
+            24
+          ],
+          "turns": 11
+        },
+        "after_operations": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            3
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "panel": {
+          "project": "COLONY POD",
+          "turns": 11,
+          "mineral_intake": 1,
+          "mineral_consumption": 0,
+          "mineral_surplus": 1,
+          "allocation": {
+            "economy": 50,
+            "psych": 0,
+            "labs": 50
+          },
+          "labs_income": 1
+        },
+        "after_panel": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            3
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "social_after": {
+          "industry": 0
+        },
+        "after_social": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            3
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "gaians-citizen-stock",
+      "output": {
+        "first_city_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 0,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "ready_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "operations": {
+          "project": "FORMERS",
+          "pair": [
+            9,
+            16
+          ],
+          "turns": 7
+        },
+        "after_operations": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "panel": {
+          "project": "FORMERS",
+          "turns": 7,
+          "mineral_intake": 1,
+          "mineral_consumption": 0,
+          "mineral_surplus": 1,
+          "allocation": {
+            "economy": 50,
+            "psych": 0,
+            "labs": 50
+          },
+          "labs_income": 1
+        },
+        "after_panel": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "social_after": {
+          "industry": 0
+        },
+        "after_social": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "gaians-talent-stock",
+      "output": {
+        "first_city_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 2,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 0,
+              "movement_spent": 0,
+              "damage": 0
+            },
+            {
+              "prototype_id": 0,
+              "order_code": 0,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "ready_before_panels": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 2,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            },
+            {
+              "prototype_id": 0,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "operations": {
+          "project": "FORMERS",
+          "pair": [
+            9,
+            16
+          ],
+          "turns": 7
+        },
+        "after_operations": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 2,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            },
+            {
+              "prototype_id": 0,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "panel": {
+          "project": "FORMERS",
+          "turns": 7,
+          "mineral_intake": 1,
+          "mineral_consumption": 0,
+          "mineral_surplus": 1,
+          "allocation": {
+            "economy": 50,
+            "psych": 0,
+            "labs": 50
+          },
+          "labs_income": 1
+        },
+        "after_panel": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 2,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            },
+            {
+              "prototype_id": 0,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "social_after": {
+          "industry": 0
+        },
+        "after_social": {
+          "turn": 1,
+          "faction_id": 1,
+          "difficulty": 2,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 9,
+          "current_project_id": 1,
+          "queue_size": 0,
+          "industry_rating": 0,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            6
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            },
+            {
+              "prototype_id": 0,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hive-citizen-stock",
+      "output": {
+        "first_city_before_panels": {
+          "turn": 1,
+          "faction_id": 2,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 1,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            43
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 0,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "ready_before_panels": {
+          "turn": 1,
+          "faction_id": 2,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 1,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            43
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "operations": {
+          "project": "COLONY POD",
+          "pair": [
+            13,
+            24
+          ],
+          "turns": 11
+        },
+        "after_operations": {
+          "turn": 1,
+          "faction_id": 2,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 1,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            43
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "panel": {
+          "project": "COLONY POD",
+          "turns": 11,
+          "mineral_intake": 1,
+          "mineral_consumption": 0,
+          "mineral_surplus": 1,
+          "allocation": {
+            "economy": 50,
+            "psych": 0,
+            "labs": 50
+          },
+          "labs_income": 1
+        },
+        "after_panel": {
+          "turn": 1,
+          "faction_id": 2,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 1,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            43
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        },
+        "social_after": {
+          "industry": 1
+        },
+        "after_social": {
+          "turn": 1,
+          "faction_id": 2,
+          "difficulty": 0,
+          "map_kind": 0,
+          "map_area_sqrt": 40,
+          "raw_mineral_field": 13,
+          "current_project_id": 0,
+          "queue_size": 0,
+          "industry_rating": 1,
+          "mineral_rule_factor": 10,
+          "owned_ids": [
+            43
+          ],
+          "city": {
+            "population": 1,
+            "workers": 0,
+            "doctors": 1,
+            "worked_tiles": 0,
+            "nutrients": 0
+          },
+          "units": [
+            {
+              "prototype_id": 2,
+              "order_code": 2,
+              "movement_spent": 0,
+              "damage": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

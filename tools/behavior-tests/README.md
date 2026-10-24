@@ -1,5 +1,26 @@
 # Original-game behavior comparisons
 
+Eight recorded Load Map source-control profiles now match the bounded
+[first-city native production projection](ui/startup-production-transfer.md):
+project, actual native mineral stock, source-derived recipe price, population and
+mineral income. The comparison preserves the full original records; Operations,
+allocation and Social Engineering controls remain a pending UI contract. The
+shared-source-consumer baseline retains eight strict mismatches, and the untouched
+baseline's two positive-cost parser failures are preserved separately.
+The required HOT regression job replays all eight 40×80 projections against the
+actual C++ WASM engine without installed assets and retains its report/logs.
+Any mismatch or worker error fails the job. This additional bounded check is
+documented in [contracts.md](contracts.md); it does not promote full v2 UI to
+passing catalog totals.
+
+Five HOT `startup-production*` application suites add fifteen scenarios/171
+assertions for creation credit, first income, computer exclusion, active/later-city
+behavior, valid-context plan rejection, real turn-one guards, world reset and
+legitimate zero-credit/zero-price first income followed by native completion.
+Compact application fixtures retire native worlds and run in fresh groups under
+the unchanged 30-second limit; strict recorded replay retains its 40×80 inputs.
+These counts are application coverage, separate from full original UI agreement.
+
 This harness lets reference research produce tests and lets implementation work
 fill them. The reference runner executes a narrowly selected function from a
 locally supplied original executable. The candidate runner calls production

@@ -149,16 +149,23 @@ for (entry of [[0, 24], [1, 27], [2, 30], [3, 30], [4, 30]]) {
 	});
 }
 
-for (kind of ['unknown', 'custom', 'mapfile']) {
+for (kind of ['unknown', 'custom']) {
 	behavior.scenario('unproven map provenance retains explicit unit fallback ' + kind, () => {
 		const f = fixture(); const map = f.game.get_settings().global.map;
 		if (kind == 'custom') { map.type = 'custom'; map.size_x = 88; map.size_y = 44; }
-		else if (kind == 'mapfile') { map.type = 'mapfile'; }
 		test.assert(map.preset_level == (0 - 1) && choice(f).cost == 30);
 		f.add_worker(0); f.add_worker(1); select(f); process(f, 2, 29);
 		test.assert(f.base.get_size() == 2); process(f, 3, 1); test.assert(f.base.get_size() == 1);
 	});
 }
+
+behavior.scenario('loaded map unit price uses input zero without retaining generated preset provenance', () => {
+	const f = fixture(); const map = f.game.get_settings().global.map;
+	map.type = 'random'; map.preset_level = 2; map.type = 'mapfile';
+	test.assert(map.preset_level == (0 - 1) && choice(f).cost == 24);
+	f.add_worker(0); f.add_worker(1); select(f); process(f, 2, 23);
+	test.assert(f.base.get_size() == 2); process(f, 3, 1); test.assert(f.base.get_size() == 1);
+});
 
 behavior.scenario('unit recipe copies and actual receiving-world active project codecs retain their ownership', () => {
 	const f = fixture(); f.add_worker(0); f.add_worker(1); select(f); process(f, 2, 13);

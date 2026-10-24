@@ -2,6 +2,8 @@
 
 The nine contracts below have original executable observations and production
 GLSMAC implementations exercised by the native and WASM candidate adapter.
+An additional bounded startup projection below executes the actual C++ game
+through WASM; it is separate from those nine helper contracts.
 Agreement is bounded to the recorded cases and fixtures described here.
 Each reference probe executes only its
 verified original function and permitted original dependencies; game image data
@@ -12,6 +14,35 @@ All fields are required and additional fields are rejected. Integer fields
 reject JSON booleans and floats. Outputs contain exactly the indicated field.
 The executable fingerprint and emulator version belong to each observation
 file. The fixtures describe synthetic state, not the shipped rules database.
+
+## Recorded first-city startup production projection
+
+The [bounded production transfer](ui/startup-production-transfer.md) projects
+eight immutable `ui.initial_production_controls.v2` observations onto the native
+first-city state and current recipe price. Inputs declare Load Map, a 40×80
+flat-arid fixture, directed research, and one of the eight recorded faction,
+difficulty and source profiles. Compared fields are project, stored minerals,
+price, turn, population, Workers, Doctors, worked tiles, stored nutrients,
+mineral intake and consumption. The price comes from the literal original
+Operations denominator; city state comes from the first pre-panel native phase.
+
+The required HOT regression job executes every profile through
+`ui/production_controls_native.py` using the shared C++ WASM engine and current
+production scripts. Any mismatch or worker error fails that job and the final
+`Hot tests` gate; its JSON report and worker logs are uploaded with the hot
+artifacts. Equivalent synthetic rules are supplied as inputs, so this gate needs
+no installed game assets. The exact runtime, source and reference hashes are
+recorded. Run the same check locally with:
+
+```sh
+python3 tools/behavior-tests/ui/production_controls_native.py \
+  --runtime build/wasm/bin/GLSMAC.js --report /tmp/production-native.json
+```
+
+This projection has no native desktop replay claim. Full Operations, allocation
+and Social UI phases remain unsupported and outside normal UI catalog totals;
+their preserved v2 records are not promoted to complete UI agreement. The
+separate native and WASM helper gates still verify cost factors and components.
 
 ## `map.vector_distance.v1`
 

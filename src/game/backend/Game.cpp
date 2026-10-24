@@ -39,6 +39,7 @@
 #include "base/BaseManager.h"
 #include "base/PopDef.h"
 #include "base/Base.h"
+#include "base/ProductionCost.h"
 #include "animation/AnimationManager.h"
 #include "gc/Space.h"
 #include "game/backend/event/Event.h"
@@ -723,6 +724,17 @@ WRAPIMPL_BEGIN( Game )
 			} )
 		},
 		{
+			"get_initial_production_bonus", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( rows, 0, Int );
+				if ( !m_state || rows <= 0 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Initial production requires rules and positive rows" ); }
+				if ( !m_state->HasOfflineSinglePlayerRoster() || m_state->m_settings.global.map.type != settings::MapSettings::MT_MAPFILE ) { return VALUE( gse::value::Undefined ); }
+				const auto kind = m_state->m_settings.global.map.GetRuleSizeKind();
+				if ( !settings::MapSettings::IsKnownSizeKind( kind ) ) { return VALUE( gse::value::Undefined ); }
+				try { return VALUE( gse::value::Int,, base::InitialProductionBonus( int( kind ), int( m_state->m_settings.global.rules.GetMineralCostFactor() ), rows ) ); }
+				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.INVALID_CALL, error.what() ); }
+			} )
+		},
+		{
 			"get_map",
 			NATIVE_CALL( this ) {
 				N_EXPECT_ARGS( 0 );
@@ -1270,6 +1282,7 @@ void Game::AdvanceTurn( const size_t turn_id ) {
 		if ( m_opening_phase != OPENING_STARTING || turn_id != 1 || !m_opening_first_turn_dispatched || m_opening_first_turn_applied ) { THROW( "Confirm the opening before advancing a turn" ); }
 		m_opening_first_turn_applied = true;
 	}
+	m_has_started_turn = true;
 	m_current_turn.AdvanceTurn( turn_id );
 	m_is_turn_complete = false;
 	MTModule::Log( "Turn started: " + std::to_string( turn_id ) );
@@ -2212,6 +2225,7 @@ void Game::ResetGame() {
 	m_pending_frontend_requests->clear();
 
 	m_current_turn.Reset();
+	m_has_started_turn = false;
 	m_opening_phase = OPENING_NONE; m_opening_base = nullptr; m_opening_base_id = 0; m_auto_end_turn = false; m_opening_first_turn_dispatched = m_opening_first_turn_applied = false; ++m_opening_session;
 	m_is_turn_complete = false;
 

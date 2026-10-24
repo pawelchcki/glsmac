@@ -42,6 +42,8 @@ class LaneTests(unittest.TestCase):
             'unit-menu-orders', 'unit-menu-rows', 'unit-menu-order-lifecycle',
             'unit-menu-context-orders', 'ingame-menu', 'ui-interactions', 'game-modal-input',
             'world-single-player-setup', 'natural-first-city-lifecycle',
+            'startup-production', 'startup-production-epoch', 'startup-production-profiles',
+            'startup-production-source-profiles', 'startup-production-zero-credit',
             'opening-native', 'opening-dialog', 'automatic-end-turn', 'pod-landing-controls', 'texture-filter',
             'interface-tour-controls',
             'base-growth-worker-links', 'base-growth-regression', 'land-resource-sources'})
@@ -71,7 +73,7 @@ class LaneTests(unittest.TestCase):
                 self.assertFalse(identifiers & set(self.manifest['kinds'][kind]['hot']))
         self.assertEqual((len(self.manifest['kinds']['regression']['hot']),
                           len(self.manifest['kinds']['regression']['stable']),
-                          len(self.known['regression'])), (32, 111, 143))
+                          len(self.known['regression'])), (37, 111, 148))
         for lane, expected in [('hot', (11, 44)), ('stable', (49, 711)), ('all', (60, 755))]:
             inventory = lanes.describe('ui', lanes.select('ui', self.known['ui'], lane, self.manifest))
             self.assertEqual((inventory['suites'], inventory['cases']), expected)

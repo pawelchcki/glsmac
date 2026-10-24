@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <limits>
+#include <stdexcept>
 
 namespace game::backend { class Game; class Player; }
 
@@ -25,6 +27,16 @@ inline int HumanMineralFactor( const int map_size_level, const int mineral_rule_
 	const int industry_factor = 10 - adjusted_industry;
 	// Round the adjusted mineral factor up, retaining zero for tiny multipliers.
 	return ( mineral_factor * industry_factor + 9 ) / 10;
+}
+
+// Candidate startup model: half the nominal project before social INDUSTRY.
+// The normal first production tick contributes actual income separately.
+inline int64_t InitialProductionBonus( const int kind, const int mineral_rule, const int64_t rows ) {
+	if ( rows <= 0 ) { throw std::invalid_argument( "Initial production rows must be positive" ); }
+	const auto factor = HumanMineralFactor( kind, mineral_rule, 0 );
+	if ( factor == 0 ) { return 0; }
+	if ( rows > std::numeric_limits< int64_t >::max() / factor ) { throw std::overflow_error( "Initial production bonus overflow" ); }
+	return rows * factor / 2;
 }
 
 }

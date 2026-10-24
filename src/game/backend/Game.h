@@ -350,6 +350,8 @@ public:
 	void OnError( std::runtime_error& err );
 	void OnGSEError( const gse::Exception& e );
 	const size_t GetTurnId() const;
+	// FirstTurn reserves counter one before queued startup spawns are applied.
+	bool CanInitializeProduction() const { return !m_has_started_turn && GetTurnId() <= 1; }
 	const bool IsTurnCompleted( const size_t slot_num ) const;
 	const bool IsTurnChecksumValid( const util::crc32::crc_t checksum ) const;
 	void CompleteTurn( GSE_CALLABLE, const size_t slot_num );
@@ -451,6 +453,7 @@ private:
 	map::Map* m_old_map = nullptr; // to restore state, for example if loading of another map failed
 
 	turn::Turn m_current_turn = {};
+	bool m_has_started_turn = false;
 
 	bool m_is_turn_complete = false;
 	void CheckTurnComplete();

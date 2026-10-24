@@ -91,7 +91,7 @@ for (route of ['random', 'custom']) {
 	});
 }
 
-behavior.scenario('warning state retains native aliases and loaded factors until an imported context invalidates them', () => {
+behavior.scenario('warning state retains native aliases while Load Map selects its independent pricing input', () => {
 	const f = fixture('random', 'default'); const alias = f.native.game.get_settings().global.map;
 	alias.size_x = 200; alias.size_y = 100; alias.preset_level = 1;
 	f.m.settings.global.rules.set_nutrient_cost_factor(13);
@@ -101,8 +101,15 @@ behavior.scenario('warning state retains native aliases and loaded factors until
 	alias.type = 'mapfile'; const before = f.native.map_settings_snapshot('current');
 	key(f, 'ENTER');
 	test.assert(f.native.map_settings_snapshot('current') == before && f.state.routes == []);
-	test.assert(alias.preset_level == (0 - 1) && !#is_defined(f.native.base.get_nutrient_factor()));
+	// Imported setup loses its generated preset, but Load Map has observed
+	// pricing input zero independently of dimensions and that prior preset.
+	test.assert(alias.preset_level == (0 - 1) && alias.get_rule_size_kind() == 0);
+	test.assert(f.m.settings.global.rules.get_nutrient_cost_factor() == 13);
+	test.assert(f.native.base.get_nutrient_factor() == 10);
 	test.assert(f.view.find('window', 'title', 'Caller').title == 'Caller');
+	// Other imported routes without a pricing contract remain unavailable.
+	alias.type = 'planet';
+	test.assert(!#is_defined(f.native.base.get_nutrient_factor()));
 });
 
 behavior.scenario('malformed warning data rejects before committing dimensions or closing the input popup', () => {

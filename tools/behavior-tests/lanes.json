@@ -32,6 +32,11 @@
         "game-modal-input",
         "world-single-player-setup",
         "natural-first-city-lifecycle",
+        "startup-production",
+        "startup-production-profiles",
+        "startup-production-source-profiles",
+        "startup-production-epoch",
+        "startup-production-zero-credit",
         "base-growth-worker-links",
         "base-growth-regression",
         "land-resource-sources"

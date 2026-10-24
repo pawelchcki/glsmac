@@ -16,7 +16,7 @@ const make_fixture = (width, height, naval_players, tiles, draws, fallback) => {
 	let id = 0;
 	for (is_naval of naval_players) {
 		const faction = { is_naval: is_naval, starting_technologies: [] };
-		const player = { id: id };
+		const player = { id: id, is_master: false };
 		player.get_faction = () => { return faction; };
 		players :+ player;
 		id++;
