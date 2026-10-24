@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "scope": "Local asset-free candidate-only natural startup; all actual native entities. One launch with four checkpoints versus four fresh same-RNG prefix trajectory launches. No original, renderer, browser or general CI speed claim.",
+  "case": {
+    "id": "benchmark-native",
+    "algorithm": "game.state_trace.v1",
+    "input": {
+      "fixture": {
+        "kind": "natural-startup",
+        "width": 16,
+        "height": 16,
+        "terrain": "flat-arid",
+        "faction": "GAIANS",
+        "difficulty": "Citizen",
+        "rng_state": "1:2:3:4"
+      },
+      "actions": [
+        {
+          "id": "start",
+          "kind": "snapshot"
+        },
+        {
+          "id": "held",
+          "kind": "hold-all-ready-human-units"
+        },
+        {
+          "id": "next",
+          "kind": "end-turn"
+        },
+        {
+          "id": "settled",
+          "kind": "snapshot"
+        }
+      ]
+    }
+  },
+  "fingerprints": {
+    "runtime_js_sha256": "839a4163dedb62064be8533a95c9b6abb74faf3a57045c91d1f823a2ae5bef2a",
+    "runtime_wasm_sha256": "d3aceb7d030177551c3e3fa03276fb25b24de088aad3a0f6d2e214efbd3b66c6",
+    "production_scripts_sha256": "d720774def150a8bdc8474643b811e2d7ad27b59dc33106ee0a3063740bae2a8",
+    "native_source_sha256": "a289fc9f47d2c48aae338815ccfd1889cd85aa35dfac2d52ea9709ef4ffec8f3",
+    "adapter_sha256": "4da184a6b9a6af197792529738a87f84d8cc3ca2e4e924879a0f293f524f7dc5",
+    "template_sha256": "c5d535b0ad237c657c11ca0054c2e48ecde1c36a10bff452bdd54af1ac6ba474",
+    "worker_sha256": "72abf881fe73528b9948742d62f365b36e91a66f57131f3e4fc115c9afeb94b2",
+    "source_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "order": [
+        "batched",
+        "prefix-replays"
+      ],
+      "wall_seconds": {
+        "batched": 5.299649,
+        "prefix-replays": 19.733215
+      },
+      "launches": {
+        "batched": 1,
+        "prefix-replays": 4
+      },
+      "observations_exactly_equal": true,
+      "observations_sha256": "97da52941f2dc87c194951dc1e550e60722e891ad833ff7c5d4dc5248f4b351f"
+    },
+    {
+      "iteration": 2,
+      "order": [
+        "prefix-replays",
+        "batched"
+      ],
+      "wall_seconds": {
+        "prefix-replays": 17.564963,
+        "batched": 5.240326
+      },
+      "launches": {
+        "prefix-replays": 4,
+        "batched": 1
+      },
+      "observations_exactly_equal": true,
+      "observations_sha256": "97da52941f2dc87c194951dc1e550e60722e891ad833ff7c5d4dc5248f4b351f"
+    },
+    {
+      "iteration": 3,
+      "order": [
+        "batched",
+        "prefix-replays"
+      ],
+      "wall_seconds": {
+        "batched": 4.976239,
+        "prefix-replays": 16.564452
+      },
+      "launches": {
+        "batched": 1,
+        "prefix-replays": 4
+      },
+      "observations_exactly_equal": true,
+      "observations_sha256": "97da52941f2dc87c194951dc1e550e60722e891ad833ff7c5d4dc5248f4b351f"
+    }
+  ]
+}

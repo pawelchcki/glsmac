@@ -26,20 +26,30 @@ def read_json(path):
         return decode_json(stream.read(MAX_BYTES + 1))
 
 
-def run_probe(command, request, timeout=60):
+def run_probe(command, request, timeout=60, on_started=None):
+    """Execute one probe; optionally notify after its process actually starts."""
     try:
         argv = shlex.split(command)
         if not argv:
             raise ProtocolError("empty runner command")
-        process = subprocess.run(
-            argv, input=canonical(request), text=True, encoding="utf-8",
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=ROOT, timeout=timeout,
-        )
+        input_text = canonical(request)
+        with subprocess.Popen(
+            argv, stdin=subprocess.PIPE, text=True, encoding="utf-8",
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=ROOT,
+        ) as process:
+            if on_started is not None:
+                on_started()
+            try:
+                stdout, stderr = process.communicate(input=input_text, timeout=timeout)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.communicate()
+                raise
     except (OSError, subprocess.TimeoutExpired, ValueError) as error:
         raise ProtocolError(f"cannot run probe: {error}") from error
     if process.returncode != 0:
-        raise ProtocolError(f"probe exited {process.returncode}: {process.stderr[-4000:]}")
-    response = decode_json(process.stdout)
+        raise ProtocolError(f"probe exited {process.returncode}: {stderr[-4000:]}")
+    response = decode_json(stdout)
     validate_response(response, request)
     return response
 

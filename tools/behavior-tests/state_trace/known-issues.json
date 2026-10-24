@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "purpose": "Observed gaps only; this inventory never changes comparisons or exempts failures. Both trace suites remain strict red probes outside passing release catalogs.",
+  "issues": [
+    {
+      "id": "natural-startup-missing-opponents",
+      "status": "pending-native-transfer",
+      "suites": [
+        "natural-startup",
+        "natural-startup-economy-research"
+      ],
+      "property": "Frozen original checkpoints contain all seven players, units and cities. Current native startup creates only the human participant and its inventory. Offscreen opponent state and next-turn movements are retained in the original evidence.",
+      "scope": "Natural stock Gaian/Citizen/standard flat40x80 setup, first playable turn and next turn."
+    },
+    {
+      "id": "natural-startup-initial-minerals",
+      "status": "pending-native-transfer",
+      "suites": [
+        "natural-startup-economy-research"
+      ],
+      "property": "Original human city mineral stock is 9 at turn1 and10 at turn2; full production candidate startup observes0 then1. Initial coordinates differ, so this trace preserves the state discrepancy without isolating the responsible formula/context.",
+      "scope": "Frozen original profile; no unconditional initial9 rule is inferred."
+    },
+    {
+      "id": "initial-world-alignment",
+      "status": "unclassified-context-difference",
+      "suites": [
+        "natural-startup",
+        "natural-startup-economy-research"
+      ],
+      "property": "Each engine performs its own startup. Original PRNG input is controlled; the frozen cases omit native rng_state. Different initial positions affect logical IDs. A separately frozen common explicit-world input is required to isolate later state transitions; do not claim RNG equivalence or classify every coordinate difference as a proven algorithm bug."
+    }
+  ]
+}

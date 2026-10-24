@@ -1,0 +1,9 @@
+{
+  "name": "smacx-original-ui",
+  "kind": "original-executable",
+  "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+  "adapter_version": 1,
+  "engine": "wine-xvfb",
+  "engine_version": "wine-11.20",
+  "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a"
+}
