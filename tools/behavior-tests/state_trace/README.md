@@ -14,6 +14,18 @@ observed game fields, units, identity rules, inputs and exclusions.
 From the repository root, with an existing compatible WASM engine:
 
 ```sh
+npm --prefix tools/wasm-tests run test:state-trace
+```
+
+This uses the frozen core inputs and observations and the candidate adapter.
+It writes `tools/wasm-tests/build/artifacts/state-trace-report.json` and currently
+exits 1 for the known strict mismatches. Append options after `--` to override
+the inputs, reference, candidate command or report. `WASM_APP_DIR` selects the
+candidate engine directory; its default is `build/wasm/bin` under the repository.
+
+The equivalent explicit command is:
+
+```sh
 python3 tools/behavior-tests/state_trace/run.py compare \
   --cases tools/behavior-tests/state_trace/cases/natural-startup.json \
   --reference tools/behavior-tests/state_trace/observations/smacx-gog-2.0-natural-startup.json \
