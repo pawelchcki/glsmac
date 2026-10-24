@@ -1,0 +1,659 @@
+{
+  "captured_at": "2026-10-23T23:12:10.728718+00:00",
+  "observations": [
+    {
+      "case_sha256": "cfab7e6f148a6eda3a7da6ba42cd99513165d163447eb009cededec270de68c7",
+      "id": "gaians-citizen-map-40x80-load-default",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 40,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 80,
+          "map_kind": 0,
+          "map_width": 40,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 9,
+          "per_turn": 1
+        },
+        "setup_preset_trace": []
+      }
+    },
+    {
+      "case_sha256": "1248293dab4e1eaf4eeb530c4a931d274c418d06dae631f7f19e73b5b1ba60b2",
+      "id": "gaians-citizen-map-68x34-load-default",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 34,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 34,
+          "map_kind": 0,
+          "map_width": 68,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 7,
+          "per_turn": 1
+        },
+        "setup_preset_trace": []
+      }
+    },
+    {
+      "case_sha256": "976bbc2cd1162de433ffc3943507b32aa437cf54811c55f6579344c954e55021",
+      "id": "gaians-citizen-map-80x160-load-default",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 80,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 160,
+          "map_kind": 0,
+          "map_width": 80,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 18,
+          "per_turn": 1
+        },
+        "setup_preset_trace": []
+      }
+    },
+    {
+      "case_sha256": "b5229562e6a63bd67cfef592e900e438e19b975ddecbccc1add7204798b580be",
+      "id": "gaians-citizen-map-42x81-load-default",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 41,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 81,
+          "map_kind": 0,
+          "map_width": 42,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 9,
+          "per_turn": 1
+        },
+        "setup_preset_trace": []
+      }
+    },
+    {
+      "case_sha256": "bf6738d9652b088282744e901265c5ffc4160b76c3ce01d3d06d4eb7ce04c1ca",
+      "id": "gaians-citizen-map-40x80-tiny",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 40,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 80,
+          "map_kind": 0,
+          "map_width": 40,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 9,
+          "per_turn": 1
+        },
+        "setup_preset_trace": [
+          {
+            "map_kind": 0,
+            "phase": "preset-selected"
+          }
+        ]
+      }
+    },
+    {
+      "case_sha256": "e3e26bd91e708e96bba3ff403627d815b15b7afbe21eb02d84557786fdf5c072",
+      "id": "gaians-citizen-map-40x80-standard",
+      "output": {
+        "cost_context": {
+          "auxiliary_adjustment": 0,
+          "cached_cost": -1,
+          "difficulty": 0,
+          "discovery_rate_percent": 100,
+          "faction_cost_percent": 100,
+          "faction_counters": [
+            {
+              "faction_id": 1,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 2,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 3,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 4,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 5,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 6,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            },
+            {
+              "faction_id": 7,
+              "research_ranking": 0,
+              "saved_earned_techs": 0
+            }
+          ],
+          "faction_id": 1,
+          "global_difficulty": 0,
+          "human": true,
+          "map_area_sqrt": 40,
+          "research_ranking": 0,
+          "research_rating": 0,
+          "saved_earned_techs": 0,
+          "stagnation": false,
+          "target_id": 5,
+          "turn": 1
+        },
+        "entry": {
+          "key": "F2",
+          "transport": "windows-sendinput"
+        },
+        "initial_allocation": {
+          "economy": 50,
+          "labs": 50,
+          "psych": 0
+        },
+        "initial_labs_income": 1,
+        "native": {
+          "accumulated": 0,
+          "city": {
+            "doctors": 1,
+            "minerals": 9,
+            "nutrients": 0,
+            "population": 1,
+            "worked_tiles": 0,
+            "workers": 0
+          },
+          "faction_id": 1,
+          "goal_id": 5,
+          "map_height": 80,
+          "map_kind": 0,
+          "map_width": 40,
+          "owned_ids": [
+            6
+          ],
+          "turn": 1,
+          "units": [
+            {
+              "damage": 0,
+              "movement_spent": 0,
+              "order_code": 2,
+              "prototype_id": 2
+            }
+          ]
+        },
+        "report": {
+          "accumulated": 0,
+          "cost": 9,
+          "per_turn": 1
+        },
+        "setup_preset_trace": [
+          {
+            "map_kind": 2,
+            "phase": "preset-selected"
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "e56c41c586b8fbc3d5743b1ee273e78a1f94312cc3cd8e7cef96f14f8958baef",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.live_map_cost_context.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Stock Gaians/Citizen, Blind-off target5; declared synthetic map dimensions; optional actual Tiny/Standard preset prelude then Escape/Load Map; actual allocation/Labs income; held ready units; first report only via Windows SendInput F2",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "Actual rendered report and direct selected/rival native cost context, physical dimensions and raw map_kind; no conversion or ownership-derived counters",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2",
+    "scope": "Optional one-checkpoint asset-backed context and actual F2 entry; no general cost/scalar conversion, timing or acquisition rule",
+    "windows_key_helper_sha256": "cb37cb3ec6588ff9168d2e44246fcb70ae3408f3cca2340e122d3050fb619230"
+  },
+  "repeat": 2,
+  "suite_sha256": "11f9ad2b99c400492d871b0b6effaabb10698c8f6fc1203fab904ffbe6a5ebfc",
+  "version": 1
+}

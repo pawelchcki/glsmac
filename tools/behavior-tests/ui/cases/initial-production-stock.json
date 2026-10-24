@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "initial-production-stock",
+  "description": "Independent actual production display and raw-field endpoint comparison in unchanged controlled science fixture; no unconditional startup rule.",
+  "cases": [
+    {
+      "id": "gaian-production-stock-turn1-turn6",
+      "algorithm": "ui.initial_production_stock.v1",
+      "input": {
+        "target_id": 5,
+        "advances": 5,
+        "map_profile": "flat-arid-40x80",
+        "allocation": "default-50-0-50",
+        "panels": [
+          "base-operations",
+          "base-panel"
+        ],
+        "contact_policy": "decline-channel"
+      }
+    }
+  ]
+}

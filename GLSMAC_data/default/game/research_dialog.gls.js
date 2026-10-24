@@ -24,7 +24,7 @@ const block = (document, name, lines, buttons) => {
 	if (caption == null || #sizeof(text) != lines || #sizeof(extra) != buttons) { throw Error('Incomplete research source block: ' + name); }
 	return {caption: caption, lines: text, buttons: extra};
 };
-const labels = (document) => {
+const label_rows = (document) => {
 	const rows = [];
 	for (record of document.dialog('LABELS').records) {
 		if (record.kind == 'text') { rows :+ record.text; }
@@ -34,9 +34,16 @@ const labels = (document) => {
 	const text = #trim(rows[0]); let count = 0;
 	try { count = #to_int(text); } catch { : (e) => { throw Error('Invalid research label count'); } }
 	if (#to_string(count) != text || count != #sizeof(rows) - 1) { throw Error('Invalid research label table'); }
-	return {ok: plain(rows[102], true), cancel: plain(rows[103], true)};
+	return rows;
 };
+const labels = (document) => { const rows = label_rows(document); return {ok: plain(rows[102], true), cancel: plain(rows[103], true)}; };
 return {
+	load_laboratories: (glsmac) => {
+		const definition = block(glsmac.load_smac_text('script.txt', 'dialogs'), 'STATUSLABS', 0, 0);
+		const rows = label_rows(glsmac.load_smac_text('labels.txt', 'dialogs'));
+		if (#sizeof(rows) < 691) { throw Error('Incomplete laboratory labels'); }
+		return {caption: definition.caption, accumulated: plain(rows[378]), per_turn: plain(rows[379]), summary: plain(rows[690]), ok: plain(rows[102], true)};
+	},
 	load: (glsmac) => {
 		const document = glsmac.load_smac_text('script.txt', 'dialogs');
 		const directed = block(document, 'TECHNOLOGY', 0, 2); const priorities = block(document, 'TECHRANDOM', 7, 0);

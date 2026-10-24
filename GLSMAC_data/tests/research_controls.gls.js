@@ -1,6 +1,34 @@
 const behavior = #include('./_behavior');
 const fixture = #include('./_research_ui_fixture');
 
+behavior.scenario('F2 report reads native science and source labels without research commands', () => {
+	const f = fixture(false); f.open(); f.dialog.rows[1].el.emit('click', {}); f.deliver();
+	f.set_turn(5); f.command('credit_research_income', {player_id: f.owner.id + 0, turn_id: 5, income: 7}, 0);
+	const before = f.game.get_research_science(f.owner.id); const requests = #sizeof(f.pending.requests);
+	test.assert(!f.key('F2', {shift: true}) && !f.popup.is_shown());
+	test.assert(f.key('F2') && f.popup.popup.id == 'laboratories');
+	const report = f.popup.popup_defs.laboratories;
+	test.assert(report.header.text == 'SYNTHETIC LABORATORY REPORT' && report.summary.text == 'SYNTHETIC LABEL 689');
+	test.assert(report.accumulated.text == 'Synthetic label 377: 7' && report.per_turn.text == 'Synthetic label 378: 1');
+	test.assert(report.target.text != '' && f.game.get_research_science(f.owner.id) == before);
+	test.assert(!f.controller.open_laboratories() && #sizeof(f.pending.requests) == requests);
+	f.key('ESCAPE'); test.assert(!f.popup.is_shown());
+	f.key('F2'); const stale = report.ok; report.ok.emit('click', {});
+	test.assert(!f.popup.is_shown()); f.key('F2'); stale.emit('click', {});
+	test.assert(f.popup.is_shown()); f.key('ENTER'); test.assert(!f.popup.is_shown());
+	f.view.root.remove(); test.assert(!f.controller.open_laboratories());
+});
+
+behavior.scenario('HQ laboratory source identity shares F2 and respects inactive turns', () => {
+	const f = fixture(true); f.menu.open('left_menu'); f.menu.menus.left_menu.items[1].el.emit('click', {});
+	for (row of f.menu.menus.left_menu_hq.items) { if (row.entry.source_index == 5) { row.el.emit('click', {}); } }
+	test.assert(f.popup.popup.id == 'laboratories' && !f.menu.menus.left_menu.is_open);
+	test.assert(#sizeof(f.pending.requests) == 0 && f.game.get_research_science(f.owner.id).accumulated == 0);
+	f.key('ENTER'); f.events.emit('turn_status', {status: 'please_wait'});
+	test.assert(!f.key('F2') && !f.popup.is_shown());
+	f.view.root.remove();
+});
+
 behavior.scenario('real Shift R opens source-driven directed choices ordered by native category and source ID', () => {
 	const f = fixture(false); test.assert(f.key('R', {shift: true}));
 	test.assert(f.popup.is_shown() && f.dialog.header.text == 'SYNTHETIC RESEARCH' && #sizeof(f.dialog.rows) == 4);

@@ -9,6 +9,7 @@ return (game) => {
 		'initialize_technologies',
 		'set_research_target',
 		'set_research_priority',
+		'credit_research_income',
 		'game_settings',
 		'select_faction',
 		'ready_or_not',

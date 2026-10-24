@@ -68,7 +68,19 @@ namespace input {
     X_KEY_CODE_2( KP_RIGHT_UP, KP_9 ) \
     X_KEY_CODE_3( CTRL, LCTRL, RCTRL ) \
     X_KEY_CODE_3( ALT, LALT, RALT ) \
-    X_KEY_CODE_3( SHIFT, LSHIFT, RSHIFT )
+    X_KEY_CODE_3( SHIFT, LSHIFT, RSHIFT ) \
+    X_KEY_CODE_1( F1 ) \
+    X_KEY_CODE_1( F2 ) \
+    X_KEY_CODE_1( F3 ) \
+    X_KEY_CODE_1( F4 ) \
+    X_KEY_CODE_1( F5 ) \
+    X_KEY_CODE_1( F6 ) \
+    X_KEY_CODE_1( F7 ) \
+    X_KEY_CODE_1( F8 ) \
+    X_KEY_CODE_1( F9 ) \
+    X_KEY_CODE_1( F10 ) \
+    X_KEY_CODE_1( F11 ) \
+    X_KEY_CODE_1( F12 )
 
 enum mouse_button_t : uint8_t {
 	MB_NONE,
