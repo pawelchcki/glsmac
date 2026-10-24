@@ -122,6 +122,66 @@ interval; this is a transport schedule, not permission to lose transient events.
 Pod sprite background assignments retain the requested logical FLIC source and
 frame index in the native stream. They do not prove a frame reached the screen.
 
+## Scene animation observations
+
+Frontend `Animation` instances now have distinct playback identities, registered
+definition IDs, declared duration/frame count and native render coordinates.
+The opt-in producer records actual scene-instance additions and removals in
+order, followed by completion or cancellation and eventual destruction. Frame
+zero is observed after its actual `AddInstance`; a timer catch-up retains every
+intermediate submission/removal. These observations use `scene-instance`
+evidence and establish scene submission, not rendered pixels or exact timing.
+The raw reducer checks submission/removal pairing, instance IDs, frame order and
+termination. A partial epoch may observe its initial baseline removal without
+the earlier submission; that exception cannot hide later gaps or mismatches.
+
+Animation births use `native-registration` evidence. A capture started during
+an existing animation registers it lazily with `history: partial` on the next
+observed mutation. It never synthesizes an earlier start or missing frames.
+The semantic projection keeps these explicitly typed animations in its media
+inventory and retains each raw mutation, including frame removals and retired
+transients. Unclassified audio remains unknown. This single animation producer
+does not establish exhaustive animation inventory, pod sprite coverage or any
+complete presentation channel; all fifteen coverage flags remain false.
+
+Native tests compile the actual animation, scene instance, timer, sound and
+audio removal paths, using synthetic asset definitions, a deterministic clock
+and a controlled device boundary. Every actual producer drain also enters the
+production raw reducer. No original presentation agreement is inferred.
+
+## Completeness accounting
+
+Real candidate captures now write `audit.json` beside `semantic.json`. The
+audit independently replays native and semantic history and requires exactly
+one unchanged disposition for every raw event, with correct birth, retirement,
+live inventories and checkpoint watermarks. It retains retired unknown objects,
+unmapped fields and unavailable field evidence. Each checkpoint reports prefix
+and interval event counts, event kinds, lifetimes and live inventory counts.
+The capture must include its validated `input_plan`. Every semantic event is
+bound to its exact native source action, including canonical updates and the
+terminal tail; unknown, reordered or incorrectly attributed actions are rejected.
+Typed animation transitions also match their exact raw source fields once per
+source event. Unavailable field history survives resolution and retirement, and
+every checkpoint must explicitly declare all fifteen known boolean channels.
+
+Transport completeness, semantic understanding, exhaustive channel coverage and
+rendered output are separate results. A quiet interval, an empty channel or a
+declared true coverage flag cannot attest an exhaustive producer. Audit v1
+reports missing capabilities for all fifteen channels and never certifies
+rendered video, pixels, PCM or device output.
+
+```sh
+python3 tools/behavior-tests/state_trace/presentation_audit.py \
+  --capture /path/to/presentation-raw.json \
+  --projection /path/to/semantic.json --output /tmp/presentation-audit.json
+```
+
+Exit 0 means an internally consistent diagnostic report, which can remain
+incomplete. `--require-complete` returns 1 for incomplete coverage. Invalid,
+lost, omitted or altered evidence returns 2 and replaces any stale report with
+an explicit invalid result. No original reference or passing parity total is
+changed by this audit.
+
 ## Frozen bounded inputs
 
 `presentation-cases.json` was reviewed independently by the clean reference

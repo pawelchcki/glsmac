@@ -16,7 +16,7 @@ test('actual native controls publish value, transformed label, typed choices, ow
  const capture=JSON.parse(await readFile(`${artifacts}/presentation-raw.json`,'utf8'));
  const raw=capture.batches.flatMap(batch=>batch.events);
  assert.ok(raw.some(e=>e.kind==='semantic.protocol'&&e.data.version===2),'runtime contains required v2 producer');
- const code="import json,sys;from pathlib import Path;sys.path.insert(0,'tools/behavior-tests');from state_trace.presentation_projector import project_capture;cases=json.loads(Path('tools/behavior-tests/state_trace/presentation-cases.json').read_text())['cases'];case=next(c for c in cases if c['id']=='presentation-intro-launch');capture=json.loads(Path(sys.argv[1]).read_text());Path(sys.argv[2]).write_text(json.dumps(project_capture(capture,case['input'])))";
+ const code="import json,sys;from pathlib import Path;sys.path.insert(0,'tools/behavior-tests');from state_trace.presentation_projector import project_capture;from state_trace.presentation_audit import audit_capture;cases=json.loads(Path('tools/behavior-tests/state_trace/presentation-cases.json').read_text())['cases'];case=next(c for c in cases if c['id']=='presentation-intro-launch');capture=json.loads(Path(sys.argv[1]).read_text());projection=project_capture(capture,case['input']);Path(sys.argv[2]).write_text(json.dumps(projection));Path(sys.argv[2]).with_name('audit.json').write_text(json.dumps(audit_capture(capture,projection)))";
  await run(process.env.PYTHON||'python3',['-c',code,`${artifacts}/presentation-raw.json`,`${artifacts}/semantic.json`],{cwd:root,timeout:20000,maxBuffer:16*1024*1024});
  const output=JSON.parse(await readFile(`${artifacts}/semantic.json`,'utf8'));
  const state=output.checkpoints.at(-1).state.presentation;
@@ -58,6 +58,15 @@ test('actual native controls publish value, transformed label, typed choices, ow
  assert.ok(mappings.some(([,record])=>record.mapping?.relation==='layout-fragment'));
  assert.ok(mappings.some(([,record])=>record.disposition==='unknown'&&record.retirement_sequence!==null),'unknown transients survive');
  assert.equal(output.diagnostics.observed_events,raw.length);
+ const audit=JSON.parse(await readFile(`${artifacts}/audit.json`,'utf8'));
+ assert.equal(audit.valid,true);assert.equal(audit.transport_complete,true);
+ assert.equal(audit.exhaustive_coverage_complete,false);assert.equal(audit.rendered_output_observed,false);
+ assert.equal(Object.keys(audit.coverage).length,15);
+ assert.ok(Object.values(audit.coverage).every(channel=>channel.complete===false&&channel.missing_capability_reasons.length>0));
+ assert.equal(audit.tail.raw_prefix_event_count,raw.length);
+ assert.equal(audit.checkpoints.length,capture.input_checkpoints.length);
+ assert.ok(audit.checkpoints.every(point=>point.raw_observations_exactly_once));
+ assert.ok(Object.values(audit.unknown_objects).some(object=>object.retirement_sequence!==null),'audit retains unknown retired transients');
  assert.ok(output.checkpoints.every(point=>Object.values(point.coverage).every(value=>value===false)));
  console.log(`Native control artifacts: ${artifacts}`);
 });

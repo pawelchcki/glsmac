@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include "Types.h"
 
 #include "util/Timer.h"
@@ -26,6 +27,11 @@ public:
 private:
 
 	void ShowNextFrame();
+	void TracePlayback( const char* kind, const char* data, const bool construction = false );
+	void TraceFrame( const bool present );
+
+	const uint64_t m_presentation_id;
+	uint64_t m_presentation_epoch = 0;
 
 	util::Timer m_timer;
 	scene::actor::Sound* m_sound = nullptr;

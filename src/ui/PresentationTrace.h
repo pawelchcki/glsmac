@@ -52,14 +52,14 @@ public:
 	}
 	// A surviving actor is lazily registered on its first observation in an
 	// epoch. Birth and control share the lock; this is not an output baseline.
-	void RecordPlayback( const uint64_t id, uint64_t& epoch, const std::string& source, const std::string& kind, const std::string& data ) {
+	void RecordPlayback( const uint64_t id, uint64_t& epoch, const std::string& source, const std::string& kind, const std::string& data, const std::string& media_type = "audio", const std::string& creation_fields = "" ) {
 		if ( !Enabled() ) { return; }
 		std::lock_guard< std::mutex > lock( m_mutex );
 		if ( !Enabled() ) { return; }
 		const auto target = "m" + std::to_string( id );
 		if ( epoch != m_epoch ) {
 			epoch = m_epoch;
-			RecordLocked( "media.create", target, "{\"type\":\"audio\",\"source\":" + Quote( source ) + "}" );
+			RecordLocked( "media.create", target, "{\"type\":" + Quote( media_type ) + ",\"source\":" + Quote( source ) + ( creation_fields.empty() ? "" : "," + creation_fields ) + "}" );
 		}
 		if ( !kind.empty() ) { RecordLocked( kind, target, data ); }
 	}

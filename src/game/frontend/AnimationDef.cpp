@@ -71,6 +71,10 @@ const instanced_sprites_t& AnimationDef::GetSprites() {
 	return m_sprites;
 }
 
+const std::string& AnimationDef::GetId() const {
+	return m_id;
+}
+
 const size_t AnimationDef::GetDurationMs() const {
 	return m_duration_ms;
 }

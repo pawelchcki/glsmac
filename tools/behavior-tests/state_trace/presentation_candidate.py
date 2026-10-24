@@ -18,6 +18,7 @@ from protocol import ProtocolError, fingerprint, load_request, write_response
 from state_trace.presentation_schema import ALGORITHM, validate_input
 from state_trace.presentation_capture import reduce_capture
 from state_trace.presentation_projector import project_capture
+from state_trace.presentation_audit import audit_capture
 
 DIRECTORY = Path(__file__).resolve().parent
 ROOT = DIRECTORY.parents[2]
@@ -78,6 +79,9 @@ def main():
             semantic_path = directory/'semantic.json'
             semantic_path.write_text(json.dumps(semantic,indent=2)+'\n')
             implementation['captures'][case_id]['semantic_path'] = str(semantic_path)
+            audit_path = directory/'audit.json'
+            audit_path.write_text(json.dumps(audit_capture(capture, semantic), indent=2)+'\n')
+            implementation['captures'][case_id]['audit_path'] = str(audit_path)
             semantic_prefix_paths = []
             for point in capture['input_checkpoints']:
                 prefix_raw = raw.parent/('presentation-checkpoint-'+point['id']+'.json')
