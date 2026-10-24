@@ -5,6 +5,12 @@ state after each action, and report the first differing checkpoint and field.
 Both adapters enumerate every actual player, unit and city, including foreign
 and hidden entities. Reference answers are never passed to the candidate.
 
+The separate [presentation observer](presentation-contract.md) now records
+native scene-animation submissions/removals and lifecycle changes, and writes
+an accounting audit for real captures. Its per-checkpoint inventory/event
+counts expose omitted observations and retained unknowns; scene evidence and
+complete transport do not imply rendered output or original-game agreement.
+
 The [wire schema](schema-contract.md) defines exact comparison and evidence
 binding. The [reference profiles](reference-profile-contract.md) define the
 observed game fields, units, identity rules, inputs and exclusions.

@@ -77,6 +77,7 @@ class Projector:
         self.choice_pending = {}
         self.constructor_roles, self.selected_targets = {}, {}
         self.retired_native_ids = set()
+        self.animations = set()
         self.raw_seq = 0
 
     @staticmethod
@@ -295,12 +296,38 @@ class Projector:
                 record['mapping'] = deepcopy(data)
             self.reconcile_parents()
         elif kind == 'media.create':
-            self.dispositions[target] = {'disposition': 'unknown', 'type': 'media',
+            animation = data['type'] == 'animation'
+            self.dispositions[target] = {'disposition': 'logical' if animation else 'unknown', 'type': 'media',
                 'birth_sequence': event['seq'], 'retirement_sequence': None, 'source': deepcopy(data)}
-            disposition = 'unknown-media'
+            if animation:
+                self.animations.add(target)
+                self.emit('animation', 'create', target, {
+                    'role': 'scene-animation', 'source': data['source'],
+                    'duration_ms': data['duration_ms'], 'frame_count': data['frame_count'],
+                    'coordinates': {key: data[key] for key in ('x', 'y', 'z')},
+                    'history': data['history'], 'evidence': data['evidence'],
+                    'lifecycle': 'registered', 'frame_index': None, 'scene_instance_id': None,
+                    'evidence_scope': 'native scene instance submission; rendered pixels unobserved'})
+                disposition = 'animation'
+            else:
+                disposition = 'unknown-media'
         elif kind == 'media.destroy':
             self.dispositions[target]['retirement_sequence'] = event['seq']
-            disposition = 'unknown-media'
+            if target in self.animations:
+                self.emit('animation', 'destroy', target, {})
+                disposition = 'animation'
+            else:
+                disposition = 'unknown-media'
+        elif target in self.animations and kind.startswith('media.'):
+            fields = deepcopy(data)
+            if kind == 'media.frame':
+                fields['lifecycle'] = 'frame-submitted' if data['present'] else 'frame-removed'
+                if not data['present']:
+                    fields.update(frame_index=None, scene_instance_id=None)
+            else:
+                fields['lifecycle'] = {'media.start': 'started', 'media.end': 'completed', 'media.stop': 'cancelled'}[kind]
+            self.emit('animation', 'update', target, fields)
+            disposition = 'animation'
         elif kind == 'semantic.geometry':
             self.geometry.setdefault(target, {})[data['area']] = {k: v for k, v in data.items() if k != 'area'}
             self.verified_update(target, {'geometry': {'coordinates': 'native-ui-absolute', **deepcopy(self.geometry[target])}}, 'actual native layout/expanded effective area')

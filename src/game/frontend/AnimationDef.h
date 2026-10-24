@@ -25,6 +25,7 @@ public:
 	~AnimationDef();
 
 	const instanced_sprites_t& GetSprites();
+	const std::string& GetId() const;
 	const size_t GetDurationMs() const;
 	const types::Sound* GetSound();
 
