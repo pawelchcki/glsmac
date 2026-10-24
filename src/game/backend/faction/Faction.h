@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <array>
+#include <memory>
 
 #include "types/Serializable.h"
 #include "gse/Wrappable.h"
@@ -18,6 +19,7 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 
 	Faction();
 	Faction( const std::string& id, const std::string& name );
+	std::unique_ptr< Faction > Clone() const;
 
 	// Editor order: leader, formal faction name, noun, adjective, title, description.
 	using identity_t = std::array< std::string, 6 >;

@@ -1,0 +1,113 @@
+{
+  "adapter_fingerprint": "3553fe97c94a77f4a1d0dc6818758bb718d29c00b74bc8a3d152601919ab10c7",
+  "candidate_inspected_or_executed": false,
+  "catalog_status": "outside-passing-catalog-and-default-totals",
+  "full_source_record_sha256": "a3011a34dd45ed9f7709a00695be6a386abc8a00dae8734be78cb54bb4f3aa7d",
+  "independent_run_outputs": [
+    [
+      {
+        "case": "duplicate-gaia-seven-identity-control-name",
+        "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-control-name/observed.json",
+        "sha256": "33d523fa07d686892b7e90c40f0f783b64c9f5bda3b495d48dc990a8217899fc"
+      },
+      {
+        "case": "duplicate-gaia-seven-identity-authored-name",
+        "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-authored-name/observed.json",
+        "sha256": "72dfb8de4eb4aa9fa76e862ca1c5703e7fb0adf7bdf02430c955c2984d645fff"
+      }
+    ],
+    [
+      {
+        "case": "duplicate-gaia-seven-identity-control-name",
+        "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-control-name/observed.json",
+        "sha256": "33d523fa07d686892b7e90c40f0f783b64c9f5bda3b495d48dc990a8217899fc"
+      },
+      {
+        "case": "duplicate-gaia-seven-identity-authored-name",
+        "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-authored-name/observed.json",
+        "sha256": "72dfb8de4eb4aa9fa76e862ca1c5703e7fb0adf7bdf02430c955c2984d645fff"
+      }
+    ]
+  ],
+  "observations_byte_identical_to_source_record": true,
+  "original_assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+  "original_executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+  "original_only_adapter": {
+    "included_in_clean_public_package": false,
+    "private_path": "/tmp/smac-state-trace/reference-private/all_player_identity_original.py",
+    "sha256": "62fdf3be99cd4296fde6d035ef1b56dc1ad846cd6f3260d1f144060afd3eaa44"
+  },
+  "rendered_witnesses": [
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-control-name/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-control-name/name-authored.png",
+      "sha256": "c4a61ad4635a36d20ee163fdee9b466313d17f5652eac6ab63096fa930602f41"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-control-name/launch-progress.png",
+      "sha256": "491efb38b58258a9f7c4a6cdb2f133c5c5dadf3c86b5e2957baf049a6eefa1d4"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-authored-name/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-authored-name/name-authored.png",
+      "sha256": "996589af22d52ed24e718030902d3d4692fb2af65a577847336a230f0c3585e2"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-d73p3w14/duplicate-gaia-seven-identity-authored-name/launch-progress.png",
+      "sha256": "6e6b846c77c577eb9ca98c9bb3bb91f92ff360fb9baaca8d789671839876c3a1"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-control-name/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-control-name/name-authored.png",
+      "sha256": "c4a61ad4635a36d20ee163fdee9b466313d17f5652eac6ab63096fa930602f41"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-control-name/launch-progress.png",
+      "sha256": "491efb38b58258a9f7c4a6cdb2f133c5c5dadf3c86b5e2957baf049a6eefa1d4"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-authored-name/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-authored-name/name-authored.png",
+      "sha256": "996589af22d52ed24e718030902d3d4692fb2af65a577847336a230f0c3585e2"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/all-player-identity-v1/capture-l3nt211u/duplicate-gaia-seven-identity-authored-name/launch-progress.png",
+      "sha256": "6e6b846c77c577eb9ca98c9bb3bb91f92ff360fb9baaca8d789671839876c3a1"
+    }
+  ],
+  "status": "accepted-original-repeat2",
+  "supporting_scope": "Existing bounded native six-text-field identity reader expanded to all actual owner records; no new gender or player-display-name field guesses, no identity memory writes.",
+  "unchanged_older_manifests": [
+    {
+      "all_bound_files_unchanged": true,
+      "bound_file_count": 18,
+      "private_path": "/tmp/wasmsmac-research-choice-reference/tools/behavior-tests/state_trace/reference-manifest.json",
+      "sha256": "d60ecb152b3291ae7711b0cc3b159bc5d99861cecaff42fcc05b03306f9db778"
+    },
+    {
+      "all_bound_files_unchanged": true,
+      "bound_file_count": 10,
+      "private_path": "/tmp/wasmsmac-research-choice-reference/tools/behavior-tests/state_trace/explicit-world-reference-manifest.json",
+      "sha256": "749b288db5253f929628cb2a010f742e11faca8d7df3f66e71420884a355df02"
+    },
+    {
+      "all_bound_files_unchanged": true,
+      "bound_file_count": 10,
+      "private_path": "/tmp/wasmsmac-research-choice-reference/tools/behavior-tests/state_trace/setup-controls/manifest-v1.json",
+      "sha256": "fb863b7120863b98fe7879a9fa71639f135da8f9ecba6ad30370a171cbff7abd"
+    }
+  ],
+  "version": 1
+}

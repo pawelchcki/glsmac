@@ -1,0 +1,18 @@
+{
+  "candidate_inspected_or_executed": false,
+  "case_count": 2,
+  "files": {
+    "cases-v1.json": "f190021edb5b9d56fb741d21fec505d69d3d06c731909a2b765864aafe48a740",
+    "comparison-v1.json": "aec73b000dc87859dad103320bcfe67953860e0fa42cedda928860cfe5ee07fa",
+    "contract-v1.md": "97ab8adb8707e22f7fc4957f31d07e284022ce5693a2cb7f4ef94eb0dc0228ce",
+    "observations-v1.json": "a3011a34dd45ed9f7709a00695be6a386abc8a00dae8734be78cb54bb4f3aa7d",
+    "provenance-v1.json": "83edebfd00622da696773f238b0a62857931475739b846f05a6b3a5f50725b94"
+  },
+  "original_only_adapters_included": [],
+  "owner_count_each_checkpoint": 7,
+  "passing_catalog": false,
+  "repeat": 2,
+  "status": "accepted-original-repeat2",
+  "verified_identity_fields_each_owner": 6,
+  "version": 1
+}

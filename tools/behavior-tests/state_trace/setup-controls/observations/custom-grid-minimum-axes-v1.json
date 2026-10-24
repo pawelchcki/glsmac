@@ -1,0 +1,62 @@
+{
+  "captured_at": "2026-10-24T02:38:26.256907+00:00",
+  "observations": [
+    {
+      "case_sha256": "415cbbb318647b1a0f83c4f4da0abdea2d75fc1657e893138e45b1e9eab38317",
+      "id": "custom-horizontal-two-vertical-thirtytwo",
+      "output": {
+        "half_width": 16,
+        "height": 32,
+        "size_kind": 99,
+        "tile_count": 512,
+        "width": 32
+      }
+    },
+    {
+      "case_sha256": "c96ec821c2202994a9b9ce89a9dfc4f26e93741e3dab232373db1d637036150a",
+      "id": "custom-horizontal-thirtytwo-vertical-two",
+      "output": {
+        "half_width": 32,
+        "height": 16,
+        "size_kind": 99,
+        "tile_count": 512,
+        "width": 64
+      }
+    },
+    {
+      "case_sha256": "31c4985e407b1ddc612f73aaeb0942330f6c2160519d01bbdf9c97877c656edb",
+      "id": "custom-sixteen-by-sixteen",
+      "output": {
+        "half_width": 16,
+        "height": 16,
+        "size_kind": 99,
+        "tile_count": 256,
+        "width": 32
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "4fb3b0f72af2c3e39922e5e26ef188ae2b70fb98de773f1bce426aff48d3c8f7",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "clean_export": {
+      "omitted_metadata": [
+        "readonly_fields"
+      ],
+      "semantic_observations_unchanged": true,
+      "source_record_sha256": "bdefc4d597fcc1918a1a5e2204d78ee9883f203a5d8106a42b4206a6d25f5352"
+    },
+    "contract": "map.custom_grid_dimensions.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual post-generation dimensions at the visible PLANETFALL checkpoint",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "443ca27f7f7025ccfa7f9155865482249c6541e85e170b2f8464781cb272b4f2",
+  "version": 1
+}

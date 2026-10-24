@@ -16,16 +16,36 @@ const prototype_id = (unit) => {
  for (word of #split(#lowercase(unit.get_def().name), ' ')) { if (word != '') { token += (token == '' ? '' : '-') + word; } }
  return token;
 };
-const make_observer = (game, requested_profile) => {
+const destination = (unit, direction) => {
+ const origin = unit.get_tile();
+ const getter_name = 'get_' + direction;
+ const getter = origin[getter_name];
+ return getter();
+};
+const make_observer = (game, requested_profile, fixture_kind) => {
  const economy = #is_defined(requested_profile) && requested_profile == 'economy-research-v1';
+ const explicit = #is_defined(fixture_kind) && fixture_kind == 'explicit-world';
  const unsupported = (reason) => { #print('TRACE_UNSUPPORTED|' + reason); throw Error(reason); };
- const identities = {}; const counts = {};
+ const identities = {}; const counts = {}; const bindings = {}; const bound_logical = {};
+ // Declared factory-handle bindings pin authored logical identities before the
+ // first read. Natural observation never binds and keeps its existing logic.
+ const bind = (kind, native_id, logical_id) => {
+  if (kind != 'unit' && kind != 'base') { throw Error('Observer binding requires a unit or base kind'); }
+  if (#typeof(native_id) != 'Int') { throw Error('Observer binding requires a native integer handle'); }
+  if (#typeof(logical_id) != 'String' || logical_id == '') { throw Error('Observer binding requires a logical identity'); }
+  const handle = kind + ':' + #to_string(native_id);
+  if (#is_defined(bindings[handle])) { throw Error('Duplicate observer binding for native handle: ' + handle); }
+  if (#is_defined(bound_logical[logical_id])) { throw Error('Duplicate observer binding for logical identity: ' + logical_id); }
+  bindings[handle] = logical_id; bound_logical[logical_id] = handle;
+ };
  // Lifecycle notifications retire handles even if delete/create occurs between
  // checkpoints or a fixture deliberately reuses a native numeric handle.
+ // Declared bindings outlive retirement: a bound handle never re-keys.
  game.um.on('unit_despawn', (e) => { const handle = 'unit:' + #to_string(e.unit.id); identities[handle] = #undefined; });
  game.bm.on('base_despawn', (e) => { const handle = 'base:' + #to_string(e.base.id); identities[handle] = #undefined; });
  const identity = (kind, raw, key) => {
   const handle = kind + ':' + #to_string(raw);
+  if (#is_defined(bindings[handle])) { return bindings[handle]; }
   if (!#is_defined(identities[handle])) {
    const ordinal = #is_defined(counts[key]) ? counts[key] : 0;
    identities[handle] = key + ':' + #to_string(ordinal);
@@ -44,8 +64,10 @@ const make_observer = (game, requested_profile) => {
     for (unit of tm.get_tile(x, y).get_units()) {
      const owner = player_id(unit.get_owner()); const proto = prototype_id(unit);
      const key = 'unit:' + owner + ':' + proto + ':' + #to_string(x) + ':' + #to_string(y);
-     result.units :+ {id: identity('unit', unit.id, key), owner: owner, x: x, y: y, prototype: proto,
+     const row = {id: identity('unit', unit.id, key), owner: owner, x: x, y: y, prototype: proto,
       raw_id: unit.id + 0, movement: unit.movement + 0.0, order: unit.get_order()};
+     if (explicit) { row.health = unit.health + 0.0; row.morale = unit.morale + 0; }
+     result.units :+ row;
     }
    }
   }
@@ -87,6 +109,6 @@ const make_observer = (game, requested_profile) => {
   for (unit of observed.units) { if (unit.id == logical) { return game.um.get_unit(unit.raw_id); } }
   throw Error('Unknown logical unit: ' + logical);
  };
- return {read: read, find: find};
+ return {read: read, find: find, bind: bind};
 };
-return {make: make_observer, player_id: player_id};
+return {make: make_observer, player_id: player_id, destination: destination};

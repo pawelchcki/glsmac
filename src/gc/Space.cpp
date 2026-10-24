@@ -76,7 +76,7 @@ void Space::Add( Object* object ) {
 	m_accumulated_objects.insert( object );
 }
 
-void Space::Accumulate( gc::Object* const owner, const f_accum_t& f, const f_accum_t& f_cleanup, const bool need_now ) {
+void Space::Accumulate( gc::Object* const owner, const f_accum_t& f, const f_accum_t& f_cleanup, const bool need_now, Object* const context_owner ) {
 	ASSERT( m_thread_id.has_value(), "gc space thread id not set" );
 	if ( need_now ) {
 		ASSERT( m_thread_id == std::this_thread::get_id(), "accumulate needed now but thread is different" );
@@ -91,6 +91,7 @@ void Space::Accumulate( gc::Object* const owner, const f_accum_t& f, const f_acc
 		std::lock_guard guard( m_pending_accumulations_mutex );
 		m_pending_accumulations.push_back(
 			{ f, {
+				context_owner,
 				owner,
 				f_cleanup,
 			} }
@@ -168,7 +169,7 @@ void Space::AccumulateImpl( const f_accum_t& f ) {
 		try {
 			f();
 		}
-		catch ( const gse::Exception& e ) {
+		catch ( ... ) {
 			commit();
 			throw;
 		}
@@ -193,6 +194,9 @@ const bool Space::Collect() {
 		for ( const auto& it : m_pending_accumulations ) {
 			if ( it.second.owner ) {
 				it.second.owner->GetReachableObjects( m_reachable_objects_tmp );
+			}
+			if ( it.second.context_owner ) {
+				it.second.context_owner->GetReachableObjects( m_reachable_objects_tmp );
 			}
 		}
 		GC_DEBUG_END();

@@ -7,11 +7,6 @@
       "observations": "observations/smacx-gog-2.0-base-open-recalc.json"
     },
     {
-      "id": "world-base-ownership",
-      "cases": "cases/world-base-ownership.json",
-      "observations": "observations/smacx-gog-2.0-world-base-ownership.json"
-    },
-    {
       "id": "natural-first-city",
       "cases": "cases/natural-first-city.json",
       "observations": "observations/smacx-gog-2.0-natural-first-city.json"

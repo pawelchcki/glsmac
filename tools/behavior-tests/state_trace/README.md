@@ -64,12 +64,53 @@ not declare a GLSMAC RNG state; candidate coordinates remain uncontrolled and
 RNG equivalence is unverified. Candidate repetition/benchmark tests explicitly
 supply that engine's own `rng_state` independently.
 
-These traces currently fail strictly: GLSMAC initializes only the human player
-and its starting mineral store differs. [Known issues](known-issues.json) retain
-the gaps; neither trace adds passing original cases to release totals. Different
-starting coordinates also prevent isolating placement/RNG and resource rules.
-The next comparison scope is a shared explicit initial world loaded into both
-engines before replay, while preserving these natural-startup probes.
+Production single-player startup now initializes all seven participants and
+their owned bases. The recorded ownership-only case matches, and disconnected
+computer participants complete ordinary offline rounds. Natural-startup traces
+remain strict red probes: starting coordinates, mineral stores and the Spartan
+Scout Rover inventory still differ. The historical [issue inventory](known-issues.json)
+predates the participant fix; it does not override current comparison results.
+Neither natural trace adds passing original cases to release totals. Different
+starting coordinates prevent isolating placement/RNG and resource rules.
+
+The separate [setup-controls contract](setup-controls/contract-v1.md) retains
+bounded original input/output records for displayed rosters, Random human mode,
+explicit duplicate factions and custom-map generation minima. Its independent
+manifest preserves provenance without changing earlier reference manifests.
+These records guide source-backed regressions and remain outside default
+passing replay totals until a versioned public adapter is integrated.
+
+[All-player identity evidence](all-player-identity/contract-v1.md) separately
+freezes both authored-name cases for a duplicate-Gaia roster. The candidate
+isolates each participant's mutable identity from its catalog template and
+opponents. Observed duplicate collision suffixes remain an explicit difference;
+the evidence adds no passing identity comparison or full-parity claim.
+
+## Shared explicit-world comparison
+
+The separately frozen [v2 contract](explicit-world-contract-v2.md) supplies the
+same seven-player map, base, unit, technology and research initial controls to
+both engines. Its three scenarios were recorded twice independently in the
+original game. The [explicit-world manifest](explicit-world-reference-manifest.json)
+binds those records and the rejected assembly attempts; the preexisting
+18-file original manifest remains byte-identical.
+
+```sh
+python3 tools/behavior-tests/state_trace/run.py compare \
+  --cases tools/behavior-tests/state_trace/cases/explicit-seven-world-v2.json \
+  --reference tools/behavior-tests/state_trace/observations/smacx-gog-2.0-explicit-seven-world-v2-native-defaults.json \
+  --command 'python3 tools/behavior-tests/state_trace/candidate.py --assets /path/to/installed/game' \
+  --timeout 120 --report build/state-trace/explicit-world.json
+```
+
+Actual candidate execution matches the human move and Hold scenarios while
+observing every player, unit, base and declared economy/research field. The
+end-turn scenario remains a strict mismatch: all six opponent projects retain
+Colony Pod instead of the observed Formers, and University technology ownership
+is `[6]` instead of `[3, 6]`. The total is **2 matched, 1 mismatched, 0 unsupported,
+0 errors**. No expected post-action state is supplied to the candidate, and no
+AI algorithm is inferred from this single declared world. Natural placement,
+starting stocks, faction inventory and full AI remain separate gaps.
 
 ## Fast checks and measurement
 
@@ -90,6 +131,12 @@ python3 tools/behavior-tests/state_trace/candidate_benchmark.py \
 regression is in the hot lane; framework, candidate and immutable-reference
 integrity checks also run on PRs. Integrity checks execute no original game and
 claim no candidate agreement.
+
+Current startup verification passed the full Python harness (796 tests run,
+35 optional skips), all 32 hot regression suites (297 scenarios, 2,192 assertions)
+and all eleven hot UI references (44 matched cases, zero mismatches, unsupported
+cases or errors). The complete 152-script GSE run including native C++ engine
+tests is still pending and is not included in those passing totals.
 
 The [local benchmark](benchmarks/batching-v1.json) used one immutable runtime,
 matching source fingerprints and three alternating-order samples. Four
@@ -123,9 +170,11 @@ reference checkpoints and declared reference coverage gaps invalidate evidence.
 A failed invocation replaces a stale report with error evidence; execution flags
 distinguish an actually started process from an invalid command or failed launch.
 
-Movement/order counters are currently diagnostic, so matching core state does
-not establish Hold or movement-cost fidelity. Nutrient interpretation, complete
+Movement/order counters remain diagnostic in the two natural-startup profiles,
+so matching their core state does not establish Hold or movement-cost fidelity.
+The explicit-world profile additionally compares verified `none`/`hold` orders;
+spent movement counters still remain diagnostic. Nutrient interpretation, complete
 terrain, RNG draws, general AI decisions, diplomacy and combat remain outside
-these two profiles. The original identity contract also rejects unobserved
+these profiles. The original identity contract also rejects unobserved
 birth/deletion/compaction cases. The separate native exporter regression covers
 movement, detached snapshots, deletion and reused-handle birth identities.

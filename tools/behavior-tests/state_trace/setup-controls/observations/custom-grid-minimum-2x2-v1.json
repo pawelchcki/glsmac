@@ -1,0 +1,40 @@
+{
+  "captured_at": "2026-10-24T02:22:26.300250+00:00",
+  "observations": [
+    {
+      "case_sha256": "86cb256f25a39f3e3ce368eb4de7f4bec8bbc66c6efee6fed387e66bde7bfe98",
+      "id": "custom-grid-minimum-two-by-two",
+      "output": {
+        "half_width": 16,
+        "height": 16,
+        "size_kind": 99,
+        "tile_count": 256,
+        "width": 32
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "7fc9ff869f602f29ce6b19a3a9c8c9e723fbfbea0fd3f3f756e6ca2da546d271",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "clean_export": {
+      "omitted_metadata": [
+        "readonly_fields"
+      ],
+      "semantic_observations_unchanged": true,
+      "source_record_sha256": "2e8031929aeac8c2bd35371f8b5f2fe34128e711ceb8782be4973537638bbf17"
+    },
+    "contract": "map.custom_grid_dimensions.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "actual post-generation dimensions at the visible PLANETFALL checkpoint",
+    "ocr_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "ocr_version": "5.5.2"
+  },
+  "repeat": 2,
+  "suite_sha256": "a8755c5e5b760138d8878948d9ea118bc97d6d60bc4a5dfb2b1d1ef1ae7da165",
+  "version": 1
+}

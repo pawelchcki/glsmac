@@ -1,9 +1,10 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 // Synthetic application invariants; no installed names, original state or pixels.
 const behavior = #include('./_behavior');
 const make = (interactive) => {
 	const f = test.natural_startup_fixture(16, 16, 'flat-arid');
 	#include('./_natural_startup_mechanics')(f);
-	f.initialize_single_player('GAIANS'); f.start_world(interactive); return f;
+	f.initialize_isolated_player('GAIANS'); f.start_world(interactive); return f;
 };
 const headquarters = (game) => { const bases = game.bm.get_bases(); return bases[0]; };
 const command = (f, action, name) => {

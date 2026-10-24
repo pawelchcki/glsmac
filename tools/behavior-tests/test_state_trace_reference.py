@@ -12,6 +12,79 @@ SUITES = ('natural-startup', 'natural-startup-economy-research')
 
 
 class ReferenceTraceTests(unittest.TestCase):
+    def test_all_player_identity_controls_are_frozen_without_full_parity_claim(self):
+        directory = DIRECTORY / 'all-player-identity'
+        manifest_path = directory / 'manifest-v1.json'
+        self.assertEqual(hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                         'db2dede186561db7d37f4007e8a88eec22cb37af736c81636207de92e8498c88')
+        manifest = decode_json(manifest_path.read_text())
+        for relative, digest in manifest['files'].items():
+            with self.subTest(path=relative):
+                path = Path(relative)
+                self.assertFalse(path.is_absolute())
+                self.assertNotIn('..', path.parts)
+                self.assertEqual(hashlib.sha256((directory / path).read_bytes()).hexdigest(), digest)
+        suite = compare.read_json(directory / 'cases-v1.json')
+        record = compare.read_json(directory / 'observations-v1.json')
+        outputs = compare.validate_observations(record, suite)
+        self.assertEqual(record['repeat'], 2)
+        self.assertEqual(len(outputs), 2)
+        for output in outputs.values():
+            self.assertEqual(len(output['after_launch']['players']), 7)
+
+    def test_bounded_setup_controls_are_frozen_outside_passing_totals(self):
+        directory = DIRECTORY / 'setup-controls'
+        manifest_path = directory / 'manifest-v1.json'
+        self.assertEqual(hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                         'fb863b7120863b98fe7879a9fa71639f135da8f9ecba6ad30370a171cbff7abd')
+        manifest = decode_json(manifest_path.read_text())
+        self.assertEqual(manifest['status'], 'accepted-original-repeat2-bounded-setup-controls')
+        self.assertIs(manifest['candidate_inspected_or_executed'], False)
+        self.assertIs(manifest['passing_catalog'], False)
+        self.assertEqual(manifest['original_only_adapters_included'], [])
+        self.assertEqual(len(manifest['files']), 10)
+        for relative, digest in manifest['files'].items():
+            with self.subTest(path=relative):
+                path = Path(relative)
+                self.assertFalse(path.is_absolute())
+                self.assertNotIn('..', path.parts)
+                self.assertEqual(hashlib.sha256((directory / path).read_bytes()).hexdigest(), digest)
+        count = 0
+        for path in sorted((directory / 'cases').glob('*.json')):
+            suite = compare.read_json(path)
+            record = compare.read_json(directory / 'observations' / path.name)
+            outputs = compare.validate_observations(record, suite)
+            self.assertEqual(record['repeat'], 2)
+            self.assertEqual(set(outputs), {case['id'] for case in suite['cases']})
+            count += len(suite['cases'])
+        self.assertEqual(count, manifest['case_count'])
+        self.assertEqual(count, 8)
+
+    def test_explicit_world_original_artifacts_and_plan_are_frozen(self):
+        manifest_path = DIRECTORY / 'explicit-world-reference-manifest.json'
+        self.assertEqual(hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                         '749b288db5253f929628cb2a010f742e11faca8d7df3f66e71420884a355df02')
+        manifest = decode_json(manifest_path.read_text())
+        self.assertEqual(manifest['status'], 'accepted-original-repeat2')
+        self.assertIs(manifest['candidate_executed'], False)
+        for relative, digest in manifest['files'].items():
+            with self.subTest(path=relative):
+                path = Path(relative)
+                self.assertFalse(path.is_absolute())
+                self.assertNotIn('..', path.parts)
+                self.assertEqual(hashlib.sha256((DIRECTORY / path).read_bytes()).hexdigest(), digest)
+        suite = compare.read_json(DIRECTORY / 'cases/explicit-seven-world-v2.json')
+        record = compare.read_json(DIRECTORY / 'observations/smacx-gog-2.0-explicit-seven-world-v2-native-defaults.json')
+        outputs = compare.validate_observations(record, suite)
+        self.assertEqual(record['repeat'], 2)
+        self.assertEqual(len(suite['cases']), 3)
+        points = [point for case in suite['cases']
+                  for point in validate_reference_output(outputs[case['id']], case['input'])]
+        self.assertEqual(len(points), 7)
+        for point in points:
+            for domain in ('players', 'units', 'bases'):
+                self.assertEqual(len(point['state'][domain]), 7)
+
     def test_frozen_manifest_and_original_artifact_hashes(self):
         manifest_path = DIRECTORY / 'reference-manifest.json'
         self.assertEqual(hashlib.sha256(manifest_path.read_bytes()).hexdigest(),

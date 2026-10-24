@@ -7,17 +7,28 @@ return (m) => {
 		const popup = m.root.window({
 			class: 'window',
 			title: 'ERROR',
-			width: 440,
-			height: 120,
+			width: 640,
+			height: 140,
 			blocker: 'rgba(0, 0, 0, 120)',
 		});
 
-		popup.text({
-			class: 'popup-text',
-			align: 'top center',
-			top: 30,
-			text: e.error,
-		});
+		let y = 20;
+		for (paragraph of #split(e.error, '\n')) {
+			let line = '';
+			let node = popup.text({class: 'popup-text', left: 20, top: y, text: ''});
+			for (word of #split(paragraph, ' ')) {
+				const candidate = line == '' ? word : line + ' ' + word;
+				node.text = candidate;
+				if (node.get_width() > 590 && line != '') {
+					node.text = line;
+					y += 22;
+					node = popup.text({class: 'popup-text', left: 20, top: y, text: word});
+					line = word;
+				} else { line = candidate; }
+			}
+			y += 22;
+		}
+		popup.height = y + 70;
 
 		const footer = popup.panel({
 			class: 'popup-footer',
@@ -26,19 +37,19 @@ return (m) => {
 			class: 'popup-button',
 			text: 'OK',
 			align: 'center',
+			is_ok: true,
+			is_cancel: true,
 		});
+		let closed = false;
 		const f_on_close = () => {
-			popup.remove();
-			return e.on_close();
+			if (!closed) {
+				closed = true;
+				popup.remove();
+				e.on_close();
+			}
+			return true;
 		};
 		btn.on('click', f_on_close);
-		btn.on('keydown', (e) => {
-			if (#is_empty(e.modifiers) && (e.code == 'ESCAPE') || (e.code == 'ENTER')) {
-				return f_on_close();
-			} else {
-				return true;
-			}
-		});
 
 	});
 

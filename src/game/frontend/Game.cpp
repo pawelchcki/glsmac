@@ -132,7 +132,7 @@ void Game::Start() {
 
 void Game::Stop() {
 
-	if ( !m_is_initialized ) {
+	if ( !m_world_scene ) {
 		return;
 	}
 
@@ -214,9 +214,20 @@ void Game::Iterate() {
 
 	const auto f_handle_nonsuccess_init = [ this ]( const backend::MT_Response& response ) -> void {
 		switch ( response.result ) {
-			case backend::R_ABORTED:
-			case backend::R_ERROR: {
+			case backend::R_ABORTED: {
 				CancelGame();
+				break;
+			}
+			case backend::R_ERROR: {
+				const std::string message = response.data.error.error_text ? *response.data.error.error_text : "Failed to initialize game";
+				// Backend initialization has detached this state. Keep the popup and
+				// its recovery action on the global UI owner, never this frontend.
+				m_state = nullptr;
+				HideLoader();
+				auto* const glsmac = m_glsmac;
+				if ( !response.data.error.already_notified ) {
+					glsmac->ShowError( message, [ glsmac ](){ glsmac->RecoverFromGameError(); } );
+				}
 				break;
 			}
 			default: {
@@ -968,11 +979,9 @@ void Game::ProcessRequest( const FrontendRequest* request ) {
 			else {
 				Log( errmsg );
 			}
-			m_glsmac->ShowError(
-				errmsg, [ f_exit, errmsg ]() {
-					f_exit( errmsg );
-				}
-			);
+			auto* const glsmac = m_glsmac;
+			glsmac->ShowError( errmsg, [ glsmac ](){ glsmac->RecoverFromGameError(); } );
+			break;
 		}
 		case FrontendRequest::FR_UPDATE_TILES: {
 			const auto& patch = *request->data.update_tiles.patch;

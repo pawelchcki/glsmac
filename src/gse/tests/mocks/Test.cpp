@@ -145,8 +145,8 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 		} ) },
 		{ "world_startup_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( width, 0, Int ); N_GETVALUE( height, 1, Int );
-			if ( width < 4 || width > 256 || height < 4 || height > 256 || width % 2 != 0 ) {
-				GSE_ERROR( EC.INVALID_CALL, "Startup grid requires an even width and dimensions from 4 through 256" );
+			if ( width < 4 || width > 256 || height < 2 || height > 256 || width % 2 != 0 ) {
+				GSE_ERROR( EC.INVALID_CALL, "Startup grid requires an even width from 4 through 256 and height from 2 through 256" );
 			}
 			auto* fixture = MakeWorldStartupFixture( GSE_CALL, width, height );
 			production_roots->value.push_back( fixture );

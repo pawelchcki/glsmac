@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "name": "custom-grid-independent-minimum-controls-v1",
+  "cases": [
+    {
+      "id": "custom-horizontal-two-vertical-thirtytwo",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "2",
+        "vertical": "32"
+      }
+    },
+    {
+      "id": "custom-horizontal-thirtytwo-vertical-two",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "32",
+        "vertical": "2"
+      }
+    },
+    {
+      "id": "custom-sixteen-by-sixteen",
+      "algorithm": "map.custom_grid_dimensions.v1",
+      "input": {
+        "horizontal": "16",
+        "vertical": "16"
+      }
+    }
+  ]
+}

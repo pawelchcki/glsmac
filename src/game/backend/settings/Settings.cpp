@@ -1,4 +1,5 @@
 #include "Settings.h"
+#include <algorithm>
 
 #include "util/FS.h"
 
@@ -105,6 +106,16 @@ void MapSettings::SelectWorldSize( const int64_t width, const int64_t height, co
 	}
 	size_x = width; size_y = height; preset_level = level;
 	RefreshWrappers();
+}
+
+std::pair< int64_t, int64_t > MapSettings::GetGenerationDimensions() const {
+	// Custom inputs retain their editable dimensions until generation. Actual
+	// original startup applies independent minima of 16 UI units per axis;
+	// horizontal coordinates use twice that many native columns.
+	if ( ( type == MT_RANDOM || type == MT_CUSTOM ) && preset_level == CUSTOM_SIZE ) {
+		return { std::max< int64_t >( size_x, 32 ), std::max< int64_t >( size_y, 16 ) };
+	}
+	return { size_x, size_y };
 }
 
 const types::Buffer MapSettings::Serialize() const {

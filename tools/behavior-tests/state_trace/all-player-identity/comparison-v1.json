@@ -1,0 +1,27 @@
+{
+  "authored_case": "duplicate-gaia-seven-identity-authored-name",
+  "control_case": "duplicate-gaia-seven-identity-control-name",
+  "method": "Exact fieldwise difference of both recorded complete player arrays; unsupported null fields are excluded from unchanged-state claims.",
+  "observed_differences": [
+    {
+      "authored": "Trace Commander",
+      "control": "Deirdre",
+      "field": "identity.leader_name",
+      "owner": 1
+    },
+    {
+      "authored": "Deirdre",
+      "control": "Deirdre-2",
+      "field": "identity.leader_name",
+      "owner": 2
+    }
+  ],
+  "owner_count_each": 7,
+  "unsupported_fields": [
+    "gender",
+    "player_display_name",
+    "rendered_other_players"
+  ],
+  "verified_identity_field_count_each_owner": 6,
+  "version": 1
+}

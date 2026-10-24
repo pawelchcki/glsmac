@@ -48,8 +48,8 @@ class LaneTests(unittest.TestCase):
         self.assertEqual(set(self.manifest['kinds']['ui']['hot']), {
             'ingame-menus', 'unit-menu-orders', 'unit-menu-context', 'unit-disband',
             'unit-disband-name', 'unit-recycling', 'unit-recycling-former-city',
-            'unit-recycling-scout-free', 'unit-disband-shortcut', 'interface-tour-synthetic'})
-        for kind, count in [('ui', 43), ('pending-ui', 22), ('gaps', 0)]:
+            'unit-recycling-scout-free', 'unit-disband-shortcut', 'interface-tour-synthetic', 'world-base-ownership'})
+        for kind, count in [('ui', 44), ('pending-ui', 21), ('gaps', 0)]:
             rows = lanes.select(kind, self.known[kind], 'hot', self.manifest)
             self.assertEqual(lanes.describe(kind, rows)['cases'], count)
         self.assertNotIn('pending-ui', lanes.RELEASE_KINDS)
@@ -72,11 +72,11 @@ class LaneTests(unittest.TestCase):
         self.assertEqual((len(self.manifest['kinds']['regression']['hot']),
                           len(self.manifest['kinds']['regression']['stable']),
                           len(self.known['regression'])), (32, 111, 143))
-        for lane, expected in [('hot', (10, 43)), ('stable', (49, 711)), ('all', (59, 754))]:
+        for lane, expected in [('hot', (11, 44)), ('stable', (49, 711)), ('all', (60, 755))]:
             inventory = lanes.describe('ui', lanes.select('ui', self.known['ui'], lane, self.manifest))
             self.assertEqual((inventory['suites'], inventory['cases']), expected)
         pending = lanes.describe('pending-ui', self.known['pending-ui'])
-        self.assertEqual((pending['suites'], pending['cases']), (5, 22))
+        self.assertEqual((pending['suites'], pending['cases']), (4, 21))
 
     def test_manifest_rejects_duplicate_overlap_missing_unknown_and_new_ids(self):
         changes = []

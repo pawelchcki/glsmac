@@ -10,11 +10,151 @@
 #include "gse/value/Callable.h"
 #include "gse/ExecutionPointer.h"
 #include "gc/Space.h"
+#include "gc/GC.h"
+#include "engine/Engine.h"
+#include "game/backend/settings/Settings.h"
+#include "game/backend/faction/Faction.h"
+#include <atomic>
+#include <stdexcept>
 
 namespace gse {
 namespace tests {
 
 void AddGSETests( task::gsetests::GSETests* task ) {
+	task->AddTest(
+		"Faction instances preserve complete templates without sharing mutable identity",
+		GT() {
+			game::backend::faction::Faction source( "CLONE", "Original Guild" );
+			source.SetIdentity( { "Original Pilot", "Original Guild", "Originals", "Orbital", "Navigator", "brisk" } );
+			source.m_flags = game::backend::faction::Faction::FF_NAVAL | game::backend::faction::Faction::FF_PROGENITOR;
+			source.m_colors.text = types::Color( 0.2f, 0.4f, 0.6f );
+			source.m_base_names.land = { "Land City" }; source.m_base_names.water = { "Water City" };
+			source.m_bases_render.file = "original.pcx"; source.m_bases_render.grid_x = 3;
+			source.SetSocialRatings( 2, -1 ); source.SetStartingTechnologies( { "Ecology", "Biogen" } );
+			const auto original = source.Serialize().ToString();
+			auto copy = source.Clone();
+			GT_ASSERT( copy.get() != &source && copy->Serialize().ToString() == original, "clone changed canonical metadata, colors, rendering, ratings or technologies" );
+			GT_ASSERT( copy->m_flags == source.m_flags && copy->m_base_names.land == source.m_base_names.land && copy->m_base_names.water == source.m_base_names.water, "clone lost fields absent from the persistence codec" );
+			auto identity = copy->GetIdentity(); identity[ 0 ] = "Changed human"; copy->SetIdentity( identity );
+			copy->m_base_names.land[ 0 ] = "Changed city"; copy->m_flags = 0; copy->SetStartingTechnologies( { "Changed" } );
+			GT_ASSERT( source.Serialize().ToString() == original && source.m_base_names.land[ 0 ] == "Land City" && source.m_flags != 0, "instance changes leaked to its source template" );
+			GT_OK();
+		}
+	);
+	task->AddTest(
+		"Custom world generation normalizes each minimum axis without changing editable setup",
+		GT() {
+			// Independent original controls are frozen under
+			// tools/behavior-tests/state_trace/setup-controls/contract-v1.md.
+			game::backend::settings::MapSettings map;
+			map.preset_level = game::backend::settings::MapSettings::CUSTOM_SIZE;
+			for ( const auto& sample : std::vector< std::vector< int64_t > >{ { 4, 2, 32, 16 }, { 4, 32, 32, 32 }, { 64, 2, 64, 16 }, { 32, 16, 32, 16 } } ) {
+				map.size_x = sample[ 0 ]; map.size_y = sample[ 1 ];
+				const auto actual = map.GetGenerationDimensions();
+				GT_ASSERT( actual.first == sample[ 2 ] && actual.second == sample[ 3 ], "generated custom dimensions differ from recorded startup" );
+				GT_ASSERT( map.size_x == sample[ 0 ] && map.size_y == sample[ 1 ] && map.preset_level == 99, "normalization changed editable settings or custom kind" );
+			}
+			map.size_x = 4; map.size_y = 2; map.preset_level = 2;
+			GT_ASSERT( map.GetGenerationDimensions() == std::make_pair( int64_t( 4 ), int64_t( 2 ) ), "named or declared dimensions were normalized as custom input" );
+			map.preset_level = 99; map.type = game::backend::settings::MapSettings::MT_MAPFILE;
+			GT_ASSERT( map.GetGenerationDimensions() == std::make_pair( int64_t( 4 ), int64_t( 2 ) ), "loaded map dimensions were normalized as generated input" );
+			GT_OK();
+		}
+	);
+
+	task->AddTest(
+		"Queued accumulations retain both callback owner and detached script context",
+		GT() {
+			class Root : public gc::Object {
+			public:
+				Root() : gc::Object( nullptr ) {}
+				gc::Object* owner = nullptr; gc::Object* context = nullptr;
+				void GetReachableObjects( std::unordered_set< gc::Object* >& objects ) override {
+					gc::Object::GetReachableObjects( objects );
+					if ( owner ) { owner->GetReachableObjects( objects ); }
+					if ( context ) { context->GetReachableObjects( objects ); }
+				}
+			} root;
+			std::atomic< int > destroyed = 0;
+			class Tracked : public gc::Object {
+			public:
+				Tracked( gc::Space* space, std::atomic< int >& destroyed ) : gc::Object( space ), destroyed( destroyed ) {}
+				~Tracked() override { ++destroyed; }
+			private:
+				std::atomic< int >& destroyed;
+			};
+			gc::Space space( &root );
+			space.SetThreadId( std::this_thread::get_id() );
+			Tracked* owner = nullptr;
+			Tracked* context = nullptr;
+			space.Accumulate( &root, [ & ](){ owner = new Tracked( &space, destroyed ); root.owner = owner; context = new Tracked( &space, destroyed ); root.context = context; } );
+			bool delivered = false;
+			std::thread producer( [ & ](){
+				space.Accumulate( owner, [ & ](){ delivered = true; }, nullptr, false, context );
+			} );
+			producer.join();
+			space.Accumulate( &root, [ & ](){ root.owner = nullptr; root.context = nullptr; } );
+			// Neither object is otherwise rooted. Collection before UI delivery
+			// must preserve both independently of the live game's State pointer.
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( destroyed == 0, "pending callback lost an owner or context root" );
+			GT_ASSERT( !delivered, "producer executed a UI-thread callback" );
+			space.ProcessAccumulations();
+			GT_ASSERT( delivered, "queued callback was not delivered" );
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( destroyed == 2, "completed callback leaked its lifetime roots" );
+			GT_OK();
+		}
+	);
+
+	task->AddTest(
+		"GC accumulation recovers from native and non-standard exceptions",
+		GT() {
+			class Root : public gc::Object {
+			public:
+				Root() : gc::Object( nullptr ) {}
+				gc::Object* kept = nullptr;
+				void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override {
+					gc::Object::GetReachableObjects( reachable_objects );
+					if ( kept ) { GC_REACHABLE( kept ); }
+				}
+			} root;
+			class Tracked : public gc::Object {
+			public:
+				Tracked( gc::Space* space, std::atomic< int >& destroyed ) : gc::Object( space ), destroyed( destroyed ) {}
+				~Tracked() override { destroyed++; }
+			private:
+				std::atomic< int >& destroyed;
+			};
+			std::atomic< int > destroyed = 0;
+			gc::Space space( &root );
+			space.SetThreadId( std::this_thread::get_id() );
+			for ( int phase = 0; phase < 2; phase++ ) {
+				bool propagated = false;
+				try {
+					space.Accumulate( &root, [ & ]() {
+						new Tracked( &space, destroyed );
+						space.Accumulate( &root, [ & ]() {
+							root.kept = new Tracked( &space, destroyed );
+							if ( phase == 0 ) { throw std::runtime_error( "native failure" ); }
+							throw 73;
+						} );
+					} );
+				}
+				catch ( const std::runtime_error& error ) { propagated = phase == 0 && std::string( error.what() ) == "native failure"; }
+				catch ( int error ) { propagated = phase == 1 && error == 73; }
+				GT_ASSERT( propagated, "exception payload changed" );
+				GT_ASSERT( !space.IsAccumulating(), "failed callback left accumulation active" );
+				// Force real collection at each boundary; no timer or allocation-pressure assumptions.
+				g_engine->GetGC()->Iterate();
+				GT_ASSERT( destroyed.load() == phase * 2 + 1, "failed callback's unreachable allocation was not collected" );
+				space.Accumulate( &root, [ & ]() { root.kept = nullptr; } );
+				g_engine->GetGC()->Iterate();
+				GT_ASSERT( destroyed.load() == phase * 2 + 2, "later accumulation failed to release the retained allocation" );
+			}
+			GT_OK();
+		}
+	);
 
 	class Sum : public value::Callable {
 	public:

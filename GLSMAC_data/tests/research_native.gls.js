@@ -1,3 +1,4 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 const behavior = #include('./_behavior');
 const fixture = #include('./_research_fixture');
 const rejects = (callback) => {
@@ -106,7 +107,7 @@ behavior.scenario('same Game reset clears research and old receipts cannot roll 
 	const f = test.natural_startup_fixture(4, 4, 'flat-arid');
 	const configure = #include('./_natural_startup_mechanics');
 	const start = () => {
-		configure(f); f.initialize_single_player('GAIANS'); f.start_world();
+		configure(f); f.initialize_isolated_player('GAIANS'); f.start_world();
 		const definitions = #include('./_technology_rules_fixture').parse();
 		f.with_write(() => { f.game.technologies.replace(#include('../default/game/technology_rules').plan(definitions, f.game.get_players())); });
 	};

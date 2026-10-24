@@ -26,6 +26,7 @@ behavior.scenario('actual name input normalizes its value before the start bound
 	test.assert(field.value == 'ABCDEFGHIJKLMNOPQRSTUVW');
 	field.emit('input', {});
 	test.assert(f.state.attempts == [['HIVE', 'ABCDEFGHIJKLMNOPQRSTUVW']]);
+	test.assert(f.state.rosters == [{factions: ['GAIANS', 'HIVE', 'UNIVERSITY', 'MORGANITES', 'SPARTANS', 'BELIEVERS', 'PEACEKEEPERS'], human_slot: 1, random_human: false}], 'Native request keeps every displayed opponent and selected human row');
 	f.view.find('button', 'text', 'OK').emit('click', {}); field.emit('input', {});
 	test.assert(f.state.attempts == [['HIVE', 'ABCDEFGHIJKLMNOPQRSTUVW']]);
 });
@@ -54,4 +55,52 @@ behavior.scenario('malformed faction sources fail before allocating a popup or c
 	try { fixture.show(f.m); } catch { : (e) => { failed = true; } }
 	test.assert(failed && #sizeof(f.view.live('window')) == 0 && #sizeof(f.manager.data_stack) == 0);
 	test.assert(f.m.settings.local.player_name == 'Unconfirmed' && f.state.attempts == []);
+});
+
+behavior.scenario('default expansion and edited opponent choices reach the native start request', () => {
+	const f = fixture.create(); fixture.show(f.m);
+	fixture.click(f, 'faction-dropdown', 2);
+	const choices = f.view.live('choicelist'); test.assert(#sizeof(choices) == 1);
+	choices[0].emit('select', {value: 'GAIANS'});
+	fixture.click(f, 'faction-row', 0);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	const field = fixture.name(f, 'Aki'); field.emit('input', {});
+	test.assert(f.state.rosters == [{factions: ['CONSCIOUSNESS', 'PIRATES', 'GAIANS', 'ANGELS', 'PLANETCULT', 'CARETAKERS', 'USURPERS'], human_slot: 0, random_human: false}], 'Editing an opponent survives returning to the human row');
+});
+
+behavior.scenario('Random human mode retains the displayed roster and uses its separate generic name prompt', () => {
+	const f = fixture.create(); fixture.show(f.m);
+	fixture.click(f, 'faction-preset-base', 0);
+	fixture.click(f, 'faction-mode-random', 0);
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	const fields = f.view.live('input');
+	test.assert(f.state.attempts == [] && fields[0].value == '', 'Random uses the initially empty generic name editor');
+	test.assert(f.view.find('text', 'text', 'Name:').text == 'Name:');
+	const name = fixture.name(f, 'Chosen Pilot'); name.emit('input', {});
+	test.assert(f.state.attempts == [['RANDOM', 'Chosen Pilot']]);
+	test.assert(f.state.rosters == [{factions: ['GAIANS', 'HIVE', 'UNIVERSITY', 'MORGANITES', 'SPARTANS', 'BELIEVERS', 'PEACEKEEPERS'], human_slot: 0, random_human: true}]);
+});
+
+behavior.scenario('A selected RANDOM roster row starts directly and preserves the selected-row mode', () => {
+	const f = fixture.create(); fixture.show(f.m); fixture.click(f, 'faction-preset-base', 0);
+	fixture.click(f, 'faction-dropdown', 0);
+	const choices = f.view.live('choicelist'); choices[0].emit('select', {value: 'RANDOM'});
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	test.assert(f.state.attempts == [['RANDOM', 'Player']] && #sizeof(f.view.live('input')) == 0, 'RANDOM row does not borrow the Random human name popup');
+	test.assert(f.state.rosters == [{factions: ['RANDOM', 'HIVE', 'UNIVERSITY', 'MORGANITES', 'SPARTANS', 'BELIEVERS', 'PEACEKEEPERS'], human_slot: 0, random_human: false}]);
+});
+
+behavior.scenario('An impossible native map reports a recoverable setup error and retains the confirmed name', () => {
+	const f = fixture.create(); const world = test.world_startup_fixture(4, 2);
+	#include('../default/factions').configure({add: (id, data) => { world.fm.add(id, data); }, import_colors: (name) => { return world.colors; }, import_base_names: (name) => { return {land: [], water: []}; }});
+	f.m.glsmac.start_game = (id, identity, ids) => { world.initialize_roster(id, ids); };
+	const before = f.native.game.get_settings().global.rules.get_blind_research();
+	f.m.pending_research_blind = !before;
+	fixture.show(f.m); f.view.find('button', 'text', 'OK').emit('click', {});
+	const field = fixture.name(f, 'Retained Pilot'); field.emit('input', {});
+	test.assert(#sizeof(world.game.get_players()) == 0, 'Failed launch creates no partial participant roster');
+	test.assert(f.native.game.get_settings().global.rules.get_blind_research() == before, 'Rejected launch restores the prior native research setting');
+	test.assert(f.view.find('text', 'text', 'Choose a larger map: seven factions need starting tiles at least two steps apart').text != '');
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	const restored = f.view.live('input'); test.assert(#sizeof(restored) == 1 && restored[0].value == 'Retained Pilot');
 });

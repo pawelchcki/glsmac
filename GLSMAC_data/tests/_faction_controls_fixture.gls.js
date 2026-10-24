@@ -7,7 +7,7 @@ let installed = null;
 const create = () => {
 	if (installed == null) { installed = make_text('default'); }
 	const f = mocks.menu_popup(); const state = f.state;
-	state.attempts = []; state.reject = false; state.available = [];
+	state.attempts = []; state.rosters = []; state.reject = false; state.available = [];
 	#include('../default/factions').configure({
 		add: (id, definition) => { state.available :+ {id: id, name: definition.name}; },
 		import_colors: (filename) => { return {}; }, import_base_names: (filename) => { return {}; },
@@ -18,10 +18,11 @@ const create = () => {
 	f.m.settings.global = f.native.game.get_settings().global;
 	f.m.smac_data = installed.bundle;
 	f.m.glsmac.game = {get_fm: () => { return {list: () => { return state.available; }}; }};
-	f.m.glsmac.start_game = (id) => {
+	f.m.glsmac.start_game = (id, identity, roster) => {
 		// Match the native boundary's string copies; later GSE assignment must
 		// not mutate the already-observed request through a scalar alias.
 		state.attempts :+ [id + '', f.m.settings.local.player_name + ''];
+		state.rosters :+ #clone(roster);
 		if (state.reject) { throw GSEGameError('Try again.'); }
 	};
 	return f;

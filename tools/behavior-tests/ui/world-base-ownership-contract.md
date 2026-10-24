@@ -35,29 +35,29 @@ The declared Doctor and resource stores are initialized directly through native
 Base methods under a fixture write guard; this does not claim the full city
 initialization lifecycle was replayed.
 
-Production currently allocates seven slots but fills only the human slot.
-Native `get_players` skips the six open slots, and the world script creates
-one base for each occupied slot. The extracted initializer preserves that
-behavior. Player/Slot types do not yet supply computer controllers; creating
-six ordinary players would cause turn completion to wait for those players.
-The ownership discrepancy therefore remains **pending transfer**, outside
-passing totals. No artificial controller or automatic opponent completion is
-introduced to satisfy this observation.
+This probe omits a UI roster, so production startup fills the selected human
+slot and up to six configured computers in declared faction order. Ordinary UI
+startup instead supplies every displayed faction choice. Computer roles have
+no network connection identity. Native turn lifecycle completes their currently
+unimplemented order phase so they do not block the human round; AI decisions
+and movement remain separate gaps.
 
-The first completed native-backed WASM comparison has zero matches, one
-mismatch, zero unsupported cases and zero errors. It reports one human faction,
-one human base, one owner with a base, one total base and an empty list of other
-owner counts. The original seven-owner output remains unchanged. The separate
-`world-single-player-setup` HOT regression passes one scenario/11 assertions,
-including delivery of the real ready notification to the State-associated
-native game. `Slot::Update` now uses that game, retaining the existing global
-engine fallback for an unattached State.
+The unchanged frozen ownership record now matches native-backed WASM replay:
+one human faction, one human base, seven owners with bases, seven total bases
+and six other owner counts of one. This one case is included in the hot passing
+catalog. It establishes only the declared ownership counts; the complete
+natural-state traces retain inventory, resource, placement and AI differences.
+This replay executes the compiled C++ State, slots, event queue and entity
+managers in WASM. It is separate from the full-discovery C++/GSE engine gate and
+does not claim execution of a desktop-native binary.
+The hot `world-single-player-setup` regression separately checks participant
+identity, role transfer, source order, repeated ordinary rounds and authority.
 
 Run the explicit strict comparison with a rebuilt FastDebug runtime:
 
 ```sh
-WASM_APP_DIR=/path/to/rebuilt/bin python3 tools/behavior-tests/ui/run.py \
-  --pending --suite world-base-ownership --jobs 1
+WASM_HEADLESS_APP_DIR=/path/to/rebuilt/bin python3 tools/behavior-tests/ui/run.py \
+  --suite world-base-ownership --jobs 1
 ```
 
 A mismatch returns nonzero. `--validate-only` checks evidence integrity and

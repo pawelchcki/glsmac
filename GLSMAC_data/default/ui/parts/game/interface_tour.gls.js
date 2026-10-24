@@ -50,7 +50,7 @@ return {
 		const state = p.game.get_opening_state();
 		if (this.active || state.session != session || state.phase != 'tour') { return true; }
 		if (#is_defined(p.game.validate_opening(p.game.get_player().id, session, 'dismiss', 0, '', ''))) { return true; }
-		for (player of p.game.get_players()) { if (player.id != p.game.get_player().id) { throw Error('Interface tour requires a known one-participant contact context'); } }
+		if (#sizeof(p.game.get_contacts()) != 0) { throw Error('Interface tour requires an initial no-contact context'); }
 		const definitions = source.load(p.glsmac, p.game, base);
 		opening.close(); this.p = p; this.opening = opening; this.definitions = definitions;
 		this.active = true; this.pending = false; this.generation = this.generation + 1; const generation = this.generation;

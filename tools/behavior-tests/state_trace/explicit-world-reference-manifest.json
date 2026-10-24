@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "status": "accepted-original-repeat2",
+  "candidate_executed": false,
+  "repeat": 2,
+  "case_count": 3,
+  "checkpoint_count": 7,
+  "adapter_fingerprint": "2bda1309636a998973a2547a6d5400e8e75d5827f7182470926a14e85010b38f",
+  "frozen_original_dependency_manifest": {
+    "path": "reference-manifest.json",
+    "sha256": "d60ecb152b3291ae7711b0cc3b159bc5d99861cecaff42fcc05b03306f9db778",
+    "all_preexisting_files_unchanged": true
+  },
+  "original_only_adapters": [
+    "explicit_world_original.py",
+    "rejected/explicit-seven-world-v2-assembly/explicit_world_original.py"
+  ],
+  "files": {
+    "explicit_world_original.py": "74cb82b91410c31ec7d24da3aa6554eaba9b6e94fcb96527b5a8c352b7576db9",
+    "cases/explicit-seven-world-v2.json": "c2e62ad6529511c7d888a1c1ef8daa3f3384a37f4a6f18ca450df5db1a5fb3da",
+    "explicit-world-contract-v2.md": "34851b2aed2290023c7f24a6667a9c8145c92db2b7a5818568e8789299e46092",
+    "observations/smacx-gog-2.0-explicit-seven-world-v2-native-defaults.json": "a0e53730ec647f3944f2e6f09e7c605f03077fe7a355e76e6902a96e623df8ce",
+    "rejected/explicit-seven-world-v1-invalid-action/explicit-seven-world-v1.json": "67e8fd8527a5965f3be340aee7c2afe361d4e9c44f84c97a013fecd06cb2bc33",
+    "rejected/explicit-seven-world-v1-invalid-action/explicit-world-contract-v1.md": "cddb32a4e45137c8cab65341f2afeee6f2a1c0792fd6b545369a03125576cc0b",
+    "rejected/explicit-seven-world-v1-invalid-action/manifest.json": "22022e445dfebce5391c80626986a15f2bf5a8c3e7ace2f38b3a7192c286aa88",
+    "rejected/explicit-seven-world-v2-assembly/explicit_world_original.py": "cfa56c08b132b215fd929b2995fe7fe305f28e7dbc499c9684defb9f905dd1f2",
+    "rejected/explicit-seven-world-v2-assembly/manifest.json": "960b40717049db93f6810c850f3966e0b86b450bca0dd543784fee4ad7eb1dec",
+    "rejected/explicit-seven-world-v2-assembly/smacx-gog-2.0-explicit-seven-world-v2.json": "0096df75291bbd63f7bffd13a7a8dc35929ec3c43b9849265b7bcca979dcb251"
+  }
+}

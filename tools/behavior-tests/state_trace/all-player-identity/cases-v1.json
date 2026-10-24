@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "name": "duplicate-gaia-seven-identity-v1",
+  "description": "Frozen before observations. Two authored human-name controls, otherwise identical duplicate-Gaia setup; every actual player identity retained.",
+  "cases": [
+    {
+      "id": "duplicate-gaia-seven-identity-control-name",
+      "algorithm": "game.all_player_identity.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "base",
+        "roster_edits": [
+          {
+            "slot": 1,
+            "option": 0
+          }
+        ],
+        "mode": "selected",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Deirdre",
+        "identity_profile": "six-verified-text-fields-v1"
+      }
+    },
+    {
+      "id": "duplicate-gaia-seven-identity-authored-name",
+      "algorithm": "game.all_player_identity.v1",
+      "input": {
+        "map": "flat-arid-native40x80",
+        "text": "stock",
+        "difficulty": "Citizen",
+        "rules": "standard",
+        "preset": "base",
+        "roster_edits": [
+          {
+            "slot": 1,
+            "option": 0
+          }
+        ],
+        "mode": "selected",
+        "selected_row": 0,
+        "reference_rng_seed": 1,
+        "seed_stage": "immediately-before-faction-OK",
+        "checkpoint": "first-post-world-Planetfall",
+        "leader_name": "Trace Commander",
+        "identity_profile": "six-verified-text-fields-v1"
+      }
+    }
+  ]
+}

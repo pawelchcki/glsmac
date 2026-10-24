@@ -133,8 +133,15 @@ WRAPIMPL_BEGIN( FactionManager )
 					N_GETPROP( ratings, faction_def, "social_ratings", Object );
 					social_ratings = Faction::ParseSocialRatings( GSE_CALL, ratings );
 				}
+				const bool has_identity = faction_def.find( "identity" ) != faction_def.end();
+				Faction::identity_t identity;
+				if ( has_identity ) {
+					N_GETPROP( fields, faction_def, "identity", Array );
+					identity = Faction::ParseIdentity( GSE_CALL, fields );
+				}
 
 				auto* faction = new Faction( id, name );
+				if ( has_identity ) { faction->SetIdentity( identity ); }
 				faction->SetSocialRatings( social_ratings[ 0 ], social_ratings[ 1 ] );
 				faction->SetStartingTechnologies( starting_technologies );
 

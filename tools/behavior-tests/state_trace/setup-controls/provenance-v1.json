@@ -1,0 +1,322 @@
+{
+  "candidate_inspected_or_executed": false,
+  "catalog_status": "outside-passing-catalog-and-default-totals-until-versioned-public-adapter-replay",
+  "clean_export_policy": "All semantic observations unchanged. Only private native field-address metadata omitted where present; full source record hashes bound. No original adapters included in public package.",
+  "original_assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+  "original_executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+  "original_only_source_inventory": [
+    {
+      "classification": "original-only; do not inspect from implementation context; not included in clean public package",
+      "private_path": "/tmp/smac-state-trace/reference-private/world_dimensions_glyph_witness.py",
+      "sha256": "79e3902e8b68abc222dc7b1c34f706c40572d5b05d67661e13f25eee8327a244"
+    },
+    {
+      "classification": "original-only; do not inspect from implementation context; not included in clean public package",
+      "private_path": "/tmp/smac-state-trace/reference-private/setup_roster_final_named_decisions.py",
+      "sha256": "07b0572ef93ef507d5302a3a9a94481137efbea5c89a3b9335d083c1c68a3d18"
+    },
+    {
+      "classification": "original-only; do not inspect from implementation context; not included in clean public package",
+      "private_path": "/tmp/smac-state-trace/reference-private/setup_random_final.py",
+      "sha256": "395e1847957321be8c1df3062fae6776fc41d4d17535f0d5e5e11588a97b3f2a"
+    }
+  ],
+  "records": [
+    {
+      "adapter_fingerprint": "7fc9ff869f602f29ce6b19a3a9c8c9e723fbfbea0fd3f3f756e6ca2da546d271",
+      "case_count": 1,
+      "input": "cases/custom-grid-minimum-2x2-v1.json",
+      "observation": "observations/custom-grid-minimum-2x2-v1.json",
+      "repeat": 2,
+      "source_record_private_path": "/tmp/smac-state-trace/reference-clean/custom-grid-minimum-2x2-v1.json",
+      "source_record_sha256": "2e8031929aeac8c2bd35371f8b5f2fe34128e711ceb8782be4973537638bbf17"
+    },
+    {
+      "adapter_fingerprint": "4fb3b0f72af2c3e39922e5e26ef188ae2b70fb98de773f1bce426aff48d3c8f7",
+      "case_count": 3,
+      "independent_run_outputs": [
+        [
+          {
+            "id": "custom-horizontal-two-vertical-thirtytwo",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-3fdmff6k/custom-horizontal-two-vertical-thirtytwo/observed.json",
+            "sha256": "d87d19df03502267186d2a3ea4a07294a3b295bc2234f8a11ba696af73f1fa0b"
+          },
+          {
+            "id": "custom-horizontal-thirtytwo-vertical-two",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-3fdmff6k/custom-horizontal-thirtytwo-vertical-two/observed.json",
+            "sha256": "13223d71394ecc874d9ae87839be25bf6084439ac4b7ede02443659dc2dd9ddb"
+          },
+          {
+            "id": "custom-sixteen-by-sixteen",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-3fdmff6k/custom-sixteen-by-sixteen/observed.json",
+            "sha256": "9174ab6828770b012c73ab338211b0c04521d52e7cd83ae55c7f92eba60267ed"
+          }
+        ],
+        [
+          {
+            "id": "custom-horizontal-two-vertical-thirtytwo",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-_4f51xc_/custom-horizontal-two-vertical-thirtytwo/observed.json",
+            "sha256": "d87d19df03502267186d2a3ea4a07294a3b295bc2234f8a11ba696af73f1fa0b"
+          },
+          {
+            "id": "custom-horizontal-thirtytwo-vertical-two",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-_4f51xc_/custom-horizontal-thirtytwo-vertical-two/observed.json",
+            "sha256": "13223d71394ecc874d9ae87839be25bf6084439ac4b7ede02443659dc2dd9ddb"
+          },
+          {
+            "id": "custom-sixteen-by-sixteen",
+            "private_path": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-glyph-v1/capture-_4f51xc_/custom-sixteen-by-sixteen/observed.json",
+            "sha256": "9174ab6828770b012c73ab338211b0c04521d52e7cd83ae55c7f92eba60267ed"
+          }
+        ]
+      ],
+      "input": "cases/custom-grid-minimum-axes-v1.json",
+      "observation": "observations/custom-grid-minimum-axes-v1.json",
+      "repeat": 2,
+      "source_record_private_path": "/tmp/smac-state-trace/reference-clean/custom-grid-minimum-axes-v1.json",
+      "source_record_sha256": "bdefc4d597fcc1918a1a5e2204d78ee9883f203a5d8106a42b4206a6d25f5352"
+    },
+    {
+      "adapter_fingerprint": "694fd5d7cbd49b8829733a95ab5680d52d67f7b9903bb5ba1a1dd9d3e5d9d055",
+      "case_count": 2,
+      "independent_run_outputs": [
+        [
+          {
+            "id": "random-mode-base-seven-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/random-mode-base-seven-named/observed.json",
+            "sha256": "e49a4fcd52961924b9ae7996bd2bc40c9b2714cacea2d9a73b97d12ef74eaa1d"
+          },
+          {
+            "id": "duplicate-explicit-gaian-pair-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/duplicate-explicit-gaian-pair-named/observed.json",
+            "sha256": "ab6c7dba056dafc1a8cbf80b94a619d4518548010201d6dc5d539f48ca3bede3"
+          }
+        ],
+        [
+          {
+            "id": "random-mode-base-seven-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/random-mode-base-seven-named/observed.json",
+            "sha256": "e49a4fcd52961924b9ae7996bd2bc40c9b2714cacea2d9a73b97d12ef74eaa1d"
+          },
+          {
+            "id": "duplicate-explicit-gaian-pair-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/duplicate-explicit-gaian-pair-named/observed.json",
+            "sha256": "ab6c7dba056dafc1a8cbf80b94a619d4518548010201d6dc5d539f48ca3bede3"
+          }
+        ]
+      ],
+      "input": "cases/setup-roster-decisions-v3-named.json",
+      "observation": "observations/setup-roster-decisions-v3-named.json",
+      "repeat": 2,
+      "source_record_private_path": "/tmp/smac-state-trace/reference-clean/setup-roster-final-decisions-v3-named.json",
+      "source_record_sha256": "06cba5d35e94508a912cfc6cab0618c71c5c6487c013170d707ac886e99f7f11"
+    },
+    {
+      "adapter_fingerprint": "3c9a590bfa5c49670a9e78e045e6e6ebbca3f6432d08ee61f7e5e30112023bda",
+      "case_count": 2,
+      "independent_run_outputs": [
+        [
+          {
+            "id": "random-mode-expansion-seven-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-mode-expansion-seven-named/observed.json",
+            "sha256": "0ff63d8d68ae3103699494b84a7a837b8603dff2184a30b372734c11ec2ef261"
+          },
+          {
+            "id": "random-dropdown-base-human-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-dropdown-base-human-named/observed.json",
+            "sha256": "bdb3dfaa72ecd60f29bf325ae80f83fa43793496306a8f4a09bbb6c408819e8b"
+          }
+        ],
+        [
+          {
+            "id": "random-mode-expansion-seven-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-mode-expansion-seven-named/observed.json",
+            "sha256": "0ff63d8d68ae3103699494b84a7a837b8603dff2184a30b372734c11ec2ef261"
+          },
+          {
+            "id": "random-dropdown-base-human-named",
+            "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-dropdown-base-human-named/observed.json",
+            "sha256": "bdb3dfaa72ecd60f29bf325ae80f83fa43793496306a8f4a09bbb6c408819e8b"
+          }
+        ]
+      ],
+      "input": "cases/setup-random-preset-dropdown-v1.json",
+      "observation": "observations/setup-random-preset-dropdown-v1.json",
+      "repeat": 2,
+      "source_record_private_path": "/tmp/smac-state-trace/reference-clean/setup-random-final-v1.json",
+      "source_record_sha256": "3e144d2347c124e73586f43bdaa9a754de7c944c28b4b3621680758cb671067d"
+    }
+  ],
+  "rendered_witness_inventory": [
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run1-custom-horizontal-thirtytwo-vertical-two.png",
+      "sha256": "e141ce5041ae9fcfebad184ef33a3dee64f0ed1304d3afd5f85cc78aabbdb50b"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run1-custom-horizontal-two-vertical-thirtytwo.png",
+      "sha256": "026f207650ffac911cb662d62caaab96b54197248a227de6b8d92853d3a591a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run1-custom-sixteen-by-sixteen.png",
+      "sha256": "8c701bfcae40dcaef47601c19ca15ffa23e0ceb7ac28a3cf0a271d41f3d1c0a0"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run2-custom-horizontal-thirtytwo-vertical-two.png",
+      "sha256": "e141ce5041ae9fcfebad184ef33a3dee64f0ed1304d3afd5f85cc78aabbdb50b"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run2-custom-horizontal-two-vertical-thirtytwo.png",
+      "sha256": "026f207650ffac911cb662d62caaab96b54197248a227de6b8d92853d3a591a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/axes-run2-custom-sixteen-by-sixteen.png",
+      "sha256": "d5c3185d3527022c5072013fc5775bdf5f005bb97c56e9efa3b4321a3ca3430a"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/custom-dimensions-glyph32.png",
+      "sha256": "6045e433db5b70fc5cd685783a74592c651c79df78c8157d9bd34fdb800b7ce8"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-clean/setup-controls-rendered-witnesses/custom-dimensions-readbacks.jsonl",
+      "sha256": "f9f664b55bbb4354ccdaae67275472824160a7a2c919e75f03ae10f40c6b5b95"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/duplicate-explicit-gaian-pair-named/launch-progress.png",
+      "sha256": "6e6b846c77c577eb9ca98c9bb3bb91f92ff360fb9baaca8d789671839876c3a1"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/duplicate-explicit-gaian-pair-named/name-authored.png",
+      "sha256": "d9bd6e001a0663b07883133f32cbfbc1f0035b887a30478954843ef929b4d159"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/duplicate-explicit-gaian-pair-named/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/random-mode-base-seven-named/launch-progress.png",
+      "sha256": "4b213300d831f7402887fbfbc5ada8078e7560874b0eef9f236ba30d03d6983e"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/random-mode-base-seven-named/name-authored.png",
+      "sha256": "55f8ec575782c5dd107a1ed1fb0bc3f704ed934a54a3eb3daa1397eb47cac0a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-5d5c898k/random-mode-base-seven-named/name-before.png",
+      "sha256": "d00fe191a880e01324da5b61985fd5be5b48656d17b3725e05a77c3c5b6ddde2"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/duplicate-explicit-gaian-pair-named/launch-progress.png",
+      "sha256": "6e6b846c77c577eb9ca98c9bb3bb91f92ff360fb9baaca8d789671839876c3a1"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/duplicate-explicit-gaian-pair-named/name-authored.png",
+      "sha256": "d9bd6e001a0663b07883133f32cbfbc1f0035b887a30478954843ef929b4d159"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/duplicate-explicit-gaian-pair-named/name-before.png",
+      "sha256": "80eb7cb15d606986bcaa83178059dba6caf55043828453529530bb08ad15e8ee"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/random-mode-base-seven-named/launch-progress.png",
+      "sha256": "4b213300d831f7402887fbfbc5ada8078e7560874b0eef9f236ba30d03d6983e"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/random-mode-base-seven-named/name-authored.png",
+      "sha256": "55f8ec575782c5dd107a1ed1fb0bc3f704ed934a54a3eb3daa1397eb47cac0a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-roster-final-named-decisions-v3/capture-z9xl0xu7/random-mode-base-seven-named/name-before.png",
+      "sha256": "d00fe191a880e01324da5b61985fd5be5b48656d17b3725e05a77c3c5b6ddde2"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-dropdown-base-human-named/launch-progress.png",
+      "sha256": "491efb38b58258a9f7c4a6cdb2f133c5c5dadf3c86b5e2957baf049a6eefa1d4"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-mode-expansion-seven-named/launch-progress.png",
+      "sha256": "99ab3edbfee12bdadff22b417921164d37345f1b6cfb2c9253e7e14458eb1169"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-mode-expansion-seven-named/name-authored.png",
+      "sha256": "55f8ec575782c5dd107a1ed1fb0bc3f704ed934a54a3eb3daa1397eb47cac0a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-6gqscltu/random-mode-expansion-seven-named/name-before.png",
+      "sha256": "d00fe191a880e01324da5b61985fd5be5b48656d17b3725e05a77c3c5b6ddde2"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-dropdown-base-human-named/launch-progress.png",
+      "sha256": "491efb38b58258a9f7c4a6cdb2f133c5c5dadf3c86b5e2957baf049a6eefa1d4"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-mode-expansion-seven-named/launch-progress.png",
+      "sha256": "99ab3edbfee12bdadff22b417921164d37345f1b6cfb2c9253e7e14458eb1169"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-mode-expansion-seven-named/name-authored.png",
+      "sha256": "55f8ec575782c5dd107a1ed1fb0bc3f704ed934a54a3eb3daa1397eb47cac0a9"
+    },
+    {
+      "private_path": "/tmp/smac-state-trace/reference-private/setup-random-final-v1/capture-y9hnzdbq/random-mode-expansion-seven-named/name-before.png",
+      "sha256": "d00fe191a880e01324da5b61985fd5be5b48656d17b3725e05a77c3c5b6ddde2"
+    }
+  ],
+  "retained_rejected_attempts": [
+    {
+      "log_sha256": "3640373f1a760f529565012ffae26aca8e71f3b98eb329727f8431702d9da962",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/setup-roster-native-decisions-v2",
+      "reason": "Generic Name editor not accepted by old caption/type controller; no post-world result."
+    },
+    {
+      "log_sha256": "38caa479db3358d1609729ed6aef2cd7d0c3715569394be9d10846794640416c",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/setup-roster-native-named-decisions-v3",
+      "reason": "Generic Name editor not accepted by typed editor gate; no post-world result."
+    },
+    {
+      "log_sha256": "5c1445e838845b8dff5a9c803bb557448775d1b5cb4141dfa677bc3725c8c87b",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/setup-roster-visible-named-decisions-v3",
+      "reason": "Generic prompt handled, ordinary gendered prompt not accepted by generic-only label gate; full first successful Random result retained."
+    },
+    {
+      "log_sha256": "cb5a9d5317bcc0e011e5288bbde0301417134259408fddefafea9ed89211fba7",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/custom-grid-minimum-axes-v1",
+      "reason": "Rendered Vertical32 was OCR $2; stopped before submission, no world answer."
+    },
+    {
+      "log_sha256": "23e3f74660c6e2a7d322bfe4411b4db88db14d2cc8c9fb7b92a09c7ce1e1d57e",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/setup-roster-observed-named-decisions-v3",
+      "reason": "Full world outputs repeated; generic two-button prompt incorrectly sampled using three-region ordinary geometry, producing spurious middle =."
+    },
+    {
+      "log_sha256": "23e3f74660c6e2a7d322bfe4411b4db88db14d2cc8c9fb7b92a09c7ce1e1d57e",
+      "private_artifact_directory": "/tmp/smac-state-trace/reference-private/setup-random-preset-dropdown-v1",
+      "reason": "Full world outputs repeated; same incorrect generic middle-button OCR region."
+    },
+    {
+      "private_record": "/tmp/smac-state-trace/reference-clean/setup-roster-decisions-v3-named.json",
+      "sha256": "2a1111e69dfc6193380b1842e25debb4ae96c0fb8b9ca92fb4a2c6f113fc5546",
+      "status": "rejected-observer-geometry; all answers retained unchanged"
+    },
+    {
+      "private_record": "/tmp/smac-state-trace/reference-clean/setup-random-preset-dropdown-v1.json",
+      "sha256": "54f8ece7ce0e57ef300780bf2ebd5b5538c8d23d3c94f7fac909e8d719dfebec",
+      "status": "rejected-observer-geometry; all answers retained unchanged"
+    }
+  ],
+  "status": "accepted-original-repeat2-bounded-setup-controls",
+  "unchanged_prior_manifests": [
+    {
+      "all_bound_files_unchanged": true,
+      "bound_file_count": 18,
+      "path": "../reference-manifest.json",
+      "sha256": "d60ecb152b3291ae7711b0cc3b159bc5d99861cecaff42fcc05b03306f9db778"
+    },
+    {
+      "all_bound_files_unchanged": true,
+      "bound_file_count": 10,
+      "path": "../explicit-world-reference-manifest.json",
+      "sha256": "749b288db5253f929628cb2a010f742e11faca8d7df3f66e71420884a355df02"
+    }
+  ],
+  "version": 1
+}

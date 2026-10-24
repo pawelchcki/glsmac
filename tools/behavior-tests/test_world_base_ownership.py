@@ -1,4 +1,4 @@
-"""Ownership transfer stays an observed strict pending comparison."""
+"""Ownership transfer retains exact original evidence and real native replay."""
 from copy import deepcopy
 import hashlib
 import json
@@ -124,7 +124,7 @@ class WorldBaseOwnershipTests(unittest.TestCase):
                 candidate.main()
                 self.assertEqual(execute.call_args.args[1], expected)
 
-    def test_frozen_repeated_evidence_remains_pending_and_is_not_a_pass(self):
+    def test_frozen_repeated_evidence_is_catalogued_without_changing_gold(self):
         path = DIRECTORY / 'observations/smacx-gog-2.0-world-base-ownership.json'
         self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),
                          '71a75678cc7288fc9b90c8653864e154357e6fea600c125352bab97152b72436')
@@ -133,8 +133,8 @@ class WorldBaseOwnershipTests(unittest.TestCase):
         compare.validate_observations(evidence, suite)
         pending = json.loads((DIRECTORY / 'pending-catalog.json').read_text())['references']
         passing = json.loads((DIRECTORY / 'catalog.json').read_text())['references']
-        self.assertIn('world-base-ownership', {row['id'] for row in pending})
-        self.assertNotIn('world-base-ownership', {row['id'] for row in passing})
+        self.assertNotIn('world-base-ownership', {row['id'] for row in pending})
+        self.assertIn('world-base-ownership', {row['id'] for row in passing})
         self.assertNotEqual(contract.parse_candidate(markers(), case())['output'], evidence['observations'][0]['output'])
 
 

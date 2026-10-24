@@ -28,11 +28,13 @@ return {
 	configure: (fm, glsmac) => {
 		let ratings = null;
 		let starting = null;
+		let identities = null;
 		if (#is_defined(glsmac)) {
 			const catalog = [];
 			for (faction of factions) { catalog :+ {id: #uppercase(faction[0]), file: faction[1] + '', block: #uppercase(faction[1])}; }
 			ratings = #include('game/faction_ratings').load(glsmac, catalog);
 			starting = #include('game/faction_starting_technologies').load(glsmac, catalog);
+			identities = #include('game/faction_identity').load(glsmac, catalog);
 		}
 		for (f of factions) {
 			const definition = {
@@ -52,6 +54,7 @@ return {
 			const id = #uppercase(f[0]);
 			if (ratings != null) { definition.social_ratings = ratings[id]; }
 			if (starting != null) { definition.starting_technologies = starting[id]; }
+			if (identities != null) { definition.identity = identities[id]; }
 			fm.add(id, definition);
 		}
 	},

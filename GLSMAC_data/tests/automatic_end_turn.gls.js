@@ -1,10 +1,11 @@
+// Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 // Native world/events/units; only owned timer delivery is explicitly controlled.
 const behavior = #include('./_behavior');
 const policy = #include('../default/ui/parts/game/auto_end_turn');
 const make = () => {
 	const f = test.natural_startup_fixture(16, 16, 'flat-arid');
 	#include('./_natural_startup_mechanics')(f);
-	f.initialize_single_player('GAIANS'); f.start_world(true);
+	f.initialize_isolated_player('GAIANS'); f.start_world(true);
 	const game = f.game; const state = game.get_opening_state(); const bases = game.bm.get_bases(); const base = bases[0];
 	game.event('opening_command', {session: state.session, action: 'planetfall', base_id: 0, previous_name: '', name: ''}); f.process_events();
 	game.event('opening_command', {session: state.session, action: 'name', base_id: base.id, previous_name: base.name + '', name: 'Synthetic Haven'}); f.process_events(); f.opening_tick();
