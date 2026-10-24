@@ -1,0 +1,19 @@
+{
+  "id": "natural-gaian-citizen-flat40x80",
+  "contract": "state_trace.all_players.v1",
+  "initialization": {
+    "mode": "natural-original-startup",
+    "map": {"width": 40, "height": 80, "coordinate_system": "doubled-x-parity", "terrain": "flat-arid-land", "wrap_x": true},
+    "human_faction": "GAIANS", "faction_set": "original-seven", "difficulty": "CITIZEN", "rules": "standard",
+    "installed_text": "stock", "rng_control": "uncontrolled-diagnostic",
+    "preferences": {"pause_at_end": true, "tutorials": false},
+    "setup_boundary": "ordinary setup, first base naming, default research accepted, social panel closed; no entity/store/roster writes"
+  },
+  "actions": [
+    {"id": "first-city", "kind": "observe"},
+    {"id": "held-human-units", "kind": "hold_all_ready_human_units"},
+    {"id": "next-turn", "kind": "end_turn", "count": 1}
+  ],
+  "coverage": "all faction slots 1..7, all native unit and base array entries regardless visibility; global turn/dimensions; verified native stores/research; unsupported field groups remain explicit",
+  "acceptance": "strict full output equality across fresh original repeat2; nondeterministic runs retained separately and never accepted"
+}
