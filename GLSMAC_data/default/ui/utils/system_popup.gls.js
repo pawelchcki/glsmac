@@ -10,6 +10,8 @@ return {
 			height: 120,
 		});
 
+		if (#is_defined(popup.presentation_role)) { popup.presentation_role('dialog', 'system_popup.popup'); }
+
 		const header = popup.panel({
 			class: 'system-popup-header',
 		});
@@ -21,6 +23,8 @@ return {
 		const body = popup.panel({
 			class: 'system-popup-body',
 		});
+
+		if (#is_defined(popup.presentation_part)) { popup.presentation_part(header, 'header'); popup.presentation_part(body, 'body'); }
 
 		popups :+popup;
 

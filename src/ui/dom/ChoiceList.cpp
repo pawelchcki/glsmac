@@ -1,4 +1,5 @@
 #include "ChoiceList.h"
+#include "ui/PresentationTrace.h"
 
 #include "gse/value/String.h"
 #include "gse/value/Int.h"
@@ -14,6 +15,7 @@ namespace dom {
 ChoiceList::ChoiceList( DOM_ARGS )
 	: Container( DOM_ARGS_PASS, "choicelist", false, true ) {
 
+	TraceConstructorRole( "choice-list" );
 	Events(
 		{
 			input::EV_SELECT,
@@ -122,6 +124,21 @@ void ChoiceList::SetItemPadding( GSE_CALLABLE, const size_t px ) {
 	}
 }
 
+void ChoiceList::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
+	Container::TraceSnapshot( visited ); TraceChoices();
+}
+
+void ChoiceList::TraceChoices() const {
+	if ( !presentation::Get().Enabled() ) { return; }
+	PRESENTATION_EVENT( "semantic.choices", presentation::Node( m_dom_id ), "{\"count\":" + std::to_string( m_choices_order.size() ) + "}" );
+	for ( const auto& key : m_choices_order ) {
+		const auto& choice = m_choices.at( key );
+		PRESENTATION_EVENT( "semantic.choice", presentation::Node( m_dom_id ), "{\"key\":" + presentation::Quote( key ) + ",\"label\":" + presentation::Quote( choice.label ) + ",\"index\":" + std::to_string( choice.position ) + ",\"node\":" + presentation::Quote( presentation::Node( choice.element->m_dom_id ) ) + "}" );
+	}
+	TraceField( "selected", m_selected_choice ? presentation::Quote( m_selected_choice->value ) : "null" );
+}
+
 void ChoiceList::Clear( GSE_CALLABLE ) {
 	for ( const auto& it : m_choices ) {
 		RemoveChild( GSE_CALL, it.second.element );
@@ -129,6 +146,7 @@ void ChoiceList::Clear( GSE_CALLABLE ) {
 	m_choices.clear();
 	m_choices_order.clear();
 	m_selected_choice = nullptr;
+	TraceChoices();
 	Container::Clear( GSE_CALL );
 }
 
@@ -162,6 +180,7 @@ void ChoiceList::SetItems( GSE_CALLABLE, const gse::value::array_elements_t& ite
 				{ "top",   VALUE( gse::value::Int, , top ) },
 			}
 		);
+		TracePart( element, "choice-item" );
 		AddChild( GSE_CALL, element, true );
 		ForwardProperty( GSE_CALL, "itemcolor", "color", element );
 		if ( kv.size() >= 3 ) {
@@ -195,6 +214,7 @@ void ChoiceList::SetItems( GSE_CALLABLE, const gse::value::array_elements_t& ite
 		} ) );
 		top += m_itemheight + m_itempadding;
 	}
+	TraceChoices();
 	SetValue( GSE_CALL, m_value );
 }
 
@@ -218,6 +238,7 @@ void ChoiceList::Select( GSE_CALLABLE, const choice_t& choice, const bool send_e
 	}
 	m_selected_choice = &choice;
 	m_value = m_selected_choice->value;
+	if ( presentation::Get().Enabled() ) { TraceField( "selected", presentation::Quote( m_value ) ); }
 	m_selected_choice->element->AddModifier( GSE_CALL, CM_SELECTED );
 	UpdateProperty( "value", VALUE( gse::value::String, , m_selected_choice->value ) );
 	if ( m_on_update ) {

@@ -20,11 +20,13 @@ static const std::unordered_set< std::string > s_blocked_blocker_events = {
 Window::Window( DOM_ARGS )
 	: Panel( DOM_ARGS_PASS, "window", false ) {
 
+	TraceConstructorRole( "window" );
 	m_geometry->SetAlign( geometry::Geometry::ALIGN_CENTER );
 
 	{
 		m_blocker = new Surface( GSE_CALL, ui, this, {} );
 		Embed( m_blocker, false );
+	TracePart( m_blocker, "blocker" );
 		auto* g = m_blocker->GetGeometry();
 		g->SetPosition( geometry::Geometry::POSITION_ABSOLUTE );
 		g->SetTop( 0 );
@@ -42,6 +44,7 @@ Window::Window( DOM_ARGS )
 	{
 		m_body = new Container( GSE_CALL, ui, this, {}, "window_body", true, true );
 		Embed( m_body );
+	TracePart( m_body, "body" );
 		auto* g = m_body->GetGeometry();
 		g->SetAlign( geometry::Geometry::ALIGN_TOP_CENTER );
 		g->SetLeft( 0 );
@@ -51,6 +54,7 @@ Window::Window( DOM_ARGS )
 	{
 		m_header = new Panel( GSE_CALL, ui, this, {}, "window_header" );
 		Embed( m_header );
+	TracePart( m_header, "header" );
 		auto* g = m_header->GetGeometry();
 		g->SetAlign( geometry::Geometry::ALIGN_TOP_CENTER );
 		g->SetLeft( 0 );
@@ -59,6 +63,7 @@ Window::Window( DOM_ARGS )
 		{
 			m_title = new Text( GSE_CALL, ui, m_header, {} );
 			m_header->Embed( m_title );
+			TracePart( m_title, "title" );
 			auto* g = m_title->GetGeometry();
 			g->SetAlign( geometry::Geometry::ALIGN_CENTER );
 			g->SetLeft( 0 );

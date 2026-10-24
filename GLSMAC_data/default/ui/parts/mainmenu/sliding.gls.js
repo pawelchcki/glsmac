@@ -100,10 +100,15 @@ return (m) => {
 			class: 'menublock-item',
 			bottom: bottom,
 		});
-		itemobj.surface({class: 'menublock-item-top'});
-		itemobj.surface({class: 'menublock-item-top2'});
-		itemobj.surface({class: 'menublock-item-bottom'});
-		itemobj.surface({class: 'menublock-item-right'});
+		const top_part = itemobj.surface({class: 'menublock-item-top'});
+		const top2_part = itemobj.surface({class: 'menublock-item-top2'});
+		const bottom_part = itemobj.surface({class: 'menublock-item-bottom'});
+		const right_part = itemobj.surface({class: 'menublock-item-right'});
+		if (#is_defined(itemobj.presentation_part)) {
+			current_menublock.presentation_part(itemobj, 'decoration');
+			itemobj.presentation_part(top_part, 'decoration'); itemobj.presentation_part(top2_part, 'decoration');
+			itemobj.presentation_part(bottom_part, 'decoration'); itemobj.presentation_part(right_part, 'decoration');
+		}
 		return itemobj.button({
 			class: 'menublock-item-body',
 			text: text,
@@ -127,6 +132,7 @@ return (m) => {
 				active_entry_index = index;
 				const entry = (current_entries[active_entry_index]);
 				(entry.obj).addclass('menublock-item-active');
+				if (#is_defined(current_menublock.presentation_selection)) { current_menublock.presentation_selection(entry.obj); }
 				if (#is_defined(entry.cb_on_active)) {
 					entry.cb_on_active();
 				}
@@ -148,6 +154,8 @@ return (m) => {
 			current_menublock = m.root.area({
 				class: 'menublock-items',
 			});
+
+			if (#is_defined(current_menublock.presentation_role)) { current_menublock.presentation_role('menu', 'mainmenu.sliding'); }
 
 			current_menublock.sound({
 				sound: 'menu out.wav',
@@ -196,6 +204,7 @@ return (m) => {
 			let index = 0;
 			for (entry of data.entries) {
 				const itembody = create_item(entry[0], bottom);
+				if (#is_defined(itembody.presentation_role)) { itembody.presentation_role('menu-entry', 'mainmenu.sliding.entry'); }
 				const cb = entry[1];
 				const current_entry = {
 					obj: itembody,

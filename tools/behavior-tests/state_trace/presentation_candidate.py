@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from protocol import ProtocolError, fingerprint, load_request, write_response
 from state_trace.presentation_schema import ALGORITHM, validate_input
 from state_trace.presentation_capture import reduce_capture
+from state_trace.presentation_projector import project_capture
 
 DIRECTORY = Path(__file__).resolve().parent
 ROOT = DIRECTORY.parents[2]
@@ -32,7 +33,7 @@ def main():
             raise ProtocolError('candidate supports only the exact two declared presentation inputs')
     artifacts = Path(os.environ.get('PRESENTATION_ARTIFACTS', tempfile.mkdtemp(prefix='glsmac-presentation-')))
     artifacts.mkdir(parents=True, exist_ok=True)
-    implementation = {'name':'GLSMAC bounded real presentation observer (semantic transfer pending)',
+    implementation = {'name':'GLSMAC bounded incomplete presentation observer',
                       'kind':'candidate', 'adapter_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                       'capture_root':str(artifacts), 'captures':{}}
     results = []
@@ -73,7 +74,19 @@ def main():
                 raw_path=str(raw), checkpoint_paths=[str(raw.parent/('presentation-checkpoint-'+point['id']+'.json')) for point in capture.get('input_checkpoints',[])],
                 attribution=capture.get('input_attribution'), validation=capture.get('input_validation'))
             (directory/'reduced.json').write_text(json.dumps(reduced,indent=2)+'\n')
-            results.append(dict(id=case_id,status='unsupported',reason='Real raw capture retained; complete semantic windows/widgets/focus/modal, animation/video and SFX/music classification/coverage remain unimplemented. No prelaunch-history, mixer/output or timing agreement claimed.'))
+            semantic = project_capture(capture, case['input'])
+            semantic_path = directory/'semantic.json'
+            semantic_path.write_text(json.dumps(semantic,indent=2)+'\n')
+            implementation['captures'][case_id]['semantic_path'] = str(semantic_path)
+            semantic_prefix_paths = []
+            for point in capture['input_checkpoints']:
+                prefix_raw = raw.parent/('presentation-checkpoint-'+point['id']+'.json')
+                prefix_semantic = directory/('semantic-checkpoint-'+point['id']+'.json')
+                prefix = project_capture(json.loads(prefix_raw.read_text()), case['input'])
+                prefix_semantic.write_text(json.dumps(prefix,indent=2)+'\n')
+                semantic_prefix_paths.append(str(prefix_semantic))
+            implementation['captures'][case_id]['semantic_checkpoint_paths'] = semantic_prefix_paths
+            results.append(dict(id=case_id,status='unsupported',reason='Incomplete semantic checkpoints and complete raw/input observations retained; unknown UI/media, cross-engine correspondence and exhaustive channel coverage remain unimplemented. No prelaunch-history, mixer/output or timing agreement claimed.'))
         except (OSError, ValueError, subprocess.TimeoutExpired) as error:
             results.append(dict(id=case_id,status='error',reason=str(error)))
     write_response(implementation,results)

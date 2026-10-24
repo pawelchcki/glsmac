@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "ui/PresentationTrace.h"
 
 #include "Text.h"
 #include "ui/geometry/Geometry.h"
@@ -14,11 +15,13 @@ Input::Input( DOM_ARGS )
 	: Panel( DOM_ARGS_PASS, "Input", false )
 	, Focusable() {
 
+	TraceConstructorRole( "text-editor" );
 	m_text = new Text( GSE_CALL, ui, this, {} );
 	m_text->GetGeometry()->SetAlign( geometry::Geometry::ALIGN_LEFT_CENTER );
 	m_text->GetGeometry()->SetLeft( 4 ); // TODO: configurable?
 	m_text->GetGeometry()->SetRight( 4 ); // TODO: configurable?
 	Embed( m_text );
+	TracePart( m_text, "editor-display" );
 
 	m_geometry->SetOverflowMode( geometry::Geometry::OM_HIDDEN );
 
@@ -31,6 +34,7 @@ Input::Input( DOM_ARGS )
 			const auto length = ( (gse::value::Int*)v )->value;
 			if ( length < 0 ) { GSE_ERROR( gse::EC.INVALID_ASSIGNMENT, "Input max_length must not be negative" ); }
 			if ( m_state.SetMaxLength( length ) ) { ValueChanged( GSE_CALL ); }
+			else { TraceNativeState(); }
 			return nullptr;
 		}
 	);
@@ -67,6 +71,13 @@ Input::Input( DOM_ARGS )
 			FixAlign();
 		}
 	);
+	TraceNativeState();
+}
+
+void Input::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
+	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
+	Panel::TraceSnapshot( visited );
+	TraceNativeState();
 }
 
 void Input::OnFocus() {
@@ -159,13 +170,21 @@ void Input::WrapEvent( GSE_CALLABLE, const input::Event& e, gse::value::object_p
 	}
 }
 
+void Input::TraceNativeState() const {
+	if ( !presentation::Get().Enabled() ) { return; }
+	TraceField( "value", presentation::Quote( m_state.GetValue() ) );
+	TraceField( "max_length", std::to_string( m_state.GetMaxLength() ) );
+}
+
 void Input::SetValue( GSE_CALLABLE, const std::string& value ) {
 	if ( m_state.SetValue( value ) ) { ValueChanged( GSE_CALL ); }
+	else { TraceNativeState(); }
 }
 
 void Input::ValueChanged( GSE_CALLABLE ) {
 	UpdateText();
 	UpdateProperty( "value", VALUE( gse::value::String, , m_state.GetValue() ) );
+	TraceNativeState();
 	input::Event e;
 	e.SetType( input::EV_CHANGE );
 	e.data.value.change_select.text = new std::string( m_state.GetValue() );

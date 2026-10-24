@@ -15,6 +15,7 @@ class ChoiceList : public Container {
 public:
 
 	ChoiceList( DOM_ARGS );
+	void TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const override;
 
 protected:
 	virtual const bool ProcessEventImpl( GSE_CALLABLE, const input::Event& event ) override;
@@ -39,6 +40,7 @@ private:
 
 	const choice_t* m_selected_choice = nullptr;
 
+	void TraceChoices() const;
 	void SetItemClass( GSE_CALLABLE, const std::string& cls );
 	void SetItemHeight( GSE_CALLABLE, const size_t px );
 	void SetItemPadding( GSE_CALLABLE, const size_t px );

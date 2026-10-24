@@ -216,6 +216,8 @@ return {
 			this.popup_defs[popup] = #include(popup);
 			this.popups[popup] = this.popup_defs[popup].init(pp);
 			this.popups[popup].id = popup;
+			const actual_popup = this.popups[popup].el;
+			if (#is_defined(actual_popup.presentation_role)) { actual_popup.presentation_role('dialog', 'game.popup.' + popup); }
 		}
 		if (#is_defined(this.popup_defs.starvation)) { this.popup_defs.starvation.attach(p, this); }
 

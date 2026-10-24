@@ -14,9 +14,11 @@ Panel::Panel( DOM_ARGS_T, const bool factories_allowed )
 
 	m_surface = new Surface( GSE_CALL, ui, this, {} );
 	Embed( m_surface );
+	TracePart( m_surface, "background" );
 
 	m_border_surface = new Surface( GSE_CALL, ui, this, {} );
 	Embed( m_border_surface );
+	TracePart( m_border_surface, "border" );
 
 	ForwardProperty( GSE_CALL, "background", m_surface );
 

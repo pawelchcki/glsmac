@@ -30,6 +30,8 @@ Container::Container( DOM_ARGS_T, const bool factories_allowed, const bool has_b
 	, m_cache( new scene::actor::Cache( "UI::Cache" ) )
 	, m_has_body( has_body ) {
 
+	TraceConstructorRole( "container" );
+
 	Events( // TODO: refactor this
 		{
 			input::EV_KEY_DOWN,
@@ -116,6 +118,7 @@ void Container::Embed( Object* object, const bool is_visible ) {
 		ASSERT( m_geometry, "object with custom parent but we have no geometry" );
 		object->GetGeometry()->SetParent( m_geometry );
 	}
+	TracePart( object, "embedded" );
 	m_embedded_objects.push_back( { object, is_visible } );
 }
 
@@ -200,10 +203,13 @@ const bool Container::ProcessEvent( GSE_CALLABLE, const input::Event& event ) {
 
 void Container::TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const {
 	if ( !presentation::Get().Enabled() || visited.find( m_dom_id ) != visited.end() ) { return; }
-	Object::TraceSnapshot( visited );
+	Area::TraceSnapshot( visited );
 	for ( const auto& child : m_children ) {
 		child.second.object->TraceSnapshot( visited );
 		PRESENTATION_EVENT( "node.attach", presentation::Node( child.first ), "{\"parent\":" + presentation::Quote( presentation::Node( m_dom_id ) ) + "}" );
+	}
+	for ( const auto& target : m_trace_forwards ) {
+		PRESENTATION_EVENT( "semantic.forward", presentation::Node( m_dom_id ), "{\"target\":" + presentation::Quote( presentation::Node( target.target ) ) + ",\"source_property\":" + presentation::Quote( target.source ) + ",\"target_property\":" + presentation::Quote( target.destination ) + "}" );
 	}
 }
 
@@ -318,6 +324,8 @@ void Container::ForwardProperty( GSE_CALLABLE, const std::string& srcname, const
 		fp = m_forwarded_properties.insert({ srcname, {} }).first;
 	}
 	fp->second.push_back({ target, dstname });
+	m_trace_forwards.push_back( { target->m_dom_id, srcname, dstname } );
+	PRESENTATION_EVENT( "semantic.forward", presentation::Node( m_dom_id ), "{\"target\":" + presentation::Quote( presentation::Node( target->m_dom_id ) ) + ",\"source_property\":" + presentation::Quote( srcname ) + ",\"target_property\":" + presentation::Quote( dstname ) + "}" );
 	const auto& targetprop = target->m_properties.find( dstname );
 	if ( targetprop != target->m_properties.end() ) {
 		UpdateProperty( srcname, targetprop->second );
@@ -332,7 +340,7 @@ void Container::ForwardProperty( GSE_CALLABLE, const std::string& srcname, const
 }
 
 void Container::Factory( GSE_CALLABLE, const std::string& name, const std::function< Object*( GSE_CALLABLE, const properties_t& ) >& f ) {
-	Method( GSE_CALL, name, NATIVE_CALL( this, f ) {
+	Method( GSE_CALL, name, NATIVE_CALL( this, f, name ) {
 		N_EXPECT_ARGS_MIN_MAX(0, 1);
 		properties_t initial_properties = {};
 		if ( arguments.size() == 1 ) {
@@ -358,6 +366,7 @@ void Container::Factory( GSE_CALLABLE, const std::string& name, const std::funct
 			obj->Destroy( GSE_CALL );
 			throw e;
 		}
+		PRESENTATION_EVENT( "semantic.factory", presentation::Node( obj->m_dom_id ), "{\"owner\":" + presentation::Quote( presentation::Node( m_factory_owner->m_dom_id ) ) + ",\"factory\":" + presentation::Quote( name ) + "}" );
 		m_factory_owner->m_children.insert({ obj->m_dom_id, { obj, false } });
 		PRESENTATION_EVENT( "node.attach", presentation::Node( obj->m_dom_id ), "{\"parent\":" + presentation::Quote( presentation::Node( m_factory_owner->m_dom_id ) ) + "}" );
 		auto* const geometry = obj->GetGeometry();

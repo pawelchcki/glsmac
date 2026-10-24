@@ -31,11 +31,13 @@ return {
 		let y = top; const nodes = [];
 		for (paragraph of paragraphs) {
 			let line = ''; let node = target.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: ''});
+			const paragraph_owner = node;
+			if (#is_defined(node.presentation_role)) { node.presentation_role('paragraph', 'opening.paragraphs'); node.presentation_text(paragraph); }
 			nodes :+ node;
 			for (word of #split(paragraph, ' ')) {
 				const candidate = line == '' ? word : line + ' ' + word;
 				node.text = candidate;
-				if (node.get_width() > width && line != '') { node.text = line; y += 22; node = target.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: word}); nodes :+ node; line = word; }
+				if (node.get_width() > width && line != '') { node.text = line; y += 22; node = target.text({class: 'popup-text', left: 20, top: y, font: 'arialnb.ttf:18', text: word}); nodes :+ node; if (#is_defined(paragraph_owner.presentation_part)) { paragraph_owner.presentation_part(node, 'layout-fragment'); } line = word; }
 				else { line = candidate; }
 			}
 			y += 36;
@@ -49,6 +51,7 @@ return {
 		const width = 700; const height = phase == 'first-base-name' ? 180 : 390;
 		if (phase == 'planetfall') { this.background = p.root.surface({id: 'opening-backdrop', left: 0, right: 0, top: 0, bottom: 0, zindex: 0.98, background: 'xopeninga.pcx:stretch()'}); }
 		this.frame = p.root.window({id: 'opening-' + phase, class: 'default-panel', align: 'center', width: width, height: height, header_height: 0, zindex: 0.99, blocker: 'transparent'});
+		if (#is_defined(this.frame.presentation_role)) { this.frame.presentation_role('dialog', 'opening.' + phase); }
 		this.error = this.frame.text({class: 'popup-text', left: 20, top: height - 75, text: ''});
 		const definition = phase == 'planetfall' ? definitions.planetfall : (phase == 'first-base-name' ? definitions.name : definitions.tour);
 		if (definition.caption != null) { this.caption_node = this.frame.text({class: 'popup-text', align: 'top center', top: 15, text: #uppercase(definition.caption)}); }

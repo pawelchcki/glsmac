@@ -19,6 +19,8 @@ public:
 	Drawable( DOM_ARGS_T, geometry::Geometry* const geometry );
 
 	geometry::Geometry* const GetGeometry() const override;
+	void TraceSnapshot( std::unordered_set< dom_id_t >& visited ) const override;
+	void TraceGeometry() const;
 
 	void GeometryHandler( const geometry_handler_type_t type, const std::function< void() >& f );
 
