@@ -76,6 +76,8 @@ return (m) => {
 			p.modules.opening.init(p);
 			p.modules.research = #include('research');
 			p.modules.research.init(p);
+			p.modules.base_operations = #include('base_operations');
+			p.modules.base_operations.init(p);
 
 			m.root.on('keydown', (e) => {
 				if (e.modifiers == {} && e.code == 'ESCAPE') {

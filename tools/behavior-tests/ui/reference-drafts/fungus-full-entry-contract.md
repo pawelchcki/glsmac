@@ -1,0 +1,22 @@
+# Bounded original full-movement fungus entry
+
+`game.fungus_entry_controls.v1`, `full-fungus` is accepted by compare.py record with two independently fresh identical complete original runs. It is optional new evidence outside passing release catalogs. No candidate execution or agreement is claimed. Canonical executable SHA256 is01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf; exact runtime/assets/adapter identities are in `fungus-full-entry-observations.json`. Inputs are in `fungus-full-entry-cases.json`. Source/map identities are pinned separately in `fungus-source-fingerprints.json`.
+
+This is a separately AUTHORED Gaian/Citizen/standard profile, not untouched stock Gaians. The prior three-role profile already fills the original eight-bonus limit. ONLY FUNGNUTRIENT,1 is replaced by UNIT,8. TECH/Ecology, SOCIAL/-MORALE, SOCIAL/-POLICE, SOCIAL/++EFFIC, SOCIAL/+PLANET, UNIT/1 and UNIT/0 remain declared. Stock zero-based UNITS rows0/1/2/8 supply the observed Colony Pod/Formers/Scout Patrol/Mind Worms; actual native prototype names/IDs are retained in every checkpoint. All four healthy roles start with no orders/work and spent movement0, stacked on the actual first city at(19,67). Existing seed1 inputs are applied before name confirmation and again before the initial fixture checkpoint. Turns are paused; tutorials are off.
+
+Only BEFORE the initial checkpoint, the two relevant native tiles' road/fungus bits are assigned and verified by readback. All other initialized bits are retained and recorded literally. Source(19,67) has flags0x101003 unchanged. Destination(21,67) has flags0x1000 before and0x1020 after: the sole changed bit is fungus0x20. Neither tile has road bit0x4. Unknown remaining flag semantics are not inferred. No executable instructions, unit fields, counters or post-action data are patched. Each subsequent position/counter is supplied by actual original movement controls.
+
+The controller selects each declared role with actual controls, then sends one keypad-east input. Complete stable native snapshots include all seven players and every unit/base irrespective visibility; actual Console identity, damage, order, work, movement spent and current-tile flags remain observable. Original runtime indexes are diagnostics, not assumed logical identities.
+
+| Role / actual stock prototype ID | Initial position / spent | Result position / spent | Result selection |
+| --- | --- | --- | --- |
+| Scout Patrol /2 |(19,67) /0 |(21,67) /3 |Mind Worm |
+| Formers /1 |(19,67) /0 |(21,67) /3 |Colony Pod |
+| Colony Pod /0 |(19,67) /0 |(21,67) /3 |Mind Worm |
+| Mind Worms /8 |(19,67) /0 |(21,67) /1 |Mind Worm |
+
+Spent movement is the actual raw counter in thirds of an ordinary movement point. A delta3 from a full ordinary move does NOT establish an intrinsic terrain-cost formula, a cap/rounding rule, insufficient-credit behavior or success probability. Only seed1 is recorded; all four moves succeeded in each complete capture. Other input seeds and any rejected move remain unobserved. Every observed mover retains order_code0, work0 and damage0. No turn advances. Because the natural four-role ordering selects Mind Worm after Scout, the recorded trace includes one actual Tab to select Former; it is preserved, not omitted. Every foreign participant/unit/base remains unchanged. Native owner IDs, source/output field values and actual names are preserved in the evidence.
+
+These repeated outputs demonstrate a role difference in this declared fungus destination: the Mind Worm spends one third while each tested conventional role spends three thirds. They do not establish an arbitrary faction/social/rule policy, sea/native variants, starting-bonus independence, movement with spent credit, plain-terrain native cost, road interaction, fungus exit, failed movement, combat, visibility, animations or complete game fidelity. Paired plain and actual-road-partial profiles remain unrecorded and outside passing totals at this boundary. Do not infer those missing outputs from this result.
+
+Accepted original private artifacts are `/tmp/wasmsmac-units-visual-research/fungus-recorded/full-fungus-gtgqrckq` and `/tmp/wasmsmac-units-visual-research/fungus-recorded/full-fungus-9fwh16e5`. Raw frames/logs/assets remain private. Earlier bonus-limit and incorrect tile-flag-assumption attempts failed before any movement answer and remain unaccepted private failures. No prior reference answer was changed.

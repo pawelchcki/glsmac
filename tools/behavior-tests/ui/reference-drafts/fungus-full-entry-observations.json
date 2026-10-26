@@ -1,0 +1,2399 @@
+{
+  "captured_at": "2026-10-26T18:39:55.201966+00:00",
+  "observations": [
+    {
+      "case_sha256": "7dcf0b27efb0121bdf28bdad7fe2c06b4db9d42e704fee8fdfb2228353cbba01",
+      "id": "full-fungus",
+      "output": {
+        "initial_tiles": [
+          {
+            "after_flags": 1052675,
+            "before_flags": 1052675,
+            "fungus": false,
+            "road": false,
+            "x": 19,
+            "y": 67
+          },
+          {
+            "after_flags": 4128,
+            "before_flags": 4096,
+            "fungus": true,
+            "road": false,
+            "x": 21,
+            "y": 67
+          }
+        ],
+        "trace": [
+          {
+            "action": "initial",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "scout"
+            }
+          },
+          {
+            "action": "scout-east-1",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "mind-worm"
+            }
+          },
+          {
+            "action": "tab",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "former"
+            }
+          },
+          {
+            "action": "former-east-1",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "colony"
+            }
+          },
+          {
+            "action": "colony-east-1",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052675,
+                    "work": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "mind-worm"
+            }
+          },
+          {
+            "action": "mind-worm-east-1",
+            "state": {
+              "all_players": {
+                "bases": [
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 1,
+                    "population": 1,
+                    "project_id": 1,
+                    "raw_minerals": 9,
+                    "raw_nutrients": 0,
+                    "runtime_id": 0,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 19,
+                    "y": 67
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 2,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 1,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 3,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 2,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 4,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 3,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 5,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 4,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 6,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 5,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "doctor_codes": [
+                      1
+                    ],
+                    "owner": 7,
+                    "population": 1,
+                    "project_id": 2,
+                    "raw_minerals": 5,
+                    "raw_nutrients": 0,
+                    "runtime_id": 6,
+                    "specialists": 1,
+                    "worked_mask": 1,
+                    "workers": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ],
+                "map": {
+                  "height": 80,
+                  "width": 40
+                },
+                "players": [
+                  {
+                    "alive": true,
+                    "faction_filename": "GAIANS",
+                    "id": 1,
+                    "identity": {
+                      "adjective": "Gaian",
+                      "formal_name": "Gaia's Stepdaughters",
+                      "leader_description": "beautiful",
+                      "leader_name": "Deirdre",
+                      "leader_title": "Lady",
+                      "noun": "Gaians"
+                    },
+                    "is_human": true,
+                    "owned_tech_ids": [
+                      6
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "HIVE",
+                    "id": 2,
+                    "identity": {
+                      "adjective": "Hive",
+                      "formal_name": "Human Hive",
+                      "leader_description": "ruthless",
+                      "leader_name": "Yang",
+                      "leader_title": "Chairman",
+                      "noun": "Hive"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      43
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "UNIV",
+                    "id": 3,
+                    "identity": {
+                      "adjective": "University",
+                      "formal_name": "University of Planet",
+                      "leader_description": "brilliant",
+                      "leader_name": "Zakharov",
+                      "leader_title": "Provost",
+                      "noun": "University"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      2
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "MORGAN",
+                    "id": 4,
+                    "identity": {
+                      "adjective": "Morganic",
+                      "formal_name": "Morgan Industries",
+                      "leader_description": "shrewd",
+                      "leader_name": "Morgan",
+                      "leader_title": "CEO",
+                      "noun": "Morganites"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      1
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "SPARTANS",
+                    "id": 5,
+                    "identity": {
+                      "adjective": "Spartan",
+                      "formal_name": "Spartan Federation",
+                      "leader_description": "vigilant",
+                      "leader_name": "Santiago",
+                      "leader_title": "Colonel",
+                      "noun": "Spartans"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      5
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "BELIEVE",
+                    "id": 6,
+                    "identity": {
+                      "adjective": "Believing",
+                      "formal_name": "The Lord's Believers",
+                      "leader_description": "pious",
+                      "leader_name": "Miriam",
+                      "leader_title": "Sister",
+                      "noun": "Believers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      4
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  },
+                  {
+                    "alive": true,
+                    "faction_filename": "PEACE",
+                    "id": 7,
+                    "identity": {
+                      "adjective": "Peacekeeper",
+                      "formal_name": "Peacekeeping Forces",
+                      "leader_description": "humane",
+                      "leader_name": "Lal",
+                      "leader_title": "Brother",
+                      "noun": "Peacekeepers"
+                    },
+                    "is_human": false,
+                    "owned_tech_ids": [
+                      0
+                    ],
+                    "research_accumulated": 0,
+                    "research_target": -1
+                  }
+                ],
+                "turn": 1,
+                "units": [
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "role": "scout",
+                    "runtime_id": 0,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 1,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 8,
+                    "prototype_name": "Mind Worms",
+                    "role": "mind-worm",
+                    "runtime_id": 1,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 1,
+                    "prototype_name": "Formers",
+                    "role": "former",
+                    "runtime_id": 2,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 3,
+                    "order_code": 0,
+                    "owner": 1,
+                    "prototype_id": 0,
+                    "prototype_name": "Colony Pod",
+                    "role": "colony",
+                    "runtime_id": 3,
+                    "tile_flags": 1052706,
+                    "work": 0,
+                    "x": 21,
+                    "y": 67
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 2,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 4,
+                    "work": 0,
+                    "x": 1,
+                    "y": 3
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 3,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 5,
+                    "work": 0,
+                    "x": 12,
+                    "y": 8
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 4,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 6,
+                    "work": 0,
+                    "x": 37,
+                    "y": 53
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 5,
+                    "prototype_id": 320,
+                    "prototype_name": "Scout Rover",
+                    "runtime_id": 7,
+                    "work": 0,
+                    "x": 32,
+                    "y": 20
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 6,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 8,
+                    "work": 0,
+                    "x": 9,
+                    "y": 13
+                  },
+                  {
+                    "damage": 0,
+                    "movement_spent": 0,
+                    "order_code": 0,
+                    "owner": 7,
+                    "prototype_id": 2,
+                    "prototype_name": "Scout Patrol",
+                    "runtime_id": 9,
+                    "work": 0,
+                    "x": 14,
+                    "y": 60
+                  }
+                ]
+              },
+              "selected": "mind-worm"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "reference": {
+    "adapter_sha256": "6c684c698310f7b1d6bf29932aea566e8e81c55394d8438c21b681f0d5266171",
+    "adapter_version": 1,
+    "assets_sha256": "5bbb71a4b2a36f54601d346b0c3d68a867d4a664b65d2cdc9cf4c433c6c2c76a",
+    "contract": "game.fungus_entry_controls.v1",
+    "engine": "wine-xvfb",
+    "engine_version": "wine-11.20",
+    "executable_sha256": "01901cbf7196b0c5d0df9540a029520f5df8fd9a6b343deef8b5663872805fcf",
+    "fixture": "Fresh authored Gaian/Citizen/standard seeded1 flat40x80; FUNGNUTRIENT1 replaced by UNIT8 within eight-bonus limit, existing UNIT1/UNIT0 retained; four healthy unspent roles; initial road/fungus tile flags assigned with readback before initial state; all subsequent positions/counters supplied by original controls",
+    "kind": "original-executable",
+    "name": "smacx-original-ui",
+    "observation": "All seven native player/unit/base arrays and actual Console selection at stable checkpoints; one or two actual east steps per selected role; movement_spent in thirds; no candidate answers; no timing/audio/complete movement policy claim"
+  },
+  "repeat": 2,
+  "suite_sha256": "4c1118d3ad8767a6af2817ca2edc972669612b6a40e63ad12bbb6879ef58871b",
+  "version": 1
+}

@@ -508,6 +508,60 @@ struct ProductionFixture : gc::Object {
 			{ "rng_preserved", VALUE( value::Bool,, rng_preserved ) },
 		} );
 	}
+	Value* GeneratedMapProbe( GSE_CALLABLE ) {
+		const auto& settings = state->m_settings.global.map;
+		if ( ( settings.type != backend::settings::MapSettings::MT_RANDOM && settings.type != backend::settings::MapSettings::MT_CUSTOM ) ||
+			settings.size_x < 4 || settings.size_x > 128 || settings.size_x % 2 || settings.size_y < 2 || settings.size_y > 64 ) {
+			GSE_ERROR( EC.INVALID_CALL, "generation probe requires bounded generated-map inputs" );
+		}
+		const auto before = settings.Serialize().ToString();
+		const auto random_before = game.GetRandom()->GetStateString();
+		const auto fixture_before = Snapshot();
+		const auto map_before = game.m_map->m_tiles->Serialize().ToString();
+		const auto requests_before = game.m_pending_frontend_requests->size();
+		int64_t width = 0, height = 0, half_width = 0, tile_count = 0;
+		bool links = true, roundtrip = false, requested_preserved = false, consumed_random = false;
+		{
+			// Exercise real terrain generation without replacing this fixture's
+			// live map or consuming its RNG. A separate fixture owns generation's
+			// loader requests and temporary native graph, including on exceptions.
+			auto scratch = std::make_shared< ProductionFixture >( GSE_CALL, false );
+			scratch->game.GetRandom()->SetSeed( 17 ); // Declared candidate-only terrain input.
+			const auto generation_random_before = scratch->game.GetRandom()->GetStateString();
+			backend::settings::MapSettings requested;
+			requested.Deserialize( settings.Serialize() );
+			std::unique_ptr< backend::map::Map > generated( new backend::map::Map( &scratch->game, false ) );
+			std::atomic< bool > canceled{ false };
+			const auto status = generated->Generate( &requested, canceled );
+			if ( status != backend::map::Map::EC_NONE ) {
+				GSE_ERROR( EC.INVALID_CALL, "native generation failed: " + backend::map::Map::GetErrorString( status ) );
+			}
+			const auto bytes = generated->m_tiles->Serialize();
+			std::unique_ptr< backend::map::Map > restored( new backend::map::Map( &scratch->game, false ) );
+			auto input = bytes;
+			if ( restored->LoadFromBuffer( input ) != backend::map::Map::EC_NONE ) {
+				GSE_ERROR( EC.INVALID_CALL, "generated native grid did not decode" );
+			}
+			const auto cells = restored->m_tiles->GetVector( canceled );
+			width = restored->GetWidth(); height = restored->GetHeight(); tile_count = cells.size();
+			for ( const auto* tile : cells ) {
+				if ( tile->coord.y == 0 ) { ++half_width; }
+				links = links && tile->E->W == tile && tile->W->E == tile && tile->elevation.right == tile->E->elevation.left;
+			}
+			roundtrip = restored->m_tiles->Serialize().ToString() == bytes.ToString();
+			requested_preserved = requested.Serialize().ToString() == before;
+			consumed_random = scratch->game.GetRandom()->GetStateString() != generation_random_before;
+		}
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "width", VALUE( value::Int,, width ) }, { "height", VALUE( value::Int,, height ) },
+			{ "half_width", VALUE( value::Int,, half_width ) }, { "tile_count", VALUE( value::Int,, tile_count ) },
+			{ "links", VALUE( value::Bool,, links ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
+			{ "settings_preserved", VALUE( value::Bool,, settings.Serialize().ToString() == before && requested_preserved ) },
+			{ "rng_preserved", VALUE( value::Bool,, game.GetRandom()->GetStateString() == random_before ) },
+			{ "fixture_preserved", VALUE( value::Bool,, Snapshot() == fixture_before && game.m_map->m_tiles->Serialize().ToString() == map_before && game.m_pending_frontend_requests->size() == requests_before ) },
+			{ "generation_consumed_rng", VALUE( value::Bool,, consumed_random ) },
+		} );
+	}
 	Value* MapMeshProbe( GSE_CALLABLE ) {
 		const auto& config = state->m_settings.global.map;
 		if ( config.size_x < 4 || config.size_x > 512 || config.size_x % 2 || config.size_y < 2 || config.size_y > 256 ) {
@@ -1760,6 +1814,11 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 	object->Set( "map_grid_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 );
 		try { return session->current->MapGridProbe( GSE_CALL ); }
+		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
+	} ), GSE_CALL );
+	object->Set( "generated_map_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 );
+		try { return session->current->GeneratedMapProbe( GSE_CALL ); }
 		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 	} ), GSE_CALL );
 	object->Set( "map_polar_probe", NATIVE_CALL( session ) {

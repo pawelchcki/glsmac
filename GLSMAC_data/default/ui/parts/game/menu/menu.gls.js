@@ -184,6 +184,7 @@ return {
 		#include('colony_orders')(this, p);
 		#include('disband_orders')(this, p);
 		#include('research_orders')(this, p);
+		#include('base_operations')(this, p);
 		if (this.game != null) {
 			const frame = this.menus.left_menu.el;
 			frame.listen(this.game, 'unit_select', (e) => {

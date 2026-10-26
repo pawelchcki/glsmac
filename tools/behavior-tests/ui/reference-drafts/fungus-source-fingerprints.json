@@ -1,0 +1,9 @@
+{
+  "GAIANS.TXT": {
+    "original_installed_sha256": "6c25fe3492f83a9ac3a8da7c7e2ddc0a62134c46e244f8872e1e9067b2564cf2",
+    "three_role_sha256": "6df3a3b32eaf16947f64d94ef0e1563f0d36c38c4cd27246618d833791b1524e",
+    "four_role_sha256": "dbe00aa2913fac7ef19871f74b0d418e775f6221be6c1966dc0379b52e75ec5d"
+  },
+  "synthetic_map_sha256": "b561f828c7bb1108cb02732d2e9ffcfcc9e920f93e48356dcca7ec85e37c7628",
+  "source_profile": "Installed Gaian bonus FUNGNUTRIENT,1 is replaced by UNIT,8; original three-role UNIT1/UNIT0 retained, all other fields preserved except bonus-row whitespace; exactly8pairs"
+}

@@ -1,0 +1,1 @@
+{"version":1,"cases":[{"id":"stacked-three-east-and-base-report","algorithm":"ui.unit_motion_and_base_report.v1","input":{"profile":"seed1-stacked-three","actions":["scout-east","former-east","colony-east","base-operations-roundtrip"]}}]}

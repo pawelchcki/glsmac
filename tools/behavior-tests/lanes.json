@@ -3,6 +3,8 @@
   "kinds": {
     "regression": {
       "hot": [
+        "base-operations",
+        "base-operations-lifecycle",
         "duplicate-faction-identity",
         "computer-production",
         "state-trace-snapshot",
@@ -41,7 +43,8 @@
         "startup-production-zero-credit",
         "base-growth-worker-links",
         "base-growth-regression",
-        "land-resource-sources"
+        "land-resource-sources",
+        "startup-rule-sources"
       ],
       "stable": [
         "base-resource-hud",
@@ -60,7 +63,6 @@
         "terraforming-dialog",
         "unit-source-transfer",
         "unit-combat-model",
-        "startup-rule-sources",
         "conventional-combat",
         "land-unit-production",
         "large-map-source",

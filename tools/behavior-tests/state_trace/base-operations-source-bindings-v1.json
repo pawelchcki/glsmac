@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "status": "accepted-original-repeat2",
+  "candidate_executed": false,
+  "passing_catalog": false,
+  "case_count": 1,
+  "repeat": 2,
+  "scope": "Immutable whole original three-unit motion and Base Operations navigation; bounded candidate projections are separate, numeric/sprite/full-trace parity unsupported.",
+  "files": {
+    "unit-motion-base-report-cases.json": "ffe07b92b9a8199b3e39714b74ea1b65c8e0ce1065796cbe356a0dc525797c52",
+    "unit-motion-base-report-observations.json": "c88b42c467631426922daec6aa5a7c7bd0b5182e9f383485982517620aeb937d",
+    "base-report-visual-observations-v1.json": "b008517d963407839f5f5653138e4363528f85f1481b93fcb91c3dc9b776d0f3",
+    "unit-motion-base-report-contract.md": "c2e3c5cdf19202a19fb9ad693abef4507bbc65cf6ddff0f606f792c7101aa05d",
+    "base-report-ui-semantics-v1.json": "ad49b8ce8986d47932bcd044d83a1df9acce6f0f1cf062eddfa15599a63c60ba"
+  }
+}

@@ -12,6 +12,7 @@ const moralesets = [
 		]
 	},
 ];
+const model_preview = #include('./model_previews');
 
 const native_lifeform = (id, name, movement_type, movement_per_turn, base_y) => {
 	return {
@@ -76,6 +77,8 @@ const result = {
 				const data = {name: entry.name, morale: 'STANDARD', type: 'static',
 					movement_type: 'land', movement_per_turn: entry.movement,
 					render: {type: 'sprite', file: 'newicons.pcx', x: 79, y: 501, w: 38, h: 48, cx: 98, cy: 549}};
+				const preview = model_preview(entry);
+				if (preview != null) { data.render = preview; }
 				data.combat = entry.combat;
 				game.event('define_unit', {id: entry.id, data: data});
 			}

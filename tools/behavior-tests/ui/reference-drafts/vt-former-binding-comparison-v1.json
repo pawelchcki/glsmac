@@ -1,0 +1,227 @@
+{
+  "method": "Data-only post-capture comparison of two independently fresh accepted original color-control runs against unchanged original baseline; no candidate involved. Changed bounds describe visible contribution pixels only, not a standalone sprite alpha matte.",
+  "baseline_record_sha256": "c88b42c467631426922daec6aa5a7c7bd0b5182e9f383485982517620aeb937d",
+  "control_record_sha256": "030269c9ce02b9d86f3388dcb5a694910d3e17f1013cd33429c5b1e6bfaa672d",
+  "native_all_seven_arrays_match_baseline_before_and_after_each_move": true,
+  "roles": [
+    {
+      "role": "scout",
+      "native_before_and_after_equal_to_accepted_baseline": true,
+      "red_pixels_hud": 0,
+      "red_pixels_map_lower_body": 0,
+      "runs": [
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-ifwausrt/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af",
+              "control_rgb_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "682a93dfafaa70c6a30b77812c0b24018c8361695600c2a6efdd099c4f3980d4",
+              "control_rgb_sha256": "682a93dfafaa70c6a30b77812c0b24018c8361695600c2a6efdd099c4f3980d4",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            }
+          }
+        },
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-kuuixaaz/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af",
+              "control_rgb_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "682a93dfafaa70c6a30b77812c0b24018c8361695600c2a6efdd099c4f3980d4",
+              "control_rgb_sha256": "682a93dfafaa70c6a30b77812c0b24018c8361695600c2a6efdd099c4f3980d4",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "former",
+      "native_before_and_after_equal_to_accepted_baseline": true,
+      "red_pixels_hud": 343,
+      "red_pixels_map_lower_body": 491,
+      "runs": [
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-ifwausrt/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "c263c0825ae5ec572576cbc984c87687af2cc406e6edc26292ea4da2202c7e51",
+              "control_rgb_sha256": "404657822d340717786616d71e97d802e5b90cb18e48bade4b63d85f71393e86",
+              "changed_pixels": 343,
+              "changed_pixel_bounds_half_open": [
+                54,
+                589,
+                89,
+                619
+              ]
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "fb28b6212200f73c348e91028891f731732444e7089020593c29e227cea81c02",
+              "control_rgb_sha256": "826b3e33ce27fcdc3df55f55f26637a76bacde8c1ad05b4b85e097afe6f90c9d",
+              "changed_pixels": 491,
+              "changed_pixel_bounds_half_open": [
+                507,
+                294,
+                554,
+                320
+              ]
+            }
+          }
+        },
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-kuuixaaz/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "c263c0825ae5ec572576cbc984c87687af2cc406e6edc26292ea4da2202c7e51",
+              "control_rgb_sha256": "404657822d340717786616d71e97d802e5b90cb18e48bade4b63d85f71393e86",
+              "changed_pixels": 343,
+              "changed_pixel_bounds_half_open": [
+                54,
+                589,
+                89,
+                619
+              ]
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "fb28b6212200f73c348e91028891f731732444e7089020593c29e227cea81c02",
+              "control_rgb_sha256": "826b3e33ce27fcdc3df55f55f26637a76bacde8c1ad05b4b85e097afe6f90c9d",
+              "changed_pixels": 491,
+              "changed_pixel_bounds_half_open": [
+                507,
+                294,
+                554,
+                320
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "colony",
+      "native_before_and_after_equal_to_accepted_baseline": true,
+      "red_pixels_hud": 0,
+      "red_pixels_map_lower_body": 0,
+      "runs": [
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-ifwausrt/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81",
+              "control_rgb_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "d7840eafa34408066180a9173d2aa8adfc0e5d12fd8cebee02291f990b542ba0",
+              "control_rgb_sha256": "d7840eafa34408066180a9173d2aa8adfc0e5d12fd8cebee02291f990b542ba0",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            }
+          }
+        },
+        {
+          "artifacts": "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-kuuixaaz/run",
+          "regions": {
+            "selected_hud": {
+              "roi_half_open": [
+                42,
+                578,
+                125,
+                632
+              ],
+              "baseline_rgb_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81",
+              "control_rgb_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            },
+            "map_lower_body": {
+              "roi_half_open": [
+                495,
+                294,
+                570,
+                326
+              ],
+              "baseline_rgb_sha256": "d7840eafa34408066180a9173d2aa8adfc0e5d12fd8cebee02291f990b542ba0",
+              "control_rgb_sha256": "d7840eafa34408066180a9173d2aa8adfc0e5d12fd8cebee02291f990b542ba0",
+              "changed_pixels": 0,
+              "changed_pixel_bounds_half_open": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "conclusion": "Pinned VT.cvr contributes to the visible Former chassis in both the selected HUD and lower-body map region. Scout/Colony regions are unchanged; some Former equipment retains original colors. Full component assembly, physical palette selection, camera/facing/lighting/fit/animation remain unsupported."
+}

@@ -6,11 +6,12 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
-with tempfile.TemporaryDirectory(prefix="glsmac-flic-tests-") as directory:
-    binary = Path(directory) / "flic-test"
-    subprocess.run([
-        os.environ.get("CXX", "c++"), "-std=c++17", "-Wall", "-Wextra", "-Werror",
-        "-I", str(ROOT / "src"), str(ROOT / "tools/texture-tests/flic.cpp"),
-        str(ROOT / "src/loader/texture/Flic.cpp"), "-o", str(binary),
-    ], check=True)
-    subprocess.run([str(binary)], check=True)
+with tempfile.TemporaryDirectory(prefix="glsmac-texture-tests-") as directory:
+    for test, source in (("flic", "Flic"), ("caviar", "Caviar")):
+        binary = Path(directory) / (test + "-test")
+        subprocess.run([
+            os.environ.get("CXX", "c++"), "-std=c++17", "-Wall", "-Wextra", "-Werror",
+            "-I", str(ROOT / "src"), str(ROOT / f"tools/texture-tests/{test}.cpp"),
+            str(ROOT / f"src/loader/texture/{source}.cpp"), "-o", str(binary),
+        ], check=True)
+        subprocess.run([str(binary)], check=True)

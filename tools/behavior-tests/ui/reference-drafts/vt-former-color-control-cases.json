@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "Original VT valid color control with bounded lower-body map observation",
+  "cases": [
+    {
+      "id": "vt-color-index105-lower-body",
+      "algorithm": "ui.unit_asset_color_indices.v2",
+      "input": {
+        "asset": "VT.cvr"
+      }
+    }
+  ]
+}

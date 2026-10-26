@@ -1,4 +1,5 @@
 #include "TextureLoader.h"
+#include "Caviar.h"
 
 #include <algorithm>
 #include <stdexcept>
@@ -252,6 +253,7 @@ static const TextureLoader::transparent_colors_t s_no_transparent_colors = {};
 
 TextureLoader::~TextureLoader() {
 	for ( const auto& it : m_flic_frames ) { delete it.second; }
+	for ( const auto& it : m_caviar_previews ) { delete it.second; }
 	for ( const auto& it : m_color_textures ) {
 		DELETE( it.second );
 	}
@@ -293,6 +295,12 @@ types::texture::Texture* TextureLoader::TryLoadCustomTexture( const std::string&
 	std::string key;
 	key.resize( filename.size() );
 	std::transform( filename.begin(), filename.end(), key.begin(), ::tolower );
+	if ( key.size() >= 4 && key.compare( key.size() - 4,4,".cvr" ) == 0 ) {
+		// CVR previews have their own alpha and cache; PCX color-key state must
+		// not leak into source palette colors or change on decoder exceptions.
+		const auto path = TryGetCustomFilename( filename );
+		return path.empty() ? nullptr : LoadCaviarPreview( path,flags );
+	}
 	const auto res = g_engine->GetResourceManager()->GetResource( filename );
 	transparent_colors_t colors_old;
 	bool fix_yellow_shadows_old;
@@ -311,6 +319,19 @@ types::texture::Texture* TextureLoader::TryLoadCustomTexture( const std::string&
 		m_fix_yellow_shadows = fix_yellow_shadows_old;
 	}
 	return result;
+}
+
+types::texture::Texture* TextureLoader::LoadCaviarPreview( const std::string& path, const types::texture::texture_flag_t flags ) {
+	const auto key = path + ":cvr-preview:" + std::to_string( flags );
+	const auto found = m_caviar_previews.find( key );
+	if ( found != m_caviar_previews.end() ) { return found->second; }
+	std::vector< unsigned char > bytes;
+	util::FS::ReadFile( bytes,path,util::FS::PATH_SEPARATOR,64 * 1024 * 1024 );
+	const auto image = Caviar::Decode( bytes ).Preview();
+	auto* texture = new types::texture::Texture( key,image.width,image.height,flags );
+	memcpy( texture->GetBitmap(),image.rgba.data(),image.rgba.size() );
+	m_caviar_previews.emplace( key,texture );
+	return texture;
 }
 
 types::texture::Texture* TextureLoader::LoadCustomTexture( const std::string& filename, const types::texture::texture_flag_t flags ) {

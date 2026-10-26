@@ -1,0 +1,21 @@
+{
+  "phase": "VT valid color source control and clean Base Operations semantic projection",
+  "source_checkpoint": "6b0d0ced on main1e8913f6",
+  "installed_vt_final_sha256": "076df434678a92b0de70965a0c3c1a400de31924d9365c8c96998f0bb2e13c19",
+  "accepted_commands": {
+    "negative_physical_palette": "/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-reference/tools/behavior-tests/compare.py record --cases /tmp/wasmsmac-units-visual-research/vt-red-cases.json --command '/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-visual-research/asset_adapter.py' --output /tmp/wasmsmac-units-visual-research/vt-red-observations.json --repeat 2 --timeout 600",
+    "positive_bounded_body_binding": "/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-reference/tools/behavior-tests/compare.py record --cases /tmp/wasmsmac-units-visual-research/vt-color-index-lower-body-cases.json --command '/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-visual-research/asset_index_lower_body_adapter.py' --output /tmp/wasmsmac-units-visual-research/vt-color-index-lower-body-observations.json --repeat 2 --timeout 600"
+  },
+  "private_reference_script_sha256": {
+    "asset_capture.py": "d484116518fc70b20c6767d62e2cbafe946c2d4aca5bfe48d17ecb1ef6389262",
+    "asset_adapter.py": "586e0469f3386253cf1f8963342c16b28d4799e06e326e598c8cadf91b5d1825",
+    "asset_index_capture.py": "61f957f2bc67250c2115e2c6acccd05e879a50177981f943466db996f5c70bbf",
+    "asset_index_lower_body_adapter.py": "d266c1e83481b587810fc995961388cec9083250baf0d65181aa313aa9e20c20"
+  },
+  "private_pending_inputs": {
+    "rover_adapter": "/tmp/wasmsmac-units-visual-research/rover_capture.py",
+    "rover_adapter_sha256": "fc1e634ac7d7a06028241819765d20b92b78cb8600fec81e6813ae6efc8905b6",
+    "status": "Prepared only, no original observations; do not run until explicit exclusive-phase restore"
+  },
+  "unsupported": "Original full-frame/badge timing, transform assembly/camera/facing/lighting/complete graphics fidelity, general fungus cost/probability. All accepted earlier contracts unchanged."
+}
