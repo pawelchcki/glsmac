@@ -57,6 +57,8 @@ private:
 	std::unordered_map< std::string, types::texture::LazyTexture* > m_lazy_textures = {};
 	std::unordered_map< std::string, Flic > m_flics;
 	std::unordered_map< std::string, types::texture::Texture* > m_flic_frames;
+	std::unordered_map< std::string, types::texture::Texture* > m_caviar_previews;
+	types::texture::Texture* LoadCaviarPreview( const std::string& path, types::texture::texture_flag_t flags );
 };
 
 }

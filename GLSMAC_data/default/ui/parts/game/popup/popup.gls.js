@@ -4,6 +4,7 @@ return {
 		'turn_confirmation',
 		'please_dont_go',
 		'base_screen',
+		'base_operations',
 		'terraforming_replacement',
 		'unit_activation',
 		'research',

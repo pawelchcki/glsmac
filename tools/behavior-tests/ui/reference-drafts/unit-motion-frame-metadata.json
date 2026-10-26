@@ -1,0 +1,403 @@
+{
+  "scope": "Actual acquisition diagnostics, not strict frame/pixel agreement. Requested times are not exact delivery times; all raw frames private. Camera native offset not measured.",
+  "runs": [
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-n8cqv5ic/run",
+      "roles": [
+        {
+          "role": "scout",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.394809,
+              "frame_end_ms": 1.897352,
+              "native_end_ms": 28.873114
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 28.877682,
+              "frame_end_ms": 30.325803,
+              "native_end_ms": 57.333905
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 57.338203,
+              "frame_end_ms": 58.677671,
+              "native_end_ms": 85.870098
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 85.873835,
+              "frame_end_ms": 87.26563,
+              "native_end_ms": 114.24589
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 114.250308,
+              "frame_end_ms": 115.831078,
+              "native_end_ms": 145.613984
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 150.065849,
+              "frame_end_ms": 151.747006,
+              "native_end_ms": 182.037353
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 250.065588,
+              "frame_end_ms": 251.452354,
+              "native_end_ms": 280.662759
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.075091,
+              "frame_end_ms": 501.898074,
+              "native_end_ms": 536.923686
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.066025,
+              "frame_end_ms": 1001.567616,
+              "native_end_ms": 1037.228066
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25,
+            50,
+            75
+          ]
+        },
+        {
+          "role": "former",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.559548,
+              "frame_end_ms": 3.13038,
+              "native_end_ms": 51.272798
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 51.27931,
+              "frame_end_ms": 53.514945,
+              "native_end_ms": 101.778921
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 101.787436,
+              "frame_end_ms": 104.46006,
+              "native_end_ms": 145.900551
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 145.906041,
+              "frame_end_ms": 148.327825,
+              "native_end_ms": 186.495228
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 186.501871,
+              "frame_end_ms": 188.594017,
+              "native_end_ms": 226.410644
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 226.417927,
+              "frame_end_ms": 228.114453,
+              "native_end_ms": 261.626752
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 261.631591,
+              "frame_end_ms": 263.651232,
+              "native_end_ms": 296.508504
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.343153,
+              "frame_end_ms": 505.227688,
+              "native_end_ms": 567.876632
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.178906,
+              "frame_end_ms": 1005.065184,
+              "native_end_ms": 1064.933573
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25
+          ]
+        },
+        {
+          "role": "colony",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.364643,
+              "frame_end_ms": 1.76243,
+              "native_end_ms": 27.984861
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 27.989329,
+              "frame_end_ms": 29.404789,
+              "native_end_ms": 56.163364
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 56.167301,
+              "frame_end_ms": 57.777926,
+              "native_end_ms": 84.611461
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 84.61611,
+              "frame_end_ms": 86.072537,
+              "native_end_ms": 112.796547
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 112.801105,
+              "frame_end_ms": 114.37925,
+              "native_end_ms": 143.727753
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 150.067592,
+              "frame_end_ms": 151.57841,
+              "native_end_ms": 180.917767
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 250.067812,
+              "frame_end_ms": 251.639896,
+              "native_end_ms": 281.156013
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.072517,
+              "frame_end_ms": 501.512021,
+              "native_end_ms": 532.273009
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.067598,
+              "frame_end_ms": 1001.792397,
+              "native_end_ms": 1029.917981
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25,
+            50,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-oqiy6h9u/run",
+      "roles": [
+        {
+          "role": "scout",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.349935,
+              "frame_end_ms": 1.608341,
+              "native_end_ms": 27.844328
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 27.848245,
+              "frame_end_ms": 29.198202,
+              "native_end_ms": 55.705707
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 55.709414,
+              "frame_end_ms": 57.13879,
+              "native_end_ms": 82.093808
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 82.096894,
+              "frame_end_ms": 83.477639,
+              "native_end_ms": 107.660522
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 107.663678,
+              "frame_end_ms": 108.873673,
+              "native_end_ms": 136.528275
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 150.058274,
+              "frame_end_ms": 151.31124,
+              "native_end_ms": 178.652355
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 250.067652,
+              "frame_end_ms": 251.392082,
+              "native_end_ms": 278.424158
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.079519,
+              "frame_end_ms": 501.399501,
+              "native_end_ms": 528.261399
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.078448,
+              "frame_end_ms": 1001.443904,
+              "native_end_ms": 1029.04174
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25,
+            50,
+            75
+          ]
+        },
+        {
+          "role": "former",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.398916,
+              "frame_end_ms": 1.659626,
+              "native_end_ms": 26.575251
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 26.578307,
+              "frame_end_ms": 27.91016,
+              "native_end_ms": 57.878023
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 58.024407,
+              "frame_end_ms": 59.333137,
+              "native_end_ms": 85.980754
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 85.984221,
+              "frame_end_ms": 88.927551,
+              "native_end_ms": 114.221654
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 114.225682,
+              "frame_end_ms": 115.546294,
+              "native_end_ms": 144.668574
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 150.058094,
+              "frame_end_ms": 151.54146,
+              "native_end_ms": 179.521973
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 250.062281,
+              "frame_end_ms": 251.279891,
+              "native_end_ms": 278.399131
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.075512,
+              "frame_end_ms": 501.801893,
+              "native_end_ms": 529.986017
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.060404,
+              "frame_end_ms": 1001.43649,
+              "native_end_ms": 1030.733477
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25,
+            50,
+            75
+          ]
+        },
+        {
+          "role": "colony",
+          "samples": [
+            {
+              "requested_ms": 0,
+              "frame_start_ms": 0.306544,
+              "frame_end_ms": 2.154042,
+              "native_end_ms": 29.643846
+            },
+            {
+              "requested_ms": 25,
+              "frame_start_ms": 29.647233,
+              "frame_end_ms": 30.899156,
+              "native_end_ms": 56.471811
+            },
+            {
+              "requested_ms": 50,
+              "frame_start_ms": 56.474917,
+              "frame_end_ms": 57.685002,
+              "native_end_ms": 83.100613
+            },
+            {
+              "requested_ms": 75,
+              "frame_start_ms": 83.103718,
+              "frame_end_ms": 84.267658,
+              "native_end_ms": 109.850822
+            },
+            {
+              "requested_ms": 100,
+              "frame_start_ms": 109.854469,
+              "frame_end_ms": 111.157077,
+              "native_end_ms": 140.709382
+            },
+            {
+              "requested_ms": 150,
+              "frame_start_ms": 150.059827,
+              "frame_end_ms": 151.406538,
+              "native_end_ms": 180.17709
+            },
+            {
+              "requested_ms": 250,
+              "frame_start_ms": 250.06648,
+              "frame_end_ms": 251.544827,
+              "native_end_ms": 282.846587
+            },
+            {
+              "requested_ms": 500,
+              "frame_start_ms": 500.075492,
+              "frame_end_ms": 501.338536,
+              "native_end_ms": 528.394869
+            },
+            {
+              "requested_ms": 1000,
+              "frame_start_ms": 1000.069541,
+              "frame_end_ms": 1001.459293,
+              "native_end_ms": 1028.682908
+            }
+          ],
+          "semantic_native_unavailable_at_requested_ms": [
+            0,
+            25,
+            50,
+            75
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "algorithm": "ui.base_operations_navigation_semantics.v1",
+  "method": "Data-only projection from direct inspection and exact static RGB-region equality across BOTH independently fresh accepted original captures. No candidate output/source is used. The accepted protocol record and visual artifact remain unchanged.",
+  "derived_from": {
+    "protocol_file": "unit-motion-base-report-observations.json",
+    "protocol_sha256": "c88b42c467631426922daec6aa5a7c7bd0b5182e9f383485982517620aeb937d",
+    "visual_file": "base-report-visual-observations-v1.json",
+    "visual_sha256": "b008517d963407839f5f5653138e4363528f85f1481b93fcb91c3dc9b776d0f3",
+    "repeat": 2,
+    "case_id": "stacked-three-east-and-base-report"
+  },
+  "source_binding": {
+    "installed_file": "menu.txt",
+    "block": "HQ",
+    "zero_based_nonseparator_slot_excluding_title": 7,
+    "declared_hint": "F4",
+    "exercised_entry": "MENU -> HQ -> Base Operations Status",
+    "report_label_source_precedence": "unsupported"
+  },
+  "observed": {
+    "checkpoints": [
+      {
+        "id": "report-open",
+        "screen": "base-operations",
+        "title": "GAIAN BASE OPERATIONS",
+        "tabs": [
+          "PRODUCTION",
+          "CITIZENS",
+          "GARRISON"
+        ],
+        "selected_tab": "PRODUCTION",
+        "row": {
+          "city": "GAIA'S LANDING",
+          "project": "Formers",
+          "selected": false
+        }
+      },
+      {
+        "id": "single-click-row",
+        "screen": "base-operations",
+        "title": "GAIAN BASE OPERATIONS",
+        "row": {
+          "city": "GAIA'S LANDING",
+          "project": "Formers",
+          "selected": true
+        }
+      },
+      {
+        "id": "double-click-row",
+        "screen": "city-panel",
+        "title": "GAIA'S LANDING",
+        "project": "FORMERS"
+      },
+      {
+        "id": "escape-city-panel",
+        "screen": "base-operations",
+        "title": "GAIAN BASE OPERATIONS",
+        "row": {
+          "city": "GAIA'S LANDING",
+          "project": "Formers",
+          "selected": true
+        }
+      },
+      {
+        "id": "escape-report",
+        "screen": "map"
+      }
+    ],
+    "visible_buttons": [
+      "DATALINKS",
+      "CLOSE"
+    ],
+    "all_seven_native_arrays_unchanged": true,
+    "native_checkpoint_ids": [
+      "base-flow-before",
+      "base-flow-menu",
+      "base-flow-hq",
+      "base-flow-report-stable",
+      "base-flow-selected-row",
+      "base-flow-panel-stable",
+      "base-flow-return-stable",
+      "base-flow-escape-close"
+    ],
+    "native_turn_unchanged": true
+  },
+  "unsupported": [
+    "Prices/progress/turn numerals in this semantic projection",
+    "Signed food and other resource semantics",
+    "Tabs other than Production",
+    "Keyboard row navigation or Enter",
+    "F4 delivery",
+    "Datalinks/Close button effects",
+    "Governor changes",
+    "Multi-city list/navigation/sorting",
+    "Report label source precedence",
+    "Artwork/camera/audio/general game fidelity"
+  ]
+}

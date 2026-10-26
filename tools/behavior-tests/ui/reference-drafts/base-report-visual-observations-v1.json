@@ -1,0 +1,357 @@
+{
+  "scope": "Separate immutable RGB-region measurements and direct visual inspection; not an edit of accepted protocol evidence. No candidate executed.",
+  "regions": {
+    "report-title": [
+      190,
+      5,
+      834,
+      30
+    ],
+    "report-tabs": [
+      191,
+      30,
+      833,
+      53
+    ],
+    "report-row": [
+      191,
+      58,
+      833,
+      101
+    ],
+    "report-buttons": [
+      263,
+      508,
+      761,
+      534
+    ],
+    "panel-title": [
+      280,
+      576,
+      726,
+      620
+    ],
+    "map-gameplay": [
+      0,
+      0,
+      1024,
+      550
+    ]
+  },
+  "runs": [
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-n8cqv5ic/run",
+      "checkpoints": {
+        "report-initial": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "1ef10c9bf827717e7a139b2838336e09355b04e746e1b5e6789f508feaf7e572",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "4b2549f04bc00eac2aa635a47c0f2460d54618021ae6e540bee0533f590abbba",
+            "bright_green_pixels": 306
+          }
+        },
+        "report-selected": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "41c13918ef785623432494c0d8b17673b94b49faaf52a8a7f90458497f4d093c",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 1408
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "14b6445af7e2c16806406676cce5ae7217ac7cd07ee26f260f28695ea121a5d9",
+            "bright_green_pixels": 306
+          }
+        },
+        "city-panel": {
+          "report-title": {
+            "rgb_sha256": "80676ac1e7e03d63878037ac013bdbfc450ca09234eab59f51e6b1d88351ead3",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "e071623a2bd5d5dcc706f9d8567a950293c5599ed39f9f59123c84e137d88c57",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "1bb437ead506ba1c58bc43ca6693da6a7003c70de505fb34df90e0e1cb43bd92",
+            "bright_green_pixels": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "cfcdbfde025344cd9be7afe7fd9d081e2d820b0bfa5caae9ca83a7290c090c1d",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "c8cec4543c9b42611b4ec720228d47c137184db1422a795f4e567fc4b8f5005d",
+            "bright_green_pixels": 2022
+          },
+          "map-gameplay": {
+            "rgb_sha256": "befc9d33e65f191fd9ee6f963255e5d24ffed0cdd19a47414348ac7fd94eff58",
+            "bright_green_pixels": 43
+          }
+        },
+        "report-returned": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "41c13918ef785623432494c0d8b17673b94b49faaf52a8a7f90458497f4d093c",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 1408
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "14b6445af7e2c16806406676cce5ae7217ac7cd07ee26f260f28695ea121a5d9",
+            "bright_green_pixels": 306
+          }
+        },
+        "report-closed": {
+          "report-title": {
+            "rgb_sha256": "80676ac1e7e03d63878037ac013bdbfc450ca09234eab59f51e6b1d88351ead3",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "e071623a2bd5d5dcc706f9d8567a950293c5599ed39f9f59123c84e137d88c57",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "6eba34ee3b94104d14661d517394ac01d7b40089f889c92f2fe28253f20f76b2",
+            "bright_green_pixels": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "1b7ad2127b0e654ad278474c1642c1ed711b24413a8068e6702262c0a61f3149",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "10ba589cce4e7909d29234cb1d27762acb82858da963b1cdb6e5022efdf872e8",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "9ae87170dd3456511f7074cc47612c47a7efdc6a1d0a68e71a83505070bb4452",
+            "bright_green_pixels": 475
+          }
+        }
+      }
+    },
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-oqiy6h9u/run",
+      "checkpoints": {
+        "report-initial": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "1ef10c9bf827717e7a139b2838336e09355b04e746e1b5e6789f508feaf7e572",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "4b2549f04bc00eac2aa635a47c0f2460d54618021ae6e540bee0533f590abbba",
+            "bright_green_pixels": 306
+          }
+        },
+        "report-selected": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "41c13918ef785623432494c0d8b17673b94b49faaf52a8a7f90458497f4d093c",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 1408
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "14b6445af7e2c16806406676cce5ae7217ac7cd07ee26f260f28695ea121a5d9",
+            "bright_green_pixels": 306
+          }
+        },
+        "city-panel": {
+          "report-title": {
+            "rgb_sha256": "80676ac1e7e03d63878037ac013bdbfc450ca09234eab59f51e6b1d88351ead3",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "e071623a2bd5d5dcc706f9d8567a950293c5599ed39f9f59123c84e137d88c57",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "1bb437ead506ba1c58bc43ca6693da6a7003c70de505fb34df90e0e1cb43bd92",
+            "bright_green_pixels": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "cfcdbfde025344cd9be7afe7fd9d081e2d820b0bfa5caae9ca83a7290c090c1d",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "c8cec4543c9b42611b4ec720228d47c137184db1422a795f4e567fc4b8f5005d",
+            "bright_green_pixels": 2022
+          },
+          "map-gameplay": {
+            "rgb_sha256": "befc9d33e65f191fd9ee6f963255e5d24ffed0cdd19a47414348ac7fd94eff58",
+            "bright_green_pixels": 43
+          }
+        },
+        "report-returned": {
+          "report-title": {
+            "rgb_sha256": "09f86c938197ebbc4b41e824d594307e188592cd9131385849ccce7c91124ef0",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "8bcd74c88f13369cd5f36d31419eb2a3005f0b6c2111adc118a642c04dc5b63b",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "41c13918ef785623432494c0d8b17673b94b49faaf52a8a7f90458497f4d093c",
+            "bright_green_pixels": 306,
+            "highlight_pixels_rgb_0_235_0": 1408
+          },
+          "report-buttons": {
+            "rgb_sha256": "9494fedcdb30b1f38ce36ac6fd8bf5d8c31e70e20a968f35f2ccb1b3cf8220c3",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "b5aba63626824b3d948c6c909eae28bef0b7dfa7c361df29af390bd5c4245c42",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "14b6445af7e2c16806406676cce5ae7217ac7cd07ee26f260f28695ea121a5d9",
+            "bright_green_pixels": 306
+          }
+        },
+        "report-closed": {
+          "report-title": {
+            "rgb_sha256": "80676ac1e7e03d63878037ac013bdbfc450ca09234eab59f51e6b1d88351ead3",
+            "bright_green_pixels": 0
+          },
+          "report-tabs": {
+            "rgb_sha256": "e071623a2bd5d5dcc706f9d8567a950293c5599ed39f9f59123c84e137d88c57",
+            "bright_green_pixels": 0
+          },
+          "report-row": {
+            "rgb_sha256": "6eba34ee3b94104d14661d517394ac01d7b40089f889c92f2fe28253f20f76b2",
+            "bright_green_pixels": 0
+          },
+          "report-buttons": {
+            "rgb_sha256": "1b7ad2127b0e654ad278474c1642c1ed711b24413a8068e6702262c0a61f3149",
+            "bright_green_pixels": 0
+          },
+          "panel-title": {
+            "rgb_sha256": "01c3510167d1e685e095f4f999ac3be1ab84c6dc6315de35fd4c197dc53a07c8",
+            "bright_green_pixels": 0
+          },
+          "map-gameplay": {
+            "rgb_sha256": "9ae87170dd3456511f7074cc47612c47a7efdc6a1d0a68e71a83505070bb4452",
+            "bright_green_pixels": 475
+          }
+        }
+      }
+    }
+  ],
+  "method": "Direct visual inspection of authentic rendered controls, plus exact bounded RGB-region equality across two independently fresh complete accepted captures. Native state invariants remain in the separate untouched protocol record.",
+  "observed": {
+    "report_title": "GAIAN BASE OPERATIONS",
+    "tabs": [
+      "PRODUCTION",
+      "CITIZENS",
+      "GARRISON"
+    ],
+    "selected_tab": "PRODUCTION",
+    "row_city": "GAIA'S LANDING",
+    "row_project": "Formers",
+    "buttons": [
+      "DATALINKS",
+      "CLOSE"
+    ],
+    "initial_row_selected": false,
+    "after_single_click": {
+      "screen": "Base Operations",
+      "row_selected": true
+    },
+    "after_double_click": {
+      "screen": "city panel",
+      "title": "GAIA'S LANDING",
+      "project": "FORMERS"
+    },
+    "after_first_escape": {
+      "screen": "Base Operations",
+      "row_selected": true
+    },
+    "after_second_escape": {
+      "screen": "map"
+    },
+    "row_highlight_palette_rgb": [
+      0,
+      235,
+      0
+    ]
+  }
+}

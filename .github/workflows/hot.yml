@@ -42,7 +42,7 @@ jobs:
           path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity test_world_minimum_generation test_base_operations -v
       - name: Test all asset-free presentation invariants
         working-directory: tools/behavior-tests
         run: python3 -m unittest discover -p 'test_presentation*.py' -v
@@ -54,7 +54,7 @@ jobs:
           node tools/behavior-tests/state_trace/presentation_bridge.test.mjs
           node tools/behavior-tests/state_trace/presentation_inputs.test.mjs
           node --test tools/wasm-tests/streaming-worker.test.mjs
-      - name: Test FLIC decoding with synthetic assets
+      - name: Test FLIC and CVR decoding with synthetic assets
         run: python3 tools/texture-tests/run.py
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --kind '${{ matrix.kind }}' --jobs 2 --report build/hot-artifacts/hot.json
@@ -71,6 +71,18 @@ jobs:
           python3 tools/behavior-tests/state_trace/all_player_identity.py compare
           --runtime build/wasm/bin/GLSMAC.js
           --report build/hot-artifacts/all-player-identity.json
+      - name: Replay minimum custom sizes through real native map generation
+        if: matrix.kind == 'regression'
+        run: >-
+          python3 tools/behavior-tests/state_trace/world_minimum.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --report build/hot-artifacts/world-minimum-generation.json
+      - name: Replay bounded Base Operations UI navigation
+        if: matrix.kind == 'regression'
+        run: >-
+          python3 tools/behavior-tests/state_trace/base_operations.py compare
+          --runtime build/wasm/bin/GLSMAC.js
+          --report build/hot-artifacts/base-operations.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

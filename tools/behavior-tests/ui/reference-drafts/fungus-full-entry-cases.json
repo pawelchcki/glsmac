@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "Original bounded four-role full-fungus",
+  "cases": [
+    {
+      "id": "full-fungus",
+      "algorithm": "game.fungus_entry_controls.v1",
+      "input": {
+        "profile": "full-fungus"
+      }
+    }
+  ]
+}

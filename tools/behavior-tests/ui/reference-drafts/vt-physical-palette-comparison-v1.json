@@ -1,0 +1,30 @@
+{
+  "method": "Post-capture data-only comparison of independently repeated original controls to prior accepted baseline; no candidate executed.",
+  "baseline_sha256": "c88b42c467631426922daec6aa5a7c7bd0b5182e9f383485982517620aeb937d",
+  "control_sha256": "0af2c90cbec85e864875e10fdd19c3f93c1f7fa54e01bd133af2c62e1bb9bef7",
+  "repeat": 2,
+  "roles": [
+    {
+      "role": "scout",
+      "native_before_matches_baseline": true,
+      "native_after_matches_baseline": true,
+      "selected_hud_rgb_matches_baseline": true,
+      "red_sentinel_pixels": 0
+    },
+    {
+      "role": "former",
+      "native_before_matches_baseline": true,
+      "native_after_matches_baseline": true,
+      "selected_hud_rgb_matches_baseline": true,
+      "red_sentinel_pixels": 0
+    },
+    {
+      "role": "colony",
+      "native_before_matches_baseline": true,
+      "native_after_matches_baseline": true,
+      "selected_hud_rgb_matches_baseline": true,
+      "red_sentinel_pixels": 0
+    }
+  ],
+  "conclusion": "Physical RGB palette-only private VT control produced no selected-HUD body change in any tested role. This proves no role binding and supplies no explanation of renderer color sources."
+}

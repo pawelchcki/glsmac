@@ -10,12 +10,13 @@ const integer = (row, index, low, high) => {
 	return value;
 };
 const find = (rows, column, name) => {
-	let result = null;
+	let result = null; let index = 0;
 	for (row of rows) {
 		if (field(row, column) == name) {
 			if (result != null) { throw Error('Ambiguous SMAC unit component: ' + name); }
-			result = row;
+			result = {index: index}; result.row = row;
 		}
+		index++;
 	}
 	if (result == null) { throw Error('Missing SMAC unit component: ' + name); }
 	return result;
@@ -34,8 +35,10 @@ return {
 			{id: 'Formers', choice: 'FORMERS', mode: 9, population: 0},
 			{id: 'ScoutPatrol', choice: 'SCOUT_PATROL', mode: 0, population: 0}]) {
 			const row = rows[ordinal]; ordinal++;
-			const c = find(chassis, 0, field(row, 1)); const w = find(weapons, 1, field(row, 2));
-			const a = find(armors, 1, field(row, 3)); const name = field(row, 0); const prerequisite = field(row, 7);
+			const component_c = find(chassis, 0, field(row, 1)); const component_w = find(weapons, 1, field(row, 2));
+			const component_a = find(armors, 1, field(row, 3));
+			const c = component_c.row; const w = component_w.row; const a = component_a.row;
+			const name = field(row, 0); const prerequisite = field(row, 7);
 			if (name == '' || prerequisite == '' || field(row, 9) != '00000000000000000000000000') { throw Error('Unsupported SMAC basic unit declaration'); }
 			const declared_rows = integer(row, 5, 0, 100);
 			integer(row, 6, 0, 0); integer(row, 8, (0 - 1), (0 - 1));
@@ -46,6 +49,7 @@ return {
 			if ((mode == 0 && offense == 0) || (mode != 0 && offense != 0)) { throw Error('Invalid SMAC basic unit offense'); }
 			definitions :+ {
 				id: entry.id, choice: entry.choice, name: name, prerequisite: prerequisite, population: entry.population,
+				source_components: {prototype: ordinal - 2, chassis: component_c.index, weapon: component_w.index, armor: component_a.index, reactor: 0},
 				declared_rows: declared_rows,
 				movement: integer(c, 8, 1, 8), chassis_cost: integer(c, 12, 1, 32),
 				weapon_mode: mode, weapon_cost: integer(w, 4, 1, 32), armor_cost: integer(a, 4, 1, 32),

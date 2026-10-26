@@ -1,0 +1,54 @@
+{
+  "file": "VT.cvr",
+  "sha256": "076df434678a92b0de70965a0c3c1a400de31924d9365c8c96998f0bb2e13c19",
+  "size_bytes": 185105,
+  "method": "Independent parse of installed asset using public Caviar container schema; asset metadata only, not original executable/renderer research.",
+  "schema_source": "https://alphacentauri2.info/wiki/Caviar.html",
+  "parts": [
+    {
+      "name": "VT",
+      "voxel": {
+        "flags": 10,
+        "payload_bytes": 177957,
+        "units_per_3d_pixel": 4.0,
+        "declared_non_stop_voxel_count": 59280,
+        "jump_groups_records_including_stop": [
+          29564,
+          29718
+        ],
+        "terminal_stop_records": 2,
+        "jump_flags": [
+          0,
+          0
+        ],
+        "trailing_zero_bytes": 5,
+        "unknown_flag8_semantics": "unsupported"
+      },
+      "first_object_flag_byte": 0,
+      "object_flag_payload_bytes": 1,
+      "first_location_vector_present": true,
+      "first_location_vector_finite": true,
+      "first_location_coordinate_order_from_public_schema": "Z,X,Y",
+      "location_transform_composition": "unsupported",
+      "first_matrix_is_identity": true,
+      "first_matrix_payload_bytes": 36,
+      "matrix_axis_order_from_public_schema": "Z,X,Y",
+      "original_render_transform_semantics": "unsupported"
+    }
+  ],
+  "version_float32": 10.100000381469727,
+  "database_name": "TERRAF.MAX",
+  "palette_name": "Unnamed",
+  "palette": {
+    "first_index": 1,
+    "last_index": 245,
+    "physical_rgb_entries": 256,
+    "shade_rows": 24,
+    "shade_columns": 256,
+    "payload_bytes": 6914
+  },
+  "scene_name": "TERRAF.MAX",
+  "scene_object_count": 1,
+  "scene_frame_count": 1,
+  "has_material_chunk": false
+}

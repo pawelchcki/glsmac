@@ -224,3 +224,11 @@ engine events remain diagnostic; the separate `presentation.trace.v1` runner
 supports pre-world menu/intro sessions without inventing map/player state.
 Both pinned presentation cases currently remain unsupported for complete
 semantic coverage. They add no passing original cases.
+
+The [Base Operations navigation projection](base-operations-contract.md) adds a
+bounded public native replay for the accepted repeat2 report/control evidence:
+`python3 tools/behavior-tests/state_trace/base_operations.py compare --runtime
+PATH --report PATH`. It compares five report UI checkpoints and separately
+checks all-seven native state preservation. The original complete motion/world
+trace and numerical report/resource behavior remain unsupported, with zero
+full-trace passing cases.

@@ -1,0 +1,111 @@
+{
+  "scope": "Independent original selected-HUD body crop measurements; same RGB ROIs in two fresh accepted captures. Excludes badge at x<42; excludes name text y>=637. Nonbackground is literal palette exclusion of black and HUD scanline RGB13,23,36, not a general sprite alpha matte. Map anchor/facing/CVR mapping/candidate pixel agreement remain unsupported.",
+  "runs": [
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-n8cqv5ic/run",
+      "roles": [
+        {
+          "role": "scout",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            60,
+            583,
+            78,
+            614
+          ],
+          "rgb_roi_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af"
+        },
+        {
+          "role": "former",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            48,
+            591,
+            97,
+            625
+          ],
+          "rgb_roi_sha256": "c263c0825ae5ec572576cbc984c87687af2cc406e6edc26292ea4da2202c7e51"
+        },
+        {
+          "role": "colony",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            48,
+            591,
+            97,
+            625
+          ],
+          "rgb_roi_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81"
+        }
+      ]
+    },
+    {
+      "artifacts": "/tmp/wasmsmac-units-visual-research/recorded/capture-oqiy6h9u/run",
+      "roles": [
+        {
+          "role": "scout",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            60,
+            583,
+            78,
+            614
+          ],
+          "rgb_roi_sha256": "26d04b0eeb8a294de58e1cb39be9ad4af314cfcd11d79022f51ddb1e15ba74af"
+        },
+        {
+          "role": "former",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            48,
+            591,
+            97,
+            625
+          ],
+          "rgb_roi_sha256": "c263c0825ae5ec572576cbc984c87687af2cc406e6edc26292ea4da2202c7e51"
+        },
+        {
+          "role": "colony",
+          "selected_hud_roi": [
+            42,
+            578,
+            125,
+            632
+          ],
+          "nonbackground_bbox_half_open": [
+            48,
+            591,
+            97,
+            625
+          ],
+          "rgb_roi_sha256": "95c458e662f908f98aaed06571b5906f93b0ffdb47675f501322100475235d81"
+        }
+      ]
+    }
+  ]
+}

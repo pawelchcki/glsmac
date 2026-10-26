@@ -1,0 +1,22 @@
+{
+  "source_commit": "1e8913f6",
+  "python": "3.14.3 (main, Mar 26 2026, 00:00:00) [GCC 15.2.1 20260123 (Red Hat 15.2.1-7)]",
+  "pillow": "13.0.0",
+  "tesseract": "5.5.2",
+  "tesseract_english_model_sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+  "Xvfb_executable_sha256": "a4e41d286d4cacbabf1b8765907521647517ef334d856e28496b8a86b2f9e1d4",
+  "xdotool_executable_sha256": "c4012f52ce89cec67a751911657ac4ba9a45f9ffcec555d22be0ff0b5c7b4908",
+  "recorded_unit_base_commands": [
+    "/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-reference/tools/behavior-tests/compare.py record --cases /tmp/wasmsmac-units-visual-research/cases.json --command \"/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-visual-research/record_adapter.py\" --output /tmp/wasmsmac-units-visual-research/observations.json --repeat 2 --timeout 600"
+  ],
+  "recorded_fungus_commands": [
+    "/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-reference/tools/behavior-tests/compare.py record --cases /tmp/wasmsmac-units-visual-research/full-fungus-cases.json --command \"/tmp/glsmac-reference-venv/bin/python /tmp/wasmsmac-units-visual-research/fungus_capture.py\" --output /tmp/wasmsmac-units-visual-research/full-fungus-observations.json --repeat 2 --timeout 600"
+  ],
+  "private_reference_scripts_sha256": {
+    "capture.py": "d8e3ac2b75d96e904759b84184f8ab53e9018e125c56d59e7ecb3b96d0b926f8",
+    "record_adapter.py": "a90993bef62a03044fd84dc763d06164eaff693e2f5c5683f08837c0dfc3d2ef",
+    "fungus_capture.py": "6c684c698310f7b1d6bf29932aea566e8e81c55394d8438c21b681f0d5266171",
+    "asset_capture.py": "602cfb57edc6c5debb61e43a26ccfa6c53931eeb7d84348cb2970605822252d1",
+    "asset_adapter.py": "586e0469f3386253cf1f8963342c16b28d4799e06e326e598c8cadf91b5d1825"
+  }
+}

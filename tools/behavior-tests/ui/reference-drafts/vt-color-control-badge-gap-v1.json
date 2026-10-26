@@ -1,0 +1,32 @@
+{
+  "status": "rejected-whole-record",
+  "reason": "Exact complete output differed only in Scout full-map ROI RGB hash. Badge visibility/timing is unsupported. No accepted previous observation was edited.",
+  "failed_log_sha256": "eaea1d8a9151325925bd2e4798e9bc62d66f0057104056ba909b2dfef9d06b66",
+  "private_observation_files": [
+    "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-mxeos9iu/run/observed.json",
+    "/tmp/wasmsmac-units-visual-research/asset-recorded/VT.cvr-vm454fs0/run/observed.json"
+  ],
+  "private_observation_sha256": [
+    "2247437e3caf52220fcc6ebb5dcd94608ce207b02a9be397e3336f8dd8cb0b82",
+    "9953c9e76768a7a0eeafe20bbf0be4720d26918fed7734f17a6520ae6824c20b"
+  ],
+  "varying_field": "roles[scout].map_body_rgb_sha256",
+  "full_map_roi": [
+    495,
+    265,
+    570,
+    326
+  ],
+  "values": [
+    "5930ebe84ca7655e5b1052f2924e6326d4e6c3de7c0fe5484318c52720902af0",
+    "0a0ec31d4ee6ee7741dd25ac0bbdbd508ffa61540eae5bc34fbd721f9e1ef089"
+  ],
+  "different_pixels": 533,
+  "difference_bounds_half_open": [
+    497,
+    268,
+    522,
+    294
+  ],
+  "new_contract_before_rerun": "ui.unit_asset_color_indices.v2 uses lower-body ROI[495,294,570,326], requires two new fresh complete original captures; full map/badge remains unsupported"
+}

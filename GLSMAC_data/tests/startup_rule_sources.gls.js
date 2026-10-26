@@ -3,6 +3,14 @@ const behavior = #include('./_behavior');
 const consumer = #include('../default/game/unit_rules');
 const technology = #include('../default/game/faction_starting_technologies');
 const fixture = #include('./_startup_unit_rules_fixture');
+const definitions = #include('../default/units/defs');
+const declared = (rules) => {
+	const result = {};
+	definitions.define({event: (name, payload) => {
+		if (name == 'define_unit') { result[payload.id] = #clone(payload.data); }
+	}}, rules);
+	return result;
+};
 const blocks = () => {
 	const parsed = test.parse_smac_text(fixture.source, 'rules'); const table = {};
 	for (name of ['UNITS', 'CHASSIS', 'WEAPONS', 'DEFENSES', 'REACTORS', 'MORALE']) { table[name] = parsed.rows(name); }
@@ -30,6 +38,50 @@ behavior.scenario('controlled source names and component costs propagate without
 	set(input, 'UNITS', 3, 0, 'Synthetic Guard'); set(input, 'WEAPONS', 2, 4, '12');
 	const units = consumer.materialize(f.game.um, consumer.parse(input.document));
 	test.assert(units[2].name == 'Synthetic Guard' && units[1].weapon_cost == 12 && units[1].rows == 4);
+});
+
+behavior.scenario('stock Former component uses installed geometry with source provenance and existing combat', () => {
+	const rules = fixture.parse(); const actual = declared(rules);
+	#print('CVR_DEFINITION|Formers|' + actual.Formers.render.file);
+	test.assert(actual.Formers.render.file == 'VT.cvr', 'Former must use its authentic installed component rather than the citizen portrait');
+	test.assert(rules.definitions[1].source_components == {prototype: 1, chassis: 0, weapon: 2, armor: 0, reactor: 0});
+	test.assert(actual.Formers.morale == 'STANDARD' && actual.Formers.combat == {kind: 'civilian', offense: 0, defense: 1, reactor: 1});
+	test.assert(actual.Formers.movement_per_turn == 1);
+	test.assert(actual.ScoutPatrol.render.file == 'newicons.pcx' && actual.ColonyPod.render.file == 'newicons.pcx', 'Unverified roles retain their existing fallback');
+});
+
+behavior.scenario('component provenance survives authored display names without mutating source rows', () => {
+	const input = blocks(); set(input, 'UNITS', 2, 0, 'Authored Terraformer');
+	set(input, 'CHASSIS', 0, 0, 'Authored Foot');
+	for (row of [1,2,3]) { set(input, 'UNITS', row, 1, 'Authored Foot'); }
+	const before = #clone(input.table); const rules = consumer.parse(input.document); const actual = declared(rules);
+	test.assert(actual.Formers.name == 'Authored Terraformer' && actual.Formers.render.file == 'VT.cvr');
+	test.assert(rules.definitions[1].source_components.chassis == 0 && input.table == before);
+});
+
+behavior.scenario('unobserved authored chassis and armor variants retain functional fallback', () => {
+	for (kind of ['chassis','armor']) {
+		const input = blocks();
+		if (kind == 'chassis') {
+			const extra = #clone(input.table.CHASSIS[0]); extra[0] = 'Authored Rover'; extra[8] = '2';
+			input.table.CHASSIS :+ extra; set(input, 'UNITS', 2, 1, 'Authored Rover');
+		} else {
+			const extra = #clone(input.table.DEFENSES[0]); extra[0] = 'Authored Armor'; extra[1] = 'ExtraArmor'; extra[2] = '2';
+			input.table.DEFENSES :+ extra; set(input, 'UNITS', 2, 3, 'ExtraArmor');
+		}
+		const rules = consumer.parse(input.document); const actual = declared(rules);
+		test.assert(actual.Formers.render.file == 'newicons.pcx', 'Unobserved component assemblies must not acquire a stock-model claim');
+		test.assert(kind == 'chassis' ? actual.Formers.movement_per_turn == 2 : actual.Formers.combat.defense == 2);
+	}
+	const legacy = fixture.parse(); legacy.definitions[1].source_components = #undefined;
+	test.assert(declared(legacy).Formers.render.file == 'newicons.pcx', 'Unproven caller-authored definitions keep their previous fallback');
+});
+
+behavior.scenario('CVR-backed Former keeps native definition wire format and civilian identity', () => {
+	const f = #include('./_former_work_fixture')('arid');
+	const def = f.former.get_def(); const codec = f.unit_definition_codec_probe('Formers');
+	test.assert(def.id == 'Formers' && def.morale == 'STANDARD' && def.combat.kind == 'civilian');
+	test.assert(codec.roundtrip && codec.legacy_default && codec.invalid_rejected && codec.source_unchanged);
 });
 
 let index = 0;

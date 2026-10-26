@@ -201,3 +201,12 @@ serially. Native labels, separators, text tones and city/unit state are observed
 artwork, hints, enabled semantics and row effects are outside this contract.
 The display-free equivalent needs no original assets; see the
 [bounded contract](../behavior-tests/ui/ingame-menus-contract.md).
+
+`npm run test:base-operations` uses installed assets and actual pointer events to
+open MENU → HQ → Base Operations, select a live owned city, double-click into
+its native city panel and return with Escape. It continuously checks deep
+primitive state snapshots for every owner/unit/base throughout the controls.
+Use `WASM_SCRIPTS_ROOT` for the current source snapshot and `WASM_APP_DIR` for a
+pinned engine/web shell. This checks navigation and native preservation; exact
+original report artwork, numerical report rules and double-click timing remain
+outside the bounded observation contract.

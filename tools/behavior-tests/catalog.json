@@ -1,6 +1,8 @@
 {
   "version": 1,
   "suites": [
+    {"id":"base-operations","script":"GLSMAC_data/tests/base_operations.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"base-operations-lifecycle","script":"GLSMAC_data/tests/base_operations_lifecycle.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"duplicate-faction-identity","script":"GLSMAC_data/tests/duplicate_faction_identity.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
     {"id":"computer-production","script":"GLSMAC_data/tests/computer_production.gls.js","domains":["gameplay","economy","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"state-trace-snapshot","script":"GLSMAC_data/tests/state_trace_snapshot.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},

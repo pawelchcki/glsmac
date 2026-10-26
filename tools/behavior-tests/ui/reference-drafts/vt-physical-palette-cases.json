@@ -1,0 +1,1 @@
+{"version":1,"name":"Original unit VT physical-palette control","cases":[{"id":"vt-red","algorithm":"ui.unit_asset_color_controls.v1","input":{"asset":"VT.cvr"}}]}
