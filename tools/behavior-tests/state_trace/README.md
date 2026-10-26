@@ -44,6 +44,34 @@ edits need no relink. One scenario executes its complete action/checkpoint
 sequence in one engine launch. `run.py --case ID` selects a scenario while
 preserving the binding to its original evidence.
 
+Every successful candidate output now also receives exhaustive comparison
+accounting in the report's `results[].comparison_audit`. The existing v1 first
+divergence and failure details retain their 20-per-domain/50-total limits, while
+the audit counts all supplied fields at every paired checkpoint, including later
+opponents after those detail limits fill. Domain counters retain shared, missing,
+extra and changed entity groups. Every roster member has a separate entry;
+unit/base ownership and explicitly player-keyed extension domains attribute
+differences to the relevant players. An ownership change counts against both
+owners, so player totals must not be added together.
+
+Use `--audit-report /path/to/audit.json` to write a separate
+`game.state_trace.comparison_audit.v1` artifact, bound to the same selected suite,
+reference and actual candidate identity. It includes up to 1,000 individual
+differences per case and an exact `details_omitted` count. Detail limits never
+truncate the counts. Console failure output stays bounded; the normal JSON
+report always retains the accounting summary without individual audit details.
+
+`observed_fields_exhausted` means all paired supplied state was visited;
+`declared_coverage_complete` only summarizes the adapters' coverage declarations.
+`state_comparison_complete` requires both, and is false for dropped or misaligned
+checkpoints or a declared coverage gap. Unlike checkpoint IDs/actions are never
+paired as though they describe the same state. Unsupported/error responses have
+`comparison_performed: false`; no empty world or zero-difference claim is invented.
+These diagnostics do not attest exhaustive native observation or original-game
+agreement, and do not alter strict outcomes or passing totals. Diagnostic-only
+fields remain excluded. A failed invocation replaces stale audit success with
+explicit error evidence, just as it does for the comparison report.
+
 The expanded `economy-research-v1` profile additionally reads every city's
 mineral store, project and Worker/Doctor counts, and every player's technology
 ownership, research target and accumulated science. It requires locally
@@ -111,9 +139,10 @@ python3 tools/behavior-tests/state_trace/run.py compare \
 
 Actual candidate execution matches the human move and Hold scenarios while
 observing every player, unit, base and declared economy/research field. The
-end-turn scenario remains a strict mismatch: all six opponent projects retain
-Colony Pod instead of the observed Formers, and University technology ownership
-is `[6]` instead of `[3, 6]`. The total is **2 matched, 1 mismatched, 0 unsupported,
+bounded [offline opening production controller](computer-production-contract.md)
+now makes all six opponent Formers projects agree while retaining current-turn
+mineral income. The end-turn scenario remains a strict mismatch: University
+technology ownership is `[6]` instead of `[3, 6]`. The total is **2 matched, 1 mismatched, 0 unsupported,
 0 errors**. No expected post-action state is supplied to the candidate, and no
 AI algorithm is inferred from this single declared world. Natural placement,
 starting stocks, faction inventory and full AI remain separate gaps.

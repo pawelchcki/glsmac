@@ -1193,7 +1193,7 @@
       "id": "explicit-seven-world-turn-production-and-technology",
       "suite": "state-trace-explicit-seven-world-v2",
       "status": "pending-native-transfer",
-      "property": "Actual shared explicit-world movement and Hold scenarios match for all seven participants. End turn remains a strict mismatch: all six opponent projects retain Colony Pod versus original Formers; University owns technology [6] versus original [3,6].",
+      "property": "Actual shared explicit-world movement and Hold scenarios match for all seven participants. All six opponent projects now match the observed Formers choice after end turn. End turn remains a strict mismatch: University owns technology [6] versus original [3,6].",
       "strict_replay": "python3 tools/behavior-tests/state_trace/run.py compare --cases tools/behavior-tests/state_trace/cases/explicit-seven-world-v2.json --reference tools/behavior-tests/state_trace/observations/smacx-gog-2.0-explicit-seven-world-v2-native-defaults.json --command \"python3 tools/behavior-tests/state_trace/candidate.py --assets /path/to/installed/game\"",
       "verification": {
         "matched": 2,

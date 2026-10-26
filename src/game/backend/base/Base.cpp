@@ -151,7 +151,9 @@ int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_i
 	// This application models declared basic land units, Tanks and human rules.
 	// Installed Headquarters is ordinary application state, not new original
 	// evidence. Other categories and Skunkworks require separate contracts.
-	if ( ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER ) ||
+	const bool computer_unit_switch = role == Player::PR_COMPUTER && previous_recipe && recipe;
+	if ( computer_unit_switch && m_production.minerals > 10 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Computer production switching above the opening mineral range is unsupported" ); }
+	if ( ( role != Player::PR_SINGLE && role != Player::PR_HOST && role != Player::PR_PLAYER && !computer_unit_switch ) ||
 		m_facilities.count( "SKUNKWORKS" ) || !supported_item( previous_def, previous_recipe ) || !supported_item( def, recipe ) ||
 		m_production.minerals < 0 || m_production.minerals > 1000000 ) {
 		GSE_ERROR( gse::EC.GAME_ERROR, "Production switching is unsupported for this context" );
@@ -166,7 +168,11 @@ int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_i
 	// The recorded basic-item arithmetic depends only on equality, not which
 	// differing basic item is chosen. Representative basic codes keep application
 	// definition IDs separate from original fixture table indices.
-	return BasicProductionSwitchLoss( previous_def ? -1 : 0, def ? -1 : 0, int( m_production.minerals ) );
+	const auto lost = BasicProductionSwitchLoss( previous_def ? -1 : 0, def ? -1 : 0, int( m_production.minerals ) );
+	// The bounded opening computer observations preserve their mineral store.
+	// Charged computer switches and facility decisions remain unsupported.
+	if ( computer_unit_switch && lost != 0 ) { GSE_ERROR( gse::EC.GAME_ERROR, "Charged computer production switching is unsupported" ); }
+	return lost;
 }
 
 ProductionState Base::SelectProduction( GSE_CALLABLE, const std::string& choice_id ) {

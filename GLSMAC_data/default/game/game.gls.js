@@ -60,6 +60,7 @@ return (glsmac) => {
 			#include('terraforming').configure(game);
 			resources.configure(game, land_resource_rules.parse(document));
 			#include('research').configure(game);
+			#include('computer_production').configure(game);
 
 			resources.define(game);
 			const starting_rules = unit_rules.parse(document);

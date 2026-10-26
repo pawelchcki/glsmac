@@ -16,6 +16,7 @@ import compare as behavior
 from protocol import ProtocolError, canonical, probe_request, validate_cases
 from state_trace.compare import compare_suite
 from state_trace.compare import select_cases  # noqa: F401 (re-exported)
+from state_trace.comparison_audit import SCHEMA as AUDIT_SCHEMA
 from state_trace.schema import ALGORITHM, validate_input, validate_reference_output
 
 
@@ -78,6 +79,8 @@ def main(argv=None):
     compare_parser.add_argument("--case", dest="selected", action="append", default=[],
                                 help="scenario id to compare; repeatable, preserves evidence binding")
     compare_parser.add_argument("--report", type=Path)
+    compare_parser.add_argument("--audit-report", type=Path,
+        help="optional exhaustive comparison accounting with at most 1000 detailed differences per case")
     args = parser.parse_args(argv)
     probe_started = False
 
@@ -104,24 +107,36 @@ def main(argv=None):
         else:
             behavior.validate_observations(observations, suite)
         request = probe_request(suite)
-        if args.report:
+        if args.audit_report and args.audit_report.resolve() in {
+            path.resolve() for path in (args.cases, args.reference, args.report) if path is not None}:
+            raise ProtocolError("audit report must differ from cases, reference and comparison report")
+        for path in (args.report, args.audit_report):
             # Invalidate any stale report before the probe attempt so a
             # crash or timeout can never leave an old pass behind.
-            args.report.unlink(missing_ok=True)
+            if path:
+                path.unlink(missing_ok=True)
         started = time.perf_counter()
         candidate = behavior.run_probe(args.command, request, args.timeout,
                                        on_started=mark_probe_started)
         duration_s = time.perf_counter() - started
-        report = compare_suite(suite, observations, candidate)
+        audits = [] if args.audit_report else None
+        report = compare_suite(suite, observations, candidate, audit_details=audits)
         # A valid response requires a process that actually started.
         report["candidate_executed"] = True
         report["duration_s"] = duration_s
         if args.report:
             behavior.write_json(args.report, report, overwrite=True)
+        if args.audit_report:
+            behavior.write_json(args.audit_report, {
+                "schema": AUDIT_SCHEMA, "algorithm": ALGORITHM,
+                "suite_sha256": report["suite_sha256"], "reference": report["reference"],
+                "candidate": report["candidate"], "candidate_executed": True,
+                "summary": report["summary"], "results": audits,
+            }, overwrite=True)
         print(", ".join(f"{count} {status}" for status, count in report["summary"].items()))
         for result in report["results"]:
             if result["status"] != "matched":
-                print(canonical(result))
+                print(canonical({key: value for key, value in result.items() if key != 'comparison_audit'}))
         if report["summary"]["errors"]:
             return 2
         return int(any(report["summary"][status] for status in ("mismatched", "unsupported")))
@@ -133,6 +148,16 @@ def main(argv=None):
                 write_error_report(args.report, probe_started, error)
             except OSError:
                 pass
+            if args.audit_report:
+                protected = {path.resolve() for path in (args.cases, args.reference, args.report) if path is not None}
+                if args.audit_report.resolve() not in protected:
+                    try:
+                        behavior.write_json(args.audit_report, {
+                            "schema": AUDIT_SCHEMA, "candidate_executed": probe_started,
+                            "comparison_performed": False, "error": str(error),
+                        }, overwrite=True)
+                    except OSError:
+                        pass
         print(f"State-trace comparison failed: {error}", file=sys.stderr)
         return 2
 
