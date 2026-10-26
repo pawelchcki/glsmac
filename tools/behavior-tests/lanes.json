@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "duplicate-faction-identity",
         "computer-production",
         "state-trace-snapshot",
         "research-science",

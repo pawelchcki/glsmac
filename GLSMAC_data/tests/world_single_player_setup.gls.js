@@ -35,13 +35,15 @@ behavior.scenario('Malformed displayed rosters reject atomically and permit a co
 	test.assert(#sizeof(f.game.get_players()) == 7, 'A corrected request uses the same empty native state');
 });
 
-behavior.scenario('Direct native human identity setup leaves a duplicate opponent and the catalog unchanged', () => {
+behavior.scenario('Direct native human identity setup disambiguates duplicate text while preserving the catalog', () => {
 	const f = test.world_startup_fixture(16, 16); configure_roster(f, true);
 	const catalog = f.fm.list(); const original = #clone(catalog[0].identity);
 	const authored = #clone(original); authored[0] = 'Trace Commander';
 	f.initialize_roster('GAIANS', {factions: ['GAIANS', 'GAIANS', 'UNIVERSITY', 'MORGANITES', 'SPARTANS', 'BELIEVERS', 'PEACEKEEPERS'], human_slot: 0, random_human: false}, authored);
 	const players = f.game.get_players();
-	test.assert(players[0].get_faction().identity == authored && players[1].get_faction().identity == original);
+	const duplicate = #clone(original); duplicate[1] = duplicate[1] + '-2';
+	if (duplicate[2] != '') { duplicate[2] = duplicate[2] + '-2'; }
+	test.assert(players[0].get_faction().identity == authored && players[1].get_faction().identity == duplicate);
 	const templates = f.fm.list(); test.assert(templates[0].identity == original);
 	test.assert(#sizeof(f.game.bm.get_bases()) == 0, 'Identity isolation needs no world-placement fixture');
 });

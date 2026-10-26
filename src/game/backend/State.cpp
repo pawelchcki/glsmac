@@ -202,6 +202,34 @@ std::string State::GetSinglePlayerMapError( const int64_t width, const int64_t h
 faction::Faction* State::CreateSinglePlayerFaction( const faction::Faction* source, const std::array< std::string, 6 >* identity ) {
 	auto instance = source->Clone();
 	if ( identity ) { instance->SetIdentity( *identity ); }
+	// Only participant-owned copies are renamed. Resolve each actual leader,
+	// formal-name and noun collision independently, after human customization;
+	// shared adjectives, titles and descriptions remain ordinary source values.
+	auto fields = instance->GetIdentity();
+	bool changed = false;
+	for ( const size_t field : { size_t( 0 ), size_t( 1 ), size_t( 2 ) } ) {
+		const auto original = fields[ field ];
+		if ( original.empty() ) { continue; }
+		const auto occupied = [ & ]( const std::string& candidate ) {
+			for ( const auto& previous : m_single_player_factions ) {
+				if ( previous->GetIdentity()[ field ] == candidate ) { return true; }
+			}
+			return false;
+		};
+		if ( !occupied( original ) ) { continue; }
+		for ( size_t ordinal = 2; ; ++ordinal ) {
+			const auto suffix = "-" + std::to_string( ordinal );
+			const size_t maximum = field == 1 ? 39 : 23;
+			auto length = std::min( original.size(), maximum - suffix.size() );
+			// Long-name clipping is an application policy outside the original
+			// stock controls. Keep complete UTF-8 characters when clipping valid
+			// UTF-8 input to the existing native byte limit.
+			while ( length && length < original.size() && ( static_cast< unsigned char >( original[ length ] ) & 0xc0 ) == 0x80 ) { --length; }
+			const auto candidate = original.substr( 0, length ) + suffix;
+			if ( !occupied( candidate ) ) { fields[ field ] = candidate; changed = true; break; }
+		}
+	}
+	if ( changed ) { instance->SetIdentity( fields ); }
 	auto* result = instance.get();
 	m_single_player_factions.push_back( std::move( instance ) );
 	return result;
