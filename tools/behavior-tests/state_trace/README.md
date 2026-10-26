@@ -117,8 +117,11 @@ passing replay totals until a versioned public adapter is integrated.
 [All-player identity evidence](all-player-identity/contract-v1.md) separately
 freezes both authored-name cases for a duplicate-Gaia roster. The candidate
 isolates each participant's mutable identity from its catalog template and
-opponents. Observed duplicate collision suffixes remain an explicit difference;
-the evidence adds no passing identity comparison or full-parity claim.
+opponents. [Participant identity transfer](participant-identity-contract.md) now
+resolves the observed per-field duplicate suffixes after actual human-name edits.
+The separately declared native projection compares all seven owners and six
+verified strings. Additional presentation and unsupported fields in the frozen
+full package remain separate; no full identity or presentation parity is claimed.
 
 ## Shared explicit-world comparison
 

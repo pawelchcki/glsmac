@@ -12,7 +12,8 @@ behavior.scenario('Duplicate participants start their own cities without sharing
 	for (let index = 0; index < 7; index++) { test.assert(players[index].get_faction().id == ids[index] && players[index].id == index); }
 	test.assert(#sizeof(game.bm.get_bases()) == 7 && players[0].type == 'human' && players[1].type == 'computer');
 	test.assert(players[0].get_faction().identity == authored && players[0].name == 'Trace Commander');
-	test.assert(players[1].get_faction().identity == original, 'The duplicate opponent retains its own source identity');
+	const duplicate = #clone(original); duplicate[1] = duplicate[1] + '-2'; duplicate[2] = duplicate[2] + '-2';
+	test.assert(players[1].get_faction().identity == duplicate, 'The duplicate opponent resolves only its actual formal-name and noun collisions');
 	const unchanged = f.fm.list(); test.assert(unchanged[0].identity == original, 'Human customization does not mutate the configured catalog');
 });
 
