@@ -15,6 +15,7 @@ from state_trace.compare import (
     compare_suite,
     select_cases,
 )
+from state_trace.comparison_audit import audit_outputs
 from state_trace.run import check_suite, main as trace_main
 from state_trace.schema import (
     ALGORITHM,
@@ -96,6 +97,152 @@ def candidate(outputs, status="ok", implementation=None):
 def good_outputs():
     return {"trace-a": output([state(), state(turn=2, x1=4)]),
             "trace-b": output([state(), state(turn=2, x1=4)])}
+
+
+class ComparisonAccountingTests(unittest.TestCase):
+    def test_later_opponent_and_checkpoint_survive_detail_limits(self):
+        expected = good_outputs()
+        actual = deepcopy(expected)
+        for point in actual['trace-a']['checkpoints']:
+            unit = point['state']['units'][0]
+            for index in range(80):
+                unit['detail_' + str(index)] = index
+        actual['trace-a']['checkpoints'][1]['state']['units'][1]['x'] = 8
+        report = compare_suite(suite(), record(expected), candidate(actual))
+        result = report['results'][0]
+        self.assertEqual(result['status'], 'mismatched')
+        self.assertEqual(result['first_divergent_checkpoint'], 'c1')
+        self.assertLessEqual(len(result['differences']), 50)
+        audit = result['comparison_audit']
+        self.assertEqual(audit['difference_count'], 161)
+        self.assertEqual(len(audit['checkpoints']), 2)
+        later = audit['checkpoints'][1]
+        self.assertEqual(later['players']['ai']['difference_count'], 1)
+        self.assertEqual(later['players']['human']['difference_count'], 80)
+        self.assertEqual(later['domains']['units']['difference_count'], 81)
+        self.assertTrue(audit['state_comparison_complete'])
+
+    def test_missing_extra_entities_ownership_and_player_keyed_research(self):
+        expected = good_outputs()
+        actual = deepcopy(expected)
+        later = actual['trace-a']['checkpoints'][1]['state']
+        later['units'][0]['owner'] = 'ai'
+        later['units'].pop(1)
+        later['bases'].append(dict(id='enemy-base', owner='ai', x=4, y=4, population=1))
+        for values in (expected, actual):
+            values['trace-a']['checkpoints'][1]['state']['research'] = {
+                'human': {'science': 1}, 'ai': {'science': 2}}
+        actual['trace-a']['checkpoints'][1]['state']['research']['ai']['science'] = 3
+        detail = []
+        result = compare_suite(suite(), record(expected), candidate(actual), audit_details=detail)['results'][0]
+        audit = result['comparison_audit']
+        point = audit['checkpoints'][1]
+        self.assertEqual(audit['difference_count'], 4)
+        self.assertEqual(point['domains']['units']['missing_entities'], 1)
+        self.assertEqual(point['domains']['bases']['extra_entities'], 1)
+        self.assertEqual(point['players']['ai']['difference_count'], 4)
+        self.assertEqual(point['players']['human']['difference_count'], 1)
+        self.assertEqual(point['players']['ai']['domains']['research']['difference_count'], 1)
+        self.assertEqual(detail[0]['details_omitted'], 0)
+        self.assertEqual(detail[0]['details'][0]['players'], ['ai', 'human'])
+
+    def test_empty_domains_and_every_roster_member_are_accounted(self):
+        expected = good_outputs()
+        for point in expected['trace-a']['checkpoints']:
+            point['state']['units'] = []
+            point['state']['bases'] = []
+        result = compare_suite(suite(), record(expected), candidate(expected))['results'][0]
+        self.assertEqual(result['status'], 'matched')
+        audit = result['comparison_audit']
+        self.assertEqual(audit['difference_count'], 0)
+        for point in audit['checkpoints']:
+            self.assertEqual(set(point['players']), {'human', 'ai'})
+            self.assertEqual(set(point['domains']), {'turn', 'map', 'players', 'units', 'bases'})
+            self.assertEqual(point['domains']['units']['shared_entities'], 0)
+            for player in point['players'].values():
+                self.assertEqual(set(player['domains']), {'units', 'bases', 'players'})
+                self.assertEqual(player['domains']['units']['shared_entities'], 0)
+                self.assertEqual(player['domains']['bases']['shared_entities'], 0)
+
+    def test_entire_missing_or_extra_player_domain_attributes_its_structural_difference(self):
+        for side in ('reference', 'candidate'):
+            expected = good_outputs()
+            actual = deepcopy(expected)
+            target = expected if side == 'reference' else actual
+            target['trace-a']['checkpoints'][1]['state']['research'] = {
+                'human': {'science': 1}, 'ai': {'science': 2}}
+            details = []
+            result = compare_suite(suite(), record(expected), candidate(actual), audit_details=details)['results'][0]
+            self.assertEqual(result['comparison_audit']['difference_count'], 1)
+            point = result['comparison_audit']['checkpoints'][1]
+            self.assertEqual(point['players']['human']['difference_count'], 1)
+            self.assertEqual(point['players']['ai']['difference_count'], 1)
+            self.assertEqual(len(details[0]['details']), 1)
+            self.assertEqual(details[0]['details'][0]['path'], '$.state.research')
+            self.assertEqual(details[0]['details'][0]['players'], ['ai', 'human'])
+
+    def test_detail_truncation_does_not_truncate_counts_or_mutate_evidence(self):
+        expected = good_outputs()['trace-a']
+        actual = deepcopy(expected)
+        for point in actual['checkpoints']:
+            point['state']['units'][0]['extra'] = {str(index): True for index in range(1200)}
+        # A missing object field is one structural difference, not 1200 leaves.
+        for point in expected['checkpoints']:
+            point['state']['units'][0]['extra'] = {str(index): 1 for index in range(1200)}
+        before = deepcopy((expected, actual))
+        audit = audit_outputs(expected, actual, case_input(), detail_limit=5)
+        self.assertEqual(audit['difference_count'], 2400)
+        self.assertEqual(len(audit['details']), 5)
+        self.assertEqual(audit['details_omitted'], 2395)
+        self.assertEqual((expected, actual), before)
+        self.assertIs(type(audit['details'][0]['expected']), int)
+        self.assertIs(type(audit['details'][0]['actual']), bool)
+
+    def test_unsupported_observations_keep_counts_and_gap_separate(self):
+        expected = good_outputs()
+        actual = deepcopy(expected)
+        actual['trace-a']['checkpoints'][1]['coverage'] = {'units.opponent': False}
+        result = compare_suite(suite(), record(expected), candidate(actual))['results'][0]
+        self.assertEqual(result['status'], 'unsupported')
+        audit = result['comparison_audit']
+        self.assertFalse(audit['state_comparison_complete'])
+        self.assertTrue(audit['observed_fields_exhausted'])
+        self.assertFalse(audit['declared_coverage_complete'])
+        self.assertEqual(audit['difference_count'], 0)
+        self.assertEqual(audit['coverage_gaps'], [dict(side='candidate', checkpoint='c2', domain='units.opponent')])
+
+    def test_unpaired_checkpoints_never_compare_different_action_states(self):
+        expected = good_outputs()['trace-a']
+        actual = deepcopy(expected)
+        actual['checkpoints'][1]['id'] = 'unrelated'
+        audit = audit_outputs(expected, actual, case_input())
+        self.assertFalse(audit['state_comparison_complete'])
+        self.assertEqual(audit['checkpoint_plan_differences'], 1)
+        self.assertFalse(audit['checkpoints'][1]['compared'])
+        self.assertEqual(audit['checkpoints'][1]['players'], {})
+        actual['checkpoints'].pop()
+        audit = audit_outputs(expected, actual, case_input())
+        self.assertIsNone(audit['checkpoints'][1]['candidate_checkpoint'])
+
+    def test_missing_candidate_output_and_bad_reference_never_claim_audit(self):
+        for status in ('unsupported', 'error'):
+            details = []
+            report = compare_suite(suite(), record(good_outputs()), candidate(good_outputs(), status=status), audit_details=details)
+            self.assertTrue(all(not row['comparison_audit']['comparison_performed'] for row in report['results']))
+            self.assertTrue(all(not row['comparison_performed'] for row in details))
+        expected = good_outputs()
+        expected['trace-a']['checkpoints'][0]['coverage'] = {'units': False}
+        details = []
+        report = compare_suite(suite(), record(expected), candidate(good_outputs()), audit_details=details)
+        self.assertEqual(report['results'][0]['status'], 'errors')
+        self.assertFalse(details[0]['comparison_performed'])
+
+    def test_extensible_values_keep_generic_exact_comparison_paths(self):
+        for left, right in ((None, 1), ([], {}), (True, 1), (1, 1.0), ({'a': [1]}, {'a': [True]})):
+            expected, actual = state(), state()
+            expected['extra'], actual['extra'] = left, right
+            self.assertEqual(compare_states(expected, actual),
+                behavior.differences(left, right, path='$.state.extra', limit=20))
 
 
 class SchemaTests(unittest.TestCase):
@@ -589,6 +736,44 @@ class RunnerReportTests(unittest.TestCase):
             self.assertTrue(body["candidate_executed"])
             self.assertIn("duration_s", body)
             self.assertEqual(body["summary"]["matched"], 2)
+
+    def test_audit_report_bound_to_actual_execution_and_selection(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root = self._write_tree(Path(scratch), good_outputs())
+            code, report = self._compare(root, f"{sys.executable} {root / 'runner.py'}",
+                extra=('--case', 'trace-b', '--audit-report', str(root / 'audit.json')))
+            self.assertEqual(code, 0)
+            audit, result = json.loads((root / 'audit.json').read_text()), json.loads(report.read_text())
+            self.assertEqual(audit['summary'], result['summary'])
+            self.assertEqual(audit['suite_sha256'], result['suite_sha256'])
+            self.assertEqual(audit['candidate'], result['candidate'])
+            self.assertTrue(audit['candidate_executed'])
+            self.assertEqual([row['id'] for row in audit['results']], ['trace-b'])
+            self.assertEqual(audit['results'][0]['details'], [])
+
+    def test_audit_crash_or_invalid_input_replaces_stale_success(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root = self._write_tree(Path(scratch), good_outputs())
+            target = root / 'audit.json'
+            for command, started in ((f'{sys.executable} -c "raise RuntimeError()"', True),
+                                      (str(root / 'nonexistent'), False)):
+                target.write_text('{"comparison_performed": true}')
+                code, _ = self._compare(root, command, extra=('--audit-report', str(target)))
+                self.assertEqual(code, 2)
+                audit = json.loads(target.read_text())
+                self.assertEqual(audit['candidate_executed'], started)
+                self.assertFalse(audit['comparison_performed'])
+                self.assertIn('error', audit)
+
+    def test_audit_output_cannot_overwrite_bound_evidence(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root = self._write_tree(Path(scratch), good_outputs())
+            for name in ('cases.json', 'reference.json'):
+                before = (root / name).read_bytes()
+                code, _ = self._compare(root, f"{sys.executable} {root / 'runner.py'}",
+                    extra=('--audit-report', str(root / name)))
+                self.assertEqual(code, 2)
+                self.assertEqual((root / name).read_bytes(), before)
 
     def test_crash_replaces_stale_report(self):
         with tempfile.TemporaryDirectory() as scratch:

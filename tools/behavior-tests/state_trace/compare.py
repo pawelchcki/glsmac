@@ -1,17 +1,14 @@
 """Trace-aware comparison on top of compare.py evidence binding."""
 
-from compare import differences, select_cases, validate_observations
+from compare import select_cases, validate_observations
 from protocol import ProtocolError, canonical, probe_request, validate_cases, validate_response
 from state_trace.schema import ALGORITHM, validate_output, validate_reference_output, validate_reference_plan
+from state_trace.comparison_audit import audit_outputs, state_groups
 
 DOMAIN_LIMIT = 20
 TOTAL_LIMIT = 50
 
 __all__ = ["ALGORITHM", "compare_outputs", "compare_states", "compare_suite", "select_cases"]
-
-
-def _index(entities):
-    return {entity["id"]: entity for entity in entities}
 
 
 def compare_states(expected, actual, checkpoint=None):
@@ -23,41 +20,19 @@ def compare_states(expected, actual, checkpoint=None):
     given, every difference carries it so multi-checkpoint reports stay
     attributable.
     """
-    found = []
-
-    def record(items):
-        for item in items:
-            if len(found) < TOTAL_LIMIT:
-                if checkpoint is not None:
-                    item = {**item, "checkpoint": checkpoint}
-                found.append(item)
-
-    for key in ("turn", "map"):
-        record(differences(expected[key], actual[key],
-                           path=f"$.state.{key}", limit=DOMAIN_LIMIT))
-    for domain in ("units", "bases", "players"):
-        wanted, got = _index(expected[domain]), _index(actual[domain])
-        domain_found = []
-        for entity_id in sorted(set(wanted) | set(got)):
-            location = f"$.state.{domain}[id={entity_id}]"
-            if entity_id not in wanted:
-                domain_found.append({"path": location, "expected_missing": True, "actual": got[entity_id]})
-            elif entity_id not in got:
-                domain_found.append({"path": location, "expected": wanted[entity_id], "actual_missing": True})
-            else:
-                domain_found.extend(differences(wanted[entity_id], got[entity_id],
-                                                path=location, limit=DOMAIN_LIMIT))
-            if len(domain_found) >= DOMAIN_LIMIT:
+    found, domain_counts = [], {}
+    for domain, identity, owners, status, changes in state_groups(expected, actual):
+        if len(found) >= TOTAL_LIMIT:
+            break
+        if domain_counts.get(domain, 0) >= DOMAIN_LIMIT:
+            continue
+        for item in changes:
+            if checkpoint is not None:
+                item = {**item, "checkpoint": checkpoint}
+            found.append(item)
+            domain_counts[domain] = domain_counts.get(domain, 0) + 1
+            if domain_counts[domain] >= DOMAIN_LIMIT or len(found) >= TOTAL_LIMIT:
                 break
-        record(domain_found[:DOMAIN_LIMIT])
-    for key in sorted((set(expected) | set(actual)) - {"turn", "map", "players", "units", "bases"}):
-        location = f"$.state.{key}"
-        if key not in expected:
-            record([{"path": location, "expected_missing": True, "actual": actual[key]}])
-        elif key not in actual:
-            record([{"path": location, "expected": expected[key], "actual_missing": True}])
-        else:
-            record(differences(expected[key], actual[key], path=location, limit=DOMAIN_LIMIT))
     return found
 
 
@@ -149,7 +124,7 @@ def compare_outputs(expected, actual, case_input):
     return {"status": "matched"}
 
 
-def compare_suite(suite, record, candidate):
+def compare_suite(suite, record, candidate, audit_details=None):
     """Compare every case; reuse compare.py evidence and response binding.
 
     The suite envelope is validated before any case is read, and every
@@ -171,11 +146,15 @@ def compare_suite(suite, record, candidate):
     for case in probe_request(suite)["cases"]:
         case_id = case["id"]
         result = {"id": case_id}
+        audit = None
         try:
             validate_reference_output(expected[case_id], inputs[case_id])
         except ProtocolError as error:
             result.update(status="errors", reason=f"reference trace is malformed: {error}")
             counts["errors"] += 1
+            result["comparison_audit"] = {"comparison_performed": False, "reason": result["reason"]}
+            if audit_details is not None:
+                audit_details.append(dict(id=case_id, status="errors", **result["comparison_audit"]))
             results.append(result)
             continue
         response = actual[case_id]
@@ -190,6 +169,17 @@ def compare_suite(suite, record, candidate):
                 outcome = {"status": "errors", "reason": str(error)}
             status = outcome.pop("status")
             result.update(status=status, **outcome)
+            if status != "errors":
+                audit = audit_outputs(expected[case_id], response["output"], inputs[case_id],
+                                      detail_limit=1000 if audit_details is not None else 0)
+                result["comparison_audit"] = {key: value for key, value in audit.items()
+                                              if key not in ("details", "detail_limit", "details_omitted")}
+                if audit_details is not None:
+                    audit_details.append(dict(id=case_id, status=status, **audit))
+        if audit is None:
+            result["comparison_audit"] = {"comparison_performed": False, "reason": result["reason"]}
+            if audit_details is not None:
+                audit_details.append(dict(id=case_id, status=status, **result["comparison_audit"]))
         counts[status] += 1
         results.append(result)
     canonical(record)

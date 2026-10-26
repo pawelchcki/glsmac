@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "computer-production",
         "state-trace-snapshot",
         "research-science",
         "research-cost-native",

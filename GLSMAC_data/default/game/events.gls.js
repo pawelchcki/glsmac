@@ -38,6 +38,7 @@ return (game) => {
 		'set_base_production',
 		'process_base_production',
 		'process_base_growth',
+		'computer_base_production',
 		'confirm_base_starvation',
 		'found_base',
 		'join_base',

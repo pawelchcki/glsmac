@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime, timezone
 from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
+from itertools import islice
 import json
 from pathlib import Path
 import re
@@ -154,36 +155,34 @@ def select_cases(suite, record, case_ids):
     return selected, evidence
 
 
-def differences(expected, actual, path="$", limit=50):
-    """Exact structural comparison; no coercion, ignored fields or tolerances."""
-    found = []
-
+def iter_differences(expected, actual, path="$"):
+    """Yield exact structural differences without materializing an unbounded list."""
     def visit(left, right, location):
-        if len(found) >= limit:
-            return
         if type(left) is not type(right):
-            found.append({"path": location, "expected": left, "actual": right})
+            yield {"path": location, "expected": left, "actual": right}
         elif isinstance(left, dict):
             for key in sorted(set(left) | set(right)):
                 child = f"{location}[{json.dumps(key)}]"
                 if key not in left:
-                    found.append({"path": child, "expected_missing": True, "actual": right[key]})
+                    yield {"path": child, "expected_missing": True, "actual": right[key]}
                 elif key not in right:
-                    found.append({"path": child, "expected": left[key], "actual_missing": True})
+                    yield {"path": child, "expected": left[key], "actual_missing": True}
                 else:
-                    visit(left[key], right[key], child)
-                if len(found) >= limit:
-                    break
+                    yield from visit(left[key], right[key], child)
         elif isinstance(left, list):
             if len(left) != len(right):
-                found.append({"path": location + ".length", "expected": len(left), "actual": len(right)})
+                yield {"path": location + ".length", "expected": len(left), "actual": len(right)}
             for index, (left_item, right_item) in enumerate(zip(left, right)):
-                visit(left_item, right_item, f"{location}[{index}]")
+                yield from visit(left_item, right_item, f"{location}[{index}]")
         elif left != right:
-            found.append({"path": location, "expected": left, "actual": right})
+            yield {"path": location, "expected": left, "actual": right}
 
-    visit(expected, actual, path)
-    return found
+    yield from visit(expected, actual, path)
+
+
+def differences(expected, actual, path="$", limit=50):
+    """Bounded exact comparison, sharing the exhaustive audit's value semantics."""
+    return list(islice(iter_differences(expected, actual, path), max(0, limit)))
 
 
 def compare(suite, record, candidate):

@@ -800,6 +800,7 @@ struct ProductionFixture : gc::Object {
 		if ( role == "single" ) { owner->m_role = backend::Player::PR_SINGLE; }
 		else if ( role == "host" ) { owner->m_role = backend::Player::PR_HOST; }
 		else if ( role == "player" ) { owner->m_role = backend::Player::PR_PLAYER; }
+		else if ( role == "computer" ) { owner->m_role = backend::Player::PR_COMPUTER; }
 		else if ( role == "none" ) { owner->m_role = backend::Player::PR_NONE; }
 		else { THROW( "unknown fixture owner role" ); }
 	}
