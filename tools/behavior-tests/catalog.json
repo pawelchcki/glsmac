@@ -1,8 +1,18 @@
 {
   "version": 1,
   "suites": [
+    {"id":"aquifer-capacity","script":"GLSMAC_data/tests/aquifer_capacity.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"aquifer-routing","script":"GLSMAC_data/tests/aquifer_routing.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terrain-geometry","script":"GLSMAC_data/tests/terrain_geometry.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"energy-receipt-lifecycle","script":"GLSMAC_data/tests/energy_receipt_lifecycle.gls.js","domains":["gameplay","economy","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terrain-journal-lifecycle","script":"GLSMAC_data/tests/terrain_journal_lifecycle.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"unit-automation-state","script":"GLSMAC_data/tests/unit_automation_state.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"former-level","script":"GLSMAC_data/tests/former_level.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-primitives","script":"GLSMAC_data/tests/terraforming_primitives.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"trace-float-transport","script":"GLSMAC_data/tests/trace_float_transport.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
     {"id":"base-operations","script":"GLSMAC_data/tests/base_operations.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"base-operations-lifecycle","script":"GLSMAC_data/tests/base_operations_lifecycle.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"base-operations-selection","script":"GLSMAC_data/tests/base_operations_selection.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"duplicate-faction-identity","script":"GLSMAC_data/tests/duplicate_faction_identity.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
     {"id":"computer-production","script":"GLSMAC_data/tests/computer_production.gls.js","domains":["gameplay","economy","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"state-trace-snapshot","script":"GLSMAC_data/tests/state_trace_snapshot.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},

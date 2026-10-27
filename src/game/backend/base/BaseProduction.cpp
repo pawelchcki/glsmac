@@ -15,19 +15,40 @@
 
 namespace game::backend::base {
 
+// Application launch policy: naval workers use their water city or the first
+// friendly unlocked adjacent water tile in the stable compass order. This is
+// not a claim about the original disabled Sea Formers production template.
+map::tile::Tile* Base::GetUnitProductionTile( const unit::Def* def ) const {
+	if ( !m_tile || !def ) { return nullptr; }
+	const auto allowed = [ & ]( map::tile::Tile* tile ) {
+		if ( !tile || tile->IsLocked() || ( tile->base && tile->base->m_owner != m_owner ) ) { return false; }
+		for ( const auto& entry : tile->units ) { if ( entry.second->m_owner != m_owner ) { return false; } }
+		return true;
+	};
+	if ( def->GetMovementType() == unit::MT_LAND ) { return !m_tile->is_water_tile && !m_tile->IsLocked() ? m_tile : nullptr; }
+	if ( def->GetMovementType() != unit::MT_WATER || !def->CanTerraform() ) { return nullptr; }
+	if ( m_tile->is_water_tile ) { return allowed( m_tile ) ? m_tile : nullptr; }
+	for ( auto* tile : { m_tile->W, m_tile->NW, m_tile->N, m_tile->NE, m_tile->E, m_tile->SE, m_tile->S, m_tile->SW } ) {
+		if ( tile && tile->is_water_tile && allowed( tile ) ) { return tile; }
+	}
+	return nullptr;
+}
+
 Base::ProductionResult Base::CompleteUnitProduction( GSE_CALLABLE, const ProductionState& next ) {
 	auto* um = m_game->GetUM();
 	auto* bm = m_game->GetBM();
-	if ( !m_game->IsRunning() || !um || m_tile->is_water_tile || m_tile->IsLocked() || m_tile->base != this || m_next_production_receipt == std::numeric_limits< int64_t >::max() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base cannot complete a land unit now" ); }
+	if ( !m_game->IsRunning() || !um || m_tile->IsLocked() || m_tile->base != this || m_next_production_receipt == std::numeric_limits< int64_t >::max() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Base cannot complete a unit now" ); }
 	const auto* recipe = static_cast< const production::Unit* >( m_owner->GetPlayer()->GetProductionChoice( m_production.choice_id ) );
 	auto* def = static_cast< unit::StaticDef* >( um->GetUnitDef( recipe->unit_id ) );
+	auto* destination = GetUnitProductionTile( def );
+	if ( !destination ) { GSE_ERROR( gse::EC.GAME_ERROR, "Produced unit has no valid launch tile" ); }
 	auto record = std::make_unique< UnitProductionRecord >();
 	record->token = m_next_production_receipt + 1;
 	record->previous = m_production;
 	record->previous_rng = m_game->GetRandom()->GetStateString();
 	record->previous_unit_id = unit::Unit::GetNextId();
 	record->unit_id = record->previous_unit_id;
-	if ( um->GetUnit( record->unit_id ) || m_tile->units.count( record->unit_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Next production unit identity is already occupied" ); }
+	if ( um->GetUnit( record->unit_id ) || destination->units.count( record->unit_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Next production unit identity is already occupied" ); }
 
 	// Only a charged colony recipe removes the most recently added citizen.
 	// Keep its map node alive so undo preserves its exact identity. Ordinary
@@ -54,7 +75,8 @@ Base::ProductionResult Base::CompleteUnitProduction( GSE_CALLABLE, const Product
 			record->worked->CustomUnset( "working_pop" );
 		}
 		m_production = next;
-		created = std::make_unique< unit::Unit >( GSE_CALL, um, record->unit_id, def, m_owner, m_tile, def->m_movement_per_turn, 1, 1.0f, false );
+		created = std::make_unique< unit::Unit >( GSE_CALL, um, record->unit_id, def, m_owner, destination, def->m_movement_per_turn, 1, 1.0f, false );
+		if ( def->CanTerraform() ) { created->SetTerraformHomeFromProduction( this ); }
 		record->identity = static_cast< gse::value::Object* >( created->Wrap( GSE_CALL ) );
 		// Lifecycle listeners may observe the completed state and consume random
 		// draws. Native field/custom setters and event queueing are guarded;
@@ -74,7 +96,7 @@ Base::ProductionResult Base::CompleteUnitProduction( GSE_CALLABLE, const Product
 		created.release();
 		return result;
 	} catch ( ... ) {
-		if ( created ) { um->m_units.erase( created->m_id ); m_tile->units.erase( created->m_id ); created.reset(); }
+		if ( created ) { um->m_units.erase( created->m_id ); destination->units.erase( created->m_id ); created.reset(); }
 		m_production = record->previous;
 		if ( !record->citizen.empty() ) {
 			auto* pop = &m_pops.insert( std::move( record->citizen ) ).position->second;

@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <memory>
+#include <limits>
 
 #include "gse/context/GlobalContext.h"
 #include "gse/callable/Native.h"
@@ -20,6 +21,7 @@
 #include "gse/tests/Tests.h"
 #include "gse/ExecutionPointer.h"
 #include "game/backend/Game.h"
+#include "game/backend/Player.h"
 #include "game/backend/settings/Settings.h"
 #include "game/backend/technology/Bindings.h"
 #include "game/backend/technology/Serialization.h"
@@ -93,7 +95,34 @@ static Value* MakeRulesFixture( GSE_CALLABLE, const std::shared_ptr< RulesFixtur
 void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, const test_info_t& test_info ) {
 	const auto rules_fixtures = std::make_shared< std::vector< std::shared_ptr< RulesFixture > > >();
 	auto* production_roots = VALUE( value::Array,, value::array_elements_t{} );
+	const auto legacy_players = std::make_shared< std::vector< std::shared_ptr< game::backend::Player > > >();
 	value::object_properties_t mocks = {
+		{ "legacy_energy_player", NATIVE_CALL( legacy_players ) {
+			N_EXPECT_ARGS( 0 ); types::Buffer wire;
+			wire.WriteString( "Legacy viewer" ); wire.WriteInt( game::backend::Player::PR_SINGLE );
+			wire.WriteBool( false ); wire.WriteString( "Citizen" ); wire.WriteInt( 0 );
+			auto player = std::make_shared< game::backend::Player >( wire ); legacy_players->push_back( player );
+			return player->Wrap( GSE_CALL );
+		} ) },
+		{ "json_codec_inputs", NATIVE_CALL() {
+			N_EXPECT_ARGS( 0 );
+			std::string controls; for ( int index = 0; index < 32; ++index ) { controls.push_back( char( index ) ); }
+			value::array_elements_t invalid_utf8;
+			for ( const std::string& text : { std::string( "\xc0\x80" ), std::string( "\xed\xa0\x80" ), std::string( "\xf4\x90\x80\x80" ),
+				std::string( "\xe2\x82" ), std::string( "\x80" ), std::string( "\xc2\x20" ) } ) {
+				invalid_utf8.push_back( VALUE( value::String,, text ) );
+			}
+			auto* cyclic = VALUEEXT( value::Object, GSE_CALL, value::object_properties_t{} ); cyclic->Assign( "self", cyclic );
+			return VALUEEXT( value::Object, GSE_CALL, {
+				{ "controls", VALUE( value::String,, controls ) },
+				{ "unicode", VALUE( value::String,, std::string( "Ga\xc3\xaf" ) + "a \xce\xb1 \xf0\x9f\x8c\xb1" ) },
+				{ "invalid_utf8", VALUE( value::Array,, invalid_utf8 ) }, { "cyclic", cyclic },
+				{ "nonfinite", VALUE( value::Array,, value::array_elements_t{
+					VALUE( value::Float,, std::numeric_limits< float >::infinity() ),
+					VALUE( value::Float,, -std::numeric_limits< float >::infinity() ),
+					VALUE( value::Float,, std::numeric_limits< float >::quiet_NaN() ) } ) },
+			} );
+		} ) },
 		{ "parse_smac_text", NATIVE_CALL() {
 			N_EXPECT_ARGS( 2 ); N_GETVALUE( source, 0, String ); N_GETVALUE( format, 1, String );
 			return ::loader::txt::ParseSmacText( GSE_CALL, source, format );
@@ -155,7 +184,8 @@ void Test::AddMocks( gc::Space* const gc_space, context::GlobalContext* ctx, con
 		{ "natural_startup_fixture", NATIVE_CALL( production_roots ) {
 			N_EXPECT_ARGS( 3 ); N_GETVALUE( width, 0, Int ); N_GETVALUE( height, 1, Int ); N_GETVALUE( terrain, 2, String );
 			if ( width < 4 || width > 256 || height < 4 || height > 256 || width % 2 != 0 ||
-				( terrain != "flat-arid" && terrain != "flat-moist" && terrain != "flat-rainy" ) ) {
+				( terrain != "flat-arid" && terrain != "flat-moist" && terrain != "flat-rainy" && terrain != "aquifer-corridor" ) ||
+				( terrain == "aquifer-corridor" && ( width != 256 || height != 136 ) ) ) {
 				GSE_ERROR( EC.INVALID_CALL, "Invalid declared natural-startup grid or terrain" );
 			}
 			auto* fixture = MakeNaturalStartupFixture( GSE_CALL, width, height, terrain );

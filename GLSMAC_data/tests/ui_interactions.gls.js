@@ -17,7 +17,8 @@ const create_minimap = () => {
 	const view = mocks.display();
 	const game = mocks.events();
 	game.get_year = () => { return 2101; };
-	const state = { orders: [], confirmations: [], result: null };
+	const state = { orders: [], confirmations: [], result: null, credits: 0 };
+	game.get_player = () => { return {id: 0, get_energy_state: () => { return {credits: state.credits}; }}; };
 	game.event = (name, data) => { state.orders :+ name; };
 	const popup = {};
 	popup.show = (name, callback) => {
@@ -172,12 +173,23 @@ scenario('minimap mode controls show and hide the same widget', () => {
 	expect(f.view.find('button', 'text', 'button1').emit('click', {}), 'show consumed');
 	expect(f.minimap.is_visible(), 'minimap visible');
 });
+scenario('energy text follows the declared ledger read boundary on command receipt and turn', () => {
+	const f = create_minimap(); const label = f.view.find('text', 'text', 'Energy: 0');
+	f.state.credits = 17; f.game.emit('event_result', {name: 'unit_terraform', success: true});
+	expect(label.text == 'Energy: 17', 'command receipt refreshes current balance');
+	f.state.credits = 23; f.game.emit('turn', {year: 2102});
+	expect(label.text == 'Energy: 23', 'turn refreshes current balance');
+	f.state.credits = 29; f.game.emit('energy_changed', {player_id: 1, credits: 999});
+	expect(label.text == 'Energy: 23', 'foreign balance notification does not replace the local projection');
+	f.game.emit('energy_changed', {player_id: 0, credits: 999});
+	expect(label.text == 'Energy: 29', 'notification reads actual ledger rather than trusting its payload amount');
+});
 scenario('removing minimap UI releases native listeners and blinking timer', () => {
 	const f = create_minimap();
 	f.game.emit('turn_status', { status: 'turn_complete' });
-	expect(f.game.count('turn_status') == 1 && f.game.count('turn') == 1, 'owned registrations');
+	expect(f.game.count('turn_status') == 1 && f.game.count('turn') == 1 && f.game.count('event_result') == 1 && f.game.count('energy_changed') == 1, 'owned registrations');
 	f.view.root.remove();
-	expect(f.game.count('turn_status') == 0 && f.game.count('turn') == 0, 'listeners detached');
+	expect(f.game.count('turn_status') == 0 && f.game.count('turn') == 0 && f.game.count('event_result') == 0 && f.game.count('energy_changed') == 0, 'listeners detached');
 	expect(f.view.running_timers() == 0, 'owned timer stopped');
 	f.game.emit('turn_status', { status: 'active' });
 	expect(f.sound.play_count() == 1, 'detached listener cannot replay sound');
@@ -655,4 +667,5 @@ scenario('native faction rejection preserves an edited name through error back n
 	expect(f.state.attempts == [['CONSCIOUSNESS', 'Orbit Pilot'], ['CONSCIOUSNESS', 'Orbit Pilot']], 'retry uses retained choice and name');
 });
 
-expect(cases == 60, 'all interaction scenarios executed');
+#include('./_energy_hud_native')(scenario);
+expect(cases == 64, 'all interaction scenarios executed');

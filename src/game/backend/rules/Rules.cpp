@@ -18,6 +18,7 @@ Rules::Rules( const Rules& other )
 	, m_nutrient_cost_factor( other.m_nutrient_cost_factor )
 	, m_mineral_cost_factor( other.m_mineral_cost_factor )
 	, m_blind_research( other.m_blind_research )
+	, m_terraforming_ignore_technologies( other.m_terraforming_ignore_technologies )
 	, m_world_sizes( other.m_world_sizes )
 	, m_has_world_sizes( other.m_has_world_sizes ) {}
 
@@ -34,6 +35,7 @@ Rules& Rules::operator=( const Rules& other ) {
 		m_nutrient_cost_factor = other.m_nutrient_cost_factor;
 		m_mineral_cost_factor = other.m_mineral_cost_factor;
 		m_blind_research = other.m_blind_research;
+		m_terraforming_ignore_technologies = other.m_terraforming_ignore_technologies;
 		m_world_sizes = other.m_world_sizes;
 		m_has_world_sizes = other.m_has_world_sizes;
 	}
@@ -138,6 +140,24 @@ void Rules::Initialize() {
 
 WRAPIMPL_DYNAMIC_GETTERS( Rules )
 			WRAPIMPL_GET_CUSTOM( "difficulty_levels", Array, WrapDifficultyLevels( gc_space ) )
+	{
+		"get_terraforming_policy", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 0 ); auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			return VALUEEXT( gse::value::Object, GSE_CALL, {
+				{ "version", VALUE( gse::value::Int,, 1 ) },
+				{ "ignore_technologies", VALUE( gse::value::Bool,, rules->IgnoreTerraformingTechnologies() ) },
+			} );
+		} )
+	},
+	{
+		"set_terraforming_ignore_technologies", NATIVE_CALL( handle = m_nutrient_handle ) {
+			N_EXPECT_ARGS( 1 ); N_GETVALUE( enabled, 0, Bool ); auto* rules = *handle;
+			if ( !rules ) { GSE_ERROR( gse::EC.INVALID_CALL, "Rules no longer exist" ); }
+			CheckCustomMutation( GSE_CALL ); rules->SetTerraformingIgnoreTechnologies( enabled );
+			return VALUE( gse::value::Undefined );
+		} )
+	},
 	{
 		"get_blind_research", NATIVE_CALL( handle = m_nutrient_handle ) {
 			N_EXPECT_ARGS( 0 ); auto* rules = *handle;
@@ -247,6 +267,7 @@ const types::Buffer Rules::Serialize() const {
 	// Preserve historical default records exactly; only a changed research
 	// mode needs an extension, including when no world-size table is loaded.
 	if ( !m_blind_research ) { buf.WriteString( "research-mode-v1" ); buf.WriteBool( false ); }
+	if ( !m_terraforming_ignore_technologies ) { buf.WriteString( "terraform-policy-v1" ); buf.WriteBool( false ); }
 
 	return buf;
 }
@@ -259,7 +280,7 @@ void Rules::Deserialize( types::Buffer buf ) {
 	const auto nutrient = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
 	const auto mineral = buf.lenr == buf.lenw ? 10 : buf.ReadInt();
 	auto sizes = LegacyWorldSizes();
-	bool loaded_sizes = false; bool blind_research = true;
+	bool loaded_sizes = false; bool blind_research = true; bool ignore_technologies = true;
 	auto extension = buf.lenr == buf.lenw ? std::string{} : buf.ReadString();
 	if ( extension == "world-sizes-v1" ) {
 		loaded_sizes = true;
@@ -273,13 +294,15 @@ void Rules::Deserialize( types::Buffer buf ) {
 		ValidateWorldSizes( sizes );
 		extension = buf.lenr == buf.lenw ? std::string{} : buf.ReadString();
 	}
-	if ( extension == "research-mode-v1" ) { blind_research = buf.ReadBool(); extension.clear(); }
+	if ( extension == "research-mode-v1" ) { blind_research = buf.ReadBool(); extension = buf.lenr == buf.lenw ? std::string{} : buf.ReadString(); }
+	if ( extension == "terraform-policy-v1" ) { ignore_technologies = buf.ReadBool(); extension.clear(); }
 	if ( nutrient < 1 || nutrient > 100 || mineral < 1 || mineral > 100 || !extension.empty() || buf.lenr != buf.lenw ) { THROW( "Invalid serialized rules record" ); }
 	SetNutrientCostFactor( nutrient );
 	SetMineralCostFactor( mineral );
 	m_world_sizes = std::move( sizes );
 	m_has_world_sizes = loaded_sizes;
 	m_blind_research = blind_research;
+	m_terraforming_ignore_technologies = ignore_technologies;
 	m_is_initialized = true;
 
 }

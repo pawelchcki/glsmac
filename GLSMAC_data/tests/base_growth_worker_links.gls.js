@@ -109,3 +109,73 @@ behavior.scenario('productive claimed terrain and other base centers cannot disp
 	f.score(claimed, 9); f.score(f.other.get_tile(), 10); f.grow(f.base); f.flush(); one_doctor(f);
 	test.assert(existing.get('worked_tile') == claimed && claimed.get('working_pop') == existing && f.other.get_worked_tiles() == [claimed]);
 });
+
+for (productive_vacancy of [true,false]) {
+behavior.scenario('deferred native growth preserves shared claim and ' + (productive_vacancy ? 'chooses another productive tile' : 'retains both cities with a Doctor'), () => {
+ const f = fixture(); const shared = f.tile_at(2,0); const alternative = f.tile_at(1,1);
+ f.score(shared,9); f.score(alternative,productive_vacancy ? 3 : 0); const applied = []; const rejected = [];
+ f.game.register_event('process_base_growth',growth_stage);
+ f.game.register_event('add_base_pop',{validate:add_pop.validate,apply:(e) => {
+  const tile = e.data.worked_tile; let claim = null;
+  if (#is_defined(tile) && tile.has('working_pop')) { claim = tile.get('working_pop'); }
+  const population = [];
+  for (base of f.game.bm.get_bases()) {
+   const citizens = [];
+   for (pop of base.get_pops()) {
+    const worked = pop.get('worked_tile');
+    citizens :+ {id:pop.id + 0,type:pop.get_type() + '',x:#is_defined(worked) ? worked.x + 0 : null,y:#is_defined(worked) ? worked.y + 0 : null};
+   }
+   population :+ {base_id:base.id + 0,x:base.get_tile().x + 0,y:base.get_tile().y + 0,pops:citizens};
+  }
+  #print('GROWTH_NATIVE_GRAPH|' + #json_text_exact({population:population,
+   claim:claim == null ? null : {pop_id:claim.id + 0,base_id:claim.get_base().id + 0}}));
+  #print('GROWTH_NATIVE_INTENT|' + #json_text_exact({base:e.data.base.id + 0,base_x:e.data.base.get_tile().x + 0,base_y:e.data.base.get_tile().y + 0,
+   type:e.data.type + '',x:#is_defined(tile) ? tile.x + 0 : null,y:#is_defined(tile) ? tile.y + 0 : null,
+   existing_claim:#is_defined(tile) ? tile.has('working_pop') : false,created_children:#sizeof(applied)}));
+  if (#sizeof(applied) == 1) { test.assert(#typeof(f.snapshot()) == 'String','First child leaves an intact native snapshot before the second child applies'); }
+  const receipt = add_pop.apply(e); applied :+ e; return receipt;
+ },rollback:add_pop.rollback});
+ f.game.on('event_result',(e) => { if (!e.success) { rejected :+ e.name + ''; } });
+ for (base of [f.base,f.other]) { f.game.event('process_base_growth',{base:base,turn_id:f.game.get_turn()}); }
+ f.process_events();
+ test.assert(f.base.get_size() == 0 && f.other.get_size() == 0 && #sizeof(applied) == 0,
+  'Actual native growth batch must finish before its queued AddPop children run');
+ #print('GROWTH_NATIVE_DEFERRED|' + #json_text_exact({bases:[{x:f.base.get_tile().x + 0,y:f.base.get_tile().y + 0},
+  {x:f.other.get_tile().x + 0,y:f.other.get_tile().y + 0}],shared:{x:shared.x + 0,y:shared.y + 0},
+  shared_unclaimed: !shared.has('working_pop'),first_size:f.base.get_size(),second_size:f.other.get_size()}));
+ f.process_events();
+ test.assert(rejected == [] && #sizeof(applied) == 2 && f.base.get_size() == 1 && f.other.get_size() == 1,'Both native population children must survive allocation');
+ const bytes = f.snapshot();
+ test.assert(#typeof(bytes) == 'String','Native serialization must retain consistent unique worker backlinks');
+ const first = f.base.get_pops(); const second = f.other.get_pops(); const a = first[0]; const b = second[0];
+ test.assert(a.get('worked_tile') == shared && shared.get('working_pop') == a);
+ if (productive_vacancy) {
+  test.assert(b.get_type() == 'WORKER' && b.get('worked_tile') == alternative && alternative.get('working_pop') == b);
+  test.assert(applied[1].applied.worked_tile == alternative,'Receipt must own the actual fallback tile, not the stale proposal');
+ } else {
+  test.assert(b.get_type() == 'DOCTOR' && !b.has('worked_tile') && f.other.get_worked_tiles() == []);
+  test.assert(!#is_defined(applied[1].applied.worked_tile),'Exhausted fallback has no worker receipt');
+ }
+ test.assert(work.valid_pop_links(f.game,f.base,a) && work.valid_pop_links(f.game,f.other,b));
+ const stored = [applied[0].applied.old_nutrients,applied[1].applied.old_nutrients];
+ f.with_write(() => { add_pop.rollback(applied[1]); });
+ test.assert(f.other.get_size() == 0 && f.base.get_size() == 1 && shared.get('working_pop') == a && a.get('worked_tile') == shared);
+ test.assert(!alternative.has('working_pop') && f.other.get('accumulated_nutrients') == stored[1]);
+ test.assert(#typeof(f.snapshot()) == 'String','Undoing the second child must preserve the first city and serialization');
+ f.with_write(() => { add_pop.rollback(applied[0]); });
+ test.assert(f.base.get_size() == 0 && f.other.get_size() == 0 && !shared.has('working_pop'));
+ test.assert(f.base.get_worked_tiles() == [] && f.other.get_worked_tiles() == [] && f.base.get('accumulated_nutrients') == stored[0]);
+ test.assert(#typeof(f.snapshot()) == 'String');
+});
+}
+
+behavior.scenario('explicit stale worker assignment and malformed automatic marker reject before mutation', () => {
+ const f = fixture(); const tile = f.tile_at(2,0); f.score(tile,9); const existing = f.claim(tile); const before = f.snapshot();
+ const event = {caller:0,data:{type:'WORKER'}}; event.game = f.game; event.data.base = f.base; event.data.worked_tile = tile;
+ for (mode of ['explicit','malformed']) {
+  if (mode == 'malformed') { event.data.automatic_growth = 'true'; }
+  test.assert(#typeof(add_pop.validate(event)) == 'String'); let rejected = false;
+  try { f.with_write(() => { add_pop.apply(event); }); } catch { : (error) => { rejected = true; } }
+  test.assert(rejected && f.snapshot() == before && tile.get('working_pop') == existing);
+ }
+});

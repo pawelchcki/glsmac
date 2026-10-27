@@ -41,6 +41,7 @@ return (edited) => {
  f.view.ui.get_height = () => { return 768; }; f.view.ui.get_width = () => { return 1024; };
  f.events.get_um = () => { return f.game.um; }; f.events.get_bm = () => { return f.game.bm; };
  f.events.get_tm = () => { return f.game.tm; }; f.events.get_player = () => { return f.game.get_player(); };
+ f.events.get_settings = () => { return f.game.get_settings(); };
  f.events.get_turn = () => { return f.game.get_turn(); }; f.events.get_year = () => { return f.game.get_year(); };
  f.events.get = (name) => { return f.game.get(name); };
  f.events.is_started = f.game.is_started; f.events.is_turn_complete = f.game.is_turn_complete;

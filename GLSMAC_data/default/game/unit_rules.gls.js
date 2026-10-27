@@ -1,4 +1,5 @@
-// Bounded installed definitions for the three basic, ability-free land units.
+// Installed basic units plus an explicit application Sea Former composition.
+// The latter does not enable the disabled predefined Sea Formers template.
 const field = (row, index) => {
 	if (index >= #sizeof(row)) { throw Error('Incomplete SMAC unit component row'); }
 	return #trim(row[index] + '');
@@ -56,6 +57,21 @@ return {
 				combat: {kind: mode == 0 ? 'conventional' : 'civilian', offense: offense, defense: defense, reactor: 1},
 			};
 		}
+		let sea_former = null;
+		// Foil is the fourth installed chassis. Compact legacy source profiles may
+		// omit naval components; they do not acquire an invented fallback hull.
+		if (#sizeof(chassis) > 3) {
+			const foil = chassis[3]; integer(foil, 9, 1, 1);
+			const worker = definitions[1];
+			sea_former = #clone(worker);
+			sea_former.id = 'SeaFormers'; sea_former.choice = 'SEA_FORMERS';
+			sea_former.name = field(foil, 0) + ' ' + worker.name;
+			sea_former.prerequisite = 'None'; sea_former.declared_rows = 0;
+			sea_former.movement = integer(foil, 8, 1, 8); sea_former.movement_type = 'water';
+			sea_former.chassis_cost = integer(foil, 12, 1, 32);
+			sea_former.source_components.prototype = null; sea_former.source_components.chassis = 3;
+			sea_former.application_recipe = 'foil-terraform-module-v1';
+		}
 		const morale = document.rows('MORALE');
 		if (#sizeof(morale) != 7) { throw Error('SMAC morale table requires seven levels'); }
 		const standard = []; const native = [];
@@ -64,7 +80,14 @@ return {
 			if (normal_name == '' || native_name == '') { throw Error('Missing SMAC morale name'); }
 			standard :+ {name: normal_name}; native :+ {name: native_name};
 		}
-		return {definitions: definitions, standard_morale: standard, native_morale: native};
+		return {definitions: definitions, sea_former: sea_former, standard_morale: standard, native_morale: native};
+	},
+	materialize_sea_former: (um, rules) => {
+		if (!#is_defined(rules.sea_former) || rules.sea_former == null) { return null; }
+		const row = #clone(rules.sea_former);
+		row.rows = um.get_prototype_base_cost(row.chassis_cost, 0, false, row.combat.offense,
+			row.weapon_mode, row.weapon_cost, row.armor_cost, row.combat.reactor);
+		return row;
 	},
 	materialize: (um, rules) => {
 		const result = [];

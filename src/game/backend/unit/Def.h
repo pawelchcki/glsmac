@@ -45,6 +45,8 @@ public:
 	static combat_t ParseCombat( GSE_CALLABLE, const gse::value::object_properties_t& values );
 	void SetCombat( const combat_t& combat );
 	const combat_t& GetCombat() const { return m_combat; }
+	bool CanTerraform() const { return m_can_terraform; }
+	void SetCanTerraform( bool enabled );
 
 	virtual const movement_type_t GetMovementType() const = 0;
 
@@ -57,6 +59,7 @@ public:
 
 private:
 	combat_t m_combat;
+	bool m_can_terraform = false;
 	static bool ValidCombat( const combat_t& combat );
 
 };

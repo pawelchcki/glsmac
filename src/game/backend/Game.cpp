@@ -178,6 +178,7 @@ void Game::Stop() {
 }
 
 void Game::Iterate() {
+	FlushEnergyChanges();
 	MTModule::Iterate();
 
 	State* state;
@@ -1481,15 +1482,15 @@ void Game::InitFailed( const std::string& error_text ) {
 	HideLoader();
 	std::lock_guard startup_guard( m_startup_mutex );
 	// need to delete these here because they weren't passed to main thread
-	if ( m_map->m_textures.terrain ) {
+	if ( m_map && m_map->m_textures.terrain ) {
 		DELETE( m_map->m_textures.terrain );
 		m_map->m_textures.terrain = nullptr;
 	}
-	if ( m_map->m_meshes.terrain ) {
+	if ( m_map && m_map->m_meshes.terrain ) {
 		DELETE( m_map->m_meshes.terrain );
 		m_map->m_meshes.terrain = nullptr;
 	}
-	if ( m_map->m_meshes.terrain_data ) {
+	if ( m_map && m_map->m_meshes.terrain_data ) {
 		DELETE( m_map->m_meshes.terrain_data );
 		m_map->m_meshes.terrain_data = nullptr;
 	}
@@ -1552,6 +1553,33 @@ void Game::SetTurnStatus( const backend::turn::turn_status_t requested_status ) 
 	});
 }
 
+gse::Value* Game::ApplyEventWithContext( const event::Event* event, const std::function< gse::Value*() >& apply ) {
+	// Allocate before touching a possibly nested owner's context. Swapping and
+	// restoring the transient owner cannot throw, including during Apply cleanup.
+	std::string previous = event->GetId();
+	previous.swap( m_applying_event_id );
+	struct RestoreContext {
+		std::string& current;
+		std::string& previous;
+		~RestoreContext() { current.swap( previous ); }
+	} restore { m_applying_event_id, previous };
+	return apply();
+}
+
+void Game::FinalizeAcceptedEvent( const event::Event* event, gse::Value* applied ) {
+	FinalizeUnitDisbandEvent( event, applied );
+	// The whole parent Apply has succeeded, including inline turn-ready work.
+	// Pending optimistic events do not reach this boundary before acceptance.
+	if ( m_tm ) { m_tm->FinalizeAcceptedTerrain( event->GetId() ); }
+	// Only the receiving world's live canonical roster participates. Notification
+	// copies and retired players never acquire acceptance authority.
+	if ( m_state ) {
+		for ( auto& slot : m_state->m_slots->GetSlots() ) {
+			if ( slot.GetState() == slot::Slot::SS_PLAYER ) { slot.GetPlayer()->FinalizeAcceptedEnergy( event->GetId() ); }
+		}
+	}
+}
+
 void Game::ProcessEventResponses() {
 	std::vector< pending_event_response_t > responses;
 	{ std::lock_guard guard( m_pending_event_responses_mutex ); responses.swap( m_pending_event_responses ); }
@@ -1577,8 +1605,8 @@ void Game::ProcessEventResponses() {
 				if ( !response.is_accepted && waiting.applied ) { WithRW( [ & ]() { handler->Rollback( GSE_CALL, args ); } ); }
 				else if ( response.is_accepted ) {
 					auto* applied = waiting.rollback_data;
-					if ( !waiting.applied ) { WithRW( [ & ]() { applied = handler->Apply( GSE_CALL, args ); } ); }
-					FinalizeUnitDisbandEvent( waiting.event, applied );
+					if ( !waiting.applied ) { WithRW( [ & ]() { applied = ApplyEventWithContext( waiting.event, [ & ]() { return handler->Apply( GSE_CALL, args ); } ); } ); }
+					FinalizeAcceptedEvent( waiting.event, applied );
 				}
 			} catch ( const std::exception& error ) { success = false; MTModule::Log( "Event response failed: " + std::string( error.what() ) ); }
 			NotifyEventResult( GSE_CALL, waiting.event, success );
@@ -1622,7 +1650,7 @@ void Game::ProcessEvents() {
 				}
 				if ( error.empty() ) {
 					const auto apply = [ & ]() {
-						auto* applied = handler->Apply( GSE_CALL, args );
+						auto* applied = ApplyEventWithContext( event, [ & ]() { return handler->Apply( GSE_CALL, args ); } );
 						if ( applied ) { obj->Set( "applied", applied, GSE_CALL ); }
 						return applied;
 					};
@@ -1634,7 +1662,7 @@ void Game::ProcessEvents() {
 							if ( resolved ) { event->SetResolved( resolved ); obj->Set( "resolved", resolved, GSE_CALL ); }
 						}
 						const auto wire = m_state->m_connection ? event->Serialize().ToString() : std::string{};
-						WithRW( [ & ]() { FinalizeUnitDisbandEvent( event, apply() ); } );
+						WithRW( [ & ]() { FinalizeAcceptedEvent( event, apply() ); } );
 						success = true;
 						// A failed native apply must never be published as accepted.
 						if ( m_state->m_connection ) {
@@ -1660,7 +1688,7 @@ void Game::ProcessEvents() {
 							m_events_waiting_for_responses.emplace( event->GetId(), event_waiting_for_response_t { event, rollback, process_now } );
 							m_state->m_connection->SendSerializedGameEvent( event->GetCaller(), event->GetEventName(), wire );
 						}
-						else { FinalizeUnitDisbandEvent( event, rollback ); }
+						else { FinalizeAcceptedEvent( event, rollback ); }
 					}
 				}
 			} catch ( const std::exception& failure ) { error = failure.what(); }
@@ -1979,6 +2007,8 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 			SetLoaderText( "Loading dump" );
 			m_state->m_settings.global.map.preset_level = -1;
 			m_map->Deserialize( types::Buffer( util::FS::ReadTextFile( filename ) ) );
+			// A debug map dump starts a new roster, rather than restoring a full world.
+			m_map->ResetConstructionOwnersForImport();
 			ec = map::Map::EC_NONE;
 		}
 		else
@@ -2071,9 +2101,10 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 
 							// map
 							auto b = types::Buffer( buf.ReadString() );
-							NEW( m_map, map::Map, this );
-							const auto ec = m_map->LoadFromBuffer( b );
+							auto incoming_map = map::Map::LoadWorldTerrain( this, b );
+							const auto ec = incoming_map ? map::Map::EC_NONE : map::Map::EC_MAPFILE_FORMAT_ERROR;
 							if ( ec == map::Map::EC_NONE ) {
+								m_map = incoming_map.release();
 
 								// resources
 								{
@@ -2112,6 +2143,10 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 								if ( buf.lenr != buf.lenw ) { THROW( "Trailing world research snapshot data" ); }
 								for ( size_t player = 0; player < technology::Research::PLAYERS; ++player ) {
 									if ( research.Get( player ).income_turn > turn_id ) { THROW( "Future research credit in world snapshot" ); }
+								}
+								if ( !ValidateReceivedEnergyTurn( turn_id ) ) {
+									connection->Disconnect( "Future player income in world snapshot" );
+									return;
 								}
 								m_research = research;
 								if ( turn_id > 0 ) {
@@ -2159,6 +2194,7 @@ void Game::InitGame( MT_Response& response, const bool interactive_opening, MT_C
 }
 
 void Game::ResetGame() {
+	{ std::lock_guard guard( m_energy_views_mutex ); m_pending_energy_views.clear(); }
 	std::lock_guard startup_guard( m_startup_mutex );
 	++m_startup_generation;
 	for ( auto& contacts : m_contacts ) { contacts.clear(); }

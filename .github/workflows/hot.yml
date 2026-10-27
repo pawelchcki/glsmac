@@ -42,7 +42,7 @@ jobs:
           path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity test_world_minimum_generation test_base_operations -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity test_world_minimum_generation test_base_operations test_trace_float_transport test_terrain_observation test_terrain_capture -v
       - name: Test all asset-free presentation invariants
         working-directory: tools/behavior-tests
         run: python3 -m unittest discover -p 'test_presentation*.py' -v
@@ -58,6 +58,18 @@ jobs:
         run: python3 tools/texture-tests/run.py
       - name: Replay hot production controls and original comparisons
         run: python3 tools/behavior-tests/lanes.py --lane hot --kind '${{ matrix.kind }}' --jobs 2 --report build/hot-artifacts/hot.json
+      - name: Verify exact native Float and JSON transport
+        if: matrix.kind == 'regression'
+        run: >-
+          python3 tools/behavior-tests/state_trace/float_transport.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --report build/hot-artifacts/native-json-transport.json
+      - name: Capture complete terrain and traversal state for all seven players
+        if: matrix.kind == 'regression'
+        run: >-
+          python3 tools/behavior-tests/state_trace/terrain_capture.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --report build/hot-artifacts/terrain-observation.json
       - name: Replay all eight recorded startup production projections
         if: matrix.kind == 'regression'
         run: >-

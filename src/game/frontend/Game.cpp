@@ -9,6 +9,7 @@
 #include "config/Config.h"
 #include "scheduler/Scheduler.h"
 #include "game/backend/Game.h"
+#include "game/backend/TileTarget.h"
 #include "game/backend/unit/Def.h"
 #include "game/backend/base/PopDef.h"
 #include "game/backend/animation/Def.h"
@@ -1881,6 +1882,14 @@ void Game::SelectTileAtPoint( const backend::tile_query_purpose_t tile_query_pur
 void Game::SelectTileOrUnit( tile::Tile* tile, const size_t selected_unit_id ) {
 
 	ASSERT( m_tile_at_query_purpose != backend::TQP_NONE, "tile query purpose not set" );
+	if ( m_tile_at_query_purpose == backend::TQP_OBJECT_SELECT ) {
+		const auto& coordinates = tile->GetCoords();
+		auto* native_tile = m_game->GetMap()->GetTile( coordinates.x, coordinates.y );
+		if ( backend::ConsumeTileTarget( m_game, native_tile, m_tile_at_query_purpose ) ) {
+			m_tile_at_query_purpose = backend::TQP_NONE;
+			return;
+		}
+	}
 
 	DeselectTileOrUnit();
 

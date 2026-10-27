@@ -45,6 +45,7 @@ const fixture = () => {
 	f.game.get_map = () => { return f.map; };
 	f.game.get_um = () => { return {}; };
 	f.game.get_year = () => { return 2101; };
+	f.game.get_player = () => { return {get_energy_state: () => { return {credits: 0}; }}; };
 	f.game.event = (name, data) => { f.state.orders :+ name; };
 	const m = {};
 	m.ui = f.view.ui; m.root = f.view.root; m.glsmac = f.glsmac;

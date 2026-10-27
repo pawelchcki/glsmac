@@ -19,6 +19,7 @@ const change = (input, block, row, column, value) => {
 };
 const install = (input) => {
 	const f = test.founding_fixture();
+	f.game.get_settings().global.rules.set_terraforming_ignore_technologies(false);
 	f.enable_economy();
 	const rules = consumer.parse(input.document);
 	f.with_write(() => {
@@ -45,13 +46,15 @@ const install = (input) => {
 	f.start = (technologies) => {
 		f.apply_faction_starting_technologies(technologies);
 		f.game.set('starting_unit_rules', consumer.materialize(f.game.um, rules));
+		f.game.set('energy_rules', {starting_credits:0});
 		f.with_write(() => {
 			f.game.bm.despawn_base(f.base);
 			for (id of ['HEADQUARTERS', 'RECYCLING_TANKS', 'STOCKPILE_ENERGY']) { f.owner.remove_production_choice(id); }
 		});
-		const owner = {id: f.owner.id, is_master: false, get_faction: () => { return f.owner.get_faction(); }};
+		const owner = {id: f.owner.id, is_master: false, get_faction: () => { return f.owner.get_faction(); },
+			validate_initial_energy:(amount) => { return f.owner.validate_initial_energy(amount); }};
 		const players = []; players :+ owner;
-		const world = {get_players: () => { return players; }, get_tm: () => { return f.game.tm; },
+		const world = {get_settings:() => { return f.game.get_settings(); },get_players: () => { return players; }, get_tm: () => { return f.game.tm; },
 			get: (key) => { return f.game.get(key); }, random: {get_int: (low, high) => { return low; }}};
 		world.event = (name, data) => {
 			if (#is_defined(data.player)) { data.player = f.owner; }

@@ -31,6 +31,7 @@ class Slot;
 namespace faction {
 class Faction;
 }
+namespace unit { class Def; }
 namespace map::tile {
 class Tile;
 }
@@ -137,6 +138,7 @@ private:
 	// Saved native methods retain an invalidatable identity, like Rules handles.
 	std::shared_ptr< Base* > m_rename_handle = std::make_shared< Base* >( this );
 	void ProductionChanged();
+	map::tile::Tile* GetUnitProductionTile( const unit::Def* def ) const;
 	ProductionResult CompleteUnitProduction( GSE_CALLABLE, const ProductionState& next );
 
 	std::unordered_set< map::tile::Tile* > m_worked_tiles = {};

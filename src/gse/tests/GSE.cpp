@@ -108,6 +108,74 @@ void AddGSETests( task::gsetests::GSETests* task ) {
 	);
 
 	task->AddTest(
+		"GC batch sweep preserves shared cyclic roots and destroys released objects exactly once",
+		GT() {
+			class Tracked : public gc::Object {
+			public:
+				Tracked( gc::Space* space, std::atomic< int >& destroyed ) : gc::Object( space ), destroyed( destroyed ) {}
+				~Tracked() override { ++destroyed; }
+				Tracked* next = nullptr;
+				void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override {
+					gc::Object::GetReachableObjects( reachable_objects );
+					if ( next ) { GC_REACHABLE( next ); }
+				}
+			private:
+				std::atomic< int >& destroyed;
+			};
+			class Root : public gc::Object {
+			public:
+				Root() : gc::Object( nullptr ) {}
+				Tracked* first = nullptr; Tracked* shared = nullptr;
+				void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override {
+					gc::Object::GetReachableObjects( reachable_objects );
+					if ( first ) { GC_REACHABLE( first ); }
+					if ( shared ) { GC_REACHABLE( shared ); }
+				}
+			} root;
+			std::atomic< int > discarded = 0; std::atomic< int > retained = 0;
+			gc::Space space( &root ); space.SetThreadId( std::this_thread::get_id() );
+			space.Accumulate( &root, [ & ]() {
+				Tracked* first = nullptr; Tracked* previous = nullptr;
+				for ( size_t i = 0; i < 1024; ++i ) {
+					auto* current = new Tracked( &space, discarded );
+					if ( previous ) { previous->next = current; } else { first = current; }
+					previous = current;
+				}
+				previous->next = first;
+				previous = nullptr;
+				for ( size_t i = 0; i < 32; ++i ) {
+					auto* current = new Tracked( &space, retained );
+					if ( previous ) { previous->next = current; } else { root.first = current; }
+					previous = current;
+					if ( i == 16 ) { root.shared = current; }
+				}
+				previous->next = root.first;
+			} );
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( discarded == 1024 && retained == 0, "batch sweep lost a shared cyclic root or retained unreachable allocations" );
+			// Commit a second, nested batch into a space that already retains
+			// live registrations. Both accumulation levels must preserve them.
+			space.Accumulate( &root, [ & ]() {
+				new Tracked( &space, discarded );
+				space.Accumulate( &root, [ & ]() {
+					for ( size_t i = 0; i < 63; ++i ) { new Tracked( &space, discarded ); }
+				} );
+			} );
+			GT_ASSERT( discarded == 1024 && retained == 0, "accumulation destroyed existing registrations" );
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( discarded == 1088 && retained == 0, "nested batch registration lost live objects or leaked unreachable objects" );
+			space.Accumulate( &root, [ & ]() { root.first = nullptr; } );
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( discarded == 1088 && retained == 0, "one remaining root did not preserve its complete cycle" );
+			space.Accumulate( &root, [ & ]() { root.shared = nullptr; } );
+			g_engine->GetGC()->Iterate();
+			g_engine->GetGC()->Iterate();
+			GT_ASSERT( discarded == 1088 && retained == 32, "released batch was leaked or destroyed more than once" );
+			GT_OK();
+		}
+	);
+
+	task->AddTest(
 		"GC accumulation recovers from native and non-standard exceptions",
 		GT() {
 			class Root : public gc::Object {

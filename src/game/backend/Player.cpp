@@ -52,7 +52,11 @@ Player::Player( const Player* const other )
 	, m_slotnum( other->m_slotnum )
 	, m_faction( other->m_faction )
 	, m_difficulty_level( other->m_difficulty_level )
-	, m_is_turn_completed( other->m_is_turn_completed ) {
+	, m_is_turn_completed( other->m_is_turn_completed )
+	, m_energy_credits( other->m_energy_credits )
+	, m_energy_income_turn( other->m_energy_income_turn )
+	, m_energy_initialized( other->m_energy_initialized )
+	, m_energy_initialization_allowed( other->m_energy_initialization_allowed ) {
 	// Notification copies borrow their slot/faction context, but own every
 	// production payload. Avoid Serializable assignment followed by memberwise
 	// copying, which discarded decoded payloads and aliased the source pointers.
@@ -70,6 +74,7 @@ Player::Player( const Player* const other )
 }
 
 Player::~Player() {
+	*m_energy_handle = nullptr;
 	for ( const auto& it : m_production_choices ) {
 		delete it.second;
 	}
@@ -175,7 +180,7 @@ void Player::AddProductionChoice( GSE_CALLABLE, const std::string& id, const gse
 		const auto& unit_id = static_cast< gse::value::String* >( id_it->second )->value;
 		const auto* um = GetGame()->GetUM();
 		const auto* def = um ? um->GetUnitDef( unit_id ) : nullptr;
-		if ( !def || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production requires a defined static land unit" ); }
+		if ( !def || def->m_type != unit::DT_STATIC || ( def->GetMovementType() != unit::MT_LAND && !( def->GetMovementType() == unit::MT_WATER && def->CanTerraform() ) ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production requires a static land unit or naval worker" ); }
 		const auto integer = [ & ]( const std::string& key ) {
 			const auto it = data.find( key );
 			if ( it == data.end() || it->second->type != gse::VT_INT ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unit production needs integer " + key ); }
@@ -237,7 +242,7 @@ gse::value::Array* Player::GetProductionChoices( GSE_CALLABLE ) const {
 			const auto* recipe = static_cast< const base::production::Unit* >( choice );
 			const auto* um = GetGame()->GetUM();
 			const auto* def = um ? um->GetUnitDef( recipe->unit_id ) : nullptr;
-			if ( !def || def->m_type != unit::DT_STATIC || def->GetMovementType() != unit::MT_LAND ) { continue; }
+			if ( !def || def->m_type != unit::DT_STATIC || ( def->GetMovementType() != unit::MT_LAND && !( def->GetMovementType() == unit::MT_WATER && def->CanTerraform() ) ) ) { continue; }
 			choices.push_back( VALUEEXT( gse::value::Object, GSE_CALL, {
 				{ "id", VALUE( gse::value::String,, id ) }, { "type", VALUE( gse::value::String,, "unit" ) },
 				{ "unit_id", VALUE( gse::value::String,, recipe->unit_id ) }, { "name", VALUE( gse::value::String,, def->m_name ) },
@@ -278,9 +283,159 @@ void Player::RemoveProductionChoice( GSE_CALLABLE, const std::string& id ) {
 	m_production_choices.erase( it );
 }
 
+std::string Player::ValidateInitialEnergy( const int64_t credits ) const {
+	const auto* game = GetGame();
+	if ( !m_slot || m_slot->GetPlayer() != this || !game->CanInitializeProduction() || !m_energy_initialization_allowed || m_energy_initialized ||
+		m_energy_credits != 0 || m_energy_income_turn != 0 || !m_energy_receipts.empty() || credits < 0 || credits > 2000000 ||
+		m_next_energy_receipt == std::numeric_limits< int64_t >::max() ) { return "Energy initialization requires an unfunded new world"; }
+	return {};
+}
+
+int64_t Player::InitializeEnergy( GSE_CALLABLE, const int64_t credits ) {
+	GetGame()->CheckRW( GSE_CALL ); CheckCustomMutation( GSE_CALL );
+	const auto error = ValidateInitialEnergy( credits ); if ( !error.empty() ) { GSE_ERROR( gse::EC.GAME_ERROR, error ); }
+	const auto token = m_next_energy_receipt + 1;
+	m_energy_receipts.emplace( token, EnergyReceipt { int64_t( GetGame()->GetTurnId() ), 0, 0, credits, 0, m_energy_revision, false, true, m_energy_initialization_allowed, GetGame()->m_applying_event_id } );
+	m_energy_credits = credits; m_energy_initialized = true; m_energy_initialization_allowed = false; m_next_energy_receipt = token; m_energy_revision = token;
+	GetGame()->QueueEnergyChanged( m_energy_handle );
+	return token;
+}
+
+int64_t Player::ChangeEnergy( GSE_CALLABLE, const int64_t delta, const int64_t expected, const int64_t turn, const bool income ) {
+	auto* game = GetGame(); game->CheckRW( GSE_CALL ); CheckCustomMutation( GSE_CALL );
+	if ( !m_slot || m_slot->GetPlayer() != this || !game->IsRunning() || turn <= 0 || uint64_t( turn ) != game->GetTurnId() ||
+		expected != m_energy_credits || m_next_energy_receipt == std::numeric_limits< int64_t >::max() ||
+		( income && ( delta < 0 || turn <= m_energy_income_turn ) ) ||
+		( delta > 0 && m_energy_credits > std::numeric_limits< int64_t >::max() - delta ) ||
+		( delta < 0 && delta < -m_energy_credits ) ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Invalid, stale or unaffordable energy change" );
+	}
+	const auto token = m_next_energy_receipt + 1;
+	const auto next = m_energy_credits + delta;
+	const auto income_turn = income ? turn : m_energy_income_turn;
+	m_energy_receipts.emplace( token, EnergyReceipt { turn, m_energy_credits, m_energy_income_turn, next, income_turn, m_energy_revision, m_energy_initialized, false, m_energy_initialization_allowed, game->m_applying_event_id } );
+	m_energy_credits = next; m_energy_income_turn = income_turn; m_next_energy_receipt = token; m_energy_revision = token;
+	game->QueueEnergyChanged( m_energy_handle );
+	return token;
+}
+
+void Player::FinalizeAcceptedEnergy( const std::string& event_id ) {
+	if ( event_id.empty() ) { return; }
+	for ( auto it = m_energy_receipts.begin(); it != m_energy_receipts.end(); ) {
+		if ( it->second.acceptance_context == event_id ) { it = m_energy_receipts.erase( it ); }
+		else { ++it; }
+	}
+}
+
+const Player::EnergyReceipt& Player::ValidateEnergyRollback( GSE_CALLABLE, const int64_t receipt ) const {
+	auto* game = GetGame();
+	const auto found = m_energy_receipts.find( receipt );
+	if ( !m_slot || m_slot->GetPlayer() != this || found == m_energy_receipts.end() || m_energy_revision != receipt ||
+		( found->second.initialization ? !game->CanInitializeProduction() : !game->IsRunning() ) ||
+		m_energy_initialized != ( found->second.initialization || found->second.was_initialized ) ||
+		m_energy_initialization_allowed != ( !found->second.initialization && found->second.was_allowed ) ||
+		uint64_t( found->second.turn ) != game->GetTurnId() || m_energy_credits != found->second.expected || m_energy_income_turn != found->second.expected_income_turn ) {
+		GSE_ERROR( gse::EC.GAME_ERROR, "Energy receipt is stale or retired" );
+	}
+	return found->second;
+}
+
+void Player::RollbackEnergy( GSE_CALLABLE, const int64_t receipt ) {
+	GetGame()->CheckRW( GSE_CALL ); CheckCustomMutation( GSE_CALL );
+	const auto& previous = ValidateEnergyRollback( GSE_CALL, receipt );
+	m_energy_credits = previous.credits; m_energy_income_turn = previous.income_turn; m_energy_revision = previous.previous_revision; m_energy_initialized = previous.was_initialized; m_energy_initialization_allowed = previous.was_allowed;
+	m_energy_receipts.erase( receipt );
+	GetGame()->QueueEnergyChanged( m_energy_handle );
+}
+
 WRAPIMPL_BEGIN( Player )
 	auto* const game = GetGame();
+	// Simulate the complete LIFO chain before changing a balance. Each older
+	// receipt is checked against its logical predecessor, not the latest ledger.
+	const auto energy_sequence = [ handle = m_energy_handle ]( GSE_CALLABLE, const std::vector< gse::Value* >& values, const bool apply ) -> gse::Value* {
+		auto* player = *handle;
+		if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+		auto* game = player->GetGame();
+		if ( apply ) { game->CheckRW( GSE_CALL ); player->CheckCustomMutation( GSE_CALL ); }
+		if ( values.empty() || values.size() > 64 || !player->m_slot || player->m_slot->GetPlayer() != player || ( !game->IsRunning() && !game->CanInitializeProduction() ) ) {
+			GSE_ERROR( gse::EC.INVALID_CALL, "Invalid energy rollback sequence or owner" );
+		}
+		auto credits = player->m_energy_credits; auto income_turn = player->m_energy_income_turn; auto revision = player->m_energy_revision; auto initialized = player->m_energy_initialized; auto allowed = player->m_energy_initialization_allowed;
+		std::vector< int64_t > tokens; tokens.reserve( values.size() );
+		for ( auto* value : values ) {
+			value = value->Deref();
+			if ( value->type != gse::VT_INT ) { GSE_ERROR( gse::EC.INVALID_CALL, "Energy rollback token must be an integer" ); }
+			const auto token = static_cast< const gse::value::Int* >( value )->value;
+			const auto found = player->m_energy_receipts.find( token );
+			if ( found == player->m_energy_receipts.end() || revision != token || initialized != ( found->second.initialization || found->second.was_initialized ) ||
+				allowed != ( !found->second.initialization && found->second.was_allowed ) ||
+				( !found->second.initialization && !game->IsRunning() ) ||
+				( found->second.initialization && !game->CanInitializeProduction() ) || uint64_t( found->second.turn ) != game->GetTurnId() ||
+				credits != found->second.expected || income_turn != found->second.expected_income_turn ) {
+				GSE_ERROR( gse::EC.INVALID_CALL, "Energy rollback sequence is stale or out of order" );
+			}
+			credits = found->second.credits; income_turn = found->second.income_turn; revision = found->second.previous_revision; initialized = found->second.was_initialized; allowed = found->second.was_allowed;
+			tokens.push_back( token );
+		}
+		if ( apply ) {
+			player->m_energy_credits = credits; player->m_energy_income_turn = income_turn; player->m_energy_revision = revision; player->m_energy_initialized = initialized; player->m_energy_initialization_allowed = allowed;
+			for ( const auto token : tokens ) { player->m_energy_receipts.erase( token ); }
+			game->QueueEnergyChanged( player->m_energy_handle );
+		}
+		return VALUE( gse::value::Undefined );
+	};
 	WRAPIMPL_PROPS
+			{ "get_energy_revision", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 0 ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				return VALUE( gse::value::Int,, player->GetEnergyRevision() );
+			} ) },
+			{ "validate_energy_rollback_sequence", NATIVE_CALL( energy_sequence ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( tokens, 0, Array ); return energy_sequence( GSE_CALL, tokens, false );
+			} ) },
+			{ "rollback_energy_sequence", NATIVE_CALL( energy_sequence ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( tokens, 0, Array ); return energy_sequence( GSE_CALL, tokens, true );
+			} ) },
+			{ "validate_initial_energy", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( credits, 0, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				const auto error = player->ValidateInitialEnergy( credits );
+				return error.empty() ? static_cast< gse::Value* >( VALUE( gse::value::Undefined ) ) : VALUE( gse::value::String,, error );
+			} ) },
+			{ "initialize_energy", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( credits, 0, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				return VALUE( gse::value::Int,, player->InitializeEnergy( GSE_CALL, credits ) );
+			} ) },
+			{ "get_energy_state", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 0 ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				return VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "credits", VALUE( gse::value::Int,, player->GetEnergyCredits() ) },
+					{ "initialized", VALUE( gse::value::Bool,, player->IsEnergyInitialized() ) },
+					{ "last_income_turn", VALUE( gse::value::Int,, player->GetEnergyIncomeTurn() ) },
+				} );
+			} ) },
+			{ "change_energy", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 3 ); N_GETVALUE( delta, 0, Int ); N_GETVALUE( expected, 1, Int ); N_GETVALUE( turn, 2, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				return VALUE( gse::value::Int,, player->ChangeEnergy( GSE_CALL, delta, expected, turn ) );
+			} ) },
+			{ "credit_energy_income", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 2 ); N_GETVALUE( amount, 0, Int ); N_GETVALUE( turn, 1, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				return VALUE( gse::value::Int,, player->ChangeEnergy( GSE_CALL, amount, player->GetEnergyCredits(), turn, true ) );
+			} ) },
+			{ "validate_energy_rollback", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				player->ValidateEnergyRollback( GSE_CALL, receipt ); return VALUE( gse::value::Undefined );
+			} ) },
+			{ "rollback_energy", NATIVE_CALL( handle = m_energy_handle ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( receipt, 0, Int ); auto* player = *handle;
+				if ( !player ) { GSE_ERROR( gse::EC.INVALID_CALL, "Player no longer exists" ); }
+				player->RollbackEnergy( GSE_CALL, receipt ); return VALUE( gse::value::Undefined );
+			} ) },
 			{
 				"id",
 				VALUE( gse::value::Int, , m_slotnum )
@@ -431,6 +586,9 @@ const types::Buffer Player::Serialize() const {
 		m_production_choices.at( id )->Serialize( buf );
 	}
 
+	if ( m_energy_initialized || m_energy_initialization_allowed || m_energy_credits != 0 || m_energy_income_turn != 0 ) {
+		buf.WriteString( "energy-ledger-v2" ); buf.WriteBool( m_energy_initialized ); buf.WriteBool( m_energy_initialization_allowed ); buf.WriteInt( m_energy_credits ); buf.WriteInt( m_energy_income_turn );
+	}
 	return buf;
 }
 
@@ -454,7 +612,16 @@ void Player::Deserialize( types::Buffer buf ) {
 		if ( id.empty() || choices.count( id ) ) { THROW( "invalid or duplicate production choice id" ); }
 		choices.emplace( id, base::production::Production::Deserialize( buf ) );
 	}
+	int64_t energy = 0, income_turn = 0; bool initialized = false, allowed = false;
+	if ( buf.lenr != buf.lenw ) {
+		const auto version = buf.ReadString();
+		if ( version != "energy-ledger-v1" && version != "energy-ledger-v2" ) { THROW( "unknown player energy extension" ); }
+		if ( version == "energy-ledger-v2" ) { initialized = buf.ReadBool(); allowed = buf.ReadBool(); }
+		energy = buf.ReadInt(); income_turn = buf.ReadInt();
+		if ( energy < 0 || income_turn < 0 || ( initialized && allowed ) ) { THROW( "invalid player energy ledger" ); }
+	}
 	if ( buf.lenr != buf.lenw ) { THROW( "trailing player snapshot data" ); }
+	m_energy_credits = energy; m_energy_income_turn = income_turn; m_energy_initialized = initialized; m_energy_initialization_allowed = allowed; m_energy_receipts.clear(); m_energy_revision = 0;
 	for ( auto& choice : choices ) { m_production_choices.emplace( choice.first, choice.second.release() ); }
 
 }

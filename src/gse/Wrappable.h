@@ -113,6 +113,7 @@ public:
 	virtual const callback_id_t On( GSE_CALLABLE, const std::string& event, value::Callable* const callback );
 	virtual void Off( GSE_CALLABLE, const std::string& event, const callback_id_t callback_id );
 	virtual const bool HasHandlers( const std::string& event );
+	const bool HasNamedHandlers( const std::string& event );
 	virtual Value* const Trigger( GSE_CALLABLE, const std::string& event, const f_args_t& f_args = nullptr, const std::optional< value_type_t > expected_return_type = {} );
 	virtual Value* const Trigger( GSE_CALLABLE, const std::string& event, gse::value::Object* args_obj, const std::optional< value_type_t > expected_return_type = {} );
 	virtual void ClearHandlers();

@@ -9,6 +9,7 @@ import {chromium} from 'playwright';
 import {PNG} from 'pngjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
+const scriptsRoot = process.env.WASM_SCRIPTS_ROOT || root;
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = process.env.CVR_ARTIFACTS_DIR || `${root}tools/wasm-tests/build/artifacts/unit-cvr`;
@@ -43,6 +44,7 @@ const world = String.raw`return (game) => {
 const main = String.raw`#main((glsmac) => {
  #include('game/game')(glsmac); #include('ui/ui')(glsmac);
  const observers = #include('tests/_state_trace_observer');
+ const mini_map = #include('ui/parts/game/bottom_bar/mini_map');
  glsmac.on('configure_game',(e) => {
   const game = e.game; let selected = null;
   game.on('unit_select',(e) => { selected = e.unit.id + 0; #print('CVR_SELECTED|' + e.unit.def); });
@@ -62,13 +64,32 @@ const main = String.raw`#main((glsmac) => {
    const source = game.get_tm().get_tile(8,8); let mover = null;
    for (unit of source.get_units()) { if (unit.def == 'Formers') { mover = unit; } }
    if (mover == null) { throw Error('Missing installed component unit'); }
-   let before = null;
-   #async(0,() => {
-    glsmac.ui.root.on('keydown',(e) => {
+   let before = null; const completion = {accepted:false};
+   game.on('event_result',(e) => {
+    // Legacy movement receipts intentionally contain scalar data only. This
+    // fixture has exactly one local unit and sends exactly one movement key.
+    if (e.name == 'move_unit' && e.success && e.caller == game.get_player().id) {
+     completion.accepted = true;
+     #print('CVR_MOVE_ACCEPTED|' + e.event_id + '|' + #to_string(mover.get_tile().is_locked()));
+    }
+   });
+   // Accepted move_to_tile locks its endpoints. The native animation callback
+   // unlocks, updates the tile and runs the debit synchronously under GSE;
+   // this owned observer runs only after that callback returns.
+   glsmac.ui.root.timer(100,() => {
+    if (completion.accepted && !mover.get_tile().is_locked()) {
+     #print('CVR_MOVE_SETTLED'); return false;
+    }
+    return true;
+   });
+   glsmac.ui.root.on('keydown',(e) => {
      if (e.modifiers != {}) { return false; }
      if (e.code == 'K') { game.select_unit(mover); return true; }
      if (e.code == 'P') {
       const snapshot = observer.read();
+      const treasury = game.get_player().get_energy_state();
+      if (mini_map.info_energy.text != 'Energy: ' + #to_string(treasury.credits)) { throw Error('Actual native treasury differs from mounted HUD label'); }
+      #print('CVR_TREASURY|' + #to_string(treasury.credits) + '|' + mini_map.info_energy.text);
       if (#sizeof(snapshot.players) != 7 || #sizeof(snapshot.bases) != 7 || #sizeof(snapshot.units) != 7) { throw Error('Incomplete all-player native coverage'); }
       #print('CVR_NATIVE|' + #to_string(snapshot));
       if (before == null) {
@@ -88,8 +109,7 @@ const main = String.raw`#main((glsmac) => {
      if (e.code == 'Q') { glsmac.exit(); return true; }
      return false;
     });
-    #print('CVR_READY'); return false;
-   });
+   #print('CVR_READY');
   });
  }); glsmac.run();
 });`;
@@ -98,8 +118,8 @@ test('installed CVR component traverses asset bridge, HUD, billboard and real mo
   skip: !assets && 'Requires installed SMAC assets', timeout: 180000,
 }, async t => {
   mkdirSync(artifacts,{recursive:true});
-  const scripts=Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`,{recursive:true}).filter(n=>n.endsWith('.gls.js')).sort()
-    .map(n=>[`GLSMAC_data/default/${n}`,readFileSync(`${root}GLSMAC_data/default/${n}`,'utf8')]));
+  const scripts=Object.fromEntries(readdirSync(`${scriptsRoot}/GLSMAC_data/default`,{recursive:true}).filter(n=>n.endsWith('.gls.js')).sort()
+    .map(n=>[`GLSMAC_data/default/${n}`,readFileSync(`${scriptsRoot}/GLSMAC_data/default/${n}`,'utf8')]));
   const observer=readFileSync(`${root}GLSMAC_data/tests/_state_trace_observer.gls.js`,'utf8');
   const report={version:1,scope:'production stock Former component application rendering/movement',
     original_visual_agreement:'unsupported', original_passing_cases:0,
@@ -147,32 +167,38 @@ test('installed CVR component traverses asset bridge, HUD, billboard and real mo
     Module.callMain=args=>callMain([...args,'--datapath','/cvr-snapshot/GLSMAC_data','--mainscript','browser_cvr_main','--worldscript','browser_cvr',
       '--quickstart','--quickstart-mapfile','/persist/glsmac/maps/cvr-arid.MP','--quickstart-faction','GAIANS']);
   },{scripts,main,world,observer});
-  report.candidate_executed=true; await page.locator('#start').click(); await waitLog('CVR_READY');
+  report.candidate_executed=true; const startupDeadline=performance.now()+60000; await page.locator('#start').click(); await waitLog('CVR_READY');
   await page.keyboard.press('k'); await waitLog('CVR_SELECTED|Formers'); await page.waitForTimeout(500);
-  await page.keyboard.press('p'); await waitLog('CVR_BEFORE');
+  await page.keyboard.press('p'); await waitLog('CVR_BEFORE');await waitLog('CVR_TREASURY|0|Energy: 0');
   const capture=async name=>{const started=performance.now();const bytes=await page.locator('#canvas').screenshot({path:`${artifacts}/${name}.png`});
     report.captures.push({name,acquired_ms:performance.now()-started,sha256:hash(bytes)});return bytes;};
-  const rendered=PNG.sync.read(await capture('selected-before'));
   const canvas=await page.locator('#canvas').evaluate(el=>({width:el.width,height:el.height}));
   assert.deepEqual(canvas,{width:1024,height:768});
+  let rendered,visible,colors,dominant,hudPixels;report.rendered_readiness=[];
+  do {
+    rendered=PNG.sync.read(await capture(`selected-before-${report.rendered_readiness.length}`));
+    // The CSS border can add one screenshot row; framebuffer is1024x768.
+    assert.ok(rendered.width>=1024 && rendered.height>=768);
+    visible=0;colors=new Map();
+    for(let y=16;y<91;++y)for(let x=900;x<1000;++x){const at=(y*rendered.width+x)*4;
+      if(rendered.data[at]||rendered.data[at+1]||rendered.data[at+2]){++visible;const key=[...rendered.data.subarray(at,at+3)].join(',');colors.set(key,(colors.get(key)||0)+1);}}
+    dominant=[...colors].sort((a,b)=>b[1]-a[1])[0]?.[0]??null;hudPixels=0;
+    for(let y=576;y<642;++y)for(let x=5;x<132;++x){const at=(y*rendered.width+x)*4;
+      if([...rendered.data.subarray(at,at+3)].join(',')===dominant)++hudPixels;}
+    report.rendered_readiness.push({nonblack:visible,distinct_rgb:colors.size,dominant_rgb:dominant,hud_pixels:hudPixels});
+    if(visible>100 && visible<6000 && colors.size>2 && hudPixels>100)break;
+  } while(performance.now()<startupDeadline);
   report.canvas={...canvas,screenshot_width:rendered.width,screenshot_height:rendered.height};
-  // The product canvas has a CSS border, so its element screenshot can have an
-  // extra row after CSS rounding. The engine framebuffer remains1024x768.
-  assert.ok(rendered.width>=1024 && rendered.height>=768);
-  let visible=0;const colors=new Map();
-  for(let y=16;y<91;++y)for(let x=900;x<1000;++x){const at=(y*rendered.width+x)*4;
-    if(rendered.data[at]||rendered.data[at+1]||rendered.data[at+2]){++visible;const key=[...rendered.data.subarray(at,at+3)].join(',');colors.set(key,(colors.get(key)||0)+1);}}
   assert.ok(visible>100 && visible<6000,'Installed component must render nonempty geometry with transparent margins');
   assert.ok(colors.size>2,'Installed physical palette must reach real rendered pixels');
-  const dominant=[...colors].sort((a,b)=>b[1]-a[1])[0][0];let hudPixels=0;
-  for(let y=576;y<642;++y)for(let x=5;x<132;++x){const at=(y*rendered.width+x)*4;
-    if([...rendered.data.subarray(at,at+3)].join(',')===dominant)++hudPixels;}
   assert.ok(hudPixels>100,'Actual production Former HUD must display the loaded component palette, not a blank or citizen portrait');
   report.preview_pixels={nonblack:visible,distinct_rgb:colors.size,dominant_rgb:dominant,stock_former_hud_matching_pixels:hudPixels,
     scope:'application preview and stock HUD relation; no original pixel agreement'};
   const started=performance.now(); await page.keyboard.press('ArrowRight');
   for(let i=0;i<4;++i){await capture(`movement-${i}`);report.captures.at(-1).elapsed_from_input_ms=performance.now()-started;}
-  await page.waitForTimeout(300); await page.keyboard.press('p'); await waitLog('CVR_AFTER|all-seven-native-guards');
+  await page.waitForTimeout(300); await waitLog('CVR_MOVE_ACCEPTED|'); await waitLog('CVR_MOVE_SETTLED');
+  report.movement_settlement_observed_ms=performance.now()-started;
+  await page.keyboard.press('p'); await waitLog('CVR_AFTER|all-seven-native-guards');
   await capture('settled-after');
   report.native_guards='all-seven players/research, seven cities, seven units; only mover position/movement changes';
   await page.keyboard.press('q'); await page.waitForFunction(()=>document.body.dataset.state==='exited'); assert.deepEqual(errors,[]);

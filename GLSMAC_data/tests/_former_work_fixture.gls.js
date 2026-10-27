@@ -6,6 +6,8 @@ const terrain_rules = #include('../default/game/terraforming_rules');
 const work = #include('../default/game/terraforming');
 return (profile) => {
 	const f = test.founding_fixture(); f.enable_economy();
+	// Frozen legacy work/control contracts explicitly exercise respect-tech mode.
+	f.game.get_settings().global.rules.set_terraforming_ignore_technologies(false);
 	const networks = {base_road: 'network_base', forest_roads: 'network_forest'};
 	f.configure(#is_defined(networks[profile]) ? networks[profile] : (profile == 'road' ? 'arid_road_pair' : 'arid'));
 	f.with_write(() => {

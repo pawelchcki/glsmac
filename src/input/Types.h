@@ -80,7 +80,11 @@ namespace input {
     X_KEY_CODE_1( F9 ) \
     X_KEY_CODE_1( F10 ) \
     X_KEY_CODE_1( F11 ) \
-    X_KEY_CODE_1( F12 )
+    X_KEY_CODE_1( F12 ) \
+    X_KEY_CODE_1( PERIOD ) \
+    X_KEY_CODE_1( LEFTBRACKET ) \
+    X_KEY_CODE_1( RIGHTBRACKET ) \
+    X_KEY_CODE_1( MINUS )
 
 enum mouse_button_t : uint8_t {
 	MB_NONE,

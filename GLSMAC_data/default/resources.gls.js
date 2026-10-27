@@ -114,7 +114,7 @@ const result = {
 					result.ENERGY = result.ENERGY + 1;
 				}
 			} else {
-				result = land_yields.apply(e.tile, e.player, rules, result);
+				result = land_yields.apply(e.tile, e.player, rules, result, game);
 			}
 
 			// TODO: tech-based limitations

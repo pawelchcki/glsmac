@@ -6,6 +6,10 @@ const work = #include('../default/game/terraforming');
 return (input) => {
 	if (input.profile != 'spread') { throw Error('Terraform menu requires the declared spread layout'); }
 	const f = mounted_menu('synthetic', input);
+	// These immutable original-context cases exercise the actual product's
+	// explicit respect-technology mode, rather than normal play's new waiver.
+	f.game.get_settings().global.rules.set_terraforming_ignore_technologies(false);
+	if (f.game.get_settings().global.rules.get_terraforming_policy().ignore_technologies) { throw Error('Respect-technology context was not applied'); }
 	f.former = f.units[1];
 	// The spread fixture has a real city at (2,2), Scout at (2,2), Former at
 	// (3,3) and Colony Pod at (1,3). Configure only the declared work terrain.

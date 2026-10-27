@@ -20,6 +20,7 @@ return {
 				}
 			}
 			if (everybody_completed_turn) {
+				#include('../energy_income').enqueue(e.game);
 				e.game.event('advance_turn', {
 					turn_id: e.game.get_turn() + 1
 				});

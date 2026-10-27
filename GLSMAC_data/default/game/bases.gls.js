@@ -109,6 +109,20 @@ const find_best_or_worst_tiles = (base, tiles, count, modifier) => { // modifier
 	return result;
 };
 
+
+// The proposal and the eventual queued population commit use the same live
+// eligibility, stable ranking and positive-yield rule. A proposal reserves no
+// tile: another city may commit its child before this one is applied.
+const choose_growth_assignment = (game, base) => {
+	const eligible = [];
+	for (tile of base.get_unworked_tiles()) {
+		if (base_work.workable_tile(game, base, tile) && !tile.has('working_pop') && !base.is_tile_worked(tile)) { eligible :+ tile; }
+	}
+	const best_tile = (find_best_or_worst_tiles(base, eligible, 1, 1))[0];
+	if (#is_defined(best_tile) && get_tile_score(base, best_tile) > 0) { return {type: 'WORKER', worked_tile: best_tile}; }
+	return {type: 'DOCTOR'};
+};
+
 const process_growth = (game, base) => {
 	if (base.has('pending_starvation')) { return; }
 	let grow = false;
@@ -161,29 +175,10 @@ const process_growth = (game, base) => {
 	}
 
 	if (grow && game.is_master()) {
-		// Unworked means absent from this base's own set. Nearby bases can
-		// still occupy or claim those squares; use the same live eligibility
-		// checks as explicit citizen assignment before comparing their yields.
-		const eligible = [];
-		for (tile of base.get_unworked_tiles()) {
-			if (base_work.workable_tile(game, base, tile) && !tile.has('working_pop') && !base.is_tile_worked(tile)) { eligible :+ tile; }
-		}
-		const best_tile = (find_best_or_worst_tiles(base, eligible, 1, 1))[0];
-		if (#is_defined(best_tile) && get_tile_score(base, best_tile) > 0) {
-			// Automatic growth assigns a Worker only to productive terrain.
-			// TODO: talents logic
-			game.event('add_base_pop', {
-				base: base,
-				type: 'WORKER',
-				worked_tile: best_tile,
-			});
-		} else {
-			// No productive legal vacancy remains, spawn doctor
-			game.event('add_base_pop', {
-				base: base,
-				type: 'DOCTOR',
-			});
-		}
+		const assignment = choose_growth_assignment(game, base);
+		const request = {base: base, type: assignment.type, automatic_growth: true};
+		if (#is_defined(assignment.worked_tile)) { request.worked_tile = assignment.worked_tile; }
+		game.event('add_base_pop', request);
 	}
 };
 
@@ -323,6 +318,7 @@ return (game) => {
 		game.set('f_base_get_pending_growth', get_pending_growth);
 		game.set('f_base_get_pending_production', get_pending_production);
 		game.set('f_base_process_growth', process_growth);
+		game.set('f_base_choose_growth_assignment', choose_growth_assignment);
 		game.set('f_base_reset_nutrients', reset_nutrients);
 		game.set('f_base_pop_work_tile', pop_work_tile);
 		game.set('f_base_pop_unwork_tile', pop_unwork);

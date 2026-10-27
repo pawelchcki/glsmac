@@ -31,6 +31,8 @@ const fixture = (master) => {
 	f.game.get_players = () => { return [{ id: 0 }, { id: 1 }]; };
 	f.game.get_turn = () => { return f.state.turn; };
 	f.game.get_year = () => { return 2100 + f.state.turn; };
+	// Declared display boundary only; native treasury authority has its own suite.
+	f.game.get_player = () => { return {get_energy_state: () => { return {credits: 0}; }}; };
 	f.game.is_turn_complete = (id) => { return f.state.complete[id]; };
 	f.status = (status) => { f.game.emit('turn_status', { status: status }); };
 	f.game.complete_turn = (id) => {

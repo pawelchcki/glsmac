@@ -99,7 +99,7 @@ static const production::Unit* ResolveUnitProduction( Game* game, slot::Slot* ow
 	const auto* def = game->GetUM() ? game->GetUM()->GetUnitDef( recipe->unit_id ) : nullptr;
 	// Resolve the live price even for a same-project preview, so overflow is
 	// rejected consistently before selection or production state can change.
-	return def && def->m_type == unit::DT_STATIC && def->GetMovementType() == unit::MT_LAND && recipe->GetMineralCost( game, owner->GetPlayer() ) >= 0 ? recipe : nullptr;
+	return def && def->m_type == unit::DT_STATIC && ( def->GetMovementType() == unit::MT_LAND || ( def->GetMovementType() == unit::MT_WATER && def->CanTerraform() ) ) && recipe->GetMineralCost( game, owner->GetPlayer() ) >= 0 ? recipe : nullptr;
 }
 
 void Base::ValidateInitialProduction( GSE_CALLABLE, Game* game, Player* player, const ProductionState& state ) {
@@ -113,7 +113,8 @@ void Base::ValidateInitialProduction( GSE_CALLABLE, Game* game, Player* player, 
 		if ( entry.second->m_owner == player->GetSlot() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires the first city" ); }
 	}
 	try {
-		if ( !ResolveUnitProduction( game, player->GetSlot(), state.choice_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires an available land-unit recipe" ); }
+		const auto* recipe = ResolveUnitProduction( game, player->GetSlot(), state.choice_id );
+		if ( !recipe || game->GetUM()->GetUnitDef( recipe->unit_id )->GetMovementType() != unit::MT_LAND ) { GSE_ERROR( gse::EC.GAME_ERROR, "Initial production requires an available land-unit recipe" ); }
 	} catch ( const std::overflow_error& error ) { GSE_ERROR( gse::EC.GAME_ERROR, error.what() ); }
 }
 
@@ -139,6 +140,12 @@ int64_t Base::GetProductionSwitchLoss( GSE_CALLABLE, const std::string& choice_i
 	const auto* def = ResolveProduction( m_game, m_owner, choice_id );
 	const auto* recipe = ResolveUnitProduction( m_game, m_owner, choice_id );
 	if ( !def && !recipe ) { GSE_ERROR( gse::EC.GAME_ERROR, "Unknown or unsupported production choice: " + choice_id ); }
+	if ( recipe ) {
+		const auto* unit_def = m_game->GetUM()->GetUnitDef( recipe->unit_id );
+		if ( unit_def->GetMovementType() == unit::MT_WATER && !GetUnitProductionTile( unit_def ) ) {
+			GSE_ERROR( gse::EC.GAME_ERROR, "Sea worker requires an unlocked friendly launch tile" );
+		}
+	}
 	if ( def && m_facilities.count( def->m_id ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Facility is already installed" ); }
 	if ( m_production.choice_id.empty() ) { return 0; }
 	const auto* previous_def = ResolveProduction( m_game, m_owner, m_production.choice_id );

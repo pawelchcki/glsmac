@@ -38,6 +38,8 @@ CLASS2( Rules, types::Serializable, gse::Wrappable )
 	void SetMineralCostFactor( int64_t factor );
 	bool IsBlindResearch() const { return m_blind_research; }
 	void SetBlindResearch( bool enabled ) { m_blind_research = enabled; }
+	bool IgnoreTerraformingTechnologies() const { return m_terraforming_ignore_technologies; }
+	void SetTerraformingIgnoreTechnologies( bool enabled ) { m_terraforming_ignore_technologies = enabled; }
 	struct world_size_t {
 		std::string name;
 		std::string description;
@@ -67,6 +69,9 @@ private:
 	int64_t m_nutrient_cost_factor = 10;
 	int64_t m_mineral_cost_factor = 10;
 	bool m_blind_research = true;
+	// Temporary normal-play policy explicitly requested by the user. Structural
+	// Disable entries remain unsupported; this does not grant any technologies.
+	bool m_terraforming_ignore_technologies = true;
 	// Exact historical records retain the earlier reproduction's dimensions.
 	// Actual startup replaces this table with the complete installed definition.
 	static const world_sizes_t& LegacyWorldSizes();

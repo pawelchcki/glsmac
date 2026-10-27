@@ -34,6 +34,11 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 	void SetStartingTechnologies( const std::vector< std::string >& technologies );
 	const std::vector< std::string >& GetStartingTechnologies() const { return m_starting_technologies; }
 
+	struct economy_bonuses_t { int64_t starting_energy = 0; bool terraform_cost_halved = false; };
+	static economy_bonuses_t ParseEconomyBonuses( GSE_CALLABLE, const gse::value::object_properties_t& values );
+	void SetEconomyBonuses( const economy_bonuses_t& bonuses );
+	const economy_bonuses_t& GetEconomyBonuses() const { return m_economy_bonuses; }
+
 	typedef uint8_t faction_flag_t;
 	static constexpr Faction::faction_flag_t FF_NONE = 0;
 	static constexpr Faction::faction_flag_t FF_NAVAL = 1 << 0;
@@ -62,6 +67,7 @@ CLASS2( Faction, types::Serializable, gse::Wrappable )
 	WRAPDEFS_PTR( Faction )
 
 private:
+	economy_bonuses_t m_economy_bonuses;
 	identity_t m_identity = {};
 	std::vector< std::string > m_starting_technologies;
 
