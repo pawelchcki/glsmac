@@ -1,52 +1,8 @@
-// Recorded road scope: flat arid land without fungus. Bases connect to roads
-// without gaining a road flag. Read live state so later road edits take effect.
-const get_road_rate = (e, src_tile, dst_tile) => {
-	if (!e.data.unit.is_land || !src_tile.is_land || !dst_tile.is_land ||
-		src_tile.moisture != 1 || dst_tile.moisture != 1 || src_tile.rockiness != 1 || dst_tile.rockiness != 1 ||
-		src_tile.features.xenofungus || dst_tile.features.xenofungus) { return 0; }
-	const tm = e.game.get_tm();
-	if ((src_tile.get_base() == null && !tm.get_terraforming(src_tile.x, src_tile.y).road) ||
-		(dst_tile.get_base() == null && !tm.get_terraforming(dst_tile.x, dst_tile.y).road)) { return 0; }
-	const rules = e.game.get('movement_rules');
-	return rules.road_rate;
-};
-
-const get_movement_cost = (unit, src_tile, dst_tile) => {
-	const is_native = true; // TODO: non-native units
-
-	if (
-		dst_tile.is_land &&
-		src_tile.features.river &&
-		dst_tile.features.river
-	) {
-		return 1.0 / 3.0;
-	}
-
-	if (dst_tile.features.xenofungus) {
-		if (is_native) {
-			if (dst_tile.is_water) {
-				return 1.0;
-			} else {
-				return 1.0 / 3.0;
-			}
-		}
-		return 3.0;
-	}
-	return 1.0;
-};
-
-const get_movement_aftercost = (unit, src_tile, dst_tile) => {
-	const is_native = true; // TODO: non-native units
-	if (is_native && dst_tile.features.xenofungus) {
-		return 0.0;
-	}
-	if (dst_tile.is_land && dst_tile.rockiness >= 3) {
-		return 1.0;
-	}
-	return 0.0;
-};
+const evaluate_cost = #include('../movement_cost');
 
 return {
+
+	observe_cost: evaluate_cost,
 
 	validate: (e) => {
 
@@ -107,11 +63,11 @@ return {
 		const src_tile = e.data.unit.get_tile();
 		const dst_tile = e.data.tile;
 
-		const road_rate = get_road_rate(e, src_tile, dst_tile);
+		const cost = evaluate_cost(e); const road_rate = cost.road_rate;
 		if (road_rate > 0 && #round(movement * #to_float(road_rate)) >= 1) {
 			return {is_movement_successful: true};
 		}
-		let movement_cost = get_movement_cost(e.data.unit, src_tile, dst_tile);
+		const movement_cost = cost.base_cost;
 
 		return {
 			is_movement_successful:
@@ -128,7 +84,7 @@ return {
 		const dst_tile = e.data.tile;
 
 		const movement = unit.movement + 0.0;
-		const road_rate = get_road_rate(e, src_tile, dst_tile);
+		const cost = evaluate_cost(e); const road_rate = cost.road_rate;
 
 		const result = {
 			orig: {
@@ -138,7 +94,7 @@ return {
 			}
 		};
 
-		let movement_cost = get_movement_cost(unit, src_tile, dst_tile) + get_movement_aftercost(unit, src_tile, dst_tile);
+		const movement_cost = cost.total_cost;
 
 		let next = () => {
 			// reduce remaining movement points (even if failed)

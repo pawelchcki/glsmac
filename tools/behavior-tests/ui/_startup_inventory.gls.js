@@ -20,6 +20,9 @@ for (input of faction_inputs) {
 	f.apply_faction_ratings(configured[selected_id].social_ratings);
 	const rules = #include('./_startup_unit_rules_fixture').parse();
 	f.game.set('starting_unit_rules', unit_rules.materialize(f.game.um, rules));
+	// Synthetic inventory inputs explicitly use no opening reserve. Normal
+	// configure_game obtains this declaration from its installed RULES document.
+	f.game.set('energy_rules', {starting_credits:0});
 	f.with_write(() => {
 		f.game.um.despawn_unit(f.unit_id);
 		f.game.um.undefine_unit('ColonyPod');
@@ -31,9 +34,11 @@ for (input of faction_inputs) {
 	// An explicit player boundary avoids storing native wrapper references in
 	// a GSE-created array. Event payloads resolve it back to the actual owner.
 	const owner = { id: f.owner.id, is_master: false, get_faction: () => { return f.owner.get_faction(); } };
+	owner.validate_initial_energy = (credits) => { return f.owner.validate_initial_energy(credits); };
 	const players = []; players :+ owner;
 	game.get_players = () => { return players; };
 	game.get_tm = () => { return f.game.tm; };
+	game.get_settings = () => { return f.game.get_settings(); };
 	game.get = (key) => { return f.game.get(key); };
 	game.random = { get_int: (low, high) => { return low; } };
 	game.event = (name, data) => {

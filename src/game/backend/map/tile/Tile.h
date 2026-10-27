@@ -30,6 +30,7 @@ class Base;
 }
 
 namespace map {
+class Map;
 namespace tile {
 
 class Tiles;
@@ -98,10 +99,13 @@ public:
 	//   it recalculates dynamic properties and solves inconsistencies
 	//   safe to call anytime
 	void Update();
+	static const std::array< std::string, 13 > s_terraforming_names;
 
 	// Original SMAC maps store center heights and a separate land/sea class.
 	// Preserve them until an actual edit changes one of the shared corners.
 	void SetImportedElevation( const elevation_t value, const bool water );
+	// A gameplay center/class is independent of shared render vertices.
+	void SetCanonicalElevation( elevation_t value, bool water, bool edited = true );
 
 	// reset to empty state
 	void Clear();
@@ -127,6 +131,27 @@ public:
 
 private:
 	friend class TileManager;
+	friend class game::backend::map::Map;
+	struct WrappedTerrainFields {
+		elevation_t elevation;
+		bool water;
+		moisture_t moisture;
+		rockiness_t rockiness;
+		feature_t features;
+		bonus_t bonus;
+		terraforming_t terraforming;
+	};
+	struct WrappedTerrainUpdate {
+		gse::value::Object* wrapper;
+		gse::value::object_properties_t fields;
+	};
+	std::vector< WrappedTerrainUpdate > PrepareWrappedTerrain( GSE_CALLABLE, const WrappedTerrainFields& fields );
+	static void PublishWrappedTerrain( const std::vector< WrappedTerrainUpdate >& updates );
+	int64_t m_terrain_revision = 0;
+	std::array< int8_t, 13 > m_terraforming_owners = [](){ std::array< int8_t, 13 > value; value.fill( -1 ); return value; }();
+	bool m_has_canonical_elevation = false;
+	elevation_t m_canonical_elevation = 0;
+	bool m_canonical_water = false;
 	bool m_has_imported_elevation = false;
 	elevation_t m_imported_elevation = 0;
 	bool m_imported_water = false;
@@ -138,6 +163,7 @@ private:
 	gse::Value* const GetFeatures( GSE_CALLABLE ) const;
 	gse::Value* const GetBonuses( GSE_CALLABLE ) const;
 	gse::Value* const GetTerraforming( GSE_CALLABLE ) const;
+	gse::Value* GetTerraformingOwners( GSE_CALLABLE ) const;
 
 };
 

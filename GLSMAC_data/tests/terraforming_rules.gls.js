@@ -35,3 +35,30 @@ for (invalid of [[0, 4, '0'], [0, 4, '65'], [0, 4, '4.0'], [0, 4, '04'], [0, 0, 
 		test.assert(caught);
 	}); index++;
 }
+
+const complete_source = #include('./_terraform_action_source');
+
+behavior.scenario('complete installed terrain vocabulary has nineteen land and seven sea declarations', () => {
+	const rules = consumer.parse(test.parse_smac_text(complete_source, 'rules'));
+	let land = 0; let sea = 0;
+	for (entry of consumer.entries) {
+		const ordinary = consumer.for_tile(rules, {is_water: false}, entry.id);
+		const ocean = consumer.for_tile(rules, {is_water: true}, entry.id);
+		test.assert(ordinary.id == entry.id && ocean.id == entry.id && ordinary.source_row == entry.row);
+		if (ordinary.enabled) { land++; } if (ocean.enabled) { sea++; }
+	}
+	test.assert(land == 19 && sea == 7);
+	test.assert(rules.raise.order == 'Terraform UP' && rules.lower.sea.name == 'Lower Sea Floor');
+	test.assert(rules.farm.sea.order == 'Cultivate Kelp Farm' && rules.mine.sea.order == 'Construct Mining Platform');
+	test.assert(!rules.monolith.enabled && !rules.monolith.sea.enabled);
+	test.assert(consumer.for_tile(rules, {is_water: false}, 'unknown') == null);
+});
+
+behavior.scenario('sea variant consumes its independent names and prerequisites without changing work identity', () => {
+	const doc = test.parse_smac_text(complete_source, 'rules'); const rows = doc.rows('TERRAIN');
+	const row = rows[0]; row[2] = 'Authored sea field'; row[3] = 'AuthoredSeaTech'; row[4] = '11';
+	const rules = consumer.parse({rows: (block) => { return rows; }});
+	test.assert(rules.farm.name == 'Farm' && rules.farm.prerequisite == 'None');
+	test.assert(rules.farm.sea.name == 'Authored sea field' && rules.farm.sea.prerequisite == 'AuthoredSeaTech');
+	test.assert(rules.farm.turns == 11 && rules.farm.sea.turns == 11 && rules.farm.sea.id == 'farm');
+});

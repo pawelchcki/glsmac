@@ -15,14 +15,20 @@ const make_fixture = (width, height, naval_players, tiles, draws, fallback) => {
 	const players = [];
 	let id = 0;
 	for (is_naval of naval_players) {
-		const faction = { is_naval: is_naval, starting_technologies: [] };
-		const player = { id: id, is_master: false };
+		const faction = { is_naval: is_naval, starting_technologies: [], economy_bonuses:{starting_energy:0,terraform_cost_halved:false} };
+		const player = { id: id, is_master: false, validate_initial_energy:(amount) => { test.assert(amount == 0); } };
 		player.get_faction = () => { return faction; };
 		players :+ player;
 		id++;
 	}
 	f.game.get_players = () => { return players; };
-	f.game.get = (key) => { test.assert(key == 'starting_unit_rules'); return starting_units; };
+	f.game.get = (key) => {
+		if (key == 'energy_rules') { return {starting_credits:0}; }
+		test.assert(key == 'starting_unit_rules'); return starting_units;
+	};
+	// This placement-only boundary declares respect-tech mode, not a native
+	// policy proof. Actual native default/transfer checks live in terrain tests.
+	f.game.get_settings = () => { return {global:{rules:{get_terraforming_policy:() => { return {version:1,ignore_technologies:false}; }}}}; };
 	const tm = {
 		get_map_width: () => { return width; },
 		get_map_height: () => { return height; },
@@ -72,6 +78,8 @@ const expect_exhaustion = (f) => {
 };
 
 const assert_player_events = (events, offset, owner, x, y, type) => {
+	test.assert(events[offset].name == 'initialize_energy' && events[offset].data == {player_id:owner,credits:0});
+	offset = offset + 1;
 	test.assert(events[offset].name == 'add_production_choice' && events[offset].data.player.id == owner);
 	test.assert(events[offset].data.id == 'RECYCLING_TANKS');
 	test.assert(events[offset].data.data == { type: 'facility', id: 'RECYCLING_TANKS' });
@@ -113,7 +121,7 @@ behavior.scenario('land startup skips water and invalid parity before emitting t
 	start_world(f.game);
 	test.assert(f.state.draws == 6 && f.state.ranges_valid);
 	test.assert(f.state.lookups == [[0, 0], [2, 0]] && f.state.distances == []);
-	test.assert(#sizeof(f.state.events) == 6);
+	test.assert(#sizeof(f.state.events) == 7);
 	assert_player_events(f.state.events, 0, 0, 2, 0, 'ScoutPatrol');
 });
 
@@ -124,7 +132,7 @@ behavior.scenario('naval startup skips land and accepts an odd coordinate water 
 	start_world(f.game);
 	test.assert(f.state.draws == 4 && f.state.ranges_valid);
 	test.assert(f.state.lookups == [[0, 0], [3, 3]]);
-	test.assert(#sizeof(f.state.events) == 4);
+	test.assert(#sizeof(f.state.events) == 5);
 	assert_player_events(f.state.events, 0, 0, 3, 3, 'SeaLurk');
 });
 
@@ -134,9 +142,9 @@ behavior.scenario('mixed land and naval players receive ordered loadouts on thei
 	], [0, 0, 4, 0], [0, 1]);
 	start_world(f.game);
 	test.assert(f.state.draws == 4 && f.state.ranges_valid);
-	test.assert(#sizeof(f.state.events) == 10 && f.state.distances == [[4, 0, 0, 0]]);
+	test.assert(#sizeof(f.state.events) == 12 && f.state.distances == [[4, 0, 0, 0]]);
 	assert_player_events(f.state.events, 0, 0, 0, 0, 'ScoutPatrol');
-	assert_player_events(f.state.events, 6, 1, 4, 0, 'SeaLurk');
+	assert_player_events(f.state.events, 7, 1, 4, 0, 'SeaLurk');
 });
 
 behavior.scenario('the final permitted coordinate pair can still place a base', () => {
@@ -147,7 +155,7 @@ behavior.scenario('the final permitted coordinate pair can still place a base', 
 	const f = make_fixture(4, 4, [false], [{ x: 2, y: 0, is_water: false }], draws, [0, 1]);
 	start_world(f.game);
 	test.assert(f.state.draws == 2000 && f.state.lookups == [[2, 0]]);
-	test.assert(f.state.ranges_valid && #sizeof(f.state.events) == 6);
+	test.assert(f.state.ranges_valid && #sizeof(f.state.events) == 7);
 });
 
 behavior.scenario('terrain mismatch also consumes the full finite placement budget', () => {
@@ -165,10 +173,10 @@ behavior.scenario('each candidate is checked against all previously selected bas
 	start_world(f.game);
 	test.assert(f.state.draws == 8 && f.state.ranges_valid);
 	test.assert(f.state.distances == [[8, 0, 0, 0], [10, 0, 0, 0], [10, 0, 8, 0], [4, 0, 0, 0], [4, 0, 8, 0]]);
-	test.assert(#sizeof(f.state.events) == 18);
+	test.assert(#sizeof(f.state.events) == 21);
 	assert_player_events(f.state.events, 0, 0, 0, 0, 'ScoutPatrol');
-	assert_player_events(f.state.events, 6, 1, 8, 0, 'ScoutPatrol');
-	assert_player_events(f.state.events, 12, 2, 4, 0, 'ScoutPatrol');
+	assert_player_events(f.state.events, 7, 1, 8, 0, 'ScoutPatrol');
+	assert_player_events(f.state.events, 14, 2, 4, 0, 'ScoutPatrol');
 });
 
 behavior.scenario('crowded maps relax spacing until a legal two-step candidate is accepted', () => {
@@ -177,8 +185,8 @@ behavior.scenario('crowded maps relax spacing until a legal two-step candidate i
 	], [0, 0], [4, 0]);
 	start_world(f.game);
 	test.assert(f.state.draws == 1006 && f.state.ranges_valid, 'spacing relaxes after the configured retries');
-	test.assert(#sizeof(f.state.distances) == 502 && #sizeof(f.state.events) == 12);
-	assert_player_events(f.state.events, 6, 1, 4, 0, 'ScoutPatrol');
+	test.assert(#sizeof(f.state.distances) == 502 && #sizeof(f.state.events) == 14);
+	assert_player_events(f.state.events, 7, 1, 4, 0, 'ScoutPatrol');
 });
 
 for (x of [0, 2]) {
@@ -204,8 +212,8 @@ behavior.scenario('an Ecology start registers and queues a Former while emitting
 	faction.starting_technologies = ['Ecology'];
 	start_world(f.game);
 	const events = f.state.events;
-	test.assert(#sizeof(events) == 7);
-	test.assert(events[3].name == 'add_production_choice' && events[3].data.id == 'FORMERS');
-	test.assert(events[5].name == 'spawn_base' && events[5].data.production_choice == 'FORMERS');
-	test.assert(events[6].name == 'spawn_unit' && events[6].data.type == 'ScoutPatrol');
+	test.assert(#sizeof(events) == 8);
+	test.assert(events[4].name == 'add_production_choice' && events[4].data.id == 'FORMERS');
+	test.assert(events[6].name == 'spawn_base' && events[6].data.production_choice == 'FORMERS');
+	test.assert(events[7].name == 'spawn_unit' && events[7].data.type == 'ScoutPatrol');
 });

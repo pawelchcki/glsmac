@@ -26,6 +26,7 @@
 #include "game/FrontendRequest.h"
 #include <memory>
 #include "game/backend/State.h"
+#include "game/backend/slot/Slots.h"
 #include "MapState.h"
 #include "SMACMap.h"
 #include "game/backend/map/tile/Tiles.h"
@@ -295,6 +296,14 @@ const MapState* Map::GetMapState() const {
 
 void Map::SetTerraforming( tile::Tile* tile, const tile::terraforming_t flags ) {
 	if ( tile->terraforming == flags ) { return; }
+	ValidateTerrainMutation();
+	// Reserve publication bookkeeping before changing native fields.
+	auto dirty = m_dirty_tiles;
+	if ( m_map_state ) { dirty.emplace( tile->coord.y, tile->coord.x ); }
+	tile->terraforming = flags; tile->Update(); m_dirty_tiles.swap( dirty );
+}
+
+void Map::ValidateTerrainMutation() const {
 	if ( m_map_state ) {
 		const bool frontend_ready = m_frontend_resources && m_frontend_resources->active.load();
 		if ( m_map_state->first_run ) { THROW( "Terrain is still being initialized" ); }
@@ -302,7 +311,9 @@ void Map::SetTerraforming( tile::Tile* tile, const tile::terraforming_t flags ) 
 		if ( !m_meshes.terrain_data && !frontend_ready ) { THROW( "Terrain data mesh is missing" ); }
 		if ( !m_textures.terrain && !frontend_ready ) { THROW( "Terrain texture is missing" ); }
 	}
-	tile->terraforming = flags;
+}
+
+void Map::MarkTerrainChanged( tile::Tile* tile ) {
 	tile->Update();
 	if ( m_map_state ) { m_dirty_tiles.emplace( tile->coord.y, tile->coord.x ); }
 }
@@ -813,6 +824,7 @@ const Map::error_code_t Map::LoadFromBuffer( types::Buffer& buffer ) {
 			DELETE( m_tiles );
 		}
 		m_tiles = loaded_tiles;
+		m_terrain_identity = std::make_shared< const uint8_t >( 0 );
 		return EC_NONE;
 	}
 	catch ( std::runtime_error& e ) {
@@ -822,6 +834,26 @@ const Map::error_code_t Map::LoadFromBuffer( types::Buffer& buffer ) {
 		}
 		return EC_MAPFILE_FORMAT_ERROR;
 	}
+}
+
+std::unique_ptr< Map > Map::LoadWorldTerrain( Game* game, types::Buffer& buffer, const bool initialize_rendering ) {
+	if ( !game || !game->GetState() ) { return nullptr; }
+	auto incoming = std::unique_ptr< Map >( new Map( game, initialize_rendering ) );
+	if ( incoming->LoadFromBuffer( buffer ) != EC_NONE ) { return nullptr; }
+	auto* const slots = game->GetState()->m_slots;
+	for ( const auto& tile : *incoming->m_tiles->GetTilesPtr() ) {
+		for ( const auto owner : tile.m_terraforming_owners ) {
+			if ( owner >= 0 && ( !slots || size_t( owner ) >= slots->GetCount() ||
+				slots->GetSlot( owner ).GetState() != slot::Slot::SS_PLAYER ) ) {
+				return nullptr;
+			}
+		}
+	}
+	return incoming;
+}
+
+void Map::ResetConstructionOwnersForImport() {
+	for ( auto& tile : *m_tiles->GetTilesPtr() ) { tile.m_terraforming_owners.fill( -1 ); }
 }
 
 const Map::error_code_t Map::LoadFromFile( const std::string& path ) {
@@ -835,7 +867,13 @@ const Map::error_code_t Map::LoadFromFile( const std::string& path ) {
 		util::FS::ReadFile( bytes, path );
 		if ( !smac::HasSignature( bytes ) ) {
 			auto buffer = types::Buffer( std::string( bytes.begin(), bytes.end() ) );
-			return LoadFromBuffer( buffer );
+			const auto result = LoadFromBuffer( buffer );
+			if ( result == EC_NONE ) {
+				// Reusable terrain files have no saved player-roster mapping.
+				// Keep every physical enhancement; its historical builder is unknown.
+				ResetConstructionOwnersForImport();
+			}
+			return result;
 		}
 		const auto source = smac::Parse( bytes );
 		if ( source.flat ) {
@@ -875,6 +913,7 @@ const Map::error_code_t Map::LoadFromFile( const std::string& path ) {
 			DELETE( m_tiles );
 		}
 		m_tiles = loaded_tiles;
+		m_terrain_identity = std::make_shared< const uint8_t >( 0 );
 		return EC_NONE;
 	}
 	catch ( std::runtime_error& e ) {

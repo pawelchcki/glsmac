@@ -22,6 +22,8 @@ SET( SRC ${SRC}
 	${PWD}/GameColony.cpp
 	${PWD}/GameUnitDisband.cpp
 	${PWD}/GameResearch.cpp
+	${PWD}/GameEnergy.cpp
+	${PWD}/TileTarget.cpp
 	${PWD}/Account.cpp
 	${PWD}/Player.cpp
 	${PWD}/MapObject.cpp

@@ -58,16 +58,23 @@ return {
 			left: 3,
 			text: 'Mission Year ' + #to_string(p.game.get_year()),
 		});
-		minimap.listen(p.game, 'turn', (e) => {
-			confirmation_generation++;
-			info_year.text = 'Mission Year ' + #to_string(e.year);
-		});
+		const energy_text = () => { return 'Energy: ' + #to_string(p.game.get_player().get_energy_state().credits); };
 		const info_energy = info_block.text({
 			class: 'bottombar-minimap-info-text',
 			align: 'bottom left',
 			bottom: 4,
 			left: 3,
-			text: 'Energy: 0',
+			text: energy_text(),
+		});
+		this.info_energy = info_energy;
+		minimap.listen(p.game, 'turn', (e) => {
+			confirmation_generation++;
+			info_year.text = 'Mission Year ' + #to_string(e.year);
+			info_energy.text = energy_text();
+		});
+		this.frame.listen(p.game, 'event_result', (e) => { info_energy.text = energy_text(); });
+		this.frame.listen(p.game, 'energy_changed', (e) => {
+			if (#is_defined(e.player_id) && e.player_id == p.game.get_player().id) { info_energy.text = energy_text(); }
 		});
 
 		// minimap-related buttons (no functionality yet)

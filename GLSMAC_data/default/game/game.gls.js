@@ -12,6 +12,7 @@ return (glsmac) => {
 	const land_resource_rules = #include('land_resource_rules');
 	const terraforming_rules = #include('terraforming_rules');
 	const movement_rules = #include('movement_rules');
+	const energy_rules = #include('energy_rules');
 
 	// Native asset initialization supplies the parsed document on both ordinary
 	// and command-line Quick Start paths. Return a validated scalar; native code
@@ -55,6 +56,7 @@ return (glsmac) => {
 			units.configure(game);
 			const document = glsmac.load_smac_text('alphax.txt', 'rules');
 			game.set('technology_rules', technology_rules.parse(document));
+			game.set('energy_rules', energy_rules.parse(document));
 			game.set('terraforming_rules', terraforming_rules.parse(document));
 			game.set('movement_rules', movement_rules.parse(document));
 			#include('terraforming').configure(game);
@@ -65,6 +67,7 @@ return (glsmac) => {
 			resources.define(game);
 			const starting_rules = unit_rules.parse(document);
 			game.set('starting_unit_rules', unit_rules.materialize(um, starting_rules));
+			game.set('sea_former_rule', unit_rules.materialize_sea_former(um, starting_rules));
 			units.define(game, starting_rules);
 
 			const worldscript = #is_defined(glsmac.config.worldscript) ? glsmac.config.worldscript : 'default';

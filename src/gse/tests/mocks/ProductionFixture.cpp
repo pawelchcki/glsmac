@@ -7,6 +7,11 @@
 #include <atomic>
 #include <stdexcept>
 #include "gc/Space.h"
+#include "engine/Engine.h"
+#include "config/Config.h"
+#include "util/FS.h"
+#include "util/FinallyGuard.h"
+#include <cstdio>
 #include "gse/value/Array.h"
 #include "gse/value/Bool.h"
 #include "gse/value/Callable.h"
@@ -26,6 +31,7 @@
 #include "gse/value/Undefined.h"
 #include "gse/callable/Native.h"
 #include "game/backend/Game.h"
+#include "game/backend/TileTarget.h"
 #include "game/backend/State.h"
 #include "game/backend/Player.h"
 #include "game/backend/base/Base.h"
@@ -312,7 +318,9 @@ struct ProductionFixture : gc::Object {
 	}
 	void PrepareNaturalStartup( const std::string& terrain ) {
 		backend::map::tile::moisture_t moisture;
-		if ( terrain == "flat-arid" ) { moisture = backend::map::tile::MOISTURE_ARID; }
+		const bool aquifer_corridor = terrain == "aquifer-corridor";
+		if ( aquifer_corridor && ( game.m_map->GetWidth() != 256 || game.m_map->GetHeight() != 136 ) ) { THROW( "Aquifer corridor input requires 256x136 tiles" ); }
+		if ( terrain == "flat-arid" || aquifer_corridor ) { moisture = backend::map::tile::MOISTURE_ARID; }
 		else if ( terrain == "flat-moist" ) { moisture = backend::map::tile::MOISTURE_MOIST; }
 		else if ( terrain == "flat-rainy" ) { moisture = backend::map::tile::MOISTURE_RAINY; }
 		else { THROW( "Unknown declared natural-startup terrain" ); }
@@ -329,6 +337,16 @@ struct ProductionFixture : gc::Object {
 				tile->bonus = tile->features = tile->terraforming = 0;
 				// Native lowland height; exact contour conversion is outside this contract.
 				for ( auto* corner : tile->elevation.corners ) { *corner = 200; }
+				if ( aquifer_corridor ) {
+					// Authored input only: separated flat corridors, alternating
+					// end connectors, high walls, and one sea square. Native
+					// planning/validation supplies every route and action answer.
+					int64_t center = 3500;
+					if ( y >= 2 && y <= 130 && y % 4 == 2 && x >= 2 && x <= 252 ) { center = 0; }
+					if ( y >= 4 && y <= 128 && y % 4 == 0 && x == ( ( ( y - 4 ) / 4 ) % 2 ? 2 : 252 ) ) { center = 0; }
+					if ( x == 252 && y == 132 ) { center = -500; }
+					tile->SetCanonicalElevation( center, center < 0, false );
+				}
 			}
 		}
 		for ( size_t y = 0; y < game.m_map->GetHeight(); ++y ) {
@@ -687,7 +705,7 @@ struct ProductionFixture : gc::Object {
 		auto& from = source->m_settings.global;
 		auto& to = target->m_settings.global;
 		from.map.size_x = 68; from.map.size_y = 34; from.map.preset_level = 0;
-		from.rules.SetNutrientCostFactor( 17 ); from.rules.SetMineralCostFactor( 19 ); from.game_name = "Source wire";
+		from.rules.SetNutrientCostFactor( 17 ); from.rules.SetMineralCostFactor( 19 ); from.rules.SetTerraformingIgnoreTechnologies( false ); from.game_name = "Source wire";
 		const auto worlds_before = state->m_settings.global.rules.GetWorldSizes();
 		if ( state->m_settings.global.rules.HasWorldSizes() ) { from.rules.SetWorldSizes( worlds_before ); }
 		to.map.size_x = 112; to.map.size_y = 56; to.map.preset_level = 2;
@@ -701,6 +719,7 @@ struct ProductionFixture : gc::Object {
 		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_nutrient_cost_factor" ) );
 		auto* mineral_read = static_cast< value::Callable* >( wrapper->Get( "get_mineral_cost_factor" ) );
 		auto* worlds_read = static_cast< value::Callable* >( wrapper->Get( "get_world_sizes" ) );
+		auto* policy_read = static_cast< value::Callable* >( wrapper->Get( "get_terraforming_policy" ) );
 		const auto wire = source->Serialize().ToString();
 		target->Deserialize( types::Buffer( wire ) );
 		auto* read_value = read->Run( GSE_CALL, {} );
@@ -710,7 +729,9 @@ struct ProductionFixture : gc::Object {
 		const bool mineral_received = to.rules.GetMineralCostFactor() == 19;
 		const bool worlds_received = to.rules.GetWorldSizes() == worlds_before && to.rules.HasWorldSizes() == from.rules.HasWorldSizes();
 		const bool worlds_aliases = backend::rules::Rules::DecodeWorldSizes( GSE_CALL, worlds_read->Run( GSE_CALL, {} ) ) == worlds_before;
-		const bool received = to.map.size_x == 68 && to.map.size_y == 34 && to.map.preset_level == 0 &&
+		auto* policy = static_cast< value::Object* >( policy_read->Run( GSE_CALL, {} ) );
+		const bool policy_received = !to.rules.IgnoreTerraformingTechnologies() && !static_cast< value::Bool* >( policy->Get( "ignore_technologies" ) )->value;
+		const bool received = policy_received && to.map.size_x == 68 && to.map.size_y == 34 && to.map.preset_level == 0 &&
 			to.rules.GetNutrientCostFactor() == 17 && to.game_name == "Source wire";
 		const bool factions = target->GetFM()->Get( "WIRE_SOURCE" ) && !target->GetFM()->Get( "WIRE_OLD" ) &&
 			target->GetFM()->Get( "WIRE_SOURCE" ) != source->GetFM()->Get( "WIRE_SOURCE" );
@@ -760,7 +781,9 @@ struct ProductionFixture : gc::Object {
 		backend::faction::Faction receiving;
 		receiving.Deserialize( types::Buffer( wire ) );
 		const bool roundtrip = receiving.Serialize().ToString() == wire;
-		const bool received = receiving.GetStartingTechnologies() == source->GetStartingTechnologies() && receiving.GetIdentity() == source->GetIdentity() && receiving.m_name == source->m_name &&
+		const bool received = receiving.GetEconomyBonuses().starting_energy == source->GetEconomyBonuses().starting_energy &&
+			receiving.GetEconomyBonuses().terraform_cost_halved == source->GetEconomyBonuses().terraform_cost_halved &&
+			receiving.GetStartingTechnologies() == source->GetStartingTechnologies() && receiving.GetIdentity() == source->GetIdentity() && receiving.m_name == source->m_name &&
 			receiving.m_growth == source->m_growth && receiving.m_industry == source->m_industry;
 		auto changed = receiving.GetIdentity(); changed[ 0 ] = "Changed receiver"; receiving.SetIdentity( changed );
 		const bool independent = source->Serialize().ToString() == wire;
@@ -791,6 +814,176 @@ struct ProductionFixture : gc::Object {
 		return VALUEEXT( value::Object, GSE_CALL, {
 			{ "copied", VALUE( value::Bool,, copied ) }, { "aliases", VALUE( value::Bool,, aliases && live ) },
 			{ "independent", VALUE( value::Bool,, independent ) }, { "lifetime", VALUE( value::Bool,, rejected ) },
+		} );
+	}
+	Value* CanonicalTerrainCodecProbe( GSE_CALLABLE ) {
+		auto* original = game.GetMap();
+		const auto before = original->GetTilesPtr()->Serialize().ToString();
+		auto receiving = std::unique_ptr< backend::map::Map >( new backend::map::Map( &game, false ) );
+		types::Buffer wire( before );
+		if ( receiving->LoadFromBuffer( wire ) != backend::map::Map::EC_NONE ) { THROW( "Canonical terrain receiving map rejected a valid snapshot" ); }
+		const bool roundtrip = receiving->GetTilesPtr()->Serialize().ToString() == before;
+		for ( size_t y = 0; y < receiving->GetHeight(); ++y ) {
+			for ( size_t x = y % 2; x < receiving->GetWidth(); x += 2 ) { receiving->GetTile( x, y )->Update(); }
+		}
+		const bool stable = receiving->GetTilesPtr()->Serialize().ToString() == before;
+		types::Buffer malformed; malformed.WriteInt( original->GetWidth() ); malformed.WriteInt( original->GetHeight() );
+		for ( size_t y = 0; y < original->GetHeight(); ++y ) {
+			for ( size_t x = y % 2; x < original->GetWidth(); x += 2 ) {
+				const auto tile = original->GetTile( x, y )->Serialize().ToString();
+				malformed.WriteString( x == 2 && y == 2 ? tile.substr( 0, tile.size() - 1 ) : tile );
+			}
+		}
+		malformed.WriteBool( false );
+		const bool rejected = receiving->LoadFromBuffer( malformed ) == backend::map::Map::EC_MAPFILE_FORMAT_ERROR && receiving->GetTilesPtr()->Serialize().ToString() == before;
+		*receiving->GetTile( 2, 2 )->elevation.left += 17; receiving->GetTile( 2, 2 )->Update();
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "stable", VALUE( value::Bool,, stable ) },
+			{ "malformed_rejected", VALUE( value::Bool,, rejected ) },
+			{ "independent", VALUE( value::Bool,, original->GetTilesPtr()->Serialize().ToString() == before ) },
+		} );
+	}
+	Value* ConstructionOwnerBindingProbe( GSE_CALLABLE ) {
+		const auto before = game.GetMap()->GetTilesPtr()->Serialize().ToString();
+		const auto wire = [ & ]( const int64_t construction_owner ) {
+			types::Buffer encoded; encoded.WriteInt( game.GetMap()->GetWidth() ); encoded.WriteInt( game.GetMap()->GetHeight() );
+			for ( size_t y = 0; y < game.GetMap()->GetHeight(); ++y ) {
+				for ( size_t x = y % 2; x < game.GetMap()->GetWidth(); x += 2 ) {
+					auto tile = game.GetMap()->GetTile( x, y )->Serialize();
+					if ( x == 2 && y == 2 ) {
+						// Authored sensor input is twelve ordinary fields, with no
+						// existing provenance/owner extension to overwrite or guess.
+						if ( tile.lenw != 12 * 14 ) { THROW( "Owner wire probe requires the declared ownerless sensor profile" ); }
+						tile.WriteBool( false ); tile.WriteString( "terraform-owners-v1" );
+						for ( const auto& name : backend::map::tile::Tile::s_terraforming_names ) { tile.WriteInt( name == "sensor" ? construction_owner : -1 ); }
+					}
+					encoded.WriteString( tile.ToString() );
+				}
+			}
+			encoded.WriteBool( false ); return encoded;
+		};
+		const auto valid_bytes = wire( owner->GetSlot()->GetIndex() ).ToString();
+		auto valid_input = types::Buffer( valid_bytes );
+		auto valid = backend::map::Map::LoadWorldTerrain( &game, valid_input, false );
+		const bool preserved = valid && valid->GetTilesPtr()->Serialize().ToString() == valid_bytes;
+		bool raw_preserved = true, rejected = true;
+		// Economy fixtures register both slots 0 and 1. Neither 2 nor 7
+		// belongs to that roster, and both rejection paths must execute.
+		for ( const int64_t absent : { int64_t( 2 ), int64_t( 7 ) } ) {
+			const auto bytes = wire( absent ).ToString(); auto input = types::Buffer( bytes );
+			auto detached = std::unique_ptr< backend::map::Map >( new backend::map::Map( &game, false ) );
+			raw_preserved = raw_preserved && detached->LoadFromBuffer( input ) == backend::map::Map::EC_NONE && detached->GetTilesPtr()->Serialize().ToString() == bytes;
+			auto live_input = types::Buffer( bytes );
+			const bool rejected_owner = !backend::map::Map::LoadWorldTerrain( &game, live_input, false );
+			rejected = rejected_owner && rejected;
+		}
+		auto legacy_input = types::Buffer( before );
+		auto legacy = backend::map::Map::LoadWorldTerrain( &game, legacy_input, false );
+		const bool unknown_preserved = legacy && legacy->GetTilesPtr()->Serialize().ToString() == before;
+		// Truncate inside a tile, rather than removing only the legacy
+		// validation footer which Tiles::Deserialize deliberately ignores.
+		auto malformed = types::Buffer( valid_bytes.substr( 0, valid_bytes.size() / 2 ) );
+		const bool malformed_rejected = !backend::map::Map::LoadWorldTerrain( &game, malformed, false );
+		const auto prefix = g_engine->GetConfig()->GetPrefix(); util::FS::CreateDirectoryIfNotExists( prefix );
+		const auto path = prefix + "/fixture-construction-owner-import.gsm";
+		util::FinallyGuard cleanup( [ & ](){ std::remove( path.c_str() ); } );
+		auto imported = std::unique_ptr< backend::map::Map >( new backend::map::Map( &game, false ) );
+		const bool portable = valid && valid->SaveToFile( path ) == backend::map::Map::EC_NONE && imported->LoadFromFile( path ) == backend::map::Map::EC_NONE && imported->GetTilesPtr()->Serialize().ToString() == before;
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "valid_world_preserved", VALUE( value::Bool,, preserved ) }, { "unknown_preserved", VALUE( value::Bool,, unknown_preserved ) },
+			{ "detached_codec_preserved", VALUE( value::Bool,, raw_preserved ) }, { "nonlive_world_rejected", VALUE( value::Bool,, rejected ) },
+			{ "malformed_world_rejected", VALUE( value::Bool,, malformed_rejected ) }, { "portable_flags_preserved_owners_unknown", VALUE( value::Bool,, portable ) },
+			{ "source_unchanged", VALUE( value::Bool,, game.GetMap()->GetTilesPtr()->Serialize().ToString() == before ) },
+		} );
+	}
+	Value* ReceivedEnergyTurnProbe( GSE_CALLABLE ) {
+		const auto before = owner->Serialize().ToString();
+		bool past = false, current = false, legacy = false, future = false, decoded_future = false, unchanged = true;
+		for ( const int mode : { 0, 1, 2, 3 } ) {
+			// Match Client's roster-first receive order using actual Slot/Player
+			// wire; only the last player's declared stamp differs in the red case.
+			auto receiving = std::make_unique< ProductionFixture >( GSE_CALL, false, false, "Receiver", 4, 4 );
+			types::Buffer roster; roster.WriteInt( 7 );
+			for ( size_t id = 0; id < 7; ++id ) {
+				auto player = std::make_unique< backend::Player >( owner.get() );
+				player->m_energy_credits = mode == 2 ? 0 : 40 + id;
+				player->m_energy_income_turn = mode == 0 ? 2 : mode == 2 ? 0 : 3;
+				if ( mode == 3 && id == 6 ) { player->m_energy_income_turn = 4; }
+				player->m_energy_initialized = mode != 2;
+				player->m_energy_initialization_allowed = false;
+				types::Buffer slot; slot.WriteInt( backend::slot::Slot::SS_PLAYER );
+				slot.WriteString( player->Serialize().ToString() ); slot.WriteInt( 0 ); slot.WriteString( "" );
+				roster.WriteString( slot.ToString() );
+			}
+			receiving->state->m_slots->Deserialize( roster );
+			for ( auto& slot : receiving->state->m_slots->GetSlots() ) { receiving->state->AddPlayer( slot.GetPlayer() ); }
+			const auto roster_before = receiving->state->m_slots->Serialize().ToString();
+			const auto turn_before = receiving->game.m_current_turn.GetId();
+			const bool valid = receiving->game.ValidateReceivedEnergyTurn( 3 );
+			if ( mode == 0 ) { past = valid; }
+			if ( mode == 1 ) { current = valid; }
+			if ( mode == 2 ) { legacy = valid && !receiving->state->m_slots->GetSlot( 6 ).GetPlayer()->IsEnergyInitialized(); }
+			if ( mode == 3 ) { future = !valid; decoded_future = receiving->state->m_slots->GetSlot( 6 ).GetPlayer()->GetEnergyIncomeTurn() == 4; }
+			unchanged = unchanged && receiving->state->m_slots->Serialize().ToString() == roster_before && receiving->game.m_current_turn.GetId() == turn_before;
+		}
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "past_accepted", VALUE( value::Bool,, past ) }, { "current_accepted", VALUE( value::Bool,, current ) },
+			{ "legacy_unfunded_accepted", VALUE( value::Bool,, legacy ) }, { "future_last_player_rejected", VALUE( value::Bool,, future ) },
+			{ "detached_future_preserved", VALUE( value::Bool,, decoded_future ) }, { "roster_and_turn_unchanged", VALUE( value::Bool,, unchanged ) },
+			{ "source_unchanged", VALUE( value::Bool,, owner->Serialize().ToString() == before ) },
+		} );
+	}
+	Value* EnergyCodecProbe( GSE_CALLABLE ) {
+		const auto before = owner->Serialize().ToString();
+		auto copy = std::make_unique< backend::Player >( owner.get() );
+		auto receiving = std::make_unique< backend::Player >( types::Buffer( before ) );
+		const bool copied = copy->Serialize().ToString() == before && copy->GetEnergyCredits() == owner->GetEnergyCredits() &&
+			copy->GetEnergyIncomeTurn() == owner->GetEnergyIncomeTurn() && copy->IsEnergyInitialized() == owner->IsEnergyInitialized();
+		const bool roundtrip = receiving->Serialize().ToString() == before && receiving->GetEnergyCredits() == owner->GetEnergyCredits() &&
+			receiving->GetEnergyIncomeTurn() == owner->GetEnergyIncomeTurn() && receiving->IsEnergyInitialized() == owner->IsEnergyInitialized();
+		auto* wrapper = static_cast< value::Object* >( copy->Wrap( GSE_CALL ) );
+		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_energy_state" ) );
+		copy.reset(); bool lifetime = false;
+		try { read->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { lifetime = true; }
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "copy", VALUE( value::Bool,, copied ) }, { "roundtrip", VALUE( value::Bool,, roundtrip ) },
+			{ "lifetime", VALUE( value::Bool,, lifetime ) }, { "unchanged", VALUE( value::Bool,, owner->Serialize().ToString() == before ) },
+		} );
+	}
+	Value* TerraformingPolicyProbe( GSE_CALLABLE ) {
+		backend::rules::Default source;
+		const auto legacy = source.Serialize().ToString();
+		source.SetTerraformingIgnoreTechnologies( false ); source.SetBlindResearch( false );
+		const auto wire = source.Serialize().ToString();
+		auto copied = std::make_unique< backend::rules::Default >( source );
+		backend::rules::Default target;
+		auto* wrapper = static_cast< value::Object* >( target.Wrap( GSE_CALL ) );
+		auto* read = static_cast< value::Callable* >( wrapper->Get( "get_terraforming_policy" ) );
+		target = source;
+		const auto reads = [ & ]( const bool expected ) {
+			auto* result = static_cast< value::Object* >( read->Run( GSE_CALL, {} ) );
+			return static_cast< value::Bool* >( result->Get( "ignore_technologies" ) )->value == expected;
+		};
+		const bool copy = !copied->IgnoreTerraformingTechnologies() && !target.IgnoreTerraformingTechnologies() && reads( false );
+		target.SetTerraformingIgnoreTechnologies( true );
+		const bool independent = !source.IgnoreTerraformingTechnologies() && !copied->IgnoreTerraformingTechnologies() && reads( true );
+		target.Deserialize( types::Buffer( wire ) );
+		const bool transfer = !target.IgnoreTerraformingTechnologies() && !target.IsBlindResearch() && reads( false ) && target.Serialize().ToString() == wire;
+		bool malformed = true;
+		for ( const auto& bad : { wire.substr( 0, wire.size() - 1 ), wire + "trailing" } ) {
+			bool rejected = false; try { target.Deserialize( types::Buffer( bad ) ); } catch ( const std::exception& ) { rejected = true; }
+			malformed = malformed && rejected && target.Serialize().ToString() == wire && reads( false );
+		}
+		target.Deserialize( types::Buffer( legacy ) );
+		const bool legacy_default = target.IgnoreTerraformingTechnologies() && reads( true ) && target.Serialize().ToString() == legacy;
+		auto* copied_wrapper = static_cast< value::Object* >( copied->Wrap( GSE_CALL ) );
+		auto* stale = static_cast< value::Callable* >( copied_wrapper->Get( "get_terraforming_policy" ) );
+		copied.reset(); bool lifetime = false;
+		try { stale->Run( GSE_CALL, {} ); } catch ( const std::exception& ) { lifetime = true; }
+		return VALUEEXT( value::Object, GSE_CALL, {
+			{ "copy", VALUE( value::Bool,, copy ) }, { "independent", VALUE( value::Bool,, independent ) },
+			{ "transfer", VALUE( value::Bool,, transfer ) }, { "legacy_default", VALUE( value::Bool,, legacy_default ) },
+			{ "malformed", VALUE( value::Bool,, malformed ) }, { "lifetime", VALUE( value::Bool,, lifetime ) },
 		} );
 	}
 	Value* RulesCopyProbe( GSE_CALLABLE ) {
@@ -1074,7 +1267,7 @@ struct ProductionFixture : gc::Object {
 		const auto full = backend::unit::Def::Serialize( source ).ToString();
 		types::Buffer input( full );
 		std::unique_ptr< backend::unit::Def > received( backend::unit::Def::Deserialize( input, game.m_um ) );
-		const bool roundtrip = received->GetCombat() == source->GetCombat() && backend::unit::Def::Serialize( received.get() ).ToString() == full;
+		const bool roundtrip = received->GetCombat() == source->GetCombat() && received->CanTerraform() == source->CanTerraform() && backend::unit::Def::Serialize( received.get() ).ToString() == full;
 		types::Buffer prefix( full );
 		prefix.ReadString(); prefix.ReadString(); prefix.ReadString(); prefix.ReadInt();
 		prefix.ReadInt(); prefix.ReadFloat();
@@ -1082,7 +1275,7 @@ struct ProductionFixture : gc::Object {
 		const auto old = full.substr( 0, prefix.lenr );
 		types::Buffer legacy( old );
 		std::unique_ptr< backend::unit::Def > legacy_def( backend::unit::Def::Deserialize( legacy, game.m_um ) );
-		const bool legacy_default = legacy_def->GetCombat() == backend::unit::Def::combat_t{};
+		const bool legacy_default = legacy_def->GetCombat() == backend::unit::Def::combat_t{} && !legacy_def->CanTerraform();
 		auto rejects = [ & ]( types::Buffer bytes ) {
 			try { std::unique_ptr< backend::unit::Def > unexpected( backend::unit::Def::Deserialize( bytes, game.m_um ) ); return false; }
 			catch ( const std::exception& ) { return true; }
@@ -1208,6 +1401,20 @@ struct ProductionFixture : gc::Object {
 	}
 	void Process() { game.ProcessEvents(); }
 	size_t DisbandJournalCount() const { return game.m_disbanding_records.size(); }
+	size_t TerrainJournalCount() const { return game.GetTM()->m_terrain_records.size(); }
+	Value* EnergyJournalCounts( GSE_CALLABLE ) const {
+		value::array_elements_t rows;
+		for ( const auto& slot : state->m_slots->GetSlots() ) {
+			if ( slot.GetState() == backend::slot::Slot::SS_PLAYER ) {
+				rows.push_back( VALUEEXT( value::Object, GSE_CALL, {
+					{ "owner", VALUE( value::Int,, slot.GetIndex() ) },
+					{ "retained", VALUE( value::Int,, slot.GetPlayer()->m_energy_receipts.size() ) },
+				} ) );
+			}
+		}
+		return VALUE( value::Array,, rows );
+	}
+
 	void ServerEvent( GSE_CALLABLE, const std::string& name, const value::object_properties_t& data ) {
 		if ( !transport ) { transport = std::make_unique< ProbeConnection >( true ); state->m_connection = transport.get(); }
 		game.AddEvent( new backend::event::Event( &game, backend::event::Event::ES_SERVER, game.m_slot_num, GSE_CALL, name, data ) );
@@ -1217,7 +1424,7 @@ struct ProductionFixture : gc::Object {
 		Value* rollback = nullptr;
 		if ( applied ) {
 			auto* obj = VALUEEXT( value::Object, GSE_CALL, event->GetData() );
-			game.WithRW( [ & ]() { rollback = game.m_event_handlers.at( name )->Apply( GSE_CALL, { obj } ); } );
+			game.WithRW( [ & ]() { rollback = game.ApplyEventWithContext( event, [ & ]() { return game.m_event_handlers.at( name )->Apply( GSE_CALL, { obj } ); } ); } );
 		}
 		game.m_events_waiting_for_responses.emplace( event->GetId(), backend::Game::event_waiting_for_response_t { event, rollback, applied } );
 		return event->GetId();
@@ -1240,6 +1447,41 @@ struct ProductionFixture : gc::Object {
 		for ( const auto& name : names ) { bytes.WriteString( name ); }
 		return bytes.ToString();
 	}
+	bool DispatchTileTarget( GSE_CALLABLE, const int64_t x, const int64_t y, const std::string& purpose ) {
+		if ( !game.IsRunning() || !game.GetMap() ) { GSE_ERROR( EC.INVALID_CALL, "Target input requires a running native world" ); }
+		if ( x < 0 || y < 0 || uint64_t( x ) >= game.GetMap()->GetWidth() || uint64_t( y ) >= game.GetMap()->GetHeight() || x % 2 != y % 2 ) {
+			GSE_ERROR( EC.INVALID_CALL, "Target input requires a native staggered tile coordinate" );
+		}
+		backend::tile_query_purpose_t type;
+		if ( purpose == "object" ) { type = backend::TQP_OBJECT_SELECT; }
+		else if ( purpose == "unit" ) { type = backend::TQP_UNIT_SELECT; }
+		else if ( purpose == "tile" ) { type = backend::TQP_TILE_SELECT; }
+		else { GSE_ERROR( EC.INVALID_CALL, "Unknown declared target input purpose" ); }
+		return backend::ConsumeTileTarget( &game, game.GetMap()->GetTile( x, y ), type );
+	}
+	Value* AuditInspect( GSE_CALLABLE ) {
+		if ( !game.IsRunning() || !game.m_bm || !game.m_um ) { GSE_ERROR( EC.INVALID_CALL, "Audit requires a running native world" ); }
+		return InspectFounding( GSE_CALL );
+	}
+	std::string AuditSnapshot() {
+		if ( !game.IsRunning() || !game.m_bm || !game.m_um ) { THROW( "Audit requires a running native world" ); }
+		types::Buffer bytes;
+		bytes.WriteString( FoundingSnapshot() );
+		bytes.WriteString( game.GetMap()->GetTilesPtr()->Serialize().ToString() );
+		bytes.WriteString( state->m_settings.global.rules.Serialize().ToString() );
+		for ( size_t index = 0; index < state->m_slots->GetCount(); ++index ) {
+			const auto& slot = state->m_slots->GetSlot( index );
+			if ( slot.GetState() == backend::slot::Slot::SS_PLAYER ) { bytes.WriteString( slot.GetPlayer()->Serialize().ToString() ); }
+		}
+		for ( int id = 0; id < backend::technology::Table::COUNT; ++id ) {
+			const auto& tech = game.m_technologies.Get( id );
+			bytes.WriteInt( tech.owners );
+			for ( const auto prerequisite : tech.prerequisites ) { bytes.WriteInt( prerequisite ); }
+			for ( const auto weight : tech.weights ) { bytes.WriteInt( weight ); }
+		}
+		bytes.WriteString( game.m_research.Serialize().ToString() );
+		return bytes.ToString();
+	}
 	void ConfigureFounding( const std::string& kind, size_t selected_id = 0 ) {
 		auto* unit = game.m_um->GetUnit( selected_id ? selected_id : colony_id );
 		if ( !unit ) { THROW( "fixture colony no longer live" ); }
@@ -1248,13 +1490,25 @@ struct ProductionFixture : gc::Object {
 		else if ( kind == "wrong_def" ) { unit->m_def = game.m_um->GetUnitDef( "Scout" ); }
 		else if ( kind == "water" ) { unit->GetTile()->is_water_tile = true; }
 		else if ( kind == "locked" ) { unit->GetTile()->Lock( 1 ); }
+		else if ( kind == "terrain_extra_flags" ) {
+			unit->GetTile()->features = uint16_t( 0x8000 ) | backend::map::tile::FEATURE_RIVER;
+			unit->GetTile()->terraforming = uint16_t( 0x8000 ) | backend::map::tile::TERRAFORMING_SENSOR;
+		}
 		else if ( kind == "sensor" ) { unit->GetTile()->terraforming |= backend::map::tile::TERRAFORMING_SENSOR; }
+		else if ( kind == "imported_arid" ) {
+			// Declared resource input for read-only provenance coverage, not an
+			// observed terraforming outcome or a source game's raw height byte.
+			auto* tile = unit->GetTile();
+			tile->moisture = backend::map::tile::MOISTURE_ARID; tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
+			for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
+			tile->SetImportedElevation( 2467, false );
+		}
 		else if ( kind == "arid" ) {
 			auto* tile = unit->GetTile(); tile->moisture = backend::map::tile::MOISTURE_ARID; tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
 			for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
 			tile->Update();
 		}
-		else if ( kind == "flat_arid_world" ) {
+		else if ( kind == "flat_arid_world" || kind == "imported_flat_arid_world" ) {
 			for ( size_t y = 0; y < game.GetMap()->GetHeight(); ++y ) {
 				for ( size_t x = y % 2; x < game.GetMap()->GetWidth(); x += 2 ) {
 					auto* tile = game.GetMap()->GetTile( x, y );
@@ -1262,6 +1516,7 @@ struct ProductionFixture : gc::Object {
 					tile->rockiness = backend::map::tile::ROCKINESS_FLAT;
 					for ( auto* corner : tile->elevation.corners ) { *corner = 64; }
 					tile->features = 0; tile->terraforming = 0; tile->Update();
+					if ( kind == "imported_flat_arid_world" ) { tile->SetImportedElevation( 212, false ); }
 				}
 			}
 		}
@@ -1294,6 +1549,13 @@ struct ProductionFixture : gc::Object {
 					tile->Update();
 				}
 			}
+		}
+		else if ( kind == "sea_worker_coast" || kind == "sea_worker_coast_locked" ) {
+			// Controlled launch input only: actual source water classification is
+			// preserved independently of the synthetic shared corner mesh.
+			auto* coast = base->GetTile()->W;
+			coast->SetImportedElevation( -400, true );
+			if ( kind == "sea_worker_coast_locked" ) { coast->Lock( 1 ); }
 		}
 		else if ( kind == "occupied" ) { unit->GetTile()->base = base; }
 		else if ( kind == "completed" ) { owner->CompleteTurn(); }
@@ -1632,6 +1894,22 @@ Value* MakeNaturalStartupFixture( GSE_CALLABLE, size_t width, size_t height, con
 	auto* object = static_cast< FixtureObject* >( MakeWorldStartupFixture( GSE_CALL, width, height ) );
 	const auto session = object->session;
 	session->current->PrepareNaturalStartup( terrain );
+	object->Set( "energy_journal_counts", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->EnergyJournalCounts( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "audit_snapshot", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::String,, session->current->AuditSnapshot() );
+	} ), GSE_CALL );
+	object->Set( "audit_inspect", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->AuditInspect( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "iterate", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); session->current->EnableRenderCoordinates(); session->current->game.Iterate(); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "dispatch_tile_target", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 3 ); N_GETVALUE( x, 0, Int ); N_GETVALUE( y, 1, Int ); N_GETVALUE( purpose, 2, String );
+		return VALUE( value::Bool,, session->current->DispatchTileTarget( GSE_CALL, x, y, purpose ) );
+	} ), GSE_CALL );
 	object->Set( "reset_world", NATIVE_CALL( session, object ) {
 		N_EXPECT_ARGS( 1 ); N_GETVALUE( declared_terrain, 0, String );
 		session->current->RestartNaturalStartup( GSE_CALL, declared_terrain );
@@ -1840,6 +2118,24 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 		try { session->current->RestoreRulesSettings( bytes ); }
 		catch ( const std::exception& error ) { GSE_ERROR( EC.INVALID_CALL, error.what() ); }
 		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "canonical_terrain_codec_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->CanonicalTerrainCodecProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "construction_owner_binding_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->ConstructionOwnerBindingProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "received_energy_turn_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->ReceivedEnergyTurnProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "energy_journal_counts", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->EnergyJournalCounts( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "energy_codec_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->EnergyCodecProbe( GSE_CALL );
+	} ), GSE_CALL );
+	object->Set( "terraforming_policy_probe", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return session->current->TerraformingPolicyProbe( GSE_CALL );
 	} ), GSE_CALL );
 	object->Set( "rules_copy_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->RulesCopyProbe( GSE_CALL );
@@ -2070,6 +2366,9 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 	object->Set( "resolve_response_event", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 2 ); N_GETVALUE( id, 0, String ); N_GETVALUE( accepted, 1, Bool );
 		session->current->ResolveResponse( id, accepted ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "terrain_journal_count", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 0 ); return VALUE( value::Int,, session->current->TerrainJournalCount() );
 	} ), GSE_CALL );
 	object->Set( "disband_journal_count", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return VALUE( value::Int,, session->current->DisbandJournalCount() );

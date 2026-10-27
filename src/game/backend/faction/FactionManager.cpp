@@ -133,6 +133,11 @@ WRAPIMPL_BEGIN( FactionManager )
 					N_GETPROP( ratings, faction_def, "social_ratings", Object );
 					social_ratings = Faction::ParseSocialRatings( GSE_CALL, ratings );
 				}
+				Faction::economy_bonuses_t economy_bonuses;
+				if ( faction_def.find( "economy_bonuses" ) != faction_def.end() ) {
+					N_GETPROP( bonuses, faction_def, "economy_bonuses", Object );
+					economy_bonuses = Faction::ParseEconomyBonuses( GSE_CALL, bonuses );
+				}
 				const bool has_identity = faction_def.find( "identity" ) != faction_def.end();
 				Faction::identity_t identity;
 				if ( has_identity ) {
@@ -144,6 +149,7 @@ WRAPIMPL_BEGIN( FactionManager )
 				if ( has_identity ) { faction->SetIdentity( identity ); }
 				faction->SetSocialRatings( social_ratings[ 0 ], social_ratings[ 1 ] );
 				faction->SetStartingTechnologies( starting_technologies );
+				faction->SetEconomyBonuses( economy_bonuses );
 
 				N_GETPROP( colors, faction_def, "colors", Object );
 				N_GETPROP_UNWRAP( colors_text, colors, "text", types::Color );

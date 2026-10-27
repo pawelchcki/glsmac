@@ -7,6 +7,7 @@
 #include "gse/value/Object.h"
 #include "gse/value/String.h"
 #include "gse/value/Int.h"
+#include "gse/value/Bool.h"
 #include <memory>
 
 namespace game {
@@ -48,8 +49,13 @@ Def::combat_t Def::ParseCombat( GSE_CALLABLE, const gse::value::object_propertie
 }
 
 void Def::SetCombat( const combat_t& combat ) {
-	if ( !ValidCombat( combat ) ) { THROW( "Invalid unit combat attributes" ); }
+	if ( !ValidCombat( combat ) || ( m_can_terraform && combat.kind != "civilian" ) ) { THROW( "Invalid unit combat attributes" ); }
 	m_combat = combat;
+}
+
+void Def::SetCanTerraform( const bool enabled ) {
+	if ( enabled && m_combat.kind != "civilian" ) { THROW( "Terraforming capability requires a civilian module" ); }
+	m_can_terraform = enabled;
 }
 
 const types::Buffer Def::Serialize( const Def* def ) {
@@ -69,6 +75,8 @@ const types::Buffer Def::Serialize( const Def* def ) {
 	buf.WriteString( "unit-combat-v1" );
 	buf.WriteString( def->m_combat.kind );
 	buf.WriteInt( def->m_combat.offense ); buf.WriteInt( def->m_combat.defense ); buf.WriteInt( def->m_combat.reactor );
+	// Definitions without the capability retain their historical wire bytes.
+	if ( def->m_can_terraform ) { buf.WriteString( "unit-abilities-v1" ); buf.WriteBool( true ); }
 	return buf;
 }
 
@@ -95,6 +103,10 @@ Def* Def::Deserialize( types::Buffer& buf, const UnitManager* manager ) {
 		combat.offense = int( offense ); combat.defense = int( defense ); combat.reactor = int( reactor );
 		def->SetCombat( combat );
 	}
+	if ( buf.lenr < buf.lenw ) {
+		if ( buf.ReadString() != "unit-abilities-v1" ) { THROW( "Unknown unit abilities extension" ); }
+		def->SetCanTerraform( buf.ReadBool() );
+	}
 	if ( buf.lenr != buf.lenw ) { THROW( "Trailing unit definition data" ); }
 	return def.release();
 }
@@ -114,6 +126,7 @@ WRAPIMPL_BEGIN( Def )
 				VALUE( gse::value::String, , "static" ) // TODO
 			},
 			{ "morale", VALUE( gse::value::String,, m_moraleset->m_id ) },
+			{ "can_terraform", VALUE( gse::value::Bool,, m_can_terraform ) },
 			{ "combat", VALUEEXT( gse::value::Object, GSE_CALL, {
 				{ "kind", VALUE( gse::value::String,, m_combat.kind ) },
 				{ "offense", VALUE( gse::value::Int,, m_combat.offense ) },

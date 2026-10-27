@@ -1,6 +1,7 @@
 #include "Space.h"
 
 #include <thread>
+#include <deque>
 
 #include "engine/Engine.h"
 #include "GC.h"
@@ -156,7 +157,11 @@ void Space::AccumulateImpl( const f_accum_t& f ) {
 			if ( !m_accumulated_objects.empty() ) {
 				std::lock_guard guard( m_objects_mutex );
 				GC_LOG( "Accumulated " + std::to_string( m_accumulated_objects.size() ) + " objects" );
-				m_objects.insert( m_accumulated_objects.begin(), m_accumulated_objects.end() );
+					// Both sets own pointer metadata, not the objects themselves.
+					// Transfer nodes rather than duplicating every registration at
+					// the end of a large accumulation. Any duplicate keys remain in
+					// the source and are discarded by the same clear as before.
+					m_objects.merge( m_accumulated_objects );
 				m_accumulated_objects.clear();
 			}
 		};
@@ -202,7 +207,12 @@ const bool Space::Collect() {
 		GC_DEBUG_END();
 	}
 
-	std::unordered_set< Object* > removed_objects = {};
+	// m_objects is already unique and visited once. Retain only the deletion
+	// sequence until the existing second unlink phase; another hash set would
+	// allocate a node and growing bucket table for every unreachable object.
+	// Segmented storage also avoids a second contiguous buffer during growth
+	// when a large accumulation leaves little address space before teardown.
+	std::deque< Object* > removed_objects;
 	{
 		std::lock_guard guard3( m_accumulations_mutex ); // prevent collection during accumulation // TODO: improve
 
@@ -214,14 +224,13 @@ const bool Space::Collect() {
 					for ( const auto& object : m_objects ) {
 						const auto& it = m_reachable_objects_tmp.find( object );
 						if ( it == m_reachable_objects_tmp.end() ) {
-							ASSERT( removed_objects.find( object ) == removed_objects.end(), "object " + std::to_string( (unsigned long long)object ) + " was already removed" );
 #if defined( DEBUG ) || defined( FASTDEBUG )
 							GC_LOG( "Destroying unreachable object: " + util::String::ToHexString( (unsigned long long)object ) /* TODO + "[ " + object->ToString() + " ]"*/ );
 #endif
 #ifdef DEBUG
 							debug::g_memory_watcher->MaybeDelete( object );
 #endif
-							removed_objects.insert( object );
+							removed_objects.push_back( object );
 							delete object;
 						}
 					}

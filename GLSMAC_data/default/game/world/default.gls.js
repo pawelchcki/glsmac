@@ -80,6 +80,15 @@ return (game) => {
 		const tile = tiles_with_bases[player_index];
 		player_index++;
 
+		const energy_rules = game.get('energy_rules');
+		if (!#is_defined(energy_rules)) { throw Error('Installed initial energy rules are required for startup'); }
+		const initial_credits = energy_rules.starting_credits + faction.economy_bonuses.starting_energy;
+		// Explicit current-version new-world eligibility is distinct from an
+		// unfunded legacy/received player. Never turn a load or retry into a grant.
+		if (!#is_defined(player.validate_initial_energy(initial_credits))) {
+			game.event('initialize_energy', {player_id:player.id + 0,credits:initial_credits});
+		}
+
 		// initial production choices (TODO: technologies)
 		game.event('add_production_choice', {
 			player: player,
@@ -116,6 +125,28 @@ return (game) => {
 						data: {type: 'unit', id: unit.id, cost: unit.rows * 10, cost_rows: unit.rows, population_cost: unit.population}});
 					if (unit.id == 'ColonyPod' || unit.id == 'Formers') { initial_project = unit.choice + ''; initial_rows = unit.rows + 0; }
 				}
+			}
+		}
+
+		// User-requested technology waiver affects worker availability only. Keep
+		// the original opening project calculation separate from these new choices.
+		if (game.get_settings().global.rules.get_terraforming_policy().ignore_technologies) {
+			for (unit of starting_units) {
+				if (unit.weapon_mode == 9) {
+					let already_available = !faction.is_naval && unit.prerequisite == 'None';
+					if (!faction.is_naval) {
+						for (token of faction.starting_technologies) { if (token == unit.prerequisite) { already_available = true; } }
+					}
+					if (!already_available) {
+						game.event('add_production_choice', {player: player, id: unit.choice,
+							data: {type: 'unit', id: unit.id, cost: unit.rows * 10, cost_rows: unit.rows, population_cost: unit.population}});
+					}
+				}
+			}
+			const sea_former = game.get('sea_former_rule');
+			if (#is_defined(sea_former) && sea_former != null) {
+				game.event('add_production_choice', {player: player, id: sea_former.choice,
+					data: {type: 'unit', id: sea_former.id, cost: sea_former.rows * 10, cost_rows: sea_former.rows, population_cost: 0}});
 			}
 		}
 

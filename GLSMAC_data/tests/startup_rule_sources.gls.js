@@ -47,6 +47,7 @@ behavior.scenario('stock Former component uses installed geometry with source pr
 	test.assert(rules.definitions[1].source_components == {prototype: 1, chassis: 0, weapon: 2, armor: 0, reactor: 0});
 	test.assert(actual.Formers.morale == 'STANDARD' && actual.Formers.combat == {kind: 'civilian', offense: 0, defense: 1, reactor: 1});
 	test.assert(actual.Formers.movement_per_turn == 1);
+	test.assert(actual.Formers.can_terraform && !actual.ColonyPod.can_terraform && !actual.ScoutPatrol.can_terraform);
 	test.assert(actual.ScoutPatrol.render.file == 'newicons.pcx' && actual.ColonyPod.render.file == 'newicons.pcx', 'Unverified roles retain their existing fallback');
 });
 
@@ -134,3 +135,46 @@ for (input of [[true], ['Same', 'Same'], ['bad token'], [''], ['bad|token']]) {
 		test.assert(caught && f.owner.get_faction().starting_technologies == ['Original']);
 	}); invalid_number++;
 }
+
+behavior.scenario('Sea Former application composition uses installed Foil and Terraform module without enabling a predefined template', () => {
+	const input = blocks();
+	for (entry of [['Rover','2','0','2'],['Hover','3','0','3'],['Authored Foil','4','1','4']]) {
+		const row = #clone(input.table.CHASSIS[0]); row[0] = entry[0]; row[8] = entry[1]; row[9] = entry[2]; row[12] = entry[3];
+		input.table.CHASSIS :+ row;
+	}
+	const before = #clone(input.table); const rules = consumer.parse(input.document);
+	test.assert(#sizeof(rules.definitions) == 3 && rules.sea_former.id == 'SeaFormers');
+	test.assert(rules.sea_former.movement == 4 && rules.sea_former.movement_type == 'water' && rules.sea_former.weapon_mode == 9);
+	test.assert(rules.sea_former.source_components == {prototype: null, chassis: 3, weapon: 2, armor: 0, reactor: 0});
+	test.assert(rules.sea_former.application_recipe == 'foil-terraform-module-v1' && input.table == before);
+	const actual = declared(rules).SeaFormers;
+	test.assert(actual.can_terraform && actual.movement_type == 'water' && actual.movement_per_turn == 4);
+	test.assert(actual.combat == {kind: 'civilian', offense: 0, defense: 1, reactor: 1});
+	test.assert(actual.render.file == 'newicons.pcx', 'Unobserved naval worker graphics retain the declared fallback');
+	const f = test.founding_fixture(); const recipe = consumer.materialize_sea_former(f.game.um, rules);
+	test.assert(recipe.rows == f.game.um.get_prototype_base_cost(4,0,false,0,9,6,1,1));
+	test.assert(consumer.materialize_sea_former(f.game.um, fixture.parse()) == null, 'Absent naval source components do not become a guessed hull');
+});
+
+const energy_rules = #include('../default/game/energy_rules');
+const energy_document = (reserve) => {
+	let source = '#RULES\n'; for (let row = 0; row < 20; row++) { source += '0\n'; }
+	return test.parse_smac_text(source + reserve + '\n#END\n','rules');
+};
+behavior.scenario('starting treasury comes from the actual source row including authored zero without a hidden fallback', () => {
+	for (reserve of [0,10,37]) { test.assert(energy_rules.parse(energy_document(#to_string(reserve))) == {starting_credits:reserve}); }
+	for (reserve of ['','-1','10.0','1000001','9223372036854775808']) {
+		let failed = false; try { energy_rules.parse(energy_document(reserve)); } catch { : (e) => { failed = true; } } test.assert(failed);
+	}
+});
+behavior.scenario('faction ENERGY and TERRAFORM declarations are independent bounded metadata', () => {
+	const economy = #include('../default/game/faction_economy');
+	for (pairs of ['TECH,Ecology','ENERGY,100','TERRAFORM,0','ENERGY,19,TERRAFORM,1']) {
+		const result = economy.parse(test.parse_smac_text('#SYNTHETIC\nHeader\n' + pairs + '\n#END\n','dialogs'),'SYNTHETIC');
+		test.assert(result.starting_energy == (pairs == 'ENERGY,100' ? 100 : (pairs == 'ENERGY,19,TERRAFORM,1' ? 19 : 0)));
+		test.assert(result.terraform_cost_halved == (pairs == 'TERRAFORM,0' || pairs == 'ENERGY,19,TERRAFORM,1'));
+	}
+	for (pairs of ['ENERGY,-1','ENERGY,1.0','ENERGY,1000001','ENERGY,1,ENERGY,2','TERRAFORM,','TERRAFORM,0,TERRAFORM,1']) {
+		let failed = false; try { economy.parse(test.parse_smac_text('#SYNTHETIC\nHeader\n' + pairs + '\n#END\n','dialogs'),'SYNTHETIC'); } catch { : (e) => { failed = true; } } test.assert(failed);
+	}
+});

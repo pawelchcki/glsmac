@@ -120,6 +120,12 @@ const bool Wrappable::HasHandlers( const std::string& event ) {
 	return m_callbacks.find( event ) != m_callbacks.end() || m_callbacks.find( "*" ) != m_callbacks.end();
 }
 
+const bool Wrappable::HasNamedHandlers( const std::string& event ) {
+	std::lock_guard guard( m_callbacks_mutex );
+	const auto found = m_callbacks.find( event );
+	return found != m_callbacks.end() && !found->second.empty();
+}
+
 Value* const Wrappable::Trigger( GSE_CALLABLE, const std::string& event, const f_args_t& f_args, const std::optional< value_type_t > expected_return_type ) {
 	bool has_handler = false;
 	{

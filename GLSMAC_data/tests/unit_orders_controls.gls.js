@@ -19,6 +19,7 @@ const fixture = () => {
 	f.game.get_um = () => { return f.native.game.um; };
 	f.game.get_bm = () => { return f.native.game.bm; };
 	f.game.get_player = () => { return f.native.owner; };
+	f.game.get_settings = () => { return f.native.game.get_settings(); };
 	f.game.get_turn = () => { return f.native.game.get_turn(); };
 	f.game.event = (name, data) => {
 		const request = { name: name }; request.data = data;

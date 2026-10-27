@@ -19,7 +19,7 @@ bool Game::IsOpeningEventAllowed( const std::string& name ) const {
     if ( m_opening_phase == OPENING_PREPARING ) {
         return name == "define_resource" || name == "define_no_resource" || name == "define_animation" ||
             name == "define_moraleset" || name == "define_unit" || name == "define_base_pop" ||
-            name == "define_base_facility" || name == "add_production_choice" || name == "initialize_technologies" ||
+            name == "define_base_facility" || name == "add_production_choice" || name == "initialize_technologies" || name == "initialize_energy" ||
             name == "spawn_base" || name == "spawn_unit";
     }
     if ( m_opening_phase == OPENING_STARTING ) {

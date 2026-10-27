@@ -1,9 +1,10 @@
 // Native model and codec checks; synthetic definitions, not original combat odds.
 const behavior = #include('./_behavior');
-const declare = (f, id, combat) => {
+const declare = (f, id, combat, worker) => {
 	const data = {name: id, morale: 'SYNTHETIC', type: 'static', movement_type: 'land', movement_per_turn: 1,
 		render: {type: 'sprite', file: 'synthetic.pcx', x: 0, y: 0, w: 1, h: 1, cx: 0, cy: 0}};
 	data.combat = combat;
+	if (#is_defined(worker)) { data.can_terraform = worker; }
 	f.with_write(() => { f.game.um.define_unit(id, data); });
 };
 const spawn = (f, id) => {
@@ -34,7 +35,26 @@ behavior.scenario('civilian and legacy psi definitions have distinct native mode
 	const unit = spawn(f, 'CIVILIAN'); const legacy = f.game.um.get_unit(f.unit_id);
 	test.assert(unit.get_def().combat.kind == 'civilian' && unit.get_def().combat.offense == 0);
 	test.assert(legacy.get_def().combat == {kind: 'psi', offense: 0, defense: 0, reactor: 1});
+	test.assert(!unit.get_def().can_terraform && !legacy.get_def().can_terraform, 'Civilian and native units do not implicitly become workers');
 });
+
+behavior.scenario('explicit Terraforming module capability survives the native definition codec', () => {
+	const f = test.founding_fixture();
+	declare(f, 'AUTHORED_WORKER', {kind: 'civilian', offense: 0, defense: 1, reactor: 1}, true);
+	const unit = spawn(f, 'AUTHORED_WORKER');
+	test.assert(unit.get_def().can_terraform, 'Worker capability is independent of the Formers identifier');
+	const codec = f.unit_definition_codec_probe('AUTHORED_WORKER');
+	test.assert(codec.roundtrip && codec.legacy_default && codec.invalid_rejected && codec.source_unchanged);
+});
+
+let ability_index = 0;
+for (capability of [true, 1, 'true']) {
+	behavior.scenario('invalid Terraforming capability cannot register a conventional definition ' + #to_string(ability_index), () => {
+		const f = test.founding_fixture(); const before = f.snapshot(); let caught = false;
+		try { declare(f, 'INVALID_WORKER', {kind: 'conventional', offense: 1, defense: 1, reactor: 1}, capability); } catch { : (error) => { caught = true; } }
+		test.assert(caught && f.snapshot() == before);
+	}); ability_index++;
+}
 
 let number = 0;
 for (invalid of [

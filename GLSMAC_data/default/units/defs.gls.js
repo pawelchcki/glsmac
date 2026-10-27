@@ -71,15 +71,20 @@ const result = {
 			if (!#is_defined(rules) || unit.id != 'ColonyPod') { game.event('define_unit', unit); }
 		}
 		if (#is_defined(rules)) {
-			for (entry of rules.definitions) {
+			const declared = #clone(rules.definitions);
+			if (#is_defined(rules.sea_former) && rules.sea_former != null) { declared :+ #clone(rules.sea_former); }
+			for (entry of declared) {
 				// Static portrait until the game's conventional vehicle renderer
 				// supports installed CVR models. Combat/morale remain real data.
 				const data = {name: entry.name, morale: 'STANDARD', type: 'static',
-					movement_type: 'land', movement_per_turn: entry.movement,
+					movement_type: #is_defined(entry.movement_type) ? entry.movement_type : 'land', movement_per_turn: entry.movement,
 					render: {type: 'sprite', file: 'newicons.pcx', x: 79, y: 501, w: 38, h: 48, cx: 98, cy: 549}};
 				const preview = model_preview(entry);
 				if (preview != null) { data.render = preview; }
 				data.combat = entry.combat;
+				// The installed Terraforming weapon role, not a translated name or
+				// the broad civilian combat category, grants worker capability.
+				data.can_terraform = entry.weapon_mode == 9;
 				game.event('define_unit', {id: entry.id, data: data});
 			}
 		}

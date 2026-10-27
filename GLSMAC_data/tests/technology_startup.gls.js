@@ -88,6 +88,13 @@ for (spec of [['default', false], ['gaian-physics', false], ['default', true], [
 		test.assert(game.technologies.category(0) == 3 && final_row[2] == [1, 2, 3, 4]);
 		test.assert(#sizeof(game.bm.get_bases()) == 1 && unit_count(game) == 1);
 		if (interactive) { test.assert(game.get_opening_state().phase == 'planetfall'); }
+		const opening_energy = f.human.get_energy_state();
+		const declared_credits = game.get('energy_rules').starting_credits + f.human.get_faction().economy_bonuses.starting_energy;
+		test.assert(opening_energy.initialized && opening_energy.credits == declared_credits && opening_energy.last_income_turn == 0,
+			'Both ordinary and interactive new-world startup grant declared reserves once');
+		const funding = #include('../default/game/event/initialize_energy');
+		const funding_event = {caller: 0, data: {player_id: f.human.id + 0, credits: declared_credits}}; funding_event.game = game;
+		test.assert(#is_defined(funding.validate(funding_event)), 'Startup retries cannot grant reserves again');
 		const e = {caller: 0, data: {}}; e.game = game;
 		test.assert(#is_defined(#include('../default/game/event/initialize_technologies').validate(e)));
 		f.process_events(); test.assert(receipts.initialized == 1);

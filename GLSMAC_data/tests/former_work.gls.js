@@ -55,7 +55,7 @@ for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'excess-moves', '
 		reject(f, (e) => {
 			if (kind == 'wrong-owner') { e.caller = 0; }
 			if (kind == 'missing-unit') { e.data.unit_id = f.former.id + 100; }
-			if (kind == 'unknown-action') { e.data.action = 'solar'; }
+			if (kind == 'unknown-action') { e.data.action = 'unknown_terraform_action'; }
 			f.with_write(() => {
 				if (kind == 'excess-moves') { f.former.movement = 2.0; }
 				if (kind == 'dead') { f.former.health = 0.0; }

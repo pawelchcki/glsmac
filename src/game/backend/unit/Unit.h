@@ -13,11 +13,14 @@
 namespace game {
 namespace backend {
 
+namespace base { class Base; }
+
 namespace slot {
 class Slot;
 }
 namespace map::tile {
 class Tile;
+class TileManager;
 }
 
 namespace unit {
@@ -62,6 +65,7 @@ public:
 	const bool NeedsOrders() const;
 	order_t GetOrder() const;
 	void SetOrder( order_t order );
+	void SetTerraformHomeFromProduction( const base::Base* base );
 	// Script-owned work policy, stored with the native unit so progress survives
 	// wrapper recreation, synchronization and manager serialization.
 	struct work_state_t {
@@ -71,6 +75,14 @@ public:
 		movement_t previous_movement = 0.0f;
 		bool previous_moved = false;
 		int64_t tile_x = 0, tile_y = 0;
+	};
+
+	// Versioned pure-data automation intent. No wrapper, callback or route cache
+	// is retained: paths are recomputed against the receiving live world.
+	struct automation_state_t {
+		std::string command;
+		int64_t epoch = 0, owner = 0, issued_turn = 0, last_turn = 0;
+		int64_t target_x = 0, target_y = 0, origin_x = 0, origin_y = 0, cursor = 0, phase = 0;
 	};
 
 	const std::string& GetMoraleString() const;
@@ -85,9 +97,15 @@ public:
 	WRAPDEF_SERIALIZABLE;
 
 private:
+	friend class map::tile::TileManager;
 	UnitManager* const m_um;
 	order_t m_order = order_t::NO_ORDERS;
 	work_state_t m_work;
+	automation_state_t m_automation;
+	int64_t m_terraform_home = 0;
+	int64_t m_home_revision = 0;
+	struct { int64_t token = 0, previous = 0, expected = 0; } m_home_undo;
+	static bool ValidAutomation( const automation_state_t& plan, const map::Map* map, const size_t owner );
 	static bool ValidWork( const work_state_t& work, const map::Map* map );
 	// Native callables can outlive their wrapper and even their manager.
 	const std::shared_ptr< Unit* > m_order_handle = std::make_shared< Unit* >( this );

@@ -51,6 +51,7 @@ std::unique_ptr< Faction > Faction::Clone() const {
 	copy->m_industry = m_industry;
 	copy->m_identity = m_identity;
 	copy->m_starting_technologies = m_starting_technologies;
+	copy->m_economy_bonuses = m_economy_bonuses;
 	return copy;
 }
 
@@ -122,6 +123,22 @@ std::vector< std::string > Faction::ParseStartingTechnologies( GSE_CALLABLE, con
 	return technologies;
 }
 
+void Faction::SetEconomyBonuses( const economy_bonuses_t& bonuses ) {
+	if ( bonuses.starting_energy < 0 || bonuses.starting_energy > 1000000 ) { THROW( "Invalid faction starting energy bonus" ); }
+	m_economy_bonuses = bonuses;
+}
+
+Faction::economy_bonuses_t Faction::ParseEconomyBonuses( GSE_CALLABLE, const gse::value::object_properties_t& values ) {
+	if ( values.size() != 2 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Faction economy requires starting energy and Terraform cost flag" ); }
+	const auto energy = values.find( "starting_energy" ); const auto terraform = values.find( "terraform_cost_halved" );
+	if ( energy == values.end() || terraform == values.end() || energy->second->Deref()->type != gse::VT_INT || terraform->second->Deref()->type != gse::VT_BOOL ) {
+		GSE_ERROR( gse::EC.INVALID_CALL, "Invalid faction economy bonus types" );
+	}
+	const auto amount = static_cast< const gse::value::Int* >( energy->second->Deref() )->value;
+	if ( amount < 0 || amount > 1000000 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Invalid faction starting energy bonus" ); }
+	return { amount, static_cast< const gse::value::Bool* >( terraform->second->Deref() )->value };
+}
+
 const types::Buffer Faction::Serialize() const {
 	types::Buffer buf;
 
@@ -150,6 +167,9 @@ const types::Buffer Faction::Serialize() const {
 	buf.WriteString( "faction-starting-tech-v1" );
 	buf.WriteInt( m_starting_technologies.size() );
 	for ( const auto& token : m_starting_technologies ) { buf.WriteString( token ); }
+	if ( m_economy_bonuses.starting_energy || m_economy_bonuses.terraform_cost_halved ) {
+		buf.WriteString( "faction-economy-v1" ); buf.WriteInt( m_economy_bonuses.starting_energy ); buf.WriteBool( m_economy_bonuses.terraform_cost_halved );
+	}
 
 	return buf;
 }
@@ -189,7 +209,13 @@ void Faction::Deserialize( types::Buffer buf ) {
 		if ( count < 0 || count > 128 ) { THROW( "Invalid serialized faction starting technology count" ); }
 		for ( int64_t index = 0; index < count; ++index ) { technologies.push_back( buf.ReadString() ); }
 	}
+	economy_bonuses_t economy;
+	if ( buf.lenr < buf.lenw ) {
+		if ( buf.ReadString() != "faction-economy-v1" ) { THROW( "Unknown faction economy extension" ); }
+		economy.starting_energy = buf.ReadInt(); economy.terraform_cost_halved = buf.ReadBool();
+	}
 	if ( buf.lenr != buf.lenw ) { THROW( "Trailing faction data" ); }
+	SetEconomyBonuses( economy );
 	SetStartingTechnologies( technologies );
 
 }
@@ -219,6 +245,10 @@ WRAPIMPL_BEGIN( Faction )
 					{ "industry", VALUE( gse::value::Int,, m_industry ) },
 				} )
 			},
+			{ "economy_bonuses", VALUEEXT( gse::value::Object, GSE_CALL, {
+				{ "starting_energy", VALUE( gse::value::Int,, m_economy_bonuses.starting_energy ) },
+				{ "terraform_cost_halved", VALUE( gse::value::Bool,, m_economy_bonuses.terraform_cost_halved ) },
+			} ) },
 			{ "starting_technologies", [ & ]() {
 				std::vector< gse::Value* > tokens;
 				for ( const auto& token : m_starting_technologies ) { tokens.push_back( VALUE( gse::value::String,, token ) ); }

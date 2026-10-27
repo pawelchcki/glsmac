@@ -8,6 +8,7 @@ return (profile) => {
 	f.view = mocks.display(); f.events = mocks.events(); f.map = mocks.events(); f.state = {queued: [], delivered: 0, loads: []};
 	f.events.get_um = () => { return f.game.um; }; f.events.get_bm = () => { return f.game.bm; };
 	f.events.get_player = () => { return f.native.owner; }; f.events.get_turn = () => { return f.game.get_turn(); };
+	f.events.get_settings = () => { return f.game.get_settings(); };
 	f.events.is_started = f.game.is_started; f.events.is_turn_complete = f.game.is_turn_complete; f.events.get = f.game.get;
 	f.events.validate_found_base = f.game.validate_found_base; f.events.validate_join_base = f.game.validate_join_base;
 	f.events.select_unit = (unit) => {

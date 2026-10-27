@@ -131,3 +131,28 @@ for (change of [
 		test.assert(rejected && !registered);
 	}); index++;
 }
+
+behavior.scenario('installed Ocean ImprovedSea and Borehole coefficients are independent source inputs', () => {
+	const original = consumer.parse(fixture('default')); const altered = consumer.parse(fixture('altered'));
+	test.assert(original.ocean == {NUTRIENTS:1,MINERALS:0,ENERGY:0} && original.improved_sea == {NUTRIENTS:2,MINERALS:1,ENERGY:3});
+	test.assert(original.borehole == {NUTRIENTS:0,MINERALS:6,ENERGY:6} && original.sea_mine_bonus_tech == 'SyntheticSeaMining');
+	test.assert(altered.improved_sea == {NUTRIENTS:3,MINERALS:2,ENERGY:4} && altered.borehole == {NUTRIENTS:0,MINERALS:7,ENERGY:8});
+});
+behavior.scenario('functional resource queries honor installed sea coefficients and independent real faction caps', () => {
+	const f = test.production_fixture(); const handler = configure(consumer.parse(fixture('default'))); f.apply_faction_starting_technologies(['SyntheticCap']);
+	const event = {}; event.player = f.owner; event.tile = worker(); event.tile.is_land = false;
+	event.tile.features.jungle = false; event.tile.terraforming = {farm:true,mine:false,solar:false};
+	test.assert(handler(event) == {NUTRIENTS:3,MINERALS:0,ENERGY:0});
+	event.tile.terraforming = {farm:false,mine:true,solar:false}; test.assert(handler(event).MINERALS == 1);
+	f.apply_faction_starting_technologies(['SyntheticCap','SyntheticSeaMining']); test.assert(handler(event).MINERALS == 2);
+	event.tile.terraforming = {farm:false,mine:false,solar:true}; test.assert(handler(event).ENERGY == 3);
+	f.apply_faction_starting_technologies([]); test.assert(handler(event).ENERGY == 2, 'Technology-free worker access never waives resource caps');
+});
+behavior.scenario('solar bands soil enrichment and boreholes change actual resource results without special tile fixtures', () => {
+	const f = test.production_fixture(); f.apply_faction_starting_technologies(['SyntheticCap']); const handler = configure(consumer.parse(fixture('default')));
+	const event = {}; event.player = f.owner; event.tile = worker(); event.tile.terraforming = {farm:true,soil_enricher:true};
+	test.assert(handler(event).NUTRIENTS == 4);
+	event.tile.terraforming = {solar:true};
+	for (input of [[64,1],[1362,2],[2462,3],[3500,4]]) { event.tile.elevation = input[0]; test.assert(handler(event).ENERGY == input[1]); }
+	event.tile.terraforming = {borehole:true}; test.assert(handler(event) == {NUTRIENTS:0,MINERALS:6,ENERGY:6});
+});

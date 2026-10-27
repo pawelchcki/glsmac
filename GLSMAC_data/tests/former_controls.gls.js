@@ -8,6 +8,7 @@ const fixture = () => {
 	f.state = {modal: false, queued: []};
 	f.ui_game.get_um = () => { return f.game.um; }; f.ui_game.get_bm = () => { return f.game.bm; };
 	f.ui_game.get_tm = () => { return f.game.tm; }; f.ui_game.get_player = () => { return f.owner; };
+	f.ui_game.get_settings = () => { return f.game.get_settings(); };
 	f.ui_game.get_players = () => { return f.game.get_players(); }; f.ui_game.get_turn = () => { return f.game.get_turn(); };
 	f.ui_game.is_started = () => { return f.game.is_started(); };
 	f.ui_game.is_turn_complete = (id) => { return f.game.is_turn_complete(id); };

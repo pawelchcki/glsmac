@@ -386,6 +386,8 @@ public:
 	gc::Space* const GetGCSpace() const;
 
 	void CheckRW( GSE_CALLABLE ) const;
+	void QueueEnergyChanged( const std::shared_ptr< Player* >& player );
+	void FlushEnergyChanges();
 
 	void SetSlotNum( const size_t slotnum ); // not thread-safe, make sure to call from game thread only
 
@@ -483,6 +485,9 @@ private:
 	std::atomic< uint64_t > m_next_event_id = 0;
 
 	std::atomic< size_t > m_rw_counter = 0;
+	bool ValidateReceivedEnergyTurn( int64_t turn ) const;
+	std::mutex m_energy_views_mutex;
+	std::unordered_map< size_t, std::shared_ptr< Player* > > m_pending_energy_views;
 	void WithRW( const std::function< void() >& f );
 
 	enum OpeningPhase { OPENING_NONE, OPENING_PREPARING, OPENING_PLANETFALL, OPENING_NAME, OPENING_STARTING, OPENING_TOUR, OPENING_MAP, OPENING_FAILED };
@@ -506,6 +511,10 @@ private:
 	void ProcessEvents();
 	void ProcessEventResponses();
 	void NotifyEventResult( GSE_CALLABLE, const event::Event* event, bool success );
+	// Transient application ownership; not world state and never serialized.
+	std::string m_applying_event_id;
+	gse::Value* ApplyEventWithContext( const event::Event* event, const std::function< gse::Value*() >& apply );
+	void FinalizeAcceptedEvent( const event::Event* event, gse::Value* applied );
 	void FinalizeUnitDisbandEvent( const event::Event* event, gse::Value* applied );
 	struct FoundingRecord {
 		size_t unit_id = 0, base_id = 0, owner = 0, x = 0, y = 0;
@@ -542,6 +551,7 @@ private:
 private:
 	friend struct gse::tests::mocks::ProductionFixture;
 	friend class map::tile::TileManager;
+	friend class Player;
 	friend class map::Map;
 	friend class resource::ResourceManager;
 	friend class unit::UnitManager;

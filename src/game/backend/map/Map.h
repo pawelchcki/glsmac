@@ -47,6 +47,7 @@ namespace map {
 
 namespace tile {
 class Tile;
+class TileManager;
 class TileState;
 class Tiles;
 }
@@ -75,6 +76,9 @@ CLASS2( Map, types::Serializable, gse::GCWrappable )
 
 	const error_code_t Generate( settings::MapSettings* map_settings, MT_CANCELABLE );
 	const error_code_t LoadFromBuffer( types::Buffer& buffer );
+	// A live-world snapshot keeps construction ownership and requires the
+	// already-restored canonical player roster before a map is published.
+	static std::unique_ptr< Map > LoadWorldTerrain( Game* game, types::Buffer& buffer, bool initialize_rendering = true );
 	const error_code_t LoadFromFile( const std::string& path );
 	void SaveToBuffer( types::Buffer& buffer ) const;
 	const error_code_t SaveToFile( const std::string& path ) const;
@@ -127,6 +131,8 @@ CLASS2( Map, types::Serializable, gse::GCWrappable )
 	// be careful using this
 	tile::Tiles* GetTilesPtr() const;
 	void SetTerraforming( tile::Tile* tile, tile::terraforming_t flags );
+	void ValidateTerrainMutation() const;
+	void MarkTerrainChanged( tile::Tile* tile );
 	void PushUpdates();
 
 	const types::Buffer SerializeSpriteActor( const sprite_actor_t& sprite_actor ) const;
@@ -143,6 +149,8 @@ CLASS2( Map, types::Serializable, gse::GCWrappable )
 	void GetReachableObjects( std::unordered_set< Object* >& reachable_objects ) override;
 
 private:
+	void ResetConstructionOwnersForImport();
+	friend class tile::TileManager;
 	friend struct gse::tests::mocks::ProductionFixture;
 	// The native fixture exercises terrain coordinates and snapshot decoding
 	// without constructing texture/generation resources. Ordinary maps always
@@ -180,6 +188,7 @@ private:
 	Game* m_game = nullptr;
 
 	tile::Tiles* m_tiles = nullptr;
+	std::shared_ptr< const uint8_t > m_terrain_identity = std::make_shared< const uint8_t >( 0 );
 	tile::Tile* m_selected_tile = nullptr;
 	MapState* m_map_state = nullptr;
 	std::set< std::pair< size_t, size_t > > m_dirty_tiles;

@@ -28,6 +28,9 @@ game.on('event_result', (e) => {
 #include('../default/game/facilities').define(game);
 #include('../default/units/defs').define(game, rules);
 game.set('starting_unit_rules', unit_rules.materialize(game.um, rules));
+// This participant-count probe supplies its own declared unfunded economy,
+// bypassing configure_game's installed energy source along with its artwork.
+game.set('energy_rules', {starting_credits:0});
 f.process_events();
 test.assert(!receipts.failed, 'Native startup definitions were accepted');
 #include('../default/game/world/default')(game);
