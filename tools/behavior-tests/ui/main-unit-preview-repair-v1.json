@@ -1,0 +1,160 @@
+{
+  "schema": "application.main-unit-preview-repair.v1",
+  "base_main": "b219ddd955f334abb9916593be2107d3f60c20cb",
+  "failing_main_run": 40562375369,
+  "native_source": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "production_default_after_repair": "36fb8bc84d970e9c318f414a28ec16f526fcfe67",
+  "engine_artifact": {
+    "id": 12762157354,
+    "zip_sha256": "b79bb9775d644f301e58cca8bc64cfafefc8f61126c050b66ecc6e9dd83490b2",
+    "js_sha256": "b8b64bfdbae48475667160b0bc82dc5a8da499336a13d371afbe9d9bb32100e7",
+    "wasm_sha256": "c6cbb1c4534d088bcc59946a70af2e7ca10623a5cf33c4d6a2c44a0ac4a3cf5c"
+  },
+  "focused_native_suites": [
+    {
+      "suite": "colony-founding-ui",
+      "scenarios": 9,
+      "assertions": 37,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "f46b0bd6ac46bb2c32b406e9843381e41d82200e25cb145c4d763056438864a3",
+      "report": "/tmp/pr35-main-ui-owned-cleanup-focused.json",
+      "report_sha256": "3bbe2d42a8fd0b680bafdf915a5851eaba4783d03416e6f25d7d2a24135e8d94"
+    },
+    {
+      "suite": "unit-orders-controls",
+      "scenarios": 9,
+      "assertions": 82,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "f46b0bd6ac46bb2c32b406e9843381e41d82200e25cb145c4d763056438864a3",
+      "report": "/tmp/pr35-main-ui-owned-cleanup-focused.json",
+      "report_sha256": "3bbe2d42a8fd0b680bafdf915a5851eaba4783d03416e6f25d7d2a24135e8d94"
+    },
+    {
+      "suite": "gameplay-events",
+      "scenarios": 71,
+      "assertions": 386,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "53d902e3018a9c14259e74b072061e22d282ff5b4438df6faad2ad0e62a50436",
+      "report": "/tmp/pr35-main-ui-fixtures-focused-v1.json",
+      "report_sha256": "3e92ccbf3548ea16223640ae205df7225d74e2b66e3ee743c0c9296ed0a7501d"
+    },
+    {
+      "suite": "skip-turn",
+      "scenarios": 1,
+      "assertions": 51,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "53d902e3018a9c14259e74b072061e22d282ff5b4438df6faad2ad0e62a50436",
+      "report": "/tmp/pr35-main-ui-fixtures-focused-v1.json",
+      "report_sha256": "3e92ccbf3548ea16223640ae205df7225d74e2b66e3ee743c0c9296ed0a7501d"
+    },
+    {
+      "suite": "turn-playability",
+      "scenarios": 27,
+      "assertions": 108,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "bf5e0b49456d4fea33e9ddb4fc698d0b8e2a905d122bc56bf88ebb000f71c189",
+      "report": "/tmp/pr35-main-movement-turn-compat.json",
+      "report_sha256": "ba4aeaa48ac17c141a386852b01fe41fbd327c3d507d6c8dd38e1cff848bfcab"
+    },
+    {
+      "suite": "sea-worker-home-port",
+      "scenarios": 2,
+      "assertions": 136,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "bf5e0b49456d4fea33e9ddb4fc698d0b8e2a905d122bc56bf88ebb000f71c189",
+      "report": "/tmp/pr35-main-movement-turn-compat.json",
+      "report_sha256": "ba4aeaa48ac17c141a386852b01fe41fbd327c3d507d6c8dd38e1cff848bfcab"
+    },
+    {
+      "suite": "conventional-combat",
+      "scenarios": 3,
+      "assertions": 18,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "bf5e0b49456d4fea33e9ddb4fc698d0b8e2a905d122bc56bf88ebb000f71c189",
+      "report": "/tmp/pr35-main-movement-turn-compat.json",
+      "report_sha256": "ba4aeaa48ac17c141a386852b01fe41fbd327c3d507d6c8dd38e1cff848bfcab"
+    },
+    {
+      "suite": "combat-rollback-regression",
+      "scenarios": 6,
+      "assertions": 55,
+      "raw_exit": 0,
+      "strict_footer_accepted_by_fast_parser": true,
+      "success_raw_log_retained": false,
+      "source_snapshot_sha256": "bf5e0b49456d4fea33e9ddb4fc698d0b8e2a905d122bc56bf88ebb000f71c189",
+      "report": "/tmp/pr35-main-movement-turn-compat.json",
+      "report_sha256": "ba4aeaa48ac17c141a386852b01fe41fbd327c3d507d6c8dd38e1cff848bfcab"
+    }
+  ],
+  "repaired_suite_counts": {
+    "suites": 5,
+    "scenarios": 117,
+    "assertions": 664
+  },
+  "supporting_compatibility_counts": {
+    "suites": 3,
+    "scenarios": 11,
+    "assertions": 209
+  },
+  "recorded_unit_order_replay": {
+    "matched": 13,
+    "mismatched": 0,
+    "errors": 0,
+    "unsupported": 0,
+    "report": "/tmp/pr35-main-unit-orders-fixed-full.json",
+    "report_sha256": "09c37ceee7cc64d8304c1414e095c1d4f3217c06bdfdf7f96a0a11ff5e384192",
+    "candidate": {
+      "assets_required": false,
+      "executed": [
+        "native owned Scout/base and Unit manager",
+        "production unit controls/preview and objects-list selection",
+        "actual base popup/init/show/hide/default OK/modal callbacks",
+        "shipped command/advance validators and apply",
+        "native Game::AdvanceTurn and shipped unit_turn"
+      ],
+      "kind": "candidate",
+      "mocked": [
+        "display/art/audio",
+        "morale art data",
+        "timer/event and explicit selection-request notification delivery",
+        "initial one-unit selection",
+        "paused turn completion acknowledgements",
+        "base-content population omitted (no economy/production claim)"
+      ],
+      "name": "glsmac-unit-orders-headless",
+      "rendering": false,
+      "runtime_sha256": "b8b64bfdbae48475667160b0bc82dc5a8da499336a13d371afbe9d9bb32100e7",
+      "scripts_sha256": "9902479101b45dbd28170fd1b262a93f1ccd8377dc797719ae2374dcac5c5236",
+      "target": "wasm-gse",
+      "wasm_sha256": "c6cbb1c4534d088bcc59946a70af2e7ca10623a5cf33c4d6a2c44a0ac4a3cf5c"
+    }
+  },
+  "scope": "Application fixture/production-script coverage. Native Unit/turn/work policy where declared; PlainData manager, map, display, transport boundaries remain explicit. No new original captures, rendering, all-player browser or timing coverage. Recorded replay reuses existing independent answers.",
+  "history_preserved": [
+    "/tmp/pr35-main-stable-ui4",
+    "/tmp/pr35-main-stable-ui-1",
+    "/tmp/pr35-main-stable-ui-2",
+    "/tmp/pr35-main-stable-ui-3",
+    "/tmp/pr35-main-headless-behavior-regression",
+    "/tmp/pr35-main-unit-orders-diagnostic",
+    "/tmp/pr35-main-unit-orders-fixed-three.json",
+    "/tmp/pr35-main-movement-turn-focused-v1.json",
+    "/tmp/pr35-main-movement-turn-compat.json",
+    "/tmp/pr35-main-ui-fixtures-focused-v1.json"
+  ],
+  "qualification": "Focused reports retain their actual full snapshot identities. Passing rows are selected explicitly from reports that may also preserve failed intermediate cases; a mixed report is never labeled wholly passed. Ordinary fast.py retains failed logs but discards temporary successful raw logs after strict footer parsing, so these successes are runner-accepted evidence, not retained raw re-audits. Publication requires fresh complete PR CI and final-head review; main remains unhealthy until repaired automatic full Main CI succeeds."
+}

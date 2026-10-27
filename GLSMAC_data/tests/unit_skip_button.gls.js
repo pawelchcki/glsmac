@@ -3,6 +3,9 @@ const preview = #include('../default/ui/parts/game/bottom_bar/object_preview');
 const skip_event = #include('../default/game/event/unit_skip_turn');
 const mocks = #include('./_ui_mocks');
 const f = test.founding_fixture();
+// This isolated panel bypasses configure_game; parse its declared source through
+// the shipped parser without changing the native units' worker capabilities.
+f.game.set('terraforming_rules', #include('../default/game/terraforming_rules').parse(test.parse_smac_text(#include('./_terraform_action_source'), 'rules')));
 const state = { orders: [], popup: false, hovered: null, lookups: 0 };
 const view = mocks.display(); const game = mocks.events(); const map = mocks.events();
 const um = {};
@@ -11,6 +14,12 @@ um.get_unit = (id) => { state.lookups = state.lookups + 1; return f.game.um.get_
 um.has_ready_unit = (owner) => { return f.game.um.has_ready_unit(owner); };
 game.get_um = () => { return um; };
 game.get_player = () => { return f.owner; };
+game.get_turn = () => { return f.game.get_turn(); };
+game.is_started = () => { return f.game.is_started(); };
+game.is_turn_complete = (caller) => { return f.game.is_turn_complete(caller); };
+game.get = (key) => { return f.game.get(key); };
+game.get_settings = () => { return f.game.get_settings(); };
+game.get_players = () => { return f.game.get_players(); };
 game.validate_found_base = (id, caller) => { return f.game.validate_found_base(id, caller); };
 game.event = (name, data) => { const request = { name: name }; request.data = data; state.orders :+ request; };
 const p = {};

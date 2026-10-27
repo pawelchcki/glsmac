@@ -12,19 +12,26 @@ const owned_port = (actor, tile) => {
 };
 // One noncombat edge validator shared by actual movement and future route
 // edges. Actual commands always supply their unit's live native source tile.
-const validate_at = (game, actor, src_tile, dst_tile) => {
+const validate_tiles = (actor, src_tile, dst_tile) => {
  if (src_tile == dst_tile) { return 'Source tile is same as destination tile'; }
  if (src_tile.is_locked()) { return 'Source tile is locked'; }
  if (dst_tile.is_locked()) { return 'Destination tile is locked'; }
  if (actor.is_immovable) { return 'Unit is immovable'; }
+};
+const validate_edge = (actor, src_tile, dst_tile) => {
  if (!src_tile.is_adjactent_to(dst_tile)) { return 'Destination tile is not adjactent to source tile'; }
  if (actor.is_land && dst_tile.is_water) { return 'Land units can\'t move to water tile'; }
  if (actor.is_water && dst_tile.is_land) {
-  if (!owned_port(actor,dst_tile) || (!src_tile.is_water && !owned_port(actor,src_tile))) { return 'Water units require an owned coastal port'; }
+  if (!owned_port(actor,dst_tile) || (!src_tile.is_water && !owned_port(actor,src_tile))) { return 'Water units can\'t move to land tile'; }
  }
  for (occupant of dst_tile.get_units()) {
   if (occupant.owner != actor.owner) { return 'Destination tile contains foreign units (combat not implemented yet)'; }
  }
+};
+const validate_at = (game, actor, src_tile, dst_tile) => {
+ const error = validate_tiles(actor,src_tile,dst_tile);
+ if (#is_defined(error)) { return error; }
+ return validate_edge(actor,src_tile,dst_tile);
 };
 
 const validate_rollback = (e) => {
@@ -44,13 +51,18 @@ return {
 	validate_at: validate_at,
 	validate: (e) => {
 		if (e.data.unit.owner != e.caller) { return 'Unit can only be moved by it\'s owner'; }
+		// Preserve established manual-command error precedence. Route-edge quotes
+		// remain independent of the actor's remaining movement budget.
+		const source = e.data.unit.get_tile();
+		const error = validate_tiles(e.data.unit,source,e.data.tile);
+		if (#is_defined(error)) { return error; }
 		if (e.data.unit.movement <= 0.0) { return 'Unit is out of moves'; }
 		if (#is_defined(e.data.automation_epoch) || #is_defined(e.data.automation_cursor)) {
 			const plan = e.data.unit.get_automation();
 			if (#typeof(e.data.automation_epoch) != 'Int' || #typeof(e.data.automation_cursor) != 'Int' || plan.command == '' ||
 				e.data.automation_epoch != plan.epoch || e.data.automation_cursor != plan.cursor + 1) { return 'Automation movement intent is stale'; }
 		}
-		return validate_at(e.game,e.data.unit,e.data.unit.get_tile(),e.data.tile);
+		return validate_edge(e.data.unit,source,e.data.tile);
 	},
 
 	resolve: (e) => {

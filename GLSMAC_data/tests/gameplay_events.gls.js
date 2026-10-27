@@ -47,6 +47,28 @@ for (c of validation_cases) {
 		});
 	}
 }
+for (c of [
+	['same tile','same','Source tile is same as destination tile'],
+	['source lock','source','Source tile is locked'],
+	['destination lock','destination','Destination tile is locked'],
+	['immovable','immovable','Unit is immovable'],
+]) {
+	behavior.scenario('manual movement preserves ' + c[0] + ' rejection before exhausted movement', () => {
+		const e = mocks.event([]); const unit = e.data.unit; const source = unit.get_tile(); unit.movement = 0.0;
+		if (c[1] == 'same') { e.data.tile = source; }
+		if (c[1] == 'source') { source.locked = true; }
+		if (c[1] == 'destination') { e.data.tile.locked = true; }
+		if (c[1] == 'immovable') { unit.is_immovable = true; }
+		test.assert(movement.validate(e) == c[2]);
+		test.assert(unit.movement == 0.0 && unit.moves == [] && !unit.moved_this_turn && e.game.random.state.draws == []);
+	});
+}
+behavior.scenario('route edge quote stays independent of manual remaining movement', () => {
+	const e = mocks.event([]); const unit = e.data.unit; unit.movement = 0.0;
+	test.assert(!#is_defined(movement.validate_at(e.game,unit,unit.get_tile(),e.data.tile)));
+	test.assert(movement.validate(e) == 'Unit is out of moves');
+	test.assert(unit.movement == 0.0 && unit.moves == [] && e.game.random.state.draws == []);
+});
 for (occupants of [[], [1], [1, 1], [1, 2], [2, 1]]) {
 	behavior.scenario('movement occupants ' + #to_string(occupants), () => {
 		const e = mocks.event([]);

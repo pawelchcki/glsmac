@@ -12,6 +12,9 @@ const advance_event = #include('../default/game/event/advance_turn');
 
 const fixture = () => {
 	const f = test.founding_fixture();
+	// This isolated UI mount bypasses configure_game. Supply its declared source
+	// to the same parser used by startup; no work is enabled on the native Scout.
+	f.game.set('terraforming_rules', #include('../default/game/terraforming_rules').parse(test.parse_smac_text(#include('./_terraform_action_source'), 'rules')));
 	// Remove the fixture's unrelated starting pod through its native manager.
 	// Native spawn initializes the one owned Scout from its real one-move def.
 	f.with_write(() => {
@@ -33,6 +36,11 @@ const fixture = () => {
 	f.ui_game.get_turn = () => { return f.game.get_turn(); };
 	f.ui_game.get_year = () => { return f.game.get_year(); };
 	f.ui_game.get = (key) => { return f.game.get(key); };
+	f.ui_game.get_settings = () => { return f.game.get_settings(); };
+	f.ui_game.get_players = () => { return f.game.get_players(); };
+	// Production work-button availability also validates the actual native turn.
+	f.ui_game.is_started = () => { return f.game.is_started(); };
+	f.ui_game.is_turn_complete = (caller) => { return f.game.is_turn_complete(caller); };
 	f.ui_game.event = (name, data) => {
 		const handler = #include('../default/game/event/' + name);
 		const e = { caller: f.owner.id }; e.game = f.game; e.data = data;
