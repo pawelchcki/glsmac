@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "candidate_capture_report_sha256": "e8d02f14c9f335b0a48721b333dbb1ab689aaf733070f0831254b5c7ff6c9975",
+  "host_head": "423d23f2dec8c308f708665f8cd01077a622064a",
+  "native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "road_target": {
+    "id": "n1585",
+    "source": "road_to",
+    "bounds": {
+      "area": "effective",
+      "left": 139,
+      "top": 602,
+      "right": 459,
+      "bottom": 619,
+      "zindex": 0.5
+    }
+  },
+  "road_events": [
+    {
+      "seq": 61995,
+      "kind": "input.ingress",
+      "target": "input",
+      "data": {
+        "ingress": 31,
+        "sdl_type": 1024,
+        "action": 1,
+        "type": "mousemove",
+        "x": 299,
+        "y": 611
+      }
+    },
+    {
+      "seq": 61997,
+      "kind": "input.ingress",
+      "target": "input",
+      "data": {
+        "ingress": 32,
+        "sdl_type": 1025,
+        "action": 1,
+        "type": "mousedown",
+        "x": 299,
+        "y": 611,
+        "button": 1
+      }
+    },
+    {
+      "seq": 61998,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "begin",
+        "ingress": 32,
+        "type": "mousedown",
+        "action": 1,
+        "x": 299,
+        "y": 611,
+        "button": 1
+      }
+    },
+    {
+      "seq": 62001,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "end",
+        "ingress": 32,
+        "handled": true
+      }
+    },
+    {
+      "seq": 62003,
+      "kind": "input.ingress",
+      "target": "input",
+      "data": {
+        "ingress": 33,
+        "sdl_type": 1026,
+        "action": 1,
+        "type": "mouseup",
+        "x": 299,
+        "y": 611,
+        "button": 1
+      }
+    },
+    {
+      "seq": 62004,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "begin",
+        "ingress": 33,
+        "type": "mouseup",
+        "action": 1,
+        "x": 299,
+        "y": 611,
+        "button": 1
+      }
+    },
+    {
+      "seq": 62032,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "end",
+        "ingress": 33,
+        "handled": true
+      }
+    }
+  ],
+  "header_target": {
+    "id": "n42",
+    "role": "terraform-header",
+    "source": "left_menu_terraform",
+    "label": "TERRAFORM",
+    "bounds": {
+      "area": "effective",
+      "left": 0,
+      "top": 436,
+      "right": 139,
+      "bottom": 453,
+      "zindex": 0.5
+    },
+    "x": 69.5,
+    "y": 444.5
+  },
+  "header_hover_events": [
+    {
+      "seq": 61936,
+      "kind": "input.ui-transition",
+      "target": "n42",
+      "data": {
+        "type": "mouseover",
+        "container": "n12",
+        "source_ingress": 22,
+        "action": 1,
+        "x": 69,
+        "y": 445
+      }
+    }
+  ],
+  "scope": "Selected exact candidate native observations, not original-game evidence; road hover absent due to coalesced move after click."
+}

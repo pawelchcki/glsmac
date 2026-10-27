@@ -90,3 +90,60 @@ behavior.scenario('exhausted implicit base road move is rejected unchanged and a
 	f.advance(); assert_checkpoint(f, 0, 0, false);
 	f.move(false); assert_checkpoint(f, 2, 1, true);
 });
+
+// Source-supported application policy from installed Manual p48. These cases
+// do not claim measured original wet/rolling/rocky traversal agreement.
+const terrain_road_fixture = (moisture, rockiness, uniform, roads) => {
+ const f = fixture('forest_roads');
+ f.with_write(() => {
+  const patches = [];
+  for (x of [0, 2]) {
+   const flags = f.game.tm.get_terraforming(x, 2); flags.road = roads;
+   patches :+ {x:x,y:2,moisture:(x == 0 || uniform) ? moisture : 1,
+    rockiness:(x == 0 || uniform) ? rockiness : 1,terraforming:flags};
+  }
+  f.game.tm.apply_terrain(patches, []);
+ });
+ return f;
+};
+for (terrain of [['wet',3,1], ['rolling',1,2], ['rocky',1,3]]) {
+ for (uniform of [false, true]) {
+  behavior.scenario('source road throughput crosses ' + terrain[0] + (uniform ? ' endpoints' : ' and flat endpoints') + ' both ways with native undo', () => {
+   const f = terrain_road_fixture(terrain[1], terrain[2], uniform, true);
+   let spent = 0;
+   for (outbound of [true, false, true]) {
+    const e = {caller:f.owner.id}; e.game = f.game; e.data = {};
+    e.data.unit = f.current_unit(); e.data.tile = f.game.tm.get_tile(outbound ? 0 : 2, 2);
+    const before = f.snapshot(); const quote = move.observe_cost(e);
+    #print('ROAD_TERRAIN_QUOTE|' + #json_text_exact({terrain:terrain[0],uniform:uniform,source:{x:e.data.unit.get_tile().x + 0,moisture:e.data.unit.get_tile().moisture + 0,rockiness:e.data.unit.get_tile().rockiness + 0},
+     destination:{x:e.data.tile.x + 0,moisture:e.data.tile.moisture + 0,rockiness:e.data.tile.rockiness + 0},quote:quote,unchanged:f.snapshot() == before}));
+    test.assert(quote.road_rate == 3 && f.snapshot() == before, 'Both connected land endpoints use the declared road rate without mutation');
+    const actual = f.move(outbound);
+    test.assert(actual.resolved.is_movement_successful && actual.applied.completed && !f.current_unit().get_tile().is_locked());
+    test.assert(f.current_unit().get_tile().x == (outbound ? 0 : 2));
+    if (spent == 0) {
+     f.with_write(() => { move.rollback(actual); }); f.finish_unit_move(f.former.id);
+     test.assert(f.snapshot() == before, 'Actual reverse movement ACK restores the complete native graph and RNG');
+     f.move(outbound);
+    }
+    spent++;
+    test.assert(#round(f.current_unit().movement * 3.0) == 3 - spent && f.current_unit().moved_this_turn);
+   }
+   test.assert(f.current_unit().movement == 0.0);
+   const exhausted = {caller:f.owner.id}; exhausted.game = f.game; exhausted.data = {};
+   exhausted.data.unit = f.current_unit(); exhausted.data.tile = f.game.tm.get_tile(2,2);
+   const final_state = f.snapshot(); test.assert(#is_defined(move.validate(exhausted)) && f.snapshot() == final_state);
+  });
+ }
+ behavior.scenario('unconnected ' + terrain[0] + ' land retains ordinary quote debit and native undo', () => {
+  const f = terrain_road_fixture(terrain[1], terrain[2], false, false);
+  const e = {caller:f.owner.id}; e.game = f.game; e.data = {};
+  e.data.unit = f.current_unit(); e.data.tile = f.game.tm.get_tile(0,2);
+  const before = f.snapshot(); const quote = move.observe_cost(e);
+  test.assert(quote.road_rate == 0 && quote.total_cost == (terrain[2] == 3 ? 2.0 : 1.0) && f.snapshot() == before);
+  const actual = f.move(true);
+  test.assert(actual.resolved.is_movement_successful && actual.applied.completed && f.current_unit().movement == 0.0);
+  f.with_write(() => { move.rollback(actual); }); f.finish_unit_move(f.former.id);
+  test.assert(f.snapshot() == before);
+ });
+}

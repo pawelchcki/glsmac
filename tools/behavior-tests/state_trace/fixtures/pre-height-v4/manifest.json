@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "scope": "Actual pre-PR2 candidate serialization; asset-free authored input, not original-game observations",
+  "runtime_source": "1da3296b",
+  "runtime_cpp_tree": "a196dd03780a448d4f21f35d92ef2d3f96f29edd",
+  "host_gse_commit": "2830d09b",
+  "runtime": {
+    "GLSMAC.js": "3c65fa5ba297b9dd3e5712dca625cba26606f0014305628302c72ffa78746a15",
+    "GLSMAC.wasm": "2e84cad638fed7c02649b53df7dec2fa66a9131999859b4b2222f801dcac63d7"
+  },
+  "gse_snapshot_sha256": "2cf8a117c85ce27a0ed6f4fbcf692dbcab66d8745dd55096d31cbe88dbb42f6d",
+  "files": {
+    "map.bin": "d01bc2ea4173e077f1d426e52d3ab4f1cacb556b9b7fb238f201db1fd6ccdb20",
+    "unit.bin": "ca6cf57058c7ddd8516c8b3d614502a3ff2fb035916c8ec6a915781cea6c6bf1",
+    "capture.gls.js.txt": "a275e31ecaa552a8676da885ec2d55de471c8cf1e40d12f685da3ada5467349e",
+    "capture.cjs": "c8de2e8c8ab51829171bf181507279bfee9b1966764905b2978ccc61021379c2"
+  },
+  "map_bytes": 2005,
+  "unit_bytes": 554,
+  "native_capture_success": true,
+  "input": "Complete two-owner founding mechanics fixture; actual Formers at2,2, source Farm4 turns; declared canonical1362m with ownedSensor; one real Farm work tick; no paid-height metadata or terrain_epoch exists in this writer",
+  "extraction": "Read-only captured native string bytes while live; typed record sizes/checksums and exact suffix verified; Unit payload selected unchanged from real manager graph",
+  "migration": "Epoch absent in old bytes; new decoder starts documented application epoch0. This is a codec compatibility assertion, never an original trace match."
+}

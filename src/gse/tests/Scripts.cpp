@@ -1,4 +1,5 @@
 #include "GSE.h"
+#include "ScriptStages.h"
 
 #include "mocks/Mocks.h"
 
@@ -32,6 +33,7 @@ void AddScriptsTests( task::gsetests::GSETests* task ) {
 
 	const auto* c = g_engine->GetConfig();
 	if ( !c->HasDebugFlag( config::Config::DF_GSE_TESTS_SCRIPT ) ) {
+		AddScriptStageTests( task );
 		task->AddTest(
 			"check if " + tests_path + " directory exists",
 			GT( tests_path ) {
@@ -60,6 +62,7 @@ void AddScriptsTests( task::gsetests::GSETests* task ) {
 				context::GlobalContext* context = nullptr;
 
 				std::string last_error = "";
+				std::unique_ptr< ScriptStages > stages;
 				try {
 					const auto source = util::FS::ReadTextFile( script, GSE::PATH_SEPARATOR );
 					parser = gse->GetParser( script, source );
@@ -69,9 +72,18 @@ void AddScriptsTests( task::gsetests::GSETests* task ) {
 					ExecutionPointer ep;
 					gc_space->Accumulate(
 						nullptr,
-						[ &runner, &context, &ep, &program, &parser ]() {
-							program = parser->Parse();
-							runner->Execute( context, ep, program );
+						[ &runner, &context, &ep, &program, &parser, &stages, &gse, &last_error ]() {
+							stages = ScriptStages::Install( gse, context );
+							try {
+								program = parser->Parse();
+								runner->Execute( context, ep, program );
+							} catch ( const Exception& failure ) {
+								if ( !stages->Enabled() ) { throw; }
+								last_error = failure.ToString();
+							} catch ( const std::exception& failure ) {
+								if ( !stages->Enabled() ) { throw; }
+								last_error = std::string( "Internal error: " ) + failure.what();
+							}
 						}
 					);
 				}
@@ -85,7 +97,8 @@ void AddScriptsTests( task::gsetests::GSETests* task ) {
 					last_error = (std::string)"Internal error: " + e.what();
 				};
 
-				gse->Finish();
+				if ( stages && stages->Enabled() ) { last_error = stages->RunAndFinish( last_error ); }
+				else { gse->Finish(); }
 
 				if ( program ) {
 					DELETE( program );

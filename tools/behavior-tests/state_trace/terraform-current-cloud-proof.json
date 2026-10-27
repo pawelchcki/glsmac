@@ -1,0 +1,81 @@
+{
+  "schema": "terraform.current_cloud_proof.v1",
+  "scope": "Declared application gameplay and complete native observation; no original agreement",
+  "head": "0b419a2947e2424335e4e60fa881c46bf26d12e0",
+  "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+  "run": 40515414432,
+  "job": 122230607897,
+  "job_url": "https://github.com/pawelchcki/wasmsmac/actions/runs/40515414432/job/122230607897",
+  "artifact": {
+    "id": 12743685282,
+    "name": "hot-behavior-terraform-actions",
+    "bytes": 4604851,
+    "sha256": "220bb967eaa9718c5cbb8440fadc7fd445ec9e7b78f112232cd49501983b2b7b"
+  },
+  "runtime": {
+    "js_sha256": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+    "wasm_sha256": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24",
+    "private_v6_binary_equal": false,
+    "private_v6_native_source_equal": true
+  },
+  "matrix": {
+    "strict_cases": 36,
+    "scenarios": 36,
+    "assertions": 680,
+    "observations": 166,
+    "owner_snapshots": 1162,
+    "tile_rows": 21248,
+    "players_per_observation": 7,
+    "units_per_observation": 8,
+    "bases_per_observation": 7,
+    "tiles_per_observation": 128,
+    "schema": "terrain.v4 with actual native work schema2",
+    "every_raw_exit": 0,
+    "every_native_completion_footer": true,
+    "independent_raw_log_protocol_replay": true,
+    "retained_report_fields_equal_replay": true,
+    "audit_path": "/tmp/terraform-pr35-cloud-full36-audit.json"
+  },
+  "cooperative_observation": {
+    "scenarios": 1,
+    "assertions": 532,
+    "stages": 4,
+    "players_per_stage": 7,
+    "units_per_stage": 22,
+    "bases_per_stage": 7,
+    "tiles_per_stage": 128,
+    "raw_exit": 0,
+    "independent_raw_log_protocol_replay": true,
+    "report_sha256": "df5855f58bcc80506ac99573b23ac29a3f89a7cba930f24ebd927538ab3c4d67",
+    "raw_log_sha256": "68f9dba5f14b729486aad2d8d0b4b16f4e922d61b2b42d9769b663bef648da0c",
+    "audit_path": "/tmp/terraform-pr35-cloud-cooperative-audit.json"
+  },
+  "local_repetition": {
+    "strict_passed_cases": 11,
+    "inventory": 36,
+    "status": "partial-cancelled-at-completed-case-boundary",
+    "reason": "Equivalent current-source cloud obligations running; release exclusive browser slot",
+    "full_pass_claim": false
+  },
+  "unresolved": [
+    "Focused disband packet7/47 and exclusive capacity1/11 repairs require fresh final-head mandatory CI",
+    "Height and Sea wider real-browser visual acceptance remain outside passing scope",
+    "Clean final-head review and all applicable fresh-head gates"
+  ],
+  "original_passing_cases": 0,
+  "subsequent_verified_run": {
+    "head": "9f97267194ea898452a4da59865dd5b5cfb65e3d",
+    "run": 40528235153,
+    "job": 122273785189,
+    "artifact_id": 12748482221,
+    "artifact_sha256": "8f1211f15393bb78f8f8fe679bba0fa1daf9a2a01ee61e1f510b8f5f7c264dd9",
+    "independently_replayed": "36/680 and cooperative1/532; every raw native exit0/footer/fulltypedfields",
+    "audit_paths": [
+      "/tmp/terraform-pr35-cloud-full36-audit-9f972671.json",
+      "/tmp/terraform-pr35-cloud-cooperative-audit-9f972671.json"
+    ],
+    "hot_ui": "completeSUCCESS44/44",
+    "hot_regression": "74/76 passed; disband/capacity failures retained"
+  }
+}

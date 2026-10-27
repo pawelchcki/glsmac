@@ -243,6 +243,23 @@ controlled-world checks. Independent seven-owner whole-world observation passed
 ten stages using exact native JSON, resolving the earlier GSE encoding OOM; that
 observer proof does not itself establish the new actions' all-owner parity.
 
+## Local support bounded runtime verification
+
+The separate support checkpoint connects documented bunker/sensor defense and
+stationary bunker/owned-airbase repair to the existing combat and turn paths.
+Numeric defense coefficients are read from actual RULES; two bonuses stack
+multiplicatively as an explicit application policy pending original odds probes.
+Sensor coverage follows only known native construction ownership, with a pure
+range query and an authoritative CAS transfer event/receipt. Unknown imported
+sensors never become guessed-friendly. An airbase hook reports site ownership
+and refueling permission while explicitly reporting that no aircraft fuel system
+is implemented. Full territory/fog, collateral damage and aviation fuel remain
+wider-system gaps. `terraforming_support.gls.js` now passes four native application scenarios /
+10 assertions on the private PR2 runtime. The report and exact source/runtime
+bindings are recorded in `terraforming-height-policy.md`; wider combat, fuel and
+fog agreement is not inferred from these local checks.
+The height research rotation takes priority over another worker.
+
 Construction-owner transport has two distinct application modes. A reusable
 `.gsm` terrain import (including map-only debug startup) has no saved roster
 mapping, so every construction owner becomes Unknown (`-1`); all physical

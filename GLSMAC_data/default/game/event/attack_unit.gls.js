@@ -110,6 +110,11 @@ return {
 		const psi = is_psi(attacker) || is_psi(defender);
 		let attack_power = get_unit_attack_power(attacker, psi);
 		let defence_power = get_unit_defence_power(defender, psi);
+		// Declared application stacking multiplies the two documented bonuses.
+		// Exact original terrain/psi/stacking odds require independent probes.
+		const support = #include('../terraforming_support').defense(e.game,defender);
+		defence_power = defence_power * (100.0 + #to_float(support.bunker_percent)) / 100.0;
+		defence_power = defence_power * (100.0 + #to_float(support.sensor_percent)) / 100.0;
 
 		let attacker_health = attacker.health;
 		let defender_health = defender.health;

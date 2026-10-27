@@ -166,7 +166,7 @@ int64_t TileManager::ApplyTerrain( GSE_CALLABLE, const std::vector< gse::Value* 
 	}
 	for ( const auto& position : region ) {
 		auto* tile = map->GetTile( position.second, position.first );
-		if ( tile->IsLocked() ) { GSE_ERROR( gse::EC.INVALID_CALL, "Affected terrain tile is locked" ); }
+		if ( tile->IsLocked() || tile->m_terrain_epoch == std::numeric_limits< int64_t >::max() ) { GSE_ERROR( gse::EC.INVALID_CALL, "Affected terrain tile is locked or its epoch capacity is exhausted" ); }
 		std::array< elevation_t, 4 > corners; bool retains_import = tile->m_has_imported_elevation; bool geometry_changed = false;
 		elevation_t sum = 0; size_t water = 0;
 		for ( size_t i = 0; i < corners.size(); ++i ) {
@@ -202,7 +202,7 @@ int64_t TileManager::ApplyTerrain( GSE_CALLABLE, const std::vector< gse::Value* 
 		record.entries.push_back( { tile, "", { *tile->elevation.center, *tile->elevation.left, *tile->elevation.top, *tile->elevation.right, *tile->elevation.bottom },
 			tile->moisture, tile->rockiness, tile->features, tile->terraforming, tile->is_water_tile, next_water,
 			tile->m_has_imported_elevation, tile->m_imported_water, tile->m_imported_elevation, tile->m_imported_corners,
-			tile->m_has_canonical_elevation, tile->m_canonical_water, tile->m_canonical_elevation, tile->m_terraforming_owners, tile->m_terrain_revision } );
+			tile->m_has_canonical_elevation, tile->m_canonical_water, tile->m_canonical_elevation, tile->m_terraforming_owners, tile->m_terrain_revision, tile->m_terrain_epoch } );
 	}
 	if ( !apply ) { return 0; }
 	const auto token = m_next_terrain_receipt + 1;
@@ -231,7 +231,7 @@ int64_t TileManager::ApplyTerrain( GSE_CALLABLE, const std::vector< gse::Value* 
 			patch.tile->features = patch.features; patch.tile->terraforming = patch.terraforming; patch.tile->m_terraforming_owners = patch.owners;
 		}
 		for ( auto& entry : inserted->second.entries ) {
-			entry.tile->m_terrain_revision = token; map->MarkTerrainChanged( entry.tile ); entry.expected = entry.tile->Serialize().ToString();
+			entry.tile->m_terrain_revision = token; ++entry.tile->m_terrain_epoch; map->MarkTerrainChanged( entry.tile ); entry.expected = entry.tile->Serialize().ToString();
 		}
 	} catch ( ... ) {
 		RestoreTerrain( inserted->second ); map->m_dirty_tiles.swap( dirty_before ); m_terrain_records.erase( inserted ); throw;
@@ -249,7 +249,7 @@ void TileManager::RestoreTerrain( const TerrainRecord& record ) {
 	}
 	for ( const auto& entry : record.entries ) {
 		auto* tile = entry.tile;
-		tile->moisture = entry.moisture; tile->rockiness = entry.rockiness; tile->features = entry.features; tile->terraforming = entry.terraforming; tile->m_terraforming_owners = entry.terraforming_owners; tile->m_terrain_revision = entry.previous_revision;
+		tile->moisture = entry.moisture; tile->rockiness = entry.rockiness; tile->features = entry.features; tile->terraforming = entry.terraforming; tile->m_terraforming_owners = entry.terraforming_owners; tile->m_terrain_revision = entry.previous_revision; tile->m_terrain_epoch = entry.previous_epoch;
 		tile->m_has_imported_elevation = entry.imported; tile->m_imported_elevation = entry.imported_elevation;
 		tile->m_imported_water = entry.imported_water; tile->m_imported_corners = entry.imported_corners;
 		tile->m_has_canonical_elevation = entry.canonical; tile->m_canonical_elevation = entry.canonical_elevation; tile->m_canonical_water = entry.canonical_water;

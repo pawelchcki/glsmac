@@ -1,0 +1,13 @@
+const f = #include('./_former_work_fixture')('arid');
+f.with_write(() => {
+ const state = f.game.get_tm().get_terrain_state(2,2); state.terraforming.sensor = true; state.terraforming_owners.sensor = f.owner.id + 0;
+ f.game.get_tm().apply_terrain([{x:2,y:2,canonical:{elevation:1362,is_water:false},terraforming:state.terraforming,terraforming_owners:state.terraforming_owners}],[f.former.id + 0]);
+});
+f.command('farm');
+const raw_map = f.terrain_snapshot(); const raw_graph = f.snapshot();
+const map_hold = #pad('', 'left', 128, 'P') + 'CAPTURE_BYTES_map_e75a1cb3|' + raw_map + '|CAPTURE_END_map_e75a1cb3';
+const graph_hold = #pad('', 'left', 128, 'P') + 'CAPTURE_BYTES_graph_e75a1cb3|' + raw_graph + '|CAPTURE_END_graph_e75a1cb3';
+test.assert(#typeof(raw_map) == 'String' && #typeof(raw_graph) == 'String');
+#async(250, () => { test.assert(#typeof(map_hold) == 'String' && #typeof(graph_hold) == 'String'); return false; });
+#print('BINARY_CAPTURE_READY|map');
+#print('BINARY_CAPTURE_READY|graph');

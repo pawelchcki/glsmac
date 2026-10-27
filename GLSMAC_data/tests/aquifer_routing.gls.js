@@ -24,8 +24,8 @@ behavior.scenario('short aquifer planning preserves exact native features Float 
  const plan = effects.plan(proxy.game,f.former,'aquifer');
  test.assert(plan == expected && #json_text_exact(plan) == #json_text_exact(expected),'The ordered complete native feature plan is unchanged');
  let read_count = 0; for (key in proxy.reads) { read_count++; }
- test.assert(proxy.reads['2:2'] == 2 && proxy.reads['0:2'] == 2 && read_count == 2 && proxy.full_reads['2:2'] == 1,
-  'Each of the two pure route calls reads each compact coordinate once; only eligibility reads the full origin record');
+ test.assert(proxy.reads['2:2'] == 1 && proxy.reads['0:2'] == 1 && read_count == 2 && proxy.full_reads['2:2'] == 1,
+  'One plan reuses its validated route; each compact coordinate is read once and eligibility reads the full origin once');
  test.assert(f.snapshot() == before && f.terrain_snapshot() == terrain && #float_bits(f.former.movement) == bits);
  f.with_write(() => { const edit = f.game.get_um().get_unit(f.former.id); edit.movement = 1.0; });
  const ready = f.snapshot(); const receipt = f.command('aquifer');
@@ -46,12 +46,13 @@ behavior.scenario('an uphill rejection is reconsidered from a valid parent and t
   tm.get_terrain_state(1,1).elevation.center >= tm.get_terrain_state(0,0).elevation.center);
  const plan = effects.plan(proxy.game,f.former,'aquifer');
  test.assert(plan == expected && #json_text_exact(plan) == #json_text_exact(expected),'BFS retains its exact alternate-parent route and reverse patch ordering');
- test.assert(proxy.reads['0:0'] == 2,'The initially rejected native square is reused within each call, not marked visited');
+ test.assert(proxy.reads['0:0'] == 1,'The initially rejected native square is reused within one plan, not marked visited');
  test.assert(f.audit_snapshot() == before && f.audit_inspect() == inventory);
  let receipt = 0;
  f.with_write(() => { receipt = tm.apply_terrain([{x:0,y:0,canonical:{elevation:600,is_water:false}}],[]); });
  const changed = f.audit_snapshot(); const changed_inventory = f.audit_inspect();
  test.assert(#is_defined(effects.validate(proxy.game,f.former,'aquifer')),'A later call rereads the newly uphill native terrain instead of retaining the previous route');
+ test.assert(proxy.reads['0:0'] == 2,'A separate validation call reads the changed native square again with a fresh route cache');
  test.assert(f.audit_snapshot() == changed && f.audit_inspect() == changed_inventory);
  f.with_write(() => { tm.rollback_terrain(receipt); });
  test.assert(f.audit_snapshot() == before && f.audit_inspect() == inventory);

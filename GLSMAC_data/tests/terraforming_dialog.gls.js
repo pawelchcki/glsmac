@@ -28,3 +28,6 @@ for (raw of ['#MIMIMI\nBody.\nCancel.\nContinue.\n#END\n',
 		test.assert(rejected);
 	}); index++;
 }
+
+// Fee confirmation uses separate installed source blocks and a live quote.
+#include('./_terraforming_height_dialog')(behavior);

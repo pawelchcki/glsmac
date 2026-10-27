@@ -42,7 +42,7 @@ jobs:
           path: build/wasm/bin
       - name: Check lane selection and active comparison infrastructure
         working-directory: tools/behavior-tests
-        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity test_world_minimum_generation test_base_operations test_trace_float_transport test_terrain_observation test_terrain_capture -v
+        run: python3 -m unittest test_lanes test_unit_menu_orders test_unit_menu_context test_combine_observations test_headless_ui test_world_base_ownership test_natural_first_city test_natural_first_city_profiles test_ui_shards test_engine_gate test_terraform_menu test_terraform_menu_candidate test_colony_menu test_colony_menu_candidate test_unit_disband_contract test_unit_disband_candidate test_unit_recycling_contract test_unit_recycling_candidate test_unit_disband_shortcut_contract test_unit_disband_shortcut_candidate test_opening_art_contract test_opening_sequence_contract test_pod_landing_contract test_interface_tour_contract test_interface_tour_synthetic_contract test_interface_tour_observation test_state_trace test_state_trace_candidate test_state_trace_reference test_state_trace_identity test_world_minimum_generation test_base_operations test_trace_float_transport test_terrain_observation test_terrain_capture test_terraform_actions -v
       - name: Test all asset-free presentation invariants
         working-directory: tools/behavior-tests
         run: python3 -m unittest discover -p 'test_presentation*.py' -v
@@ -100,16 +100,60 @@ jobs:
         with:
           name: hot-behavior-${{ matrix.kind }}
           path: build/hot-artifacts
+  terraform_actions:
+    name: Terraform action traces
+    needs: [engine]
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require a successful engine producer
+        env:
+          TEST_ENGINE_RESULT: ${{ needs.engine.result }}
+          TEST_ENGINE_ARTIFACT: ${{ inputs.engine-artifact }}
+        run: python3 tools/behavior-tests/engine_gate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.engine-artifact || 'behavior-engine' }}
+          path: build/wasm/bin
+      - name: Validate browser transport and staged worker contracts
+        run: |
+          test -f build/wasm/bin/GLSMAC.js
+          test -f build/wasm/bin/GLSMAC.wasm
+          node --test tools/wasm-tests/browser-log-cursor.test.mjs tools/wasm-tests/browser-native-log-hook.test.mjs tools/wasm-tests/runtime-fetch-barrier.test.mjs tools/wasm-tests/terraform-browser-geometry.test.mjs tools/wasm-tests/terraform-browser-pointer.test.mjs
+          python3 -m unittest discover -s tools/behavior-tests -p 'test_fast*.py' -v
+          STATE_TRACE_RUNTIME="$GITHUB_WORKSPACE/build/wasm/bin/GLSMAC.js" python3 -m unittest discover -s tools/behavior-tests -p 'test_behavior_groups.py' -v
+      - name: Capture all 26 terraforming variants and ten worker commands
+        run: >-
+          python3 tools/behavior-tests/state_trace/terraform_actions.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --artifacts build/hot-artifacts/terraform-actions
+      - name: Validate complete seven-owner cooperative observation packets
+        run: >-
+          python3 tools/behavior-tests/state_trace/cooperative_capture.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --artifacts build/hot-artifacts/cooperative-observation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hot-behavior-terraform-actions
+          path: build/hot-artifacts
   complete:
     name: Hot tests
-    needs: [hot]
+    needs: [hot, terraform_actions]
     if: always() && github.repository == 'pawelchcki/wasmsmac'
     runs-on: ubuntu-latest
     steps:
       - name: Require both hot lanes to succeed
         env:
           HOT_LANES_RESULT: ${{ needs.hot.result }}
-        run: test "$HOT_LANES_RESULT" = success
+          TERRAFORM_ACTIONS_RESULT: ${{ needs.terraform_actions.result }}
+        run: |
+          test "$HOT_LANES_RESULT" = success
+          test "$TERRAFORM_ACTIONS_RESULT" = success
       - uses: actions/download-artifact@v4
         if: always()
         with:

@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "source_report_sha256": "7dc2fbc7cf3035b8e768adeb2cd9688aff1cc9304591eb8f9049d31d7ee5cf42",
+  "scope": "Actual failed NO-WASM Fetch proof; workerOther/NetworkScript rejected by old genericScript guard; no candidate runtime",
+  "browser": "149.0.7827.55",
+  "main": {
+    "network": {
+      "requestId": "3277852.4",
+      "loaderId": "CED41177ADC9C358AF708A58B10A1084",
+      "documentURL": "http://127.0.0.1:44835/",
+      "request": {
+        "url": "http://127.0.0.1:44835/GLSMAC.js",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua-platform": "\"Linux\"",
+          "Referer": "http://127.0.0.1:44835/",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+          "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0"
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": true
+      },
+      "timestamp": 140040.256913,
+      "wallTime": 1793110325.007843,
+      "initiator": {
+        "type": "script",
+        "stack": {
+          "callFrames": [
+            {
+              "functionName": "loadApplication",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:44835/bootstrap-model.js",
+              "lineNumber": 3,
+              "columnNumber": 161
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:44835/bootstrap-model.js",
+              "lineNumber": 3,
+              "columnNumber": 177
+            }
+          ]
+        }
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Script",
+      "frameId": "4457B73344F1D3645BB6AF1D084C1390",
+      "hasUserGesture": false,
+      "renderBlockingBehavior": "NonBlocking"
+    },
+    "paused": {
+      "requestId": "interception-job-3.0",
+      "request": {
+        "url": "http://127.0.0.1:44835/GLSMAC.js",
+        "method": "GET",
+        "headers": {
+          "Accept": "*/*",
+          "Referer": "http://127.0.0.1:44835/",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36",
+          "sec-ch-ua": "\"HeadlessChrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Linux\""
+        },
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin"
+      },
+      "frameId": "4457B73344F1D3645BB6AF1D084C1390",
+      "resourceType": "Script",
+      "networkId": "3277852.4"
+    }
+  },
+  "worker": {
+    "network": {
+      "requestId": "CC9EB564B4D401425D285311841BA721",
+      "loaderId": "",
+      "documentURL": "http://127.0.0.1:44835/GLSMAC.js",
+      "request": {
+        "url": "http://127.0.0.1:44835/GLSMAC.js",
+        "method": "GET",
+        "headers": {
+          "Accept": "*/*"
+        },
+        "initialPriority": "VeryLow",
+        "referrerPolicy": "strict-origin-when-cross-origin"
+      },
+      "timestamp": 140040.273346,
+      "wallTime": 1793110325.024171,
+      "initiator": {
+        "type": "other",
+        "url": "http://127.0.0.1:44835/"
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Script",
+      "frameId": "4457B73344F1D3645BB6AF1D084C1390",
+      "hasUserGesture": false
+    },
+    "paused": {
+      "requestId": "interception-job-4.0",
+      "request": {
+        "url": "http://127.0.0.1:44835/GLSMAC.js",
+        "method": "GET",
+        "headers": {
+          "Accept": "*/*",
+          "Referer": "http://127.0.0.1:44835/"
+        },
+        "initialPriority": "VeryLow",
+        "referrerPolicy": "strict-origin-when-cross-origin"
+      },
+      "frameId": "4457B73344F1D3645BB6AF1D084C1390",
+      "resourceType": "Other",
+      "networkId": "CC9EB564B4D401425D285311841BA721"
+    },
+    "target": {
+      "targetId": "CC9EB564B4D401425D285311841BA721",
+      "type": "worker",
+      "title": "",
+      "url": "",
+      "attached": false,
+      "parentId": "4457B73344F1D3645BB6AF1D084C1390",
+      "canAccessOpener": false,
+      "parentFrameId": "4457B73344F1D3645BB6AF1D084C1390",
+      "browserContextId": "EDBD023E88CC99E6F7D48DCD45BBA6F3"
+    }
+  }
+}

@@ -3,6 +3,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import json
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -15,6 +16,13 @@ GOOD = "BEHAVIOR_BEGIN first\nBEHAVIOR_PASS first\nBEHAVIOR_SUMMARY 1 3\nAll tes
 
 
 class OutputTests(unittest.TestCase):
+    def test_node_worker_preserves_short_writes_and_multibyte_output(self):
+        result = subprocess.run(
+            ['node', '--test', str(fast.DIRECTORY / 'gse-worker-output.test.cjs')],
+            cwd=fast.ROOT, capture_output=True, text=True, timeout=30,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_success_requires_real_assertions_and_complete_named_scenarios(self):
         self.assertEqual(fast.parse_output(GOOD), {
             "scenarios": 1, "assertions": 3, "scenario_names": ["first"],

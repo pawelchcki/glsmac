@@ -23,6 +23,56 @@ const validate = (e, movement_required) => {
 		if (movement_required && !unit.needs_orders()) { return 'Unit has no pending moves'; }
 };
 
+const rollback_unit = (e) => {
+	const unit = resolve(e.game, e.data);
+	if (unit == null || unit != e.applied.unit || unit.owner != e.applied.owner) { throw Error('Unit order rollback identity changed'); }
+	return unit;
+};
+const order_state = (game,unit) => {
+	const tile = unit.get_tile();
+	return {version:1,id:unit.id + 0,owner:unit.owner + 0,turn:game.get_turn() + 0,x:tile.x + 0,y:tile.y + 0,
+		definition:unit.def,health:unit.health + 0.0,morale:unit.morale + 0,home:unit.get_terraform_home(),
+		order:unit.get_order(),plan:unit.get_automation(),work:unit.get_terraforming(),recovery:unit.get_terraforming_recovery(),
+		movement:unit.movement + 0.0,moved:unit.moved_this_turn == true};
+};
+const restore_order_state = (unit,state) => {
+	unit.set_automation(state.plan); unit.set_terraforming(state.work); unit.set_terraforming_recovery(state.recovery);
+	if (state.order != 'TERRAFORM' && state.order != 'AUTOMATE') { unit.set_order(state.order); }
+	unit.movement = state.movement; unit.moved_this_turn = state.moved;
+};
+const automation_cancel_error = (e,unit) => {
+	const plan = unit.get_automation(); if (plan.command == '') { return; }
+	const intent = {caller:e.caller,data:{unit_id:unit.id + 0,command:'cancel',expected_epoch:plan.epoch}}; intent.game = e.game;
+	return #include('./terraforming_automation').validate(intent);
+};
+const ordinary_apply = (e,target,cancel_work) => {
+	const error = validate(e,false); if (#is_defined(error)) { throw Error(error); }
+	if (target != 'NO_ORDERS' && target != 'HOLD' && target != 'SENTRY') { throw Error('Unsupported ordinary unit order'); }
+	const unit = resolve(e.game,e.data); const original = order_state(e.game,unit);
+	const receipt = {owner:unit.owner + 0,turn:e.game.get_turn() + 0,original_order:unit.get_order(),original_state:original}; receipt.unit = unit;
+	if (original.order == 'TERRAFORM') { receipt.original_work = original.work; receipt.movement = original.movement; receipt.moved = original.moved; }
+	const rejected = automation_cancel_error(e,unit); if (#is_defined(rejected)) { throw Error(rejected); }
+	try {
+		if (original.plan.command != '') { #include('./terraforming_automation').cancel(e.game,unit); }
+		else if (cancel_work && original.order == 'TERRAFORM') { #include('./terraforming').cancel(e.game,unit); }
+		unit.set_order(target);
+	} catch { : (failure) => {
+		restore_order_state(unit,original); throw Error('Unit order failed: ' + failure.reason);
+	} }
+	// Reacquire the canonical wrapper: setters may cache scalar input values.
+	receipt.expected_state = order_state(e.game,resolve(e.game,e.data));
+	return receipt;
+};
+const ordinary_rollback = (e) => {
+	const unit = rollback_unit(e); const error = validate(e,false);
+	if (#is_defined(error)) { throw Error(error); }
+	if (e.game.get_turn() != e.applied.turn || order_state(e.game,unit) != e.applied.expected_state) { throw Error('Unit order receipt is stale'); }
+	// All native identity/state checks complete before the first restore. No
+	// treasury operation or scheduler enqueue occurs during ordinary order undo.
+	restore_order_state(unit,e.applied.original_state);
+	#include('./terraforming_view_revision').changed(e.game);
+};
+
 return {
 	resolve: resolve,
 	validate: validate,
@@ -31,9 +81,8 @@ return {
 		if (#is_defined(error)) { throw Error(error); }
 		return resolve(e.game, e.data);
 	},
-	rollback_unit: (e) => {
-		const unit = resolve(e.game, e.data);
-		if (unit == null || unit != e.applied.unit || unit.owner != e.applied.owner) { throw Error('Unit order rollback identity changed'); }
-		return unit;
-	},
+	rollback_unit:rollback_unit,
+	automation_cancel_error:automation_cancel_error,
+	ordinary_apply:ordinary_apply,
+	ordinary_rollback:ordinary_rollback,
 };

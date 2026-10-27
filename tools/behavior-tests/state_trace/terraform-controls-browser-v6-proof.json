@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "status": "strict-passed-bounded-real-controls-smoke",
+  "candidate_executed": true,
+  "browser_passing_cases": 1,
+  "original_passing_cases": 0,
+  "raw_process_exit": 0,
+  "test_duration_ms": 78002.398058,
+  "deadline_ms": 180000,
+  "host_head": "0322db433f7c89becc00f504325111f67fc91f3d",
+  "native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "production_default_tree": "25ef18d3222f553507291d412330262169b2e418",
+  "scripts_sha256": "7374027b1cb55f2ca9c59258fa0a8a2b376e0a36a506f1ca4bcb546aa8b5ad83",
+  "original_scripts_sha256": "7374027b1cb55f2ca9c59258fa0a8a2b376e0a36a506f1ca4bcb546aa8b5ad83",
+  "runtime_js_sha256": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+  "runtime_wasm_sha256": "b2c7fa273042f2407335169eb4fca51f131f1f30656301d7b7573a201b28f5b7",
+  "requested_seed": "1651011033:1377505029:3019448108:3247278135",
+  "fixture_sha256": "ba4c94fd1d6fc91c982201912431b04981e3d3068ae3d463c50b4253d6ff16c5",
+  "normal_policy": {
+    "ignore_technologies": true,
+    "version": 1
+  },
+  "scope": [
+    "actual29distinctTerraformmenurenderedrows",
+    "positiveactualheader/roadhover/leftmousedownmouseupEND",
+    "nonownedtilepointerrejection",
+    "Escape/Tabcancelwithallowner/mapconservation",
+    "bothactualCtrlRdispatches/freshstates",
+    "actualownedbasepointeracceptedroad_to",
+    "finalcompleteNativeworldcapture",
+    "actualQandnativeexitcondition"
+  ],
+  "snapshots": [
+    {
+      "checkpoint": "before-controls",
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    },
+    {
+      "checkpoint": "after-pointer-Escape",
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    },
+    {
+      "checkpoint": "after-target-Tab",
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    },
+    {
+      "checkpoint": "after-owned-base-request",
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    }
+  ],
+  "runtime_capture": {
+    "main_installations": 1,
+    "main_continuation_ack": true,
+    "actual_worker_continuation_acks": 8,
+    "first_actual_callback": {
+      "sequence": 1,
+      "channel": "stdout",
+      "before_utf16": 0,
+      "after_utf16": 39,
+      "message_utf16": 38,
+      "observed_ms": 1075.8349999785423,
+      "runtime_callMain_present": true,
+      "runtime_out_bound": true,
+      "runtime_err_bound": true,
+      "message": "<Thread::(NETWORK)#27> Starting thread"
+    },
+    "native_callback_count": 980,
+    "actual_capture_evidence": true,
+    "model_substituted": false
+  },
+  "exit_evidence": {
+    "Q_DOM_received": true,
+    "live_test_awaited": "document.body.dataset.state === exited",
+    "source_setter": "Unmodified bootstrap Module.onExit(code) sets exited only for code===0",
+    "bootstrap_sha256": "69b3c8edebabc4c5b2168ce0ef6d920bb43b4e9d9df5325e12c310b138b90724",
+    "native_thread_and_SDL_teardown_log_retained": true,
+    "direct_exit_code_packet_recorded": false,
+    "exit_zero_source_verified_from_passed_live_condition": true
+  },
+  "artifact_seal": {
+    "sealed": true,
+    "partial": false,
+    "raw_bytes": 13671106,
+    "raw_sha256": "c7c4e169309ff79982308caffa91f0e58dac0a630cd88b0ae3b9db0211c216a5",
+    "chunk_rows": 106,
+    "exact_joined_chunks": true,
+    "settled_read_failure": null,
+    "rechecked_after_browser_and_server_reaped": true
+  },
+  "late_errors": [],
+  "final_state": {
+    "actor": 8,
+    "height_presentation": null,
+    "modal": false,
+    "movement": 0,
+    "order": "AUTOMATE",
+    "owner": 0,
+    "pending": null,
+    "pending_native": false,
+    "plan": {
+      "command": "road_to",
+      "cursor": 1,
+      "epoch": 1,
+      "issued_turn": 1,
+      "last_turn": 1,
+      "origin_x": 8,
+      "origin_y": 8,
+      "owner": 0,
+      "phase": 1,
+      "target_x": 0,
+      "target_y": 2,
+      "version": 2
+    },
+    "policy": {
+      "ignore_technologies": true,
+      "version": 1
+    },
+    "root": false,
+    "selected": 1,
+    "target": null,
+    "tile_locked": false,
+    "viewport": {
+      "height": 768,
+      "width": 1024
+    },
+    "work": {
+      "action": "",
+      "active": false,
+      "last_turn": 0,
+      "previous_moved": false,
+      "previous_movement": 0,
+      "previous_work_units": 0,
+      "required_work": 0,
+      "tile_x": 0,
+      "tile_y": 0,
+      "work_units": 0
+    },
+    "x": 8,
+    "y": 8
+  },
+  "unsupported": [
+    "full36actioneffects",
+    "heightquote/payment",
+    "sea-controls",
+    "originalvisualagreement",
+    "animation/audio",
+    "livebrowserRNGstate",
+    "typedfrontendmesh/facing/frame telemetry",
+    "external-debug-log-autoscroll"
+  ]
+}

@@ -170,6 +170,27 @@ class TerrainCaptureTests(unittest.TestCase):
         for log in corrupt:
             with self.subTest(log=log[-120:]), self.assertRaises(ProtocolError): capture.audit(log)
 
+    def test_paid_height_and_naval_recovery_are_exact_native_capabilities(self):
+        snapshot = declared_transport()[0]['initial']; trace = snapshot['terrain_trace']
+        trace['coverage']['paid_height_work'] = trace['coverage']['naval_recovery'] = True
+        for detail in trace['unit_details'].values(): detail['terraforming_recovery'] = dict(active=False, x=0, y=0)
+        worker = trace['unit_details']['former']; worker['work']['action'] = 'raise'
+        row = next(row for row in snapshot['units'] if row['id'] == 'former')
+        owner = next(player['raw_id'] for player in snapshot['players'] if player['id'] == row['owner'])
+        worker['work']['height'] = dict(version=1, policy='application.band-slope-height.v1', fee_policy='application.band-fee.v1',
+            owner=owner, issued_turn=1, fee=4, source_elevation=212, source_water=False, terrain_identity='declared sealed input')
+        terrain.validate_snapshot(snapshot)
+        for kind in ('missing-policy', 'wrong-owner', 'fee-type', 'hidden-paid', 'recovery-type', 'inactive-target', 'hidden-recovery'):
+            broken = deepcopy(snapshot); trace = broken['terrain_trace']; worker = trace['unit_details']['former']
+            if kind == 'missing-policy': del worker['work']['height']['policy']
+            elif kind == 'wrong-owner': worker['work']['height']['owner'] = 99
+            elif kind == 'fee-type': worker['work']['height']['fee'] = True
+            elif kind == 'hidden-paid': trace['coverage']['paid_height_work'] = False
+            elif kind == 'recovery-type': worker['terraforming_recovery']['active'] = 0
+            elif kind == 'inactive-target': worker['terraforming_recovery']['x'] = 1
+            else: trace['coverage']['naval_recovery'] = False
+            with self.subTest(kind=kind), self.assertRaises(ProtocolError): terrain.validate_snapshot(broken)
+
     def test_native_plan_version_and_phase_are_observed_without_v3_default_invention(self):
         snapshot = declared_transport()[0]['initial']; trace = snapshot['terrain_trace']
         trace['coverage']['automation_context'] = True; trace['coverage']['home_identity'] = True

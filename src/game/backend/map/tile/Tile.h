@@ -148,6 +148,7 @@ private:
 	std::vector< WrappedTerrainUpdate > PrepareWrappedTerrain( GSE_CALLABLE, const WrappedTerrainFields& fields );
 	static void PublishWrappedTerrain( const std::vector< WrappedTerrainUpdate >& updates );
 	int64_t m_terrain_revision = 0;
+	int64_t m_terrain_epoch = 0;
 	std::array< int8_t, 13 > m_terraforming_owners = [](){ std::array< int8_t, 13 > value; value.fill( -1 ); return value; }();
 	bool m_has_canonical_elevation = false;
 	elevation_t m_canonical_elevation = 0;

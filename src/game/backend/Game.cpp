@@ -651,6 +651,13 @@ WRAPIMPL_BEGIN( Game )
 			} )
 		},
 		{
+			"has_pending_actions", NATIVE_CALL( this ) {
+				N_EXPECT_ARGS( 1 ); N_GETVALUE( owner_id, 0, Int );
+				if ( owner_id < 0 || static_cast< uint64_t >( owner_id ) >= m_state->m_slots->GetSlots().size() ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unknown unit owner" ); }
+				return VALUE( gse::value::Bool,, HasPendingActions( static_cast< size_t >( owner_id ) ) );
+			} )
+		},
+		{
 			"complete_turn",
 			NATIVE_CALL( this ) {
 
@@ -709,6 +716,11 @@ WRAPIMPL_BEGIN( Game )
 				N_EXPECT_ARGS( 1 );
 				N_GETVALUE( turn_id, 0, Int );
 
+				// Script callers receive a normal catchable rejection; the internal
+				// AdvanceTurn invariant remains a native guard for non-script callers.
+				for ( size_t owner = 0; owner < m_state->m_slots->GetSlots().size(); ++owner ) {
+					if ( HasPendingActions( owner ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Wait for pending unit actions before advancing the turn" ); }
+				}
 				AdvanceTurn( turn_id );
 
 				return VALUE( gse::value::Undefined );
@@ -963,6 +975,8 @@ void Game::GetReachableObjects( std::unordered_set< Object* >& reachable_objects
 		}
 	}
 	GC_DEBUG_END();
+
+	for ( const auto& batch : m_processing_event_batches ) { for ( auto* event : batch->events ) { GC_REACHABLE( event ); } }
 
 	GC_DEBUG_BEGIN( "event_handlers" );
 	{
@@ -1253,8 +1267,42 @@ const bool Game::IsTurnChecksumValid( const util::crc32::crc_t checksum ) const 
 	return m_turn_checksum == checksum;
 }
 
+bool Game::HasPendingActions( const size_t owner_id ) {
+	if ( !m_um ) { return false; }
+	if ( m_um->HasPendingMovement( owner_id ) ) { return true; }
+	if ( !m_um->HasNamedHandlers( "automation_step_pending" ) ) { return false; }
+	std::vector< event::Event* > pending;
+	{ std::lock_guard guard( m_pending_events_mutex ); pending = m_pending_events; }
+	for ( const auto& batch : m_processing_event_batches ) {
+		pending.insert( pending.end(), batch->events.begin() + batch->next, batch->events.end() );
+	}
+	for ( auto* event : pending ) {
+		if ( event->GetEventName() != "unit_terraform_plan_step" || event->GetCaller() != 0 ) { continue; }
+		const auto& data = event->GetScalarData();
+		const auto integer = [ &data ]( const std::string& key, int64_t& result ) {
+			const auto found = data.find( key );
+			if ( found == data.end() || found->second->type != gse::VT_INT ) { return false; }
+			result = static_cast< gse::value::Int* >( found->second )->value; return true;
+		};
+		int64_t id, epoch, cursor, turn;
+		if ( !integer( "unit_id", id ) || id < 0 || !integer( "expected_epoch", epoch ) || !integer( "expected_cursor", cursor ) || !integer( "turn_id", turn ) || turn != GetTurnId() ) { continue; }
+		const auto found = m_um->GetUnits().find( static_cast< size_t >( id ) );
+		if ( found == m_um->GetUnits().end() ) { continue; }
+		const auto* unit = found->second; const auto& plan = unit->GetAutomationState();
+		if ( unit->m_owner->GetIndex() != owner_id || plan.owner != owner_id || plan.command.empty() || plan.epoch != epoch || plan.cursor != cursor || plan.last_turn >= turn ) { continue; }
+		const auto* result = m_state->TriggerObject( m_um, "automation_step_pending", ARGS_F( &event ) {
+			{ "caller", VALUE( gse::value::Int,, event->GetCaller() ) },
+			{ "data", VALUEEXT( gse::value::Object, GSE_CALL, event->GetScalarData() ) },
+		}; } );
+		if ( !result || result->type != gse::VT_BOOL ) { THROW( "Automation pending query must return Bool" ); }
+		if ( static_cast< const gse::value::Bool* >( result )->value ) { return true; }
+	}
+	return false;
+}
+
 void Game::CompleteTurn( GSE_CALLABLE, const size_t slot_num ) {
 	if ( IsOpeningPending() ) { GSE_ERROR( gse::EC.GAME_ERROR, "Confirm the opening before completing a turn" ); }
+	if ( HasPendingActions( slot_num ) ) { GSE_ERROR( gse::EC.GAME_ERROR, "Wait for pending unit actions before completing the turn" ); }
 	const auto& slot = m_state->m_slots->GetSlot( slot_num );
 	ASSERT( slot.GetState() == slot::Slot::SS_PLAYER, "slot is not player" );
 	auto* player = slot.GetPlayer();
@@ -1282,6 +1330,9 @@ void Game::AdvanceTurn( const size_t turn_id ) {
 	if ( IsOpeningPending() ) {
 		if ( m_opening_phase != OPENING_STARTING || turn_id != 1 || !m_opening_first_turn_dispatched || m_opening_first_turn_applied ) { THROW( "Confirm the opening before advancing a turn" ); }
 		m_opening_first_turn_applied = true;
+	}
+	for ( size_t owner = 0; owner < m_state->m_slots->GetSlots().size(); ++owner ) {
+		if ( HasPendingActions( owner ) ) { THROW( "Wait for pending unit actions before advancing the turn" ); }
 	}
 	m_has_started_turn = true;
 	m_current_turn.AdvanceTurn( turn_id );
@@ -1634,7 +1685,14 @@ void Game::ProcessEvents() {
 	{ std::lock_guard guard( m_pending_events_mutex ); events.swap( m_pending_events ); }
 	if ( events.empty() ) { return; }
 	m_state->WithGSE( this, [ this, events ]( GSE_CALLABLE ) {
+		auto batch = std::make_shared< processing_event_batch_t >(); batch->events = events;
+		m_processing_event_batches.push_back( batch );
+		struct BatchGuard {
+			std::vector< std::shared_ptr< processing_event_batch_t > >& batches;
+			~BatchGuard() { batches.pop_back(); }
+		} guard { m_processing_event_batches };
 		for ( auto* event : events ) {
+			++batch->next;
 			auto* obj = VALUEEXT( gse::value::Object, GSE_CALL, event->GetData() );
 			const gse::value::function_arguments_t args { obj };
 			event::EventHandler* handler = nullptr;
@@ -2286,7 +2344,7 @@ const technology::Table& Game::GetTechnologyTable() const {
 void Game::CheckTurnComplete() {
 	if ( IsOpeningPending() ) { return; }
 
-	const bool is_turn_complete = !m_um->HasReadyUnit( m_slot_num );
+	const bool is_turn_complete = !m_um->HasReadyUnit( m_slot_num ) && !HasPendingActions( m_slot_num );
 
 	if ( m_is_turn_complete != is_turn_complete ) {
 		m_is_turn_complete = is_turn_complete;

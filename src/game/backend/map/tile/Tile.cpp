@@ -121,7 +121,7 @@ void Tile::SetCanonicalElevation( const elevation_t value, const bool water, con
 }
 
 void Tile::Clear() {
-	m_terrain_revision = 0;
+	m_terrain_revision = 0; m_terrain_epoch = 0;
 	m_terraforming_owners.fill( -1 );
 	m_has_canonical_elevation = false;
 	m_has_imported_elevation = false;
@@ -159,7 +159,7 @@ const types::Buffer Tile::Serialize() const {
 	buf.WriteInt( features );
 	buf.WriteInt( terraforming );
 	const bool owned = std::any_of( m_terraforming_owners.begin(), m_terraforming_owners.end(), []( const int8_t owner ){ return owner >= 0; } );
-	if ( m_has_imported_elevation || m_has_canonical_elevation || owned ) {
+	if ( m_has_imported_elevation || m_has_canonical_elevation || owned || m_terrain_epoch != 0 ) {
 		buf.WriteBool( m_has_imported_elevation );
 		if ( m_has_imported_elevation ) { buf.WriteInt( m_imported_elevation ); buf.WriteBool( m_imported_water ); }
 	}
@@ -168,12 +168,13 @@ const types::Buffer Tile::Serialize() const {
 		if ( m_has_imported_elevation ) { for ( const auto corner : m_imported_corners ) { buf.WriteInt( corner ); } }
 	}
 
+	if ( m_terrain_epoch != 0 ) { buf.WriteString( "terrain-epoch-v1" ); buf.WriteInt( m_terrain_epoch ); }
 	if ( owned ) { buf.WriteString( "terraform-owners-v1" ); for ( const auto owner : m_terraforming_owners ) { buf.WriteInt( owner ); } }
 	return buf;
 }
 
 void Tile::Deserialize( types::Buffer buf ) {
-	m_terrain_revision = 0;
+	m_terrain_revision = 0; m_terrain_epoch = 0;
 	m_has_imported_elevation = false; m_has_canonical_elevation = false; m_terraforming_owners.fill( -1 );
 
 	coord.x = buf.ReadInt();
@@ -200,7 +201,7 @@ void Tile::Deserialize( types::Buffer buf ) {
 		}
 		SetImportedElevation( source_elevation, source_water );
 	}
-	bool owners_seen = false;
+	bool owners_seen = false, epoch_seen = false;
 	while ( buf.lenr < buf.lenw ) {
 		const auto extension = buf.ReadString();
 		if ( extension == "canonical-height-v1" && !m_has_canonical_elevation ) {
@@ -210,6 +211,8 @@ void Tile::Deserialize( types::Buffer buf ) {
 			if ( m_has_imported_elevation ) {
 				for ( auto& corner : m_imported_corners ) { corner = buf.ReadInt(); if ( corner < ELEVATION_MIN || corner > ELEVATION_MAX ) { THROW( "Invalid imported corner provenance" ); } }
 			}
+		} else if ( extension == "terrain-epoch-v1" && !epoch_seen ) {
+			epoch_seen = true; m_terrain_epoch = buf.ReadInt(); if ( m_terrain_epoch <= 0 ) { THROW( "Invalid persistent terrain epoch" ); }
 		} else if ( extension == "terraform-owners-v1" && !owners_seen ) {
 			owners_seen = true;
 			for ( size_t index = 0; index < m_terraforming_owners.size(); ++index ) {

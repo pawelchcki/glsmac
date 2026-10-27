@@ -66,6 +66,15 @@ public:
 	order_t GetOrder() const;
 	void SetOrder( order_t order );
 	void SetTerraformHomeFromProduction( const base::Base* base );
+	struct height_payment_t {
+		std::string policy, fee_policy, terrain_identity;
+		int64_t owner = 0, issued_turn = 0, fee = 0, source_elevation = 0;
+		bool source_water = false;
+	};
+	struct cooperative_job_t {
+		std::string policy, terrain_identity;
+		int64_t owner = 0;
+	};
 	// Script-owned work policy, stored with the native unit so progress survives
 	// wrapper recreation, synchronization and manager serialization.
 	struct work_state_t {
@@ -75,6 +84,8 @@ public:
 		movement_t previous_movement = 0.0f;
 		bool previous_moved = false;
 		int64_t tile_x = 0, tile_y = 0;
+		height_payment_t height;
+		cooperative_job_t job;
 	};
 
 	// Versioned pure-data automation intent. No wrapper, callback or route cache
@@ -85,6 +96,7 @@ public:
 		int64_t target_x = 0, target_y = 0, origin_x = 0, origin_y = 0, cursor = 0, phase = 0;
 	};
 
+	const automation_state_t& GetAutomationState() const { return m_automation; }
 	const std::string& GetMoraleString() const;
 
 	void SetTile( GSE_CALLABLE, map::tile::Tile* tile );
@@ -101,6 +113,8 @@ private:
 	UnitManager* const m_um;
 	order_t m_order = order_t::NO_ORDERS;
 	work_state_t m_work;
+	bool m_height_recovery = false;
+	int64_t m_height_recovery_x = 0, m_height_recovery_y = 0;
 	automation_state_t m_automation;
 	int64_t m_terraform_home = 0;
 	int64_t m_home_revision = 0;

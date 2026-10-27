@@ -86,13 +86,25 @@ for (entry of [{code: 'F', modifiers: {}, action: 'farm'}, {code: 'M', modifiers
 	});
 }
 
-behavior.scenario('modal windows waiting turns and unrelated modifiers cannot queue work', () => {
-	const f = fixture(); f.state.modal = true; f.click('FARM'); f.key('F', {}); f.key('F', {shift: true});
-	f.state.modal = false; f.ui_game.emit('turn_status', {status: 'please_wait'}); f.click('MINE'); f.key('M', {});
-	f.ui_game.emit('turn_status', {status: 'active'});
-	for (modifiers of [{ctrl: true}, {alt: true}, {shift: true, ctrl: true}]) { test.assert(!f.key('F', modifiers)); }
-	test.assert(#sizeof(f.state.queued) == 0 && f.former.movement == 1.0);
-	f.view.root.remove();
+// menu.txt declares Automatic Fungus Removal as Ctrl+Shift+F. This is a
+// mounted scalar dispatch check, separate from native plan completion/browser.
+behavior.scenario('source-bound automatic fungus shortcut queues one current scalar plan without changing native state', () => {
+ const f = fixture(); const before = f.snapshot(); const epoch = f.former.get_automation().epoch;
+ test.assert(f.key('F',{ctrl:true,shift:true}));
+ test.assert(#sizeof(f.state.queued) == 1 && f.state.queued[0].name == 'unit_terraform_plan' &&
+  f.state.queued[0].data == {unit_id:f.former.id,command:'auto_remove_fungus',expected_epoch:epoch});
+ f.key('F',{ctrl:true,shift:true});
+ test.assert(#sizeof(f.state.queued) == 1 && f.snapshot() == before,'Pending keyboard dispatch cannot repeat or mutate the native graph');
+ f.view.root.remove();
+});
+
+behavior.scenario('modal windows waiting turns and unbound modifiers cannot queue primitive or automatic work', () => {
+ const f = fixture(); f.state.modal = true; f.click('FARM'); f.key('F', {}); f.key('F', {shift:true}); f.key('F',{ctrl:true,shift:true});
+ f.state.modal = false; f.ui_game.emit('turn_status',{status:'please_wait'}); f.click('MINE'); f.key('M',{}); f.key('F',{ctrl:true,shift:true});
+ f.ui_game.emit('turn_status',{status:'active'});
+ for (modifiers of [{alt:true},{alt:true,ctrl:true},{alt:true,shift:true}]) { test.assert(!f.key('F',modifiers)); }
+ test.assert(#sizeof(f.state.queued) == 0 && f.former.movement == 1.0);
+ f.view.root.remove();
 });
 
 behavior.scenario('replacement prompt imports source caption body choices and requires explicit acceptance before queuing work', () => {

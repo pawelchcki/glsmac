@@ -1,4 +1,4 @@
-"""Strict native terrain observation v2; no terrain or movement rules live here.
+"""Strict native terrain observations v2/v3/v4; no terrain or movement rules live here.
 
 This validates captured native data, not agreement with an original executable.
 The frozen state-trace comparator can compare a separately bound projection;
@@ -11,16 +11,21 @@ from fast import parse_output
 from protocol import ProtocolError, canonical, decode_json
 from state_trace.schema import validate_state
 
-SCHEMA = 'game.terrain_observation.v2'
+LEGACY_SCHEMA = 'game.terrain_observation.v2'
+SCHEMA = 'game.terrain_observation.v3'
+COOPERATIVE_SCHEMA = 'game.terrain_observation.v4'
+COOPERATIVE_POLICY = 'application.cooperative-work.v1'
 DIRECTIONS = ('W', 'NW', 'N', 'NE', 'E', 'SE', 'S', 'SW')
 FEATURES = ('river', 'monolith', 'xenofungus', 'jungle', 'uranium', 'geothermal',
             'unity_pod', 'volcano', 'sunny_mesa', 'garland_crater', 'fossil_field_ridge',
             'unity_energy', 'unity_chopper', 'unity_radar', 'dunes')
 IMPROVEMENTS = ('road', 'mag_tube', 'forest', 'farm', 'soil_enricher', 'solar', 'mine',
                 'condenser', 'mirror', 'borehole', 'sensor', 'bunker', 'airbase')
-COVERAGE = ('all_players', 'terrain_height', 'terrain_type', 'terrain_resources',
+LEGACY_COVERAGE = ('all_players', 'terrain_height', 'terrain_type', 'terrain_resources',
             'traverse_quotes', 'canonical_height', 'energy_initialization', 'automation_context', 'automation_phase', 'home_identity', 'improvement_owners',
             'ui', 'animation_timing', 'audio', 'original_height_byte')
+COVERAGE = LEGACY_COVERAGE + ('terrain_epoch', 'paid_height_work', 'naval_recovery', 'energy_revision')
+COOPERATIVE_COVERAGE = COVERAGE + ('cooperative_work',)
 TERRAIN_UNITS = dict(rockiness='native-enum-0-none-1-flat-2-rolling-3-rocky',
                      moisture='native-enum-0-none-1-arid-2-moist-3-rainy',
                      original_raw_height_class='unsupported', original_raw_rockiness='unsupported')
@@ -95,6 +100,38 @@ def validate_quote(quote, width, height, path):
     return quote
 
 
+def validate_cooperation(observed, path):
+    """Validate actual capability and detached helper data, never invent a cohort."""
+    fields(observed, ('supported', 'native_schema_version', 'reason', 'state'), path)
+    require(type(observed['supported']) is bool, path + ' capability must be a Bool')
+    version = observed['native_schema_version']
+    if version is not None:
+        integer(version, path + '.native_schema_version', 1)
+    if not observed['supported']:
+        require(observed['state'] is None and type(observed['reason']) is str and bool(observed['reason']),
+                path + ' unsupported observation requires an explicit reason and no fabricated state')
+        return
+    require(type(version) is int and version == 2 and observed['reason'] is None,
+            path + ' supported observation requires actual native schema 2 and no failure reason')
+    state = observed['state']
+    if state is None:
+        return  # Supported, but the actual helper observed no valid current job.
+    fields(state, ('version', 'policy', 'own_work_units', 'cohort_work_units', 'required_work', 'participants'), path + '.state')
+    require(type(state['version']) is int and state['version'] == 1 and state['policy'] == COOPERATIVE_POLICY,
+            path + ' unknown cooperative observation policy/version')
+    for name in ('own_work_units', 'cohort_work_units', 'required_work'):
+        integer(state[name], path + '.' + name, 0)
+    require(type(state['participants']) is list and bool(state['participants']), path + ' participants are missing')
+    identities = []
+    for participant in state['participants']:
+        fields(participant, ('unit_id', 'work_units', 'active'), path + '.participant')
+        integer(participant['unit_id'], path + '.participant.unit_id', 0)
+        integer(participant['work_units'], path + '.participant.work_units', 0)
+        require(type(participant['active']) is bool, path + ' activity must be the actual native Bool')
+        identities.append(participant['unit_id'])
+    require(identities == sorted(set(identities)), path + ' native participant identities must be unique and ordered')
+
+
 def validate_snapshot(snapshot):
     fields(snapshot, ('turn', 'width', 'height', 'players', 'units', 'bases', 'research', 'terrain_trace'), 'snapshot')
     width, height = snapshot['width'], snapshot['height']
@@ -121,17 +158,22 @@ def validate_snapshot(snapshot):
         integer(row['target_id'], 'research.target_id'); integer(row['accumulated'], 'research.accumulated')
     trace = snapshot['terrain_trace']
     fields(trace, ('schema', 'elevation_units', 'terrain_units', 'tiles', 'unit_details', 'base_details', 'player_details', 'ui', 'coverage', 'policy'), 'terrain_trace')
-    require(trace['schema'] == SCHEMA and trace['elevation_units'] == 'native-engine-elevation', 'Unknown terrain observation schema/units')
+    require(trace['schema'] in (LEGACY_SCHEMA, SCHEMA, COOPERATIVE_SCHEMA) and trace['elevation_units'] == 'native-engine-elevation', 'Unknown terrain observation schema/units')
     require(trace['terrain_units'] == TERRAIN_UNITS, 'Engine enums must not be relabeled as original raw bytes/classes')
     fields(trace['policy'], ('version', 'ignore_technologies'), 'policy')
     require(type(trace['policy']['version']) is int and trace['policy']['version'] == 1 and
             type(trace['policy']['ignore_technologies']) is bool, 'Actual serialized policy identity missing')
-    fields(trace['coverage'], COVERAGE, 'coverage')
+    cooperative = trace['schema'] == COOPERATIVE_SCHEMA
+    modern = trace['schema'] in (SCHEMA, COOPERATIVE_SCHEMA)
+    fields(trace['coverage'], COOPERATIVE_COVERAGE if cooperative else (COVERAGE if modern else LEGACY_COVERAGE), 'coverage')
+    capabilities = trace['coverage']
+    has = lambda name: modern and capabilities[name]
     require(all(type(value) is bool for value in trace['coverage'].values()), 'Coverage must be explicit booleans')
     require(trace['coverage']['all_players'], 'All-player observation cannot be omitted')
     require(type(trace['player_details']) is dict and set(trace['player_details']) == owners, 'Per-owner details omitted')
     for owner, row in trace['player_details'].items():
-        fields(row, ('raw_id', 'role', 'name', 'identity', 'energy'), owner)
+        fields(row, ('raw_id', 'role', 'name', 'identity', 'energy') + (('energy_revision',) if has('energy_revision') else ()), owner)
+        if has('energy_revision'): integer(row['energy_revision'], owner + '.energy_revision', 0)
         require(row['raw_id'] == next(p['raw_id'] for p in snapshot['players'] if p['id'] == owner), 'Player raw identity differs')
         require(type(row['role']) is str and type(row['name']) is str and type(row['identity']) is list and
                 len(row['identity']) == 6 and all(type(text) is str for text in row['identity']), 'Incomplete native player identity')
@@ -149,7 +191,9 @@ def validate_snapshot(snapshot):
                       'moisture', 'rockiness', 'bonus', 'features_raw', 'features', 'terraforming_raw',
                       'terraforming', 'imported', 'resources', 'native_height_band', 'native_type', 'locked')
         fields(tile, tile_fields + (('canonical',) if trace['coverage']['canonical_height'] else ()) +
-               (('terraforming_owners',) if trace['coverage']['improvement_owners'] else ()), 'tile:' + key)
+               (('terraforming_owners',) if trace['coverage']['improvement_owners'] else ()) +
+               (('terrain_epoch',) if has('terrain_epoch') else ()), 'tile:' + key)
+        if has('terrain_epoch'): integer(tile['terrain_epoch'], 'tile:' + key + '.terrain_epoch', 0)
         require(type(tile['version']) is int and tile['version'] == 1 and tile['width'] == width and tile['height'] == height,
                 'Native terrain API version/dimensions differ')
         coordinate(dict(x=tile['x'], y=tile['y']), width, height, 'tile:' + key)
@@ -205,7 +249,13 @@ def validate_snapshot(snapshot):
     require(type(trace['unit_details']) is dict and set(trace['unit_details']) == set(units), 'Every native unit requires detail/quotes')
     for unit_id, detail in trace['unit_details'].items():
         unit = units[unit_id]
-        fields(detail, ('definition_id', 'morale_set', 'movement_kind', 'nominal_mp_per_turn', 'can_terraform', 'moved_this_turn', 'work', 'automation', 'home_base_id', 'quotes', 'combat'), 'unit:' + unit_id)
+        fields(detail, ('definition_id', 'morale_set', 'movement_kind', 'nominal_mp_per_turn', 'can_terraform', 'moved_this_turn', 'work', 'automation', 'home_base_id', 'quotes', 'combat') + (('terraforming_recovery',) if has('naval_recovery') else ()) + (('cooperative_work',) if cooperative else ()), 'unit:' + unit_id)
+        if has('naval_recovery'):
+            recovery = detail['terraforming_recovery']
+            fields(recovery, ('active', 'x', 'y'), 'unit.recovery')
+            require(type(recovery['active']) is bool, 'Native naval recovery activity missing')
+            if recovery['active']: coordinate(dict(x=recovery['x'], y=recovery['y']), width, height, 'unit.recovery')
+            else: require(type(recovery['x']) is int and type(recovery['y']) is int and recovery['x'] == recovery['y'] == 0, 'Inactive naval recovery retained a target')
         if trace['coverage']['home_identity']: integer(detail['home_base_id'], 'unit.home_base_id', 0)
         else: require(detail['home_base_id'] is None, 'Missing home capability must not invent an identity')
         if trace['coverage']['automation_context']:
@@ -240,6 +290,28 @@ def validate_snapshot(snapshot):
         for field in ('action', 'work_units', 'required_work', 'last_turn', 'previous_work_units',
                       'previous_movement', 'previous_moved', 'active', 'tile_x', 'tile_y'):
             require(field in detail['work'], 'Native work progress omits ' + field)
+        if cooperative:
+            validate_cooperation(detail['cooperative_work'], 'unit:' + unit_id + '.cooperative_work')
+        if 'job' in detail['work']:
+            require(cooperative and detail['cooperative_work']['native_schema_version'] == 2, 'Native cooperative job cannot hide behind absent capability')
+            require('height' not in detail['work'], 'Ordinary cooperative job and paid height metadata are mutually exclusive')
+            job = detail['work']['job']
+            fields(job, ('version', 'policy', 'owner', 'terrain_identity'), 'work.job')
+            require(type(job['version']) is int and job['version'] == 1 and job['policy'] == COOPERATIVE_POLICY, 'Unknown native cooperative job policy/version')
+            integer(job['owner'], 'work.job.owner', 0)
+            require(job['owner'] == next(row['raw_id'] for row in snapshot['players'] if row['id'] == unit['owner']), 'Native cooperative owner differs from unit')
+            require(type(job['terrain_identity']) is str and bool(job['terrain_identity']) and all(32 <= ord(char) <= 126 for char in job['terrain_identity']) and len(job['terrain_identity']) <= 524288, 'Native cooperative baseline identity missing/malformed')
+        if 'height' in detail['work']:
+            require(has('paid_height_work'), 'Paid native height metadata cannot hide behind absent capability')
+            paid = detail['work']['height']
+            fields(paid, ('version', 'policy', 'fee_policy', 'owner', 'issued_turn', 'fee', 'source_elevation', 'source_water', 'terrain_identity'), 'work.height')
+            require(type(paid['version']) is int and paid['version'] == 1 and
+                    type(paid['policy']) is str and bool(paid['policy']) and type(paid['fee_policy']) is str and bool(paid['fee_policy']) and
+                    type(paid['terrain_identity']) is str and bool(paid['terrain_identity']), 'Missing paid height policy/terrain identity')
+            for field in ('owner', 'issued_turn', 'fee'): integer(paid[field], 'work.height.' + field, 0)
+            integer(paid['source_elevation'], 'work.height.source_elevation')
+            require(type(paid['source_water']) is bool and detail['work']['action'] in ('raise', 'lower'), 'Paid metadata belongs to incompatible work')
+            require(paid['owner'] == next(row['raw_id'] for row in snapshot['players'] if row['id'] == unit['owner']), 'Paid height owner differs from unit')
         require(type(detail['work']['action']) is str and type(detail['work']['active']) is bool, 'Native work action/lifecycle malformed')
         for field in ('work_units', 'required_work', 'last_turn', 'previous_work_units', 'tile_x', 'tile_y'):
             integer(detail['work'][field], 'work.' + field, 0)
@@ -257,6 +329,46 @@ def validate_snapshot(snapshot):
                 validate_quote(quote, width, height, unit_id + ':' + direction)
                 require(quote['source'] == origin and quote['destination'] == neighbors[direction] and
                         quote['movement_kind'] == detail['movement_kind'] and quote['nominal_mp_per_turn'] == detail['nominal_mp_per_turn'], 'Quote belongs to a different native unit/edge')
+    if cooperative:
+        require(trace['coverage']['cooperative_work'] == (bool(units) and all(detail['cooperative_work']['supported'] for detail in trace['unit_details'].values())),
+                'Aggregate cooperative capability differs from actual unit observations')
+        raw_units = {unit['raw_id']: unit for unit in units.values()}
+        for unit_id, detail in trace['unit_details'].items():
+            state = detail['cooperative_work']['state']
+            if state is None:
+                continue
+            unit = units[unit_id]; own = detail['work']
+            require('job' in own and state['own_work_units'] == own['work_units'] and state['required_work'] == own['required_work'],
+                    'Observed cohort own/required counters differ from the actual native worker')
+            ids = [participant['unit_id'] for participant in state['participants']]
+            require(unit['raw_id'] in ids, 'Observed cohort omits its own actual native worker')
+            expected_ids = []
+            for candidate in units.values():
+                candidate_detail = trace['unit_details'][candidate['id']]; candidate_work = candidate_detail['work']
+                if (candidate['owner'] == unit['owner'] and candidate_detail['can_terraform'] and candidate['health'] > 0.0 and
+                    candidate_detail['movement_kind'] == detail['movement_kind'] and (candidate['x'], candidate['y']) == (unit['x'], unit['y']) and
+                    (candidate_work['tile_x'], candidate_work['tile_y']) == (unit['x'], unit['y']) and candidate_work.get('job') == own['job'] and
+                    candidate_work['action'] == own['action'] and candidate_work['required_work'] == own['required_work'] and 'height' not in candidate_work):
+                    expected_ids.append(candidate['raw_id'])
+            require(ids == sorted(expected_ids), 'Observed cohort omits eligible native active/paused same-job members')
+            for participant in state['participants']:
+                require(participant['unit_id'] in raw_units, 'Observed cohort contains an unregistered native unit')
+                peer = raw_units[participant['unit_id']]; peer_detail = trace['unit_details'][peer['id']]; peer_work = peer_detail['work']
+                require(peer['owner'] == unit['owner'] and peer_detail['can_terraform'] and peer['health'] > 0.0 and
+                        peer_detail['movement_kind'] == detail['movement_kind'] and (peer['x'], peer['y']) == (unit['x'], unit['y']) and
+                        (peer_work['tile_x'], peer_work['tile_y']) == (unit['x'], unit['y']) and peer_work.get('job') == own['job'] and
+                        peer_work['action'] == own['action'] and peer_work['required_work'] == own['required_work'],
+                        'Observed cohort contains a different owner, target, capability or native job')
+                require(participant['work_units'] == peer_work['work_units'] and participant['active'] == peer_work['active'],
+                        'Observed participant counter/activity differs from its actual native worker')
+                peer_state = peer_detail['cooperative_work']['state']
+                require(peer_state is not None and peer_state['participants'] == state['participants'] and
+                        peer_state['cohort_work_units'] == state['cohort_work_units'] and peer_state['required_work'] == state['required_work'],
+                        'Observed native cohort is incomplete or inconsistent across participants')
+            # Source helper deliberately includes genuine paused contributions.
+            # Never replace a worker counter with this computed group total.
+            require(state['cohort_work_units'] == sum(row['work_units'] for row in state['participants']),
+                    'Observed cohort total differs from its actual active and paused native contributions')
     bases = {row['id']: row for row in snapshot['bases']}
     require(type(trace['base_details']) is dict and set(trace['base_details']) == set(bases), 'Every native base requires full details')
     for base_id, detail in trace['base_details'].items():

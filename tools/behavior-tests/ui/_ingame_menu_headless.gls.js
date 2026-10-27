@@ -72,6 +72,7 @@ const fixture = (input) => {
 	f.events.get_tm = () => { return f.game.tm; };
 	f.events.get_year = () => { return f.game.get_year(); };
 	f.events.get_turn = () => { return f.game.get_turn(); };
+	f.events.get_settings = () => { return f.game.get_settings(); };
 	f.events.get_player = () => { return f.native.owner; };
 	f.events.get = (key) => { return f.game.get(key); };
 	f.events.is_started = f.game.is_started;

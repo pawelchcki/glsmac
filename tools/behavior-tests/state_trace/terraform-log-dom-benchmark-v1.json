@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "scope": "NO-WASM actual-log DOM microbenchmark",
+  "candidate_executed": false,
+  "game_inputs": 0,
+  "input": {
+    "path": "/tmp/terraform-browser-v6-pointer-fenced/application-reassembled.log",
+    "sha256": "24fa026db81f4d4062af5b8f0bd9f11fc9cfd9f653181d619e4955fcfa95ad99",
+    "bytes": 11551539,
+    "utf16": 11551539,
+    "lf_messages": 883,
+    "assumption": "Each captured LF-delimited line replayed as one callback; actual game callback times not recorded"
+  },
+  "source": {
+    "web": "/tmp/wasmsmac-terraform-pr2-web-v6",
+    "html_sha256": "870bfb68437e88bb026f1097cb9395a5ec7c351da0c0f301af3229897113072d",
+    "bootstrap_sha256": "69b3c8edebabc4c5b2168ce0ef6d920bb43b4e9d9df5325e12c310b138b90724",
+    "original_log_sha256": "4a69a82c6668dcc71a04e3bc43561fcebfca9c521da073cf0ea1800d1fe151c3",
+    "measured_log_sha256": "b59b2b0509527afcdc152938428fba050a4a5758667fb5bc1a9d4706290c563d",
+    "html_transform": "Remove script tags only; declare normal running setup hidden; separately control details.open",
+    "original_log": "function log(message) {\n  logElement.textContent += `${message}\\n`;\n  logElement.scrollTop = logElement.scrollHeight;\n}",
+    "measured_log": "function log(message) {\n  const begin=performance.now();\n  logElement.textContent += `${message}\\n`;\n  const appended=performance.now();\n  logElement.scrollTop = logElement.scrollHeight;\n  const end=performance.now();\n  return {append_ms:appended-begin,layout_ms:end-appended,total_ms:end-begin};\n}"
+  },
+  "node": "v24.10.0",
+  "browser": "149.0.7827.55",
+  "browser_executable": "/var/home/pawel/.cache/ms-playwright/chromium-1228/chrome-linux64/chrome",
+  "fontconfig": "/tmp/glsmac-fonts.conf",
+  "viewport": {
+    "width": 1100,
+    "height": 1000
+  },
+  "scope_budget_ms": 45000,
+  "hard_budget_ms": 120000,
+  "results": [
+    {
+      "scope": "closed",
+      "status": "bounded-partial",
+      "completed": 805,
+      "wall_ms": 45922.30000001192,
+      "module_defined": false,
+      "wasm_resources": [],
+      "details_open": false,
+      "calls": 805,
+      "sums": {
+        "append_ms": 283.4999998509884,
+        "layout_ms": 44736.80000028014,
+        "total_ms": 45020.30000013113
+      },
+      "max_callback_ms": 2295.5999999940395,
+      "retained_bytes": 8561370,
+      "retained_sha256": "0239d1d13ff5cc7d063f3f3595af0dc846ac8c31c66a659e78af65fd4a8023ea",
+      "exact_input_prefix": true,
+      "exact_full_input": false,
+      "network_requests": []
+    },
+    {
+      "scope": "open",
+      "status": "bounded-partial",
+      "completed": 800,
+      "wall_ms": 45597.09999999404,
+      "module_defined": false,
+      "wasm_resources": [],
+      "details_open": true,
+      "calls": 800,
+      "sums": {
+        "append_ms": 238.49999976158142,
+        "layout_ms": 36510.10000002384,
+        "total_ms": 36748.59999978542
+      },
+      "max_callback_ms": 939.7000000178814,
+      "retained_bytes": 8559273,
+      "retained_sha256": "5c60d86fd35ccdf993dbff1d35c0ec36bd615e3e8b5d61361d8a7ddc933702ef",
+      "exact_input_prefix": true,
+      "exact_full_input": false,
+      "network_requests": []
+    }
+  ],
+  "errors": []
+}

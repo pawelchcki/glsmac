@@ -761,6 +761,10 @@ struct ProductionFixture : gc::Object {
 			{ "worlds_independent", VALUE( value::Bool,, to.rules.GetWorldSizes() == worlds_before && target->Serialize().ToString() == wire ) },
 		} );
 	}
+	void ApplyFactionEconomy( GSE_CALLABLE, const value::object_properties_t& values ) {
+		owner->GetFaction()->SetEconomyBonuses( backend::faction::Faction::ParseEconomyBonuses( GSE_CALL, values ) );
+	}
+
 	Value* ApplyFactionIdentity( GSE_CALLABLE, const std::vector< Value* >& values ) {
 		auto* faction = owner->GetFaction();
 		faction->SetIdentity( backend::faction::Faction::ParseIdentity( GSE_CALL, values ) );
@@ -843,6 +847,36 @@ struct ProductionFixture : gc::Object {
 			{ "independent", VALUE( value::Bool,, original->GetTilesPtr()->Serialize().ToString() == before ) },
 		} );
 	}
+	std::shared_ptr< ProductionFixture > ReceiveHeightWorld( GSE_CALLABLE, const std::string& legacy_map = {}, const std::string& legacy_unit = {} ) {
+		if ( !owner || !local_player || !game.m_um || !game.m_tm || state->m_slots->GetCount() != 2 ) { GSE_ERROR( EC.INVALID_CALL, "Height receiver requires the declared complete two-player mechanics world" ); }
+		const auto player_bases = Snapshot(); auto terrain = legacy_map.empty() ? game.m_map->GetTilesPtr()->Serialize() : types::Buffer( legacy_map );
+		types::Buffer units; game.m_um->Serialize( units ); types::Buffer resources; game.m_rm->Serialize( resources );
+		const auto local = local_player->Serialize(); const auto global = state->m_settings.global.Serialize();
+		const auto random = game.GetRandom()->GetState(); const auto base_id = backend::base::Base::GetNextId(); const auto unit_id = backend::unit::Unit::GetNextId();
+		auto receiving = std::make_shared< ProductionFixture >( GSE_CALL, false );
+		receiving->EnableEconomy();
+		if ( receiving->game.m_map->LoadFromBuffer( terrain ) != backend::map::Map::EC_NONE ) { GSE_ERROR( EC.INVALID_CALL, "Actual receiving height grid failed" ); }
+		receiving->game.m_um = new backend::unit::UnitManager( &receiving->game, false );
+		receiving->game.m_um->Deserialize( GSE_CALL, units ); receiving->Load( GSE_CALL, player_bases );
+		if ( !legacy_unit.empty() ) {
+			std::vector< size_t > ids; for ( const auto& entry : receiving->game.m_um->GetUnits() ) { ids.push_back( entry.first ); }
+			for ( const auto id : ids ) { receiving->game.m_um->DespawnUnit( GSE_CALL, id ); }
+			auto bytes = types::Buffer( legacy_unit ); auto* restored = backend::unit::Unit::Deserialize( GSE_CALL, bytes, receiving->game.m_um );
+			if ( bytes.lenr != bytes.lenw ) { delete restored; GSE_ERROR( EC.INVALID_CALL, "Trailing legacy unit fixture data" ); }
+			receiving->game.m_um->SpawnUnit( GSE_CALL, restored );
+		}
+		receiving->local_player->Deserialize( local );
+		auto* decoded_local_faction = receiving->local_player->GetFaction();
+		if ( decoded_local_faction->m_id == receiving->owner->GetFaction()->m_id ) {
+			if ( decoded_local_faction->Serialize().ToString() != receiving->owner->GetFaction()->Serialize().ToString() ) { GSE_ERROR( EC.INVALID_CALL, "Fixture receiver requires consistent shared faction definitions" ); }
+			receiving->local_player->SetFaction( receiving->owner->GetFaction() ); delete decoded_local_faction;
+		} else { receiving->state->GetFM()->Add( decoded_local_faction ); }
+		receiving->state->m_settings.global.Deserialize( global );
+		receiving->game.m_rm->Deserialize( resources ); receiving->game.GetRandom()->SetState( random );
+		backend::base::Base::SetNextId( base_id ); backend::unit::Unit::SetNextId( unit_id );
+		return receiving;
+	}
+
 	Value* ConstructionOwnerBindingProbe( GSE_CALLABLE ) {
 		const auto before = game.GetMap()->GetTilesPtr()->Serialize().ToString();
 		const auto wire = [ & ]( const int64_t construction_owner ) {
@@ -1206,6 +1240,8 @@ struct ProductionFixture : gc::Object {
 		const bool held = received && received->GetOrder() == backend::unit::order_t::HOLD && !received->NeedsOrders();
 		const bool sentry = received && received->GetOrder() == backend::unit::order_t::SENTRY && !received->NeedsOrders();
 		const bool receiving_owner = received && received->m_owner == receiving->owner->GetSlot() && received->m_def->m_moraleset == receiving->game.m_um->GetMoraleSet( "SYNTHETIC" );
+		const bool canonical_owner = received && received->m_owner == &receiving->state->m_slots->GetSlot( source->m_owner->GetIndex() );
+		const bool canonical_morale = received && received->m_def->m_moraleset == receiving->game.m_um->GetMoraleSet( source->m_def->m_moraleset->m_id );
 		const bool combat_received = received && received->m_def->GetCombat() == source->m_def->GetCombat();
 		// This is the exact pre-order candidate Unit payload, not an original
 		// savefile. The enclosing manager length-delimits each such payload.
@@ -1253,6 +1289,7 @@ struct ProductionFixture : gc::Object {
 			{ "roundtrip", VALUE( value::Bool,, roundtrip ) }, { "held", VALUE( value::Bool,, held ) }, { "sentry", VALUE( value::Bool,, sentry ) },
 			{ "receiving_owner", VALUE( value::Bool,, receiving_owner ) }, { "legacy_default", VALUE( value::Bool,, legacy_default ) },
 			{ "combat_received", VALUE( value::Bool,, combat_received ) },
+			{ "canonical_owner", VALUE( value::Bool,, canonical_owner ) }, { "canonical_morale", VALUE( value::Bool,, canonical_morale ) },
 			{ "invalid_rejected", VALUE( value::Bool,, invalid_rejected ) }, { "trailing_rejected", VALUE( value::Bool,, trailing_rejected ) },
 			{ "truncated_rejected", VALUE( value::Bool,, truncated_rejected ) }, { "receiver_unchanged", VALUE( value::Bool,, receiver_unchanged ) },
 			{ "invalid_work_rejected", VALUE( value::Bool,, invalid_work_rejected ) },
@@ -1826,6 +1863,14 @@ public:
 	std::shared_ptr< ProductionSession > session;
 };
 
+static std::string DecodeHeightFixtureHex( const std::string& text ) {
+	if ( text.empty() || text.size() % 2 || text.size() > 2097152 ) { THROW( "Invalid legacy height fixture hex length" ); }
+	const auto nibble = []( const char c ) -> int { if ( c >= '0' && c <= '9' ) { return c - '0'; } if ( c >= 'a' && c <= 'f' ) { return c - 'a' + 10; } THROW( "Invalid legacy height fixture hex byte" ); };
+	std::string bytes; bytes.reserve( text.size() / 2 );
+	for ( size_t index = 0; index < text.size(); index += 2 ) { bytes.push_back( char( nibble( text[index] ) * 16 + nibble( text[index + 1] ) ) ); }
+	return bytes;
+}
+
 static void UpdateWrappers( GSE_CALLABLE, FixtureObject* object ) {
 	const auto& f = object->session->current;
 	object->Set( "game", f->game.Wrap( GSE_CALL ), GSE_CALL );
@@ -2122,6 +2167,23 @@ Value* MakeProductionFixture( GSE_CALLABLE, bool founding, bool selection, const
 	object->Set( "canonical_terrain_codec_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->CanonicalTerrainCodecProbe( GSE_CALL );
 	} ), GSE_CALL );
+	object->Set( "apply_faction_economy", NATIVE_CALL( session ) {
+		N_EXPECT_ARGS( 1 ); N_GETVALUE( values, 0, Object ); session->current->ApplyFactionEconomy( GSE_CALL, values ); return VALUE( value::Undefined );
+	} ), GSE_CALL );
+	object->Set( "receive_legacy_height_world", NATIVE_CALL( session, object ) {
+		N_EXPECT_ARGS( 2 ); N_GETVALUE( map_hex, 0, String ); N_GETVALUE( unit_hex, 1, String );
+		auto fresh = session->current->ReceiveHeightWorld( GSE_CALL, DecodeHeightFixtureHex( map_hex ), DecodeHeightFixtureHex( unit_hex ) );
+		session->current->Retire(); session->retired.push_back( session->current ); session->current = std::move( fresh ); UpdateWrappers( GSE_CALL, object );
+		const auto& units = session->current->game.GetUM()->GetUnits(); if ( units.size() != 1 ) { GSE_ERROR( EC.INVALID_CALL, "Legacy fixture requires one actual decoded unit" ); }
+		return units.begin()->second->Wrap( GSE_CALL );
+	} ), GSE_CALL );
+
+	object->Set( "receive_height_world", NATIVE_CALL( session, object ) {
+		N_EXPECT_ARGS( 0 ); auto fresh = session->current->ReceiveHeightWorld( GSE_CALL );
+		session->current->Retire(); session->retired.push_back( session->current ); session->current = std::move( fresh ); UpdateWrappers( GSE_CALL, object );
+		return VALUE( value::Undefined );
+	} ), GSE_CALL );
+
 	object->Set( "construction_owner_binding_probe", NATIVE_CALL( session ) {
 		N_EXPECT_ARGS( 0 ); return session->current->ConstructionOwnerBindingProbe( GSE_CALL );
 	} ), GSE_CALL );

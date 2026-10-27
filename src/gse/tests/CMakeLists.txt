@@ -8,5 +8,7 @@ SET( SRC ${SRC}
 	${PWD}/Parser.cpp
 	${PWD}/Runner.cpp
 	${PWD}/Scripts.cpp
+	${PWD}/ScriptStages.cpp
+	${PWD}/ScriptStagesTests.cpp
 
 	PARENT_SCOPE )

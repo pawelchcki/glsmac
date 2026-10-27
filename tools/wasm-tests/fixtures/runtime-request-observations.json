@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "source_report_sha256": "1774b37486fe063e3c0da9695c76691d1090f5e85824e6c6686a55a46a40297f",
+  "scope": "Actual NO-WASM Chromium main/worker metadata; Fetch pause IDs in tests are declared protocol fields until live Fetch proof",
+  "browser": "149.0.7827.55",
+  "main": {
+    "kind": "cdp-network",
+    "observed_ms": 1510.61417,
+    "url": "http://127.0.0.1:36507/GLSMAC.js",
+    "type": "Script",
+    "request_id": "3095006.4",
+    "frame_id": "82DFAE26321F1A48DF2382CA8FB38E34",
+    "loader_id": "36F633AD89B55DF2C68CBAF600F8ED59",
+    "initiator": {
+      "type": "script",
+      "stack": {
+        "callFrames": [
+          {
+            "functionName": "loadApplication",
+            "scriptId": "4",
+            "url": "http://127.0.0.1:36507/bootstrap-model.js",
+            "lineNumber": 0,
+            "columnNumber": 165
+          },
+          {
+            "functionName": "",
+            "scriptId": "4",
+            "url": "http://127.0.0.1:36507/bootstrap-model.js",
+            "lineNumber": 0,
+            "columnNumber": 181
+          }
+        ]
+      }
+    }
+  },
+  "worker": {
+    "kind": "cdp-network",
+    "observed_ms": 1669.113769,
+    "url": "http://127.0.0.1:36507/GLSMAC.js",
+    "type": "Script",
+    "request_id": "BF076C2301DA50E247B4CF867883AC24",
+    "frame_id": "82DFAE26321F1A48DF2382CA8FB38E34",
+    "loader_id": "",
+    "initiator": {
+      "type": "other",
+      "url": "http://127.0.0.1:36507/"
+    }
+  },
+  "target": {
+    "targetId": "BF076C2301DA50E247B4CF867883AC24",
+    "type": "worker",
+    "title": "",
+    "url": "",
+    "attached": false,
+    "parentId": "82DFAE26321F1A48DF2382CA8FB38E34",
+    "canAccessOpener": false,
+    "parentFrameId": "82DFAE26321F1A48DF2382CA8FB38E34",
+    "browserContextId": "D061398460B5015C4B97EE2807D77F44"
+  }
+}

@@ -14,10 +14,10 @@ const terrain = (f) => {
 
 behavior.scenario('rate1 Level reduces imported rocky category once while preserving every other native terrain field', () => {
 	const f = fixture(1,3); const before = terrain(f); const energy = f.owner.get_energy_state();
-	for (state of before) { if (state.x == 2 && state.y == 2) { state.rockiness = 2; } }
+	for (state of before) { if (state.x == 2 && state.y == 2) { state.rockiness = 2; state.terrain_epoch = state.terrain_epoch + 1; } }
 	const e = f.command('level');
 	test.assert(f.former.get_tile().rockiness == 2 && f.former.get_tile().rockiness - 1 == 1, 'Native3→2 projects to accepted original raw2→1');
-	test.assert(terrain(f) == before, 'Only target rockiness changes; heights classes flags and neighbors remain exact');
+	test.assert(terrain(f) == before, 'Only target rockiness and its persistent mutation epoch change; heights classes flags and neighbors remain exact');
 	test.assert(f.owner.get_energy_state() == energy, 'Level does not charge an unobserved height fee');
 	test.assert(f.former.get_order() == 'NO_ORDERS' && f.former.get_terraforming().work_units == 0);
 	test.assert(f.former.movement == 0.0 && f.former.moved_this_turn && #round((1.0 - f.former.movement) * 3.0) == 3);
@@ -63,7 +63,7 @@ behavior.scenario('inherited work cancellation retains then refunds only its cur
 behavior.scenario('genuine next-turn Level reduces rolling to flat without height or treasury changes', () => {
 	const f = fixture(1,3); f.command('level'); f.advance();
 	const before = terrain(f); const energy = f.owner.get_energy_state();
-	for (state of before) { if (state.x == 2 && state.y == 2) { state.rockiness = 1; } }
+	for (state of before) { if (state.x == 2 && state.y == 2) { state.rockiness = 1; state.terrain_epoch = state.terrain_epoch + 1; } }
 	f.command('level');
 	test.assert(f.former.get_tile().rockiness == 1 && terrain(f) == before);
 	test.assert(f.owner.get_energy_state() == energy && f.former.get_order() == 'NO_ORDERS' && f.former.movement == 0.0);

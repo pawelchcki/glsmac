@@ -29,8 +29,8 @@ return {
 			// Read the current native identity even when this selection event
 			// reaches the menu before the preview's own focus notification.
 			const request = {caller: p.game.get_player().id, data: {unit_id: id, action: action}}; request.game = p.game;
-			const policy = #include('../../../../game/terraforming');
-			if (#is_defined(policy.validate(request))) { return null; }
+			const policy = #include('../../../../game/terraforming_control_policy');
+			if (#is_defined(policy.validate_selection(request))) { return null; }
 			return p.game.get_um().get_unit(id);
 		};
 		this.selected_unit_id = null;
@@ -246,7 +246,7 @@ return {
 			const units = this.game.get_um();
 			if (units.has_unit(this.selected_unit_id)) {
 				const unit = units.get_unit(this.selected_unit_id);
-				former = unit.def == 'Formers' && unit.is_land;
+				former = unit.get_def().can_terraform;
 				colony = unit.def == 'ColonyPod' && unit.is_land;
 				colony_base = colony && unit.get_tile().get_base() != null;
 			}
@@ -279,7 +279,36 @@ return {
 		child.el.height = top;
 	},
 
+	refresh_complete_terrain: (unit) => {
+		const child = this.menus.left_menu_terraform;
+		// A docked naval worker retains sea labels; preflight still rejects
+		// incompatible base/terrain operations instead of granting land work.
+		const water = unit.is_water; let top = 0;
+		for (row of child.rows) {
+			const entry = row.entry;
+			if (#is_defined(entry.terrain_index)) { row.el.text = water ? entry.water_label : entry.land_label; }
+			if (!#is_defined(entry.separator)) {
+				const enabled = #is_defined(entry.terraform_action) && this.work_unit(entry.terraform_action) != null;
+				row.el.color = enabled ? 'rgb(176, 212, 235)' : 'black';
+			}
+			row.el.top = top + (#is_defined(entry.separator) ? this.item_height / 2 : 0);
+			row.el.show(); top += this.item_height;
+		}
+		child.el.height = top;
+	},
+
 	refresh_terrain: () => {
+		// The explicit real rules mode preserves bounded original respect-tech
+		// presentation. Normal play's waiver uses every live authoritative action.
+		if (this.game != null && this.selected_unit_id != null) {
+			const units = this.game.get_um();
+			if (units.has_unit(this.selected_unit_id)) {
+				const unit = units.get_unit(this.selected_unit_id);
+				if (unit.get_def().can_terraform && (this.game.get_settings().global.rules.get_terraforming_policy().ignore_technologies || unit.def != 'Formers' || unit.is_water)) {
+					this.refresh_complete_terrain(unit); return;
+				}
+			}
+		}
 		let tile = this.selected_tile; let former = false; let selected = null;
 		if (this.game != null && this.selected_unit_id != null) {
 			const units = this.game.get_um();

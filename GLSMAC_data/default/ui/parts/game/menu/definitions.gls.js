@@ -23,6 +23,7 @@ const label = (value) => {
 return (glsmac) => {
 	const document = glsmac.load_smac_text('menu.txt', 'menus');
 	const terrain_rows = glsmac.load_smac_text('alphax.txt', 'rules').rows('TERRAIN');
+	const work_actions = #include('../../../../game/terraforming_actions');
 	const format_order = #include('../../../../game/terraforming_rules').format_order;
 	if (#sizeof(terrain_rows) != 20) { throw Error('Wrong installed TERRAIN action count for in-game menu'); }
 	const terrain = []; let terrain_index = 0;
@@ -32,8 +33,10 @@ return (glsmac) => {
 		const land_label = format_order(row[5], land); const water_label = format_order(row[5], water);
 		let turns = null;
 		try { turns = #to_int(#trim(row[4])); } catch { : (error) => {} }
-		terrain :+ {label: land_label, land_label: land_label,
+		const entry = {label: land_label, land_label: land_label,
 			water_label: water_label, land_prerequisite: #trim(row[1]), nominal_turns: turns, terrain_index: terrain_index, dark: true};
+		for (action of work_actions.entries) { if (action.row == terrain_index) { entry.terraform_action = action.id + ''; } }
+		terrain :+ entry;
 		terrain_index++;
 	}
 	const project = #include('presentation');
@@ -48,7 +51,11 @@ return (glsmac) => {
 			if (item.separator) { entries :+ {separator: true}; }
 			else {
 				if (#typeof(item.shortcut) != 'String') { throw Error('Invalid installed in-game menu shortcut'); }
-				entries :+ {label: label(item.label), shortcut: item.shortcut, source_index: source_index};
+				const entry = {label: label(item.label), shortcut: item.shortcut, source_index: source_index};
+				if (source[0] == 'TERRAFORM') {
+					for (action of work_actions.automation) { if (action.source_index == source_index) { entry.terraform_action = action.id + ''; } }
+				}
+				entries :+ entry;
 				source_index++;
 			}
 		}
