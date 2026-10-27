@@ -1,0 +1,96 @@
+{
+  "kind": "colony-packets-independent-audit.v1",
+  "source_head": "63214215dfd5edd7ee62287dc197f64ea390a21c",
+  "node_version": "v22.16.0",
+  "node_sha256": "8142d37c6f2f372ef040419e7a111a6baf17df89f8078d02447d6c639ae20c1d",
+  "status": "passed",
+  "scenarios": 16,
+  "assertions": 64,
+  "elapsed_ms": 139526.23,
+  "per_packet_timeout_s": 120,
+  "max_serial_budget_s": 360,
+  "report_sha256": "19ed8f24ec64404b031c17714feafbeb7d8b13554b6e0ff130eba11381978ab8",
+  "prelaunch_sha256": "0c51f609e55cb1423975c85f652946ac23121a430f830305a78d53b7ee06bc2b",
+  "packet_results": [
+    {
+      "id": "colony-menu-controls--packet-1",
+      "scenarios": 8,
+      "assertions": 36,
+      "process_returncode": 0,
+      "timed_out": false,
+      "elapsed_ms": 59936.71,
+      "raw_log_sha256": "dda7c29058435a62be931985b35ec641ae3f8357060c523affa756b4c40491e7",
+      "script_sha256": "d79e603f9ed73de334f8c9dbf8bd001b56a42ceeaa8a3ca005a75b84b95dbe8d",
+      "execution_binding": {
+        "runtime_js_sha256": "b8b64bfdbae48475667160b0bc82dc5a8da499336a13d371afbe9d9bb32100e7",
+        "runtime_wasm_sha256": "c6cbb1c4534d088bcc59946a70af2e7ca10623a5cf33c4d6a2c44a0ac4a3cf5c",
+        "worker_sha256": "674a4a6f5fd4e5e176013b53b442037229aa02aef4c9c1bde5167c9147a76fc1",
+        "scripts_sha256": "68ce1fb6b3f0d248dd19ebf05826af2968038dfac894d079c583ae2725b28f3c"
+      }
+    },
+    {
+      "id": "colony-menu-controls--packet-2",
+      "scenarios": 5,
+      "assertions": 19,
+      "process_returncode": 0,
+      "timed_out": false,
+      "elapsed_ms": 48423.53,
+      "raw_log_sha256": "359d9ab61fb4fa3d2e25fd6affe74448290c6235ce09459f74225f1aa6e2e8de",
+      "script_sha256": "51076d13978325720d6501c4dfe19c2805653b16ce55060c27b8236690dfc7db",
+      "execution_binding": {
+        "runtime_js_sha256": "b8b64bfdbae48475667160b0bc82dc5a8da499336a13d371afbe9d9bb32100e7",
+        "runtime_wasm_sha256": "c6cbb1c4534d088bcc59946a70af2e7ca10623a5cf33c4d6a2c44a0ac4a3cf5c",
+        "worker_sha256": "674a4a6f5fd4e5e176013b53b442037229aa02aef4c9c1bde5167c9147a76fc1",
+        "scripts_sha256": "68ce1fb6b3f0d248dd19ebf05826af2968038dfac894d079c583ae2725b28f3c"
+      }
+    },
+    {
+      "id": "colony-menu-controls--packet-3",
+      "scenarios": 3,
+      "assertions": 9,
+      "process_returncode": 0,
+      "timed_out": false,
+      "elapsed_ms": 29989.02,
+      "raw_log_sha256": "b8e50e792215766e47e548bf35d8e0d38a65a9198739a0e2bcf093f26467af50",
+      "script_sha256": "924f785fd2408db90c0dde88b68389a621d501d840bd30f1e27813e370db8a9c",
+      "execution_binding": {
+        "runtime_js_sha256": "b8b64bfdbae48475667160b0bc82dc5a8da499336a13d371afbe9d9bb32100e7",
+        "runtime_wasm_sha256": "c6cbb1c4534d088bcc59946a70af2e7ca10623a5cf33c4d6a2c44a0ac4a3cf5c",
+        "worker_sha256": "674a4a6f5fd4e5e176013b53b442037229aa02aef4c9c1bde5167c9147a76fc1",
+        "scripts_sha256": "68ce1fb6b3f0d248dd19ebf05826af2968038dfac894d079c583ae2725b28f3c"
+      }
+    }
+  ],
+  "scope": "Measured resource isolation; no claimed historical GC/deadlock cause. Main fresh CI still required.",
+  "affected_full_gse_validation": {
+    "status": "pending",
+    "runtime_node": "22.16.0",
+    "partitions": [
+      3,
+      4
+    ],
+    "worker_limit_ms": 1200000,
+    "same_four_workers": true,
+    "current_public_inventory": 189,
+    "other_partitions": "Assignments unchanged; complete current CI coverage remains required."
+  },
+  "historical_main_failures": {
+    "run": 40576278956,
+    "head": "55e706e24ce8573297a6e4b887aab3628bf45768",
+    "stable_regression": {
+      "passed": 103,
+      "total": 104,
+      "only_failure": "colony-menu-controls",
+      "timeout_s": 120.22654,
+      "body_scenarios": 16,
+      "body_assertions": 64,
+      "native_footer": false
+    },
+    "complete_gse_3": {
+      "timeout_ms": 1200000,
+      "scripts_started": 44,
+      "scripts_selected": 47,
+      "native_footer": false
+    }
+  }
+}

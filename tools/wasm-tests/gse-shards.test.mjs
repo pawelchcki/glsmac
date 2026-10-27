@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {combine,plan} from './gse-shards.mjs';
+import {combine,plan,snapshotAt} from './gse-shards.mjs';
+import {fileURLToPath} from 'node:url';
 
 const source={'GLSMAC_data/default/main.gls.js':'production',
   'GLSMAC_data/tests/_behavior.gls.js':'helper',
@@ -47,4 +48,34 @@ test('stale source or mixed engine artifacts fail even when all tests report suc
 test('invalid or empty partition plans are rejected before launching an engine',()=>{
   for(const args of [[0,2],[1,0],[3,2],[1,6],[1.5,2]])assert.throws(()=>plan(source,...args));
   assert.throws(()=>plan({'GLSMAC_data/default/main.gls.js':'no tests'}));
+});
+
+test('four-way resource profile keeps every actual script and helper exactly once',()=>{
+  const actual=snapshotAt(fileURLToPath(new URL('../../',import.meta.url)));
+  const all=plan(actual).all,parts=[1,2,3,4].map(index=>plan(actual,index,4));
+  assert.deepEqual(parts.flatMap(part=>part.selected).sort(),all);
+  assert.equal(new Set(parts.flatMap(part=>part.selected)).size,all.length);
+  for(const name of ['unit_disband_controls','terraform_automation','terraforming_controls_all']){
+    const path=`GLSMAC_data/tests/${name}.gls.js`;
+    assert.ok(parts[3].selected.includes(path));
+    assert.ok(parts.slice(0,3).every(part=>!part.selected.includes(path)));
+  }
+  for(const part of parts)for(const [name,value] of Object.entries(actual)){
+    if(!/^GLSMAC_data\/tests\/[^_/][^/]*\.gls\.js$/.test(name))assert.equal(part.mounted[name],value);
+  }
+  const reports=parts.map(part=>({version:1,completed:true,native_engine_tests:true,
+    partition:{index:part.index,count:4},source_sha256:part.source_sha256,
+    runtime_sha256:{...runtime},scripts:part.selected}));
+  assert.deepEqual(combine(reports,actual,4).scripts,all);
+  const misplaced=structuredClone(reports),heavy='GLSMAC_data/tests/unit_disband_controls.gls.js';
+  misplaced[3].scripts=misplaced[3].scripts.filter(name=>name!==heavy);misplaced[2].scripts.push(heavy);
+  assert.throws(()=>combine(misplaced,actual,4));
+  const missingBuiltin=structuredClone(reports);missingBuiltin[3].native_engine_tests=false;
+  assert.throws(()=>combine(missingBuiltin,actual,4));
+});
+
+test('direct serial and non-four-way plans retain their original distribution',()=>{
+  const actual=snapshotAt(fileURLToPath(new URL('../../',import.meta.url))),all=plan(actual).all;
+  for(const count of [1,2,3,5])for(let index=1;index<=count;index++)
+    assert.deepEqual(plan(actual,index,count).selected,all.filter((_,position)=>position%count===index-1));
 });

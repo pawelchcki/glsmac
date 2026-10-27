@@ -32,7 +32,8 @@ def completed(names):
 class PacketCatalogTests(unittest.TestCase):
     def test_disband_default_selection_keeps_the_exact_original_seven_case_contract(self):
         suites = fast.load_catalog(fast.DEFAULT_CATALOG)['suites']
-        self.assertEqual([suite['id'] for suite in suites if 'packets' in suite], ['unit-disband-controls'])
+        self.assertEqual([suite['id'] for suite in suites if 'packets' in suite],
+                         ['unit-disband-controls', 'colony-menu-controls'])
         row = next(suite for suite in suites if suite['id'] == 'unit-disband-controls')
         cases = (fast.ROOT / 'GLSMAC_data/tests/_unit_disband_regression_cases.gls.js').read_bytes()
         self.assertEqual(hashlib.sha256(cases).hexdigest(), '7407e78beddc606c20263dc233a4530e7af1333d07ae38d6a5f41f5545affc01')
