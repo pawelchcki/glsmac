@@ -10,6 +10,9 @@ return (profile, ids, initial_base_name, map_size, land_names) => {
 	else if (#is_defined(initial_base_name)) { f = test.selection_fixture(initial_base_name); }
 	else { f = test.selection_fixture(); }
 	f.enable_economy();
+	// Normal configure_game binds these declarations before any unit preview.
+	// This isolated UI world supplies the same explicit synthetic source input.
+	f.game.set('terraforming_rules', #include('../default/game/terraforming_rules').parse(test.parse_smac_text(#include('./_terraform_action_source'), 'rules')));
 	f.with_write(() => {
 		// Existing constructor definitions are replaced with the actual shipped
 		// basic land declarations on synthetic installed component inputs.
