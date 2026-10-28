@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <time.h>
 
-// Private compatibility for the pinned QuickJS C translation unit. No Windows
+// Private compatibility for the pinned QuickJS C translation units. No Windows
 // headers or replacement time API leak into first-party C++ or script policy.
 struct timeval {
 	int64_t tv_sec;
