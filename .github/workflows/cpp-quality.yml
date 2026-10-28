@@ -127,15 +127,12 @@ jobs:
           $probeExit = $LASTEXITCODE
           Write-Host "Clang runtime probe exit code: $probeExit"
           if ($probeExit -ne 0) {
-            if (Get-Command lldb -ErrorAction SilentlyContinue) {
-              lldb --batch -o 'breakpoint set --name abort' -o run -o 'thread backtrace all' -- ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
-            } else {
-              gdb --batch -ex 'set breakpoint pending on' -ex 'break abort' -ex run -ex bt --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
-            }
+            gdb --batch -ex 'set breakpoint pending on' -ex 'break ucrtbase!abort' -ex run -ex bt -ex 'info registers' --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
             llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe
           }
           exit $probeExit
       - name: Preserve the existing MinGW runtime build path
+        if: always()
         shell: pwsh
         run: |
           cmake -S tools/script-runtime -B build/script-mingw -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release
@@ -150,6 +147,13 @@ jobs:
             llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe
           }
           exit $probeExit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpp-windows-runtime
+          path: |
+            build/script-windows/bin
+            build/script-mingw/bin
 
   wasm-probes:
     name: C++23 WASM graphics and platform probes
