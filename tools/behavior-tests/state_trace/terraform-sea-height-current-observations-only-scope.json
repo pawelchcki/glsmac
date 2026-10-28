@@ -1,0 +1,60 @@
+{
+  "kind": "terraform-sea-height-current-observations-only.v1",
+  "current_acceptance": "observations-only",
+  "source_head": "2423f2d5b34137a20036938afee4b4034cb93ebd",
+  "candidate_executed": false,
+  "new_game_runs": 0,
+  "published_passing_case_credit": {
+    "native_cases_added": 0,
+    "browser_cases_audited": 0,
+    "native_capture_field_cases_audited": 0,
+    "complete_browser_cases_audited": 0,
+    "execution_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 0,
+    "bounded_journal_field_cases_audited": 0
+  },
+  "compile_attribution_verified": false,
+  "public_retained_replay_available": false,
+  "result_path": "terraform-sea-height-v3-current-observations-only.json",
+  "result_sha256": "d5a3685b01bf725531167e956761221ee62315b92fa305415f9cd3dde8e5f94f",
+  "observed_records": {
+    "snapshot_records": 6,
+    "changed_fields": 71,
+    "Float_fields": 96,
+    "viewport_frames": 5
+  },
+  "historical_capture": {
+    "source": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+    "native": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default": "25ef18d3222f553507291d412330262169b2e418",
+    "raw_bytes": 13374094,
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+    "recorded_Node_exit": 0,
+    "recorded_APP_exit": 0,
+    "scope": "Historical receipt facts only; no current passing-case or build-attribution credit"
+  },
+  "current_readonly_check": {
+    "command": "python3 tools/behavior-tests/state_trace/terraform_sea_height_browser_audit.py --artifacts ARTIFACT_DIRECTORY --source-root HISTORICAL_SOURCE_ROOT --output NEW_RESULT",
+    "actual_process_exit": 0,
+    "tool_session": 52256,
+    "tool_final_chunk": "d0eea4",
+    "raw_replay_publicly_available": false
+  },
+  "public_checks": {
+    "focused_credit_model_and_real_cheap_portable_envelope": {
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 2.08
+    },
+    "strict_scan_author_checks": {
+      "passed": 3,
+      "skipped": 0,
+      "seconds": 4.845
+    },
+    "mandatory_current_Sea_public_tests": 36,
+    "mandatory_current_preparation_runner_tests": 29,
+    "scope": "36 and29 are current CI inventories; previous full runs36/28 plus necessary targeted current checks, not a claimed fresh full29 local run"
+  },
+  "preservation": "Earlier raw, report, capture, result and proof versions are unchanged. This current version supersedes earlier positive case-credit labels; it does not publicly reproduce the private raw capture."
+}

@@ -1,0 +1,90 @@
+{
+  "kind": "terraform-sea-dependency-output-readonly-proof.v1",
+  "source_base": "0fe87967950e47a1f9fb6804ebedc7731d8e1906",
+  "sea_source_fix": "33b5c07ffdfed1a4f7cd68b4bdfbbee764edb510",
+  "shared_exact_byte_port": "eb29ee0ddecdd6a04ce0453b54cd09905325c342",
+  "shared_source_from_delivery": "73559f3de6432c72808fab55a7265b3befc9a900",
+  "auditor_sha256": "f421b402773d6ee193a8254e50454eb2454956e353937e5556d0dcc25818564f",
+  "shared_height_auditor_sha256": "05d0bffa3433e435c64800f7a9d6f3b6c9057453d4d34c15d0d10c7c62abfb3f",
+  "result_file": "terraform-sea-height-v3-typed-audit-dependencies-output.json",
+  "result_sha256": "8eda167fc14ae66e5b11fdd205d1bc60227b2c9f4df4dbab1d1ef9d561934662",
+  "findings": [
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9qEC",
+      "verdict": "VALID",
+      "fix": "emit exact four-file shared validation dependency hash map in current result; changing an imported validator changes its binding even when both auditor files are unchanged"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9qEE",
+      "verdict": "VALID",
+      "fix": "exclusive UTF8 output create after replay; deterministic interleaving preserves first writer and rejects later writer"
+    }
+  ],
+  "checks": {
+    "public_sea": {
+      "count": 36,
+      "skipped": 0,
+      "seconds": 22.11,
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/behavior-tests",
+        "-p",
+        "test_terraform_sea_height_browser_audit.py",
+        "-k",
+        "PublicSea",
+        "-q"
+      ],
+      "source": "33b5c07f before exact shared byte port",
+      "tool_session": 25852,
+      "tool_completion_chunk": "f19de6"
+    },
+    "affected_public_after_shared_port": {
+      "count": 5,
+      "skipped": 0,
+      "seconds": 0.067,
+      "selector": "PublicSeaParserTests",
+      "scope": "same existing mandatory public class, not additional case credit"
+    },
+    "one_actual_readonly_cli": {
+      "argv": [
+        "python3",
+        "tools/behavior-tests/state_trace/terraform_sea_height_browser_audit.py",
+        "--artifacts",
+        "/tmp/terraform-sea-height-v6-label-v3",
+        "--source-root",
+        "/tmp/wasmsmac-terraform-sea-height-v3-frozen",
+        "--output",
+        "/tmp/terraform-sea-height-v6-label-v3/reaudit-dependencies-output-eb29ee0d.json"
+      ],
+      "os_exit": 0,
+      "tool_session": 51132,
+      "tool_completion_chunk": "e822dd"
+    },
+    "old_output_race": "deterministic test failed on old main: no FileExistsError, later writer overwrote winner; retained /tmp/sea-audit-output-old-red.log"
+  },
+  "historical_capture": {
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+    "preflight_sha256": "dbcb32bab943d61de951d9a206c67993587c5ada8f795fceb90f50553d729cde",
+    "source_runtime_scope": "original source7d26149a /Native115/Default25/runtimev6 unchanged"
+  },
+  "current_credit": {
+    "observed_worlds": 6,
+    "complete_worlds": 0,
+    "execution_cases_audited": 1,
+    "bounded_state_receipt_cases_audited": 1,
+    "complete_browser_cases_audited": 0,
+    "new_game_executions": 0
+  },
+  "limits": [
+    "No historical raw/report/result/source/tool bytes overwritten.",
+    "Independent historical OS witness remains bound to its existing actual receipt; this CLI is only a read-only re-audit.",
+    "Missing exact callback messages and native entity-detail raw identity echoes remain unsupported, no complete/browser credit.",
+    "No prepare/runner/browser/observer/Native/default/rules/hook changes by this patch.",
+    "No full private mutation batch or game/browser capture executed."
+  ]
+}

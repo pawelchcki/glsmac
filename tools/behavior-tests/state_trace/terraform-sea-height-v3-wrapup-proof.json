@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "id": "sea-v3-wrapup-current-partial-scope",
+  "status": "partial-readonly-bounded-state-receipt-audit",
+  "complete_browser_passing_cases": 0,
+  "bounded_state_receipt_cases": 1,
+  "new_engine_browser_executions": 0,
+  "scope": "Current partial-scope re-audit of SAME historical Sea capture. Supersedes earlier complete-browser callback claims without rewriting historical evidence.",
+  "source_commit": "a50e6258",
+  "parent_height_source_commits": [
+    "6ff439ae",
+    "80c1579c",
+    "7c511787"
+  ],
+  "auditor_sha256": "a88e109dd34174725372a42d0c488d1d50dd292bf9be8fd1a963ecc216c5bd04",
+  "shared_height_auditor_sha256": "0a93139b0496884bceff9bc2f964fba0e63d570a6ef6c14287365da83cb23e08",
+  "result_path": "tools/behavior-tests/state_trace/terraform-sea-height-v3-typed-audit-wrapup.json",
+  "result_sha256": "3d770570ce44b7339c89847106bc4f1c9f17f7ca133a0a98fab11112540aae31",
+  "capture_source": {
+    "head": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+    "native": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default": "25ef18d3222f553507291d412330262169b2e418",
+    "runtime": "historical v6; not relabeled current source"
+  },
+  "capture_bindings": {
+    "raw_bytes": 13374094,
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+    "preflight_sha256": "dbcb32bab943d61de951d9a206c67993587c5ada8f795fceb90f50553d729cde"
+  },
+  "historical_results_unchanged": {
+    "terraform-sea-height-v3-typed-audit.json": "f94cb156c8d2588f872cfc0ac3a15c8f68d633f46b06c8ecee3e08a8f1292e4e",
+    "terraform-sea-height-v3-proof.json": "1d5a202ca88596f9feb86d3aeba237a3c2e442983d080c496894574071059bff",
+    "terraform-sea-height-v3-independent-audit.json": "6d8b36d2158eb848add34fdb75a7c17156a9f2f536b653e9581e1d3f410dfc5f",
+    "terraform-sea-height-v3-typed-audit-helper-v6.json": "7be53dd8c0ce13b6cf65974168a5a39eb7902e94a04c5bf7214c41ff9f9b47d4",
+    "terraform-sea-height-v3-typed-audit-helper-v6-funded.json": "4944076af66c70c240a1da83f958ee42627b2b801ae4bee52e4dbaaa5d72faf5",
+    "terraform-sea-height-v3-helper-v6-proof.json": "e170aa06948210e752e5fab9c03cbcd49f8e0f83cc00b08619106834649c1538"
+  },
+  "callback_message_identity": {
+    "supported": false,
+    "verified_messages": 0,
+    "scope": "UNSUPPORTED: legacy offset-only metadata cannot prove exact callback message identities/count; sealed-byte journal remains bounded evidence"
+  },
+  "bounded_observations": {
+    "worlds": 6,
+    "players_per_world": 7,
+    "bases_per_world": 7,
+    "units_per_world": 8,
+    "tiles_per_world": 128,
+    "pure_worlds": 5,
+    "exact_source_derived_changed_fields": 71,
+    "native_float_fields": 96,
+    "bootstrap": {
+      "native_choice_cost": 40,
+      "native_prefill": 43,
+      "income": 1,
+      "overflow": 4,
+      "production_receipts": 1,
+      "growth_receipts": 7,
+      "scope": "scalar receipts plus all-seven source/current-turn state; no fabricated per-base ACK echo"
+    },
+    "pointer_route": {
+      "physical_clicks_verified": 8,
+      "raw_button_actions_exhausted": true,
+      "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+    },
+    "keyboard_route": {
+      "shortcuts_verified": 8,
+      "raw_key_edges_exhausted": 48,
+      "scope": "exact K/six P/Q Ctrl+Alt command and modifier/down/up sequence; no additional key actions"
+    },
+    "frames_decoded": {
+      "retained_frame_digests_verified": 5,
+      "decoded_frames": [
+        {
+          "width": 1024,
+          "height": 769,
+          "decoded_pixel_bytes": 2362368,
+          "decoded_pixels_sha256": "1c4a0d110985b487947b9efc232f2d4ffe6781fee0f48fa9cf6ccaf70cd21f17"
+        },
+        {
+          "width": 1024,
+          "height": 769,
+          "decoded_pixel_bytes": 2362368,
+          "decoded_pixels_sha256": "8080d7240cd66271461300e51758fbbee67d0544c629579967e7e5a54e48ccc1"
+        },
+        {
+          "width": 1024,
+          "height": 769,
+          "decoded_pixel_bytes": 2362368,
+          "decoded_pixels_sha256": "eaed8d6cc15dad1089e07ca8d1b0e5562e6470ff3f04f128f46007d3b21c6128"
+        },
+        {
+          "width": 1024,
+          "height": 769,
+          "decoded_pixel_bytes": 2362368,
+          "decoded_pixels_sha256": "db2b644ee04bec3155188b947a2cb5551547af6dd87627b29c95d1e442eb7d6e"
+        },
+        {
+          "width": 1024,
+          "height": 769,
+          "decoded_pixel_bytes": 2362368,
+          "decoded_pixels_sha256": "217c2e5d560c405375bedb38ebcaaf775264f23a767b2db1f731befdf95d7a7a"
+        }
+      ],
+      "scope": "actual decoded RGB/RGBA file bytes and retained canvas clip; no original pixels/pose/mesh agreement"
+    },
+    "external_exit": {
+      "supported": true,
+      "external_node_os_exit": 0,
+      "native_app_exit": 0,
+      "tool_session": 52401,
+      "tool_chunk": "60a1a5",
+      "raw_outcome_sha256": "95ef0e7d413ffd9c11787d9034c56fd8e2eace4323c4e552d9c92a55a2c13da3",
+      "owned_reaped_without_forced_cleanup": true
+    }
+  },
+  "validation": {
+    "public_checks": 21,
+    "public_skips": 0,
+    "public_seconds": 3.337,
+    "affected_retained_artifact_checks": 1,
+    "retained_skips": 0,
+    "retained_seconds": 6.658,
+    "retained_tool_chunk": "7c3d39",
+    "retained_os_exit": 0,
+    "actual_cli_seconds": 4.37551718,
+    "actual_cli_tool_chunk": "2e51a8",
+    "actual_cli_os_exit": 0,
+    "scope": "No new full retained mutation batch: narrow affected full-artifact check plus public models; earlier versions retain their own check records."
+  },
+  "workers": "All check workers exited/reaped; no Native/browser/build and no capture rerun.",
+  "unsupported": [
+    "original height/price/wording parity",
+    "numeric render-mesh vertices/resident Z/facing/tool frames/audio/animation",
+    "fixed camera (only viewport fixed)",
+    "Sea water-to-land/coast/stranded worker/lower scenarios",
+    "actual movement (traversal quotes only)",
+    "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit"
+  ],
+  "command": "python3 tools/behavior-tests/state_trace/terraform_sea_height_browser_audit.py --artifacts /tmp/terraform-sea-height-v6-label-v3 --source-root /tmp/wasmsmac-terraform-sea-height-v3-frozen --output tools/behavior-tests/state_trace/terraform-sea-height-v3-typed-audit-wrapup.json"
+}
