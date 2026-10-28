@@ -70,8 +70,9 @@ QuickJS 2026-06-04 is fetched by SHA256 and compiled as C for both native and
 Emscripten. Its libc/OS helper module is absent. Each runtime belongs to its
 constructing thread. Windows Clang uses a narrow C11-time compatibility header
 and disables upstream's pthread-based Atomics, which policy cannot access on any
-platform. Its final link selects Clang's compiler-rt for BigInt's 128-bit division
-helper. CI compiles and executes both the Clang/MSVC-ABI and existing MinGW
+platform. Its final link explicitly includes the compiler-selected compiler-rt
+archive for BigInt's 128-bit division helper, since CMake suppresses default
+runtime libraries on this target. CI compiles and executes both the Clang/MSVC-ABI and existing MinGW
 runtime boundaries.
 The default JavaScript heap is 64 MiB and the native stack guard is 1 MiB.
 Upstream disables that separate stack guard on WASM; its linear-memory stack

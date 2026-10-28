@@ -77,6 +77,8 @@ Verified checks include:
   staging, compiler-worker changes, failed transforms, tampering and all three
   source-map implementations; independent strict types, type-aware lint and format.
 - Twenty-one frozen-snapshot tests and 35 fast-runner/real-loader tests.
+- The complete Hot harness unit command: 389 tests, with seven optional
+  installed-source tests skipped; package validation runs before worker mocks.
 - Five GSE/TypeScript boundary scenarios with 18 assertions; unchanged resource
   integration (17 scenarios/48 assertions) and Former integration (30/60) in WASM.
 - All 576 unchanged recorded land-worker resource observations: matched, zero
@@ -100,6 +102,14 @@ retained. The label assertion now includes the visible `= ` prefix, independentl
 supported by immutable original
 [HUD observations](../tools/behavior-tests/ui/observations/smacx-gog-2.0-base-resource-hud.json).
 No original observations were edited.
+
+The final browser replay passed both cases in 57.17/52.93 seconds on WASM SHA256
+`6c19a4bef43a44dcc40e7f4292d2013b46ac89597a58fcec5b6ac4f290dd5e56`.
+A preceding replay preserved two stale-preview failures: the native terrain and
+yield assertions passed while a fixed 100 ms delay captured an older image.
+The fixture now waits at most ten seconds for both preview and world crops to
+change, including the first edit, within the unchanged 120-second case limit.
+Those failed screenshots/logs remain in `build/scripts/failures/resource-browser-150d`.
 
 The complete local static-analysis run was discarded because source/compile
 inputs changed during it. New runtime, bridge and probe units had zero diagnostics
