@@ -45,3 +45,16 @@ behavior.scenario('uncapped ocean yields preserve lazy native technology observa
 	test.assert(policy.apply(tile,player,rules,{NUTRIENTS:1,MINERALS:0,ENERGY:1}) == {NUTRIENTS:1,MINERALS:0,ENERGY:0});
 	test.assert(reads == 0);
 });
+
+behavior.scenario('split policy calls require the package that produced their input', () => {
+	test.assert(identity(7) == 7);
+	const package_id = #js_package();
+	test.assert(#js_call('tests/runtime','identity',8,package_id) == 8);
+	let caught = false;
+	try { #js_call('tests/runtime','identity',7,package_id + 'stale'); }
+	catch { GSEOperationFailed: (error) => {
+		test.assert(error.reason == 'TypeScript policy failed: Script package changed during operation');
+		caught = true;
+	} }
+	test.assert(caught && identity(7) == 7);
+});

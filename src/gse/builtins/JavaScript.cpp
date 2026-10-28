@@ -97,7 +97,7 @@ std::string PackageDirectory() {
 
 void JavaScript::AddToContext( gc::Space* const gc_space, context::Context* ctx, ExecutionPointer& ep ) {
 	ctx->CreateBuiltin( "js_call", NATIVE_CALL( this ) {
-		N_EXPECT_ARGS( 3 );
+		N_EXPECT_ARGS_MIN_MAX( 3, 4 );
 		N_GETVALUE( module, 0, String );
 		N_GETVALUE( function, 1, String );
 		try {
@@ -107,6 +107,10 @@ void JavaScript::AddToContext( gc::Space* const gc_space, context::Context* ctx,
 				m_runtime = std::make_unique< script::Runtime >( manifest, [ directory ]( const std::string& path ) { return util::FS::ReadTextFile( directory + "/" + path ); } );
 				m_manifest = manifest;
 				m_directory = directory;
+			}
+			if ( arguments.size() == 4 ) {
+				N_GETVALUE( expected_package, 3, String );
+				if ( expected_package != m_runtime->PackageIdentity() ) { throw script::Error( "Script package changed during operation" ); }
 			}
 			std::set< Value* > ancestors = {};
 			const auto result = m_runtime->Call( module, function, Snapshot( arguments[ 2 ], ancestors ) );
@@ -121,6 +125,11 @@ void JavaScript::AddToContext( gc::Space* const gc_space, context::Context* ctx,
 			m_runtime.reset();
 			GSE_ERROR( EC.OPERATION_FAILED, "TypeScript policy failed: " + std::string( error.what() ) );
 		}
+	} ), ep );
+	ctx->CreateBuiltin( "js_package", NATIVE_CALL( this ) {
+		N_EXPECT_ARGS( 0 );
+		if ( !m_runtime ) { GSE_ERROR( EC.OPERATION_FAILED, "No active JavaScript package" ); }
+		return VALUE( value::String, , m_runtime->PackageIdentity() );
 	} ), ep );
 }
 

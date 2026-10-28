@@ -78,6 +78,19 @@ int main( const int argc, const char** argv ) {
 			}
 			assert( rejected );
 		}
+		{
+			script::Limits limits;
+			limits.execution = std::chrono::milliseconds( 20 );
+			script::Runtime module_loop( manifest, reader, limits );
+			bool rejected = false;
+			try {
+				module_loop.Call( "tests/module-loop", "unreachable", {} );
+			}
+			catch ( const script::Error& error ) {
+				rejected = error.Reason() == "interrupted";
+			}
+			assert( rejected );
+		}
 		assert( std::get< int64_t >( std::get< script::Value::Object >( record.data ).at( "n" ).data ) == 1 );
 		assert( std::holds_alternative< script::Undefined >( runtime.Call( "fixtures/test", "checkSelection", {} ).data ) );
 #ifndef __EMSCRIPTEN__
@@ -89,6 +102,7 @@ int main( const int argc, const char** argv ) {
 			std::this_thread::sleep_for( std::chrono::milliseconds( 30 ) );
 			return reader( path ); }, loading_limits );
 		assert( std::get< int64_t >( delayed.Call( "tests/runtime", "identity", script::Value( int64_t{ 7 } ) ).data ) == 7 );
+		assert( std::holds_alternative< script::Undefined >( delayed.Call( "fixtures/test", "checkSelection", {} ).data ) );
 		bool rejected = false;
 		std::thread foreign( [ & ]() { try { runtime.Call( "tests/runtime", "identity", {} ); } catch ( const script::Error& ) { rejected = true; } } );
 		foreign.join();

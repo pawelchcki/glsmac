@@ -116,6 +116,7 @@ try {
   };
   let started = performance.now();
   const initial = await build({ sourceRoot: directory, output, runtimeFiles });
+  const initialSnapshot = packageSnapshot(output, directory);
   const initialBuild = performance.now() - started;
   started = performance.now();
   execute(7);
@@ -148,6 +149,53 @@ try {
     build_ms: changedBuild,
     execute_ms: performance.now() - started,
   });
+  if (wasm) {
+    const filename = "GLSMAC_data/tests/package_switch.gls.js";
+    const script = `const behavior = #include('./_behavior');
+behavior.scenario('one package per yield operation', () => {
+  const input = #js_call('tests/tile-yield','snapshot',null);
+  const plan = #js_call('game/land-resource-yields','plan',input);
+  const package_id = #js_package();
+  #print('SCRIPT_PACKAGE_SWAP_NOW');
+  let rejected = false;
+  try { #js_call('game/land-resource-yields','resolve',{schema:1,plan:plan,caps:input.caps},package_id); }
+  catch { GSEOperationFailed: (error) => {
+    test.assert(error.reason == 'TypeScript policy failed: Script package changed during operation');
+    rejected = true;
+  } }
+  test.assert(rejected);
+  test.assert(#js_call('tests/runtime','identity',7) == 8);
+});`;
+    const frozen = join(directory, "switch.json");
+    writeFileSync(
+      frozen,
+      JSON.stringify({
+        ...initialSnapshot,
+        [filename]: script,
+        "GLSMAC_data/tests/_behavior.gls.js": readFileSync(
+          join(root, "GLSMAC_data/tests/_behavior.gls.js"),
+          "utf8",
+        ),
+      }),
+    );
+    const worker = join(root, "tools/scripts/package-switch-worker.cjs");
+    run(process.execPath, [worker], {
+      cwd: directory,
+      input: JSON.stringify({
+        run: {
+          runtime: runtimeFiles[0],
+          snapshot: frozen,
+          script: filename,
+          prefix: join(directory, "switch-prefix"),
+        },
+        package: packageSnapshot(output, directory),
+      }),
+    });
+    report.phases.push({
+      name: "publication between plan and resolve is rejected",
+      fixture_worker_sha256: digest(readFileSync(worker)),
+    });
+  }
   writeFileSync(source, "export const invalid: = ;");
   await assert.rejects(build({ sourceRoot: directory, output, runtimeFiles }));
   assert.equal(existsSync(join(output, "manifest.json")), false);

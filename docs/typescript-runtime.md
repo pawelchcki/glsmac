@@ -71,9 +71,14 @@ Emscripten. Its libc/OS helper module is absent. Each runtime belongs to its
 constructing thread. Windows Clang uses a narrow C11-time compatibility header
 and disables upstream's pthread-based Atomics, which policy cannot access on any
 platform. CI compiles and executes the actual Windows runtime boundary.
-The default JavaScript heap is 64 MiB, stack is 1 MiB, and
-evaluation deadline is 200 ms per compilation/evaluation stage. Host file reads,
-source-map decoding and copied-value preparation are outside that timer. Limits apply to the JavaScript runtime; this is not
+The default JavaScript heap is 64 MiB and the native stack guard is 1 MiB.
+Upstream disables that separate stack guard on WASM; its linear-memory stack
+is configured to 4 MiB, and independent JS stack-limit parity remains open. The
+evaluation deadline is 200 ms for module initialization and function execution.
+The complete import graph is resolved first. Trusted setup, JSON parsing and
+bytecode compilation have a separate two-second stage limit; host file reads,
+source-map decoding and copied-value preparation are outside the execution timer.
+Limits apply to the JavaScript runtime; this is not
 a claim that the entire application is memory bounded or a security sandbox.
 
 The boundary copies value trees in both directions and freezes script inputs.
@@ -97,6 +102,10 @@ event ordering, RNG or serialization protocol.
 validators and C++ structs/validators. The yield plan and resolution messages are
 versioned. Error classes and reasons survive the adapter; stack locations map
 back to original TypeScript. A failed runtime is discarded before another call.
+The adapter captures `#js_package()` after planning and supplies it as the fourth
+`#js_call` argument during resolution. Publication between these phases rejects
+the operation before a different package can consume its plan. A fresh operation
+then uses the current package; no result combines two policy generations.
 
 ## Verification and removal inventory
 

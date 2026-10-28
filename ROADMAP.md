@@ -1,6 +1,6 @@
 # Architecture and development roadmap
 
-Status: C++ quality foundation merged; first TypeScript terrain-rule cutover implemented, delivery verification in progress. Updated 2026-10-28.
+Status: C++ quality foundation merged; first TypeScript terrain-rule cutover implemented, delivery verification in progress. Updated 2026-10-29.
 
 ## Decisions
 

@@ -45,6 +45,7 @@ public:
 	Runtime( const Runtime& ) = delete;
 	Runtime& operator=( const Runtime& ) = delete;
 	Value Call( const std::string& module, const std::string& function, const Value& input );
+	std::string PackageIdentity() const;
 	static std::string Version();
 
 private:

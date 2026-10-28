@@ -88,7 +88,7 @@ struct Runtime::Impl {
 		JS_SetMaxStackSize( runtime.get(), limits.stack_bytes );
 		context.reset( JS_NewContext( runtime.get() ) );
 		if ( !context ) { throw Error( "Cannot create JavaScript context" ); }
-		ResetDeadline();
+		ResetLoadDeadline();
 		Handle object( context.get(), JS_NewObject( context.get() ) );
 		Handle array( context.get(), JS_NewArray( context.get() ) );
 		Check( object.Get() );
@@ -102,7 +102,7 @@ struct Runtime::Impl {
 		const std::string setup = "globalThis.Date = undefined; globalThis.eval = undefined; globalThis.Function = undefined;"
 								  "globalThis.SharedArrayBuffer = undefined; globalThis.Atomics = undefined;"
 								  "Math.random = () => { throw new Error('Ambient randomness is unavailable to game policy'); }; Object.freeze(Math); Object.freeze";
-		ResetDeadline();
+		ResetLoadDeadline();
 		freezer = std::make_unique< Handle >( context.get(), JS_Eval( context.get(), setup.c_str(), setup.size(), "<host-policy>", JS_EVAL_TYPE_GLOBAL ) );
 		Check( freezer->Get() );
 		Handle metadata( context.get(), JS_ParseJSON( context.get(), manifest.c_str(), manifest.size(), "<script-package>" ) );
@@ -132,6 +132,7 @@ struct Runtime::Impl {
 	}
 
 	void ResetDeadline() { deadline = std::chrono::steady_clock::now() + limits.execution; }
+	void ResetLoadDeadline() { deadline = std::chrono::steady_clock::now() + std::chrono::seconds( 2 ); }
 	void Check( JSValueConst value ) {
 		if ( JS_IsException( value ) ) { throw Error( Failure() ); }
 	}
@@ -174,7 +175,7 @@ struct Runtime::Impl {
 			if ( cached != self->compiled_modules.end() ) { return static_cast< JSModuleDef* >( JS_VALUE_GET_PTR( cached->second.Get() ) ); }
 			const auto source = self->reader( self->package_root + "/" + name );
 			const auto source_map = self->reader( self->package_root + "/" + name + ".map" );
-			self->ResetDeadline();
+			self->ResetLoadDeadline();
 			Handle map( ctx, JS_ParseJSON( ctx, source_map.c_str(), source_map.size(), ( name + ".map" ).c_str() ) );
 			self->Check( map.Get() );
 			Handle sources( ctx, JS_GetPropertyStr( ctx, map.Get(), "sources" ) );
@@ -187,7 +188,7 @@ struct Runtime::Impl {
 				paths.push_back( Text( ctx, path.Get() ) );
 			}
 			self->maps.emplace( name, SourceMap( StringProperty( ctx, map.Get(), "mappings" ), std::move( paths ) ) );
-			self->ResetDeadline();
+			self->ResetLoadDeadline();
 			Handle compiled( ctx, JS_Eval( ctx, source.c_str(), source.size(), name.c_str(), JS_EVAL_TYPE_MODULE | JS_EVAL_FLAG_COMPILE_ONLY ) );
 			self->Check( compiled.Get() );
 			const auto [ stored, inserted ] = self->compiled_modules.emplace( name, Handle( ctx, compiled.Release() ) );
@@ -343,6 +344,10 @@ struct Runtime::Impl {
 			auto* module = LoadModule( ctx, filename.c_str(), this );
 			if ( !module ) { throw Error( Failure() ); }
 			Handle compiled( ctx, JS_DupValue( ctx, JS_MKPTR( JS_TAG_MODULE, module ) ) );
+			// Resolve the complete graph before starting the user-code timer.
+			// Dependency reads, source maps and compilation must not consume it.
+			ResetLoadDeadline();
+			if ( JS_ResolveModule( ctx, compiled.Get() ) < 0 ) { throw Error( Failure() ); }
 			ResetDeadline();
 			Handle result( ctx, JS_EvalFunction( ctx, compiled.Release() ) );
 			Check( result.Get() );
@@ -388,5 +393,6 @@ Value Runtime::Call( const std::string& module, const std::string& function, con
 	}
 }
 std::string Runtime::Version() { return "QuickJS 2026-06-04"; }
+std::string Runtime::PackageIdentity() const { return m_impl->package_root; }
 
 }// namespace script

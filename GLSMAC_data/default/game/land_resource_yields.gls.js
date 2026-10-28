@@ -44,10 +44,11 @@ return {
 			caps:{NUTRIENTS:false,MINERALS:false,ENERGY:false},
 			sea_mine_bonus: !tile.is_land && improvements.mine && has_technology(player,rules.sea_mine_bonus_tech,game),mirrors:mirrors,
 		});
+		const package_id = #js_package();
 		const caps = {};
 		for (name of ['NUTRIENTS','MINERALS','ENERGY']) {
 			caps[name] = plan.needs_caps[name] ? has_technology(player,rules.caps[name],game) : false;
 		}
-		return #js_call('game/land-resource-yields','resolve',{schema:1,plan:plan,caps:caps});
+		return #js_call('game/land-resource-yields','resolve',{schema:1,plan:plan,caps:caps},package_id);
 	},
 };
