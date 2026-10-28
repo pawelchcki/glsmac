@@ -129,6 +129,7 @@ jobs:
           python3 tools/behavior-tests/test_terraform_sea_height_runner.py -v
           python3 -m unittest discover -s tools/behavior-tests -p 'test_fast*.py' -v
           python3 -m unittest discover -s tools/behavior-tests -p 'test_unit_body_census*.py' -v
+          python3 -m unittest discover -s tools/behavior-tests -p 'test_unit_body_movement*.py' -v
           STATE_TRACE_RUNTIME="$GITHUB_WORKSPACE/build/wasm/bin/GLSMAC.js" python3 -m unittest discover -s tools/behavior-tests -p 'test_behavior_groups.py' -v
       - name: Capture all 26 terraforming variants and ten worker commands
         run: >-
