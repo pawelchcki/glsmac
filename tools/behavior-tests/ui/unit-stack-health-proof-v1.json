@@ -1,0 +1,260 @@
+{
+  "schema": "candidate.unit-stack-health-proof.v1",
+  "status": "actual-first-frontend-strict-pass",
+  "scope": "Existing HUD consistency versus current source priority after a declared backend health event; zero physical/combat/original-policy claim",
+  "source": {
+    "head": "a07652c805b85d7de345b9a3c1fd6d1c6bda942d",
+    "base": "b6a80a056cee421e7c6a1bb727664939052c7c2f",
+    "native_tree": "829148fb568465c65967b8d5c70069c691e247ea",
+    "default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+    "runtime": {
+      "GLSMAC.js": "7a0bb0ddba98b0e80e8690ae10f42b41e005f157237415f2c7848e5c32898171",
+      "GLSMAC.wasm": "9cf76cffd88735d08a0a32ddf765155564310cd9d4621c48609baf611da4a29e"
+    },
+    "source_files_sha256": {
+      "tools/wasm-tests/unit-stack-health-browser.test.mjs": "4b6849dae28728cbc60ee5be2b96aed026fa43334cc386a80155cbb11acb44e3",
+      "tools/wasm-tests/unit-stack-health-browser-fixture.mjs": "d92eba9330b6291825c662a365afe554b17ee4a67bccaea380b00320b2237f8c",
+      "tools/wasm-tests/unit-stack-health-proof.mjs": "ef85a9609c8f67e9a4d1829ac0fda4c3baf4f68cb00915ad32fe26690cb39e0f",
+      "tools/wasm-tests/unit-stack-health-proof.test.mjs": "4c1afd2d42f63d9314e44f44dc896b6c2033e867dbc82adf0dc395e6cf151171",
+      "tools/wasm-tests/unit-stack-order-browser-fixture.mjs": "d983d27ef18b15676e42801598bbb165f95996cdf6fd318b0ec60d42941d3e06",
+      "tools/wasm-tests/unit-workshop-browser-fixture.mjs": "42e90f094ca2930f719a97c50e3c72243265e8c70ae8304ade7e2dc9adfdafec",
+      "GLSMAC_data/tests/_unit_stack_health_control.gls.js": "50b70c8c86c4ac1f90dcbc5368eb0333e5a42bc0f607ffe7653d9f25c2a08658",
+      "GLSMAC_data/tests/unit_stack_health_native.gls.js": "9a9c5367022281d5b75527fcbd1d8416bc5e687bf366a8303c8f24c5c2b58d7b",
+      "GLSMAC_data/tests/_state_trace_observer.gls.js": "115f65dd34fe9e0691f95abfa26900f75ecb132ad92737a0803e1db2cb91984d",
+      "GLSMAC_data/tests/_terrain_trace_observer.gls.js": "f5c895b6fa598d9f83da4ee5ab8bfaccfe396994ef8a31ba378c3fcedf7fe7e1",
+      "GLSMAC_data/tests/_terraform_cooperation_observer.gls.js": "3c8639a86386686d57d50283151f65e5775aa693b292091b2b00cdde58faf0c7",
+      "tools/wasm-tests/browser-log-cursor.mjs": "959cd36fec3d798f889a9de6d8889d23808195a2a2cfc37830497c061cc1eed3",
+      "tools/wasm-tests/browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1",
+      "tools/wasm-tests/runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+      "tools/wasm-tests/terraform-browser-inputs.mjs": "80171fb84092c3f9fb1c0cff4aef213f2f0674f06c3496ed0f1c7838fd3ac8e3",
+      "src/game/frontend/unit/Unit.cpp": "ef40a0b820b135626b835506c6ca1fba7ed37cd998df94b9460fdc435c250bac",
+      "src/game/frontend/unit/UnitDef.cpp": "6d9d4dbac7e44521c180ebb210c465203b7eb4524f3c93d6c1ec7ba287505e20",
+      "src/game/backend/unit/Unit.cpp": "e675928420acce33514e30c1e2006263d0b8a091257a3626903ac19f6ab8ed0d"
+    },
+    "fixture_sha256": {
+      "main": "6858c0eba5420ae07c4d75584cc7ca119c28c613d2de786f62fc7b5a88d0ecf8",
+      "world": "614964b356e649998aea9cd72cbef780f3aa087cc220117c585976d59e4df27d"
+    },
+    "runtime_provenance": "/tmp/wasmsmac-unit-stack-order-runtime-v7/provenance.json",
+    "runtime_provenance_sha256": "4c2a997d05e6af99134d0fb9ddb90f5350def1fcef1b1ef30adcc7e3aebac9cd",
+    "new_cpp_or_production_changes": false
+  },
+  "inputs": {
+    "seed": "1651011033:1377505029:3019448108:3247278135",
+    "declared_input": {
+      "players": 7,
+      "bases": 7,
+      "units": 9,
+      "terrain_tiles": 128,
+      "stack_tile": [
+        8,
+        8
+      ],
+      "a_morale": 2,
+      "b_morale": 1,
+      "health_control": {
+        "previous_float_bits": 1065353216,
+        "target_float_bits": 1056964608,
+        "event": "fixture_stack_health_half_v1",
+        "nonce": "stack-health-a-half-v1"
+      },
+      "physical_game_inputs": 0,
+      "combat_actions": 0,
+      "exit": "normal glsmac.exit after complete observation"
+    },
+    "asset_manifest_id": "12743b42e275842a7ae3862572ec769c6d86f647394f0edb1ff9db6d104888e3",
+    "asset_manifest_sha256": "7df958c3a87c27f4f2e840aaf20d26a48f592107901bbeb238a3b3b58121b7e2"
+  },
+  "frontend_execution": {
+    "raw_node_exit": 0,
+    "actual_native_exit": 0,
+    "elapsed_seconds": 100.3943751459883,
+    "source_unchanged": true,
+    "runtime_unchanged": true,
+    "driver_reaped": true,
+    "owned_process_group_absent": true,
+    "log_sha256": "e23d3a330c87695f1c0fbbd485c688cf568ece37a222d64984c3a24ca909cbc7",
+    "expected_unit": 9,
+    "observed_unit": 9,
+    "raw_bytes": 893579,
+    "contiguous_chunks": 220,
+    "sealed_nonpartial_raw": true,
+    "main_acknowledgements": 1,
+    "worker_acknowledgements": 8,
+    "canonical_out_err_callMain": true,
+    "node_test_budget_seconds": 180,
+    "native_observation_seconds": 120,
+    "checkpoint_labels": [
+      "warm",
+      "after_health",
+      "final"
+    ],
+    "owners_each": 7,
+    "bases_each": 7,
+    "units_each": 9,
+    "terrain_tiles_each": 128,
+    "native_unit_scalar_rows_each": 9,
+    "hud_ids": [
+      8,
+      9,
+      9
+    ],
+    "receipt": {
+      "caller": 0,
+      "event_id": "0_90",
+      "health_bits": 1056964608,
+      "health_type": "Float",
+      "name": "fixture_stack_health_half_v1",
+      "nonce": "stack-health-a-half-v1",
+      "owner_id": 0,
+      "previous_health_bits": 1065353216,
+      "success": true,
+      "turn": 1,
+      "unit_id": 8
+    },
+    "priority": {
+      "warm": {
+        "a": 272,
+        "b": 270
+      },
+      "after_health": {
+        "a": 268,
+        "b": 270
+      }
+    },
+    "world_deltas": [
+      [
+        {
+          "path": "/units/7/health",
+          "before": 1.0,
+          "after": 0.5,
+          "type": "float"
+        }
+      ],
+      [
+        {
+          "path": "/units/7/health",
+          "before": 1.0,
+          "after": 0.5,
+          "type": "float"
+        }
+      ]
+    ],
+    "native_scalar_deltas": [
+      [
+        {
+          "path": "/7/health_bits",
+          "before": 1065353216,
+          "after": 1056964608,
+          "type": "int"
+        }
+      ],
+      [
+        {
+          "path": "/7/health_bits",
+          "before": 1065353216,
+          "after": 1056964608,
+          "type": "int"
+        }
+      ]
+    ],
+    "excluded_world_field": "terrain_trace.ui only; input/receipt/observer metadata is separate",
+    "warm_tile": {
+      "serial": 10,
+      "x": 8,
+      "y": 8
+    },
+    "refresh_preview": {
+      "serial": 13,
+      "unit_id": 9
+    },
+    "final_reselect": {
+      "serial": 14,
+      "x": 8,
+      "y": 8
+    },
+    "final_preview": {
+      "serial": 15,
+      "unit_id": 9
+    }
+  },
+  "frame_observation": {
+    "status": "unavailable",
+    "reason": "Optional diagnostic screenshot after APPexit0 timed out because canvas was not visible",
+    "report_error": "TimeoutError: locator.screenshot: Timeout 966.4130000000005ms exceeded.\nCall log:\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying scroll into view action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying scroll into view action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying scroll into view action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+    "pixel_or_map_body_comparison": false
+  },
+  "backend_sanity": {
+    "execution_head": "e0c9ce007bd71f9f26d6a8577ed392667ab0b54d",
+    "runtime": {
+      "GLSMAC.js": "7a0bb0ddba98b0e80e8690ae10f42b41e005f157237415f2c7848e5c32898171",
+      "GLSMAC.wasm": "9cf76cffd88735d08a0a32ddf765155564310cd9d4621c48609baf611da4a29e"
+    },
+    "native_raw_exit": 0,
+    "scenarios": 2,
+    "assertions": 31,
+    "native_receipts": 8,
+    "accepted_receipts": 2,
+    "rejected_receipts": 6,
+    "seconds": 1.868705046013929,
+    "sole_summary_and_native_footer": true,
+    "stdout_sha256": "2518ef61d6e60051aaaa008b034c21ac365194a7358abdac674a7c440b5742cf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "initial_external_driver_status": "failed; incorrectly asserted global token uniqueness across two fresh Games",
+    "initial_external_driver_result": "/tmp/unit-stack-health-native-v1/result.json",
+    "initial_external_driver_result_sha256": "cf6691030334d27b861d0329f5fb9b81f407d734d7e690bceb815b3549a65b37",
+    "corrected_readonly_audit": "/tmp/unit-stack-health-native-v1/offline-corrected-audit.json",
+    "corrected_readonly_audit_sha256": "b06f3fecf00678e9bfe700f8ef02256ef6fee5fb68af99eed1a6830150fcbb53",
+    "token_scope": "Actual BEHAVIOR scenario/fresh Game lifetime; opaque IDs not parsed or scoped by actor alone",
+    "offline_negative_checks": 5,
+    "rerun": false,
+    "independent_review": "Delivery source/raw lifetime audit accepted by Root"
+  },
+  "pure_tests": {
+    "file": "tools/wasm-tests/unit-stack-health-proof.test.mjs",
+    "cases": 16,
+    "failures": 0,
+    "candidate_engines": 0,
+    "original_cases": 0
+  },
+  "artifacts": {
+    "directory": "/tmp/unit-stack-health-browser-v1",
+    "files_sha256": {
+      "preflight.json": "c484e93c236c2dd56f7021fb7d78c79398e461587258d6177e27cf93687ec537",
+      "source-review.json": "7f7bee5a08dc37342e650f2e5778ece697dc9bf0c2f950051e6d9c6e8414c84f",
+      "tool-bindings.json": "ac1c37a3b73de437b5c4eeec9d0ba28b154846323d0a6a86bcf6c3eb90b91859",
+      "asset-manifest.json": "7df958c3a87c27f4f2e840aaf20d26a48f592107901bbeb238a3b3b58121b7e2",
+      "raw-outcome.json": "ce3068d5f39f527a65e7331819bd465eca75ea74b83ed03236d7dc367cabf6e7",
+      "raw-exit-status.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "node.log": "560cbff84b9f7d930164edc5b6cd9af580f99481e330969c83d3764a6c89af6f",
+      "report.json": "0623407050e662437b1ae0ce3d673031e76b1d38a53114df5e9d6fe039181749",
+      "application.log": "e23d3a330c87695f1c0fbbd485c688cf568ece37a222d64984c3a24ca909cbc7",
+      "application-log-chunks.jsonl": "cb39ae164f87b25f1be2847192c1a7111341ba771416ea1261884b5e85478b58",
+      "native-observation.json": "87525e4102d4b136c362943b4374e8daf1609e833a83c8358148f197fc8a4821",
+      "receipt-acceptance.json": "6b85833cf53d981bce9535f61a643b5fab02c1281646135390c50cc77972e269",
+      "priority-result.json": "b94909d1c5df035931edfb08d11b7e0ac7c0a86f9ceda9764d0c3ae192785084",
+      "readonly-self-audit.json": "a9eeba020720598070fc224cc0e6369435f42639e50a2701e4abab0f219bbf90",
+      "fixture-main.gls.js": "6858c0eba5420ae07c4d75584cc7ca119c28c613d2de786f62fc7b5a88d0ecf8",
+      "fixture-world.gls.js": "614964b356e649998aea9cd72cbef780f3aa087cc220117c585976d59e4df27d"
+    }
+  },
+  "independent_frontend_audit": {
+    "status": "independently-audited-CLEAN/PASS",
+    "path": "/tmp/unit-stack-health-browser-v1/independent-delivery-audit.json",
+    "sha256": "eb5892c68ffff66e5fdc8f005ee5a916c853a97e41387ee5d67b7f26cae20e5b",
+    "reproducer": "/tmp/unit-stack-health-independent-audit.py",
+    "reproducer_sha256": "45aa171e3989b67b760d669bc267003f867e7813aa38d89cdf1fa85892c425df"
+  },
+  "original_passing_cases": 0,
+  "unsupported": [
+    "Original health/selection policy",
+    "Combat/damage gameplay",
+    "Rendered map body/instance identity",
+    "Original pixels or full-frame agreement",
+    "Facing/frame/tool/limb/action-clip binding",
+    "Movement/animation/audio timing",
+    "Direct frontend-request cause ID",
+    "Exhaustive original engine state",
+    "Actual browser executable identity beyond registry/tool metadata"
+  ]
+}
