@@ -3,6 +3,7 @@
   "kinds": {
     "regression": {
       "hot": [
+        "unit-stack-health",
         "unit-workshop",
         "workshop-observation-native",
         "terraforming-cooperation-observation",

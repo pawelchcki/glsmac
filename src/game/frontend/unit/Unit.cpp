@@ -255,6 +255,8 @@ void Unit::Refresh() {
 	if ( m_need_refresh ) {
 		m_need_refresh = false;
 		m_is_active = ShouldBeActive();
+		// Activity and health affect the priority used by selection and previews.
+		m_tile->InvalidateUnitOrder();
 		if ( !m_is_active ) {
 			StopBadgeBlink( false );
 		}

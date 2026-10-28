@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "kind": "exact native before/after graphics cache evidence",
+  "scope": "HUD binding versus current source priority; not original or rendered-map agreement",
+  "before": {
+    "head": "b54b5a993dea3a28db8857066d5f03749ab1cef7",
+    "native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "runtime_js": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+    "runtime_wasm": "b2c7fa273042f2407335169eb4fca51f131f1f30656301d7b7573a201b28f5b7",
+    "node_exit": 1,
+    "native_exit": 0,
+    "raw_sha256": "490d49aeac22bb3ef477ff338e87a223a86bbd684d67374881603b8b45695df9",
+    "observed_hud": 8,
+    "expected_hud": 9,
+    "artifact_dir": "/tmp/unit-stack-order-browser-v1"
+  },
+  "after": {
+    "head": "2f779b2f68d53211adfd00fa4a29e6f31c306a76",
+    "native_source_tree": "829148fb568465c65967b8d5c70069c691e247ea",
+    "runtime_js": "7a0bb0ddba98b0e80e8690ae10f42b41e005f157237415f2c7848e5c32898171",
+    "runtime_wasm": "9cf76cffd88735d08a0a32ddf765155564310cd9d4621c48609baf611da4a29e",
+    "node_exit": 0,
+    "native_exit": 0,
+    "raw_sha256": "85c123dabb65f9d9d2f806bf16bace691730289328c9c55f722c465452b0e8a4",
+    "observed_hud": 9,
+    "expected_hud": 9,
+    "artifact_dir": "/tmp/unit-stack-order-browser-v2"
+  },
+  "same_witness_files_sha256": {
+    "tools/wasm-tests/unit-stack-order-browser.test.mjs": "33a9fb2da61c7ad9b327c6a8924c82488a7220ee5982378af0b9831bb1d34a0c",
+    "tools/wasm-tests/unit-stack-order-browser-fixture.mjs": "d983d27ef18b15676e42801598bbb165f95996cdf6fd318b0ec60d42941d3e06",
+    "tools/wasm-tests/unit-stack-order-proof.mjs": "2f9a43ffb638f1cc0b39ea77b018170c4f27141f5f8388672c95e354e9a37e2b",
+    "tools/wasm-tests/unit-workshop-browser-fixture.mjs": "42e90f094ca2930f719a97c50e3c72243265e8c70ae8304ade7e2dc9adfdafec",
+    "GLSMAC_data/tests/_state_trace_observer.gls.js": "115f65dd34fe9e0691f95abfa26900f75ecb132ad92737a0803e1db2cb91984d",
+    "GLSMAC_data/tests/_terrain_trace_observer.gls.js": "f5c895b6fa598d9f83da4ee5ab8bfaccfe396994ef8a31ba378c3fcedf7fe7e1",
+    "GLSMAC_data/tests/_terraform_cooperation_observer.gls.js": "3c8639a86386686d57d50283151f65e5775aa693b292091b2b00cdde58faf0c7",
+    "tools/wasm-tests/browser-log-cursor.mjs": "959cd36fec3d798f889a9de6d8889d23808195a2a2cfc37830497c061cc1eed3",
+    "tools/wasm-tests/browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1",
+    "tools/wasm-tests/runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+    "tools/wasm-tests/terraform-browser-inputs.mjs": "80171fb84092c3f9fb1c0cff4aef213f2f0674f06c3496ed0f1c7838fd3ac8e3"
+  },
+  "same_asset_manifest": "12743b42e275842a7ae3862572ec769c6d86f647394f0edb1ff9db6d104888e3",
+  "same_declared_input": {
+    "players": 7,
+    "bases": 7,
+    "units": 9,
+    "terrain_tiles": 128,
+    "native_stack_tile": [
+      8,
+      8
+    ],
+    "a_morale": 2,
+    "b_morale": 1,
+    "native_requests": [
+      "tile_select",
+      "unit_hold(A)",
+      "tile_select"
+    ],
+    "physical_game_inputs": 0,
+    "exit": "normal glsmac.exit after complete final observation"
+  },
+  "world_guard": {
+    "owners": 7,
+    "bases": 7,
+    "units": 9,
+    "tiles": 128,
+    "checkpoints": 3,
+    "only_allowed_change": "A order NO_ORDERS\u2192HOLD",
+    "excluded_field": "world.terrain_trace.ui"
+  },
+  "cross_runtime_checkpoint_comparison": {
+    "warm": {
+      "old_hud": 8,
+      "new_hud": 8,
+      "same_complete_native_world": true
+    },
+    "after_hold": {
+      "old_hud": 8,
+      "new_hud": 9,
+      "same_complete_native_world": true
+    },
+    "final": {
+      "old_hud": 8,
+      "new_hud": 9,
+      "same_complete_native_world": true
+    }
+  },
+  "source_priority": {
+    "before": {
+      "a": 272,
+      "b": 270
+    },
+    "after_hold": {
+      "a": 72,
+      "b": 270
+    }
+  },
+  "physical_game_inputs": 0,
+  "whole_raw_and_chunks_sealed": true,
+  "build_provenance": "/tmp/wasmsmac-unit-stack-order-runtime-v7/provenance.json",
+  "build_log": "/tmp/unit-stack-order-build-v7/build.log",
+  "original_passing_cases": 0,
+  "unsupported": [
+    "original selection policy",
+    "rendered map instance identity",
+    "pixel/artwork/facing agreement",
+    "movement/intermediate-frame cadence",
+    "tool/limb animation binding",
+    "animation/audio timing",
+    "direct frontend-request cause ID"
+  ],
+  "artifacts_sha256": {
+    "/tmp/unit-stack-order-browser-v1/preflight.json": "aca15cf1132f24a5d0aa7270db9b1a178bd06fd676acaafe9de148b56b82c911",
+    "/tmp/unit-stack-order-browser-v1/raw-outcome.json": "559fad57bf650bc66957d98671d402a86659b2a7d12333d9377f5cbd933f243d",
+    "/tmp/unit-stack-order-browser-v1/outcome.json": "c68a14fd2879206e68908e703c5c7689582a370a8d9b79c45fcd09338ee5d583",
+    "/tmp/unit-stack-order-browser-v1/report.json": "f096e242d704674fc0f42a82adb07011dee8140c309c4faa5a5a67b662c9e325",
+    "/tmp/unit-stack-order-browser-v1/application.log": "490d49aeac22bb3ef477ff338e87a223a86bbd684d67374881603b8b45695df9",
+    "/tmp/unit-stack-order-browser-v1/application-log-chunks.jsonl": "1e428f437e7b9becc4a776c7d1964c4ac5ec02b1554d754ce4e3acca2964c651",
+    "/tmp/unit-stack-order-browser-v1/native-observation.json": "66f9ea41e4fc181dc9969c5c75f3264652cd23ae6769589384047262d112179c",
+    "/tmp/unit-stack-order-browser-v1/priority-result.json": "d9154442fbdc0bd6fe71ceb582c88cc51c33142667a8826c7e5a4e6337352a4f",
+    "/tmp/unit-stack-order-browser-v2/preflight.json": "04248e8f549461bed2debca1ed18f1b3d1d857a93321b917508b89a08f8f7f95",
+    "/tmp/unit-stack-order-browser-v2/raw-outcome.json": "34a90cc60fe6399f1e48a53cb651761d8f050367d166b5dc2ca71f0d9d1902bc",
+    "/tmp/unit-stack-order-browser-v2/outcome.json": "61a40a640c797e7759cb9b456e646dd2b56feda8d17edfa4067c49cd4eebd209",
+    "/tmp/unit-stack-order-browser-v2/report.json": "9aa27252b4c8ce5407725c8805f9ed76b7d8a3d167b10994c157075cb0d3c3b4",
+    "/tmp/unit-stack-order-browser-v2/application.log": "85c123dabb65f9d9d2f806bf16bace691730289328c9c55f722c465452b0e8a4",
+    "/tmp/unit-stack-order-browser-v2/application-log-chunks.jsonl": "980cddccf956e3ffc20c54a853a7887cf42df576fd56706184e613222ada50b5",
+    "/tmp/unit-stack-order-browser-v2/native-observation.json": "16199551e7aeb6df39ae0188990359dd2c77fafaa2cc9fc9af1dea3df3d93ac0",
+    "/tmp/unit-stack-order-browser-v2/priority-result.json": "9a4e978796e8c7048e563c209237f78feae95a5312affd0ec5149423c26ad159"
+  },
+  "cpp_fix_commit": "2f779b2f68d53211adfd00fa4a29e6f31c306a76",
+  "cpp_delta_files_sha256": {
+    "src/game/frontend/tile/Tile.cpp": "fdd59cd2dfee342d84f8a7147182d425768419a79003657e01d06ce21ec1608c",
+    "src/game/frontend/tile/Tile.h": "0743b65b7670e0e82998a66bd9e5b162269246b36a3575bebb1258f2a4225616",
+    "src/game/frontend/unit/Unit.cpp": "ef40a0b820b135626b835506c6ca1fba7ed37cd998df94b9460fdc435c250bac"
+  },
+  "build_provenance_sha256": "4c2a997d05e6af99134d0fb9ddb90f5350def1fcef1b1ef30adcc7e3aebac9cd",
+  "build_log_sha256": "4e3d1f052cd33711f29c0f020ec2d72f9893bc7a3e372a7916211908a3fad15c",
+  "independent_baseline_audit": "/tmp/unit-stack-order-browser-v1/independent-delivery-audit.json",
+  "independent_fixed_audit": "/tmp/unit-stack-order-browser-v2/independent-delivery-audit.json"
+}

@@ -48,6 +48,7 @@ public:
 
 	void AddUnit( unit::Unit* unit );
 	void RemoveUnit( unit::Unit* unit );
+	void InvalidateUnitOrder();
 	void SetActiveUnit( unit::Unit* unit );
 
 	void SetBase( base::Base* base );

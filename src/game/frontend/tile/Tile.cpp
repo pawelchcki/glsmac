@@ -48,6 +48,11 @@ const types::Vec2< size_t >& Tile::GetCoords() const {
 	return m_coords;
 }
 
+void Tile::InvalidateUnitOrder() {
+	m_is_units_reorder_needed = true;
+	m_is_objects_reorder_needed = true;
+}
+
 void Tile::AddUnit( unit::Unit* unit ) {
 	if ( m_units.find( unit->GetId() ) != m_units.end() ) {
 		return; // already on tile
@@ -58,8 +63,7 @@ void Tile::AddUnit( unit::Unit* unit ) {
 			unit
 		}
 	);
-	m_is_units_reorder_needed = true;
-	m_is_objects_reorder_needed = true;
+	InvalidateUnitOrder();
 	if ( m_base ) {
 		m_base->Update();
 	}
@@ -74,8 +78,7 @@ void Tile::RemoveUnit( unit::Unit* unit ) {
 		SetActiveUnit( nullptr );
 	}
 	m_units.erase( unit->GetId() );
-	m_is_units_reorder_needed = true;
-	m_is_objects_reorder_needed = true;
+	InvalidateUnitOrder();
 	if ( m_base ) {
 		m_base->Update();
 	}

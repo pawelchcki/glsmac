@@ -2,6 +2,7 @@
   "version": 1,
   "suites": [
     {"id":"unit-workshop", "script":"GLSMAC_data/tests/unit_workshop.gls.js", "domains":["gameplay","ui","ux"], "evidence":"glsmac-regression"},
+    {"id":"unit-stack-health", "script":"GLSMAC_data/tests/unit_stack_health_native.gls.js", "domains":["gameplay","decision-logic"], "evidence":"glsmac-regression"},
     {"id":"workshop-observation-native", "script":"GLSMAC_data/tests/workshop_observation_native.gls.js", "domains":["gameplay","ui","decision-logic"], "evidence":"glsmac-regression"},
     {"id":"terraforming-cooperation-observation","script":"GLSMAC_data/tests/terraforming_cooperation_observation.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"terraforming-cooperation-preview","script":"GLSMAC_data/tests/terraforming_cooperation_preview.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
