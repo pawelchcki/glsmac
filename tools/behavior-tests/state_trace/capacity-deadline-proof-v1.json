@@ -1,0 +1,75 @@
+{
+  "status": "strict-capacity-declared-deadline-proof-PASS",
+  "host": "4c59973615966bfc56ea25042d4a4dc3d12c96c5",
+  "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+  "summary": {
+    "passed": 1,
+    "failed": 0,
+    "scenarios": 1,
+    "assertions": 11
+  },
+  "budget": {
+    "requested_seconds": null,
+    "declared_seconds": 240,
+    "declared_reason": "The complete unchanged 4096-patch same-world case passes locally in 80 seconds but exceeds 120 seconds on CI even when isolated; allow native completion headroom without changing its inputs, checks or heap.",
+    "default_seconds": 120.0,
+    "effective_seconds": 240,
+    "source": "catalog"
+  },
+  "scheduling": {
+    "mode": "exclusive",
+    "reason": "Keep the complete 4096-patch world and exact metadata checks in one isolated worker without competing suites; retain the 2 GiB heap.",
+    "requested_jobs": 2,
+    "suite_worker_limit": 1
+  },
+  "elapsed_ms": 79388.81,
+  "total_elapsed_ms": 79807.67,
+  "raw_exit": 0,
+  "native_success_footer": true,
+  "raw_log_sha256": "05210434bf1fb9db8439953628aebd89ae9bf9c9268e1606ba63ebf85664a3fe",
+  "report_sha256": "c4274c833bf56d9cd8b03c1754b6f0dd41cf87d6b31fe62bfb5a6176a962831d",
+  "prepost_all_input_hashes_match": true,
+  "full_gse_sha256": "202127e5bcf7af4cc24bd695c30c1d22412bf50bc7da6aa87748fc818dd260eb",
+  "patches": 4096,
+  "full_reads": 4096,
+  "identity_bytes": 261177,
+  "identity_sha256": "ec74d2103109b1430b3d5ebb85710f95824930cd850454b5fa6fb9acbecd3b7a",
+  "old_CI120_failure_retained": true,
+  "fresh_CI_required": true,
+  "version": 1,
+  "scope": "Complete unchanged same-world capacity case; capacity-only declared native completion headroom",
+  "command": [
+    "python3",
+    "tools/behavior-tests/fast.py",
+    "--suite",
+    "terraforming-cooperation-capacity",
+    "--lane",
+    "hot",
+    "--jobs",
+    "2",
+    "--default-timeout",
+    "120",
+    "--runtime",
+    "/tmp/terraform-pr35-cloud-engine/GLSMAC.js",
+    "--report",
+    "/tmp/terraform-pr35-capacity-deadline-focused/report.json"
+  ],
+  "file_hashes": {
+    "runtime_js": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+    "runtime_wasm": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24",
+    "worker": "674a4a6f5fd4e5e176013b53b442037229aa02aef4c9c1bde5167c9147a76fc1",
+    "probe": "70056250da9314593e04fa2be65536eea60b76284b28bf1d14a8f59e96732b81",
+    "fast": "6d3dad5d94736f70efa45e18466bcf8981ee8d1328557f429e2e304bcd59b021",
+    "catalog": "3189e7a153239bdc9cae8f45282bbbb28bf3d0cd94d4c3ca0b6a4a9c97f4763b",
+    "lanes": "6b1751df9f6ffb5094a9db2e3ffb0ee0b76dec68a3391faa5f247f5e23c8458f",
+    "budget_tests": "31e0301b9b5015a061c1cbf8a1fe737a6c9983de5b4275d665c886529775ec96"
+  },
+  "prior_failed_ci": {
+    "head": "7ee4e80b",
+    "run": 40546221635,
+    "audit": "/tmp/terraform-pr35-regression-artifact-7ee4e80b/audit.json"
+  },
+  "unchanged_heap_bytes": 2147483648,
+  "original_passing_cases": 0
+}

@@ -39,6 +39,7 @@ UnitManager::~UnitManager() {
 }
 
 void UnitManager::Clear() {
+	m_pending_movements.clear();
 	for ( auto& it : m_unprocessed_units ) {
 		delete it;
 	}
@@ -159,6 +160,7 @@ Unit* UnitManager::DetachUnit( GSE_CALLABLE, const size_t unit_id ) {
 	ASSERT( tile_it != tile->units.end(), "unit id not found in tile" );
 	tile->units.erase( tile_it );
 
+	m_pending_movements.erase( unit_id );
 	m_units.erase( it );
 
 	auto* state = m_game->GetState();
@@ -279,6 +281,14 @@ void UnitManager::PushUpdates() {
 		m_unit_updates.clear();
 		m_game->CheckTurnComplete();
 	}
+}
+
+bool UnitManager::HasPendingMovement( const size_t owner_id ) const {
+	for ( const auto& entry : m_pending_movements ) {
+		const auto found = m_units.find( entry.first );
+		if ( found != m_units.end() && found->second == entry.second.unit && found->second->m_owner->GetIndex() == owner_id ) { return true; }
+	}
+	return false;
 }
 
 WRAPIMPL_BEGIN( UnitManager )
@@ -732,14 +742,31 @@ const std::string* UnitManager::MoveUnitToTile( GSE_CALLABLE, Unit* unit, map::t
 		dst_tile->coord.x,
 		dst_tile->coord.y
 	};
+	const auto unit_id = unit->m_id;
+	const auto token = ++m_next_movement_token;
+	m_pending_movements.insert_or_assign( unit_id, pending_movement_t { unit, token } );
 	fr.data.unit_move.running_animation_id = unit->m_animation_id = am->AddAnimationCallback(
-		[ this, tm, tiles_to_lock, on_complete, unit, dst_tile, ctx, gc_space, ep, si ]( const size_t animation_id ) {
+		[ this, handle = m_ready_handle, unit_id, token, tm, tiles_to_lock, on_complete, unit, dst_tile, ctx, gc_space, ep, si ]( const size_t animation_id ) {
+			if ( *handle != this ) { return; }
+			const auto moving = m_pending_movements.find( unit_id );
+			const auto live = m_units.find( unit_id );
+			if ( moving == m_pending_movements.end() || moving->second.token != token || live == m_units.end() || live->second != unit ) { return; }
+			const auto finish = [ this, unit_id, token ]() {
+				const auto pending = m_pending_movements.find( unit_id );
+				if ( pending != m_pending_movements.end() && pending->second.token == token ) { m_pending_movements.erase( pending ); }
+				m_game->CheckTurnComplete();
+			};
 			ASSERT( unit->m_animation_id, "animation id gone" );
-			unit->m_animation_id = 0;
-			tm->UnlockTiles( m_game->GetSlotNum(), tiles_to_lock );
-			gse::ExecutionPointer ep2 = ep;
-			unit->SetTile( gc_space, ctx, si, ep2 , dst_tile );
-			on_complete();
+			try {
+				unit->m_animation_id = 0;
+				tm->UnlockTiles( m_game->GetSlotNum(), tiles_to_lock );
+				gse::ExecutionPointer ep2 = ep;
+				unit->SetTile( gc_space, ctx, si, ep2 , dst_tile );
+				on_complete();
+			} catch ( ... ) { finish(); throw; }
+			// after_move enqueues the next real step synchronously inside on_complete.
+			// Never advertise completion between unlock, debit and that continuation.
+			finish();
 		}
 	);
 	m_game->AddFrontendRequest( fr );

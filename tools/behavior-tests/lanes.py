@@ -153,7 +153,7 @@ def command(kind, lane, jobs, report, validate_only=False, runtime=None):
     else:
         argv += ['--jobs', str(jobs)]
     if kind == 'regression':
-        argv += ['--timeout', '120']
+        argv += ['--default-timeout', '120']
     if runtime and kind in ('regression', 'economy'):
         argv += ['--runtime', str(runtime)]
     return argv

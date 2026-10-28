@@ -15,13 +15,17 @@ const handlers = {
 
 const fixture = (master) => {
 	const f = {};
-	f.state = { turn: 1, complete: [false, false], orders: [], rejected: [], confirmations: [], respond: null, advances: [] };
+	f.state = { turn: 1, complete: [false, false], pending: [false, false], orders: [], rejected: [], confirmations: [], respond: null, advances: [] };
 	f.view = ui.display();
 	f.game = ui.events();
 	f.um = ui.events();
 	f.units = [];
 	f.game.random = gameplay.random([]);
 	f.game.get_um = () => { return f.um; };
+	// These turn-control inputs declare plain, roadless/tubeless terrain.
+	// Only the live cost policy decides movement; this is map input state.
+	const terrain = {road: false, mag_tube: false};
+	f.game.get_tm = () => { return {get_terraforming: (x,y) => { return terrain; }}; };
 	// This unit/turn-control boundary contains no cities or pending notices.
 	f.game.get_bm = () => { return {get_bases: () => { return []; }}; };
 	f.game.is_started = () => { return true; };
@@ -34,6 +38,8 @@ const fixture = (master) => {
 	// Declared display boundary only; native treasury authority has its own suite.
 	f.game.get_player = () => { return {get_energy_state: () => { return {credits: 0}; }}; };
 	f.game.is_turn_complete = (id) => { return f.state.complete[id]; };
+	// Declared transport boundary: accepted actions remain pending per player.
+	f.game.has_pending_actions = (id) => { return f.state.pending[id]; };
 	f.status = (status) => { f.game.emit('turn_status', { status: status }); };
 	f.game.complete_turn = (id) => {
 		f.state.complete[id] = true;
@@ -123,6 +129,19 @@ behavior.scenario('advance rejects rewinding an established game to first turn',
 	test.assert(#typeof(result) == 'String', 'A first-turn request must not rewind an established game');
 	test.assert(f.state.turn == 5 && f.state.advances == []);
 });
+
+for (player of [0,1]) {
+	behavior.scenario('advance waits for accepted actions of player ' + #to_string(player), () => {
+		const f = fixture(true);
+		f.state.complete = [true,true]; f.state.pending[player] = true;
+		const result = f.dispatch('advance_turn',0,{turn_id:2});
+		test.assert(result == 'Wait for accepted unit actions to finish');
+		test.assert(f.state.turn == 1 && f.state.advances == [] && f.state.orders == []);
+		f.state.pending[player] = false;
+		const accepted = f.dispatch('advance_turn',0,{turn_id:2});
+		test.assert(#typeof(accepted) == 'Object' && f.state.turn == 2 && f.state.advances == [2]);
+	});
+}
 
 behavior.scenario('three consecutive turns consume restore and reactivate movement through production events', () => {
 	const f = fixture(true);

@@ -7,6 +7,9 @@ const preview = #include('../default/ui/parts/game/bottom_bar/object_preview');
 const fixture = () => {
 	const f = {};
 	f.native = test.founding_fixture();
+	// Normal configure_game supplies these rules before mounting the panel.
+	// Preserve the real native nonworker definitions and authoritative policy.
+	f.native.game.set('terraforming_rules', #include('../default/game/terraforming_rules').parse(test.parse_smac_text(#include('./_terraform_action_source'), 'rules')));
 	f.native.with_write(() => {
 		f.native.game.um.despawn_unit(f.native.unit_id);
 		const data = { def: 'Scout', health: 1.0, morale: 2 };
@@ -21,6 +24,10 @@ const fixture = () => {
 	f.game.get_player = () => { return f.native.owner; };
 	f.game.get_settings = () => { return f.native.game.get_settings(); };
 	f.game.get_turn = () => { return f.native.game.get_turn(); };
+	f.game.is_started = () => { return f.native.game.is_started(); };
+	f.game.is_turn_complete = (caller) => { return f.native.game.is_turn_complete(caller); };
+	f.game.get = (key) => { return f.native.game.get(key); };
+	f.game.get_players = () => { return f.native.game.get_players(); };
 	f.game.event = (name, data) => {
 		const request = { name: name }; request.data = data;
 		f.state.queued :+ request;
@@ -42,7 +49,15 @@ const fixture = () => {
 	p.get_stats_str = (unit) => { return ''; };
 	p.modules = { popup: { is_shown: () => { return f.state.modal; } } };
 	f.p = p;
+	// Keep the actual root factory and capture only the hint created during
+	// shipped preview init, so later cleanup can target its exact owned timer.
+	const root_text = f.view.root.text; let hints = 0; f.target_hint = null;
+	f.view.root.text = (properties) => {
+		const node = root_text(properties); hints++; f.target_hint = node; return node;
+	};
 	preview.init(p);
+	f.view.root.text = root_text;
+	test.assert(hints == 1 && f.target_hint != null, 'Panel init must create exactly one actual root-owned target hint');
 	preview.moralesets.NATIVE = f.native.game.um.get_moraleset('SYNTHETIC');
 	f.game.select_unit(f.unit);
 	f.key = (code, modifiers) => { return preview.frame.emit('keydown', { code: code, modifiers: modifiers }); };
@@ -163,6 +178,11 @@ behavior.scenario('removing the command panel detaches owned keyboard timers and
 	const f = fixture(); f.key('H', {});
 	preview.frame.remove();
 	test.assert(preview.frame.handler_count('keydown') == 0 && f.game.count('event_result') == 0);
+	test.assert(!f.target_hint.removed && #sizeof(f.target_hint.timers) == 1);
+	const retirement = f.target_hint.timers[0];
+	test.assert(retirement.interval == 0 && retirement.running && f.view.running_timers() == 1, 'Only the actual hint retirement may remain; periodic or unrelated zero-delay leaks must fail');
+	retirement.tick();
+	test.assert(f.target_hint.removed && !retirement.running);
 	test.assert(f.view.running_timers() == 0);
 	f.key('A', {}); f.result('unit_hold', f.id, f.native.owner.id, false);
 	test.assert(#sizeof(f.state.queued) == 1 && f.unit.get_order() == 'NO_ORDERS');

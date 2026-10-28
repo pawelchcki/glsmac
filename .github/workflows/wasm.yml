@@ -10,6 +10,9 @@ on:
       - '.github/workflows/wasm.yml'
       - 'tools/wasm-tests/gse*.mjs'
       - 'tools/wasm-tests/gse*.cjs'
+      - 'src/gc/**'
+      - 'src/gse/**'
+      - 'src/common/Mutex.*'
 
 permissions:
   contents: read

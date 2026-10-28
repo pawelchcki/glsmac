@@ -8,7 +8,7 @@ const result = {
 			const def = e.unit.get_def();
 			if (!e.unit.moved_this_turn) {
 				if (e.unit.health < def.health_max) {
-					e.unit.health = #min(e.unit.health + def.health_per_turn, def.health_max);
+					e.unit.health = #min(e.unit.health + def.health_per_turn + #include('../game/terraforming_support').repair_bonus(game,e.unit), def.health_max);
 				}
 			}
 			if (!def.is_immovable) {

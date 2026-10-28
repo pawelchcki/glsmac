@@ -1,0 +1,3014 @@
+{
+  "version": 1,
+  "scope": "Candidate regression-contract repair evidence; no original-game pass claims",
+  "source": {
+    "base": "0322db433f7c89becc00f504325111f67fc91f3d",
+    "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+    "production_changed": false
+  },
+  "runtime": {
+    "js_sha256": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+    "wasm_sha256": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24",
+    "scope": "Downloaded matching PR35 cloud engine, not the distinct local-v6 binary"
+  },
+  "prior_failures": {
+    "root": "/tmp/terraform-pr35-ci-failures-0b419",
+    "regression_log_sha256": "149795257896293f8838f132d9c1352147803708848ddfaf1410905543f3cea2",
+    "preserved": true
+  },
+  "level": {
+    "diagnostic_bindings": {
+      "base": "0322db433f7c89becc00f504325111f67fc91f3d",
+      "native_source": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+      "diagnostic_scope": "No original contract/output changes; actual production Level command and true undo; exact8tile field observation; no native execution yet",
+      "original_former_level_sha256": "328e7450f4a404e537fb6f80df1259f8d20b46efbbf862cd2cda4d813f9b6c07",
+      "diagnostic_script_sha256": "fd753f0c19e165426703c4ac51a5a8e935bd98c02b358dcf2814518cb35b742e",
+      "snapshot_sha256": "48ad1884cf36ad6a273707d686322425d7526835a761018cff564a589ff698c2",
+      "runtime_js_sha256": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+      "runtime_wasm_sha256": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24"
+    },
+    "result": {
+      "diff": [
+        {
+          "path": "[5].rockiness",
+          "before": 3,
+          "after": 2
+        },
+        {
+          "path": "[5].terrain_epoch",
+          "before": 1,
+          "after": 2
+        }
+      ],
+      "undo_exact": true,
+      "tile_count": 8,
+      "movement_bits": {
+        "after_bits": 0,
+        "before_bits": 1065353216,
+        "undo_bits": 1065353216
+      },
+      "raw_process": {
+        "status": "exited",
+        "raw_process_exit": 0,
+        "elapsed_ms": 2819.14806299028
+      },
+      "all_tests_passed": true,
+      "native_log_sha256": "c8b4a12d20e247b5ee67bf3e2bea512678365cf3b129d85117e8aab5fbacb178"
+    },
+    "actual_native_packets": {
+      "before": [
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 0
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 1
+            },
+            "SW": {
+              "x": 3,
+              "y": 1
+            },
+            "W": {
+              "x": 2,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 0
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 1
+            },
+            "SW": {
+              "x": 1,
+              "y": 1
+            },
+            "W": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 1
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 2,
+              "y": 2
+            },
+            "SW": {
+              "x": 0,
+              "y": 2
+            },
+            "W": {
+              "x": 3,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 1
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 0,
+              "y": 2
+            },
+            "SW": {
+              "x": 2,
+              "y": 2
+            },
+            "W": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 2
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 1,
+              "y": 1
+            },
+            "NW": {
+              "x": 3,
+              "y": 1
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 2,
+              "y": 2
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 64,
+            "left": 64,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 1,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 2
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 3,
+              "y": 1
+            },
+            "NW": {
+              "x": 1,
+              "y": 1
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 0,
+              "y": 2
+            }
+          },
+          "rockiness": 3,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 1,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 3
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 2
+            },
+            "NW": {
+              "x": 0,
+              "y": 2
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 3,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 3
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 3
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 2
+            },
+            "NW": {
+              "x": 2,
+              "y": 2
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 1,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 3
+        }
+      ],
+      "after": [
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 0
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 1
+            },
+            "SW": {
+              "x": 3,
+              "y": 1
+            },
+            "W": {
+              "x": 2,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 0
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 1
+            },
+            "SW": {
+              "x": 1,
+              "y": 1
+            },
+            "W": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 1
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 2,
+              "y": 2
+            },
+            "SW": {
+              "x": 0,
+              "y": 2
+            },
+            "W": {
+              "x": 3,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 1
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 0,
+              "y": 2
+            },
+            "SW": {
+              "x": 2,
+              "y": 2
+            },
+            "W": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 2
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 1,
+              "y": 1
+            },
+            "NW": {
+              "x": 3,
+              "y": 1
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 2,
+              "y": 2
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 64,
+            "left": 64,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 1,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 2
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 3,
+              "y": 1
+            },
+            "NW": {
+              "x": 1,
+              "y": 1
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 0,
+              "y": 2
+            }
+          },
+          "rockiness": 2,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 2,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 3
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 2
+            },
+            "NW": {
+              "x": 0,
+              "y": 2
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 3,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 3
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 3
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 2
+            },
+            "NW": {
+              "x": 2,
+              "y": 2
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 1,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 3
+        }
+      ],
+      "undo": [
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 0
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 1
+            },
+            "SW": {
+              "x": 3,
+              "y": 1
+            },
+            "W": {
+              "x": 2,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 0
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 1
+            },
+            "SW": {
+              "x": 1,
+              "y": 1
+            },
+            "W": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 0
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 1
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 0
+            },
+            "NW": {
+              "x": 0,
+              "y": 0
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 2,
+              "y": 2
+            },
+            "SW": {
+              "x": 0,
+              "y": 2
+            },
+            "W": {
+              "x": 3,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 1
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 0
+            },
+            "NW": {
+              "x": 2,
+              "y": 0
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 0,
+              "y": 2
+            },
+            "SW": {
+              "x": 2,
+              "y": 2
+            },
+            "W": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 1
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 64,
+            "top": 0
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 2,
+              "y": 2
+            },
+            "N": {
+              "x": 0,
+              "y": 0
+            },
+            "NE": {
+              "x": 1,
+              "y": 1
+            },
+            "NW": {
+              "x": 3,
+              "y": 1
+            },
+            "S": {
+              "x": 0,
+              "y": 2
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 2,
+              "y": 2
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 0,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 64,
+            "center": 64,
+            "left": 64,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 1,
+          "neighbors": {
+            "E": {
+              "x": 0,
+              "y": 2
+            },
+            "N": {
+              "x": 2,
+              "y": 0
+            },
+            "NE": {
+              "x": 3,
+              "y": 1
+            },
+            "NW": {
+              "x": 1,
+              "y": 1
+            },
+            "S": {
+              "x": 2,
+              "y": 2
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 0,
+              "y": 2
+            }
+          },
+          "rockiness": 3,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 1,
+          "version": 1,
+          "width": 4,
+          "x": 2,
+          "y": 2
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 0,
+            "right": 64,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 3,
+              "y": 3
+            },
+            "N": {
+              "x": 1,
+              "y": 1
+            },
+            "NE": {
+              "x": 2,
+              "y": 2
+            },
+            "NW": {
+              "x": 0,
+              "y": 2
+            },
+            "S": {
+              "x": 1,
+              "y": 3
+            },
+            "SE": {
+              "x": 1,
+              "y": 3
+            },
+            "SW": {
+              "x": 1,
+              "y": 3
+            },
+            "W": {
+              "x": 3,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 1,
+          "y": 3
+        },
+        {
+          "bonus": 0,
+          "canonical": {
+            "active": false,
+            "elevation": null,
+            "is_water": null
+          },
+          "elevation": {
+            "bottom": 0,
+            "center": 0,
+            "left": 64,
+            "right": 0,
+            "top": 64
+          },
+          "features": {
+            "dunes": false,
+            "fossil_field_ridge": false,
+            "garland_crater": false,
+            "geothermal": false,
+            "jungle": false,
+            "monolith": false,
+            "river": false,
+            "sunny_mesa": false,
+            "unity_chopper": false,
+            "unity_energy": false,
+            "unity_pod": false,
+            "unity_radar": false,
+            "uranium": false,
+            "volcano": false,
+            "xenofungus": false
+          },
+          "features_raw": 0,
+          "height": 4,
+          "imported": {
+            "active": false,
+            "source_corners": null,
+            "source_elevation": null,
+            "source_water": null
+          },
+          "is_land": true,
+          "is_water": false,
+          "moisture": 0,
+          "neighbors": {
+            "E": {
+              "x": 1,
+              "y": 3
+            },
+            "N": {
+              "x": 3,
+              "y": 1
+            },
+            "NE": {
+              "x": 0,
+              "y": 2
+            },
+            "NW": {
+              "x": 2,
+              "y": 2
+            },
+            "S": {
+              "x": 3,
+              "y": 3
+            },
+            "SE": {
+              "x": 3,
+              "y": 3
+            },
+            "SW": {
+              "x": 3,
+              "y": 3
+            },
+            "W": {
+              "x": 1,
+              "y": 3
+            }
+          },
+          "rockiness": 0,
+          "terraforming": {
+            "airbase": false,
+            "borehole": false,
+            "bunker": false,
+            "condenser": false,
+            "farm": false,
+            "forest": false,
+            "mag_tube": false,
+            "mine": false,
+            "mirror": false,
+            "road": false,
+            "sensor": false,
+            "soil_enricher": false,
+            "solar": false
+          },
+          "terraforming_owners": {
+            "airbase": -1,
+            "borehole": -1,
+            "bunker": -1,
+            "condenser": -1,
+            "farm": -1,
+            "forest": -1,
+            "mag_tube": -1,
+            "mine": -1,
+            "mirror": -1,
+            "road": -1,
+            "sensor": -1,
+            "soil_enricher": -1,
+            "solar": -1
+          },
+          "terraforming_raw": 0,
+          "terrain_epoch": 0,
+          "version": 1,
+          "width": 4,
+          "x": 3,
+          "y": 3
+        }
+      ],
+      "movement": {
+        "after_bits": 0,
+        "before_bits": 1065353216,
+        "undo_bits": 1065353216
+      }
+    },
+    "repair": "Expected full terrain explicitly advances only the affected target terrain_epoch by one alongside rockiness; no field omitted or normalized",
+    "full_repaired_suite_status": "passed",
+    "full_repaired_suite_result": {
+      "id": "former-level",
+      "script": "GLSMAC_data/tests/former_level.gls.js",
+      "domains": [
+        "gameplay",
+        "decision-logic"
+      ],
+      "evidence": "glsmac-regression",
+      "status": "passed",
+      "scenarios": 7,
+      "assertions": 21,
+      "scenario_names": [
+        "rate1 Level reduces imported rocky category once while preserving every other native terrain field",
+        "Level completion receipt restores roughness work order and movement together",
+        "changed work receipt rejects undo before touching terrain or any unit field",
+        "stock source work declaration remains progressive and changes terrain only at completion",
+        "flat terrain rejects Level without consuming movement or changing the native graph",
+        "inherited work cancellation retains then refunds only its current application tick",
+        "genuine next-turn Level reduces rolling to flat without height or treasury changes"
+      ],
+      "elapsed_ms": 4758.24,
+      "log": ""
+    },
+    "full_repaired_suite_bindings": {
+      "source_commit": "7a8b3825",
+      "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+      "snapshot_sha256": "a117ae5af721de1e245b975a4c0012df1fbecc1086a19be6f64b20171a679cb7",
+      "script_sha256": "301cd258600c5fd4f2d06d05e277c34d71c0e5d2439ec0d5d090df66a09f277f",
+      "runtime_js_sha256": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+      "runtime_wasm_sha256": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24"
+    },
+    "full_repaired_suite_log_sha256": "bcda739f24b1df76a4d0d4d20a54cf7f2ce5c82d6b9eca1727ae6dd341c1ee68"
+  },
+  "aquifer": {
+    "bindings": {
+      "head": "0322db433f7c89becc00f504325111f67fc91f3d",
+      "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+      "snapshot_sha256": "7194b3b70066c003ec5cf232342ee2fe377c358b3468f8b4ee5f388d9150003c",
+      "script_sha256": "bf71473badda561d1eae071e7aad4b6b690f67fdf579fbeac10c71ca77cb8c18",
+      "runtime_js_sha256": "acbc76fbc94b2306a01bce0fa2acf9c30f43f43addea915802f8d07142e5e3ec",
+      "runtime_wasm_sha256": "83767fa8acce5c776be47f6298f0e24c5828f2e290722a4d341001f4ecb09a24"
+    },
+    "result": {
+      "id": "aquifer-routing",
+      "script": "GLSMAC_data/tests/aquifer_routing.gls.js",
+      "domains": [
+        "gameplay",
+        "decision-logic"
+      ],
+      "evidence": "glsmac-regression",
+      "status": "passed",
+      "scenarios": 2,
+      "assertions": 15,
+      "scenario_names": [
+        "short aquifer planning preserves exact native features Float bits graph and true undo with fewer repeated reads",
+        "an uphill rejection is reconsidered from a valid parent and terrain reads never persist into another plan"
+      ],
+      "elapsed_ms": 4905.44,
+      "log": ""
+    },
+    "raw_log_sha256": "4fc8197c9496e6002b1996a3234f6bcd20c737565ae2d4c2d590a442000e09fe",
+    "actual_packets": {
+      "AQUIFER_CACHE_SHORT": {
+        "full_reads": {
+          "2:2": 1
+        },
+        "movement_bits": 1051372203,
+        "ordered_plan": [
+          {
+            "features": {
+              "dunes": false,
+              "fossil_field_ridge": false,
+              "garland_crater": false,
+              "geothermal": false,
+              "jungle": false,
+              "monolith": false,
+              "river": true,
+              "sunny_mesa": false,
+              "unity_chopper": false,
+              "unity_energy": false,
+              "unity_pod": false,
+              "unity_radar": false,
+              "uranium": false,
+              "volcano": false,
+              "xenofungus": false
+            },
+            "x": 2,
+            "y": 2
+          }
+        ],
+        "reads": {
+          "0:2": 1,
+          "2:2": 1
+        }
+      },
+      "AQUIFER_CACHE_ALTERNATE": {
+        "inventory": {
+          "base_ids": [],
+          "base_updates": 0,
+          "dangling_unit_updates": 0,
+          "frontend_requests": 22,
+          "names": [],
+          "next_base_id": 2,
+          "next_unit_id": 4,
+          "pending_events": 0,
+          "rng": "4001296158:3203264504:1638726732:3770077879",
+          "unit_ids": [
+            3
+          ],
+          "unit_updates": 1,
+          "updates": 0
+        },
+        "ordered_plan": [
+          {
+            "features": {
+              "dunes": false,
+              "fossil_field_ridge": false,
+              "garland_crater": false,
+              "geothermal": false,
+              "jungle": false,
+              "monolith": false,
+              "river": true,
+              "sunny_mesa": false,
+              "unity_chopper": false,
+              "unity_energy": false,
+              "unity_pod": false,
+              "unity_radar": false,
+              "uranium": false,
+              "volcano": false,
+              "xenofungus": false
+            },
+            "x": 0,
+            "y": 0
+          },
+          {
+            "features": {
+              "dunes": false,
+              "fossil_field_ridge": false,
+              "garland_crater": false,
+              "geothermal": false,
+              "jungle": false,
+              "monolith": false,
+              "river": true,
+              "sunny_mesa": false,
+              "unity_chopper": false,
+              "unity_energy": false,
+              "unity_pod": false,
+              "unity_radar": false,
+              "uranium": false,
+              "volcano": false,
+              "xenofungus": false
+            },
+            "x": 1,
+            "y": 1
+          },
+          {
+            "features": {
+              "dunes": false,
+              "fossil_field_ridge": false,
+              "garland_crater": false,
+              "geothermal": false,
+              "jungle": false,
+              "monolith": false,
+              "river": true,
+              "sunny_mesa": false,
+              "unity_chopper": false,
+              "unity_energy": false,
+              "unity_pod": false,
+              "unity_radar": false,
+              "uranium": false,
+              "volcano": false,
+              "xenofungus": false
+            },
+            "x": 2,
+            "y": 2
+          }
+        ],
+        "reads": {
+          "0:0": 2,
+          "0:2": 2,
+          "0:4": 2,
+          "1:1": 2,
+          "1:3": 2,
+          "2:0": 2,
+          "2:2": 2,
+          "2:4": 2,
+          "3:1": 2,
+          "3:3": 2,
+          "4:2": 2,
+          "6:0": 1,
+          "6:2": 2,
+          "7:1": 2,
+          "7:3": 2
+        }
+      }
+    },
+    "contract": "One compact read per coordinate within the reused validated plan; the separate validation after a native terrain change reads coordinates afresh. Exact path/order/features/Float32 bits/native graph and true undo checks remain."
+  },
+  "capacity": {
+    "status": "unresolved; no run or passing claim in this repair",
+    "cloud_evidence": "Stage3 unwrapped-production-plan END exists before timeout. END is printed inside Accumulate, so it does not localize the timeout to plan execution. Subsequent commit/collection/Finish or closure work needs measurement.",
+    "limits_changed": false,
+    "cpp_changed": false
+  }
+}

@@ -80,7 +80,16 @@ return (m) => {
 			p.modules.base_operations.init(p);
 
 			m.root.on('keydown', (e) => {
+				if (e.code == 'TAB' && (e.modifiers == {} || e.modifiers == {shift: true}) &&
+					#is_defined(p.modules.terraforming_target) && p.modules.terraforming_target.is_active()) {
+					p.modules.terraforming_target.cancel();
+					// Preserve ordinary native next/previous-unit navigation.
+					return false;
+				}
 				if (e.modifiers == {} && e.code == 'ESCAPE') {
+					if (#is_defined(p.modules.terraforming_target) && p.modules.terraforming_target.is_active()) {
+						p.modules.terraforming_target.cancel(); return true;
+					}
 					p.maybe_quit(true);
 					return true;
 				}

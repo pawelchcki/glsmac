@@ -1,6 +1,24 @@
 {
   "version": 1,
   "suites": [
+    {"id":"terraforming-cooperation-observation","script":"GLSMAC_data/tests/terraforming_cooperation_observation.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-cooperation-preview","script":"GLSMAC_data/tests/terraforming_cooperation_preview.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
+    {"id":"aquifer-plan-reuse","script":"GLSMAC_data/tests/aquifer_plan_reuse.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-cooperation-capacity","script":"GLSMAC_data/tests/terraforming_cooperation_capacity.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression","scheduling":{"mode":"exclusive","reason":"Keep the complete 4096-patch world and exact metadata checks in one isolated worker without competing suites; retain the 2 GiB heap."},"execution_timeout":{"seconds":240,"reason":"The complete unchanged 4096-patch same-world case passes locally in 80 seconds but exceeds 120 seconds on CI even when isolated; allow native completion headroom without changing its inputs, checks or heap."}},
+    {"id":"terraforming-cooperation","script":"GLSMAC_data/tests/terraforming_cooperation.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-cooperation-owners","script":"GLSMAC_data/tests/terraforming_cooperation_owners.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"normal-worker-tubes","script":"GLSMAC_data/tests/normal_worker_tubes.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"script-stages","script":"GLSMAC_data/tests/script_stages.gls.js","domains":["gameplay","ui"],"evidence":"glsmac-regression"},
+    {"id":"sea-worker-home-port","script":"GLSMAC_data/tests/sea_worker_home_port.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"normal-worker-routes","script":"GLSMAC_data/tests/normal_worker_routes.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"worker-order-cancellation","script":"GLSMAC_data/tests/worker_order_cancellation.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraform-automation-lifecycle","script":"GLSMAC_data/tests/terraform_automation_lifecycle.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"mag-tube-movement","script":"GLSMAC_data/tests/mag_tube_movement.gls.js","domains":["gameplay"],"evidence":"glsmac-regression"},
+    {"id":"worker-routes","script":"GLSMAC_data/tests/worker_routes.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraform-automation","script":"GLSMAC_data/tests/terraform_automation.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-height","script":"GLSMAC_data/tests/terraforming_height.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-support","script":"GLSMAC_data/tests/terraforming_support.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
+    {"id":"terraforming-controls-all","script":"GLSMAC_data/tests/terraforming_controls_all.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"aquifer-capacity","script":"GLSMAC_data/tests/aquifer_capacity.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"aquifer-routing","script":"GLSMAC_data/tests/aquifer_routing.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
     {"id":"terrain-geometry","script":"GLSMAC_data/tests/terrain_geometry.gls.js","domains":["gameplay","decision-logic"],"evidence":"glsmac-regression"},
@@ -34,14 +52,50 @@
     {"id":"unit-recycling-controls","script":"GLSMAC_data/tests/unit_recycling_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-native","script":"GLSMAC_data/tests/unit_disband_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-disband-authority","script":"GLSMAC_data/tests/unit_disband_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
-    {"id":"unit-disband-controls","script":"GLSMAC_data/tests/unit_disband_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {
+      "id": "unit-disband-controls",
+      "script": "GLSMAC_data/tests/unit_disband_controls.gls.js",
+      "domains": [
+        "gameplay",
+        "ui",
+        "ux"
+      ],
+      "evidence": "glsmac-regression",
+      "packets": {
+        "parts": [
+          {
+            "script": "GLSMAC_data/tests/_unit_disband_controls_packet_dialog.gls.js",
+            "scenario_names": [
+              "actual source9 uses common source caption body and choices despite expansion decoy",
+              "Escape default confirmation and reopening preserve units and reset actual draft",
+              "actual arrow drafts clamp and third choice cannot dispatch ordinary disband"
+            ]
+          },
+          {
+            "script": "GLSMAC_data/tests/_unit_disband_controls_packet_authority.gls.js",
+            "scenario_names": [
+              "real ordinary confirmation removes only selected Former through native authority",
+              "old choice and confirmation callbacks cannot change a reopened draft"
+            ]
+          },
+          {
+            "script": "GLSMAC_data/tests/_unit_disband_controls_packet_context.gls.js",
+            "scenario_names": [
+              "missing focus foreign unit and blocked readiness cannot open a retained Disband row",
+              "common unit-type token renders the actual selected native definition name"
+            ]
+          }
+        ],
+        "assertions": 47
+      }
+    },
     {"id":"colony-near-controls","script":"GLSMAC_data/tests/colony_near_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-near-native","script":"GLSMAC_data/tests/colony_near_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-menu-controls","script":"GLSMAC_data/tests/colony_found_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-menu-authority","script":"GLSMAC_data/tests/colony_found_menu_authority.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"colony-found-native","script":"GLSMAC_data/tests/colony_found_native.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"terraform-menu-presentation","script":"GLSMAC_data/tests/terraform_menu_presentation.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
-    {"id":"colony-menu-controls","script":"GLSMAC_data/tests/colony_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
+    {"id":"colony-menu-controls","script":"GLSMAC_data/tests/colony_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression","packets":{"parts":[{"script":"GLSMAC_data/tests/_colony_menu_controls_packet_eligibility.gls.js","scenario_names":["Action source identity joins native Pod once with synthetic labels","Action source identity joins native Pod once with action-edited labels","Join row rechecks absent or non-Colony focus then accepts a restored native Pod","Mounted join row rejects native no_moves eligibility","Mounted join row rejects native dead eligibility","Mounted join row rejects native locked eligibility","Mounted join row rejects native completed eligibility","Mounted join row rejects native inactive eligibility"]},{"script":"GLSMAC_data/tests/_colony_menu_controls_packet_authority.gls.js","scenario_names":["Popup and pending keyboard join block retained menu callbacks","Wrong join base receipt cannot release shared controller or menu authority","Header switch and stale row callback preserve successor presentation after native join","Closing pending join menus retains native consumption and does not reopen UI","Removed row and saved callback cannot join in a replacement game"]},{"script":"GLSMAC_data/tests/_colony_menu_controls_packet_context.gls.js","scenario_names":["Join-only menu source does not found a city on an eligible empty tile","Foreign stack invalidation is re-read before a join menu submission","Saved join callback requires its current live open Action child"]}],"assertions":64}},
     {"id":"terraform-menu-controls","script":"GLSMAC_data/tests/terraform_menu_controls.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-menu-orders","script":"GLSMAC_data/tests/unit_menu_orders.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},
     {"id":"unit-menu-rows","script":"GLSMAC_data/tests/unit_menu_rows.gls.js","domains":["gameplay","ui","ux"],"evidence":"glsmac-regression"},

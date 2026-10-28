@@ -89,6 +89,22 @@ void Unit::SetTerraformHomeFromProduction( const base::Base* base ) {
 }
 
 bool Unit::ValidWork( const work_state_t& work, const map::Map* map ) {
+	if ( !work.job.policy.empty() ) {
+		const auto& job = work.job;
+		if ( !work.height.policy.empty() || work.action.empty() || work.action == "raise" || work.action == "lower" ||
+			job.policy != "application.cooperative-work.v1" || job.owner < 0 || job.owner > 7 ||
+			job.terrain_identity.empty() || job.terrain_identity.size() > 524288 ) { return false; }
+		// The application identity is deterministic ASCII JSON, never an opaque
+		// pointer, callback, process generation or arbitrary binary wire blob.
+		for ( const unsigned char byte : job.terrain_identity ) { if ( byte < 32 || byte > 126 ) { return false; } }
+	}
+	if ( !work.height.policy.empty() ) {
+		const auto& height = work.height;
+		if ( ( work.action != "raise" && work.action != "lower" ) || height.policy != "application.band-slope-height.v1" ||
+			height.fee_policy != "application.band-fee.v1" || height.owner < 0 || height.owner > 7 || height.issued_turn <= 0 ||
+			height.fee < 1 || height.fee > 25 || height.source_elevation < -3500 || height.source_elevation > 3500 ||
+			height.terrain_identity.empty() || height.terrain_identity.size() > 1048576 ) { return false; }
+	}
 	if ( work.action.empty() ) {
 		return work.work_units == 0 && work.required_work == 0 && work.last_turn == 0 && work.previous_work_units == 0 &&
 			work.previous_movement == 0.0f && !work.previous_moved && work.tile_x == 0 && work.tile_y == 0;
@@ -133,6 +149,13 @@ const std::string& Unit::GetMoraleString() const {
 }
 
 void Unit::SetTile( GSE_CALLABLE, map::tile::Tile* tile ) {
+	if ( m_tile && m_tile != tile ) {
+		// Moving deliberately abandons paid or cooperative location-bound work.
+		// No automatic refund or
+		// transferable payment token survives; event undo restores full work.
+		if ( !m_work.height.policy.empty() || !m_work.job.policy.empty() ) { m_work = {}; SetOrder( m_automation.command.empty() ? order_t::NO_ORDERS : order_t::AUTOMATE ); }
+		m_height_recovery = false; m_height_recovery_x = m_height_recovery_y = 0;
+	}
 	if ( m_tile ) {
 		m_tile->units.erase( m_id );
 	}
@@ -165,6 +188,18 @@ const types::Buffer Unit::Serialize( const Unit* unit ) {
 		buf.WriteInt( work.previous_work_units ); buf.WriteFloat( work.previous_movement ); buf.WriteBool( work.previous_moved );
 		buf.WriteInt( work.tile_x ); buf.WriteInt( work.tile_y );
 	}
+	if ( !unit->m_work.height.policy.empty() ) {
+		const auto& height = unit->m_work.height;
+		buf.WriteString( "unit-height-work-v1" ); buf.WriteString( height.policy ); buf.WriteString( height.fee_policy );
+		buf.WriteInt( height.owner ); buf.WriteInt( height.issued_turn ); buf.WriteInt( height.fee );
+		buf.WriteInt( height.source_elevation ); buf.WriteBool( height.source_water ); buf.WriteString( height.terrain_identity );
+	}
+	if ( !unit->m_work.job.policy.empty() ) {
+		const auto& job = unit->m_work.job;
+		buf.WriteString( "unit-cooperative-work-v1" ); buf.WriteString( job.policy );
+		buf.WriteInt( job.owner ); buf.WriteString( job.terrain_identity );
+	}
+	if ( unit->m_height_recovery && !unit->m_tile->is_water_tile && unit->m_height_recovery_x == int64_t( unit->m_tile->coord.x ) && unit->m_height_recovery_y == int64_t( unit->m_tile->coord.y ) ) { buf.WriteString( "unit-height-recovery-v1" ); buf.WriteInt( unit->m_height_recovery_x ); buf.WriteInt( unit->m_height_recovery_y ); }
 	if ( unit->m_automation.epoch != 0 ) {
 		const auto& plan = unit->m_automation;
 		buf.WriteString( "unit-automation-v2" ); buf.WriteString( plan.command );
@@ -194,12 +229,12 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	auto order = order_t::NO_ORDERS;
 	work_state_t work;
 	automation_state_t plan;
-	int64_t terraform_home = 0;
+	int64_t terraform_home = 0, recovery_x = 0, recovery_y = 0; bool recovery = false, seen_height = false, seen_job = false;
 	if ( buf.lenr != buf.lenw ) {
 		const auto encoded = buf.ReadInt();
 		if ( encoded < static_cast< int64_t >( order_t::NO_ORDERS ) || encoded > static_cast< int64_t >( order_t::AUTOMATE ) ) { THROW( "Invalid serialized unit order" ); }
 		order = static_cast< order_t >( encoded );
-		bool seen_work = false, seen_plan = false, seen_home = false;
+		bool seen_work = false, seen_plan = false, seen_home = false, seen_recovery = false;
 		while ( buf.lenr != buf.lenw ) {
 			const auto tag = buf.ReadString();
 			if ( tag == "unit-work-v1" && !seen_work ) {
@@ -208,6 +243,15 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 				work.previous_work_units = buf.ReadInt(); work.previous_movement = buf.ReadFloat(); work.previous_moved = buf.ReadBool();
 				work.tile_x = buf.ReadInt(); work.tile_y = buf.ReadInt();
 				if ( work.action.empty() || !ValidWork( work, um->GetMap() ) ) { THROW( "Invalid serialized unit work" ); }
+			} else if ( tag == "unit-height-work-v1" && !seen_height ) {
+				seen_height = true; auto& height = work.height;
+				height.policy = buf.ReadString(); height.fee_policy = buf.ReadString(); height.owner = buf.ReadInt(); height.issued_turn = buf.ReadInt();
+				height.fee = buf.ReadInt(); height.source_elevation = buf.ReadInt(); height.source_water = buf.ReadBool(); height.terrain_identity = buf.ReadString();
+			} else if ( tag == "unit-cooperative-work-v1" && !seen_job ) {
+				seen_job = true; auto& job = work.job;
+				job.policy = buf.ReadString(); job.owner = buf.ReadInt(); job.terrain_identity = buf.ReadString();
+			} else if ( tag == "unit-height-recovery-v1" && !seen_recovery ) {
+				seen_recovery = true; recovery = true; recovery_x = buf.ReadInt(); recovery_y = buf.ReadInt();
 			} else if ( ( tag == "unit-automation-v1" || tag == "unit-automation-v2" ) && !seen_plan ) {
 				seen_plan = true;
 				plan.command = buf.ReadString(); plan.epoch = buf.ReadInt(); plan.owner = buf.ReadInt();
@@ -221,6 +265,10 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 			} else { THROW( "Unknown or repeated serialized unit extension" ); }
 		}
 	}
+	if ( ( seen_height && work.height.policy.empty() ) || !ValidWork( work, um->GetMap() ) || ( !work.height.policy.empty() && ( !def->CanTerraform() || work.height.owner != int64_t( slot->GetIndex() ) ) ) ) { THROW( "Invalid received paid height work" ); }
+	if ( ( seen_job && work.job.policy.empty() ) || ( !work.job.policy.empty() &&
+		( !def->CanTerraform() || work.job.owner != int64_t( slot->GetIndex() ) ) ) ) { THROW( "Invalid received cooperative work" ); }
+	if ( recovery && ( !def->CanTerraform() || def->GetMovementType() != MT_WATER || tile->is_water_tile || recovery_x != int64_t( pos_x ) || recovery_y != int64_t( pos_y ) ) ) { THROW( "Invalid received height recovery context" ); }
 	if ( order == order_t::AUTOMATE && plan.command.empty() ) { THROW( "Missing active automation plan" ); }
 	if ( !plan.command.empty() && order != order_t::AUTOMATE && order != order_t::TERRAFORM ) { THROW( "Inactive order with active automation plan" ); }
 
@@ -228,6 +276,7 @@ Unit* Unit::Deserialize( GSE_CALLABLE, types::Buffer& buf, UnitManager* um ) {
 	auto* unit = new Unit( GSE_CALL, um, id, def.get(), slot, tile, movement, morale, health, moved_this_turn );
 	def.release();
 	unit->m_work = work;
+	unit->m_height_recovery = recovery; unit->m_height_recovery_x = recovery_x; unit->m_height_recovery_y = recovery_y;
 	unit->m_automation = plan;
 	unit->m_terraform_home = terraform_home;
 	unit->SetOrder( order );
@@ -306,7 +355,7 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
 			unit->CheckLive( GSE_CALL );
 			const auto& work = unit->m_work;
-			return VALUEEXT( gse::value::Object, GSE_CALL, {
+			gse::value::object_properties_t properties {
 				{ "action", VALUE( gse::value::String,, work.action ) },
 				{ "work_units", VALUE( gse::value::Int,, work.work_units ) },
 				{ "required_work", VALUE( gse::value::Int,, work.required_work ) },
@@ -316,22 +365,78 @@ WRAPIMPL_DYNAMIC_GETTERS( Unit )
 				{ "previous_moved", VALUE( gse::value::Bool,, work.previous_moved ) },
 				{ "tile_x", VALUE( gse::value::Int,, work.tile_x ) }, { "tile_y", VALUE( gse::value::Int,, work.tile_y ) },
 				{ "active", VALUE( gse::value::Bool,, unit->GetOrder() == order_t::TERRAFORM ) },
-			} );
+			};
+			if ( !work.height.policy.empty() ) {
+				const auto& height = work.height;
+				properties.emplace( "height", VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "version", VALUE( gse::value::Int,, 1 ) }, { "policy", VALUE( gse::value::String,, height.policy ) }, { "fee_policy", VALUE( gse::value::String,, height.fee_policy ) },
+					{ "owner", VALUE( gse::value::Int,, height.owner ) }, { "issued_turn", VALUE( gse::value::Int,, height.issued_turn ) }, { "fee", VALUE( gse::value::Int,, height.fee ) },
+					{ "source_elevation", VALUE( gse::value::Int,, height.source_elevation ) }, { "source_water", VALUE( gse::value::Bool,, height.source_water ) },
+					{ "terrain_identity", VALUE( gse::value::String,, height.terrain_identity ) },
+				} ) );
+			}
+			if ( !work.job.policy.empty() ) {
+				const auto& job = work.job;
+				properties.emplace( "job", VALUEEXT( gse::value::Object, GSE_CALL, {
+					{ "version", VALUE( gse::value::Int,, 1 ) }, { "policy", VALUE( gse::value::String,, job.policy ) },
+					{ "owner", VALUE( gse::value::Int,, job.owner ) }, { "terrain_identity", VALUE( gse::value::String,, job.terrain_identity ) },
+				} ) );
+			}
+			return VALUEEXT( gse::value::Object, GSE_CALL, properties );
 		} )
 	},
+	{ "get_terraforming_schema_version", NATIVE_CALL( handle = m_order_handle ) {
+		N_EXPECT_ARGS( 0 ); auto* unit = *handle; if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
+		unit->CheckLive( GSE_CALL ); return VALUE( gse::value::Int,, 2 );
+	} ) },
+	{ "get_terraforming_recovery", NATIVE_CALL( handle = m_order_handle ) {
+		N_EXPECT_ARGS( 0 ); auto* unit = *handle; if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); } unit->CheckLive( GSE_CALL );
+		const bool active = unit->m_height_recovery && !unit->m_tile->is_water_tile && unit->m_height_recovery_x == int64_t( unit->m_tile->coord.x ) && unit->m_height_recovery_y == int64_t( unit->m_tile->coord.y );
+		return VALUEEXT( gse::value::Object, GSE_CALL, { { "active", VALUE( gse::value::Bool,, active ) },
+			{ "x", VALUE( gse::value::Int,, active ? unit->m_height_recovery_x : 0 ) }, { "y", VALUE( gse::value::Int,, active ? unit->m_height_recovery_y : 0 ) } } );
+	} ) },
+	{ "set_terraforming_recovery", NATIVE_CALL( handle = m_order_handle ) {
+		auto* unit = *handle; if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); } unit->CheckLive( GSE_CALL );
+		unit->m_um->m_game->CheckRW( GSE_CALL ); unit->CheckCustomMutation( GSE_CALL ); N_EXPECT_ARGS( 1 ); N_GETVALUE( data, 0, Object );
+		if ( data.size() != 3 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete height recovery context" ); }
+		N_GETPROP( active, data, "active", Bool ); N_GETPROP( x, data, "x", Int ); N_GETPROP( y, data, "y", Int );
+		if ( ( active && ( !unit->m_def->CanTerraform() || unit->m_def->GetMovementType() != MT_WATER || unit->GetTile()->is_water_tile || x != int64_t( unit->GetTile()->coord.x ) || y != int64_t( unit->GetTile()->coord.y ) ) ) || ( !active && ( x != 0 || y != 0 ) ) ) { GSE_ERROR( gse::EC.INVALID_CALL, "Invalid height recovery context" ); }
+		unit->m_height_recovery = active; unit->m_height_recovery_x = x; unit->m_height_recovery_y = y;
+		return VALUE( gse::value::Undefined );
+	} ) },
+
 	{
 		"set_terraforming", NATIVE_CALL( handle = m_order_handle ) {
 			auto* unit = *handle;
 			if ( !unit ) { GSE_ERROR( gse::EC.INVALID_CALL, "Unit no longer exists" ); }
 			unit->CheckLive( GSE_CALL ); unit->m_um->m_game->CheckRW( GSE_CALL ); unit->CheckCustomMutation( GSE_CALL );
 			N_EXPECT_ARGS( 1 ); N_GETVALUE( data, 0, Object );
-			if ( data.size() != 10 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete unit work state" ); }
+			if ( data.size() != 10 + data.count( "height" ) + data.count( "job" ) ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete unit work state" ); }
 			N_GETPROP( action, data, "action", String ); N_GETPROP( work_units, data, "work_units", Int );
 			N_GETPROP( required_work, data, "required_work", Int ); N_GETPROP( last_turn, data, "last_turn", Int );
 			N_GETPROP( previous_work_units, data, "previous_work_units", Int ); N_GETPROP( previous_movement, data, "previous_movement", Float );
 			N_GETPROP( previous_moved, data, "previous_moved", Bool ); N_GETPROP( tile_x, data, "tile_x", Int ); N_GETPROP( tile_y, data, "tile_y", Int );
 			N_GETPROP( active, data, "active", Bool );
-			const work_state_t work { action, work_units, required_work, last_turn, previous_work_units, previous_movement, previous_moved, tile_x, tile_y };
+			work_state_t work { action, work_units, required_work, last_turn, previous_work_units, previous_movement, previous_moved, tile_x, tile_y };
+			if ( data.count( "height" ) ) {
+				N_GETPROP( height_data, data, "height", Object );
+				if ( height_data.size() != 9 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete paid height context" ); }
+				N_GETPROP( version, height_data, "version", Int ); N_GETPROP( policy, height_data, "policy", String ); N_GETPROP( fee_policy, height_data, "fee_policy", String );
+				N_GETPROP( owner, height_data, "owner", Int ); N_GETPROP( issued_turn, height_data, "issued_turn", Int ); N_GETPROP( fee, height_data, "fee", Int );
+				N_GETPROP( source_elevation, height_data, "source_elevation", Int ); N_GETPROP( source_water, height_data, "source_water", Bool ); N_GETPROP( terrain_identity, height_data, "terrain_identity", String );
+				if ( version != 1 || policy != "application.band-slope-height.v1" || fee_policy != "application.band-fee.v1" || owner != int64_t( unit->m_owner->GetIndex() ) || !unit->m_def->CanTerraform() || issued_turn > int64_t( unit->m_um->m_game->GetTurnId() ) ) { GSE_ERROR( gse::EC.INVALID_CALL, "Paid height context does not belong to this worker" ); }
+				work.height = { policy, fee_policy, terrain_identity, owner, issued_turn, fee, source_elevation, source_water };
+			}
+			if ( data.count( "job" ) ) {
+				N_GETPROP( job_data, data, "job", Object );
+				if ( job_data.size() != 4 ) { GSE_ERROR( gse::EC.INVALID_CALL, "Expected complete cooperative work identity" ); }
+				N_GETPROP( version, job_data, "version", Int ); N_GETPROP( policy, job_data, "policy", String );
+				N_GETPROP( owner, job_data, "owner", Int ); N_GETPROP( terrain_identity, job_data, "terrain_identity", String );
+				if ( version != 1 || policy != "application.cooperative-work.v1" || owner != int64_t( unit->m_owner->GetIndex() ) || !unit->m_def->CanTerraform() ) {
+					GSE_ERROR( gse::EC.INVALID_CALL, "Cooperative work identity does not belong to this worker" );
+				}
+				work.job = { policy, terrain_identity, owner };
+			}
 			if ( !ValidWork( work, unit->m_um->GetMap() ) || ( active && ( work.action.empty() || work.last_turn == 0 ) ) ) {
 				GSE_ERROR( gse::EC.INVALID_CALL, "Invalid native unit work state" );
 			}

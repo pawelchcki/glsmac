@@ -354,6 +354,7 @@ public:
 	bool CanInitializeProduction() const { return !m_has_started_turn && GetTurnId() <= 1; }
 	const bool IsTurnCompleted( const size_t slot_num ) const;
 	const bool IsTurnChecksumValid( const util::crc32::crc_t checksum ) const;
+	bool HasPendingActions( size_t owner_id );
 	void CompleteTurn( GSE_CALLABLE, const size_t slot_num );
 	void UncompleteTurn( const size_t slot_num );
 	void AdvanceTurn( const size_t turn_id );
@@ -465,6 +466,12 @@ private:
 
 	std::vector< event::Event* > m_pending_events = {};
 	common::Mutex m_pending_events_mutex;
+	struct processing_event_batch_t {
+		std::vector< event::Event* > events;
+		size_t next = 0;
+	};
+	// Owner-thread-only frames retain events swapped out of the pending queue.
+	std::vector< std::shared_ptr< processing_event_batch_t > > m_processing_event_batches;
 
 	struct event_waiting_for_response_t {
 		event::Event* event;

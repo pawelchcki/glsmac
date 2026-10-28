@@ -47,3 +47,14 @@ do not start another batch after it.
    unsupported cases, and remaining gaps. Continue with the next highest-value
    gap unless the user requested a pause. Passing bounded checks is not proof of
    100% game fidelity; keep unsupported behavior outside passing totals.
+
+## Main repair merge exception
+
+A proven repair of failing main may merge without further confirmation when the
+only failing applicable context is Main health caused by that same main failure,
+and fresh exact-head checks otherwise succeed, the final-head review is clean,
+all review findings are resolved, and the head is mergeable with the current base.
+Pause any strict all-green goal before using this exception; do not claim that
+goal passed. Use a normal merge guarded by the expected head, preserve branch
+protections and checks, then verify the merged tree, refresh main, and inspect
+the automatic full Main CI result before claiming main is healthy.

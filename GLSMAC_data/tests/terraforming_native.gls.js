@@ -10,6 +10,26 @@ const reject = (f, action) => {
 	test.assert(rejected && f.terrain_snapshot() == terrain && f.snapshot() == before && f.inspect() == inspected);
 };
 
+const physical_world = (tm) => {
+	const tiles = [];
+	for (let y = 0; y < tm.get_map_height(); y++) {
+		for (let x = y % 2; x < tm.get_map_width(); x += 2) { tiles :+ tm.get_terrain_state(x,y); }
+	}
+	return tiles;
+};
+const assert_reversed_commits = (tm,before) => {
+	const after = physical_world(tm); let found = false;
+	for (let index = 0; index < #sizeof(after); index++) {
+		const tile = after[index];
+		if (tile.x == 2 && tile.y == 2) {
+			found = true;
+			test.assert(tile.terrain_epoch == before[index].terrain_epoch + 2,'Both direct commits advance the persistent ABA identity');
+			tile.terrain_epoch = before[index].terrain_epoch;
+		}
+	}
+	test.assert(found && after == before,'Every physical field on every native tile is restored; only the edited identity advances');
+};
+
 behavior.scenario('complete native terrain reads expose detached raw state without mutating a world', () => {
 	const f = fixture(); f.configure('arid'); const tm = f.game.get_tm();
 	const before = f.terrain_snapshot(); const native = f.snapshot(); const queues = f.inspect();
@@ -39,25 +59,25 @@ behavior.scenario('imported terrain provenance distinguishes source center from 
 	test.assert(f.terrain_snapshot() == before);
 });
 
-behavior.scenario('native improvement reads are current detached values and exact tile snapshots undo an edit', () => {
+behavior.scenario('native improvement reads are detached and reversed direct commits preserve all physical terrain with advanced identity', () => {
 	const f = fixture(); const tm = f.game.get_tm(); const before = f.terrain_snapshot(); const data = empty(); data.farm = true;
-	const initial = tm.get_terraforming(2, 2);
+	const initial = tm.get_terraforming(2, 2); const world = physical_world(tm);
 	f.with_write(() => { tm.set_terraforming(2, 2, data); });
 	test.assert(tm.get_terraforming(2, 2).farm && !initial.farm && f.terrain_snapshot() != before);
 	data.farm = false; const exported = tm.get_terraforming(2, 2); exported.farm = false;
 	test.assert(tm.get_terraforming(2, 2).farm && !tm.get_terraforming(0, 2).farm);
 	f.with_write(() => { tm.set_terraforming(2, 2, empty()); });
-	test.assert(f.terrain_snapshot() == before);
+	assert_reversed_commits(tm,world); test.assert(f.terrain_snapshot() != before,'Persistent terrain identity survives serialization');
 });
 
 behavior.scenario('native bounded improvement edits preserve imported improvement flags outside the action scope', () => {
 	const f = fixture(); f.configure('sensor'); const tm = f.game.get_tm(); const before = f.terrain_snapshot();
-	test.assert(tm.get_terraforming(2, 2).sensor);
+	test.assert(tm.get_terraforming(2, 2).sensor); const world = physical_world(tm);
 	const flags = empty(); flags.road = true; flags.mine = true;
 	f.with_write(() => { tm.set_terraforming(2, 2, flags); });
 	test.assert(tm.get_terraforming(2, 2).road && tm.get_terraforming(2, 2).mine && tm.get_terraforming(2, 2).sensor);
 	f.with_write(() => { tm.set_terraforming(2, 2, empty()); });
-	test.assert(tm.get_terraforming(2, 2).sensor && f.terrain_snapshot() == before);
+	test.assert(tm.get_terraforming(2, 2).sensor && f.terrain_snapshot() != before); assert_reversed_commits(tm,world);
 });
 
 behavior.scenario('native tile edits require the authoritative write guard', () => {

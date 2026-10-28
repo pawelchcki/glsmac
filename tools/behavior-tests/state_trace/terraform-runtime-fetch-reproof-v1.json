@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "status": "NO-WASM-exact-main-worker-Fetch-proof-complete",
+  "candidate_executed": false,
+  "actual_runtime_executed": false,
+  "raw_process_exit": 0,
+  "report_sha256": "fb592eecc445dfafb99ec7582530ef1fdc2b485bc519d779f38c917951b9a617",
+  "source_bindings_sha256": "8bad216e3cc1c369a88d1b622c850f877c145d947222a92f3a8e2e02e11b5de2",
+  "browser": "149.0.7827.55",
+  "main_installations": 1,
+  "main_continuation_ack": true,
+  "acked_workers": 1,
+  "worker_network_id_equals_live_target_id": true,
+  "main_fetch_type": "Script",
+  "worker_fetch_type": "Other",
+  "both_callbacks_bound_in_model": true,
+  "native_callMain_present": false,
+  "wasm_resources": [],
+  "errors": [],
+  "observed_protocol_span_ms": 731.2760480000001,
+  "last_observed_node_ms": 1603.177732,
+  "elapsed_scope": "Protocol observation span, not total process wall time; process timing was not separately instrumented",
+  "remaining": [
+    "actual candidate runtime first callback/nativegraph/pthread/exit proof"
+  ],
+  "source_bindings": {
+    "head": "5f7a1602fe2ff52b6e320ae71c16c74754c68dbb",
+    "files": {
+      "tools/wasm-tests/runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+      "tools/wasm-tests/runtime-fetch-barrier-diagnostic.mjs": "6bf9ab341dcecb28ee54d201b385bbeaf5a7f38e4fd0e18bf75c8876d8efcfdf",
+      "tools/wasm-tests/browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1"
+    },
+    "scope": "NO-WASM diagnostic only; actual source runtime not executed"
+  },
+  "main_ack": {
+    "kind": "main",
+    "fetch_id": "interception-job-3.0",
+    "network_id": "3303981.4",
+    "frame_id": "2F378376BDBBA5C0DB20958221A121ED",
+    "loader_id": "FCFC37657225D29B149DD19159D14111",
+    "bootstrap_initiator": {
+      "type": "script",
+      "stack": {
+        "callFrames": [
+          {
+            "functionName": "loadApplication",
+            "scriptId": "4",
+            "url": "http://127.0.0.1:41195/bootstrap-model.js",
+            "lineNumber": 3,
+            "columnNumber": 161
+          },
+          {
+            "functionName": "",
+            "scriptId": "4",
+            "url": "http://127.0.0.1:41195/bootstrap-model.js",
+            "lineNumber": 3,
+            "columnNumber": 177
+          }
+        ]
+      }
+    },
+    "acknowledged_node_ms": 1128.333028,
+    "before_unmodified_runtime_response": true,
+    "continued": true,
+    "continuation_acknowledged_node_ms": 1128.697642
+  },
+  "worker_acks": [
+    {
+      "kind": "worker",
+      "fetch_id": "interception-job-4.0",
+      "network_id": "1712E85B475FE72B1A3A95CC7B2D7DDD",
+      "target_id": "1712E85B475FE72B1A3A95CC7B2D7DDD",
+      "frame_id": "2F378376BDBBA5C0DB20958221A121ED",
+      "continued": true,
+      "continuation_acknowledged_node_ms": 1185.449274,
+      "continued_without_frame_lookup": true
+    }
+  ],
+  "hook_function_sha256": "5f4fd854679f77207de7353b5c3b09591f93eac4df0ab30003eab597e84dd033",
+  "same_hook_as_full883_replay": true,
+  "scope_note": "Live CDP Fetch/Network/Target linkage proof on NO-WASM script/worker model; actual engine remains unexecuted"
+}

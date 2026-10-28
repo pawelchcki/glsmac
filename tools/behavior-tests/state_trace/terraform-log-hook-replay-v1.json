@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "scope": "NO-WASM complete captured-text print-hook replay",
+  "candidate_executed": false,
+  "native_runtime_executed": false,
+  "input": {
+    "path": "/tmp/terraform-browser-v6-pointer-fenced/application-reassembled.log",
+    "bytes": 11551539,
+    "utf16": 11551539,
+    "lf_messages": 883,
+    "sha256": "24fa026db81f4d4062af5b8f0bd9f11fc9cfd9f653181d619e4955fcfa95ad99",
+    "assumption": "LF-delimited callback model; alternating diagnostic stdout/stderr lanes, original channel split unobserved"
+  },
+  "source": {
+    "html_sha256": "870bfb68437e88bb026f1097cb9395a5ec7c351da0c0f301af3229897113072d",
+    "bootstrap_sha256": "69b3c8edebabc4c5b2168ce0ef6d920bb43b4e9d9df5325e12c310b138b90724",
+    "runtime_reference_sha256": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+    "hook_source_sha256": "5f4fd854679f77207de7353b5c3b09591f93eac4df0ab30003eab597e84dd033",
+    "original_log_sha256": "4a69a82c6668dcc71a04e3bc43561fcebfca9c521da073cf0ea1800d1fe151c3",
+    "capture_assignment_model": [
+      "if (Module[\"print\"]) out = Module[\"print\"];",
+      "if (Module[\"printErr\"]) err = Module[\"printErr\"];"
+    ],
+    "html_transform": "Remove scripts only; normal running setup hidden"
+  },
+  "node": "v24.10.0",
+  "browser": "149.0.7827.55",
+  "viewport": {
+    "width": 1100,
+    "height": 1000
+  },
+  "fontconfig": "/tmp/glsmac-fonts.conf",
+  "results": [
+    {
+      "scope": "closed",
+      "status": "complete",
+      "messages": 883,
+      "wall_ms": 1335.4000000059605,
+      "bytes": 11551539,
+      "sha256": "24fa026db81f4d4062af5b8f0bd9f11fc9cfd9f653181d619e4955fcfa95ad99",
+      "exact_full_input": true,
+      "initial_utf16": 0,
+      "final_utf16": 11551539,
+      "first_callback": {
+        "sequence": 1,
+        "channel": "stdout",
+        "before_utf16": 0,
+        "after_utf16": 36,
+        "message_utf16": 35,
+        "observed_ms": 2629,
+        "runtime_callMain_present": false,
+        "runtime_out_bound": true,
+        "runtime_err_bound": true,
+        "message": "<Thread::(MAIN)#26> Starting thread"
+      },
+      "source_assignment_model_only": true,
+      "actual_engine_capture_proof": false,
+      "callMain_defined": false,
+      "wasm_resources": [],
+      "network_requests": []
+    },
+    {
+      "scope": "open",
+      "status": "complete",
+      "messages": 883,
+      "wall_ms": 754,
+      "bytes": 11551539,
+      "sha256": "24fa026db81f4d4062af5b8f0bd9f11fc9cfd9f653181d619e4955fcfa95ad99",
+      "exact_full_input": true,
+      "initial_utf16": 0,
+      "final_utf16": 11551539,
+      "first_callback": {
+        "sequence": 1,
+        "channel": "stdout",
+        "before_utf16": 0,
+        "after_utf16": 36,
+        "message_utf16": 35,
+        "observed_ms": 1022.3000000119209,
+        "runtime_callMain_present": false,
+        "runtime_out_bound": true,
+        "runtime_err_bound": true,
+        "message": "<Thread::(MAIN)#26> Starting thread"
+      },
+      "source_assignment_model_only": true,
+      "actual_engine_capture_proof": false,
+      "callMain_defined": false,
+      "wasm_resources": [],
+      "network_requests": []
+    }
+  ],
+  "errors": []
+}

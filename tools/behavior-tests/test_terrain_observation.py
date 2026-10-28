@@ -25,7 +25,7 @@ def packet():
         terrain_trace=dict(schema=t.SCHEMA, elevation_units='native-engine-elevation', terrain_units=deepcopy(t.TERRAIN_UNITS), tiles=tiles,
             unit_details={}, base_details={}, player_details={owner: dict(raw_id=i, role='declared', name='Declared',
                 identity=['Declared'] * 6, energy=dict(credits=0, last_income_turn=0)) for i, owner in enumerate(owners)},
-            ui=None, coverage={name: name not in {'ui', 'animation_timing', 'audio', 'original_height_byte', 'canonical_height', 'energy_initialization', 'automation_context', 'automation_phase', 'home_identity', 'improvement_owners'} for name in t.COVERAGE},
+            ui=None, coverage={name: name not in {'ui', 'animation_timing', 'audio', 'original_height_byte', 'canonical_height', 'energy_initialization', 'automation_context', 'automation_phase', 'home_identity', 'improvement_owners', 'terrain_epoch', 'paid_height_work', 'naval_recovery', 'energy_revision'} for name in t.COVERAGE},
             policy=dict(version=1, ignore_technologies=True)))
 
 
@@ -34,6 +34,27 @@ class TerrainSchemaTests(unittest.TestCase):
         value = packet(); self.assertIs(t.validate_snapshot(value), value)
         self.assertFalse(value['terrain_trace']['coverage']['original_height_byte'])
         self.assertFalse(value['terrain_trace']['coverage']['ui'])
+
+    def test_v2_is_readable_without_fabricating_v3_capabilities(self):
+        value = packet(); trace = value['terrain_trace']; trace['schema'] = t.LEGACY_SCHEMA
+        trace['coverage'] = {key: trace['coverage'][key] for key in t.LEGACY_COVERAGE}
+        self.assertIs(t.validate_snapshot(value), value)
+        trace['coverage']['terrain_epoch'] = False
+        with self.assertRaises(ProtocolError): t.validate_snapshot(value)
+
+    def test_native_epoch_revision_capability_requires_every_actual_field(self):
+        value = packet(); trace = value['terrain_trace']
+        trace['coverage']['terrain_epoch'] = trace['coverage']['energy_revision'] = True
+        for tile in trace['tiles'].values(): tile['terrain_epoch'] = 17
+        for owner in trace['player_details'].values(): owner['energy_revision'] = 4
+        self.assertIs(t.validate_snapshot(value), value)
+        for kind in ('missing-tile', 'wrong-type', 'missing-opponent', 'hidden-capability'):
+            broken = deepcopy(value); trace = broken['terrain_trace']
+            if kind == 'missing-tile': del trace['tiles']['1,1']['terrain_epoch']
+            elif kind == 'wrong-type': trace['tiles']['1,1']['terrain_epoch'] = False
+            elif kind == 'missing-opponent': del trace['player_details']['player:7']['energy_revision']
+            else: trace['coverage']['terrain_epoch'] = False
+            with self.subTest(kind=kind), self.assertRaises(ProtocolError): t.validate_snapshot(broken)
 
     def test_missing_duplicate_or_hidden_opponent_state_fails(self):
         for change in ('roster', 'raw-id', 'details', 'research', 'resources'):
@@ -163,3 +184,110 @@ class TerrainSchemaTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+
+class CooperativeObservationSchemaTests(unittest.TestCase):
+    def test_unsupported_is_distinct_from_supported_absent_state(self):
+        unsupported = dict(supported=False, native_schema_version=None,
+                           reason='Native work schema observation is unavailable', state=None)
+        t.validate_cooperation(unsupported, 'declared')
+        supported = dict(supported=True, native_schema_version=2, reason=None, state=None)
+        t.validate_cooperation(supported, 'declared')
+        for broken in (dict(unsupported, reason=None), dict(unsupported, state={}),
+                       dict(supported, native_schema_version=None), dict(supported, native_schema_version=True),
+                       dict(supported, native_schema_version=3), dict(supported, reason='missing'),
+                       dict(supported, supported=1)):
+            with self.subTest(broken=broken), self.assertRaises(ProtocolError):
+                t.validate_cooperation(broken, 'declared')
+
+    def test_observed_counter_types_and_native_participant_order_are_exact(self):
+        observed = dict(supported=True, native_schema_version=2, reason=None,
+            state=dict(version=1, policy=t.COOPERATIVE_POLICY, own_work_units=2, cohort_work_units=5,
+                       required_work=10, participants=[dict(unit_id=8, work_units=2, active=True),
+                                                       dict(unit_id=99, work_units=3, active=True)]))
+        t.validate_cooperation(observed, 'declared')
+        for change in ('float-own', 'bool-total', 'unknown-policy', 'missing-own', 'duplicate', 'unordered', 'active-int'):
+            broken = deepcopy(observed); state = broken['state']
+            if change == 'float-own': state['own_work_units'] = 2.0
+            elif change == 'bool-total': state['cohort_work_units'] = True
+            elif change == 'unknown-policy': state['policy'] = 'invented'
+            elif change == 'missing-own': del state['own_work_units']
+            elif change == 'duplicate': state['participants'][1]['unit_id'] = 8
+            elif change == 'unordered': state['participants'].reverse()
+            else: state['participants'][1]['active'] = 1
+            with self.subTest(change=change), self.assertRaises(ProtocolError):
+                t.validate_cooperation(broken, 'declared')
+
+    def test_v4_does_not_claim_cooperation_from_an_empty_unit_inventory(self):
+        value = packet(); trace = value['terrain_trace']; trace['schema'] = t.COOPERATIVE_SCHEMA
+        trace['coverage']['cooperative_work'] = False
+        self.assertIs(t.validate_snapshot(value), value)
+        trace['coverage']['cooperative_work'] = True
+        with self.assertRaises(ProtocolError):
+            t.validate_snapshot(value)
+
+    def test_v4_requires_explicit_capability_for_every_unit_including_opponents(self):
+        # Declared transport only: actual foreign-cohort semantics require a
+        # separate pinned native run of the source helper.
+        from test_terrain_capture import declared_transport
+        value = declared_transport()[0]['initial']; trace = value['terrain_trace']
+        trace['schema'] = t.COOPERATIVE_SCHEMA; trace['coverage']['cooperative_work'] = False
+        for detail in trace['unit_details'].values():
+            detail['cooperative_work'] = dict(supported=False, native_schema_version=None,
+                reason='Native work schema observation is unavailable', state=None)
+        self.assertIs(t.validate_snapshot(value), value)
+        opponent = next(unit['id'] for unit in value['units'] if unit['owner'] == 'player:7')
+        for change in ('missing-opponent', 'hidden-capability', 'unversioned-data'):
+            broken = deepcopy(value)
+            if change == 'missing-opponent': del broken['terrain_trace']['unit_details'][opponent]['cooperative_work']
+            elif change == 'hidden-capability': broken['terrain_trace']['coverage']['cooperative_work'] = True
+            else: broken['terrain_trace']['schema'] = t.SCHEMA
+            with self.subTest(change=change), self.assertRaises(ProtocolError):
+                t.validate_snapshot(broken)
+
+    def foreign_cohort(self):
+        from test_terrain_capture import declared_transport
+        value = declared_transport()[0]['initial']; trace = value['terrain_trace']
+        trace['schema'] = t.COOPERATIVE_SCHEMA; trace['coverage']['cooperative_work'] = True
+        for detail in trace['unit_details'].values():
+            detail['cooperative_work'] = dict(supported=True, native_schema_version=2, reason=None, state=None)
+        first = next(unit for unit in value['units'] if unit['owner'] == 'player:7')
+        second = deepcopy(first); second.update(id='declared-paused-peer', raw_id=99, order='NO_ORDERS')
+        value['units'].append(second); trace['unit_details'][second['id']] = deepcopy(trace['unit_details'][first['id']])
+        participants = [dict(unit_id=first['raw_id'], work_units=2, active=True),
+                        dict(unit_id=second['raw_id'], work_units=3, active=False)]
+        for unit, own, active in ((first, 2, True), (second, 3, False)):
+            unit['order'] = 'TERRAFORM' if active else 'NO_ORDERS'
+            detail = trace['unit_details'][unit['id']]; detail['can_terraform'] = True
+            detail['work'].update(action='farm', active=active, work_units=own, required_work=10, last_turn=1,
+                job=dict(version=1, policy=t.COOPERATIVE_POLICY, owner=6, terrain_identity='declared-native-baseline'))
+            detail['cooperative_work']['state'] = dict(version=1, policy=t.COOPERATIVE_POLICY, own_work_units=own,
+                cohort_work_units=5, required_work=10, participants=deepcopy(participants))
+        return value, first['id'], second['id']
+
+    def test_foreign_counter_binding_includes_genuine_paused_contribution(self):
+        value, first, second = self.foreign_cohort()
+        self.assertIs(t.validate_snapshot(value), value)
+        details = value['terrain_trace']['unit_details']
+        self.assertEqual(details[first]['work']['work_units'], 2)
+        self.assertEqual(details[first]['cooperative_work']['state']['cohort_work_units'], 5)
+        self.assertFalse(details[second]['work']['active'])
+
+    def test_missing_counter_paused_member_or_foreign_identity_cannot_be_an_empty_pass(self):
+        original, first, second = self.foreign_cohort()
+        for change in ('own-is-total', 'invented-total', 'participant-counter', 'paused-omitted',
+                       'peer-state-hidden', 'foreign-owner', 'job-hidden', 'unknown-unit', 'control-identity'):
+            broken = deepcopy(original); details = broken['terrain_trace']['unit_details']; state = details[first]['cooperative_work']['state']
+            if change == 'own-is-total': details[first]['work']['work_units'] = 5
+            elif change == 'invented-total': state['cohort_work_units'] = 2
+            elif change == 'participant-counter': state['participants'][1]['work_units'] = 0
+            elif change == 'paused-omitted':
+                state['participants'].pop(); state['cohort_work_units'] = 2
+                details[second]['cooperative_work']['state'] = None
+            elif change == 'peer-state-hidden': details[second]['cooperative_work']['state'] = None
+            elif change == 'foreign-owner': next(row for row in broken['units'] if row['id'] == second)['owner'] = 'player:1'
+            elif change == 'job-hidden': del details[second]['work']['job']
+            elif change == 'unknown-unit': state['participants'][1]['unit_id'] = 999
+            else: details[first]['work']['job']['terrain_identity'] = 'control\nidentity'
+            with self.subTest(change=change), self.assertRaises(ProtocolError):
+                t.validate_snapshot(broken)

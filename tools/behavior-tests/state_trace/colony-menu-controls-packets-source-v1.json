@@ -1,0 +1,258 @@
+{
+  "version": 1,
+  "kind": "colony-menu-controls whole-case packet SOURCE proof only",
+  "base_head": "55e706e24ce8573297a6e4b887aab3628bf45768",
+  "original_script": "GLSMAC_data/tests/colony_menu_controls.gls.js",
+  "original_source_sha256": "9d3616fb95ae688c25d42abf5e4cf3f197ee48148ed4de389f7d40f73e3057ca",
+  "preserved_original_tail_sha256": "bf409e45e8071c7584207a8578d9828729316fa101bd31f43fcc991475dc7393",
+  "preserved_original_tail_bytes": 7771,
+  "original_callback_declarations": 11,
+  "all_callback_body_bytes_identical": true,
+  "all_original_helpers_and_registration_bytes_identical": true,
+  "canonical_full_suite": {
+    "script": "GLSMAC_data/tests/colony_menu_controls.gls.js",
+    "source_sha256": "90235d6366a2744c12d136a32c77c9186cb40924e48a5d1181ce60f7072c86b6",
+    "scenarios": 16,
+    "assertions": 64,
+    "available": true
+  },
+  "case_factory": {
+    "script": "GLSMAC_data/tests/_colony_menu_controls_cases.gls.js",
+    "source_sha256": "a7be151d36d464e4dc477933dae7f03bea6c70c9e613df59c380c2aec332408b",
+    "registration": "immediate selected callbacks, injected one outer behavior recorder",
+    "native_fixture_creation": "inside selected original bodies only",
+    "new_assertions": 0
+  },
+  "ordered_cases": [
+    {
+      "ordinal": 1,
+      "name": "Action source identity joins native Pod once with synthetic labels",
+      "source_counted_assertions": 11,
+      "native_fixtures": 1,
+      "body_sha256": "fecd57d9f9680ae5fdf3b664a3a50e0d0f33edd7ac3c32e4856b46ab979841c8",
+      "body_bytes": 1242,
+      "original_line": 18
+    },
+    {
+      "ordinal": 2,
+      "name": "Action source identity joins native Pod once with action-edited labels",
+      "source_counted_assertions": 11,
+      "native_fixtures": 1,
+      "body_sha256": "fecd57d9f9680ae5fdf3b664a3a50e0d0f33edd7ac3c32e4856b46ab979841c8",
+      "body_bytes": 1242,
+      "original_line": 18
+    },
+    {
+      "ordinal": 3,
+      "name": "Join row rechecks absent or non-Colony focus then accepts a restored native Pod",
+      "source_counted_assertions": 4,
+      "native_fixtures": 1,
+      "body_sha256": "f8aa53541b31e0cb918a06e8595bbf36bfc7c204ae361e7934b8246adea23338",
+      "body_bytes": 386,
+      "original_line": 36
+    },
+    {
+      "ordinal": 4,
+      "name": "Mounted join row rejects native no_moves eligibility",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "5f711591e44f2fd8b2bae271fe57dc08eac069e081fa77c7601eb8eca99cd235",
+      "body_bytes": 254,
+      "original_line": 45
+    },
+    {
+      "ordinal": 5,
+      "name": "Mounted join row rejects native dead eligibility",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "5f711591e44f2fd8b2bae271fe57dc08eac069e081fa77c7601eb8eca99cd235",
+      "body_bytes": 254,
+      "original_line": 45
+    },
+    {
+      "ordinal": 6,
+      "name": "Mounted join row rejects native locked eligibility",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "5f711591e44f2fd8b2bae271fe57dc08eac069e081fa77c7601eb8eca99cd235",
+      "body_bytes": 254,
+      "original_line": 45
+    },
+    {
+      "ordinal": 7,
+      "name": "Mounted join row rejects native completed eligibility",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "5f711591e44f2fd8b2bae271fe57dc08eac069e081fa77c7601eb8eca99cd235",
+      "body_bytes": 254,
+      "original_line": 45
+    },
+    {
+      "ordinal": 8,
+      "name": "Mounted join row rejects native inactive eligibility",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "5f711591e44f2fd8b2bae271fe57dc08eac069e081fa77c7601eb8eca99cd235",
+      "body_bytes": 254,
+      "original_line": 45
+    },
+    {
+      "ordinal": 9,
+      "name": "Popup and pending keyboard join block retained menu callbacks",
+      "source_counted_assertions": 3,
+      "native_fixtures": 1,
+      "body_sha256": "afc749077db6c83524fb77589ef1db3b1df43c635628c60fb873030b0ba9e087",
+      "body_bytes": 508,
+      "original_line": 52
+    },
+    {
+      "ordinal": 10,
+      "name": "Wrong join base receipt cannot release shared controller or menu authority",
+      "source_counted_assertions": 6,
+      "native_fixtures": 1,
+      "body_sha256": "44283e1c3ae84084903c31180281c74640c267d511d09fc08012c4b2e9c9cc5e",
+      "body_bytes": 791,
+      "original_line": 61
+    },
+    {
+      "ordinal": 11,
+      "name": "Header switch and stale row callback preserve successor presentation after native join",
+      "source_counted_assertions": 3,
+      "native_fixtures": 1,
+      "body_sha256": "e41af91dbdd2ecb98516d04386df80788420821c4eefd5d4b5c22803f5ddd872",
+      "body_bytes": 381,
+      "original_line": 73
+    },
+    {
+      "ordinal": 12,
+      "name": "Closing pending join menus retains native consumption and does not reopen UI",
+      "source_counted_assertions": 3,
+      "native_fixtures": 1,
+      "body_sha256": "9a698a35f267947ff4289bf234408b734a63bcc13124695ba97bec4899087206",
+      "body_bytes": 233,
+      "original_line": 80
+    },
+    {
+      "ordinal": 13,
+      "name": "Removed row and saved callback cannot join in a replacement game",
+      "source_counted_assertions": 4,
+      "native_fixtures": 2,
+      "body_sha256": "9fbebaa717c93a5457581216191f1056a20a27ffc25297dcca4f236fc4f2584e",
+      "body_bytes": 480,
+      "original_line": 85
+    },
+    {
+      "ordinal": 14,
+      "name": "Join-only menu source does not found a city on an eligible empty tile",
+      "source_counted_assertions": 3,
+      "native_fixtures": 1,
+      "body_sha256": "711c741da7bb1695d0034719127b18929db6b0c7672699dc5d257fe09ba10503",
+      "body_bytes": 777,
+      "original_line": 92
+    },
+    {
+      "ordinal": 15,
+      "name": "Foreign stack invalidation is re-read before a join menu submission",
+      "source_counted_assertions": 2,
+      "native_fixtures": 1,
+      "body_sha256": "ff364cb50f1678a9b997bf6b5f61eee318679a7c0a0d831def0698c831b9ace2",
+      "body_bytes": 438,
+      "original_line": 105
+    },
+    {
+      "ordinal": 16,
+      "name": "Saved join callback requires its current live open Action child",
+      "source_counted_assertions": 4,
+      "native_fixtures": 1,
+      "body_sha256": "fe1d7b1875b8c6a37cad647536d75a3713df67556df0841828ebce07ee9bf124",
+      "body_bytes": 363,
+      "original_line": 114
+    }
+  ],
+  "packets": [
+    {
+      "script": "GLSMAC_data/tests/_colony_menu_controls_packet_eligibility.gls.js",
+      "source_sha256": "d79e603f9ed73de334f8c9dbf8bd001b56a42ceeaa8a3ca005a75b84b95dbe8d",
+      "begin_inclusive": 0,
+      "end_exclusive": 8,
+      "scenarios": [
+        "Action source identity joins native Pod once with synthetic labels",
+        "Action source identity joins native Pod once with action-edited labels",
+        "Join row rechecks absent or non-Colony focus then accepts a restored native Pod",
+        "Mounted join row rejects native no_moves eligibility",
+        "Mounted join row rejects native dead eligibility",
+        "Mounted join row rejects native locked eligibility",
+        "Mounted join row rejects native completed eligibility",
+        "Mounted join row rejects native inactive eligibility"
+      ],
+      "scenario_count": 8,
+      "assertions": 36,
+      "native_fixtures": 8,
+      "required_native_footer": "All tests passed.",
+      "required_process_exit": 0,
+      "runtime_status": "NOT EXECUTED"
+    },
+    {
+      "script": "GLSMAC_data/tests/_colony_menu_controls_packet_authority.gls.js",
+      "source_sha256": "51076d13978325720d6501c4dfe19c2805653b16ce55060c27b8236690dfc7db",
+      "begin_inclusive": 8,
+      "end_exclusive": 13,
+      "scenarios": [
+        "Popup and pending keyboard join block retained menu callbacks",
+        "Wrong join base receipt cannot release shared controller or menu authority",
+        "Header switch and stale row callback preserve successor presentation after native join",
+        "Closing pending join menus retains native consumption and does not reopen UI",
+        "Removed row and saved callback cannot join in a replacement game"
+      ],
+      "scenario_count": 5,
+      "assertions": 19,
+      "native_fixtures": 6,
+      "required_native_footer": "All tests passed.",
+      "required_process_exit": 0,
+      "runtime_status": "NOT EXECUTED"
+    },
+    {
+      "script": "GLSMAC_data/tests/_colony_menu_controls_packet_context.gls.js",
+      "source_sha256": "924f785fd2408db90c0dde88b68389a621d501d840bd30f1e27813e370db8a9c",
+      "begin_inclusive": 13,
+      "end_exclusive": 16,
+      "scenarios": [
+        "Join-only menu source does not found a city on an eligible empty tile",
+        "Foreign stack invalidation is re-read before a join menu submission",
+        "Saved join callback requires its current live open Action child"
+      ],
+      "scenario_count": 3,
+      "assertions": 9,
+      "native_fixtures": 3,
+      "required_native_footer": "All tests passed.",
+      "required_process_exit": 0,
+      "runtime_status": "NOT EXECUTED"
+    }
+  ],
+  "aggregate": {
+    "scenarios": 16,
+    "assertions": 64,
+    "native_fixtures": 17,
+    "strict_gate": "every declared packet must finish its exact ordered inventory/summary + native success footer + process raw0; otherwise logical suite FAIL"
+  },
+  "retained_original_failure": {
+    "report": "/tmp/main55-stable-regression/stable-regression.json",
+    "report_sha256": "9ef6c7bfaec89f9a77d7e6efbb0799b4a88f5fdec20750541724fa7a080ed5ad",
+    "timeout_ms": 120226.54,
+    "process_returncode": null,
+    "body_pass_markers": 16,
+    "summary": [
+      16,
+      64
+    ],
+    "native_success_footer_present": false,
+    "strict_status": "failed"
+  },
+  "no_native_or_production_change": true,
+  "no_timeout_change": true,
+  "runner_catalog_ci_ownership": "Delivery; source commit changes none",
+  "runtime_status": "NOT EXECUTED; no claim of CI fix, measured speedup, GC or deadlock cause",
+  "new_engine_executions": 0,
+  "audit_source": "/tmp/colony-menu-controls-packet-source-audit.py",
+  "audit_source_sha256": "d7091ad6a00bef30e1c28ad533ca13d4537053813eb3e3ac3635bcb5f30897c1"
+}

@@ -6,6 +6,7 @@ return {
 		'base_screen',
 		'base_operations',
 		'terraforming_replacement',
+		'terraforming_height',
 		'unit_activation',
 		'research',
 		'laboratories',
@@ -340,11 +341,16 @@ return {
 		}
 	},
 
-	show: (popup, cb) => {
+	show: (popup, cb, keep_menu) => {
 		if (this.popup != null && this.popup.id == popup) {
 			return; // already opened
 		}
-		this.menu.close_all();
+		if (#is_defined(this.p.modules.terraforming_target)) { this.p.modules.terraforming_target.cancel(); }
+		// Accepted height-menu frames retain the inactive root behind the
+		// modal. The height controller closes its child before this call.
+		const preserve = #is_defined(keep_menu) && keep_menu == true;
+		if (preserve && popup != 'terraforming_height') { throw Error('Only height payment supports retaining its menu backdrop'); }
+		if (!preserve) { this.menu.close_all(); }
 		if (this.popup != null) {
 			this.clear();
 		}

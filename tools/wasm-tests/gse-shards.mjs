@@ -8,6 +8,15 @@ import {parseArgs} from 'node:util';
 export const hash = value => createHash('sha256').update(value).digest('hex');
 export const entrypoint = /^GLSMAC_data\/tests\/[^_/][^/]*\.gls\.js$/;
 
+// Main55e's third partition exhausted its existing20-minute deadline while
+// the fourth completed in596s. Move these three measured heavy scripts to4
+// (163s+105s+102s); keep the same four workers, bounds and complete inventory.
+const fourWayHeavy = new Set([
+  'GLSMAC_data/tests/unit_disband_controls.gls.js',
+  'GLSMAC_data/tests/terraform_automation.gls.js',
+  'GLSMAC_data/tests/terraforming_controls_all.gls.js',
+]);
+
 export function snapshotAt(root) {
   return Object.fromEntries(['default', 'tests'].flatMap(kind =>
     readdirSync(`${root}/GLSMAC_data/${kind}`, {recursive:true})
@@ -20,7 +29,8 @@ export function plan(snapshot, index=1, count=1) {
   assert.ok(all.length,'Actual test entrypoints must be discovered');
   assert.ok(Number.isSafeInteger(index) && Number.isSafeInteger(count) &&
     count>=1 && count<=all.length && index>=1 && index<=count,'Invalid GSE partition');
-  const selected = all.filter((_,position)=>position%count===index-1);
+  const selected = all.filter((name,position)=>
+    (count===4 && fourWayHeavy.has(name) ? 4 : position%count+1)===index);
   const chosen = new Set(selected);
   // Production scripts, every underscore helper and nested support file remain.
   // Only other top-level test entrypoints leave the directory scanned by C++.

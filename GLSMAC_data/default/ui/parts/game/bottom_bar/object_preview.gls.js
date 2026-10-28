@@ -1,6 +1,10 @@
 const colony = #include('../../../../game/colony');
 const work = #include('../../../../game/terraforming');
+const work_controls = #include('../../../../game/terraforming_control_policy');
+const work_effects = #include('../../../../game/terraforming_effects');
+const work_shortcuts = #include('../../../../game/terraforming_shortcuts');
 const work_dialog = #include('../../../../game/terraforming_dialog');
+const work_progress = #include('../../../../game/terraforming_progress');
 const activation_dialog = #include('../../../../game/unit_activation_dialog');
 
 return {
@@ -79,10 +83,29 @@ return {
 
 	get_work_unit: (action) => {
 		const unit = this.get_order_unit(false);
-		if (unit == null || unit.def != 'Formers') { return null; }
+		if (unit == null) { return null; }
 		const player = this.p.game.get_player();
-		const e = {caller: player.id, data: {unit_id: unit.id, action: action, replace_existing: true}}; e.game = this.p.game;
-		return #is_defined(work.validate(e)) ? null : unit;
+		const e = {caller: player.id, data: {unit_id: unit.id, action: action}}; e.game = this.p.game;
+		return #is_defined(work_controls.validate_selection(e)) ? null : unit;
+	},
+
+	plan_label: (command) => {
+		for (header of this.p.modules.menu.headers) {
+			if (header.source == 'TERRAFORM') {
+				for (entry of header.entries) {
+					if (#is_defined(entry.terraform_action) && entry.terraform_action == command) { return entry.label + ''; }
+				}
+			}
+		}
+		return 'AUTOMATE';
+	},
+
+	queue_plan: (unit, command, target, epoch) => {
+		this.order_pending = {name: 'unit_terraform_plan', unit_id: unit.id + 0, command: command};
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		const data = {unit_id: unit.id + 0, command: command, expected_epoch: epoch};
+		if (target != null) { data.target_x = target.x + 0; data.target_y = target.y + 0; }
+		this.p.game.event('unit_terraform_plan', data); return true;
 	},
 
 	queue_work: (unit, action, confirmed) => {
@@ -93,15 +116,77 @@ return {
 		return true;
 	},
 
+
+	height_request: (unit, action) => {
+		const owner = this.p.game.get_player().id;
+		const request = {caller: owner, data: {unit_id: unit.id + 0, action: action}};
+		request.game = this.p.game; return work.quote_height(request);
+	},
+
+	submit_height: (action) => {
+		const unit = this.get_order_unit(false);
+		if (unit == null || !unit.get_def().can_terraform || #typeof(work.quote_height) != 'Callable') { return false; }
+		const quote = this.height_request(unit, action);
+		if (!quote.supported) {
+			this.height_presentation = {stage: 'unavailable', reason: quote.reason + '', policy: quote.policy + '', fee_policy: quote.fee_policy + '', mode: quote.mode + ''};
+			if (#typeof(this.p.process_message) == 'Callable') { this.p.process_message(quote.reason); }
+			return false;
+		}
+		const consumer = #include('../../../../game/terraforming_height_dialog');
+		const definition = consumer.render(consumer.parse(this.p.glsmac.load_smac_text('xscript.txt', 'dialogs')), action, quote.fee, quote.credits);
+		// Unit wrapper and panel epoch stay local. The submitted quote contains
+		// only the deterministic peer-comparable envelope supplied by core.
+		const turn = this.p.game.get_turn(); const selected = this.selected_unit_id;
+		const request = {owner: unit.owner + 0, turn: turn, selected: selected}; request.unit = unit;
+		this.work_request_token = this.work_request_token + 1; const token = this.work_request_token;
+		const menu = this.p.modules.menu; const preserve_menu = menu.menus.left_menu.is_open;
+		if (preserve_menu) { menu.menus.left_menu.clear_active(); }
+		this.height_presentation = {stage: 'pending-consent'}; this.height_presentation.quote = #clone(quote);
+		this.p.modules.popup.set('terraforming_height', {definition: definition});
+		this.p.modules.popup.show('terraforming_height', (confirmed) => {
+			if (token != this.work_request_token) { return; }
+			this.work_request_token = this.work_request_token + 1;
+			this.height_presentation.stage = confirmed ? 'rejected-stale-consent' : 'cancelled';
+			if (confirmed && this.is_turn_active && !this.p.modules.popup.is_shown() && this.order_pending == null &&
+				this.p.game.get_player().id == request.owner && this.p.game.get_turn() == request.turn && this.selected_unit_id == request.selected &&
+				this.um.has_unit(unit.id) && this.um.get_unit(unit.id) == request.unit) {
+				const current = this.height_request(unit, action);
+				if (current.supported && current == quote) {
+					this.height_presentation.stage = 'submitted';
+					this.order_pending = {name: 'unit_terraform', unit_id: unit.id + 0, action: action};
+					const data = {unit_id: unit.id + 0, action: action, confirmed_height: true}; data.height_quote = #clone(quote);
+					this.p.game.event('unit_terraform', data);
+				}
+			}
+			this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
+		}, preserve_menu);
+		this.update_order_buttons(); this.update_skip_button(); this.update_found_button(); return true;
+	},
+
 	submit_work: (action) => {
+		if (#is_defined(this.terraforming_target)) { this.terraforming_target.cancel(); }
+		if (action == 'raise' || action == 'lower') { return this.submit_height(action); }
 		const unit = this.get_work_unit(action); if (unit == null) { return false; }
+		if (work_controls.is_plan(action)) {
+			const epoch = unit.get_automation().epoch;
+			if (action == 'road_to' || action == 'tube_to') { return this.terraforming_target.begin(unit, action, epoch, this.plan_label(action)); }
+			return this.queue_plan(unit, action, null, epoch);
+		}
 		if (!work.needs_confirmation(this.p.game, unit, action)) { return this.queue_work(unit, action, false); }
 		const tile = unit.get_tile(); const turn = this.p.game.get_turn();
 		const request = {id: unit.id, tile_x: tile.x, tile_y: tile.y, turn: turn,
 			movement: unit.movement + 0.0, moved: unit.moved_this_turn == true}; request.unit = unit;
 		const document = this.p.glsmac.load_smac_text('xscript.txt', 'dialogs');
-		const rules = this.p.game.get('terraforming_rules');
-		const definition = work_dialog.render(work_dialog.parse(document), rules.farm.name);
+		const names = [];
+		for (id of work_effects.replacements(this.p.game, unit, action)) {
+			const rule = work.describe(this.p.game, unit, id);
+			if (rule == null) { return false; }
+			names :+ rule.name + '';
+		}
+		let name = ''; for (label of names) { if (name != '') { name += ', '; } name += label; }
+		request.terrain = this.p.game.get_tm().get_terrain_state(tile.x, tile.y);
+		request.policy = this.p.game.get_settings().global.rules.get_terraforming_policy();
+		const definition = work_dialog.render(work_dialog.parse(document), name);
 		this.work_request_token = this.work_request_token + 1; const token = this.work_request_token;
 		this.p.modules.popup.set('terraforming_replacement', {definition: definition});
 		this.p.modules.popup.show('terraforming_replacement', (confirmed) => {
@@ -112,7 +197,9 @@ return {
 				if (current != null && current == request.unit && this.p.game.get_turn() == request.turn &&
 					current.movement == request.movement && current.moved_this_turn == request.moved) {
 					const position = current.get_tile();
-					if (position.x == request.tile_x && position.y == request.tile_y && work.needs_confirmation(this.p.game, current, action)) { this.queue_work(current, action, true); }
+					if (position.x == request.tile_x && position.y == request.tile_y &&
+						this.p.game.get_tm().get_terrain_state(position.x, position.y) == request.terrain &&
+						this.p.game.get_settings().global.rules.get_terraforming_policy() == request.policy && work.needs_confirmation(this.p.game, current, action)) { this.queue_work(current, action, true); }
 				}
 			}
 			this.update_order_buttons(); this.update_skip_button(); this.update_found_button();
@@ -122,6 +209,7 @@ return {
 	},
 
 	submit_unit_order: (name) => {
+		if (#is_defined(this.terraforming_target)) { this.terraforming_target.cancel(); }
 		if (name == 'unit_activate') { return this.activate_unit(); }
 		const unit = name == 'unit_skip_turn' ? this.get_skip_unit() : this.get_order_unit(name == 'unit_activate');
 		if (unit == null) { return name != 'unit_skip_turn' || this.selected_unit_id != null; }
@@ -134,6 +222,8 @@ return {
 		if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id) || e.data.unit_id != this.order_pending.unit_id) { return false; }
 		if (this.order_pending.name == 'unit_terraform' &&
 			(!#is_defined(e.data.action) || #typeof(e.data.action) != 'String' || e.data.action != this.order_pending.action)) { return false; }
+		if (this.order_pending.name == 'unit_terraform_plan' &&
+			(!#is_defined(e.data.command) || #typeof(e.data.command) != 'String' || e.data.command != this.order_pending.command)) { return false; }
 		if (!#is_defined(e.success) || #typeof(e.success) != 'Bool') { return false; }
 		const pending = this.order_pending; this.order_pending = null;
 		if (e.success && this.um.has_unit(pending.unit_id)) {
@@ -282,7 +372,8 @@ return {
 	set_lines: (object) => {
 		this.rendered_unit_id = null;
 		this.movement_label = null;
-		this.order_label = null;
+		this.order_label = null; this.work_progress_label = null; this.rendered_work = null; this.rendered_plan = null;
+		this.rendered_work_signature = null; this.rendered_cohort = null;
 
 		if (#is_defined(this.lines)) {
 			this.lines.remove(); // TODO: fix this.lines.clear();
@@ -321,6 +412,12 @@ return {
 				this.rendered_unit_id = object.id;
 				this.rendered_movement = object.movement + 0.0;
 				this.rendered_order = object.get_order();
+				this.rendered_work = #clone(object.get_terraforming());
+				if (#is_defined(this.rendered_work.job)) {
+					this.rendered_work_signature = work_progress.signature(this.p.game,object);
+					this.rendered_cohort = work_progress.read(this.p.game,object);
+				}
+				if (#typeof(object.get_automation) == 'Callable') { this.rendered_plan = #clone(object.get_automation()); }
 
 				f_line(def.name, 13, 'center');
 
@@ -334,13 +431,19 @@ return {
 				if (!object.is_immovable) {
 					this.movement_label = f_line(object.movement > 0.0 ? 'Moves: ' + this.format_movement(object.movement) : 'ALREADY MOVED', 12, 'left');
 				}
-				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD' && this.rendered_order != 'SENTRY' && this.rendered_order != 'TERRAFORM') { throw Error('Unknown unit order: ' + this.rendered_order); }
+				if (this.rendered_order != 'NO_ORDERS' && this.rendered_order != 'HOLD' && this.rendered_order != 'SENTRY' && this.rendered_order != 'TERRAFORM' && this.rendered_order != 'AUTOMATE') { throw Error('Unknown unit order: ' + this.rendered_order); }
 				let label = this.rendered_order == 'SENTRY' ? 'SENTRY' : (this.rendered_order == 'HOLD' ? 'HOLD' : 'NO ORDERS');
 				if (this.rendered_order == 'TERRAFORM') {
-					const state = object.get_terraforming(); const rules = this.p.game.get('terraforming_rules'); const rule = rules[state.action];
-					label = rule.order;
+					const state = object.get_terraforming(); const rule = work.describe(this.p.game, object, state.action);
+					label = rule == null ? 'TERRAFORM' : rule.order;
+				}
+				if (this.rendered_order == 'AUTOMATE') {
+					const plan = object.get_automation(); label = this.plan_label(plan.command);
 				}
 				this.order_label = f_line(label, 12, 'left');
+				if (this.rendered_order == 'TERRAFORM' && this.rendered_work.required_work > 0) {
+					this.work_progress_label = f_line(work_progress.text(this.rendered_work,this.rendered_cohort), 11, 'left');
+				}
 
 				break;
 			}
@@ -371,12 +474,13 @@ return {
 		this.selected_unit_id = null;
 		this.order_focus_id = null;
 		this.order_pending = null;
-		this.rendered_unit_id = null;
+		this.rendered_unit_id = null; this.rendered_work_signature = null; this.rendered_cohort = null;
 		this.is_turn_active = true;
 		this.skip_available = false;
 		this.founding_pending_id = null; this.founding_pending_name = null; this.founding_pending_base_id = null;
 		this.found_available = false;
 		this.work_request_token = #is_defined(this.work_request_token) ? this.work_request_token + 1 : 0;
+		this.height_presentation = null;
 		this.activation_token = #is_defined(this.activation_token) ? this.activation_token + 1 : 0;
 
 		this.p = p;
@@ -401,6 +505,8 @@ return {
 			class: 'bottombar-panel-inner',
 		});
 		this.frame.on('remove', (e) => { this.work_request_token = this.work_request_token + 1; });
+		this.terraforming_target = #include('../terraforming_target')(p, this);
+		p.modules.terraforming_target = this.terraforming_target;
 		this.frame.on('remove', (e) => {
 			this.activation_token = this.activation_token + 1;
 			if (#is_defined(p.modules.popup.popups) && #is_defined(p.modules.popup.popups.unit_activation)) { p.modules.popup.hide('unit_activation'); }
@@ -479,11 +585,13 @@ return {
 				if (e.code == 'L') { return this.submit_unit_order('unit_sentry'); }
 				if (e.code == 'A') { return this.submit_unit_order('unit_activate'); }
 				if (e.code == 'SPACE') { return this.submit_unit_order('unit_skip_turn'); }
-				if (e.code == 'F') { return this.submit_work('farm'); }
-				if (e.code == 'M') { return this.submit_work('mine'); }
-				if (e.code == 'R') { return this.submit_work('road'); }
+
 			}
-			if (e.code == 'F' && e.modifiers == {shift: true} && !this.p.modules.popup.is_shown() && this.is_turn_active) { return this.submit_work('forest'); }
+			if (!this.p.modules.popup.is_shown() && this.is_turn_active) {
+				for (action of work_shortcuts.candidates(e)) {
+					if (this.get_work_unit(action) != null) { return this.submit_work(action); }
+				}
+			}
 			if (e.code == 'B' && e.modifiers == {} && !this.p.modules.popup.is_shown()) {
 				return this.start_colony_action();
 			}
@@ -506,6 +614,7 @@ return {
 		});
 
 		this.frame.listen(p.game, 'unit_select', (e) => {
+			this.work_request_token = this.work_request_token + 1;
 			this.selected_unit_id = e.unit.id;
 			this.order_focus_id = e.unit.id;
 			this.update_order_buttons();
@@ -515,6 +624,7 @@ return {
 		for (event of ['tile_select', 'base_select', 'turn']) {
 			const kind = event;
 			this.frame.listen(p.game, event, (e) => {
+				this.work_request_token = this.work_request_token + 1;
 				this.selected_unit_id = null;
 				let tile = null;
 				if (kind == 'tile_select' && #is_defined(e.tile)) { tile = e.tile; }
@@ -528,6 +638,7 @@ return {
 			});
 		}
 		this.frame.listen(p.game, 'turn_status', (e) => {
+			if (e.status != 'active' && e.status != 'turn_complete') { this.work_request_token = this.work_request_token + 1; }
 			this.is_turn_active = e.status == 'active' || e.status == 'turn_complete';
 			this.update_order_buttons();
 			this.update_skip_button();
@@ -543,7 +654,10 @@ return {
 			this.update_found_button();
 			if (this.rendered_unit_id != null && this.um.has_unit(this.rendered_unit_id)) {
 				const unit = this.um.get_unit(this.rendered_unit_id);
-				if (unit.movement != this.rendered_movement || unit.get_order() != this.rendered_order) { this.set_lines(unit); }
+				let plan = null; if (#typeof(unit.get_automation) == 'Callable') { plan = unit.get_automation(); }
+				let signature = null;
+				if (#is_defined(unit.get_terraforming().job)) { signature = work_progress.signature(p.game,unit); }
+				if (unit.movement != this.rendered_movement || unit.get_order() != this.rendered_order || unit.get_terraforming() != this.rendered_work || plan != this.rendered_plan || signature != this.rendered_work_signature) { this.set_lines(unit); }
 			}
 			return true;
 		});

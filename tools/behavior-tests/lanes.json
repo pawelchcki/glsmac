@@ -3,8 +3,23 @@
   "kinds": {
     "regression": {
       "hot": [
-        "energy-receipt-lifecycle",
-        "terrain-journal-lifecycle",
+        "terraforming-cooperation-observation",
+        "terraforming-cooperation-preview",
+        "aquifer-plan-reuse",
+        "terraforming-cooperation-capacity",
+        "terraforming-cooperation",
+        "terraforming-cooperation-owners",
+        "script-stages",
+        "sea-worker-home-port",
+        "normal-worker-routes",
+        "worker-order-cancellation",
+        "terraform-automation-lifecycle",
+        "mag-tube-movement",
+        "worker-routes",
+        "terraform-automation",
+        "terraforming-height",
+        "terraforming-support",
+        "terraforming-controls-all",
         "unit-automation-state",
         "former-level",
         "terraforming-primitives",
@@ -58,9 +73,12 @@
         "base-growth-regression",
         "land-resource-sources",
         "startup-rule-sources",
+        "terrain-journal-lifecycle",
+        "energy-receipt-lifecycle",
         "aquifer-capacity",
         "aquifer-routing",
-        "terrain-geometry"
+        "terrain-geometry",
+        "normal-worker-tubes"
       ],
       "stable": [
         "base-resource-hud",

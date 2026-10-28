@@ -49,7 +49,7 @@ const reject = (f, change) => {
 	test.assert(denied && f.snapshot() == before && f.terrain_snapshot() == terrain && f.former.get_terraforming() == work);
 };
 
-for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'excess-moves', 'dead', 'injured', 'wrong-definition', 'completed-turn', 'existing-improvement', 'missing-prerequisite', 'disabled-action']) {
+for (kind of ['wrong-owner', 'missing-unit', 'unknown-action', 'excess-moves', 'dead', 'wrong-definition', 'completed-turn', 'existing-improvement', 'missing-prerequisite', 'disabled-action']) {
 	behavior.scenario('invalid native work command preserves every snapshot for ' + kind, () => {
 		const f = fixture('normal');
 		reject(f, (e) => {

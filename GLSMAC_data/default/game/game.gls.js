@@ -57,6 +57,7 @@ return (glsmac) => {
 			const document = glsmac.load_smac_text('alphax.txt', 'rules');
 			game.set('technology_rules', technology_rules.parse(document));
 			game.set('energy_rules', energy_rules.parse(document));
+			game.set('terraforming_support_rules', #include('./terraforming_support').parse(document));
 			game.set('terraforming_rules', terraforming_rules.parse(document));
 			game.set('movement_rules', movement_rules.parse(document));
 			#include('terraforming').configure(game);

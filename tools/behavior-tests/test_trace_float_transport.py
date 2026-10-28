@@ -1,5 +1,6 @@
 """Precision corruption tests; native execution remains a separate explicit gate."""
 import json
+import hashlib
 import subprocess
 import struct
 import tempfile
@@ -89,6 +90,43 @@ class PrecisionTests(unittest.TestCase):
             self.assertFalse(caught.exception.execution['candidate_executed'])
             self.assertFalse(caught.exception.execution['native_execution_confirmed'])
             self.assertIsNone(caught.exception.execution['process_returncode'])
+
+    def test_requested_seed_is_explicit_in_worker_request_and_execution_provenance(self):
+        initial_seed = '1651011033:1377505029:3019448108:3247278135'
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / 'GLSMAC.js'; runtime.write_text('loader')
+            runtime.with_suffix('.wasm').write_bytes(b'wasm')
+            process = MagicMock(); process.__enter__.return_value = process
+            process.returncode = 0
+            process.communicate.return_value = ('BEHAVIOR_BEGIN native\nBEHAVIOR_PASS native\nBEHAVIOR_SUMMARY 1 1\nAll tests passed.\n', '')
+            with patch.object(native_capture.subprocess, 'Popen', return_value=process):
+                _, execution = native_capture.capture_script(runtime, codec.SCRIPT, initial_seed=initial_seed)
+            request = json.loads(process.communicate.call_args.args[0])
+            self.assertEqual(request['initial_seed'], initial_seed)
+            self.assertEqual(execution['initial_seed'], initial_seed)
+            self.assertEqual(execution['seed_launch_flags'], ['--quickstart', '--quickstart-seed', initial_seed])
+            for bad in (True, '', '1:2:3', '1:2:3:4294967296', '1:2:3:-1', '1:2:3:01', '1:2:3:４'):
+                with self.subTest(seed=bad), patch.object(native_capture.subprocess, 'Popen') as launch, self.assertRaises(native_capture.NativeCaptureError):
+                    native_capture.capture_script(runtime, codec.SCRIPT, initial_seed=bad)
+                launch.assert_not_called()
+
+    def test_executed_probe_digest_binds_snapshot_despite_source_mutation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary) / 'GLSMAC.js'; runtime.write_text('loader')
+            runtime.with_suffix('.wasm').write_bytes(b'wasm')
+            probe = Path(temporary) / 'probe.gls.js'; original = "#print('α');\n"
+            probe.write_text(original)
+            process = MagicMock(); process.__enter__.return_value = process; process.returncode = 0
+            def communicate(request, timeout):
+                source = json.loads(Path(json.loads(request)['snapshot']).read_text())
+                self.assertEqual(source['GLSMAC_data/tests/terrain_observation_probe.gls.js'], original)
+                probe.write_text("#print('changed');\n")
+                return ('BEHAVIOR_SUMMARY 1 1\nAll tests passed.\n', '')
+            process.communicate.side_effect = communicate
+            with patch.object(native_capture.subprocess, 'Popen', return_value=process), self.assertRaises(native_capture.NativeCaptureError) as caught:
+                native_capture.capture_script(runtime, probe)
+            self.assertEqual(caught.exception.execution['probe_sha256'], hashlib.sha256(original.encode()).hexdigest())
+            self.assertIn('changed during execution', str(caught.exception))
 
     def test_complete_native_summary_does_not_hide_failed_process_shutdown(self):
         with tempfile.TemporaryDirectory() as temporary:

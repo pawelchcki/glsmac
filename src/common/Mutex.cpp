@@ -57,4 +57,17 @@ void Mutex::unlock() {
 	}
 }
 
+bool Mutex::try_lock() {
+	switch ( s_mutex_mode ) {
+		case MM_DEFAULT: {
+			return m_mutex->try_lock();
+		}
+		default: {
+			// Match lock/unlock when the configured single-thread mode has
+			// deliberately omitted the underlying mutex.
+			return true;
+		}
+	}
+}
+
 }

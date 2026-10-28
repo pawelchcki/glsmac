@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "scope": "Real GC queued-producer progress and unchanged startup behavior; not original-game agreement or sampled CI thread stacks",
+  "main_failure": {
+    "run": 40591139061,
+    "job": 122495551271,
+    "main_head": "29d061be398bc218169736dc25f2f9863a198abd",
+    "last_case": "A native failure returned after the owner drain invalidates actual queued startup callbacks",
+    "quiet_interval_seconds": 725.346603,
+    "whole_partition_deadline_seconds": 1200,
+    "exact_thread_stacks_captured": false
+  },
+  "source": {
+    "old_regression_head": "4da5d71d6c771e2758e9bbca432ac27871c81d13",
+    "old_native_tree": "d70ac87cdc3de28152dee501e3bcb053c8deecc8",
+    "fixed_execution_head": "ba5f96807b366cbe916ab16cbd055eb85f42c5f5",
+    "fixed_native_tree": "476ff6c401a47c137dda6ed397e295fc4dd83785",
+    "default_tree": "36fb8bc84d970e9c318f414a28ec16f526fcfe67",
+    "regression_unchanged_between_red_and_green": true
+  },
+  "runtime": {
+    "toolchain": "Emscripten4.0.22 FastDebug j2",
+    "node": "22.16.0",
+    "compile_flags_sha256": "fb3103c92f4b21202a5c11f1845a4edf88e540af00612aa0e48a3a4cbabc99f9",
+    "fixed": {
+      "GLSMAC.js": "ccb36523e8d7919464342a421d29ed873ace59f29d338fafdb25bc0d075ba0a4",
+      "GLSMAC.wasm": "2931bd4f5599bc198a9dafee5b8f18c7cabe7f735af73c8924173916a8c8343f"
+    },
+    "old": {
+      "GLSMAC.js": "ccb36523e8d7919464342a421d29ed873ace59f29d338fafdb25bc0d075ba0a4",
+      "GLSMAC.wasm": "74e61a7f806c039091d270f619c813245f9a62632f03fdb140b03045b720db42"
+    },
+    "heap_and_gc_cadence_unchanged": true
+  },
+  "old_red": {
+    "worker_os_exit": 0,
+    "outer_os_exit": 1,
+    "native_passed": 24,
+    "native_failed": 1,
+    "only_failure": "Collector or queued producer blocked until owner accumulation ended",
+    "cleanup_delivery_and_reclaim_assertions_precede_progress": true,
+    "raw_outcome_sha256": "17e06479cd162143f6cca0f764bd4d0867ff85bc8f059ef2db5a5fbf4f551dae",
+    "stdout_sha256": "4d28ab5dc12b96b082cdf9ae54d7ddbf1a9aef37d60aedc05de346579bf62520"
+  },
+  "first_green_verifier_failure": {
+    "native_worker_os_exit": 0,
+    "outer_os_exit": 2,
+    "reason": "Verifier expected the numeric summary emitted only on failure; Native actually printed its success footer. Original result preserved.",
+    "raw_outcome_sha256": "22b124f98aa0ea05fbe2f6d1a9e1acf02e5e4196405e0a009ed935b22336ca0a",
+    "corrected_verifier_public_checks": 6
+  },
+  "corrected_green": {
+    "native_worker_os_exit": 0,
+    "outer_os_exit": 0,
+    "registered_tests_total": 25,
+    "registered_total_includes_selected_functions_script": true,
+    "failed": 0,
+    "concurrent_regression_executed": true,
+    "elapsed_seconds": 3.940965353976935,
+    "worker_deadline_seconds": 120,
+    "outer_deadline_seconds": 130,
+    "actual_wait": true,
+    "native_success_footer": true,
+    "all_owned_processes_reaped": true,
+    "no_forced_cleanup": true,
+    "source_runtime_postpins_match": true,
+    "raw_outcome_sha256": "eab6cec6c741af1d26d82b7a0985677d3872385ea4c91265fe3e8deb9583dd0e",
+    "stdout_sha256": "04aabd34c90ff134dd205415a3723f91f0735d02b38f80f97c1242a13b2a2d1d"
+  },
+  "focused_startup": {
+    "script": "GLSMAC_data/tests/world_single_player_setup.gls.js",
+    "unchanged_source_sha256": "c61bad823cbb336d3d8f950186fdb12a296ce7370f13ac1b63ca52faf1c877d6",
+    "scenarios": 15,
+    "assertions": 168,
+    "scenario_names": [
+      "Displayed expansion roster and an edited opponent create the exact native participants",
+      "Malformed displayed rosters reject atomically and permit a corrected retry",
+      "Direct native human identity setup disambiguates duplicate text while preserving the catalog",
+      "A native failure returned after the owner drain invalidates actual queued startup callbacks",
+      "An undersized custom world rejects before creating any native participant",
+      "Small maps that can fit seven separated sites remain selectable",
+      "Actual imported and CLI-sized grids are checked independently of setup dimensions",
+      "Empty native startup and production human-slot initialization",
+      "Selected expansion faction and declared source order retain the seven-slot limit",
+      "Offline computer completion allows ordinary rounds while preserving foreign action authority",
+      "Network turn boundaries never auto-complete participants through the offline controller",
+      "Declared initial world bypasses natural placement and first-turn income through real factories",
+      "Existing Random faction input resolves during native startup and completes ordinary rounds",
+      "Random human mode preserves the displayed seven while choosing the local participant",
+      "Random faction rows reserve explicit opponents and resolve without duplicates"
+    ],
+    "native_worker_os_exit": 0,
+    "outer_runner_os_exit": 0,
+    "worker_deadline_seconds": 120,
+    "outer_deadline_seconds": 130,
+    "elapsed_seconds": 57.06000615999801,
+    "native_success_footer": true,
+    "all_owned_processes_reaped": true,
+    "no_forced_cleanup": true,
+    "source_runtime_postpins_match": true,
+    "raw_log_sha256": "be0472e54f6eded3488068fcb48442aca221511c3b3252d51b06e009107d186b",
+    "raw_outcome_sha256": "78256d48a9416113ef8ca09eb2b8eb898a5744e5ffe0cf424574a537ef20a6cb"
+  },
+  "remaining_delivery_gates": [
+    "fresh full affected GSE partition1 original1200 seconds",
+    "all applicable fresh PR checks",
+    "actual clean final-head review",
+    "normal guarded repair merge",
+    "automatic full Main CI before healthy claim"
+  ],
+  "unsupported": [
+    "historical CI collector/backend stacks",
+    "identical normal-gameplay join cycle",
+    "original-game agreement"
+  ],
+  "ci_trigger_regression": {
+    "reason": "Prior complete-GSE PR paths excluded the actual GC C++ implementation and native regression; manual branch dispatch would skip all guarded GSE jobs.",
+    "added_paths": [
+      "src/gc/**",
+      "src/gse/**",
+      "src/common/Mutex.*"
+    ],
+    "unchanged_existing_triggers": true,
+    "old_filters_pure_tests_passed": 7,
+    "old_filters_pure_tests_failed": 1,
+    "only_old_failure": "actual src/gc/Space.cpp was not selected",
+    "fixed_filters_pure_tests_passed": 8,
+    "fixed_filters_pure_tests_failed": 0,
+    "old_filter_log_sha256": "502f8c3b61e154d107278a9f890bfa33b823b0c29c1b6eb03ab72c6acc9e7000",
+    "fixed_filter_log_sha256": "9326725bf3cdbe45e1e2347cadf40845cc198d36c1e5f6b93c90cb5a4776c17a",
+    "native_executions_in_filter_check": 0
+  }
+}
