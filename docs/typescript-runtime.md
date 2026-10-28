@@ -68,7 +68,10 @@ rejects a new package against old native validators.
 
 QuickJS 2026-06-04 is fetched by SHA256 and compiled as C for both native and
 Emscripten. Its libc/OS helper module is absent. Each runtime belongs to its
-constructing thread. The default JavaScript heap is 64 MiB, stack is 1 MiB, and
+constructing thread. Windows Clang uses a narrow C11-time compatibility header
+and disables upstream's pthread-based Atomics, which policy cannot access on any
+platform. CI compiles and executes the actual Windows runtime boundary.
+The default JavaScript heap is 64 MiB, stack is 1 MiB, and
 evaluation deadline is 200 ms per compilation/evaluation stage. Host file reads,
 source-map decoding and copied-value preparation are outside that timer. Limits apply to the JavaScript runtime; this is not
 a claim that the entire application is memory bounded or a security sandbox.

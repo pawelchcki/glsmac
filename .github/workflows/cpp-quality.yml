@@ -88,10 +88,15 @@ jobs:
             build/scripts/lifetime-native.json
 
   windows-standard:
-    name: Windows Clang 23 C++23 library floor
+    name: Windows Clang 23 C++23 and QuickJS runtime
     runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
+      - run: npm run scripts:build
       - name: Install the pinned official Windows LLVM archive
         shell: pwsh
         run: |
@@ -110,6 +115,15 @@ jobs:
           clang++ -std=c++23 tools/cpp-tests/standard.cpp -o cpp-standard.exe
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           ./cpp-standard.exe
+          exit $LASTEXITCODE
+      - name: Build and execute the actual Windows runtime boundary
+        shell: pwsh
+        run: |
+          cmake -S tools/script-runtime -B build/script-windows -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmake --build build/script-windows -j2
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
           exit $LASTEXITCODE
 
   wasm-probes:
