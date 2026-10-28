@@ -1,0 +1,53 @@
+{
+  "schema": "candidate.current-acceptance-scope.v1",
+  "feature": "unit-workshop",
+  "pull_request": 36,
+  "source_basis_head": "04d59c96319d8d31dd60d6dd8d31d73833850389",
+  "kind": "Source/documentation scope clarification only; no new observation or execution",
+  "candidate_executed": false,
+  "new_observations": false,
+  "new_game_executions": 0,
+  "new_native_cases_added": 0,
+  "historical_proofs_unchanged": [
+    {
+      "path": "tools/behavior-tests/ui/unit-workshop-browser-proof-v1.json",
+      "sha256": "99c3359f6304e0c5a971c0775f633efb09efd344eadc2d22b9d2a4e12540d375"
+    }
+  ],
+  "historical_wording_interpretation": "The historical phrase \u201ccomplete final native world comparison\u201d means equality of the retained seven-owner field projection, with only its documented UI observation field excluded. It does not establish complete entity-detail identity.",
+  "current_completeness_credit": {
+    "complete_worlds": 0,
+    "complete_browser_passing_cases": 0,
+    "scope": "These require completeness capabilities absent from the retained legacy metadata; this is not a rewrite of historical bounded protocol/test results."
+  },
+  "capabilities": {
+    "independent_unit_base_raw_detail_identity": {
+      "supported": false,
+      "reason": "Legacy observer detail objects lack independent raw native unit/base identity echoes; matching available fields and source-backed collection do not fill that observation gap."
+    },
+    "exact_per_callback_message_identity": {
+      "supported": false,
+      "reason": "Legacy metadata binds first callback message/runtime output pointers and later cursor intervals, not each later callback message or digest."
+    },
+    "first_callback_runtime_output_binding": {
+      "supported": true,
+      "scope": "Historical first callback only; no all-callback identity inference."
+    }
+  },
+  "historical_observed_inventory_retained": {
+    "owners_per_world": 7,
+    "bases_per_world": 7,
+    "units_per_world": 8,
+    "terrain_tiles_per_world": 128,
+    "observed_world_records": 9
+  },
+  "bounded_facts_retained": [
+    "Bounded existing-design Workshop window/session/draft lifecycle and actual input receipts.",
+    "Known nonblack component control:2923 matching pixels within its recorded material/background exclusions.",
+    "Recorded all-seven-owner field comparisons, native Float types/bits, source-derived prices and authoritative production receipt.",
+    "Historical Node0/APP0, sealed contiguous raw bytes, first callback runtime bindings and observed scoped process cleanup."
+  ],
+  "protocol_complete_scope": "Existing evaluator complete:true remains completion of its explicitly bounded protocol. It is not a generic complete-browser or complete-world identity counter.",
+  "historical_evidence_policy": "No old proof JSON, counter, raw output, source/runtime bytes or historical result is relabeled. Native/runtime captures remain attributed to their original recorded revisions.",
+  "current_ci_or_delivery_claim": false
+}

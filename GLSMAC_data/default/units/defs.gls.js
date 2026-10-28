@@ -12,7 +12,7 @@ const moralesets = [
 		]
 	},
 ];
-const model_preview = #include('./model_previews');
+const unit_render = #include('./render');
 
 const native_lifeform = (id, name, movement_type, movement_per_turn, base_y) => {
 	return {
@@ -78,9 +78,7 @@ const result = {
 				// supports installed CVR models. Combat/morale remain real data.
 				const data = {name: entry.name, morale: 'STANDARD', type: 'static',
 					movement_type: #is_defined(entry.movement_type) ? entry.movement_type : 'land', movement_per_turn: entry.movement,
-					render: {type: 'sprite', file: 'newicons.pcx', x: 79, y: 501, w: 38, h: 48, cx: 98, cy: 549}};
-				const preview = model_preview(entry);
-				if (preview != null) { data.render = preview; }
+					render: unit_render(entry)};
 				data.combat = entry.combat;
 				// The installed Terraforming weapon role, not a translated name or
 				// the broad civilian combat category, grants worker capability.

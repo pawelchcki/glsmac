@@ -32,6 +32,7 @@ return {
 		this.production_selection_base_id = null;
 		this.citizen_job = null;
 		this.rename_dialog = null; this.rename_controller = null;
+		this.workshop = null;
 
 		p.ui.class('base-screen-frame').set({
 			border: 'rgb(35,59,34),2',
@@ -93,6 +94,17 @@ return {
 
 			this.body = body;
 			const screen = this;
+			this.workshop = #include('base_screen/workshop');
+			this.workshop.init({
+				ui: p.ui, game: p.game,
+				is_open: () => { return screen.is_open; },
+				get_base: () => { return screen.base; },
+				get_selection: () => { return screen.production_selection; },
+				get_choice: () => { return screen.production_choices == null ? '' : screen.production_choices.value; },
+				get_choices: () => { return screen.get_production_choices(); },
+				select: (id) => { screen.production_choices.value = id; screen.update_production_switch_preview(); },
+			});
+			body.on('remove', (e) => { this.workshop.cancel(); });
 			this.rename_controller = #include('base_screen/rename');
 			this.rename_controller.init({owner: body, ui: p.ui, game: p.game, glsmac: p.glsmac,
 				is_open: () => { return screen.is_open; }, get_base: () => { return screen.base; },
@@ -126,6 +138,7 @@ return {
 					show_production_selection: parent.parent.show_production_selection,
 					hide_production_selection: parent.parent.hide_production_selection,
 					update_production_selection: parent.parent.update_production_selection,
+					show_workshop: parent.parent.show_workshop,
 					show_citizen_selection: parent.parent.show_citizen_selection,
 					show_rename: parent.parent.show_rename,
 				},
@@ -287,6 +300,7 @@ return {
 	},
 
 	hide_production_selection: () => {
+		if (#is_defined(this.workshop) && this.workshop != null) { this.workshop.cancel(); }
 		if (this.production_selection != null) {
 			this.production_selection.remove();
 			this.production_selection = null;
@@ -420,6 +434,7 @@ return {
 	},
 
 	update_production_selection: () => {
+		if (this.workshop != null && this.workshop.session != null) { return; }
 		if (this.production_selection != null) {
 			const base = this.base;
 			const same_base = base != null && base.id == this.production_selection_base_id;
@@ -446,6 +461,10 @@ return {
 	show_rename: () => {
 		if (!this.is_open || !#is_defined(this.rename_controller) || this.rename_controller == null || this.production_selection != null) { return; }
 		this.hide_citizen_selection(); this.rename_controller.open();
+	},
+
+	show_workshop: () => {
+		if (this.production_choices != null) { this.workshop.open(); }
 	},
 
 };

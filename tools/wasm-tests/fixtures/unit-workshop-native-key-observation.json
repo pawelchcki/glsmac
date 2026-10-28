@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "kind": "actual candidate SDL/dispatch observation; not original evidence",
+  "source_report_sha256": "ed7918765ec57f8f5047c625ccf95b9500a37b017c0c235a12b2113fb1e3c4b7",
+  "source_head": "0322db433f7c89becc00f504325111f67fc91f3d",
+  "native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "samples": [
+    {
+      "code": "P",
+      "modifiers": 6,
+      "fence": 51907,
+      "events": [
+        {
+          "seq": 51908,
+          "kind": "input.ingress",
+          "target": "input",
+          "data": {
+            "ingress": 9,
+            "sdl_type": 768,
+            "action": 1,
+            "type": "keydown",
+            "keycode": 112,
+            "scancode": 19,
+            "modifiers": 320,
+            "repeat": 0
+          }
+        },
+        {
+          "seq": 51909,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "begin",
+            "ingress": 9,
+            "type": "keydown",
+            "action": 1,
+            "code": "P",
+            "key": 0,
+            "modifiers": 6,
+            "printable": false
+          }
+        },
+        {
+          "seq": 51910,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "end",
+            "ingress": 9,
+            "handled": true
+          }
+        }
+      ]
+    },
+    {
+      "code": "R",
+      "modifiers": 2,
+      "fence": 62300,
+      "events": [
+        {
+          "seq": 62301,
+          "kind": "input.ingress",
+          "target": "input",
+          "data": {
+            "ingress": 46,
+            "sdl_type": 768,
+            "action": 1,
+            "type": "keydown",
+            "keycode": 114,
+            "scancode": 21,
+            "modifiers": 64,
+            "repeat": 0
+          }
+        },
+        {
+          "seq": 62302,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "begin",
+            "ingress": 46,
+            "type": "keydown",
+            "action": 1,
+            "code": "R",
+            "key": 0,
+            "modifiers": 2,
+            "printable": false
+          }
+        },
+        {
+          "seq": 62310,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "end",
+            "ingress": 46,
+            "handled": true
+          }
+        }
+      ]
+    },
+    {
+      "code": "P",
+      "modifiers": 6,
+      "fence": 94576,
+      "source_head": "558dc3715204874e275c32796819547fa449d29d",
+      "source_raw_sha256": "3236fa656a1a38e9216ee6a049fd65250be5f64f8081f24be446041278c58076",
+      "scope": "Actual complete post-Cancel query key with no queued world observation; handled DOM target not exposed",
+      "events": [
+        {
+          "seq": 94577,
+          "kind": "input.ingress",
+          "target": "input",
+          "data": {
+            "ingress": 36,
+            "sdl_type": 768,
+            "action": 1,
+            "type": "keydown",
+            "keycode": 112,
+            "scancode": 19,
+            "modifiers": 320,
+            "repeat": 0
+          }
+        },
+        {
+          "seq": 94578,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "begin",
+            "ingress": 36,
+            "type": "keydown",
+            "action": 1,
+            "code": "P",
+            "key": 0,
+            "modifiers": 6,
+            "printable": false
+          }
+        },
+        {
+          "seq": 94579,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "end",
+            "ingress": 36,
+            "handled": true
+          }
+        }
+      ]
+    }
+  ],
+  "incomplete_samples": [
+    {
+      "code": "I",
+      "modifiers": 6,
+      "fence": 93218,
+      "events": [
+        {
+          "seq": 93219,
+          "kind": "input.ingress",
+          "target": "input",
+          "data": {
+            "ingress": 78,
+            "sdl_type": 768,
+            "action": 1,
+            "type": "keydown",
+            "keycode": 105,
+            "scancode": 12,
+            "modifiers": 320,
+            "repeat": 0
+          }
+        },
+        {
+          "seq": 93220,
+          "kind": "input.dispatch",
+          "target": "input",
+          "data": {
+            "phase": "begin",
+            "ingress": 78,
+            "type": "keydown",
+            "action": 1,
+            "code": "I",
+            "key": 0,
+            "modifiers": 6,
+            "printable": false
+          }
+        }
+      ],
+      "reason": "Actual retained final observer query has no captured dispatch END; not a completed input"
+    }
+  ]
+}

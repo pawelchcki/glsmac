@@ -123,7 +123,7 @@ jobs:
         run: |
           test -f build/wasm/bin/GLSMAC.js
           test -f build/wasm/bin/GLSMAC.wasm
-          node --test tools/wasm-tests/browser-log-cursor.test.mjs tools/wasm-tests/browser-native-log-hook.test.mjs tools/wasm-tests/runtime-fetch-barrier.test.mjs tools/wasm-tests/terraform-browser-geometry.test.mjs tools/wasm-tests/terraform-browser-pointer.test.mjs tools/wasm-tests/terraform-height-observation.test.mjs tools/wasm-tests/terraform-height-preflight.test.mjs tools/wasm-tests/terraform-sea-height-observation.test.mjs tools/wasm-tests/gse-shards.test.mjs
+          node --test tools/wasm-tests/browser-log-cursor.test.mjs tools/wasm-tests/browser-native-log-hook.test.mjs tools/wasm-tests/runtime-fetch-barrier.test.mjs tools/wasm-tests/terraform-browser-geometry.test.mjs tools/wasm-tests/terraform-browser-pointer.test.mjs tools/wasm-tests/terraform-height-observation.test.mjs tools/wasm-tests/terraform-height-preflight.test.mjs tools/wasm-tests/terraform-sea-height-observation.test.mjs tools/wasm-tests/gse-shards.test.mjs tools/wasm-tests/unit-workshop-key-receipt.test.mjs tools/wasm-tests/unit-workshop-presentation.test.mjs tools/wasm-tests/unit-workshop-preview-pixels.test.mjs
           python3 tools/behavior-tests/test_terraform_height_browser_audit.py ProtocolAuditTests ProtocolFinalizationTests ExternalOutcomeTests DerivedOutputTests PreflightSchemaTests ProtocolPointerRouteTests ProtocolKeyboardRouteTests FrameFileTests InterpreterModeTests -v
           python3 tools/behavior-tests/test_terraform_sea_height_browser_audit.py -k PublicSea -v
           python3 tools/behavior-tests/test_terraform_sea_height_runner.py -v

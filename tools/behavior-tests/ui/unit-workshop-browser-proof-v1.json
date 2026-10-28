@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "kind": "bounded candidate existing-design Workshop browser proof",
+  "status": "strict-pass",
+  "scope": "Actual candidate base production\u2192existing-design Workshop\u2192normal authoritative production; known stock Former component pixels; no original parity claim",
+  "verified_production_head": "87d22ffec690e05d2c6999f4b5acf4989db3e20a",
+  "verified_harness_source_head": "47398614bcfd396e2413f48c40a1cfcf864cc3b0",
+  "execution_head": "54ac63356b919be40bf5484d2dc600f69130f5e9",
+  "native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "production_default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+  "production_default_serialization_sha256": "6e0f01f7999fc90451d44c939781741a910d7c0d67c2b91624ecf9feb11895af",
+  "runtime": {
+    "GLSMAC.js": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+    "GLSMAC.wasm": "b2c7fa273042f2407335169eb4fca51f131f1f30656301d7b7573a201b28f5b7"
+  },
+  "shared_source": "0322db433f7c89becc00f504325111f67fc91f3d",
+  "source_files_sha256": {
+    "tools/wasm-tests/unit-workshop-browser.test.mjs": "3042d777ec0c7dcea3cf27fff2fe87dab8571b26b75c36e97d65733065a46625",
+    "tools/wasm-tests/unit-workshop-browser-fixture.mjs": "42e90f094ca2930f719a97c50e3c72243265e8c70ae8304ade7e2dc9adfdafec",
+    "tools/wasm-tests/unit-workshop-presentation.mjs": "30007dab370207ebe04c1869225851422c926091f1178aeb8c30f210a2a45884",
+    "tools/wasm-tests/unit-workshop-key-receipt.mjs": "17fe5e4199ce97065975303b79748920d399d4263c5aeaaf4b8c76aa8877fa55",
+    "tools/wasm-tests/unit-workshop-key-receipt.test.mjs": "4778d36dc4dba9ed894b66fb50e8d6a52a03155b56945c3c1db4ce8aaca4ade8",
+    "tools/wasm-tests/fixtures/unit-workshop-native-key-observation.json": "e0d013b9a260f598378d0e5d40e95c043501989e08e1799169dfae08336a23da",
+    "tools/wasm-tests/browser-log-cursor.mjs": "959cd36fec3d798f889a9de6d8889d23808195a2a2cfc37830497c061cc1eed3",
+    "tools/wasm-tests/browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1",
+    "tools/wasm-tests/runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+    "tools/wasm-tests/terraform-browser-pointer.mjs": "b20d3ec18c0f75b49820056149853747fe47da64667caa2a7fa531da9fa0e8d1",
+    "tools/wasm-tests/terraform-browser-geometry.mjs": "a8c2aeafba1bc14c785c5993b1a201931b08bec69b805defa2d2744b2c3b0eea",
+    "tools/wasm-tests/terraform-browser-inputs.mjs": "80171fb84092c3f9fb1c0cff4aef213f2f0674f06c3496ed0f1c7838fd3ac8e3",
+    "GLSMAC_data/tests/_unit_workshop_reader.gls.js": "b5cede1b2f1f7902dc3c50df75858de133bbf8f715574f1e983a5f9134d538d1",
+    "GLSMAC_data/tests/workshop_observation_native.gls.js": "ff663ff8d7f8d66ac9e0267dae6aff9f7a738134fce24da790bb1d4fa3d2365c",
+    "tools/wasm-tests/unit-workshop-presentation.test.mjs": "6c9dd7fef3639ef81929bf0f8b0054e272fa14ed529fdaa4d766859d7ea7800d",
+    "tools/wasm-tests/fixtures/unit-workshop-native-base-queue.json": "bae447ed5a36ef247ab55ccec1be961fa6d750d26909b243aadc5ec978b56243",
+    "tools/wasm-tests/unit-workshop-preview-pixels.mjs": "fb24590a807ad75d5f12a8c211839b07da38bb428a30f4f1b7a33e162d197f2a",
+    "tools/wasm-tests/unit-workshop-preview-pixels.test.mjs": "229554e0387f00ca98860c30d4e77777ff04f6c722b7dadd23f7200d68ee28be",
+    "GLSMAC_data/tests/_unit_workshop_query.gls.js": "5870e1c30a9726bf52443bca242b1750bf40e2ddfc26afefd2a37c7e1ff9beab",
+    "tools/wasm-tests/fixtures/unit-workshop-native-base-close.json": "51a30eaafc8641331843f3a0d3269e9c83327ba055e8e1648eda06f5477e358c"
+  },
+  "installed_component": {
+    "path": "VT.cvr",
+    "sha256": "076df434678a92b0de70965a0c3c1a400de31924d9365c8c96998f0bb2e13c19",
+    "manifest_id": "12743b42e275842a7ae3862572ec769c6d86f647394f0edb1ff9db6d104888e3"
+  },
+  "declared_input": {
+    "map": "source-declared16x16-arid",
+    "players": 7,
+    "bases": 7,
+    "units": 8,
+    "recipes": "actual source basic and optional Sea Former; explicit fixture inventory"
+  },
+  "requested_seed": "1651011033:1377505029:3019448108:3247278135",
+  "environment": {
+    "node": "v24.10.0",
+    "dependency_symlink": "/var/home/pawel/reimplementation/smac-wasm/in_webbrowser/tools/wasm-tests/node_modules",
+    "browser_version": "Workshop harness did not separately record the browser executable version"
+  },
+  "application": {
+    "raw_node_exit": 0,
+    "native_exit": 0,
+    "elapsed_seconds": 108.02317979300278,
+    "deadline_ms": 180000,
+    "checkpoints": [
+      "base-open-before-production",
+      "workshop-open",
+      "former-preview",
+      "pointer-cancel",
+      "keyboard-cancel",
+      "draft-transferred",
+      "normal-production-OK",
+      "native-base-refresh-cleans-stale-workshop",
+      "reopened-base-has-no-stale-draft"
+    ],
+    "all_owner_graph": {
+      "players": 7,
+      "bases": 7,
+      "units": 8,
+      "terrain_tiles": 128
+    },
+    "real_pointers": 14,
+    "real_keys": 13,
+    "post_cancel_query_owner": {
+      "base_id": 1,
+      "coalesced": 0,
+      "owner_session": 1,
+      "query": 4,
+      "scope": "production",
+      "source": "production:2",
+      "token": 2
+    },
+    "base_hide": {
+      "id": "n208",
+      "key_begin": 156663,
+      "key_end": 156673,
+      "native_hide": 177534,
+      "scope": "Actual same-Window hide after Escape plus settled script state; no visibility inference from script flags"
+    },
+    "stale_workshop_window": {
+      "id": "n2519",
+      "role": "dialog",
+      "source": "game.unit_workshop",
+      "sequence": 131416
+    },
+    "final_native_differences": [
+      {
+        "path": "/bases/0/project",
+        "before": "scout-patrol",
+        "after": "formers"
+      },
+      {
+        "path": "/terrain_trace/base_details/base:player:1:0:2:0/production/choice_id",
+        "before": "SCOUT_PATROL",
+        "after": "FORMERS"
+      }
+    ],
+    "excluded_world_field": "world.terrain_trace.ui only",
+    "world_guards": "Every checkpoint compared all seven owners; only normal confirmed production changes allowed"
+  },
+  "known_material_pixels": {
+    "matching": 2923,
+    "missing": 0,
+    "wrong": 0,
+    "extra_reference_palette": 0,
+    "crop_size": {
+      "width": 100,
+      "height": 74
+    },
+    "scope": "Only nonblack control material RGB/position and known-palette extras; black/alpha/background/unknown outside palette excluded"
+  },
+  "native_checks": {
+    "workshop_and_compatibility": {
+      "scenarios": 53,
+      "assertions": 189,
+      "source": "/tmp/unit-workshop-proof/summary.json"
+    },
+    "native_observer": {
+      "scenarios": 4,
+      "assertions": 23,
+      "source": "/tmp/unit-workshop-observer-native-v3/result.json"
+    },
+    "overlap_note": "Earlier observer3/13 is superseded by4/23, not additional passing cases"
+  },
+  "pure_cases": {
+    "key_receipts": 7,
+    "presentation": 15,
+    "known_material_mask": 10,
+    "kind": "Asset-free protocol/adapter checks; separate from application and original counts"
+  },
+  "raw": {
+    "sealed": true,
+    "partial": false,
+    "raw_sha256": "093d573e4862120e139d42e39c570d38888afc9ce8287ebf8e8b005e0f1fa559",
+    "joined_chunks_sha256": "093d573e4862120e139d42e39c570d38888afc9ce8287ebf8e8b005e0f1fa559",
+    "raw_utf8_bytes": 36175489,
+    "whole_raw_fatal_scan": "PASS",
+    "main_runtime_hook_installations": 1,
+    "main_continuation_ack": true,
+    "worker_continuation_acks": 8,
+    "first_callback_out_and_err_identity": true,
+    "artifacts": {
+      "preflight.json": "ba01406fc7872de94ad8404bc6b86f5bc879d1aee605fda36f887c011f576aea",
+      "raw-outcome.json": "00e85fc685b67618ce82ed911859919c3d1e4f3b3a624aeb19b5b986618f39a7",
+      "outcome.json": "16895833af4775a4745802885fb5f77c392ed13f10adfd738eb2e673e45362f5",
+      "report.json": "6326db4080885c3200e25fc82631b3b7a9cf362f4aa64d9f9aeee915695fa8cc",
+      "application.log": "093d573e4862120e139d42e39c570d38888afc9ce8287ebf8e8b005e0f1fa559",
+      "application-log-chunks.jsonl": "289e32672bc6f7e83f10f91fea0817af28c1805db8bcd3fef971b5c6c23a5e7b",
+      "final-world-audit.json": "ed636fb0994b0ce582973ed338b65c02e702d109d281dd9af701967ebee4c830",
+      "former-preview.png": "c4fae106bb1f83dd9dc1f7c1f7802ead1beb4acbea5576d6a865bdb9a6dacce5",
+      "final-base.png": "a56752ee0a654074bdc0827d0a961b2699da0ea7f709afd65e89f3e56bd314aa"
+    }
+  },
+  "artifact_directory": "/tmp/unit-workshop-browser-v7",
+  "prior_failures": [
+    {
+      "attempt": 1,
+      "path": "/tmp/unit-workshop-browser-v1/outcome.json"
+    },
+    {
+      "attempt": 2,
+      "path": "/tmp/unit-workshop-browser-v2/outcome.json"
+    },
+    {
+      "attempt": 3,
+      "path": "/tmp/unit-workshop-browser-v3/outcome.json"
+    },
+    {
+      "attempt": 4,
+      "path": "/tmp/unit-workshop-browser-v4/outcome.json"
+    },
+    {
+      "attempt": 5,
+      "path": "/tmp/unit-workshop-browser-v5/outcome.json"
+    },
+    {
+      "attempt": 6,
+      "path": "/tmp/unit-workshop-browser-v6/outcome.json"
+    }
+  ],
+  "prior_native_duplicate_summary_failure": "/tmp/unit-workshop-observer-native-v1/result.json",
+  "source_and_runtime_unchanged_during_run": true,
+  "owned_workers": "Browser/server/driver fully reaped; exclusive lease released",
+  "original_passing_cases": 0,
+  "remaining_gaps": [
+    "original Workshop layout/behavior",
+    "custom authoring/save/upgrade",
+    "full assembled art",
+    "original pixel agreement",
+    "facing/tool/limb animation",
+    "animation cadence/audio",
+    "native frontend rendered-unit identity",
+    "black voxels and alpha isolation",
+    "other preview backgrounds and unknown materials outside the control palette",
+    "consuming DOM ID in native key END",
+    "native ingress ID in GSE callbacks",
+    "original movement/facing/intermediate-frame agreement",
+    "action\u2192tool/limb clip bindings and cadence",
+    "intro/video/music-transition fidelity not exercised",
+    "full candidate DOM keyboard target/focus agreement",
+    "native shutdown presentation drain after final exit"
+  ],
+  "delivery": "Source integration, mandatory CI and exact-final-head review/merge owned by Delivery; this proof does not claim those gates passed"
+}
