@@ -19,12 +19,19 @@ std::string Read( const std::string& filename ) {
 }// namespace
 
 int main( const int argc, const char** argv ) {
+	std::cout << std::unitbuf;
+	const char* stage = "startup";
+	std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 	try {
 		assert( argc == 2 );
 		const std::string directory = argv[ 1 ];
 		const auto manifest = Read( directory + "/manifest.json" );
 		const auto reader = [ & ]( const std::string& path ) { return Read( directory + "/" + path ); };
+		stage = "runtime construction";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		script::Runtime runtime( manifest, reader );
+		stage = "terrain policy";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		const auto snapshot = runtime.Call( "tests/tile-yield", "snapshot", {} );
 		const auto produced = runtime.Call( "game/land-resource-yields", "apply", snapshot );
 		assert( std::get< int64_t >( std::get< script::Value::Object >( produced.data ).at( "NUTRIENTS" ).data ) == 3 );
@@ -42,6 +49,8 @@ int main( const int argc, const char** argv ) {
 			}
 			assert( rejected );
 		}
+		stage = "numeric and owned values";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		for ( const int64_t input : { std::numeric_limits< int64_t >::min(), int64_t{ -9007199254740993 }, int64_t{ 0 }, int64_t{ 9007199254740993 }, std::numeric_limits< int64_t >::max() } ) {
 			assert( std::get< int64_t >( runtime.Call( "tests/runtime", "identity", script::Value( input ) ).data ) == input );
 		}
@@ -55,6 +64,8 @@ int main( const int argc, const char** argv ) {
 		const auto keyed = runtime.Call( "tests/runtime", "identity", script::Value( script::Value::Object{ { key, record } } ) );
 		assert( std::get< script::Value::Object >( keyed.data ).contains( key ) );
 		for ( const auto& name : { "increment", "imprecise", "mutate", "random", "spin", "allocate", "mappedError", "sparse", "exotic", "accessor", "cycle", "asynchronous" } ) {
+			stage = name;
+			std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 			script::Limits limits;
 			limits.execution = std::chrono::milliseconds( 20 );
 			if ( name == std::string( "allocate" ) ) {
@@ -78,6 +89,8 @@ int main( const int argc, const char** argv ) {
 			}
 			assert( rejected );
 		}
+		stage = "module initialization interruption";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		{
 			script::Limits limits;
 			limits.execution = std::chrono::milliseconds( 20 );
@@ -94,6 +107,8 @@ int main( const int argc, const char** argv ) {
 		assert( std::get< int64_t >( std::get< script::Value::Object >( record.data ).at( "n" ).data ) == 1 );
 		assert( std::holds_alternative< script::Undefined >( runtime.Call( "fixtures/test", "checkSelection", {} ).data ) );
 #ifndef __EMSCRIPTEN__
+		stage = "delayed import and thread ownership";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		// File reads and source-map decoding belong to the host. A slow reader
 		// must not spend the policy's JavaScript evaluation deadline.
 		script::Limits loading_limits;
@@ -112,7 +127,7 @@ int main( const int argc, const char** argv ) {
 		return 0;
 	}
 	catch ( const std::exception& error ) {
-		std::cerr << error.what() << '\n';
+		std::cerr << "SCRIPT_RUNTIME_ERROR|" << stage << '|' << error.what() << '\n';
 		return 1;
 	}
 }

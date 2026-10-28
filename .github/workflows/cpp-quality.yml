@@ -124,7 +124,10 @@ jobs:
           cmake --build build/script-windows -j2
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
-          exit $LASTEXITCODE
+          $probeExit = $LASTEXITCODE
+          Write-Host "Clang runtime probe exit code: $probeExit"
+          if ($probeExit -ne 0) { llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe }
+          exit $probeExit
       - name: Preserve the existing MinGW runtime build path
         shell: pwsh
         run: |
@@ -133,7 +136,10 @@ jobs:
           cmake --build build/script-mingw -j2
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
-          exit $LASTEXITCODE
+          $probeExit = $LASTEXITCODE
+          Write-Host "MinGW runtime probe exit code: $probeExit"
+          if ($probeExit -ne 0) { llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe }
+          exit $probeExit
 
   wasm-probes:
     name: C++23 WASM graphics and platform probes
