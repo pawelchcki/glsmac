@@ -1,0 +1,359 @@
+{
+  "schema": "candidate.unit-body-movement-result.v2",
+  "status": "incomplete-sampling",
+  "passing_movement_cases": 0,
+  "accepted_original_cases": 0,
+  "product_mismatch_proven": false,
+  "source_head": "66dc0b997e2804a33012bebaea45bca0c221e22d",
+  "native_tree": "23e54d08b7dbb00f6b42d325c180a8c868b30ee2",
+  "production_default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+  "runtime": {
+    "GLSMAC.js": "32446906441924bb1b1ad7a505682757c590ef8ebdcacd186a0e3fd259d8bea1",
+    "GLSMAC.wasm": "cdc6d8f29400451fdca33a60909a24ad62b3c04b5bacbb2123006ca619177a22"
+  },
+  "runtime_provenance_sha256": "5c847aaf39f28b2eec66970f9122ecca4ef33e58d7ed6b558701c8de32181619",
+  "generated_fixture_sha256": {
+    "main": "1a709eae23b96d02d7359e98775458fcd8a97c92adc46a667566657e03dbfd8d",
+    "world": "614964b356e649998aea9cd72cbef780f3aa087cc220117c585976d59e4df27d",
+    "terrain": "a2bac027296c614e8bf036a350d5bc5e6e0db2605af8a51eb27a84fb0756f5f8",
+    "budgets": {
+      "node_ms": 180000,
+      "observation_ms": 120000,
+      "outer_seconds": 190,
+      "term_seconds": 3,
+      "kill_wait_seconds": 5,
+      "cleanup_seconds": 8,
+      "postkill_seconds": 2,
+      "census_calls": 32,
+      "sample_delay_ms": 10
+    }
+  },
+  "source_freeze": {
+    "path": "/tmp/unit-body-movement-source-v2/source-freeze.json",
+    "sha256": "41fd6d3bbf06a19144efec9176c3559ba0d655894fea2cb34a7d7a8de2b807bf"
+  },
+  "independent_source_review": {
+    "path": "/tmp/unit-body-movement-async-independent-source-review.json",
+    "sha256": "590a7ab1a4e6b1afb756b9dae9e5d0110d8e159bde119b5febc9dc3e7e9f3144",
+    "verdict": "CLEAN"
+  },
+  "independent_retained_raw_audit": {
+    "status": "confirmed-incomplete-sampling; no passing movement comparison",
+    "path": "/tmp/unit-body-movement-browser-v2/independent-delivery-audit.json",
+    "sha256": "d8f3295f70fa7a4dc75c81a7d3e4f85a9b32f30cbcb0f0039df60baee4493d8a",
+    "reproducer": "/tmp/unit-body-movement-independent-audit-v2.py",
+    "reproducer_sha256": "fbc0113d74fb8dd7dd4548f039e898a9a72c00c9094fa70b83fcfa7875443c66",
+    "census_F32_descriptors_verified": 1812,
+    "movement_passing_cases": 0,
+    "complete_browser_passing_cases": 0,
+    "final_report_partial": true,
+    "pre_evaluator_receipt_partial": false,
+    "all7_effect_comparison_accepted": false
+  },
+  "artifacts": {
+    "directory": "/tmp/unit-body-movement-browser-v2",
+    "sha256": {
+      "preflight.json": "e32cbdc2209c40e00fb6d4685271e185296617a0ca7812b080532670227065af",
+      "launch-plan.json": "0d7bd428656783837e0b2d7383e9166b421ff3059d09c8e9db081870136df679",
+      "operator-execution-context.json": "9c66f7397d9f9243fbff2b1d010c6aba6b886dbc75ea1e20532a0901bc864278",
+      "independent-delivery-prelaunch.json": "25738fd3c87fcb9cf631608dc94c41c6faf1dd8dfeb76fa43f4e1fd2929adfb3",
+      "historical-evidence-pins.json": "3b916601e99e947edff0684f23ede0caed8e47408b966a69d834c420e464fb84",
+      "prepare-process.json": "372d4ffcaaa6a710b1cc858eecaf1ca432e49339bca267f1182953d1c5196c01",
+      "raw-outcome.json": "ea0a8d1a6b986ff678537218e4b68d3b3c1c5e43978775c6c474782e6b8025e8",
+      "node.log": "1807a97dbc08d73cb4b1708bb012c6df51fc767e4d87641d32ff13eea973abe6",
+      "setup-processes.jsonl": "7767416346e8b5a8ce735e44b04e487b7971acddf7f3beb7989911ac115f4ba0",
+      "report.json": "ae46ef8c8fa130000d66a6cafc2873bc0fce2b2e9e8c54a57beb51bf78db0066",
+      "application.log": "e8250210e21529be621cd9d2c58ff55e9e5a00c2d7811562aa33cce0a3de88f8",
+      "application-log-chunks.jsonl": "697a0826f164b5224ee47a7caa41ce49f16ee19b869f3cb56416ce065cf53f4e",
+      "receipt-acceptance.json": "2814a8907ccf1296c61a8db59496026d7ae95946869d45a701f1d6f35cebe08d",
+      "movement-result.json": "e55fa89070477b2a48f7cd097bd4f05ef6c1fa464584fec31e3db5917a2b7fa2",
+      "post-restoration.json": "0a67fd83a2fc63b010f2f8fa68afdc6e9a645986e1679dc0d44da284f9d55e4c",
+      "retained-raw-summary.json": "d4fa50c54e7db3cda9b1e65e9a41ee07f5be8e7f755b5088afdaff6c33061da8"
+    }
+  },
+  "actual_process": {
+    "raw_node_exit": 1,
+    "os_wait_completed": true,
+    "elapsed_seconds": 54.3963477750076,
+    "node_pid": 3886410,
+    "outer_timeout": false,
+    "forced_cleanup": false,
+    "owned_group_after_cleanup": "absent",
+    "tracked_descendants_after_cleanup": [],
+    "tracked_identity_count": 13,
+    "exhaustive_host_inventory_supported": false
+  },
+  "actual_observation": {
+    "kind": "read-only retained-raw summary; no acceptance waiver or new execution",
+    "actual_node_exit": 1,
+    "actual_native_app_exit": 0,
+    "envelope_ack_exit_seal_valid": true,
+    "raw_sha256": "e8250210e21529be621cd9d2c58ff55e9e5a00c2d7811562aa33cce0a3de88f8",
+    "raw_bytes": 895541,
+    "chunk_count": 242,
+    "census_count": 32,
+    "samples": 29,
+    "sample_point_distribution": {
+      "baseline": 2,
+      "endpoint": 27
+    },
+    "baseline_point": {
+      "x": 0.25,
+      "y": -0.25,
+      "z": 2.005714178085327
+    },
+    "independent_expected_endpoint": {
+      "x": 1.25,
+      "y": -0.25,
+      "z": 2.005714178085327
+    },
+    "last_two_sample_points": [
+      {
+        "x": 1.25,
+        "y": -0.25,
+        "z": 2.005714178085327
+      },
+      {
+        "x": 1.25,
+        "y": -0.25,
+        "z": 2.005714178085327
+      }
+    ],
+    "settled_confirm_points": [
+      {
+        "x": 1.25,
+        "y": -0.25,
+        "z": 2.005714178085327
+      },
+      {
+        "x": 1.25,
+        "y": -0.25,
+        "z": 2.005714178085327
+      }
+    ],
+    "sample_ordinals_with_intermediate": [],
+    "receipts": [
+      {
+        "caller": 0,
+        "event_id": "0_90",
+        "name": "move_unit",
+        "seq": 15,
+        "success": true
+      }
+    ],
+    "pending": [
+      {
+        "seq": 48,
+        "stage": "poll",
+        "values": [
+          {
+            "owner_id": 0,
+            "pending": false
+          },
+          {
+            "owner_id": 1,
+            "pending": false
+          },
+          {
+            "owner_id": 2,
+            "pending": false
+          },
+          {
+            "owner_id": 3,
+            "pending": false
+          },
+          {
+            "owner_id": 4,
+            "pending": false
+          },
+          {
+            "owner_id": 5,
+            "pending": false
+          },
+          {
+            "owner_id": 6,
+            "pending": false
+          }
+        ]
+      },
+      {
+        "seq": 49,
+        "stage": "capture",
+        "values": [
+          {
+            "owner_id": 0,
+            "pending": false
+          },
+          {
+            "owner_id": 1,
+            "pending": false
+          },
+          {
+            "owner_id": 2,
+            "pending": false
+          },
+          {
+            "owner_id": 3,
+            "pending": false
+          },
+          {
+            "owner_id": 4,
+            "pending": false
+          },
+          {
+            "owner_id": 5,
+            "pending": false
+          },
+          {
+            "owner_id": 6,
+            "pending": false
+          }
+        ]
+      },
+      {
+        "seq": 52,
+        "stage": "confirm",
+        "values": [
+          {
+            "owner_id": 0,
+            "pending": false
+          },
+          {
+            "owner_id": 1,
+            "pending": false
+          },
+          {
+            "owner_id": 2,
+            "pending": false
+          },
+          {
+            "owner_id": 3,
+            "pending": false
+          },
+          {
+            "owner_id": 4,
+            "pending": false
+          },
+          {
+            "owner_id": 5,
+            "pending": false
+          },
+          {
+            "owner_id": 6,
+            "pending": false
+          }
+        ]
+      }
+    ],
+    "worlds": [
+      {
+        "label": "before",
+        "players": 7,
+        "bases": 7,
+        "units": 9,
+        "tiles": 128
+      },
+      {
+        "label": "after",
+        "players": 7,
+        "bases": 7,
+        "units": 9,
+        "tiles": 128
+      }
+    ],
+    "all7_world_effect_comparison": "not reached by strict evaluator after missing-intermediate failure; not accepted as PASS",
+    "strict_result": {
+      "complete": false,
+      "match": false,
+      "status": "incomplete-sampling",
+      "error": "no actual submitted intermediate point was sampled",
+      "candidate_executed": false,
+      "evaluation_only": true,
+      "original_passing_cases": 0
+    },
+    "physical_inputs": 0,
+    "original_passing_cases": 0,
+    "movement_passing_cases": 0
+  },
+  "cheap_source_checks": {
+    "tests": 31,
+    "skipped": 0,
+    "raw_exit": 0,
+    "scope": "source/pure and bounded dummy subprocess checks; no game credit",
+    "log": "/tmp/unit-body-movement-source-v2/checks.log",
+    "sha256": "ce38a10bb2c014c06c629f31c541afdb40dd912c7234066930ba9c254c229bda"
+  },
+  "first_attempt": {
+    "source_head": "9348e13537148a16fe05b66b1b68c48963c7e480",
+    "directory": "/tmp/unit-body-movement-browser-v1",
+    "raw_node_exit": 1,
+    "os_wait_completed": true,
+    "native_or_app_exit_proven": false,
+    "movement_evidence": false,
+    "first_proven_prelaunch_blocker": "spawnSync git EPERM under restricted default context; error.status=0 was not an actual process exit",
+    "original_node_log_sha256": "0bb6d41c39d9d666fc8f56bfa4d6b86df0f786c8ecdc24fde50a5402699f0d57",
+    "original_raw_outcome_sha256": "6d771eb4cd597d2a2bd12aeea835318cf2b212857cb5d192b4a3f6ea19b800ba",
+    "all_diagnostics_preserved": true
+  },
+  "execution_permission": "Narrow require_escalated tool context for authorized owned loopback HTTP/Chrome; sidecar retained; historical v1 used default restricted context",
+  "budgets": {
+    "node_ms": 180000,
+    "observation_ms": 120000,
+    "outer_seconds": 190,
+    "term_seconds": 3,
+    "kill_wait_seconds": 5,
+    "cleanup_seconds": 8,
+    "postkill_seconds": 2,
+    "census_calls": 32,
+    "sample_delay_ms": 10
+  },
+  "native_watchdog_supported": false,
+  "restoration": {
+    "temporary_dependency_symlink_removed": true,
+    "source_web_runtime_target_packages_unchanged": true,
+    "all_historical_evidence_hashes_unchanged": true,
+    "host_clean": true,
+    "all_owned_children_reaped": true
+  },
+  "unsupported": [
+    "No strict intermediate body point, so no passing continuous movement case",
+    "Final all-owner sole-move/F32 effect comparison not reached by strict evaluator; no full effect pass",
+    "GPU/map pixels or exact frame body identity",
+    "Native clock/cadence/all-ticks, backend animation cause ID or exact callback identity",
+    "Facing, limb/tool/pose/clip binding, speed/duration parity",
+    "Original-game appearance/policy or repeat acceptance",
+    "Cross-session continuity and exhaustive host descendant inventory",
+    "Historical full Playwright executable package-content provenance: only manifests and Chromium binary were pinned; future full content pins are unexecuted and do not repair old coverage"
+  ],
+  "delivery_intent": "Commit harness and truthful incomplete outcome; no automatic retry, weakened oracle, production or runtime edits; stop after wrap-up handoff",
+  "source_recovery": {
+    "mapping": "tools/behavior-tests/ui/unit-body-movement-source-equivalence-v2.json",
+    "actual_source_head_unchanged": "66dc0b997e2804a33012bebaea45bca0c221e22d",
+    "public_byte_equivalent_commit": "8f956da124794bb1166ccdb69ae0aaec0d7459e3",
+    "public_commit_was_game_executed": false,
+    "original_source_freeze": "tools/behavior-tests/ui/unit-body-movement-source-freeze-v2.json",
+    "original_source_freeze_sha256": "41fd6d3bbf06a19144efec9176c3559ba0d655894fea2cb34a7d7a8de2b807bf"
+  },
+  "durable_evidence": {
+    "archive_repository_path": "tools/behavior-tests/ui/unit-body-movement-evidence-v2.tar.gz",
+    "archive_sha256": "00c5ddbb0b4482f072e01538dadb3b32218879cefe4a734df82c9dffa4ac81cb",
+    "manifest_repository_path": "tools/behavior-tests/ui/unit-body-movement-evidence-v2.manifest.json",
+    "manifest_sha256": "473b3a9205ec4a6dfab303c3bbbda097875a415e58d3e4a38d75a4cd91a487f8",
+    "exact_utf8_members": 14,
+    "member_total_bytes": 2463050,
+    "compressed_bytes": 114130,
+    "portable_reproducer_repository_path": "tools/behavior-tests/state_trace/unit_body_movement_retained.py",
+    "reproducer_kind": "explicit bundle/manifest/source paths; no extraction, old path dereference, assets, runtime or current PID/process access",
+    "replay_exit_zero_means": "offline audit completed; recorded Node1/APP0/incomplete/0movementpasses remains unchanged",
+    "recorded_final_report_partial": true,
+    "recorded_pre_evaluator_receipt_partial": false,
+    "current_candidate_executed": false,
+    "public_evaluator_includes_later_stricter_route_guard": "source-only change; historical result remains incomplete; not a rerun or re-label of actual66dc",
+    "synthetic_auth_identity_disclosure": {
+      "scope": "Fresh synthetic candidate auth identity for the closed isolated run; not a live, personal or external credential; never reuse for future capture.",
+      "source_creation": "src/game/backend/Account.cpp:59; actual log says Creating local account, not Loaded account",
+      "ephemeral_browser": "historical66dc unit-body-movement-browser.test.mjs:99-101 chromium.launch then browser.newPage, no persistent context",
+      "closed_lifetime": "historical source113-115 awaits browser.close and server reap; retained APP0, Node1/OSwait and 13 owned identities gone"
+    }
+  }
+}

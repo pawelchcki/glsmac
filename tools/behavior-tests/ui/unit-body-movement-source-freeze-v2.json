@@ -1,0 +1,80 @@
+{
+  "kind": "Minimal async metadata/evaluator source fix, no game retry",
+  "head": "66dc0b997e2804a33012bebaea45bca0c221e22d",
+  "source_root": "/tmp/wasmsmac-unit-body-movement-async-proof",
+  "base": "9348e13537148a16fe05b66b1b68c48963c7e480",
+  "changed_files_sha256": {
+    "tools/behavior-tests/state_trace/unit_body_movement_runner.py": "3850586b0aa9dfe6afb1e6d7b0e5d99e580582bed93338fbd3a661fe663cacf0",
+    "tools/behavior-tests/test_unit_body_movement_runner.py": "8baad3fdcd20852b27e21d5c1e5b006cc6815a3cf884929708b95d9c8d6904fe",
+    "tools/wasm-tests/unit-body-movement-browser-fixture.mjs": "bf5dbce481c6a1d978a860dfa816a6706ed4761c8e97cc6b0171829105d26c48",
+    "tools/wasm-tests/unit-body-movement-browser.test.mjs": "34870a46dd917defc28b8e8bcddb525320dbe230598a0e61e04af061fd888e53"
+  },
+  "first_blocker": {
+    "diagnostic": "/tmp/unit-body-movement-extended-prefix-v1/outcome.json",
+    "diagnostic_sha256": "bdc014cc7ba8bdfda84ae329d09fb309b71c232cbd2a54cef684c6ac20a3f816",
+    "actual_node_exit": 1,
+    "actual_os_wait": true,
+    "error": "spawnSync git EPERM",
+    "first_git_argv": [
+      "git",
+      "rev-parse",
+      "HEAD:src"
+    ],
+    "scope": "proven first setup blocker only; later Playwright/browser/native issues untested",
+    "error_status_property_note": "diagnostic git raw_exit:0 was Error.status=0 inside catch, NOT actual Git process exit; no Git PID observed"
+  },
+  "fix": "Same fixed Git argv/cwd and Python evaluator argv/cwd use bounded async spawn; strict spawn/error/actual close/exit/wait/cancel/timeout and separate raw metadata. No assertion/source/oracle waiver.",
+  "checks": {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools/behavior-tests",
+      "-p",
+      "test_unit_body_movement*.py",
+      "-v"
+    ],
+    "raw_exit": 0,
+    "log": "/tmp/unit-body-movement-source-v2/checks.log",
+    "sha256": "ce38a10bb2c014c06c629f31c541afdb40dd912c7234066930ba9c254c229bda",
+    "tests": 31,
+    "skipped": 0,
+    "actual_game_credit": 0,
+    "cheap_readonly_git_and_owned_dummy_children_only": true
+  },
+  "native_tree": "23e54d08b7dbb00f6b42d325c180a8c868b30ee2",
+  "default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+  "runtime_path": "/tmp/wasmsmac-unit-body-census-runtime-v8",
+  "runtime_sha256": {
+    "GLSMAC.js": "32446906441924bb1b1ad7a505682757c590ef8ebdcacd186a0e3fd259d8bea1",
+    "GLSMAC.wasm": "cdc6d8f29400451fdca33a60909a24ad62b3c04b5bacbb2123006ca619177a22",
+    "provenance.json": "5c847aaf39f28b2eec66970f9122ecca4ef33e58d7ed6b558701c8de32181619"
+  },
+  "runtime_actual_hashes_unchanged": true,
+  "generated_fixture_sha256": {
+    "main": "1a709eae23b96d02d7359e98775458fcd8a97c92adc46a667566657e03dbfd8d",
+    "world": "614964b356e649998aea9cd72cbef780f3aa087cc220117c585976d59e4df27d",
+    "terrain": "a2bac027296c614e8bf036a350d5bc5e6e0db2605af8a51eb27a84fb0756f5f8",
+    "budgets": {
+      "node_ms": 180000,
+      "observation_ms": 120000,
+      "outer_seconds": 190,
+      "term_seconds": 3,
+      "kill_wait_seconds": 5,
+      "cleanup_seconds": 8,
+      "postkill_seconds": 2,
+      "census_calls": 32,
+      "sample_delay_ms": 10
+    }
+  },
+  "movement_gse_map_budgets_unchanged": true,
+  "movement_evaluator_and_countercases_byte_unchanged": true,
+  "original_failure_capture_unchanged": true,
+  "actual_movement_retry": false,
+  "native_browser_server_build_started": false,
+  "source_review_pending": true,
+  "next_gate": "Independent source review, fresh exact preflight, separate one-case grant required",
+  "all_cheap_owned_children_waited": true
+}

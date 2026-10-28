@@ -1,0 +1,111 @@
+{
+  "schema": "candidate.unit-body-movement-retained.v2",
+  "kind": "Exact candidate historical capture, offline replay only; not a passing movement case",
+  "archive": "unit-body-movement-evidence-v2.tar.gz",
+  "archive_sha256": "00c5ddbb0b4482f072e01538dadb3b32218879cefe4a734df82c9dffa4ac81cb",
+  "compressed_bytes": 114130,
+  "uncompressed_tar_bytes": 2478080,
+  "member_total_bytes": 2463050,
+  "members": [
+    {
+      "name": "application.log",
+      "bytes": 895541,
+      "sha256": "e8250210e21529be621cd9d2c58ff55e9e5a00c2d7811562aa33cce0a3de88f8"
+    },
+    {
+      "name": "application-log-chunks.jsonl",
+      "bytes": 1068158,
+      "sha256": "697a0826f164b5224ee47a7caa41ce49f16ee19b869f3cb56416ce065cf53f4e"
+    },
+    {
+      "name": "receipt-acceptance.json",
+      "bytes": 27803,
+      "sha256": "2814a8907ccf1296c61a8db59496026d7ae95946869d45a701f1d6f35cebe08d"
+    },
+    {
+      "name": "movement-result.json",
+      "bytes": 231,
+      "sha256": "e55fa89070477b2a48f7cd097bd4f05ef6c1fa464584fec31e3db5917a2b7fa2"
+    },
+    {
+      "name": "raw-outcome.json",
+      "bytes": 1662,
+      "sha256": "ea0a8d1a6b986ff678537218e4b68d3b3c1c5e43978775c6c474782e6b8025e8"
+    },
+    {
+      "name": "report.json",
+      "bytes": 371152,
+      "sha256": "ae46ef8c8fa130000d66a6cafc2873bc0fce2b2e9e8c54a57beb51bf78db0066"
+    },
+    {
+      "name": "setup-processes.jsonl",
+      "bytes": 2239,
+      "sha256": "7767416346e8b5a8ce735e44b04e487b7971acddf7f3beb7989911ac115f4ba0"
+    },
+    {
+      "name": "node.log",
+      "bytes": 1250,
+      "sha256": "1807a97dbc08d73cb4b1708bb012c6df51fc767e4d87641d32ff13eea973abe6"
+    },
+    {
+      "name": "preflight.json",
+      "bytes": 10907,
+      "sha256": "e32cbdc2209c40e00fb6d4685271e185296617a0ca7812b080532670227065af"
+    },
+    {
+      "name": "launch-plan.json",
+      "bytes": 5617,
+      "sha256": "0d7bd428656783837e0b2d7383e9166b421ff3059d09c8e9db081870136df679"
+    },
+    {
+      "name": "operator-execution-context.json",
+      "bytes": 1371,
+      "sha256": "9c66f7397d9f9243fbff2b1d010c6aba6b886dbc75ea1e20532a0901bc864278"
+    },
+    {
+      "name": "post-restoration.json",
+      "bytes": 1109,
+      "sha256": "0a67fd83a2fc63b010f2f8fa68afdc6e9a645986e1679dc0d44da284f9d55e4c"
+    },
+    {
+      "name": "owned-process-samples.jsonl",
+      "bytes": 73349,
+      "sha256": "41f697a75491093c22c64d5480204501d6c7eb4c220000a0a017ff3059322e55"
+    },
+    {
+      "name": "independent-delivery-audit.json",
+      "bytes": 2661,
+      "sha256": "d8f3295f70fa7a4dc75c81a7d3e4f85a9b32f30cbcb0f0039df60baee4493d8a"
+    }
+  ],
+  "actual_executed_source": "66dc0b997e2804a33012bebaea45bca0c221e22d",
+  "native_tree": "23e54d08b7dbb00f6b42d325c180a8c868b30ee2",
+  "default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+  "source_equivalence": {
+    "path": "tools/behavior-tests/ui/unit-body-movement-source-equivalence-v2.json",
+    "sha256": "c04af61c1a56e8ccafbde16198a5e84724f38d5112b28e52438ba25adebd2a8d"
+  },
+  "original_source_freeze": {
+    "path": "tools/behavior-tests/ui/unit-body-movement-source-freeze-v2.json",
+    "sha256": "41fd6d3bbf06a19144efec9176c3559ba0d655894fea2cb34a7d7a8de2b807bf"
+  },
+  "recorded_result": {
+    "status": "incomplete-sampling",
+    "node_exit": 1,
+    "app_exit": 0,
+    "movement_passing_cases": 0,
+    "full_browser_passing_cases": 0,
+    "original_passing_cases": 0,
+    "all7_effect_guard_accepted": false,
+    "reason": "No actual submitted intermediate point sampled; final all7 effect comparison not reached"
+  },
+  "disclosure": "Candidate synthetic-world logs/JSON include historical local usernames/paths, loopback URLs, PIDs and timestamps; approved for retention. No Original private files, assets/images/runtime payload included. Credential regex scan found no matches but is not a comprehensive privacy proof.",
+  "proposal_sha256": "6800ca20ae004b472780f32b3e2ad9bba8afd9f89cf0e08a082e80e9d56442fd",
+  "bundle_new_game_execution": false,
+  "synthetic_auth_identity_disclosure": {
+    "scope": "Fresh synthetic candidate auth identity for the closed isolated run; not a live, personal or external credential; never reuse for future capture.",
+    "source_creation": "src/game/backend/Account.cpp:59; actual log says Creating local account, not Loaded account",
+    "ephemeral_browser": "historical66dc unit-body-movement-browser.test.mjs:99-101 chromium.launch then browser.newPage, no persistent context",
+    "closed_lifetime": "historical source113-115 awaits browser.close and server reap; retained APP0, Node1/OSwait and 13 owned identities gone"
+  }
+}

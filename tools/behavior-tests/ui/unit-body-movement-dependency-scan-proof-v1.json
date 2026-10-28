@@ -1,0 +1,34 @@
+{
+  "kind": "movement-future-dependency-scan.v1",
+  "candidate_executed": false,
+  "new_game_observations": 0,
+  "historical_recorded_outcome": "Node1 APP0; incomplete sampling, movement passes0, final effect comparison unreached",
+  "scope": "future executable package pin enumeration only; historical input/source/runtime/raw untouched",
+  "old_counterexample": {
+    "kind": "old-movement-rglob-partial-pin-counterexample",
+    "source": "2f18de994be56762c8c1e287e4eabf6237f52a72",
+    "source_model_scan_error": true,
+    "known_path_executable_readable": true,
+    "partial_keys": {
+      "playwright": [
+        "package.json"
+      ],
+      "playwright-core": [
+        "package.json"
+      ]
+    },
+    "old_pre_and_post_accepted": true,
+    "candidate_executed": false,
+    "game_cases": 0
+  },
+  "source_sha256": {
+    "state_trace/unit_body_movement_runner.py": "ff189aba0c8fe32bef113edf93c40cb9e1ffcff93c4a1afbf7627f6b9b5cb306",
+    "test_unit_body_movement_runner.py": "bb656d9f56246702d3ea1d5bab420164c6876b97720b4f4bbaaf534c76be6a7a"
+  },
+  "focused_checks": {
+    "passed": 3,
+    "skipped": 0,
+    "scan_cases": "PermissionError and OSError; both packages; preparation and postflight partial-map rejection; restoration equality"
+  },
+  "implementation": "explicit directory iteration propagates scan errors; sorted final relative map preserves regular-file hash ordering"
+}
