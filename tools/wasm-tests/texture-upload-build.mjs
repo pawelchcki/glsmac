@@ -6,7 +6,7 @@ mkdirSync(new URL('build/', import.meta.url), { recursive: true });
 const result = spawnSync(process.env.EMXX || 'em++', [
   'texture-upload.cpp',
   '../../src/graphics/opengl/texture/TextureUpload.cpp',
-  '-I../../src', '-std=c++17', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
+  '-I../../src', '-std=c++23', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
   '--no-entry', '-sMODULARIZE=1', '-sENVIRONMENT=web,node',
   '-sMIN_WEBGL_VERSION=2', '-sMAX_WEBGL_VERSION=2',
   '-sASSERTIONS=2', '-sGL_ASSERTIONS=1', '-sALLOW_MEMORY_GROWTH=1',

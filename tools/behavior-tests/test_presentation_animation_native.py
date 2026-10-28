@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 class NativeAnimationTraceTests(unittest.TestCase):
     def test_scene_frames_completion_cancellation_epochs_and_disabled_observer(self):
-        compiler = shutil.which('g++')
+        compiler = shutil.which('c++')
         if not compiler:
             self.skipTest('host C++ compiler unavailable')
         source = r'''
@@ -128,7 +128,7 @@ int main() {
         with tempfile.TemporaryDirectory(prefix='presentation-animation-') as directory:
             src = Path(directory)/'test.cpp'; src.write_text(source)
             exe = Path(directory)/'test'
-            build = subprocess.run([compiler, '-std=c++17', '-DFASTDEBUG', '-O1', '-pthread',
+            build = subprocess.run([compiler, '-std=c++23', '-DFASTDEBUG', '-O1', '-pthread',
                                     '-ffunction-sections', '-fdata-sections', '-I'+str(ROOT/'src'), str(src),
                                     *[str(ROOT/'src'/p) for p in sources], '-Wl,--gc-sections', '-o', str(exe)],
                                    capture_output=True, text=True)

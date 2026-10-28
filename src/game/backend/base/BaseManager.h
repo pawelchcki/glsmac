@@ -13,6 +13,7 @@
 #include "gse/value/Object.h"
 
 #include "RenderInfo.h"
+#include "types/Buffer.h"
 
 namespace gse::tests::mocks { struct ProductionFixture; }
 

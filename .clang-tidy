@@ -1,0 +1,29 @@
+---
+# Version is locked with the compiler and formatter in flake.lock.
+Checks: >-
+  -*,
+  clang-analyzer-*,
+  clang-diagnostic-return-type,
+  clang-diagnostic-uninitialized,
+  clang-diagnostic-sometimes-uninitialized,
+  clang-diagnostic-mismatched-new-delete,
+  clang-diagnostic-delete-non-abstract-non-virtual-dtor,
+  bugprone-dangling-handle,
+  bugprone-sizeof-expression,
+  bugprone-suspicious-memset-usage,
+  bugprone-use-after-move,
+  bugprone-virtual-near-miss,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-slicing,
+  modernize-use-bool-literals,
+  modernize-deprecated-headers,
+  performance-move-const-arg,
+  performance-noexcept-move-constructor,
+  portability-simd-intrinsics,
+  concurrency-mt-unsafe
+WarningsAsErrors: ''
+HeaderFilterRegex: '(^|/)(src|tools)/'
+ExcludeHeaderFilterRegex: '(^|/)(src/tmp|dependencies|_deps|build)/'
+FormatStyle: file
+SystemHeaders: false
+...

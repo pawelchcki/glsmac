@@ -12,7 +12,7 @@ const result = spawnSync(process.env.EMXX || 'em++', [
   '../../src/util/FS.cpp',
   '../../src/util/BrowserAssets.cpp',
   '-I../../src',
-  '-std=c++17',
+  '-std=c++23',
   '-O1',
   '-g',
   '-fexceptions',

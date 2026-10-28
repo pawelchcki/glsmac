@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 mkdirSync(new URL('build/', import.meta.url), { recursive: true });
 const result = spawnSync(process.env.EMXX || 'em++', [
   'smac-map.cpp', '../../src/game/backend/map/SMACMap.cpp',
-  '-I../../src', '-std=c++17', '-O1', '-g', '-fexceptions', '-Wall', '-Wextra', '-Werror',
+  '-I../../src', '-std=c++23', '-O1', '-g', '-fexceptions', '-Wall', '-Wextra', '-Werror',
   '--no-entry', '-sMODULARIZE=1', '-sENVIRONMENT=node', '-sASSERTIONS=2',
   '-sEXPORTED_RUNTIME_METHODS=ccall,UTF8ToString',
   '-o', 'build/smac-map.cjs',

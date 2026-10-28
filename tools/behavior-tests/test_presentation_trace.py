@@ -200,7 +200,7 @@ class RecorderTests(unittest.TestCase):
         recorder.record(raw(9, 'node.destroy', target='select'))
 
     def test_actual_native_bounded_buffer(self):
-        compiler = shutil.which('g++')
+        compiler = shutil.which('c++')
         if not compiler: self.skipTest('host C++ compiler unavailable')
         source = r'''
 #include "src/ui/PresentationTrace.h"
@@ -240,7 +240,7 @@ int main() {
         with tempfile.TemporaryDirectory(prefix='presentation-header-') as directory:
             src = Path(directory)/'test.cpp'; src.write_text(source)
             executable = Path(directory)/'test'
-            subprocess.run([compiler, '-std=c++17', '-pthread', '-I', str(ROOT), str(src), '-o', str(executable)], check=True, capture_output=True, text=True)
+            subprocess.run([compiler, '-std=c++23', '-pthread', '-I', str(ROOT), str(src), '-o', str(executable)], check=True, capture_output=True, text=True)
             run = subprocess.run([str(executable)], check=True, capture_output=True, text=True)
         rows = [json.loads(line) for line in run.stdout.splitlines()]
         self.assertEqual(rows[0], dict(enabled=False, dropped=0, events=[]))

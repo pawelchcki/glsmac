@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "gse/GCWrappable.h"
 
 #include "gse/value/Object.h"
@@ -78,6 +80,10 @@ private:
 
 	std::unordered_map< std::string, MoraleSet* > m_unit_moralesets = {};
 	std::unordered_map< std::string, Def* > m_unit_defs = {};
+	// Removed definitions can still be borrowed by live units or script wrappers.
+	// Keep ownership until units are destroyed by Clear().
+	std::vector< std::unique_ptr< Def > > m_retired_unit_defs;
+	std::vector< std::unique_ptr< MoraleSet > > m_retired_moralesets;
 	std::map< size_t, Unit* > m_units = {};
 	std::vector< Unit* > m_unprocessed_units = {};
 	// Transient move lifetime extends through ACK debit/continuation, after unlock.

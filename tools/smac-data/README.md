@@ -194,7 +194,7 @@ but does not claim to execute an inspector audit.
 Build the production-parser inspector separately for source-data audits:
 
 ```sh
-c++ -std=c++17 -O2 -Wall -Wextra -Werror -Isrc tools/smac-data/inspect.cpp -o /tmp/smac-text-inspect
+c++ -std=c++23 -O2 -Wall -Wextra -Werror -Isrc tools/smac-data/inspect.cpp -o /tmp/smac-text-inspect
 /tmp/smac-text-inspect rules < /path/to/installed/alphax.txt
 /tmp/smac-text-inspect menus < /path/to/installed/menu.txt
 /tmp/smac-text-inspect dialogs < /path/to/installed/xscript.txt

@@ -1,5 +1,6 @@
 // Synthetic public inputs only. Optional installed-file inspection stays private.
 #include "loader/texture/Caviar.h"
+#include <bit>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -13,7 +14,7 @@ static void Check( bool b, const char* message ) { ++assertions; if ( !b ) { thr
 static void U16( Bytes& b, uint16_t n ) { b.push_back( n & 255 ); b.push_back( n >> 8 ); }
 static void U32( Bytes& b, uint32_t n ) { U16( b, n & 65535 ); U16( b, n >> 16 ); }
 static void Set32( Bytes& b, size_t at, uint32_t n ) { for ( size_t i = 0; i < 4; ++i ) { b.at( at + i ) = n >> ( i * 8 ); } }
-static void Float( Bytes& b, float n ) { uint32_t bits; std::memcpy( &bits, &n, 4 ); U32( b, bits ); }
+static void Float( Bytes& b, float n ) { U32( b, std::bit_cast< uint32_t >( n ) ); }
 static Bytes Number( uint32_t n ) { Bytes b; U32( b, n ); return b; }
 static Bytes Text( const char* s ) { return Bytes( s, s + std::strlen( s ) ); }
 static Bytes Chunk( uint32_t tag, const Bytes& data ) {

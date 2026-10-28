@@ -1,21 +1,20 @@
 #include "Switch.h"
 
-#include "SimpleCondition.h"
 #include "Case.h"
+#include "Scope.h"
+#include "SimpleCondition.h"
 
 namespace gse {
 namespace program {
 
-Switch::Switch( const si_t& si, const SimpleCondition* condition, const std::vector< Case* >& cases )
+Switch::Switch( const si_t& si, const SimpleCondition* condition, const std::vector< Case* >& cases, std::unique_ptr< const Scope > body )
 	: Conditional( si, CT_SWITCH )
+	, m_body( std::move( body ) )
 	, condition( condition )
 	, cases( cases ) {}
 
 Switch::~Switch() {
 	delete condition;
-	for ( const auto& c : cases ) {
-		delete c;
-	}
 }
 
 const std::string Switch::Dump( const size_t depth ) const {

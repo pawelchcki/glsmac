@@ -2,67 +2,158 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 15,
+    "minor": 21,
     "patch": 0
   },
-    "configurePresets": [
-        {
-            "name": "base",
-            "hidden": true,
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "installDir": "${sourceDir}/out/install/${presetName}",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            }
-        },
-        {
-            "name": "windows-clang-base",
-            "inherits": "base",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "VENDORED_DEPENDENCIES": true,
-                "VISUAL_STUDIO": true
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            }
-        },
-        {
-            "name": "x64-debug-win-clang",
-            "displayName": "x64 Debug",
-            "inherits": "windows-clang-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        },
-        {
-            "name": "x64-fastdebug-win-clang",
-            "displayName": "x64 FastDebug",
-            "inherits": "windows-clang-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "FastDebug"
-            }
-        },
-        {
-            "name": "x64-release-win-clang",
-            "displayName": "x64 Release",
-            "inherits": "windows-clang-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
-        },
-        {
-            "name": "x64-portable64-win-clang",
-            "displayName": "x64 Portable64",
-            "inherits": "windows-clang-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Portable64"
-            }
-        }
-    ]
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "windows-clang-base",
+      "inherits": "base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "VENDORED_DEPENDENCIES": true,
+        "VISUAL_STUDIO": true
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "x64-debug-win-clang",
+      "displayName": "x64 Debug",
+      "inherits": "windows-clang-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "x64-fastdebug-win-clang",
+      "displayName": "x64 FastDebug",
+      "inherits": "windows-clang-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "FastDebug"
+      }
+    },
+    {
+      "name": "x64-release-win-clang",
+      "displayName": "x64 Release",
+      "inherits": "windows-clang-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "x64-portable64-win-clang",
+      "displayName": "x64 Portable64",
+      "inherits": "windows-clang-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Portable64"
+      }
+    },
+    {
+      "name": "native",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/native",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "FastDebug",
+        "GLSMAC_BUILD_NATIVE_TESTS": true,
+        "GLSMAC_SANITIZER": "none"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "native-asan",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/native-asan",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "FastDebug",
+        "GLSMAC_BUILD_NATIVE_TESTS": true,
+        "GLSMAC_SANITIZER": "address-undefined"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "native-tsan",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/native-tsan",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "FastDebug",
+        "GLSMAC_BUILD_NATIVE_TESTS": true,
+        "GLSMAC_SANITIZER": "thread"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "native",
+      "configurePreset": "native"
+    },
+    {
+      "name": "native-asan",
+      "configurePreset": "native-asan"
+    },
+    {
+      "name": "native-tsan",
+      "configurePreset": "native-tsan"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "native",
+      "configurePreset": "native",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "native-asan",
+      "configurePreset": "native-asan",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "native-tsan",
+      "configurePreset": "native-tsan",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error"
+      }
+    }
+  ]
 }

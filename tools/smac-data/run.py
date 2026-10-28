@@ -51,7 +51,7 @@ def verify(args, report):
     with tempfile.TemporaryDirectory(prefix=f"glsmac-smac-text-{args.target}-") as temporary:
         directory = Path(temporary)
         executable = directory / ("test_smac_text.cjs" if args.target == "wasm" else "test_smac_text")
-        command = [*compiler, "-std=c++17", "-O2", "-Wall", "-Wextra", "-Werror",
+        command = [*compiler, "-std=c++23", "-O2", "-Wall", "-Wextra", "-Werror",
                    f"-I{ROOT / 'src'}", str(DIRECTORY / "test_smac_text.cpp")]
         if args.target == "wasm":
             # Match the application's compile/link exception support: invalid

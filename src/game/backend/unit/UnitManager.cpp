@@ -50,15 +50,17 @@ void UnitManager::Clear() {
 	}
 	m_units.clear();
 
-	for ( auto& it : m_unit_moralesets ) {
-		delete it.second;
-	}
-	m_unit_moralesets.clear();
-
 	for ( auto& it : m_unit_defs ) {
 		delete it.second;
 	}
 	m_unit_defs.clear();
+	m_retired_unit_defs.clear();
+
+	for ( auto& it : m_unit_moralesets ) {
+		delete it.second;
+	}
+	m_unit_moralesets.clear();
+	m_retired_moralesets.clear();
 
 	m_unit_updates.clear();
 }
@@ -81,6 +83,7 @@ void UnitManager::UndefineMoraleSet( const std::string& id ) {
 
 	ASSERT( m_unit_moralesets.find( id ) != m_unit_moralesets.end(), "Unit moraleset '" + id + "' not found" );
 
+	m_retired_moralesets.emplace_back( m_unit_moralesets.at( id ) );
 	m_unit_moralesets.erase( id );
 }
 
@@ -106,6 +109,7 @@ void UnitManager::UndefineUnit( const std::string& id ) {
 
 	ASSERT( m_unit_defs.find( id ) != m_unit_defs.end(), "Unit definition '" + id + "' not found" );
 
+	m_retired_unit_defs.emplace_back( m_unit_defs.at( id ) );
 	m_unit_defs.erase( id );
 
 	auto fr = FrontendRequest( FrontendRequest::FR_UNIT_UNDEFINE );

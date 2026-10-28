@@ -1,0 +1,1484 @@
+{
+  "llvm": "23.1.3",
+  "profile_sha256": "c52576f648939b308b5f0462da5400a21f7c1cdb494af0ef14653248f3c0bc85",
+  "translation_units": 326,
+  "diagnostics": [
+    {
+      "path": "src/GLSMAC.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'bits' is not initialized",
+      "source": "uint32_t bits; std::memcpy( &bits, &value, sizeof( bits ) );",
+      "line": 75,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/common/Thread.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'step_len' is not initialized",
+      "source": "float step_len;",
+      "line": 117,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/common/Thread.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'step_len_rounded' is not initialized",
+      "source": "size_t step_len_rounded;",
+      "line": 118,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/config/Config.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "const char* val = std::getenv( var.c_str() );",
+      "line": 403,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/config/Config.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( EXIT_FAILURE );",
+      "line": 26,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/config/Config.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( EXIT_SUCCESS );",
+      "line": 130,
+      "priority": "high",
+      "count": 2
+    },
+    {
+      "path": "src/engine/Engine.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't_game' is not initialized",
+      "source": "common::Thread* t_game;",
+      "line": 118,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/engine/Engine.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't_gc' is not initialized",
+      "source": "common::Thread* t_gc;",
+      "line": 104,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/engine/Engine.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't_network' is not initialized",
+      "source": "common::Thread* t_network;",
+      "line": 93,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'cursor' is not initialized",
+      "source": "int64_t id, epoch, cursor, turn;",
+      "line": 1287,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'epoch' is not initialized",
+      "source": "int64_t id, epoch, cursor, turn;",
+      "line": 1287,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'generation' is not initialized",
+      "source": "uint64_t generation;",
+      "line": 1799,
+      "priority": "medium",
+      "count": 3
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'id' is not initialized",
+      "source": "int64_t id, epoch, cursor, turn;",
+      "line": 1287,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'state' is not initialized",
+      "source": "State* state;",
+      "line": 184,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/Game.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'turn' is not initialized",
+      "source": "int64_t id, epoch, cursor, turn;",
+      "line": 1287,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/GameEnergy.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'generation' is not initialized",
+      "source": "State* state; uint64_t generation;",
+      "line": 33,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/GameEnergy.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'state' is not initialized",
+      "source": "State* state; uint64_t generation;",
+      "line": 33,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/GameResearch.cpp",
+      "check": "clang-analyzer-core.BitwiseShift",
+      "message": "Right operand is negative in left shift",
+      "source": "const auto bit = 1u << priority; next.priorities = enabled ? next.priorities | bit : next.priorities & ~bit;",
+      "line": 89,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/State.cpp",
+      "check": "clang-diagnostic-delete-non-abstract-non-virtual-dtor",
+      "message": "delete called on non-final 'game::backend::Bindings' that has virtual functions but non-virtual destructor",
+      "source": "delete m_bindings;",
+      "line": 41,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/base/Base.cpp",
+      "check": "clang-analyzer-core.NonNullParamChecker",
+      "message": "Forming reference to null pointer",
+      "source": "if ( !result.added_facility.empty() ) { m_facilities.emplace( def->m_id, def ); }",
+      "line": 232,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/base/BaseRename.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'new_value'",
+      "source": "m_renames.emplace( token, RenameRecord{ m_game->GetTurnId(), old_name, Serialize( this ).ToString() } );",
+      "line": 45,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/base/BaseRename.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'old_value'",
+      "source": "auto* const old_value = VALUE( gse::value::String,, old_name ); auto* const new_value = VALUE( gse::value::String,, name );",
+      "line": 41,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/base/BaseRename.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'old_value'",
+      "source": "auto* const old_value = VALUE( gse::value::String,, old_name ); auto* const previous_value = VALUE( gse::value::String,, it->second.previous_name );",
+      "line": 62,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/base/BaseRename.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'previous_value'",
+      "source": "bm->RefreshBase( this ); TriggerUpdate(); m_renames.erase( it );",
+      "line": 66,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/connection/Connection.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Connection::ProcessEvent' during destruction bypasses virtual dispatch",
+      "source": "ProcessEvent( event );",
+      "line": 184,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/Map.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'm' is not initialized",
+      "source": "module::Module * m;",
+      "line": 114,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "tile::elevation_t c;",
+      "line": 130,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'current_land_amount' is not initialized",
+      "source": "float current_land_amount;",
+      "line": 184,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'i' is not initialized",
+      "source": "size_t i;",
+      "line": 580,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'i' is not initialized",
+      "source": "uint8_t i;",
+      "line": 135,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'idx' is not initialized",
+      "source": "int8_t idx;",
+      "line": 132,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'mod' is not initialized",
+      "source": "int8_t mod;",
+      "line": 133,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'sharpest' is not initialized",
+      "source": "tile::elevation_t sharpest;",
+      "line": 131,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tile' is not initialized",
+      "source": "const tile::Tile* tile;",
+      "line": 551,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/MapGenerator.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tile' is not initialized",
+      "source": "tile::Tile* tile;",
+      "line": 576,
+      "priority": "medium",
+      "count": 7
+    },
+    {
+      "path": "src/game/backend/map/generator/SimplePerlin.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'real_direction' is not initialized",
+      "source": "int8_t real_direction;",
+      "line": 205,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/generator/SimplePerlin.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tile' is not initialized",
+      "source": "tile::Tile* tile;",
+      "line": 136,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/game/backend/map/tile/Tile.cpp",
+      "check": "modernize-use-bool-literals",
+      "message": "converting integer literal to bool, use bool literal instead",
+      "source": "moisture = rockiness = bonus = features = terraforming = is_water_tile = 0;",
+      "line": 131,
+      "priority": "low",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/tile/TileManager.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'source_corners'",
+      "source": "gse::value::object_properties_t neighbors;",
+      "line": 60,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/tile/TileManager.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'source_elevation'",
+      "source": "source_water = VALUE( gse::value::Bool,, tile->m_imported_water );",
+      "line": 55,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/tile/TileManager.cpp",
+      "check": "clang-analyzer-cplusplus.NewDeleteLeaks",
+      "message": "Potential leak of memory pointed to by 'source_water'",
+      "source": "gse::value::array_elements_t corners;",
+      "line": 56,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/tile/Tiles.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tile' is not initialized",
+      "source": "Tile* tile;",
+      "line": 252,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/game/backend/map/tile/Tiles.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tile' is not initialized",
+      "source": "const Tile* tile;",
+      "line": 226,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/map/tile/Tiles.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'top_bottom_elevation' is not initialized",
+      "source": "elevation_t top_bottom_elevation;",
+      "line": 253,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/backend/unit/PrototypeCost.h",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'rows' is not initialized",
+      "source": "int rows;",
+      "line": 31,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/base/BaseManager.cpp",
+      "check": "clang-diagnostic-delete-non-abstract-non-virtual-dtor",
+      "message": "delete called on non-final 'game::frontend::base::Base' that has virtual functions but non-virtual destructor",
+      "source": "delete base;",
+      "line": 151,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/base/BaseManager.cpp",
+      "check": "clang-diagnostic-delete-non-abstract-non-virtual-dtor",
+      "message": "delete called on non-final 'game::frontend::base::Base' that has virtual functions but non-virtual destructor",
+      "source": "delete it.second;",
+      "line": 38,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/tile/Tile.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'idx' is not initialized",
+      "source": "size_t idx;",
+      "line": 174,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/unit/UnitManager.cpp",
+      "check": "clang-diagnostic-delete-non-abstract-non-virtual-dtor",
+      "message": "delete called on non-final 'game::frontend::unit::Unit' that has virtual functions but non-virtual destructor",
+      "source": "delete it.second;",
+      "line": 30,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/unit/UnitManager.cpp",
+      "check": "clang-diagnostic-delete-non-abstract-non-virtual-dtor",
+      "message": "delete called on non-final 'game::frontend::unit::Unit' that has virtual functions but non-virtual destructor",
+      "source": "delete unit;",
+      "line": 184,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/widget/Widget.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'm' is not initialized",
+      "source": "types::mesh::Render* m;",
+      "line": 38,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/game/frontend/widget/Widget.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't' is not initialized",
+      "source": "types::texture::Texture* t;",
+      "line": 37,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gc/Space.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'is_accumulating' is not initialized",
+      "source": "bool is_accumulating;",
+      "line": 139,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/OpenGL.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'errcode' is not initialized",
+      "source": "GLenum errcode;",
+      "line": 276,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/OpenGL.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'major' is not initialized",
+      "source": "GLint major, minor;",
+      "line": 143,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/OpenGL.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'minor' is not initialized",
+      "source": "GLint major, minor;",
+      "line": 143,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/OpenGL.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'obj' is not initialized",
+      "source": "GLuint obj;",
+      "line": 666,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/actor/Mesh.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "GLsizei c;",
+      "line": 390,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/actor/Mesh.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ibo' is not initialized",
+      "source": "GLuint vbo, ibo;",
+      "line": 238,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/actor/Mesh.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ibo_size' is not initialized",
+      "source": "GLuint ibo_size;",
+      "line": 297,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/actor/Mesh.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'vbo' is not initialized",
+      "source": "GLuint vbo, ibo;",
+      "line": 238,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/actor/Sprite.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "GLsizei c;",
+      "line": 164,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/shader_program/ShaderProgram.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'success' is not initialized",
+      "source": "GLint success;",
+      "line": 63,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/texture/FontTexture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'bitmap' is not initialized",
+      "source": "types::Font::bitmap_t* bitmap;",
+      "line": 32,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/texture/TextureUpload.cpp",
+      "check": "clang-analyzer-core.DivideZero",
+      "message": "Division by zero",
+      "source": "const size_t rows_per_strip = std::max< size_t >( 1, 1048576 / ( width * 4 ) );",
+      "line": 61,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/graphics/opengl/texture/TextureUpload.cpp",
+      "check": "clang-analyzer-core.DivideZero",
+      "message": "Division by zero",
+      "source": "pixels[ ( y * width + x ) * 4 + channel ] = static_cast< unsigned char >( sum[ channel ] / count );",
+      "line": 81,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/gse/GSE.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'context' is not initialized",
+      "source": "context::GlobalContext* context;",
+      "line": 121,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/builtins/Conversions.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'code' is not initialized",
+      "source": "size_t tail; uint32_t code, minimum;",
+      "line": 40,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/builtins/Conversions.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'minimum' is not initialized",
+      "source": "size_t tail; uint32_t code, minimum;",
+      "line": 40,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/builtins/Conversions.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tail' is not initialized",
+      "source": "size_t tail; uint32_t code, minimum;",
+      "line": 40,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "char c;",
+      "line": 46,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'condition' is not initialized",
+      "source": "const Expression* condition;",
+      "line": 527,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'el' is not initialized",
+      "source": "const Element* el;",
+      "line": 555,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'identifier' is not initialized",
+      "source": "Identifier* identifier;",
+      "line": 1046,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'info' is not initialized",
+      "source": "const operator_info_t* info;",
+      "line": 553,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'link' is not initialized",
+      "source": "operator_link_t link;",
+      "line": 554,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'op' is not initialized",
+      "source": "const program::Operator* op;",
+      "line": 550,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't' is not initialized",
+      "source": "uint8_t t;",
+      "line": 524,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/JS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'type' is not initialized",
+      "source": "ForConditionInOf::for_inof_condition_type_t type;",
+      "line": 378,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/Parser.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "char c;",
+      "line": 282,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/parser/Parser.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'p' is not initialized",
+      "source": "const char* p;",
+      "line": 223,
+      "priority": "medium",
+      "count": 3
+    },
+    {
+      "path": "src/gse/parser/Parser.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'p1' is not initialized",
+      "source": "const char* p1;",
+      "line": 242,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/gse/parser/Parser.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'p2' is not initialized",
+      "source": "const char* p2;",
+      "line": 243,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/gse/tests/GSE.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 't' is not initialized",
+      "source": "Value* t;",
+      "line": 442,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/tests/ScriptStages.cpp",
+      "check": "clang-analyzer-security.ArrayBound",
+      "message": "Out of bound access to memory after the end of the field 'queues'",
+      "source": "auto& queue = queues[kind];",
+      "line": 48,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/gse/tests/mocks/ProductionFixture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'moisture' is not initialized",
+      "source": "backend::map::tile::moisture_t moisture;",
+      "line": 320,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/tests/mocks/ProductionFixture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'type' is not initialized",
+      "source": "backend::tile_query_purpose_t type;",
+      "line": 1492,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/gse/tests/mocks/UnitBodyCensusFixture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'bits' is not initialized",
+      "source": "uint32_t bits; static_assert( sizeof( bits ) == sizeof( value ) );",
+      "line": 207,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/font/FreeType.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'bitmap' is not initialized",
+      "source": "types::Font::bitmap_t* bitmap;",
+      "line": 40,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/font/FreeType.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ftface' is not initialized",
+      "source": "FT_Face ftface;",
+      "line": 29,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/font/FreeType.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'sz' is not initialized",
+      "source": "int sz;",
+      "line": 41,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/texture/Caviar.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'f' is not initialized",
+      "source": "const auto bits = U32(); float f; std::memcpy( &f, &bits, 4 );",
+      "line": 30,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/texture/Caviar.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tag' is not initialized",
+      "source": "Reader file{ bytes, 0, bytes.size() }; uint32_t tag; auto root = file.Chunk( tag ); file.Done();",
+      "line": 118,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/texture/Caviar.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'tag' is not initialized",
+      "source": "uint32_t tag; auto child = r.Chunk( tag );",
+      "line": 54,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/loader/texture/TextureLoader.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'fix_yellow_shadows_old' is not initialized",
+      "source": "bool fix_yellow_shadows_old;",
+      "line": 306,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/main.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( EXIT_FAILURE );",
+      "line": 150,
+      "priority": "high",
+      "count": 2
+    },
+    {
+      "path": "src/main.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( EXIT_SUCCESS );",
+      "line": 146,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/main.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "int status = system( cmdline.c_str() );",
+      "line": 139,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/main.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "util::LogHelper::Println( (std::string)\"Error: \" + strerror( errno ) );",
+      "line": 141,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/main.cpp",
+      "check": "modernize-deprecated-headers",
+      "message": "inclusion of deprecated C++ header 'stdlib.h'; consider using 'cstdlib' instead",
+      "source": "#include <stdlib.h>",
+      "line": 6,
+      "priority": "low",
+      "count": 1
+    },
+    {
+      "path": "src/network/impl/Posix.cpp",
+      "check": "modernize-deprecated-headers",
+      "message": "inclusion of deprecated C++ header 'signal.h'; consider using 'csignal' instead",
+      "source": "#include <signal.h>",
+      "line": 6,
+      "priority": "low",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "clang-diagnostic-sometimes-uninitialized",
+      "message": "variable 'addr' is used uninitialized whenever 'if' condition is false",
+      "source": "else if ( p->ai_family == AF_INET6 ) {",
+      "line": 89,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'addr' is not initialized",
+      "source": "void* addr;",
+      "line": 80,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'p' is not initialized",
+      "source": "addrinfo hints, * p;",
+      "line": 174,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'p' is not initialized",
+      "source": "addrinfo hints, * res, * p;",
+      "line": 64,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'res' is not initialized",
+      "source": "addrinfo hints, * res, * p;",
+      "line": 64,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/network/simpletcp/SimpleTCP.cpp",
+      "check": "modernize-deprecated-headers",
+      "message": "inclusion of deprecated C++ header 'string.h'; consider using 'cstring' instead",
+      "source": "#include <string.h>",
+      "line": 11,
+      "priority": "low",
+      "count": 1
+    },
+    {
+      "path": "src/scene/Camera.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Camera::UpdateMatrix' during construction bypasses virtual dispatch",
+      "source": "UpdateMatrix();",
+      "line": 108,
+      "priority": "high",
+      "count": 3
+    },
+    {
+      "path": "src/scene/Camera.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Camera::UpdateRotation' during construction bypasses virtual dispatch",
+      "source": "UpdateRotation();",
+      "line": 31,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/scene/Entity.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Entity::UpdateMatrix' during construction bypasses virtual dispatch",
+      "source": "UpdateMatrix();",
+      "line": 64,
+      "priority": "high",
+      "count": 3
+    },
+    {
+      "path": "src/scene/Entity.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Entity::UpdatePosition' during construction bypasses virtual dispatch",
+      "source": "UpdatePosition();",
+      "line": 8,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/scene/Entity.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Entity::UpdateRotation' during construction bypasses virtual dispatch",
+      "source": "UpdateRotation();",
+      "line": 9,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/scene/Scene.cpp",
+      "check": "clang-analyzer-core.CallAndMessage",
+      "message": "Called C++ object pointer is null",
+      "source": "camera->SetScene( this );",
+      "line": 47,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/task/gsetests/GSETests.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ctx' is not initialized",
+      "source": "gse::context::GlobalContext* ctx;",
+      "line": 40,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/Buffer.cpp",
+      "check": "clang-analyzer-core.NullPointerArithm",
+      "message": "Addition of a null pointer (via field 'data') and a probably nonzero integer value (via field 'lenw') may result in undefined behavior",
+      "source": "dw = data + lenw;",
+      "line": 45,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/types/mesh/Render.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'a' is not initialized",
+      "source": "types::Vec3* a, * b, * c;",
+      "line": 125,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/mesh/Render.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'b' is not initialized",
+      "source": "types::Vec3* a, * b, * c;",
+      "line": 125,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/mesh/Render.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "types::Vec3* a, * b, * c;",
+      "line": 125,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/mesh/Render.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'surface' is not initialized",
+      "source": "const surface_t* surface;",
+      "line": 124,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Texture::ClearUpdatedAreas' during construction bypasses virtual dispatch",
+      "source": "ClearUpdatedAreas();",
+      "line": 919,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Texture::FullUpdate' during construction bypasses virtual dispatch",
+      "source": "FullUpdate();",
+      "line": 82,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Texture::Resize' during construction bypasses virtual dispatch",
+      "source": "Resize( width, height );",
+      "line": 34,
+      "priority": "high",
+      "count": 2
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Texture::Update' during construction bypasses virtual dispatch",
+      "source": "Update(",
+      "line": 921,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'dst_pixel_color' is not initialized",
+      "source": "uint32_t dst_pixel_color;",
+      "line": 733,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'dx' is not initialized",
+      "source": "ssize_t dx, dy; // dest",
+      "line": 219,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'dy' is not initialized",
+      "source": "ssize_t dx, dy; // dest",
+      "line": 219,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'i' is not initialized",
+      "source": "size_t i;",
+      "line": 891,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'is_pixel_needed' is not initialized",
+      "source": "bool is_pixel_needed;",
+      "line": 286,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'key' is not initialized",
+      "source": "size_t key;",
+      "line": 319,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'mix_color' is not initialized",
+      "source": "Color::rgba_t mix_color;",
+      "line": 287,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'pixel_alpha' is not initialized",
+      "source": "float pixel_alpha;",
+      "line": 284,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'pixel_color' is not initialized",
+      "source": "uint32_t pixel_color;",
+      "line": 728,
+      "priority": "medium",
+      "count": 3
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'rgba' is not initialized",
+      "source": "Color::rgba_t rgba;",
+      "line": 133,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'rgba' is not initialized",
+      "source": "uint32_t rgba;",
+      "line": 818,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'shiftx' is not initialized",
+      "source": "size_t shiftx, shifty; // for random shifts",
+      "line": 212,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'shifty' is not initialized",
+      "source": "size_t shiftx, shifty; // for random shifts",
+      "line": 212,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ssx' is not initialized",
+      "source": "float ssx_start, ssx, ssy; // stretched source",
+      "line": 222,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ssx_start' is not initialized",
+      "source": "float ssx_start, ssx, ssy; // stretched source",
+      "line": 222,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'ssy' is not initialized",
+      "source": "float ssx_start, ssx, ssy; // stretched source",
+      "line": 222,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'sx' is not initialized",
+      "source": "ssize_t sx, sy; // source",
+      "line": 218,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/types/texture/Texture.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'sy' is not initialized",
+      "source": "ssize_t sx, sy; // source",
+      "line": 218,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Container.cpp",
+      "check": "clang-analyzer-optin.cplusplus.VirtualCall",
+      "message": "Call to virtual method 'Container::Property' during construction bypasses virtual dispatch",
+      "source": "Property(",
+      "line": 57,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Listview.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'st' is not initialized",
+      "source": "scroll_type_t st;",
+      "line": 18,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Object.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'a' is not initialized",
+      "source": "long int r, g, b, a;",
+      "line": 606,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Object.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'b' is not initialized",
+      "source": "long int r, g, b, a;",
+      "line": 606,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Object.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'g' is not initialized",
+      "source": "long int r, g, b, a;",
+      "line": 606,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Object.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'r' is not initialized",
+      "source": "long int r, g, b, a;",
+      "line": 606,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Panel.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'border_corners' is not initialized",
+      "source": "long int border_corners;",
+      "line": 38,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Scrollbar.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'st' is not initialized",
+      "source": "scroll_type_t st;",
+      "line": 42,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'intensity' is not initialized",
+      "source": "float intensity;",
+      "line": 120,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'value' is not initialized",
+      "source": "float value;",
+      "line": 175,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'x1' is not initialized",
+      "source": "long int x1, y1, x2, y2;",
+      "line": 132,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'x2' is not initialized",
+      "source": "long int x1, y1, x2, y2;",
+      "line": 132,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'y1' is not initialized",
+      "source": "long int x1, y1, x2, y2;",
+      "line": 132,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/ui/dom/Surface.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'y2' is not initialized",
+      "source": "long int x1, y1, x2, y2;",
+      "line": 132,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/ConfigManager.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'c' is not initialized",
+      "source": "const char* c;",
+      "line": 69,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/FS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'path_pos' is not initialized",
+      "source": "size_t pos, path_pos, last_pos = path.size();",
+      "line": 238,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/FS.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'pos' is not initialized",
+      "source": "size_t pos, path_pos, last_pos = path.size();",
+      "line": 238,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/System.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( res );",
+      "line": 49,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/util/System.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "return ( !system( \"which gdb > /dev/null 2>&1\" ) );",
+      "line": 67,
+      "priority": "high",
+      "count": 1
+    },
+    {
+      "path": "src/util/System.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'res' is not initialized",
+      "source": "int res;",
+      "line": 22,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/System.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'status' is not initialized",
+      "source": "int status;",
+      "line": 21,
+      "priority": "medium",
+      "count": 1
+    },
+    {
+      "path": "src/util/UUID.cpp",
+      "check": "cppcoreguidelines-init-variables",
+      "message": "variable 'rc' is not initialized",
+      "source": "uuid_rc_t rc;",
+      "line": 55,
+      "priority": "medium",
+      "count": 2
+    },
+    {
+      "path": "tools/embedder.cpp",
+      "check": "concurrency-mt-unsafe",
+      "message": "function is not thread safe",
+      "source": "exit( 1 );",
+      "line": 88,
+      "priority": "high",
+      "count": 3
+    }
+  ],
+  "source_revision": "d05fb1dcf724fcbd7c1330dfe0e64f32cfd6610c"
+}

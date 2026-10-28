@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "Conditional.h"
@@ -9,11 +10,14 @@ namespace program {
 
 class SimpleCondition;
 class Case;
+class Scope;
 
 class Switch : public Conditional {
-public:
+private:
+	std::unique_ptr< const Scope > m_body;
 
-	Switch( const si_t& si, const SimpleCondition* condition, const std::vector< Case* >& cases );
+public:
+	Switch( const si_t& si, const SimpleCondition* condition, const std::vector< Case* >& cases, std::unique_ptr< const Scope > body );
 	~Switch();
 
 	const SimpleCondition* condition;
