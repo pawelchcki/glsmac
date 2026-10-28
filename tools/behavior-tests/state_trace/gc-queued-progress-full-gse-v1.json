@@ -1,0 +1,184 @@
+{
+  "kind": "read-only exact-head PR42 Complete GSE artifact audit",
+  "run_id": 40601834211,
+  "head": "38045387a976589bec83f0e84b178f716fe6c4dc",
+  "native_source_tree": "476ff6c401a47c137dda6ed397e295fc4dd83785",
+  "default_tree": "36fb8bc84d970e9c318f414a28ec16f526fcfe67",
+  "full_host_gse_sha256": "fcac6725a6592a0f60fc932c3d3a9e2905e46298ccec9874eeeb12b53202adb1",
+  "actual_ci_node_version": "v22.16.0",
+  "actual_ci_runtime_sha256": {
+    "GLSMAC.js": "dca78d27f72f088513503989c82b8ece57c69a2d2cc2a56172beb0249cea984f",
+    "GLSMAC.wasm": "c94c7753e697541778a66c87c7643f5bc174bc8bac30b0501fb07eeb2b2ca045"
+  },
+  "engine_source_binding": {
+    "engine_job_id": 122531606235,
+    "build_step": "skipped: compatible cache restored",
+    "actual_cache_key": "behavior-engine-Linux-emscripten-4.0.22-v1-222af4a6a5fe922c293b3a5d8010002c7cb677ed5b383e4d34a917f9d2952c8a",
+    "artifact_has_compiler_source_manifest": false,
+    "scope": "Exact-head workflow/cache recipe and current-source progress regression verified; runtime hashes measured from downloaded CI bytes, not assumed equal to local build."
+  },
+  "source_audit_sha256": "5d7fc696c1535a50cbe7890e9c39a46d3728ac2c315420559027efeed46f805e",
+  "artifacts": [
+    {
+      "name": "gse-4",
+      "id": 12780160390,
+      "bytes": 917,
+      "github_digest": "sha256:3ed78516f1eb3a161b3a6648202f2305762a3f8de4a4a1d9069aced6ef70ceb4",
+      "actual_zip_sha256": "3ed78516f1eb3a161b3a6648202f2305762a3f8de4a4a1d9069aced6ef70ceb4",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    },
+    {
+      "name": "gse-2",
+      "id": 12779735684,
+      "bytes": 952,
+      "github_digest": "sha256:c84c98504856b5f34810e1b3abb6023a1dd67ff9c5cba87329b011cf161dba3d",
+      "actual_zip_sha256": "c84c98504856b5f34810e1b3abb6023a1dd67ff9c5cba87329b011cf161dba3d",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    },
+    {
+      "name": "gse-1",
+      "id": 12779417152,
+      "bytes": 924,
+      "github_digest": "sha256:3a2eb387368c9b39fc0ebf4ec2f86fcd914e835fc7d93e8b5f053dfd063064ab",
+      "actual_zip_sha256": "3a2eb387368c9b39fc0ebf4ec2f86fcd914e835fc7d93e8b5f053dfd063064ab",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    },
+    {
+      "name": "complete-gse-coverage",
+      "id": 12778729514,
+      "bytes": 1828,
+      "github_digest": "sha256:74c6ce509acbe07af8a4c9ad9ed012b5bba0b733ab1c727e214744fabc556920",
+      "actual_zip_sha256": "74c6ce509acbe07af8a4c9ad9ed012b5bba0b733ab1c727e214744fabc556920",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    },
+    {
+      "name": "gse-3",
+      "id": 12778329562,
+      "bytes": 910,
+      "github_digest": "sha256:821fb9d86b0e1f6edf676699d60bb436ad63c90a4a1911d32de4b66de87a170e",
+      "actual_zip_sha256": "821fb9d86b0e1f6edf676699d60bb436ad63c90a4a1911d32de4b66de87a170e",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    },
+    {
+      "name": "behavior-engine",
+      "id": 12778293140,
+      "bytes": 31602049,
+      "github_digest": "sha256:6e3eda7669ab5ebb8823328d2daaad328af5eea3362703d48a8f6cbd3bc3d179",
+      "actual_zip_sha256": "6e3eda7669ab5ebb8823328d2daaad328af5eea3362703d48a8f6cbd3bc3d179",
+      "digest_match": true,
+      "head_sha": "38045387a976589bec83f0e84b178f716fe6c4dc"
+    }
+  ],
+  "partitions": [
+    {
+      "index": 1,
+      "job_id": 122531730648,
+      "conclusion": "success",
+      "scripts": 48,
+      "native_engine_tests": true,
+      "node_actual_version": "v22.16.0",
+      "native_success_footer_count": 1,
+      "native_success_footer_at": "2026-10-27T23:39:42.9749351Z",
+      "native_core_entry_at": "2026-10-27T23:24:21.5558211Z",
+      "native_progress_test_entry_at": "2026-10-27T23:24:21.6196956Z",
+      "native_full_interval_seconds": 921.419,
+      "worker_raw_exit_zero_evidence": "Exact-head gse.test.mjs asserts runStreamingWorker close-status===0 before writing completed report; successful CI step and report retained. No separate raw OS-status artifact was emitted.",
+      "raw_job_log_sha256": "41b17dc64847727c7d946f787dc9f411d1803e43adf1dd52bb71c915e3e1f023"
+    },
+    {
+      "index": 2,
+      "job_id": 122531730619,
+      "conclusion": "success",
+      "scripts": 47,
+      "native_engine_tests": true,
+      "node_actual_version": "v22.16.0",
+      "native_success_footer_count": 1,
+      "native_success_footer_at": "2026-10-27T23:37:18.4851797Z",
+      "native_core_entry_at": "2026-10-27T23:24:18.9988641Z",
+      "native_progress_test_entry_at": "2026-10-27T23:24:19.0806099Z",
+      "native_full_interval_seconds": 779.486,
+      "worker_raw_exit_zero_evidence": "Exact-head gse.test.mjs asserts runStreamingWorker close-status===0 before writing completed report; successful CI step and report retained. No separate raw OS-status artifact was emitted.",
+      "raw_job_log_sha256": "4c5e190d043bb878506987d05a530163fac36d43ddff317b253120c2ba72a8dc"
+    },
+    {
+      "index": 3,
+      "job_id": 122531730636,
+      "conclusion": "success",
+      "scripts": 44,
+      "native_engine_tests": true,
+      "node_actual_version": "v22.16.0",
+      "native_success_footer_count": 1,
+      "native_success_footer_at": "2026-10-27T23:31:11.7953191Z",
+      "native_core_entry_at": "2026-10-27T23:24:18.2097533Z",
+      "native_progress_test_entry_at": "2026-10-27T23:24:18.2754368Z",
+      "native_full_interval_seconds": 413.586,
+      "worker_raw_exit_zero_evidence": "Exact-head gse.test.mjs asserts runStreamingWorker close-status===0 before writing completed report; successful CI step and report retained. No separate raw OS-status artifact was emitted.",
+      "raw_job_log_sha256": "531ddf9bc1d7894be5ed1567711400f42b1a33d95c2128b98fe5ab2c5718b5d1"
+    },
+    {
+      "index": 4,
+      "job_id": 122531730703,
+      "conclusion": "success",
+      "scripts": 50,
+      "native_engine_tests": true,
+      "node_actual_version": "v22.16.0",
+      "native_success_footer_count": 1,
+      "native_success_footer_at": "2026-10-27T23:38:12.7672548Z",
+      "native_core_entry_at": "2026-10-27T23:24:18.8464967Z",
+      "native_progress_test_entry_at": "2026-10-27T23:24:18.9134495Z",
+      "native_full_interval_seconds": 833.921,
+      "worker_raw_exit_zero_evidence": "Exact-head gse.test.mjs asserts runStreamingWorker close-status===0 before writing completed report; successful CI step and report retained. No separate raw OS-status artifact was emitted.",
+      "raw_job_log_sha256": "4b2d283f3f2eeba2b530f2827736b5ca456ff2b19dd8e668a50bd07b19634635"
+    }
+  ],
+  "coverage": {
+    "completed": true,
+    "partitions": 4,
+    "actual_exact_union_scripts": 189,
+    "counts": [
+      48,
+      47,
+      44,
+      50
+    ],
+    "duplicates": 0,
+    "native_engine_tests_in_all": true,
+    "summaries_exactly_equal": true
+  },
+  "startup": {
+    "partition": 1,
+    "script": "GLSMAC_data/tests/world_single_player_setup.gls.js",
+    "passed_case_count": 15,
+    "exact_pass_names": [
+      "Displayed expansion roster and an edited opponent create the exact native participants",
+      "Malformed displayed rosters reject atomically and permit a corrected retry",
+      "Direct native human identity setup disambiguates duplicate text while preserving the catalog",
+      "A native failure returned after the owner drain invalidates actual queued startup callbacks",
+      "An undersized custom world rejects before creating any native participant",
+      "Small maps that can fit seven separated sites remain selectable",
+      "Actual imported and CLI-sized grids are checked independently of setup dimensions",
+      "Empty native startup and production human-slot initialization",
+      "Selected expansion faction and declared source order retain the seven-slot limit",
+      "Offline computer completion allows ordinary rounds while preserving foreign action authority",
+      "Network turn boundaries never auto-complete participants through the offline controller",
+      "Declared initial world bypasses natural placement and first-turn income through real factories",
+      "Existing Random faction input resolves during native startup and completes ordinary rounds",
+      "Random human mode preserves the displayed seven while choosing the local participant",
+      "Random faction rows reserve explicit opponents and resolve without duplicates"
+    ],
+    "formerly_stalled_case4": "A native failure returned after the owner drain invalidates actual queued startup callbacks",
+    "formerly_stalled_case4_pass_verified": true
+  },
+  "limits": [
+    "This verifies only the scoped exact-head Full GSE jobs/artifacts; unrelated skipped Main-only jobs are not passing proof.",
+    "No change is called delivered, merged or main-healthy; final PR checks/review/merge remain Delivery and manager responsibilities.",
+    "Raw worker zero status is supported by the executed strict harness assertion and completed report, not a separately retained OS-status file.",
+    "Downloaded CI runtime bytes were independently hashed; no equality to a local runtime is assumed.",
+    "This is evidence for historical head38045387 only. Publishing this proof does not establish CI, review or required-check publication on a later head."
+  ]
+}

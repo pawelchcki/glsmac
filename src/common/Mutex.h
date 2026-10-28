@@ -19,6 +19,7 @@ public:
 	~Mutex();
 
 	void lock();
+	bool try_lock();
 	void unlock();
 
 private:

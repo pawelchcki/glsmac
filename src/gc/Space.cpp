@@ -184,7 +184,11 @@ void Space::AccumulateImpl( const f_accum_t& f ) {
 
 const bool Space::Collect() {
 	std::lock_guard guard2( m_pending_accumulations_mutex );
-	std::lock_guard guard( m_collect_mutex ); // allow only one collection at same space at same time
+	// Do not hold the producer queue while waiting for an owner accumulation.
+	// That owner may need a queued producer to return before it can finish.
+	// A busy space remains untouched and is visited by a later normal GC tick.
+	std::unique_lock guard( m_collect_mutex, std::try_to_lock );
+	if ( !guard.owns_lock() ) { return false; }
 
 	ASSERT( m_reachable_objects_tmp.empty(), "reachable objects tmp not empty" );
 

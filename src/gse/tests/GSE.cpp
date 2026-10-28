@@ -12,10 +12,16 @@
 #include "gc/Space.h"
 #include "gc/GC.h"
 #include "engine/Engine.h"
+#include "config/Config.h"
 #include "game/backend/settings/Settings.h"
 #include "game/backend/faction/Faction.h"
 #include <atomic>
+#include <chrono>
+#include <condition_variable>
+#include <exception>
+#include <mutex>
 #include <stdexcept>
+#include <thread>
 
 namespace gse {
 namespace tests {
@@ -106,6 +112,94 @@ void AddGSETests( task::gsetests::GSETests* task ) {
 			GT_OK();
 		}
 	);
+
+	// A single-thread launch has no concurrent collector/producer contract.
+	// Do not register or count that unsupported concurrency test in that mode.
+	if ( !g_engine->GetConfig()->HasLaunchFlag( config::Config::LF_SINGLE_THREAD ) ) {
+		task->AddTest(
+			"Concurrent collection leaves queued producers runnable during owner accumulation",
+			GT() {
+				class Root : public gc::Object {
+				public:
+					Root() : gc::Object( nullptr ) {}
+					gc::Object* owner = nullptr; gc::Object* context = nullptr;
+					void GetReachableObjects( std::unordered_set< gc::Object* >& objects ) override {
+						gc::Object::GetReachableObjects( objects );
+						if ( owner ) { owner->GetReachableObjects( objects ); }
+						if ( context ) { context->GetReachableObjects( objects ); }
+					}
+				} root;
+				std::atomic< int > destroyed = 0, delivered = 0, cleaned = 0;
+				std::atomic< bool > delivered_on_owner = false;
+				class Tracked : public gc::Object {
+				public:
+					Tracked( gc::Space* space, std::atomic< int >& count ) : gc::Object( space ), count( count ) {}
+					~Tracked() override { ++count; }
+				private:
+					std::atomic< int >& count;
+				};
+				gc::Space space( &root ); space.SetThreadId( std::this_thread::get_id() );
+				Tracked* owner = nullptr; Tracked* context = nullptr;
+				space.Accumulate( &root, [ & ]() {
+					owner = new Tracked( &space, destroyed ); root.owner = owner;
+					context = new Tracked( &space, destroyed ); root.context = context;
+				} );
+				std::mutex progress_mutex;
+				std::condition_variable progress;
+				bool collector_entered = false, collector_done = false, producer_done = false;
+				bool both_finished_inside_owner = false;
+				std::exception_ptr owner_error, collector_error, producer_error;
+				std::thread collector, producer;
+				try {
+					space.Accumulate( &root, [ & ]() {
+						// These are real collector/producer calls. No private lock model,
+						// polling sleep, disabled GC or owner-thread callback substitute.
+						collector = std::thread( [ & ]() {
+							{ std::lock_guard guard( progress_mutex ); collector_entered = true; }
+							progress.notify_all();
+							try { g_engine->GetGC()->Iterate(); } catch ( ... ) { collector_error = std::current_exception(); }
+							{ std::lock_guard guard( progress_mutex ); collector_done = true; }
+							progress.notify_all();
+						} );
+						{
+							std::unique_lock guard( progress_mutex );
+							if ( !progress.wait_for( guard, std::chrono::seconds( 2 ), [ & ]() { return collector_entered; } ) ) { return; }
+						}
+						producer = std::thread( [ & ]() {
+							try {
+								space.Accumulate( owner, [ & ]() { ++delivered; delivered_on_owner = space.IsOwnerThread(); },
+									[ & ]() { ++cleaned; }, false, context );
+							} catch ( ... ) { producer_error = std::current_exception(); }
+							{ std::lock_guard guard( progress_mutex ); producer_done = true; }
+							progress.notify_all();
+						} );
+						std::unique_lock guard( progress_mutex );
+						both_finished_inside_owner = progress.wait_for( guard, std::chrono::seconds( 2 ), [ & ]() {
+							return collector_done && producer_done;
+						} );
+					} );
+				} catch ( ... ) { owner_error = std::current_exception(); }
+				// Even the old implementation must leave the owner accumulation
+				// before either join. Its expected regression failure is finite.
+				if ( collector.joinable() ) { collector.join(); }
+				if ( producer.joinable() ) { producer.join(); }
+				const bool no_early_delivery = delivered == 0 && cleaned == 0;
+				space.Accumulate( &root, [ & ]() { root.owner = nullptr; root.context = nullptr; } );
+				g_engine->GetGC()->Iterate();
+				const bool pending_roots_retained = destroyed == 0;
+				space.ProcessAccumulations();
+				g_engine->GetGC()->Iterate();
+				// Assert only after threads and pending cleanup have settled. Root
+				// references stay live until both threads join, including old-red.
+				GT_ASSERT( !owner_error && !collector_error && !producer_error, "Concurrent GC progress probe raised an exception" );
+				GT_ASSERT( no_early_delivery && pending_roots_retained, "Concurrent probe executed off-owner or lost pending lifetime roots" );
+				GT_ASSERT( delivered == 1 && cleaned == 1 && delivered_on_owner, "Concurrent probe lost, duplicated or mis-threaded a callback/cleanup" );
+				GT_ASSERT( destroyed == 2, "Delivered concurrent callback retained its owner/context or destroyed them twice" );
+				GT_ASSERT( both_finished_inside_owner, "Collector or queued producer blocked until owner accumulation ended" );
+				GT_OK();
+			}
+		);
+	}
 
 	task->AddTest(
 		"GC batch sweep preserves shared cyclic roots and destroys released objects exactly once",

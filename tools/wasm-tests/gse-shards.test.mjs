@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {combine,plan,snapshotAt} from './gse-shards.mjs';
 import {fileURLToPath} from 'node:url';
+import {readFileSync} from 'node:fs';
+import {matchesGlob} from 'node:path';
 
 const source={'GLSMAC_data/default/main.gls.js':'production',
   'GLSMAC_data/tests/_behavior.gls.js':'helper',
@@ -78,4 +80,17 @@ test('direct serial and non-four-way plans retain their original distribution',(
   const actual=snapshotAt(fileURLToPath(new URL('../../',import.meta.url))),all=plan(actual).all;
   for(const count of [1,2,3,5])for(let index=1;index<=count;index++)
     assert.deepEqual(plan(actual,index,count).selected,all.filter((_,position)=>position%count===index-1));
+});
+
+
+test('complete GSE PR path filters include actual collection implementation and regression files',()=>{
+  const workflow=readFileSync(new URL('../../.github/workflows/wasm.yml',import.meta.url),'utf8');
+  const section=workflow.match(/^  pull_request:\n([\s\S]*?)(?=^permissions:)/m);assert.ok(section);
+  const patterns=[...section[1].matchAll(/^      - '([^']+)'$/gm)].map(m=>m[1]);
+  const selected=path=>patterns.some(pattern=>matchesGlob(path,pattern));
+  for(const path of ['src/gc/Space.cpp','src/gc/GC.cpp','src/gse/tests/GSE.cpp',
+    'src/common/Mutex.cpp','src/common/Mutex.h','tools/wasm-tests/gse-shards.mjs',
+    'tools/wasm-tests/gse-full-worker.cjs','.github/workflows/wasm.yml'])assert.ok(selected(path),path);
+  for(const path of ['docs/notes.md','src/common/Unrelated.cpp','tools/wasm-tests/unrelated.mjs'])
+    assert.equal(selected(path),false,path);
 });
