@@ -10,6 +10,8 @@
 #include "util/Scroller.h"
 #include "types/Vec3.h"
 
+namespace scene::actor { class Instanced; }
+
 namespace types {
 namespace texture {
 class Texture;
@@ -118,6 +120,23 @@ public:
 		meshtex_t healthbar = {};
 	};
 	const render_data_t& GetRenderData() const;
+	// Transient native copy only; internal pointers never leave the synchronous
+	// caller and are not serialized or retained as GSE wrappers/FloatPtr values.
+	struct body_observation_t {
+		size_t unit_id = 0;
+		const SlotBadges* owner_badges = nullptr;
+		std::string definition_id;
+		types::Vec3 unit_coords;
+		bool resource_cached = false, unit_shown = false, actor_visible = false;
+		bool instance_allocated = false, instance_present = false;
+		size_t instance_id = 0, instance_count = 0;
+		const scene::actor::Instanced* actor = nullptr;
+		std::string resource_key, resource_name, texture_filename;
+		size_t atlas_x = 0, atlas_y = 0, atlas_width = 0, atlas_height = 0;
+		types::Vec2< float > destination_offsets;
+		types::Vec3 instance_position, instance_angle;
+	};
+	body_observation_t CopyBodyForObservation() const;
 
 protected:
 	void SetRenderCoords( const types::Vec3& coords ) override;

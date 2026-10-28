@@ -57,6 +57,14 @@ CLASS( Instanced, Actor )
 	void UpdateInstance( const instance_id_t instance_id, const types::Vec3& position, const types::Vec3& angle = {} );
 	void RemoveInstance( const instance_id_t instance_id );
 	const bool HasInstance( const instance_id_t instance_id );
+	struct instance_observation_t { types::Vec3 position; types::Vec3 angle; };
+	bool CopyInstanceForObservation( const instance_id_t id, instance_observation_t& out ) const {
+		const auto found = m_instances.find( id );
+		if ( found == m_instances.end() ) { return false; }
+		out.position = found->second.position; out.angle = found->second.angle;
+		return true;
+	}
+	size_t GetInstanceCountForObservation() const { return m_instances.size(); }
 
 	// instanced actors don't have normal z position so need to keep global z index separately
 	const float GetZIndex() const;

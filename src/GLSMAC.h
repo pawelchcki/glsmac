@@ -1,5 +1,9 @@
 #pragma once
 
+#if defined( DEBUG ) || defined( FASTDEBUG )
+namespace gse::tests::mocks { struct UnitBodyCensusFixture; }
+#endif
+
 // top level game object
 // passed to scripts and everywhere, contains global state
 
@@ -64,6 +68,9 @@ CLASS2( GLSMAC, gse::GCWrappable, gse::Bindings )
 	void GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) override;
 
 private:
+#if defined( DEBUG ) || defined( FASTDEBUG )
+	friend struct ::gse::tests::mocks::UnitBodyCensusFixture;
+#endif
 	gse::GSE* m_gse = nullptr;
 	gse::context::GlobalContext* m_ctx = nullptr;
 	gc::Space* m_gc_space = nullptr;

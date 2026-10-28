@@ -1,5 +1,9 @@
 #pragma once
 
+#if defined( DEBUG ) || defined( FASTDEBUG )
+namespace gse::tests::mocks { struct UnitBodyCensusFixture; }
+#endif
+
 #include <unordered_map>
 #include <vector>
 
@@ -46,6 +50,9 @@ public:
 	const types::Vec3 GetFakeBadgeCoords( const types::Vec3& coords, const uint8_t offset ) const;
 
 private:
+#if defined( DEBUG ) || defined( FASTDEBUG )
+	friend struct ::gse::tests::mocks::UnitBodyCensusFixture;
+#endif
 
 	static const struct consts_t {
 		const types::Vec2< float > scale = {

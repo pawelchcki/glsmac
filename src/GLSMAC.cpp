@@ -1,8 +1,19 @@
 #include "GLSMAC.h"
 #include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <cstdint>
+#include <iomanip>
+#include <limits>
+#include <locale>
+#include <map>
+#include <set>
+#include <sstream>
+#include <stdexcept>
 
 #include "util/FS.h"
 #include "engine/Engine.h"
+#include "graphics/Graphics.h"
 #include "config/Config.h"
 #include "resource/ResourceManager.h"
 #include "scheduler/Scheduler.h"
@@ -38,6 +49,121 @@
 #include "game/frontend/base/BaseManager.h"
 #include "game/frontend/base/Base.h"
 #include "game/frontend/text/InstancedText.h"
+#include "game/frontend/unit/Unit.h"
+#include "game/frontend/unit/UnitDef.h"
+#include "game/frontend/unit/UnitManager.h"
+#include "scene/actor/Instanced.h"
+#include "ui/PresentationTrace.h"
+
+namespace {
+constexpr size_t BODY_CENSUS_MAX_UNITS = 1024;
+constexpr size_t BODY_CENSUS_MAX_BYTES = 4 * 1024 * 1024;
+constexpr size_t BODY_CENSUS_MAX_DEFINITIONS = 4096;
+
+std::string BodyQuote( const std::string& text ) {
+	if ( text.size() > BODY_CENSUS_MAX_BYTES / 6 ) { throw std::length_error( "descriptor-too-large" ); }
+	return ui::presentation::Quote( text ); // Pure escaping; no observer/trace start.
+}
+std::string BodyId( const size_t id ) { return BodyQuote( std::to_string( id ) ); }
+std::string BodyBool( const bool value ) { return value ? "true" : "false"; }
+std::string BodyUnavailable( const char* reason ) {
+	return "{\"schema\":\"application.unit-body-census.v1\",\"complete\":false,\"reason\":" + BodyQuote( reason ) + "}";
+}
+std::string BodyFloat( const float value ) {
+	if ( !std::isfinite( value ) ) { throw std::domain_error( "non-finite-native-float" ); }
+	static_assert( sizeof( float ) == sizeof( uint32_t ) && std::numeric_limits< float >::is_iec559 );
+	uint32_t bits; std::memcpy( &bits, &value, sizeof( bits ) );
+	std::ostringstream stream; stream.imbue( std::locale::classic() );
+	stream << std::setprecision( std::numeric_limits< float >::max_digits10 ) << value;
+	auto text = stream.str(); if ( text.find_first_of( ".eE" ) == std::string::npos ) { text += ".0"; }
+	return "{\"value\":" + text + ",\"bits\":" + std::to_string( bits ) + "}";
+}
+std::string BodyVec( const types::Vec3& v ) {
+	return "{\"x\":" + BodyFloat( v.x ) + ",\"y\":" + BodyFloat( v.y ) + ",\"z\":" + BodyFloat( v.z ) + "}";
+}
+void BodyAppend( std::string& destination, const std::string& source ) {
+	if ( source.size() > BODY_CENSUS_MAX_BYTES || destination.size() > BODY_CENSUS_MAX_BYTES - source.size() ) { throw std::length_error( "encoded-census-too-large" ); }
+	destination += source;
+}
+size_t BodyCacheCount( const game::frontend::unit::UnitManager& manager ) {
+	const auto& definitions = manager.GetDefinitionsForObservation();
+	if ( definitions.size() > BODY_CENSUS_MAX_DEFINITIONS ) { throw std::length_error( "too-many-definitions" ); }
+	size_t count = 0;
+	for ( const auto& entry : definitions ) {
+		if ( !entry.second ) { throw std::runtime_error( "missing-definition" ); }
+		const auto size = entry.second->GetCachedSpriteCountForObservation();
+		if ( size > 65536 || count > 65536 - size ) { throw std::length_error( "too-many-cached-sprites" ); }
+		count += size;
+	}
+	return count;
+}
+
+std::string CopyUnitBodyCensus( const game::frontend::unit::UnitManager& manager ) {
+	const auto& units = manager.GetUnitsForObservation();
+	if ( units.size() > BODY_CENSUS_MAX_UNITS ) { return BodyUnavailable( "too-many-known-units" ); }
+	const auto cache_before = BodyCacheCount( manager );
+	std::vector< std::pair< size_t, const game::frontend::unit::Unit* > > ordered;
+	for ( const auto& unit : units ) { ordered.emplace_back( unit.first, unit.second ); }
+	std::sort( ordered.begin(), ordered.end(), []( const auto& a, const auto& b ) { return a.first < b.first; } );
+	std::set< std::string > reasons;
+	std::map< size_t, size_t > owners;
+	std::set< std::pair< std::string, size_t > > present_instances;
+	struct actor_count_t { const scene::actor::Instanced* actor; size_t before; };
+	std::map< std::string, actor_count_t > actors;
+	std::string rows = "["; bool first = true;
+	for ( const auto& entry : ordered ) {
+		if ( !first ) { BodyAppend( rows, "," ); } first = false;
+		BodyAppend( rows, "{\"manager_unit_id\":" + BodyId( entry.first ) );
+		if ( !entry.second ) { reasons.insert( "missing-unit" ); BodyAppend( rows, ",\"unit_available\":false}" ); continue; }
+		const auto body = entry.second->CopyBodyForObservation();
+		BodyAppend( rows, ",\"unit_available\":true,\"unit_id\":" + BodyId( body.unit_id ) );
+		if ( body.unit_id != entry.first ) { reasons.insert( "manager-unit-identity-mismatch" ); }
+		size_t owner = 0;
+		const bool owner_known = manager.GetOwnerForObservation( body.owner_badges, owner );
+		BodyAppend( rows, ",\"owner_supported\":" + BodyBool( owner_known ) );
+		if ( owner_known ) { ++owners[owner]; BodyAppend( rows, ",\"owner_id\":" + BodyId( owner ) ); }
+		else { reasons.insert( "owner-slot-unavailable-or-ambiguous" ); }
+		BodyAppend( rows, ",\"definition_id\":" + BodyQuote( body.definition_id ) + ",\"unit_render_coords\":" + BodyVec( body.unit_coords ) +
+			",\"unit_shown\":" + BodyBool( body.unit_shown ) + ",\"resource_available\":" + BodyBool( body.resource_cached ) );
+		if ( !body.resource_cached ) { reasons.insert( "cached-sprite-unavailable" ); BodyAppend( rows, "}" ); continue; }
+		BodyAppend( rows, ",\"actor_visible\":" + BodyBool( body.actor_visible ) + ",\"resource\":{\"key\":" + BodyQuote( body.resource_key ) +
+			",\"name\":" + BodyQuote( body.resource_name ) + ",\"atlas\":{\"x\":" + std::to_string( body.atlas_x ) + ",\"y\":" + std::to_string( body.atlas_y ) +
+			",\"width\":" + std::to_string( body.atlas_width ) + ",\"height\":" + std::to_string( body.atlas_height ) + "},\"destination_offsets\":{\"x\":" + BodyFloat( body.destination_offsets.x ) +
+			",\"y\":" + BodyFloat( body.destination_offsets.y ) + "},\"texture_filename_supported\":" + BodyBool( !body.texture_filename.empty() ) );
+		if ( !body.texture_filename.empty() ) { BodyAppend( rows, ",\"texture_filename\":" + BodyQuote( body.texture_filename ) ); }
+		BodyAppend( rows, "},\"instance_state\":" + BodyQuote( !body.instance_allocated ? "unallocated" : ( body.instance_present ? "present" : "absent" ) ) );
+		if ( body.instance_allocated ) { BodyAppend( rows, ",\"instance_id\":" + BodyId( body.instance_id ) ); }
+		if ( body.instance_present ) {
+			BodyAppend( rows, ",\"instance_position\":" + BodyVec( body.instance_position ) + ",\"instance_angle\":" + BodyVec( body.instance_angle ) );
+			if ( !present_instances.emplace( body.resource_key, body.instance_id ).second ) { reasons.insert( "duplicate-present-instance-claim" ); }
+		}
+		if ( body.resource_key.empty() ) { reasons.insert( "empty-resource-key" ); }
+		const auto inserted = actors.emplace( body.resource_key, actor_count_t{ body.actor, body.instance_count } );
+		if ( !inserted.second && inserted.first->second.actor != body.actor ) { reasons.insert( "resource-key-ambiguous" ); }
+		BodyAppend( rows, "}" );
+	}
+	BodyAppend( rows, "]" );
+	const auto cache_after = BodyCacheCount( manager );
+	if ( cache_before != cache_after ) { reasons.insert( "sprite-cache-changed-during-copy" ); }
+	std::string counts = "["; first = true;
+	for ( const auto& entry : actors ) {
+		if ( !first ) { BodyAppend( counts, "," ); } first = false;
+		const auto after = entry.second.actor->GetInstanceCountForObservation();
+		if ( entry.second.before != after ) { reasons.insert( "instance-map-changed-during-copy" ); }
+		BodyAppend( counts, "{\"resource_key\":" + BodyQuote( entry.first ) + ",\"before\":" + BodyId( entry.second.before ) + ",\"after\":" + BodyId( after ) + "}" );
+	}
+	BodyAppend( counts, "]" );
+	std::string result = "{\"schema\":\"application.unit-body-census.v1\",\"complete\":" + BodyBool( reasons.empty() ) +
+		",\"id_encoding\":\"uint64-decimal\",\"float_encoding\":\"float32-value-bits\",\"requested_game_matches\":true,\"scope\":\"current-frontend-only\",\"known_frontend_units\":" + std::to_string( units.size() ) + ",\"reasons\":[";
+	first = true;
+	for ( const auto& reason : reasons ) { if ( !first ) { BodyAppend( result, "," ); } first = false; BodyAppend( result, BodyQuote( reason ) ); }
+	BodyAppend( result, "],\"owner_counts\":[" ); first = true;
+	for ( const auto& owner : owners ) { if ( !first ) { BodyAppend( result, "," ); } first = false; BodyAppend( result, "{\"owner_id\":" + BodyId( owner.first ) + ",\"units\":" + std::to_string( owner.second ) + "}" ); }
+	BodyAppend( result, "],\"cache_counts_before\":" + std::to_string( cache_before ) + ",\"cache_counts_after\":" + std::to_string( cache_after ) +
+		",\"instance_counts\":" + counts + ",\"supported\":{\"frontend_inventory\":true,\"owner_slot_lookup\":true,\"cached_sprite_lookup\":true,\"native_instance_map\":true,\"float32_bits\":true,\"renderer_angle\":true,\"gpu_frame\":false,\"camera\":false,\"screen_bounds\":false,\"world_copies\":false,\"occlusion\":false,\"gameplay_facing\":false,\"animation_frame\":false,\"action_clip\":false,\"limb_pose\":false,\"movement_timing\":false,\"backend_completion\":false,\"audio\":false,\"cross_session_lifetime\":false,\"dispatch_quiescence\":false},\"units\":" + rows + "}" );
+	return result;
+}
+}
 
 static GLSMAC* s_glsmac = nullptr;
 
@@ -46,6 +172,10 @@ GLSMAC::GLSMAC()
 
 	// there can only be one GLSMAC
 	ASSERT( !s_glsmac, "GLSMAC already defined" );
+	// UI construction requires nonempty layout bounds. Reject this invalid
+	// environment before publishing the singleton or registering a GC root.
+	ASSERT( g_engine->GetGraphics()->GetViewportWidth() > 0 && g_engine->GetGraphics()->GetViewportHeight() > 0,
+		"GLSMAC UI requires a nonzero viewport" );
 	s_glsmac = this;
 
 	Log( "Creating global state" );
@@ -238,7 +368,7 @@ WRAPIMPL_BEGIN( GLSMAC )
 		},
 		{
 			"game",
-			game->Wrap( GSE_CALL ),
+			game ? game->Wrap( GSE_CALL ) : VALUE( gse::value::Undefined ),
 		},
 		{
 			"connect",
@@ -325,6 +455,20 @@ WRAPIMPL_BEGIN( GLSMAC )
 					return loader::txt::WrapSmacTextDocument( GSE_CALL, loaders->smac_text->Load( filename, format ) );
 				}
 				catch ( const std::exception& error ) { GSE_ERROR( gse::EC.LOADER_ERROR, error.what() ); }
+			} )
+		},
+		{
+			"get_unit_body_census", NATIVE_CALL( this ) {
+				// This stable owner check must precede every frontend pointer read.
+				if ( !m_gc_space || !m_gc_space->IsOwnerThread() ) { return VALUE( gse::value::String,, BodyUnavailable( "wrong-owner-thread" ) ); }
+				N_EXPECT_ARGS( 1 ); N_GETVALUE_UNWRAP( requested, 0, game::backend::Game );
+				try {
+					if ( !requested ) { return VALUE( gse::value::String,, BodyUnavailable( "native-game-unavailable" ) ); }
+					if ( !m_game || !m_game->CanObserveUnitBodies() ) { return VALUE( gse::value::String,, BodyUnavailable( "frontend-unavailable" ) ); }
+					if ( m_game->GetBackend() != requested ) { return VALUE( gse::value::String,, BodyUnavailable( "different-current-game" ) ); }
+					return VALUE( gse::value::String,, CopyUnitBodyCensus( *m_game->GetUM() ) );
+				}
+				catch ( const std::exception& ) { return VALUE( gse::value::String,, BodyUnavailable( "observation-copy-unavailable" ) ); }
 			} )
 		},
 		{
@@ -492,7 +636,7 @@ void GLSMAC::WithGSE( const std::function<void( GSE_CALLABLE )>& f ) {
 void GLSMAC::GetReachableObjects( std::unordered_set< gc::Object* >& reachable_objects ) {
 	gse::GCWrappable::GetReachableObjects( reachable_objects );
 
-	g_engine->GetGame()->GetReachableObjects( reachable_objects );
+	if ( auto* game = g_engine->GetGame() ) { game->GetReachableObjects( reachable_objects ); }
 
 	if ( m_state ) {
 		GC_DEBUG_BEGIN( "state" );

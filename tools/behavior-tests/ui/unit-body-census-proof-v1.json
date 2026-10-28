@@ -1,0 +1,305 @@
+{
+  "version": 1,
+  "status": "actual strict static census PASS; independent retained raw audit PASS",
+  "scope": "Current frontend cached body resource/instance/normalized Float32 identity and native world purity; zero original agreement",
+  "executed_head": "b862930e706ac516c011c14a6eba5d60db99ada1",
+  "observer_base": "810c9038646cfa0b416ec7bdb566d700d8354018",
+  "observer_commits": [
+    "f0dae99a1a1ae02098a7d25f8aee254e1705354f",
+    "11532fef4051690a61f23b2f89a48ba939ecceac"
+  ],
+  "native_source_tree": "23e54d08b7dbb00f6b42d325c180a8c868b30ee2",
+  "production_default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+  "runtime": {
+    "GLSMAC.js": "32446906441924bb1b1ad7a505682757c590ef8ebdcacd186a0e3fd259d8bea1",
+    "GLSMAC.wasm": "cdc6d8f29400451fdca33a60909a24ad62b3c04b5bacbb2123006ca619177a22"
+  },
+  "runtime_provenance": "/tmp/wasmsmac-unit-body-census-runtime-v8/provenance.json",
+  "runtime_provenance_sha256": "5c847aaf39f28b2eec66970f9122ecca4ef33e58d7ed6b558701c8de32181619",
+  "asset_manifest_id": "12743b42e275842a7ae3862572ec769c6d86f647394f0edb1ff9db6d104888e3",
+  "asset_manifest_sha256": "7df958c3a87c27f4f2e840aaf20d26a48f592107901bbeb238a3b3b58121b7e2",
+  "fixture_sha256": {
+    "main": "24b4c8b354ab04a89ca047a1e1bf031ebecff24157f7a4e451129491dc9c5eb5",
+    "world": "614964b356e649998aea9cd72cbef780f3aa087cc220117c585976d59e4df27d"
+  },
+  "source_files_sha256": {
+    "tools/wasm-tests/unit-body-census-browser.test.mjs": "150b945ecab53906d2f53fc9893fd4ad0a412b1bdcbfdbd189a4e61e8a4f575c",
+    "tools/wasm-tests/unit-body-census-browser-fixture.mjs": "990c1a9d5d32a9a0faf2047ecb6bc055a9954aa105f37052c4572fe0d96e24be",
+    "tools/wasm-tests/unit-stack-order-browser-fixture.mjs": "d983d27ef18b15676e42801598bbb165f95996cdf6fd318b0ec60d42941d3e06",
+    "tools/wasm-tests/unit-workshop-browser-fixture.mjs": "42e90f094ca2930f719a97c50e3c72243265e8c70ae8304ade7e2dc9adfdafec",
+    "tools/behavior-tests/state_trace/unit_body_census.py": "660b7bc3526702c0349d6865df499215036bc54ff5e134f1af9ecc93f63e51df",
+    "tools/behavior-tests/state_trace/unit_body_census_proof.py": "c75c013b6516ba5a817df5f4650dbe1c1f8b7109ca0880d1b112621c4ae91e52",
+    "tools/behavior-tests/test_unit_body_census.py": "e580190d31a64b40e6b159f0054bc1ea6de2421a601220f004625a6272529b5e",
+    "tools/behavior-tests/test_unit_body_census_proof.py": "0d98b74eac5c5d2b8f2742486348d416751376256545ece0a9f8255f6f5d5339",
+    "tools/behavior-tests/protocol.py": "7362eb12198fcbbc1b4993ab75e387dcb205ec5c42752c279b182cc4bb15e8a8",
+    "tools/behavior-tests/state_trace/terrain_observation.py": "e48ab5035ace4ad1b44ef7541551a725fed539b7e89b10973c2460e13066f884",
+    "tools/behavior-tests/state_trace/schema.py": "08ba4cd6595ef915820701f6d1eb443218ec3bb465bfa753a1fc45a5e953cfca",
+    "tools/behavior-tests/fast.py": "b752d6b57e500167706b7035866b94ed52e6b5dd0126302f0c90979e2797b860",
+    "tools/serve-wasm.py": "20f446cba787f2aac5ddac4a7097d15a63cbe758eade19b0dbea5886b76c9b31",
+    "tools/wasm_assets.py": "310dbc8ea2523693be1dbf6519700487593c91d62ff9b998d6d89e6e6ed6585e",
+    "GLSMAC_data/tests/_state_trace_observer.gls.js": "115f65dd34fe9e0691f95abfa26900f75ecb132ad92737a0803e1db2cb91984d",
+    "GLSMAC_data/tests/_terrain_trace_observer.gls.js": "f5c895b6fa598d9f83da4ee5ab8bfaccfe396994ef8a31ba378c3fcedf7fe7e1",
+    "GLSMAC_data/tests/_terraform_cooperation_observer.gls.js": "3c8639a86386686d57d50283151f65e5775aa693b292091b2b00cdde58faf0c7",
+    "src/GLSMAC.cpp": "6386c8d393e803e49cc7e1aec9e3bcfb4119988c59e4511c91306bffcd6c08cc",
+    "src/game/frontend/Game.h": "d4b28284727c98daf05f6ea803c24051a0d03f8aa335039c5ea7ceea2f72c3e3",
+    "src/game/frontend/unit/UnitManager.h": "5b81da075e8fca3d0e403b056ab7ad83961364747f2d100fb3f06f7d8f87fe17",
+    "src/game/frontend/unit/Unit.h": "61b9dd2efe9db044ae4fc92d1ab414ea372a4c5b257f7961a731eafd9272095b",
+    "src/game/frontend/unit/Unit.cpp": "225add2a97f79ac7b28a36e38115288813f7b7429950176b75ca9164786367ff",
+    "src/game/frontend/unit/UnitDef.h": "4c88db3763cf04c5b08a4772effcd8354ce72fd405ed0aac74b581ba7b11ce34",
+    "src/scene/actor/Instanced.h": "e5fe083a367d1b9b1125f8fa6e146a9b9f99d639b0f67752d9d4ed85bd639b23",
+    "tools/wasm-tests/browser-log-cursor.mjs": "959cd36fec3d798f889a9de6d8889d23808195a2a2cfc37830497c061cc1eed3",
+    "tools/wasm-tests/browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1",
+    "tools/wasm-tests/runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+    "tools/wasm-tests/terraform-browser-inputs.mjs": "80171fb84092c3f9fb1c0cff4aef213f2f0674f06c3496ed0f1c7838fd3ac8e3"
+  },
+  "execution": {
+    "artifact_directory": "/tmp/unit-body-census-browser-v1",
+    "command": [
+      "/var/home/pawel/.local/lib/node-v24.10.0-linux-x64/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "tools/wasm-tests/unit-body-census-browser.test.mjs"
+    ],
+    "actual_node_pid": 1149072,
+    "actual_node_returncode": 0,
+    "os_wait_completed": true,
+    "actual_native_exit_code": 0,
+    "test_cases": 1,
+    "test_passes": 1,
+    "test_skips": 0,
+    "driver_recorded_seconds_through_cleanup": 33.39294700100436,
+    "node_test_seconds": 33.26696399,
+    "outer_driver_returncode": 0,
+    "forced_cleanup": false,
+    "owned_group_after_cleanup": "absent",
+    "tracked_descendants_after_cleanup": [],
+    "observed_identity_count": 13,
+    "asset_server_pid": 1149096,
+    "asset_server_exit": {
+      "code": null,
+      "signal": "SIGTERM"
+    },
+    "postrun_bindings_match": true,
+    "host_process_inventory_limits": "OS Popen child/wait and owned process group plus visible /proc observed descendants only; not exhaustive host inventory"
+  },
+  "evidence_sha256": {
+    "preflight.json": "0fbbdaa989b2ba465de3a26b42a7f9863e4f70fc9cd617b070724b2fa51a3af5",
+    "raw-outcome.json": "b82babe40330d39d1792d71ec9f3d86cb19718e119dc25e5216f32c1ad3ba668",
+    "owned-process.json": "bd73900969ef61d996e901b26728029fb14cdb2ab265244ae92631cb704d25d4",
+    "owned-process-samples.jsonl": "0c03daadcd8905a569aa2023e140d97ff1e4f608525db184dcb407d29488d7c2",
+    "report.json": "db2f854bc492bd53941a41e3c71fa6efcb3b5e3f65423bf605b3514ca6feacb5",
+    "application.log": "2a6745fccfec386adcae44b0d5b87bc2a1fdc3e2ef85a87b405ffec6d9355ab0",
+    "application-log-chunks.jsonl": "05ef7beda369988cb3f81aee0ff8402005fa188f088fc83cad004b86813e5ad4",
+    "receipt-acceptance.json": "0c75c08204b30c990e6c0b9b9dda3f362ec4abf4c7dd8751fabe31f11c34fde5",
+    "census-result.json": "cd1eacd8408f1c758f0d99cd7b77d32b6a07d67c33137f44ccb313b49b70d46d",
+    "node.log": "033cb4b6710e6c7e2b36f93270b33deef8fc84784d324ef589c59e02cd857932",
+    "asset-manifest.json": "7df958c3a87c27f4f2e840aaf20d26a48f592107901bbeb238a3b3b58121b7e2",
+    "independent-delivery-audit.json": "5838b41089fe50421531dcb6b3c96c6ff71a955b89438d25e480494d2be5d202"
+  },
+  "external_driver": {
+    "path": "/tmp/unit-body-census-browser-v1-run.py",
+    "sha256": "c2a13e032241914ebb7d8e6744dbb78a601b374ba2fd3eb95e35301c3547f080",
+    "preflight_sha256": "0fbbdaa989b2ba465de3a26b42a7f9863e4f70fc9cd617b070724b2fa51a3af5",
+    "no_child_pure_cases": 6
+  },
+  "raw_log": {
+    "sha256": "2a6745fccfec386adcae44b0d5b87bc2a1fdc3e2ef85a87b405ffec6d9355ab0",
+    "utf8_bytes": 630688,
+    "chunks": 216,
+    "contiguous_utf16": true,
+    "sealed": true,
+    "partial": false,
+    "main_runtime_acknowledgements": 1,
+    "distinct_worker_acknowledgements": 8,
+    "callMain_out_err_bound": true
+  },
+  "observations": {
+    "census_reads": 2,
+    "identical_raw_native_strings": true,
+    "checkpoints": 2,
+    "players_per_world": 7,
+    "bases_per_world": 7,
+    "units_per_world": 9,
+    "tiles_per_world": 128,
+    "native_world_and_typed_health_movement_f32_unchanged": true,
+    "event_selection_fence": 9,
+    "actual_tile_select_serial": 10,
+    "actual_preview_serial": 11,
+    "read_event_prefix": 11,
+    "mounted_ui_identity": {
+      "bound_unit_id": 8,
+      "rendered_unit_id": 8,
+      "selected_unit_id": null
+    },
+    "owner_counts": [
+      {
+        "owner_id": "0",
+        "units": 3
+      },
+      {
+        "owner_id": "1",
+        "units": 1
+      },
+      {
+        "owner_id": "2",
+        "units": 1
+      },
+      {
+        "owner_id": "3",
+        "units": 1
+      },
+      {
+        "owner_id": "4",
+        "units": 1
+      },
+      {
+        "owner_id": "5",
+        "units": 1
+      },
+      {
+        "owner_id": "6",
+        "units": 1
+      }
+    ],
+    "instance_states": {
+      "absent": 8,
+      "present": 1
+    },
+    "unallocated_runtime_rows": 0,
+    "cache_counts_before_after": [
+      1,
+      1
+    ],
+    "instance_counts": [
+      {
+        "resource_key": "Unit_ScoutPatrol [ 79 501 ] [ 38 48 ]",
+        "before": "1",
+        "after": "1"
+      }
+    ],
+    "selected_body": {
+      "manager_unit_id": "8",
+      "unit_available": true,
+      "unit_id": "8",
+      "owner_supported": true,
+      "owner_id": "0",
+      "definition_id": "ScoutPatrol",
+      "unit_render_coords": {
+        "x": {
+          "value": 0.25,
+          "bits": 1048576000
+        },
+        "y": {
+          "value": -0.25,
+          "bits": 3196059648
+        },
+        "z": {
+          "value": 2.12971425,
+          "bits": 1074285885
+        }
+      },
+      "unit_shown": true,
+      "resource_available": true,
+      "actor_visible": true,
+      "resource": {
+        "key": "Unit_ScoutPatrol [ 79 501 ] [ 38 48 ]",
+        "name": "Unit_ScoutPatrol",
+        "atlas": {
+          "x": 79,
+          "y": 501,
+          "width": 38,
+          "height": 48
+        },
+        "destination_offsets": {
+          "x": {
+            "value": 0.0,
+            "bits": 0
+          },
+          "y": {
+            "value": 0.400000006,
+            "bits": 1053609165
+          }
+        },
+        "texture_filename_supported": true,
+        "texture_filename": "/smac/newicons.pcx"
+      },
+      "instance_state": "present",
+      "instance_id": "2",
+      "instance_position": {
+        "x": {
+          "value": 0.25,
+          "bits": 1048576000
+        },
+        "y": {
+          "value": 0.150000006,
+          "bits": 1041865114
+        },
+        "z": {
+          "value": 2.12971425,
+          "bits": 1074285885
+        }
+      },
+      "instance_angle": {
+        "x": {
+          "value": 0.0,
+          "bits": 0
+        },
+        "y": {
+          "value": 0.0,
+          "bits": 0
+        },
+        "z": {
+          "value": 0.0,
+          "bits": 0
+        }
+      }
+    }
+  },
+  "pure_source_checks": {
+    "decoder_cases": 18,
+    "proof_cases": 11,
+    "existing_terrain_schema_cases": 20,
+    "external_executor_cases": 6,
+    "pure_engine_credit": 0,
+    "no_assets_launch_passes": 0,
+    "no_assets_launch_skips": 1
+  },
+  "preserved_failures": [
+    {
+      "kind": "original observer compile access error",
+      "source": "f0dae99a1a1ae02098a7d25f8aee254e1705354f",
+      "exit": 2,
+      "seconds": 309.108,
+      "result": "/tmp/unit-body-census-build-v8/result.json"
+    },
+    {
+      "kind": "external UTF16 boundary source-review finding",
+      "original_driver": "/tmp/unit-body-census-browser-v1-run-reviewed-v1.py",
+      "original_preflight": "/tmp/unit-body-census-browser-v1/preflight-reviewed-v1.json",
+      "candidate_launches": 0
+    }
+  ],
+  "independent_audit": {
+    "status": "independent-retained-static-census-audit-passed",
+    "path": "/tmp/unit-body-census-browser-v1/independent-delivery-audit.json",
+    "sha256": "5838b41089fe50421531dcb6b3c96c6ff71a955b89438d25e480494d2be5d202",
+    "reproducer": "/tmp/unit-body-census-independent-delivery-audit.py",
+    "reproducer_sha256": "191bf23678539a3641cf859f49bf124a350d3be3431d934a8b2edc026eb9ec64",
+    "body_float32_value_bit_pairs_checked": 102,
+    "runtime_repeated": false
+  },
+  "original_passing_cases": 0,
+  "unsupported": [
+    "GPU/rendered pixels/frame identity",
+    "camera/projection/world copies/occlusion",
+    "movement/intermediate timing or cadence",
+    "gameplay facing",
+    "animation frames/action clips/leg/tool/limb poses",
+    "audio/music/video transitions",
+    "original appearance or movement policy",
+    "cross-session continuity or stale same-pointer epoch rejection",
+    "runtime wrong-thread/different-game/teardown negative cases",
+    "runtime unallocated-instance row",
+    "exhaustive host descendant inventory"
+  ]
+}

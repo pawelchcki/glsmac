@@ -1,5 +1,9 @@
 #pragma once
 
+#if defined( DEBUG ) || defined( FASTDEBUG )
+namespace gse::tests::mocks { struct UnitBodyCensusFixture; }
+#endif
+
 #include <unordered_map>
 #include <vector>
 
@@ -47,6 +51,21 @@ CLASS( UnitManager, common::Class )
 	void Iterate();
 
 	Unit* GetUnitById( const size_t id ) const;
+	// Application-thread diagnostic readers only. They neither create nor retain
+	// entities; GLSMAC verifies its stable GC owner thread before reaching these.
+	const std::unordered_map< size_t, Unit* >& GetUnitsForObservation() const { return m_units; }
+	const std::unordered_map< std::string, UnitDef* >& GetDefinitionsForObservation() const { return m_unitdefs; }
+	bool GetOwnerForObservation( const SlotBadges* badges, size_t& owner ) const {
+		if ( !badges ) { return false; }
+		bool found = false;
+		for ( const auto& entry : m_slot_badges ) {
+			if ( entry.second == badges ) {
+				if ( found ) { return false; }
+				owner = entry.first; found = true;
+			}
+		}
+		return found;
+	}
 
 	void DefineUnit( const backend::unit::Def* def );
 	void UndefineUnit( const std::string& id );
@@ -81,6 +100,9 @@ CLASS( UnitManager, common::Class )
 	const types::Vec3 GetCloserCoords( const types::Vec3& coords, const types::Vec3& ref_coords ) const;
 
 private:
+#if defined( DEBUG ) || defined( FASTDEBUG )
+	friend struct ::gse::tests::mocks::UnitBodyCensusFixture;
+#endif
 
 	Game* m_game;
 	sprite::InstancedSpriteManager* m_ism;
