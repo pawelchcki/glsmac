@@ -1,0 +1,9 @@
+# Current Land observation-only publication scope
+
+The current auditor exhausts every parsed native receipt envelope and opaque identity. It preserves67 legitimate startup receipts before the first checkpoint and admits exactly the paid completion during/after the observed flow. That completion must precede the final snapshot and exit. A coherent extra action after the final world is rejected; no numeric event-ID parsing is used. Seven focused receipt checks passed.
+
+Runtime source/tree/binary metadata is checked for consistency, but a caller-authored manifest is not an authenticated build receipt. Modern metadata explicitly marks compile attribution unverified. Thirteen Node metadata checks and ten combined Python metadata/receipt/scope checks pass; no build or capture ran for this audit correction.
+
+The current retained-data audit is **observations only**. Every emitted native, execution, bounded and browser passing-case field is zero. Public CI contains synthetic protocol checks and cannot regenerate the private raw capture; no public raw replay or source-execution attribution is claimed. The historical raw still contains6snapshot records,229 changed fields,96 Float checks,67startup receipts and one observed payment completion. Its recognized legacy OS0/APP0 receipt remains a historical fact outside current passing-case totals. Missing detail identity and exact per-callback identity also remain unsupported.
+
+The adjacent JSON retains the actual single read-only CLI result digest and a compact exact derivation from the earlier full derived result. This reconstructs JSON bytes only, not validation of raw evidence. All earlier raw/report/results remain immutable; positive case labels in older versions are superseded by this current zero-credit scope. No new game/browser/Native execution or observation occurred.

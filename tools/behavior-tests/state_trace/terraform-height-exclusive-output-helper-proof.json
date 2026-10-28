@@ -1,0 +1,46 @@
+{
+  "kind": "land-exclusive-output-and-serving-dependency.v1",
+  "candidate_executed": false,
+  "new_observations": false,
+  "source_commit": "73559f3de6432c72808fab55a7265b3befc9a900",
+  "auditor_sha256": "05d0bffa3433e435c64800f7a9d6f3b6c9057453d4d34c15d0d10c7c62abfb3f",
+  "actual_readonly_cli": {
+    "exit_code": 0,
+    "session_id": 38027,
+    "completion_chunk": "51cc16",
+    "output_filename": "reaudit-exclusive-asset-helper-73559f3d.json",
+    "output_sha256": "970ed47deb6b71ddf47a07f42fab29d152100cf00147da1ebd8ab3d017fee393"
+  },
+  "public_result_reconstruction": {
+    "base_file": "terraform-height-browser-v6-reaudit-framed-schema.json",
+    "base_sha256": "c36d2ffc42956a2c5856f75852eab5e3cd367b842e9dc0289b3d8a1be81f9db8",
+    "overrides": {
+      "source_audit_script_sha256": "05d0bffa3433e435c64800f7a9d6f3b6c9057453d4d34c15d0d10c7c62abfb3f"
+    },
+    "encoding": "UTF8 json.dumps(indent=2) plus newline",
+    "reconstructed_sha256": "970ed47deb6b71ddf47a07f42fab29d152100cf00147da1ebd8ab3d017fee393"
+  },
+  "focused_verification": {
+    "derived_output_and_preflight_python": 9,
+    "node_metadata": 12,
+    "skipped": 0,
+    "old_writer_failures": 4,
+    "old_imported_helper_failures": 2
+  },
+  "scope": {
+    "observed_worlds": 6,
+    "complete_worlds": 0,
+    "execution_cases_audited": 1,
+    "bounded_state_receipt_cases_audited": 1,
+    "complete_browser_cases_audited": 0,
+    "unsupported_capabilities": [
+      "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit",
+      "native entity detail raw identity echoes absent; complete entity/world observation unsupported"
+    ]
+  },
+  "unchanged_capture": {
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "raw_bytes": 14465994,
+    "source_runtime": "historical Native115/Default25/v6; not execution of current source"
+  }
+}

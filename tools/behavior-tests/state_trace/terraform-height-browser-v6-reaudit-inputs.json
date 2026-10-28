@@ -1,0 +1,865 @@
+{
+  "status": "passed-readonly-audit",
+  "native_cases_added": 0,
+  "browser_cases_audited": 1,
+  "native_capture_field_cases_audited": 1,
+  "typed_pure_checkpoints": 5,
+  "complete_worlds": 6,
+  "per_world": {
+    "players": 7,
+    "units": 8,
+    "bases": 7,
+    "tiles": 128
+  },
+  "parsed_native_world_changed_fields": 229,
+  "allowed_diff_categories": {
+    "payer fee/revision": 2,
+    "native canonical write/pin": 75,
+    "adjacent shared geometry (observed only)": 64,
+    "affected tile epoch": 25,
+    "quoted gameplay elevation": 9,
+    "edited imported source retirement": 36,
+    "actor moved flag": 1,
+    "actor exhausted movement preflight": 16,
+    "actor actual MP": 1
+  },
+  "native_float_unit_fields_checked": 96,
+  "unit_float_bits": [
+    {
+      "query": 1,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 1,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 1,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 2,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 2,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 3,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 3,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 4,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 4,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 5,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 5,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 6,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 6,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 7,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 7,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 8,
+      "field": "movement",
+      "type": "native Float token",
+      "f32_bits": "00000000",
+      "f64_bits": "0000000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 8,
+      "field": "health",
+      "type": "native Float token",
+      "f32_bits": "3f800000",
+      "f64_bits": "3ff0000000000000"
+    }
+  ],
+  "actor_movement_bits": [
+    1065353216,
+    1065353216,
+    1065353216,
+    1065353216,
+    1065353216,
+    0
+  ],
+  "quote": {
+    "fee": 4,
+    "credits": 10,
+    "source_elevation": 240,
+    "destination_elevation": 1500,
+    "source_water": false,
+    "destination_water": false,
+    "policy": "application.band-slope-height.v1",
+    "fee_policy": "application.band-fee.v1",
+    "mode": "functional_approximation",
+    "patches": 9
+  },
+  "payer_before": {
+    "credits": 10,
+    "initialized": true,
+    "last_income_turn": 0
+  },
+  "payer_after": {
+    "credits": 6,
+    "initialized": true,
+    "last_income_turn": 0
+  },
+  "payer_revision_before": 1,
+  "payer_revision_after": 2,
+  "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+  "raw_bytes": 14465994,
+  "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+  "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+  "source_audit_script_sha256": "4756fdf5a8dba262eb2d301654cea6e429a2b2b39e94f274a71590e7407f1e2b",
+  "preflight_schema": "historical-prelaunch-input-binding:791b078a",
+  "finalization": {
+    "sealed_complete": true,
+    "native_exit_verified": true,
+    "actual_main_ack": true,
+    "actual_worker_acks": 8,
+    "actual_exit_key_and_request": true,
+    "full_raw_fatal_scan": "clean",
+    "continuous_native_callbacks": 936,
+    "callback_utf16_covered": 14465994,
+    "lossless_trace_packets": 50,
+    "unique_contiguous_trace_events": 82661,
+    "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+  },
+  "pointer_route": {
+    "physical_clicks_verified": 8,
+    "raw_button_actions_exhausted": true,
+    "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+  },
+  "frames": {
+    "retained_frame_digests_verified": 5,
+    "scope": "actual file bytes; no original pixels/pose/mesh agreement"
+  },
+  "external_node_exit": {
+    "supported": true,
+    "external_raw_exit_code": 0,
+    "tool_session_id": 40314,
+    "completion_chunk_id": "0ae251",
+    "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+  },
+  "historical_cleanliness_scope": "legacy tracked_diff/source bindings only; no retrospective untracked-source cleanliness receipt"
+}

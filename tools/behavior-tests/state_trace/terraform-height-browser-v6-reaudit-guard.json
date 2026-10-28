@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "kind": "actual-readonly-guarded-height-reaudit.v1",
+  "status": "partial-readonly-bounded-state-receipt-audit",
+  "source_commit": "6b27d931fa55b95645cd7f450c21e1768166327a",
+  "auditor_sha256": "f6cca166ba823d7ede2e98469fe79292e3747ca75487604874091555e9103479",
+  "actual_process_exit": 0,
+  "actual_tool_session": 59412,
+  "python": "3.14.3 (main, Mar 26 2026, 00:00:00) [GCC 15.2.1 20260123 (Red Hat 15.2.1-7)]",
+  "reconstruction": {
+    "base_result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-footprint.json",
+    "base_result_sha256": "086238325076882c755548a5ebd354d2ed9ba4668cf670f1779ab4c6ff4f0087",
+    "replace_top_level_fields": {
+      "source_audit_script_sha256": "f6cca166ba823d7ede2e98469fe79292e3747ca75487604874091555e9103479"
+    },
+    "serialization": "json.dumps(value, indent=2) + newline; retain original object key order",
+    "actual_result_sha256": "b2fc4ddcc9eb7341f7d8a4bd62c0551b8d7d60deae2267ce5798f2ba7dea37e7",
+    "exact_actual_bytes_reconstructed": true
+  },
+  "complete_browser_cases_audited": 0,
+  "bounded_state_receipt_cases_audited": 1,
+  "new_native_or_browser_runs": 0,
+  "new_guard_tests": {
+    "passed": 3,
+    "skipped": 0,
+    "scope": "real -O/-OO/PYTHONOPTIMIZE/file CLI/-m/import fail closed; normal --help preserved"
+  },
+  "prior_algorithm_tests": {
+    "public": 75,
+    "retained": 65,
+    "total": 140,
+    "skipped": 0,
+    "source": "3e0148fd; no algorithm changes in guarded successor"
+  }
+}

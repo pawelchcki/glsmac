@@ -1,0 +1,43 @@
+{
+  "kind": "strict Native scalar type guard; unchanged historical read-only re-audit",
+  "source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+  "source_audit_script_sha256": "5677e538b05bdfae0b4b32fbeb8fba6ebc462594591c304ea0236deb1006c3dd",
+  "source_contracts": [
+    "GLSMAC_data/default/game/terraforming_height.gls.js:111 requires actual Bool confirmation",
+    "GLSMAC_data/default/ui/parts/game/bottom_bar/object_preview.gls.js:157 authors confirmed_height:true"
+  ],
+  "counterexample": "Prior helper3db accepted confirmed_height:Int1 in coherent raw/report receipt because Python dict equality equates1 andTrue; strict recursive equal rejects it.",
+  "caller_success_unit_types": "Already required caller exactInt/owner, success isTrue and unit_id exactInt; unchanged.",
+  "verification": {
+    "focused_public_tests": 2,
+    "skipped": 0,
+    "result": "PASS",
+    "actual_legacy_cli_os_exit": 0,
+    "new_game_or_raw_mutation": false
+  },
+  "result_reconstruction": {
+    "base_repository_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-final-three.json",
+    "base_sha256": "318dea6e3f6ab9ad2bf789cf170444d814bd6f1c9d3b71189febcdc215c7998b",
+    "only_field_replacement": {
+      "source_audit_script_sha256": {
+        "old": "3db84054183cd79f64f38bb29e476c37ca624943bbafae29acd89e483564e60d",
+        "new": "5677e538b05bdfae0b4b32fbeb8fba6ebc462594591c304ea0236deb1006c3dd"
+      }
+    },
+    "json_encoding": "json.dumps(indent=2) plus one newline",
+    "exact_current_result_sha256": "10d035b1800af963ebabf52f8d88c0aca60f8f86bebde13377c7df82267f16e7",
+    "reconstructed_bytes_match_actual_output": true
+  },
+  "current_scope": {
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "complete_browser_cases": 0,
+    "bounded_state_receipt_cases": 1,
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "raw_bytes": 14465994,
+    "exact_callback_message_identity": "unsupported legacy metadata intervals; no new capture"
+  },
+  "limits": [
+    "One extra receipt-type rejection, not new effect/price/terrain logic.",
+    "No full private regression batch repeated;89public+2targetedretained were prior-source evidence. FreshmandatoryCI includes newpublic negative."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "kind": "land-current-observations-only-scope.v1",
+  "candidate_executed": false,
+  "new_game_observations": 0,
+  "source_head": "8d2b395ac645f1dc09590a8b63069cf6cd49d263",
+  "source_auditor_sha256": "0641361988e5a871ad15d34be76fabe6b15316444de2eb1f0feb5798abd8321a",
+  "current_published_case_credit": {
+    "native_cases_added": 0,
+    "browser_cases_audited": 0,
+    "native_capture_field_cases_audited": 0,
+    "complete_browser_cases_audited": 0,
+    "execution_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 0,
+    "bounded_journal_field_cases_audited": 0
+  },
+  "compile_attribution_verified": false,
+  "public_retained_replay_available": false,
+  "historical_observed_facts": {
+    "observed_worlds": 6,
+    "parsed_native_world_changed_fields": 229,
+    "native_float_unit_fields_checked": 96,
+    "native_receipts": {
+      "total": 68,
+      "startup_before_first_checkpoint": 67,
+      "observed_completions": 1,
+      "unexpected_completions": 0
+    },
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "raw_bytes": 14465994,
+    "external_node_exit": {
+      "supported": true,
+      "receipt_verification": "recognized-immutable-tool-receipt",
+      "external_raw_exit_code": 0,
+      "tool_session_id": 40314,
+      "completion_chunk_id": "0ae251",
+      "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+    }
+  },
+  "actual_readonly_cli": {
+    "actual_os_exit": 0,
+    "session_id": 37151,
+    "completion_chunk": "0cfa0a",
+    "result_sha256": "2f131d12a27dad62a67c328a8ed3ff4d7a338e7111f58289d78aad0a04b927e0"
+  },
+  "derived_json_bytes_only_not_raw_replay": {
+    "base_file": "terraform-height-browser-v6-reaudit-framed-schema.json",
+    "base_sha256": "c36d2ffc42956a2c5856f75852eab5e3cd367b842e9dc0289b3d8a1be81f9db8",
+    "removed_top_level_keys": [],
+    "overrides": {
+      "status": "observations-only-readonly-audit",
+      "native_capture_field_cases_audited": 0,
+      "compile_attribution_verified": false,
+      "public_retained_replay_available": false,
+      "native_receipts": {
+        "total": 68,
+        "startup_before_first_checkpoint": 67,
+        "observed_completions": 1,
+        "unexpected_completions": 0
+      },
+      "execution_cases_audited": 0,
+      "bounded_state_receipt_cases_audited": 0,
+      "bounded_journal_field_cases_audited": 0,
+      "unsupported_capabilities": [
+        "Runtime metadata consistency is UNVERIFIED build attribution",
+        "Retained raw replay unavailable in public CI; observations are not published passing-case credit",
+        "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit",
+        "native entity detail raw identity echoes absent; complete entity/world observation unsupported"
+      ],
+      "source_audit_script_sha256": "0641361988e5a871ad15d34be76fabe6b15316444de2eb1f0feb5798abd8321a"
+    },
+    "top_level_key_order": [
+      "status",
+      "native_cases_added",
+      "browser_cases_audited",
+      "native_capture_field_cases_audited",
+      "compile_attribution_verified",
+      "public_retained_replay_available",
+      "typed_pure_checkpoints",
+      "complete_worlds",
+      "observed_worlds",
+      "entity_detail_identity",
+      "per_world",
+      "native_receipts",
+      "parsed_native_world_changed_fields",
+      "allowed_diff_categories",
+      "native_float_unit_fields_checked",
+      "unit_float_bits",
+      "actor_movement_bits",
+      "quote",
+      "payer_before",
+      "payer_after",
+      "payer_revision_before",
+      "payer_revision_after",
+      "complete_browser_cases_audited",
+      "execution_cases_audited",
+      "bounded_state_receipt_cases_audited",
+      "bounded_journal_field_cases_audited",
+      "unsupported_capabilities",
+      "raw_sha256",
+      "raw_bytes",
+      "report_sha256",
+      "preflight_sha256",
+      "source_audit_script_sha256",
+      "source_validation_dependencies_sha256",
+      "preflight_schema",
+      "finalization",
+      "pointer_route",
+      "keyboard_route",
+      "frames",
+      "external_node_exit",
+      "historical_cleanliness_scope"
+    ],
+    "serialization": "UTF8 json.dumps(indent=2) + newline",
+    "reconstructed_sha256": "2f131d12a27dad62a67c328a8ed3ff4d7a338e7111f58289d78aad0a04b927e0",
+    "warning": "Reconstructs derived JSON bytes only; does not validate private raw evidence or earn public passing credit"
+  },
+  "verification": {
+    "receipt_focused_public": 7,
+    "qualification_focused_public": 5,
+    "combined_metadata_receipt_scope_public": 10,
+    "node_metadata": 13,
+    "skipped": 0
+  },
+  "historical_files_rewritten": false
+}

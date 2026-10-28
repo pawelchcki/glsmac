@@ -1,0 +1,7 @@
+# Derived output preservation and imported serving helper
+
+The Land CLI now creates derived outputs exclusively, including its default filename. Existing results reject before expensive validation; a writer that wins during validation retains its exact bytes. Deterministic synthetic interleaving tests produced four failures on the old writer and pass after the fix. They run no game or retained capture.
+
+The same concrete Sea helper finding applies here: `tools/serve-wasm.py` imports `tools/wasm_assets.py` for manifests and serving. The consumed-source cleanliness set, preflight hashes, executed-server-root comparison and modern preflight validator now require that helper. Real temporary Git counterexamples showed old acceptance of dirty and differently executed helper bytes; current12 Node metadata checks and9 focused Python checks pass without skips. The three derived-output tests are mandatory in Hot CI. No production rules, runtime bytes or capture inputs change.
+
+One unchanged historical Land re-audit completes with observed worlds6, complete worlds0, recognized execution1, bounded state/receipt1 and complete-browser0. The adjacent proof capsule reconstructs its exact actual result from the earlier committed full result by changing only the auditor source hash; its complete digest is checked. Old raw/report/results remain immutable. This is no new game, browser or Native execution.
