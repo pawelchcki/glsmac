@@ -3,21 +3,22 @@
 #include "mocks/UnitBodyCensusFixture.h"
 #endif
 
-#include "task/gsetests/GSETests.h"
-#include "gse/GSE.h"
-#include "gse/value/Null.h"
-#include "gse/value/Bool.h"
-#include "gse/value/Int.h"
-#include "gse/value/String.h"
-#include "gse/value/Object.h"
-#include "gse/value/Callable.h"
-#include "gse/ExecutionPointer.h"
-#include "gc/Space.h"
-#include "gc/GC.h"
-#include "engine/Engine.h"
 #include "config/Config.h"
-#include "game/backend/settings/Settings.h"
+#include "engine/Engine.h"
 #include "game/backend/faction/Faction.h"
+#include "game/backend/settings/Settings.h"
+#include "gc/GC.h"
+#include "gc/Space.h"
+#include "gse/Exception.h"
+#include "gse/ExecutionPointer.h"
+#include "gse/GSE.h"
+#include "gse/value/Bool.h"
+#include "gse/value/Callable.h"
+#include "gse/value/Int.h"
+#include "gse/value/Null.h"
+#include "gse/value/Object.h"
+#include "gse/value/String.h"
+#include "task/gsetests/GSETests.h"
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
@@ -30,6 +31,17 @@ namespace gse {
 namespace tests {
 
 void AddGSETests( task::gsetests::GSETests* task ) {
+	task->AddTest( "Script exception diagnostics own a stable message and preserve source frames", GT() {
+		gse::ExecutionPointer ep;
+		const gse::si_t si = {};
+		gse::Exception error( "Error", "unchanged reason", GSE_CALL_NOGC, { "at scripts/tests/runtime.ts:10:13" } );
+		const char* first = error.what();
+		for ( size_t i = 0; i < 100; ++i ) {
+			GT_ASSERT( error.what() == first, "exception reporting allocated a different message" );
+			GT_ASSERT( std::string( error.what() ) == error.ToString(), "exception reporting changed content" );
+		}
+		GT_ASSERT( error.reason == "unchanged reason" && error.GetStackTrace().front() == "at scripts/tests/runtime.ts:10:13", "script error reason or mapped frame was lost" );
+		GT_OK(); } );
 #if defined( DEBUG ) || defined( FASTDEBUG )
 	task->AddTest(
 		"Unit body census production binding validates calls and copies real cached native instances",

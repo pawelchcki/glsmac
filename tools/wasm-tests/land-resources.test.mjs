@@ -181,6 +181,14 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
     source = source.replace('Farm,None,Kelp Farm,None,4,Cultivate $STR0', 'Synthetic crop,None,Kelp Farm,None,2,Sow $STR0')
       .replace('Road,None,Road,Disable,1,Build $STR0', 'Road,None,Road,Disable,3,Build $STR0');
   }
+  // Current startup imports technologies before resource policy. Retain that
+  // unrelated installed block while keeping the declared synthetic yield rows.
+  const installed = readFileSync(`${assets}/alphax.txt`, 'latin1').split(/(?<=\n)/);
+  const technology = installed.findIndex(line => line.split(';')[0].trim() === '#TECHNOLOGY');
+  assert.ok(technology >= 0, 'Installed technology declarations are required');
+  let end = technology + 1;
+  while (end < installed.length && !/^\s*#/.test(installed[end])) ++end;
+  source += installed.slice(technology, end).join('') + '\n#END\n';
   const override = await overrideRulesAsset(page, source);
   const fatal = /LR_REJECT|LR_ERROR|LR_UNEXPECTED_LOADER|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
   const wait = async (marker, count = 1) => {
@@ -234,7 +242,8 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
     const labels = [...rendered.matchAll(new RegExp(`LR_LABEL\\|${name}\\|([^|\\r\\n]+)\\|([^\\r\\n]+)`, 'g'))].at(-1);
     const loss = [4, 0, 0][i], pad = (value) => String(value).padStart(3, '0');
     assert.ok(labels); assert.equal(labels[1], `${pad(intake[i])} - ${pad(loss)}`);
-    assert.equal(labels[2], `+${pad(intake[i] - loss)}`, 'Actual base-screen labels show improved resource income');
+    // Frozen base-resource-hud observations retain the visible '= ' prefix.
+    assert.equal(labels[2], `= +${pad(intake[i] - loss)}`, 'Actual base-screen labels show improved resource income');
   }
   await page.waitForTimeout(600);
   await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`land-resources-${profile}-base.png`, artifacts))});

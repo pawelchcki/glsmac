@@ -39,7 +39,7 @@ public:
 
 	typedef std::vector< std::string > stacktrace_t;
 
-	Exception( const std::string& class_name, const std::string& reason, GSE_CALLABLE_NOGC );
+	Exception( const std::string& class_name, const std::string& reason, GSE_CALLABLE_NOGC, const stacktrace_t& initial_stack = {} );
 
 	const std::string class_name;
 	const std::string reason;
@@ -52,7 +52,7 @@ public:
 
 private:
 	stacktrace_t m_stacktrace = {};
-
+	std::string m_what = {};
 };
 
 }

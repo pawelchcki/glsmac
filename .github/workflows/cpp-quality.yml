@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - run: nix develop --command npm ci --ignore-scripts
       - name: Check gate regressions and changed-line formatting
         env:
           QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
@@ -30,7 +31,7 @@ jobs:
       - name: Configure actual native compile commands and generate resources
         run: |
           nix develop --command cmake --preset native
-          nix develop --command cmake --build --preset native --target embed glsmac_version -j2
+          nix develop --command cmake --build --preset native --target embed glsmac_version glsmac_script -j2
       - name: Reject new tidy and analyzer findings
         env:
           QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
@@ -57,10 +58,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - run: nix develop --command npm ci --ignore-scripts
       - name: Configure instrumentation
         run: nix develop --command cmake --preset '${{ matrix.preset }}'
       - name: Build production-code buffer and concurrency probes
-        run: nix develop --command cmake --build --preset '${{ matrix.preset }}' --target buffer-copy thread-runtime cpp-standard -j2
+        run: nix develop --command cmake --build --preset '${{ matrix.preset }}' --target buffer-copy thread-runtime cpp-standard script-runtime-probe -j2
       - name: Test allocation, module affinity and coordinated shutdown
         env:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
@@ -75,6 +77,7 @@ jobs:
         run: |
           nix develop --command cmake --build --preset native-asan -j2
           nix develop --command python3 tools/cpp-quality/run-native.py --binary build/native-asan/bin/GLSMAC
+          nix develop --command node tools/scripts/lifetime.mjs --native build/native-asan/bin/GLSMAC
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -82,6 +85,7 @@ jobs:
           path: |
             build/${{ matrix.preset }}/Testing/Temporary
             build/cpp-quality/native-tests
+            build/scripts/lifetime-native.json
 
   windows-standard:
     name: Windows Clang 23 C++23 library floor

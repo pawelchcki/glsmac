@@ -14,9 +14,25 @@ async function prepareSnapshot(snapshot) {
     throw new Error('The complete current production and test snapshot is required');
   }
   const resources=nativeResources(snapshot),font=nativeResourceBytes(snapshot),scripts=[];
+  const packagePrefix='GLSMAC_data/standard-js/';
+  const packageFiles=Object.entries(snapshot).filter(([name])=>name.startsWith(packagePrefix));
+  const consumer=snapshot['GLSMAC_data/default/game/land_resource_yields.gls.js'];
+  if(packageFiles.length || (typeof consumer==='string' && consumer.includes('#js_call'))) {
+    const manifest=JSON.parse(snapshot[packagePrefix+'manifest.json']);
+    assert.equal(manifest.schema,'glsmac.standard-js.v1');
+    assert.match(manifest.root,/^packages\/[a-f0-9]{64}$/);
+    const expected=[packagePrefix+'manifest.json'];
+    for(const [name,hash] of Object.entries(manifest.artifacts)) {
+      assert.match(name,/^[a-zA-Z0-9_./-]+$/);assert.ok(!name.includes('..') && !name.startsWith('/'));
+      const key=packagePrefix+manifest.root+'/'+name;expected.push(key);
+      assert.equal(typeof snapshot[key],'string');
+      assert.equal(createHash('sha256').update(snapshot[key]).digest('hex'),hash,'Frozen JS artifact differs');
+    }
+    assert.deepEqual(packageFiles.map(([name])=>name).sort(),expected.sort(),'Complete active JS package required');
+  }
   for (const [filename,source] of Object.entries(snapshot)) {
     if(filename===nativeFontPath)continue;
-    if (!/^GLSMAC_data\/(default|tests)\/.+\.gls\.js$/.test(filename) ||
+    if ((!/^GLSMAC_data\/(default|tests)\/.+\.gls\.js$/.test(filename) && !filename.startsWith(packagePrefix)) ||
         path.posix.normalize(filename) !== filename || typeof source!=='string') {
       throw new Error(`Unexpected script snapshot path/type: ${filename}`);
     }

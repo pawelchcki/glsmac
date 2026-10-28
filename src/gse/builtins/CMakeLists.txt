@@ -9,5 +9,6 @@ SET( SRC ${SRC}
 	${PWD}/String.cpp
 	${PWD}/Object.cpp
 	${PWD}/Async.cpp
+	${PWD}/JavaScript.cpp
 
 	PARENT_SCOPE )

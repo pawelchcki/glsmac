@@ -16,6 +16,7 @@ nix develop
 clang++ --version
 clang-tidy --version
 clang-format --version
+npm ci --ignore-scripts
 cmake --preset native
 cmake --build --preset native -j4
 ctest --preset native
@@ -24,7 +25,7 @@ python3 tools/cpp-quality/run-native.py
 
 `flake.lock` pins nixpkgs; `flake.nix` selects LLVM 23 and checks its version
 against `tools/cpp-quality/toolchain.json`. The shell includes Clang, tidy,
-format, lld, the matching LLVM symbolizer, CMake, Ninja, Python/PyYAML and the native development libraries.
+format, lld, the matching LLVM symbolizer, CMake, Ninja, Node 22, Python/PyYAML and the native development libraries.
 `nix develop --command COMMAND ...` runs the identical environment in CI.
 CMake caches its compiler: use a fresh build directory when switching compiler
 environments. The initial supported Nix systems are x86_64-linux and aarch64-linux; only systems

@@ -81,7 +81,8 @@
         "aquifer-capacity",
         "aquifer-routing",
         "terrain-geometry",
-        "normal-worker-tubes"
+        "normal-worker-tubes",
+        "typescript-boundary"
       ],
       "stable": [
         "base-resource-hud",

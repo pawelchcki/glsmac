@@ -277,6 +277,19 @@ test('real worker adapter mounts exact binary beside isolated scripts using fake
   }
 });
 
+test('frozen production snapshots require the complete current JavaScript package',async()=>{
+  const {prepareSnapshot}=createRequire(import.meta.url)('./gse-full-worker.cjs');
+  const actual=snapshotAt(fileURLToPath(new URL('../../',import.meta.url)));
+  await prepareSnapshot(actual);
+  const javascript=Object.keys(actual).find(name=>name.startsWith('GLSMAC_data/standard-js/') && name.endsWith('.js'));
+  assert.ok(javascript);
+  await assert.rejects(prepareSnapshot({...actual,[javascript]:actual[javascript]+'\n// changed bytes'}),/Frozen JS artifact differs/);
+  const missing={...actual};delete missing[javascript];
+  await assert.rejects(prepareSnapshot(missing));
+  const absent=Object.fromEntries(Object.entries(actual).filter(([name])=>!name.startsWith('GLSMAC_data/standard-js/')));
+  await assert.rejects(prepareSnapshot(absent));
+});
+
 test('producer and aggregate require exactly the current verified mounted resource marker',()=>{
   const original=nativeOutput(),line=resourceLine();
   for(const stdout of [original.stdout.replace(line,''),original.stdout.replace(line,line+'\n'+line),
