@@ -4,7 +4,7 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
-import {hash, plan, snapshotAt} from './gse-shards.mjs';
+import {hash, nativeCensusEvidence, nativeResources, plan, snapshotAt} from './gse-shards.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const directory = process.env.WASM_APP_DIR || `${root}build/wasm/bin`;
@@ -31,6 +31,11 @@ await Promise.all([new Promise(resolve=>process.stdout.write('',resolve)),
   new Promise(resolve=>process.stderr.write('',resolve))]);
 assert.ifError(result.error);
 assert.equal(result.status, 0, 'WASM game exits successfully');
+// runStreamingWorker resolves only in its actual child 'close' handler. This
+// fact is recorded after awaiting it, never inferred from APP/TAP/native text.
+const nativeResult={close_observed:true,status:result.status,signal:result.signal,
+  error:result.error,stdout:result.stdout,stderr:result.stderr};
+const nativeCensus=nativeCensusEvidence(nativeResult,nativeResources(snapshot));
 assert.doesNotMatch(result.stdout, /TEST FAILED|Testing complete, passed:/);
 assert.match(result.stdout, /All tests passed\./, 'Full GSE suite completed');
 assert.match(result.stdout, /^\s*test if tests work\.\.\.$/m, 'Native engine tests were included');
@@ -42,8 +47,9 @@ assert.deepEqual(visited, expectedScripts, 'Every discovered non-helper script e
 for (const [name, digest] of runtimeHashes) assert.equal(hash(readFileSync(name)), digest, 'The test engine stayed unchanged');
 if(values.report) {
   mkdirSync(dirname(values.report),{recursive:true});
-  writeFileSync(values.report,JSON.stringify({version:1,completed:true,
+  writeFileSync(values.report,JSON.stringify({version:2,completed:true,
     partition:{index:partition.index,count:partition.count},source_sha256:partition.source_sha256,
     runtime_sha256:{'GLSMAC.js':runtimeHashes[0][1],'GLSMAC.wasm':runtimeHashes[1][1]},
-    scripts:visited,native_engine_tests:true},null,2)+'\n');
+    scripts:visited,native_engine_tests:true,native_result:nativeResult,
+    native_census:nativeCensus},null,2)+'\n');
 }

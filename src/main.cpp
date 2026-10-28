@@ -213,10 +213,11 @@ int main( const int argc, char* const argv[] ) {
 		loader::texture::Null texture_loader;
 		loader::sound::Null sound_loader;
 		input::Null input;
-		graphics::Null graphics;
+		const bool is_gse_tests = config.HasDebugFlag( config::Config::DF_GSE_TESTS );
+		graphics::Null graphics( is_gse_tests ? 1024 : 0, is_gse_tests ? 768 : 0 );
 		audio::Null audio;
 
-		if ( config.HasDebugFlag( config::Config::DF_GSE_TESTS ) ) {
+		if ( is_gse_tests ) {
 			NEWV( task, task::gsetests::GSETests );
 			scheduler.AddTask( task );
 		}

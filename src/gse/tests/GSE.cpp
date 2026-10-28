@@ -1,4 +1,7 @@
 #include "GSE.h"
+#if defined( DEBUG ) || defined( FASTDEBUG )
+#include "mocks/UnitBodyCensusFixture.h"
+#endif
 
 #include "task/gsetests/GSETests.h"
 #include "gse/GSE.h"
@@ -27,6 +30,12 @@ namespace gse {
 namespace tests {
 
 void AddGSETests( task::gsetests::GSETests* task ) {
+#if defined( DEBUG ) || defined( FASTDEBUG )
+	task->AddTest(
+		"Unit body census production binding validates calls and copies real cached native instances",
+		GT() { return mocks::RunUnitBodyCensusFixture(); }
+	);
+#endif
 	task->AddTest(
 		"Faction instances preserve complete templates without sharing mutable identity",
 		GT() {

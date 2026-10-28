@@ -1,0 +1,395 @@
+{
+  "schema": "unit-body-census-native-binding-proof.v1",
+  "status": "actual-compiled-native-contract-pass",
+  "scope": "Synthetic compiled production GSE binding, real frontend body/resource/instance copy and native/GC retirement; not game fidelity.",
+  "documentation_base": "2ce78f723d17e851de488bd8d1fb9ad2a6918dd2",
+  "source": {
+    "executed_head": "d59a00c9875b55d9df2384ea56410b8e8267a107",
+    "native_tree": "df34c4700c2f1f6b9eee5305d5c1e1c4841921c6",
+    "default_tree": "d0cf7c429d28d8d918c78cd7d958237064d988ab",
+    "fixture_sha256": "a83e005209ca39018a431ab30732b71dbfcc27d8a7b4a72e4d9513cfcba4c849",
+    "relation_to_documentation_base": "Native/Default and worker/parser bytes unchanged; documentation records the actual d59 execution identity, not a rerun on this docs commit."
+  },
+  "toolchain": {
+    "emscripten_version": "4.0.22",
+    "emscripten_revision": "0f3d2e62bccf8e14497ff19e05a1202c51eb0c65",
+    "configuration": "FastDebug",
+    "jobs": 2,
+    "default_wasm_maximum_2gib": true,
+    "node_version": "v22.16.0",
+    "node_sha256": "8142d37c6f2f372ef040419e7a111a6baf17df89f8078d02447d6c639ae20c1d",
+    "build_step_os_exit": 0,
+    "build_step_wait_returned": true,
+    "compile_link_seconds": 286.1019079099933,
+    "build_total_seconds": 290.85809489298845,
+    "runtime_sha256": {
+      "GLSMAC.js": "c829f6ec7158c24dee3d665a5d958db1304ed0b0a9ec8bfe4fd7aa3562981ee1",
+      "GLSMAC.wasm": "e8ac53df33ca014ac667717f7cdb589f1d0de06f7c7bd92723e449fe7f21a57b"
+    },
+    "build_source_and_preserved_runtime_postpins_match": true,
+    "records_not_signed_compile_attestation": true,
+    "artifacts": [
+      {
+        "path": "/tmp/census-native-core-build-v6/preflight.json",
+        "sha256": "e390c69634bd2936a27af00a7ee298fea6542450208ccfa095cd2371df4ae74b"
+      },
+      {
+        "path": "/tmp/census-native-core-build-v6/result.json",
+        "sha256": "e94dee2694e448312b9b0cbd33280730b2adfa8472812093e201d0e255d3087e"
+      },
+      {
+        "path": "/tmp/census-native-core-build-v6/build.log",
+        "sha256": "df9563f549fd1aeea7f6cfac3a12116e5fb552ac775cc4a377a49b794e09a520"
+      }
+    ]
+  },
+  "execution": {
+    "attempt": 4,
+    "outer_os_exit": 0,
+    "outer_wait_returned": true,
+    "outer_elapsed_seconds": 6.150888088013744,
+    "worker_os_exit": 0,
+    "worker_close_observed": true,
+    "worker_signal": null,
+    "worker_transport_failure": null,
+    "worker_elapsed_seconds": 4.968,
+    "inner_worker_timeout_ms": 120000,
+    "outer_OS_wait_guard_seconds": 130,
+    "native_cli_timeout_override": null,
+    "owned_group_absent": true,
+    "forced_cleanup": false,
+    "outer_timed_out": false,
+    "source_runtime_postpins_match": true,
+    "ownership_limit": "Waited worker and its actual owned process group; exhaustive all-host descendants unsupported."
+  },
+  "native_observation": {
+    "registered_test_headers_total": 26,
+    "registered_names": [
+      "test if tests work",
+      "Unit body census production binding validates calls and copies real cached native instances",
+      "Faction instances preserve complete templates without sharing mutable identity",
+      "Custom world generation normalizes each minimum axis without changing editable setup",
+      "Queued accumulations retain both callback owner and detached script context",
+      "Concurrent collection leaves queued producers runnable during owner accumulation",
+      "GC batch sweep preserves shared cyclic roots and destroys released objects exactly once",
+      "GC accumulation recovers from native and non-standard exceptions",
+      "test if modules get assigned and run correctly",
+      "test if variables are written and read correctly",
+      "test if methods are defined and called correctly",
+      "test if variables are assigned and reassigned correctly",
+      "tile script metadata exposes independent improvement flags",
+      "original map center and coast survive updates until a corner height changes",
+      "legacy tile record restores its bottom elevation and terrain fields",
+      "imported tile metadata survives serialization and a later corner edit",
+      "whole imported map preserves shared vertices and exact source tile centers",
+      "test if JS parser produces valid output",
+      "test if interpreter executes programs correctly",
+      "Script stages preserve FIFO roots and do not process due timers between callbacks",
+      "Stage failure runs all cleanup and stops repeating test timers without false completion",
+      "Finish errors retain cleanup and cannot execute staged success callbacks",
+      "Registration errors still run staged cleanup and close retained native callables",
+      "Unstaged scripts retain the existing asynchronous finish behavior",
+      "check if ./GLSMAC_data/tests directory exists",
+      "testing ./GLSMAC_data/tests/functions.gls.js"
+    ],
+    "counting_note": "26 TOTAL registered tests INCLUDING functions.gls.js, not 26 C++ tests plus functions. Only functions.gls.js was mounted as top-level script in this bounded local run.",
+    "script_inventory": [
+      "GLSMAC_data/tests/functions.gls.js"
+    ],
+    "native_passed": 26,
+    "native_failed": 0,
+    "census_marker": {
+      "binding_calls": 19,
+      "invalid_calls": 11,
+      "complete_copies": 5,
+      "owners": 2,
+      "units": 3,
+      "checks_including_retirement": 786,
+      "synthetic_texture_inputs": true,
+      "normal_startup": false,
+      "gpu_pixels": false
+    },
+    "marker_emitted_after_fixture_retirement": true,
+    "native_stdout_bytes": 6193,
+    "native_stdout_lines": 124,
+    "native_stderr_bytes": 0,
+    "zero_based_lines": {
+      "resource": 0,
+      "first_registered_header": 2,
+      "census_header": 3,
+      "post_retirement_census_marker": 4,
+      "next_registered_header": 5,
+      "sole_terminal_native_footer": 123
+    },
+    "footer": "All tests passed.",
+    "scope_flags": {
+      "synthetic_texture_inputs": true,
+      "normal_startup": false,
+      "gpu_pixels": false
+    },
+    "resource": {
+      "path": "resource/font/terminus/TerminusTTF-4.49.3-minified.ttf",
+      "kind": "binary.base64.v1",
+      "bytes": 55700,
+      "sha256": "16709dd4c96ff4e1a1b032175a7fefa18c3199ea95f691a5f6968321a0bfe2e0",
+      "git_blob_sha1": "e59b6658e2d90002ef82a3bc99ffa617c8b4f334"
+    }
+  },
+  "covered_contracts": [
+    "Real GLSMAC wrapped callable registration and normal GSE argument-error propagation: 19 actual calls, 11 malformed-call exceptions and five nonempty complete native copies.",
+    "Two supplied frontend owners and three real Units, cached UnitDef/ISM actors and actual instance maps using synthetic in-memory textures; allocated-absent and present membership, resource/owner/ID/normalization/F32/signed-zero/escaping observations.",
+    "Read repetition and actual retained cache/count identity purity; real Show/Hide/restoration; real nonfinite-copy fallback with finally-restored input; actual collector root traversal.",
+    "Real State/wrapper retention, frontend/ISM/application/GSE retirement, then real public backend owner Stop in reverse order, checked before marker:786 assertions including retirement. Started backend identities are not initialized gameplay worlds.",
+    "Verified public font bytes mounted/read back beside the isolated script snapshot before the first registered native header; no removed-script fallback or cwd change. Existing Null font loader does not rasterize glyphs."
+  ],
+  "execution_artifacts": [
+    {
+      "path": "/tmp/census-native-core-v4/prelaunch.json",
+      "sha256": "5ecb0d34798a9ff7e442aadf37f8f733667ad10a26b917c16c41da4ddd4264e4"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/raw-outcome.json",
+      "sha256": "5ce954ad8d465af7de1a888138b64dd2a57678c28ace66a9a37545b7f639044f"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/worker-outcome.json",
+      "sha256": "e66174a47d26999cfea122410f65cc820d112203260ec3cddf112f7830296af3"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/native.stdout.log",
+      "sha256": "dda83a1427545c401f086b7041039f913293d5fd062fc7e693bca70f8dfc9e52"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/native.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/scripts.json",
+      "sha256": "3bc815d220a00870798ecd56e1470ce80b0a7ff119c44ea9232d8c6dbde8e77b"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/run.py",
+      "sha256": "18b3d69705e8fda7203596911ebaa4a2fb7c7b5f503c88dcc00800a2a655a903"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/run-core.mjs",
+      "sha256": "86c687f066c3ec7816b5091b3ddcaf71cb25667e6bb85c6460649bafbbeb44c4"
+    },
+    {
+      "path": "/tmp/census-native-core-v4/node.log",
+      "sha256": "b4693506a126da5ffe0466478962b058ee7c8972766234bf27811cd25607aece"
+    }
+  ],
+  "independent_audit": {
+    "path": "/tmp/census-native-core-v4/independent-proof-audit.json",
+    "sha256": "5f5133233f123c936fe3b2f0fd4aa0bfa98644fbee162c121b077f22d76b44be",
+    "verdict": "CLEAN",
+    "method": "Independent read-only actual retained raw/source/runtime/hash audit; no engine/compiler/verifier rerun or external attestation."
+  },
+  "prior_failed_core_attempts": [
+    {
+      "attempt": 1,
+      "classification": "strict-failure",
+      "reason": "Zero Null viewport caused effective-area assertion during GLSMAC/UI construction; later GC trap. No marker/footer.",
+      "outer_os_exit": 2,
+      "outer_wait_returned": true,
+      "worker_os_exit": 1,
+      "worker_close_observed": true,
+      "elapsed_seconds": 2.3670777610095683,
+      "owned_group_absent": true,
+      "forced_cleanup": false,
+      "outer_timed_out": false,
+      "postpins_match": true,
+      "native_census_passing_cases": 0,
+      "gameplay_passing_cases": 0,
+      "artifacts": [
+        {
+          "path": "/tmp/census-native-core-v1/prelaunch.json",
+          "sha256": "1014131a24c62c866659dc441ccb1a5379a7a15a94c3f5cfbb2df8593e2e47d2"
+        },
+        {
+          "path": "/tmp/census-native-core-v1/raw-outcome.json",
+          "sha256": "71b6adbef33d2af9abf1e74622cdd0dd8bbb39582aac5b84724a02b5a795d1bd"
+        },
+        {
+          "path": "/tmp/census-native-core-v1/worker-outcome.json",
+          "sha256": "ecc944e5e810cb15b347eec4b0e9e8866e373300987ae21f00e2d28e9c74026c"
+        },
+        {
+          "path": "/tmp/census-native-core-v1/native.stdout.log",
+          "sha256": "2924ff0fb7622b092461bb4754d9da26e2cc5c6d86fa2b34dd88b81b6fd8a097"
+        },
+        {
+          "path": "/tmp/census-native-core-v1/native.stderr.log",
+          "sha256": "c780b941af65d4174b56be3754b2bfd65211692c664d3ea089b4374267c4994a"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "classification": "strict-failure",
+      "reason": "Bundled font was absent beside the isolated scripts; real Console font read failed, followed by later GC trap. No marker/footer.",
+      "outer_os_exit": 2,
+      "outer_wait_returned": true,
+      "worker_os_exit": 1,
+      "worker_close_observed": true,
+      "elapsed_seconds": 2.544940674008103,
+      "owned_group_absent": true,
+      "forced_cleanup": false,
+      "outer_timed_out": false,
+      "postpins_match": true,
+      "native_census_passing_cases": 0,
+      "gameplay_passing_cases": 0,
+      "artifacts": [
+        {
+          "path": "/tmp/census-native-core-v2/prelaunch.json",
+          "sha256": "1129b418963a51b0292ea44412197b8841166a6df80b8a2a32fc73e23846fbad"
+        },
+        {
+          "path": "/tmp/census-native-core-v2/raw-outcome.json",
+          "sha256": "d56744e7e2181ee5b46e74bc61d7ad3557c3e9b1e3035473a5b40f243b11f750"
+        },
+        {
+          "path": "/tmp/census-native-core-v2/worker-outcome.json",
+          "sha256": "ccdf585e55a4b3a48fb9a7e3b80326c437038681fd655966777dd4311fca5eb6"
+        },
+        {
+          "path": "/tmp/census-native-core-v2/native.stdout.log",
+          "sha256": "65129180b4e5bcdc02cc47d74be04d53a63faf4495ec27449740ee317545bf89"
+        },
+        {
+          "path": "/tmp/census-native-core-v2/native.stderr.log",
+          "sha256": "794d02d897d346a4ccf1cce0627ac4e4edab1ae278b8394d9291929639e40fd2"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "classification": "strict-failure",
+      "reason": "Both backend identities lacked public Start prerequisites; memory OOB in real Game::Wrap with null Random. Verified font record preceded native headers, but no Census marker/footer.",
+      "outer_os_exit": 2,
+      "outer_wait_returned": true,
+      "worker_os_exit": 1,
+      "worker_close_observed": true,
+      "elapsed_seconds": 2.798547949991189,
+      "owned_group_absent": true,
+      "forced_cleanup": false,
+      "outer_timed_out": false,
+      "postpins_match": true,
+      "native_census_passing_cases": 0,
+      "gameplay_passing_cases": 0,
+      "artifacts": [
+        {
+          "path": "/tmp/census-native-core-v3/prelaunch.json",
+          "sha256": "78d337c76da32105b8982549f2099b318121c9ecd2bca1106d43b1bcb8cb31a9"
+        },
+        {
+          "path": "/tmp/census-native-core-v3/raw-outcome.json",
+          "sha256": "c6825a517146c96954dcf75b3aa634567c29558e0d65c8f2f0e6d27db4b67f7e"
+        },
+        {
+          "path": "/tmp/census-native-core-v3/worker-outcome.json",
+          "sha256": "11f630f28ee6f4e62435edc27955fa25ec97bda65d961aea0f0eff9c37eae773"
+        },
+        {
+          "path": "/tmp/census-native-core-v3/native.stdout.log",
+          "sha256": "091b07c44f2b54ab00365d62c00dfe1a9a5512f93d08d8403253e86c08247661"
+        },
+        {
+          "path": "/tmp/census-native-core-v3/native.stderr.log",
+          "sha256": "01ee166a77c78f723a585a02a1d763d69b6c3dd175ee6e3c24902faa928d074a"
+        }
+      ]
+    }
+  ],
+  "selected_preserved_build_failures": [
+    {
+      "build": "v1",
+      "classification": "environment-preflight-failure",
+      "reason": "Retained SDK lacked the toolchain; outer1, zero compiler steps and zero native cases. Restored SDK installed into a new owned path.",
+      "artifact": {
+        "path": "/tmp/census-native-core-build-v1/preflight-failure.json",
+        "sha256": "5840983ddcd31e918481adaff31ce636540cf7854837079ec771991162c079de"
+      }
+    },
+    {
+      "build": "v2",
+      "classification": "compile-failure",
+      "reason": "Six protected Persist/Unpersist/IsPersisted accesses in fixture; no link/core.",
+      "actual_compile_exit": 2,
+      "actual_wait_returned": true,
+      "compile_seconds": 309.2032515750034,
+      "owned_group_absent": true,
+      "runtime_or_native_success_credit": 0,
+      "artifacts": [
+        {
+          "path": "/tmp/census-native-core-build-v2/result.json",
+          "sha256": "c044f80d2319c3ff2756f47421090f55c4e479e59ca590b20cff590ba1f698da"
+        },
+        {
+          "path": "/tmp/census-native-core-build-v2/build.log",
+          "sha256": "577577453d19fa09dcb64d83df64b6199a409196712ba735eba1f4543f06aa78"
+        }
+      ]
+    },
+    {
+      "build": "v4",
+      "classification": "compile-failure",
+      "reason": "Two member-access errors on incomplete graphics::Graphics; no link/core.",
+      "actual_compile_exit": 2,
+      "actual_wait_returned": true,
+      "compile_seconds": 381.2427583670069,
+      "owned_group_absent": true,
+      "runtime_or_native_success_credit": 0,
+      "artifacts": [
+        {
+          "path": "/tmp/census-native-core-build-v4/result.json",
+          "sha256": "bc6f738954027d70dd331c2fcdbe4fe778ea2e8cecf3de17864e60e249e8ce5e"
+        },
+        {
+          "path": "/tmp/census-native-core-build-v4/build.log",
+          "sha256": "4342dd81027144dad3a9a4b83ebae2358df6bf290a8e6c5350ced90b842ebd5f"
+        }
+      ]
+    }
+  ],
+  "other_environmental_evidence": {
+    "font_protocol_initial_sandbox_failure": {
+      "path": "/tmp/census-native-font-mount-protocol-tests.log",
+      "sha256": "e45f356db5e93b6a3d44d670a02a486a8a563cebf6a0dcf03f2877739a8b234c",
+      "classification": "Three cheap metadata cases failed on Git spawnSync EPERM, including misleading error.status0; not treated as process success or Native evidence."
+    }
+  },
+  "fresh_public_execution_route": {
+    "kind": "new candidate execution with public repository inputs, not replay of local raw",
+    "requirements": [
+      "Build FastDebug runtime from the intended checked-out Native/Default using the repository Emscripten toolchain recipe.",
+      "Node22.16 and Git, public tracked Terminus font, shipped Default/tests; no installed/private/Original game assets."
+    ],
+    "serial_command": "WASM_APP_DIR=/absolute/path/to/built/bin WASM_SCRIPTS_ROOT=\"$PWD\" node tools/wasm-tests/gse.test.mjs --report /tmp/census-full-gse-report.json",
+    "partition_and_aggregate": "Existing mandatory workflow runs four gse.test.mjs --shard INDEX/4 partitions with v2 reports, then gse-shards.mjs reparses retained native/resource output in every report. Repeated same synthetic fixture is not four fidelity cases.",
+    "not_executed_by_this_documentation_task": true,
+    "local_proof_is_full_script_inventory": false
+  },
+  "historical_browser_separation": {
+    "proof": "unit-body-census-proof-v1.json",
+    "native_tree": "23e54d08b7dbb00f6b42d325c180a8c868b30ee2",
+    "default_tree": "a69dd4e0a9620f90bd12c8eb8636ca22e24ed47c",
+    "runtime": "historical v8",
+    "status": "Preserved historical installed-data browser proof; not rerun or relabelled for df34/Defaultd0cf. Its local raw artifacts are not included here."
+  },
+  "excluded_credit": {
+    "gameplay_passing_cases": 0,
+    "normal_startup_passing_cases": 0,
+    "GPU_or_font_raster_passing_cases": 0,
+    "Original_fidelity_passing_cases": 0,
+    "world_or_animation_passing_cases": 0
+  },
+  "limits": [
+    "No public raw archive/replayer was added. Artifact hashes identify retained local candidate evidence; they are not archive signatures or independent compiler/source attestation.",
+    "This local run exercised all registered native/core cases and only the functions script, not all current shipped scripts or completed fresh mandatory CI.",
+    "General constructor exception safety for arbitrary future constructor failures remains outside this prerequisite proof.",
+    "No installed art, map/GPU rendering, camera, occlusion, limb/action/frame/facing, movement timing, sound/music or all-seven-player world fidelity proof."
+  ],
+  "documentation_activity": "Only two new proof documents were authored from retained source/build/core/audit receipts. No code/test/runtime/build/capture reexecution or remote action."
+}

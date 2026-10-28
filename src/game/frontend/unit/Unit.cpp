@@ -359,6 +359,37 @@ const Unit::render_data_t& Unit::GetRenderData() const {
 	return m_render_data;
 }
 
+Unit::body_observation_t Unit::CopyBodyForObservation() const {
+	body_observation_t out;
+	out.unit_id = m_id; out.owner_badges = m_slot_badges;
+	out.unit_coords = m_render.coords; out.unit_shown = m_render.is_rendered;
+	out.instance_id = m_render.instance_id; out.instance_allocated = m_render.instance_id != 0;
+	if ( !m_def ) { return out; }
+	out.definition_id = m_def->GetIdForObservation();
+	// This retained definition/morale pair is exactly the one used by Show,
+	// Hide and SetRenderCoords. Never resolve a replacement by definition ID.
+	const auto* sprite = m_def->GetCachedSpriteForObservation( m_morale );
+	if ( !sprite || !sprite->instanced_sprite || !sprite->instanced_sprite->actor ) { return out; }
+	const auto* body = sprite->instanced_sprite;
+	const auto* actor = body->actor;
+	if ( actor->GetType() != scene::actor::Actor::TYPE_INSTANCED_SPRITE ) { return out; }
+	const auto* source = actor->GetSpriteActor();
+	if ( !source ) { return out; }
+	out.resource_cached = true; out.actor = actor;
+	out.resource_key = body->key; out.resource_name = body->name;
+	out.atlas_x = body->xy.x; out.atlas_y = body->xy.y;
+	out.atlas_width = body->wh.x; out.atlas_height = body->wh.y;
+	out.destination_offsets = source->GetDstOffsets();
+	if ( const auto* texture = source->GetTexture() ) { out.texture_filename = texture->GetFilename(); }
+	out.actor_visible = actor->IsVisible();
+	out.instance_count = actor->GetInstanceCountForObservation();
+	scene::actor::Instanced::instance_observation_t instance;
+	if ( out.instance_allocated && actor->CopyInstanceForObservation( out.instance_id, instance ) ) {
+		out.instance_present = true; out.instance_position = instance.position; out.instance_angle = instance.angle;
+	}
+	return out;
+}
+
 const bool Unit::ShouldBeActive() const {
 	return m_is_owned && m_health >= backend::unit::Unit::MINIMUM_HEALTH_TO_KEEP && CanMove() && m_order == backend::unit::order_t::NO_ORDERS;
 }
