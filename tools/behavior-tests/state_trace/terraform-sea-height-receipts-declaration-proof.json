@@ -1,0 +1,76 @@
+{
+  "kind": "terraform-sea-height-receipts-declaration-current-proof.v1",
+  "source_head": "2a7a29c418d0c9b71c2b4e15a0053d94ac1d746b",
+  "native_or_game_executed": false,
+  "new_game_runs": 0,
+  "current_acceptance": "observations-only",
+  "current_case_credit": {
+    "native_cases_added": 0,
+    "browser_cases_audited": 0,
+    "native_capture_field_cases_audited": 0,
+    "complete_browser_cases_audited": 0,
+    "execution_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 0,
+    "bounded_journal_field_cases_audited": 0
+  },
+  "compile_attribution_verified": false,
+  "public_retained_replay_available": false,
+  "auditor_sha256": "23149dcc3af1908b240c6cf030dbb34288c7d27c0bac74e0b9d89991e5e63eae",
+  "shared_height_auditor_sha256": "0641361988e5a871ad15d34be76fabe6b15316444de2eb1f0feb5798abd8321a",
+  "result_path": "terraform-sea-height-v3-reaudit-receipts-declaration.json",
+  "result_sha256": "9df070eb1ff8aa7d52132e0dad96de53b79944cf1386dca3cd9c61eaa21052e6",
+  "unchanged_historical_input": {
+    "capture_head": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+    "raw_bytes": 13374094,
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+    "snapshot_records": 6,
+    "changed_fields": 71,
+    "Float_fields": 96,
+    "recorded_Node_exit": 0,
+    "recorded_APP_exit": 0
+  },
+  "findings": {
+    "PRRT_kwDOVR1Hac6w-7Xc": "VALID: typed known pre-Popen ownership failures after one-use claim produce failed/unsupported completion with exitNone/no observed wait/group unknown, no forged process/tool receipt. Normal and post-launch cleanup remains unchanged.",
+    "PRRT_kwDOVR1Hac6w-7Xh": "VALID: every receipt envelope/opaque identity is checked; after baseline only the expected paid completion is admitted through EOF. Legitimate startup receipts remain.",
+    "PRRT_kwDOVR1Hac6w-7Xk": "VALID: exactly one source-typed pre-restore declaration is bound to source choice SEA_FORMERS, cost40/stock43, recipe/home/owner/population/input/accounting with source-bound order."
+  },
+  "checks": {
+    "auditor_targeted_public": {
+      "first_batch_passed": 7,
+      "first_batch_seconds": 8.128,
+      "choice_followup_passed": 2,
+      "choice_followup_seconds": 0.701,
+      "skipped": 0
+    },
+    "runner_targeted_public": {
+      "passed": 3,
+      "seconds": 6.938,
+      "skipped": 0,
+      "six_prelaunch_unavailability_variants": true,
+      "includes_two_existing_ENOENT_regressions": true
+    },
+    "combined_portable_envelope": {
+      "passed": 1,
+      "seconds": 3.126,
+      "skipped": 0,
+      "scope": "Synthetic native/UI data with actual cheap child; no candidate execution"
+    },
+    "unchanged_historical_readonly_cli": {
+      "process_exit": 0,
+      "tool_session": 30073,
+      "tool_final_chunk": "d0a693",
+      "scope": "Read-only private input audit completion; no published passing-case credit or public raw reproducibility"
+    },
+    "mandatory_current_CI_inventory": {
+      "PublicSea_methods": 42,
+      "runner_methods": 30,
+      "scope": "Inventories, not an assertion that all42/30 were freshly rerun locally"
+    }
+  },
+  "independent_source_reviews": {
+    "auditor_and_choice": "69048dcf plus a6e848c3; source-only independent review and choice recheck CLEAN",
+    "runner": "3e54c0c1; source-only independent review CLEAN"
+  },
+  "preservation": "Earlier capture/raw/report/results/proofs remain immutable. New current proof supersedes positive case-credit interpretations and never relabels historical source/runtime as the integration head."
+}

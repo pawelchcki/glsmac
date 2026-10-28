@@ -1,0 +1,26 @@
+{
+  "kind": "sea-review-final-integration.v1",
+  "candidate_executed": false,
+  "new_observations": false,
+  "verdicts": {
+    "PRRT_kwDOVR1Hac6w9qD3": "SKIP: actual unchanged runner writes failed spawn completion; false KeyError claim",
+    "PRRT_kwDOVR1Hac6w9qD7": "VALID: pin imported asset helper",
+    "PRRT_kwDOVR1Hac6w9qEC": "VALID: bind validator dependency hashes",
+    "PRRT_kwDOVR1Hac6w9qEE": "VALID: exclusive output creation"
+  },
+  "source_sha256": {
+    "terraform_sea_height_prepare.py": "131225df29f7843efba043e83a0cf59b0466e9f3d7b0d6fa89a490ca076e3970",
+    "terraform_sea_height_run.py": "d819c6443879c7236b720a4286289b3abfffccb32ed57540e7ed84a59f960034",
+    "terraform_sea_height_browser_audit.py": "f421b402773d6ee193a8254e50454eb2454956e353937e5556d0dcc25818564f",
+    "terraform_height_browser_audit.py": "05d0bffa3433e435c64800f7a9d6f3b6c9057453d4d34c15d0d10c7c62abfb3f"
+  },
+  "public_checks": {
+    "sea": 36,
+    "runner_preparation": 28,
+    "named_node_observation": 12,
+    "combined_envelope_after_integration": 1,
+    "skipped": 0
+  },
+  "historical_evidence": "dependency-output proof/result; observed6/complete0/legacy execution1/bounded1/fullbrowser0; no capture rerun",
+  "production_runner_change": "none for alleged spawn KeyError; existing fail-closed completion demonstrated"
+}

@@ -1,0 +1,895 @@
+{
+  "status": "observations-only-readonly-audit",
+  "native_cases_added": 0,
+  "browser_cases_audited": 0,
+  "worlds": 6,
+  "observed_worlds": 6,
+  "complete_worlds": 0,
+  "entity_detail_identity": {
+    "supported": false,
+    "schema": "game.terrain_observation.v4",
+    "unit_mirrors_verified": 8,
+    "base_mirrors_verified": 7,
+    "reason": "UNSUPPORTED: native unit/base raw identity echoes absent from v4 details; no complete entity/world credit"
+  },
+  "per_world": {
+    "players": 7,
+    "units": 8,
+    "bases": 7,
+    "tiles": 128
+  },
+  "pure_worlds": 5,
+  "changed_fields": 71,
+  "canonical_patches": [
+    {
+      "x": 8,
+      "y": 8,
+      "canonical": {
+        "elevation": -500,
+        "is_water": true
+      }
+    }
+  ],
+  "affected_tiles": [
+    "10,8",
+    "6,8",
+    "7,7",
+    "7,9",
+    "8,10",
+    "8,6",
+    "8,8",
+    "9,7",
+    "9,9"
+  ],
+  "source_vertex_means": [
+    {
+      "vertex": [
+        7,
+        8
+      ],
+      "native_Int_height": 42
+    },
+    {
+      "vertex": [
+        8,
+        7
+      ],
+      "native_Int_height": 38
+    },
+    {
+      "vertex": [
+        9,
+        8
+      ],
+      "native_Int_height": 43
+    },
+    {
+      "vertex": [
+        8,
+        9
+      ],
+      "native_Int_height": 47
+    }
+  ],
+  "fee": 1,
+  "energy_before": 10,
+  "energy_after": 9,
+  "revision_before": 1,
+  "revision_after": 2,
+  "native_float_fields": 96,
+  "unit_float_bits": [
+    {
+      "query": 1,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 8,
+      "field": "movement",
+      "f32": "40800000",
+      "f64": "4010000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 1,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 8,
+      "field": "movement",
+      "f32": "40800000",
+      "f64": "4010000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 2,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 8,
+      "field": "movement",
+      "f32": "40800000",
+      "f64": "4010000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 3,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 8,
+      "field": "movement",
+      "f32": "40800000",
+      "f64": "4010000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 4,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 8,
+      "field": "movement",
+      "f32": "40800000",
+      "f64": "4010000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 5,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 2,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 2,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 3,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 3,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 4,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 4,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 5,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 5,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 6,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 6,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 7,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 7,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 8,
+      "field": "movement",
+      "f32": "00000000",
+      "f64": "0000000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 8,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 1,
+      "field": "movement",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    },
+    {
+      "query": 6,
+      "unit": 1,
+      "field": "health",
+      "f32": "3f800000",
+      "f64": "3ff0000000000000"
+    }
+  ],
+  "actor_movement_bits": [
+    1082130432,
+    1082130432,
+    1082130432,
+    1082130432,
+    1082130432,
+    0
+  ],
+  "selection": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    null
+  ],
+  "scope": "source application policy/corner Int consistency; no original or typed render-mesh vertex claim",
+  "bootstrap": {
+    "native_choice_cost": 40,
+    "native_prefill": 43,
+    "income": 1,
+    "overflow": 4,
+    "production_receipts": 1,
+    "growth_receipts": 7,
+    "scope": "scalar receipts plus all-seven source/current-turn state; no fabricated per-base ACK echo"
+  },
+  "finalization": {
+    "sealed_complete": true,
+    "native_exit_verified": true,
+    "actual_main_ack": true,
+    "actual_worker_acks": 8,
+    "actual_exit_key_and_request": true,
+    "full_raw_fatal_scan": "clean",
+    "callback_metadata_intervals": 919,
+    "callback_utf16_covered": 13374094,
+    "exact_callback_message_identity": {
+      "supported": false,
+      "verified_messages": 0,
+      "scope": "UNSUPPORTED: legacy offset-only metadata cannot prove exact callback message identities/count; sealed-byte journal remains bounded evidence"
+    },
+    "lossless_trace_packets": 51,
+    "unique_contiguous_trace_events": 80475,
+    "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+  },
+  "pointer_route": {
+    "physical_clicks_verified": 8,
+    "raw_button_actions_exhausted": true,
+    "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+  },
+  "keyboard_route": {
+    "shortcuts_verified": 8,
+    "raw_key_edges_exhausted": 48,
+    "scope": "exact K/six P/Q Ctrl+Alt command and modifier/down/up sequence; no additional key actions"
+  },
+  "external_exit": {
+    "supported": true,
+    "external_node_os_exit": 0,
+    "native_app_exit": 0,
+    "tool_session": 52401,
+    "tool_chunk": "60a1a5",
+    "raw_outcome_sha256": "95ef0e7d413ffd9c11787d9034c56fd8e2eace4323c4e552d9c92a55a2c13da3",
+    "owned_reaped_without_forced_cleanup": true
+  },
+  "frames_decoded": {
+    "retained_frame_digests_verified": 5,
+    "decoded_frames": [
+      {
+        "width": 1024,
+        "height": 769,
+        "decoded_pixel_bytes": 2362368,
+        "decoded_pixels_sha256": "1c4a0d110985b487947b9efc232f2d4ffe6781fee0f48fa9cf6ccaf70cd21f17"
+      },
+      {
+        "width": 1024,
+        "height": 769,
+        "decoded_pixel_bytes": 2362368,
+        "decoded_pixels_sha256": "8080d7240cd66271461300e51758fbbee67d0544c629579967e7e5a54e48ccc1"
+      },
+      {
+        "width": 1024,
+        "height": 769,
+        "decoded_pixel_bytes": 2362368,
+        "decoded_pixels_sha256": "eaed8d6cc15dad1089e07ca8d1b0e5562e6470ff3f04f128f46007d3b21c6128"
+      },
+      {
+        "width": 1024,
+        "height": 769,
+        "decoded_pixel_bytes": 2362368,
+        "decoded_pixels_sha256": "db2b644ee04bec3155188b947a2cb5551547af6dd87627b29c95d1e442eb7d6e"
+      },
+      {
+        "width": 1024,
+        "height": 769,
+        "decoded_pixel_bytes": 2362368,
+        "decoded_pixels_sha256": "217c2e5d560c405375bedb38ebcaaf775264f23a767b2db1f731befdf95d7a7a"
+      }
+    ],
+    "scope": "actual decoded RGB/RGBA file bytes and retained canvas clip; no original pixels/pose/mesh agreement"
+  },
+  "native_capture_field_cases_audited": 0,
+  "complete_browser_cases_audited": 0,
+  "execution_cases_audited": 0,
+  "bounded_state_receipt_cases_audited": 0,
+  "bounded_journal_field_cases_audited": 0,
+  "compile_attribution_verified": false,
+  "public_retained_replay_available": false,
+  "unsupported_capabilities": [
+    "Runtime metadata consistency is UNVERIFIED build attribution",
+    "Retained raw replay unavailable in public CI; observations are not published passing-case credit",
+    "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit",
+    "native entity detail raw identity echoes absent; complete entity/world observation unsupported"
+  ],
+  "auditor_sha256": "23149dcc3af1908b240c6cf030dbb34288c7d27c0bac74e0b9d89991e5e63eae",
+  "shared_height_auditor_sha256": "0641361988e5a871ad15d34be76fabe6b15316444de2eb1f0feb5798abd8321a",
+  "source_validation_dependencies_sha256": {
+    "state_trace/terrain_observation.py": "e48ab5035ace4ad1b44ef7541551a725fed539b7e89b10973c2460e13066f884",
+    "state_trace/schema.py": "08ba4cd6595ef915820701f6d1eb443218ec3bb465bfa753a1fc45a5e953cfca",
+    "protocol.py": "7362eb12198fcbbc1b4993ab75e387dcb205ec5c42752c279b182cc4bb15e8a8",
+    "fast.py": "6d3dad5d94736f70efa45e18466bcf8981ee8d1328557f429e2e304bcd59b021"
+  },
+  "raw_bytes": 13374094,
+  "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+  "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+  "preflight_sha256": "dbcb32bab943d61de951d9a206c67993587c5ada8f795fceb90f50553d729cde",
+  "provenance_schema": "terraform-sea-height-preflight.v3",
+  "frames": 5,
+  "native_viewport": {
+    "width": 1024,
+    "height": 768
+  },
+  "png_clip_dimensions": [
+    1024,
+    769
+  ],
+  "unsupported": [
+    "original height/price/wording parity",
+    "numeric render-mesh vertices/resident Z/facing/tool frames/audio/animation",
+    "fixed camera (only viewport fixed)",
+    "Sea water-to-land/coast/stranded worker/lower scenarios",
+    "actual movement (traversal quotes only)"
+  ]
+}

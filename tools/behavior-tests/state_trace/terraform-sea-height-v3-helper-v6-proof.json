@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "id": "sea-v3-readonly-height-helper-v6-successor",
+  "scope": "Re-audit of the SAME historical Sea V3 capture; zero new game executions or additional browser cases",
+  "successor_base": "7d6b12cc0731ade7c0bceb17efef8ff2402e1e82",
+  "sea_source_commits": [
+    "7264b684",
+    "73dd0b5d",
+    "237a7c3b",
+    "5e608237",
+    "d26d3664"
+  ],
+  "capture_source_unchanged": {
+    "head": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+    "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a"
+  },
+  "historical_files_unchanged": {
+    "terraform-sea-height-v3-typed-audit.json": "f94cb156c8d2588f872cfc0ac3a15c8f68d633f46b06c8ecee3e08a8f1292e4e",
+    "terraform-sea-height-v3-proof.json": "1d5a202ca88596f9feb86d3aeba237a3c2e442983d080c496894574071059bff",
+    "terraform-sea-height-v3-independent-audit.json": "6d8b36d2158eb848add34fdb75a7c17156a9f2f536b653e9581e1d3f410dfc5f"
+  },
+  "historical_shared_helper_sha256": "c49b0c008ea88759419078e273faac5994eb71614914cc56f45ca073477f10dc",
+  "shared_helper_sha256": "4756fdf5a8dba262eb2d301654cea6e429a2b2b39e94f274a71590e7407f1e2b",
+  "re_audits": [
+    {
+      "source_commit": "237a7c3b",
+      "auditor_sha256": "5788a9793fc2d28f4b19cca4fb27a2f921114113918008042098e7d930e05986",
+      "result_file": "terraform-sea-height-v3-typed-audit-helper-v6.json",
+      "result_sha256": "7be53dd8c0ce13b6cf65974168a5a39eb7902e94a04c5bf7214c41ff9f9b47d4",
+      "actual_cli_seconds": 1.854437511,
+      "tool_chunk": "5af65d",
+      "status": "passed-readonly-full-sea-browser-audit"
+    },
+    {
+      "source_commit": "5e608237",
+      "auditor_sha256": "fdf1bd80d2cd466ef4079ac9b314a1fa725be7f552dcbc383a8ad26e4f76c98b",
+      "result_file": "terraform-sea-height-v3-typed-audit-helper-v6-funded.json",
+      "result_sha256": "4944076af66c70c240a1da83f958ee42627b2b801ae4bee52e4dbaaa5d72faf5",
+      "actual_cli_seconds": 1.392080367,
+      "tool_chunk": "649c8e",
+      "status": "passed-readonly-full-sea-browser-audit"
+    }
+  ],
+  "verification": {
+    "initial_successor_public": {
+      "passed": 20,
+      "skipped": 0,
+      "seconds": 3.371,
+      "source_commit": "237a7c3b"
+    },
+    "initial_successor_retained": {
+      "passed": 20,
+      "skipped": 0,
+      "seconds": 24.138,
+      "source_commit": "237a7c3b",
+      "process_session": 48946,
+      "final_tool_chunk": "f20ad0",
+      "os_exit": 0
+    },
+    "funding_guard_public": {
+      "passed": 21,
+      "skipped": 0,
+      "seconds": 3.981,
+      "source_commit": "5e608237"
+    },
+    "final_changed_funding_negative_public_and_retained": {
+      "passed": 2,
+      "skipped": 0,
+      "seconds": 2.281,
+      "tool_chunk": "58a852",
+      "test": "coherent_uninitialized_or_precredited_energy",
+      "source_test_correction": "d26d3664"
+    },
+    "scope": "No claim of a full retained21 rerun: final production audit code change is covered by one actual CLI plus focused changed public/retained negatives; prior retained20 pass stays source-bound."
+  },
+  "demonstrated_counterexample": {
+    "old_accepts": [
+      "coherent input and all six payer ledgers initialized=false",
+      "coherent input and all six payer ledgers last_income_turn=1"
+    ],
+    "new_rejects": [
+      "initialized=false",
+      "last_income_turn=1",
+      "last_income_turn=false"
+    ],
+    "source_proof": [
+      "historical fixture terraform-sea-height-world.gls.js:47-48 initialize_energy with source funding",
+      "historical Player.cpp:299 initialization writes true",
+      "historical Player.cpp:415-416 exports Bool initialized and Int income turn"
+    ],
+    "fixture_correction": "First changed retained negative incorrectly indexed public logical p0; KeyError preserved as test failure, then resolved actual owner through players raw_id0 without changing assertions."
+  },
+  "joined_source_scope": {
+    "actor_payer": "Existing Sea actor raw8 owner matches raw0 logical payer/GAIANS; coherent foreign-owner and remote-position negatives reject",
+    "funding": "Exact native typed starting10/bonus0/full opening energy; initialized true and exact Int last_income_turn0",
+    "query_carrier": "Retain actual exit marker so SAME-carrier P triple follows its own Native packet and precedes next Native/exit; no fictional key-before-Native print order",
+    "bootstrap": "Same source-derived40/43 credit1 overflow4, one production/seven growth/normal resumption and all seven base-owner clocks"
+  },
+  "accepted_actual": {
+    "worlds": 6,
+    "players_per_world": 7,
+    "units_per_world": 8,
+    "bases_per_world": 7,
+    "tiles_per_world": 128,
+    "pure_worlds": 5,
+    "exact_changed_fields": 71,
+    "float_fields": 96,
+    "frames": 5,
+    "physical_clicks": 8,
+    "callback_count": 919,
+    "trace_packets": 51,
+    "trace_events": 80475,
+    "node_os_exit": 0,
+    "native_app_exit": 0,
+    "external_tool_session": 52401,
+    "external_tool_chunk": "60a1a5"
+  },
+  "workers": "All read-only check workers exited/reaped; no engine/browser/build was executed",
+  "unsupported": [
+    "original height/price/wording fidelity",
+    "numeric renderer vertices/resident Z/facing/tool frames/audio/animation",
+    "fixed camera (viewport only)",
+    "water-to-land/coast/stranded/lower scenarios",
+    "physical Sea movement (quotes only)",
+    "retrospective source cleanliness capability not supplied by historical capture"
+  ]
+}

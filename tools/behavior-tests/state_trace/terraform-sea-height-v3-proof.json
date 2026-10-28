@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "id": "sea-preserving-raise-real-ui-v3",
+  "scope": "one actual installed-source production and sea-preserving Raise application UI case; zero original agreement",
+  "capture_source": {
+    "head": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+    "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+    "status": "historical executed source; not relabeled current main",
+    "runtime": {
+      "js": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+      "wasm": "b2c7fa273042f2407335169eb4fca51f131f1f30656301d7b7573a201b28f5b7"
+    }
+  },
+  "actual_case": {
+    "node_case_ms": 124524.269863,
+    "node_runner_total_ms": 125199.69005,
+    "external_total_seconds": 125.2793197639985,
+    "node_os_exit": 0,
+    "actual_wait_returned": true,
+    "native_exit": {
+      "body_state": "exited",
+      "status_text": "GLSMAC exited (0).",
+      "raw_code": 0
+    },
+    "external_tool_receipt": {
+      "session_id": 52401,
+      "chunk_id": "60a1a5",
+      "exit_code": 0
+    },
+    "owned_group_absent": true,
+    "forced_cleanup": false,
+    "postpins_match": true
+  },
+  "capture_files": {
+    "raw_bytes": 13374094,
+    "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+    "report_sha256": "99082bb466d888a84431f33956e815da37823798ef5317fd8dada33b97a0761a",
+    "preflight_sha256": "dbcb32bab943d61de951d9a206c67993587c5ada8f795fceb90f50553d729cde",
+    "raw_outcome_sha256": "95ef0e7d413ffd9c11787d9034c56fd8e2eace4323c4e552d9c92a55a2c13da3",
+    "external_driver_sha256": "7ee2f069f429c07aa7ec48a1eac7d55e81384bb0e5eb65f7480562dd46cc27a9",
+    "preflight_producer_sha256": "9137e1bb050fe2c174bbbee89fd8f4a6c407043106be9727874c61f2f404d187"
+  },
+  "input_override": {
+    "original_rules_sha256": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42",
+    "executed_rules_sha256": "7abf62aa4f4f562aaa86c785b67b7af2320e122cbda7901287ee3ed0ab4c5bd0",
+    "fields": 20,
+    "index": 4,
+    "scope": "shared TERRAIN turns applies to BOTH land and sea; test-only durations1; names/prerequisites unchanged",
+    "time_or_original_parity": false
+  },
+  "bootstrap": {
+    "native_choice_cost": 40,
+    "native_prefill": 43,
+    "income": 1,
+    "overflow": 4,
+    "production_receipts": 1,
+    "growth_receipts": 7,
+    "scope": "scalar receipts plus all-seven source/current-turn state; no fabricated per-base ACK echo"
+  },
+  "typed_actual_worlds": {
+    "count": 6,
+    "per_world": {
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    },
+    "pure_first": 5,
+    "expected_changed_fields": 71,
+    "canonical_patches": 1,
+    "affected_tiles": 9,
+    "f32_fields": 96,
+    "actor_movement_bits": [
+      1082130432,
+      1082130432,
+      1082130432,
+      1082130432,
+      1082130432,
+      0
+    ],
+    "opening_credits": 10,
+    "paid_credits": 9,
+    "energy_revision": [
+      1,
+      2
+    ],
+    "source_center": -1460,
+    "destination_center": -500,
+    "domain": "sea remains sea",
+    "native_corner_source_means": [
+      {
+        "vertex": [
+          7,
+          8
+        ],
+        "native_Int_height": 42
+      },
+      {
+        "vertex": [
+          8,
+          7
+        ],
+        "native_Int_height": 38
+      },
+      {
+        "vertex": [
+          9,
+          8
+        ],
+        "native_Int_height": 43
+      },
+      {
+        "vertex": [
+          8,
+          9
+        ],
+        "native_Int_height": 47
+      }
+    ]
+  },
+  "observation": {
+    "finalization": {
+      "sealed_complete": true,
+      "native_exit_verified": true,
+      "actual_main_ack": true,
+      "actual_worker_acks": 8,
+      "actual_exit_key_and_request": true,
+      "full_raw_fatal_scan": "clean",
+      "continuous_native_callbacks": 919,
+      "callback_utf16_covered": 13374094,
+      "lossless_trace_packets": 51,
+      "unique_contiguous_trace_events": 80475,
+      "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+    },
+    "pointer_route": {
+      "physical_clicks_verified": 8,
+      "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+    },
+    "frames": [
+      {
+        "name": "before-height",
+        "sha256": "50d85764574f863bc6b2a716a48d450f7b074392fd6a32795bf11ee5b3edab79",
+        "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+      },
+      {
+        "name": "raise-quote",
+        "sha256": "10e34c358ee16601483b7632fcbda07da6554b9d9233270a3b0c5646c18e644f",
+        "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+      },
+      {
+        "name": "raise-cancel",
+        "sha256": "0c94a127f040cbb9a8b4e57f293dcaaccff9947ffc38cc11822cd62325c553fb",
+        "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+      },
+      {
+        "name": "raise-payment-draft",
+        "sha256": "e490a21755b3c3e8b226ed9c9dc14f77a5754b4ced43432f718825539de337bf",
+        "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+      },
+      {
+        "name": "raise-paid-completion",
+        "sha256": "333517c90d55f700e07737888cd7a499d708b1803261c0cb547a480081d1ef29",
+        "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+      }
+    ],
+    "native_viewport": {
+      "width": 1024,
+      "height": 768
+    },
+    "png_clip_dimensions": [
+      1024,
+      769
+    ],
+    "fixed_camera": false,
+    "actual_selection": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      null
+    ],
+    "traversal_scope": "pure native eight-neighbor quotes/home-port quote only; no physical movement command"
+  },
+  "readonly_audit": {
+    "code_freeze": "ed03c31f916f708a14e85516710f41c3a6d6d978",
+    "source": "tools/behavior-tests/state_trace/terraform_sea_height_browser_audit.py",
+    "source_sha256": "9a3c6b9ea44e056223f736603691fb175c5c4589e68b5ddb473da3f37e0fe676",
+    "shared_height_source_sha256": "c49b0c008ea88759419078e273faac5994eb71614914cc56f45ca073477f10dc",
+    "result": "tools/behavior-tests/state_trace/terraform-sea-height-v3-typed-audit.json",
+    "result_sha256": "f94cb156c8d2588f872cfc0ac3a15c8f68d633f46b06c8ecee3e08a8f1292e4e",
+    "public_protocol_tests": {
+      "passed": 16,
+      "skipped": 0,
+      "seconds": 2.868
+    },
+    "private_retained_tests": {
+      "passed": 17,
+      "skipped": 0,
+      "seconds": 24.138
+    },
+    "new_engine_browser_executions": 0,
+    "dependency_note": "c49 is frozen historical helper; append a new result after pending PR38 helper corrections before publication"
+  },
+  "independent_review": {
+    "reviewer": "Delivery",
+    "result": "tools/behavior-tests/state_trace/terraform-sea-height-v3-independent-audit.json",
+    "result_sha256": "6d8b36d2158eb848add34fdb75a7c17156a9f2f536b653e9581e1d3f410dfc5f",
+    "original_reproducer_sha256": "91a805794e993a653d7e5233069c8b716637f0595722ab5b085ba6350ff0d8da"
+  },
+  "preserved_failures": [
+    {
+      "id": "v1",
+      "source": "e85478e5f690372e71596c6e7799dc1fa22233cb",
+      "artifacts": "/tmp/terraform-sea-height-v6-first",
+      "native_exit": "unknown",
+      "height_actions": 0,
+      "complete_worlds": 0,
+      "passing_cases": 0,
+      "note": "unsupported7production assumption;80/83 unobserved, not executed input fact"
+    },
+    {
+      "id": "v2",
+      "source": "a49a4459d847925dd2960c4466d34fa9ffba9ee2",
+      "artifacts": "/tmp/terraform-sea-height-v6-bootstrap-v2",
+      "native_exit": "unknown",
+      "height_actions": 0,
+      "complete_worlds": 1,
+      "passing_cases": 0,
+      "note": "actual40/43bootstrap succeeds; unsupported menu-name substring assertion before action"
+    }
+  ],
+  "unsupported": [
+    "original height/price/wording parity",
+    "numeric render-mesh vertices/resident Z/facing/tool frames/audio/animation",
+    "fixed camera (only viewport fixed)",
+    "Sea water-to-land/coast/stranded worker/lower scenarios",
+    "actual movement (traversal quotes only)",
+    "intermediate active paid-work/pause/resume snapshots",
+    "live browser RNG-state getter"
+  ],
+  "original_passing_cases": 0
+}

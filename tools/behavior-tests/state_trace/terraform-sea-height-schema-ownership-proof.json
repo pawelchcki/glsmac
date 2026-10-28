@@ -1,0 +1,39 @@
+{
+  "kind": "sea-current-schema-ownership-reaudit.v1",
+  "candidate_executed": false,
+  "new_game_cases": 0,
+  "historical_capture_source": "7d26149abbaa028b3d685f3503df7c8e195fbdec",
+  "result_file": "terraform-sea-height-v3-typed-audit-schema-ownership.json",
+  "result_sha256": "a119e57ffa072fbae4d5044d1bf300a390b2105441433507d5a2b92e3d6fc571",
+  "source_sha256": {
+    "terraform_sea_height_browser_audit.py": "d896d404c0fb6b133a72f589b2242570052eaf0f8e4075dcd0fe3932595b12be",
+    "terraform_height_browser_audit.py": "32abb0d68b72533921946216db56287fe507ab33aa5ea5d7c670cd2b20aa6106",
+    "terraform_sea_height_run.py": "d819c6443879c7236b720a4286289b3abfffccb32ed57540e7ed84a59f960034"
+  },
+  "public_checks": {
+    "sea": 33,
+    "owned_preparation": 26,
+    "node_observation": 12,
+    "skipped": 0
+  },
+  "current_acceptance": {
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "observed_worlds": 6,
+    "complete_worlds": 0,
+    "execution_cases_audited": 1,
+    "bounded_state_receipt_cases_audited": 1,
+    "complete_browser_cases_audited": 0,
+    "unsupported_capabilities": [
+      "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit",
+      "native entity detail raw identity echoes absent; complete entity/world observation unsupported"
+    ]
+  },
+  "raw_sha256": "191a6ffcf96f896ad8b7a0e009446bb406092133229461497492d6e6ccd7bb98",
+  "raw_bytes": 13374094,
+  "new_portable_game_execution": "never executed; public composition uses synthetic Native/UI facts and a cheap real child",
+  "initial_integration_failures": [
+    "Public model retained Float values instead of report Number projection; corrected model only.",
+    "Initial exact record framing omitted the distinct installed world bootstrap source filename; explicit source-bound bootstrap framing added."
+  ],
+  "historical_files_changed": false
+}
