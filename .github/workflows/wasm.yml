@@ -8,6 +8,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/wasm.yml'
+      - 'CMakeLists.txt'
+      - 'cmake/**'
+      - 'tools/CMakeLists.txt'
       - 'tools/wasm-tests/gse*.mjs'
       - 'tools/wasm-tests/gse*.cjs'
       - 'src/gc/**'

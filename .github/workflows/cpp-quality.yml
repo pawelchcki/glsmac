@@ -1,0 +1,142 @@
+name: C++ quality
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analysis:
+    name: C++ formatting and native static analysis
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - name: Check gate regressions and changed-line formatting
+        env:
+          QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
+        run: |
+          nix develop --command python3 -m unittest discover -s tools/cpp-quality -v
+          nix develop --command python3 tools/cpp-quality/check.py format --base "$QUALITY_BASE"
+      - name: Configure actual native compile commands and generate resources
+        run: |
+          nix develop --command cmake --preset native
+          nix develop --command cmake --build --preset native --target embed glsmac_version -j2
+      - name: Reject new tidy and analyzer findings
+        env:
+          QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
+          QUALITY_FULL: ${{ github.event_name != 'pull_request' }}
+        run: |
+          if [ "$QUALITY_FULL" = true ]; then
+            nix develop --command python3 tools/cpp-quality/check.py tidy --all --jobs 2
+          else
+            nix develop --command python3 tools/cpp-quality/check.py tidy --base "$QUALITY_BASE" --jobs 2
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpp-analysis
+          path: build/cpp-quality
+
+  sanitizers:
+    name: Native ${{ matrix.preset }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [native-asan, native-tsan]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - name: Configure instrumentation
+        run: nix develop --command cmake --preset '${{ matrix.preset }}'
+      - name: Build production-code buffer and concurrency probes
+        run: nix develop --command cmake --build --preset '${{ matrix.preset }}' --target buffer-copy thread-runtime cpp-standard -j2
+      - name: Test allocation, module affinity and coordinated shutdown
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+          TSAN_OPTIONS: halt_on_error=1
+        run: nix develop --command ctest --preset '${{ matrix.preset }}'
+      - name: Build instrumented engine and test script ownership, stale controls and rollback
+        if: matrix.preset == 'native-asan'
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: |
+          nix develop --command cmake --build --preset native-asan -j2
+          nix develop --command python3 tools/cpp-quality/run-native.py --binary build/native-asan/bin/GLSMAC
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpp-${{ matrix.preset }}
+          path: |
+            build/${{ matrix.preset }}/Testing/Temporary
+            build/cpp-quality/native-tests
+
+  windows-standard:
+    name: Windows Clang 23 C++23 library floor
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the pinned official Windows LLVM archive
+        shell: pwsh
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'llvm-23.1.3.tar.xz'
+          $toolchain = Join-Path $env:RUNNER_TEMP 'llvm-23.1.3'
+          Invoke-WebRequest 'https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.3/clang+llvm-23.1.3-x86_64-pc-windows-msvc.tar.xz' -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne '9ee6a2192fbb30c776415af529927f76ca6b5d1d55699bb1315f9878e610b5b8') { throw 'LLVM archive checksum mismatch' }
+          New-Item -ItemType Directory $toolchain | Out-Null
+          tar -xf $archive -C $toolchain --strip-components=1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          (Join-Path $toolchain 'bin') >> $env:GITHUB_PATH
+      - name: Compile and execute the shared library feature probe
+        shell: pwsh
+        run: |
+          clang++ --version
+          clang++ -std=c++23 tools/cpp-tests/standard.cpp -o cpp-standard.exe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ./cpp-standard.exe
+          exit $LASTEXITCODE
+
+  wasm-probes:
+    name: C++23 WASM graphics and platform probes
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+          cache: npm
+          cache-dependency-path: tools/wasm-tests/package-lock.json
+      - name: Install the pinned browser toolchain and graphics runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libgles2 libgl1-mesa-dri
+          git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/quality-emsdk"
+          "$RUNNER_TEMP/quality-emsdk/emsdk" install 4.0.22
+          "$RUNNER_TEMP/quality-emsdk/emsdk" activate 4.0.22
+      - name: Compile and execute platform-specific probes with their actual flags
+        run: |
+          source "$RUNNER_TEMP/quality-emsdk/emsdk_env.sh"
+          npm --prefix tools/wasm-tests ci
+          npm --prefix tools/wasm-tests test
+          npx --prefix tools/wasm-tests playwright install --with-deps chromium
+          npm --prefix tools/wasm-tests run test:assets
+          python3 tools/smac-data/run.py --target wasm --report build/cpp-quality/smac-text-wasm.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpp-wasm-probes
+          path: |
+            tools/wasm-tests/build/artifacts
+            build/cpp-quality/smac-text-wasm.json

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 class NativeGeometryPrecisionTests(unittest.TestCase):
     def test_producer_preserves_every_native_f32_coordinate_and_zindex(self):
-        compiler = shutil.which('g++')
+        compiler = shutil.which('c++')
         if not compiler:
             self.skipTest('host C++ compiler unavailable')
         source = r'''
@@ -37,7 +37,7 @@ int main() {
         with tempfile.TemporaryDirectory(prefix='presentation-geometry-') as directory:
             src=Path(directory)/'probe.cpp';src.write_text(source)
             exe=Path(directory)/'probe'
-            subprocess.run([compiler,'-std=c++17','-pthread','-I'+str(ROOT/'src'),str(src),'-o',str(exe)],check=True,capture_output=True)
+            subprocess.run([compiler,'-std=c++23','-pthread','-I'+str(ROOT/'src'),str(src),'-o',str(exe)],check=True,capture_output=True)
             run=subprocess.run([str(exe)],check=True,capture_output=True,text=True)
         geometry,bits=[json.loads(line) for line in run.stdout.splitlines()]
         actual=[geometry[key] for key in ('left','top','right','bottom','zindex')]

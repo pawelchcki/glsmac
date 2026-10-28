@@ -14,7 +14,7 @@ const result = spawnSync(process.env.EMXX || 'em++', [
   '-I../../src',
   '-DFASTDEBUG',
   '-fexceptions',
-  '-std=c++17',
+  '-std=c++23',
   '-O1',
   '-g',
   '-Wall',

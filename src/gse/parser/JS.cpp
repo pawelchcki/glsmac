@@ -503,7 +503,7 @@ const program::Conditional* JS::GetConditional( const source_elements_t::const_i
 				ASSERT( ((program::Conditional*)c)->conditional_type == program::Conditional::CT_CASE, "conditional type not case" );
 				cases.push_back( (program::Case*)c );
 			}
-			return new program::Switch( GetSI( begin, end ), (SimpleCondition*)condition.release(), cases );
+			return new program::Switch( GetSI( begin, end ), (SimpleCondition*)condition.release(), cases, std::unique_ptr< const program::Scope >( body ) );
 		}
 		default:
 			THROW( "unexpected conditional type: " + conditional->ToString() );

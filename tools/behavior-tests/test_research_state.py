@@ -14,7 +14,7 @@ class ResearchStateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='smac-research-state-') as directory:
             executable = Path(directory) / 'research-state'
             command = shlex.split(os.environ.get('CXX', 'c++')) + [
-                '-std=c++17', '-O1', '-ffunction-sections', '-fdata-sections', '-Wl,--gc-sections',
+                '-std=c++23', '-O1', '-ffunction-sections', '-fdata-sections', '-Wl,--gc-sections',
                 '-I' + str(ROOT / 'src'), str(ROOT / 'tools/behavior-tests/research_state.cpp'),
                 str(ROOT / 'src/game/backend/technology/Research.cpp'),
                 str(ROOT / 'src/types/Buffer.cpp'), str(ROOT / 'src/common/Common.cpp'),

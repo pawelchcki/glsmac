@@ -44,7 +44,7 @@ private:
 	Game* const m_game = nullptr;
 	const source_t m_source = ES_LOCAL;
 	const size_t m_caller = 0;
-	std::string m_id = 0;
+	std::string m_id;
 	std::string m_name = "";
 	gse::value::object_properties_t m_original_data = {};
 	gse::value::object_properties_t m_scalar_data = {};

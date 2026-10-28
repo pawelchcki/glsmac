@@ -10,6 +10,8 @@ Check [Screenshots](https://github.com/afwbkbc/glsmac/wiki/Screenshots) and [Vid
 
 GLSMAC discord : https://discord.gg/fWG3xK7cUx
 
+Developer build, C++23, Nix and analysis commands: [C++ development](docs/cpp-quality.md).
+
 ### Quickstart
 
 1) Download [latest stable release](https://github.com/afwbkbc/glsmac/releases/latest) or [latest development build](https://github.com/afwbkbc/glsmac/releases/tag/development) for your OS (only 64-bit windows and ubuntu for now)

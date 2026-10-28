@@ -5,15 +5,15 @@ import { fileURLToPath } from 'node:url';
 const directory = fileURLToPath(new URL('.', import.meta.url));
 mkdirSync(new URL('build/', import.meta.url), { recursive: true });
 
-// Use the production Thread and Class implementation. Engine.cpp supplies the
-// normal logging symbols; the linker removes the unused engine methods.
+// Use production Thread and Class; the engine-free adapter supplies logging
+// symbols without pulling unrelated engine RTTI into sanitizer instrumentation.
 const sources = [
   'thread-runtime.cpp',
   '../../src/common/Thread.cpp',
   '../../src/common/Common.cpp',
-  '../../src/engine/Engine.cpp',
+  'thread-log.cpp',
   '-I../../src',
-  '-std=c++17',
+  '-std=c++23',
   '-O1',
   '-g',
   '-DFASTDEBUG=1',

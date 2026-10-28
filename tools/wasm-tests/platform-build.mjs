@@ -19,7 +19,7 @@ const result = spawnSync(process.env.EMXX || 'em++', [
   '../../src/network/impl/Browser.cpp',
   '../../src/network/simpletcp/Browser.cpp',
   '-I../../src',
-  '-std=c++17',
+  '-std=c++23',
   '-O1',
   '-g',
   '-DFASTDEBUG=1',

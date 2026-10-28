@@ -1,7 +1,7 @@
 # GLSMAC in a browser
 
 The full application can be cross-compiled with Emscripten **4.0.22**. It uses
-WebGL2, SDL2, FreeType, and WASM threads. A native C++17 compiler is also required
+WebGL2, SDL2, FreeType, and WASM threads. A native C++23 compiler is also required
 to build the asset embedder. CMake downloads pinned yaml-cpp sources; Emscripten
 downloads its SDL, image, font, and compression ports on the first build.
 

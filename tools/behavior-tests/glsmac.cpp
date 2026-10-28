@@ -19,7 +19,7 @@ namespace geometry = game::backend::map::tile;
 namespace {
 
 int ReadInteger( std::istringstream& input, const int minimum, const int maximum ) {
-	int64_t value;
+	int64_t value = 0;
 	if ( !( input >> value ) || value < minimum || value > maximum ) {
 		throw std::invalid_argument( "Invalid candidate input integer" );
 	}
