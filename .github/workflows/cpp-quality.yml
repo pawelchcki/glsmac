@@ -119,7 +119,7 @@ jobs:
       - name: Build and execute the actual Windows runtime boundary
         shell: pwsh
         run: |
-          cmake -S tools/script-runtime -B build/script-windows -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
+          cmake -S tools/script-runtime -B build/script-windows -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release '-DCMAKE_C_FLAGS_RELEASE=-O3 -g -gcodeview -DNDEBUG' '-DCMAKE_CXX_FLAGS_RELEASE=-O3 -g -gcodeview -DNDEBUG' '-DCMAKE_EXE_LINKER_FLAGS=-Xlinker /DEBUG'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cmake --build build/script-windows -j2
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -127,7 +127,11 @@ jobs:
           $probeExit = $LASTEXITCODE
           Write-Host "Clang runtime probe exit code: $probeExit"
           if ($probeExit -ne 0) {
-            gdb --batch -ex run -ex 'thread apply all bt' --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            if (Get-Command lldb -ErrorAction SilentlyContinue) {
+              lldb --batch -o 'breakpoint set --name abort' -o run -o 'thread backtrace all' -- ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            } else {
+              gdb --batch -ex 'set breakpoint pending on' -ex 'break abort' -ex run -ex bt --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            }
             llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe
           }
           exit $probeExit
@@ -142,7 +146,7 @@ jobs:
           $probeExit = $LASTEXITCODE
           Write-Host "MinGW runtime probe exit code: $probeExit"
           if ($probeExit -ne 0) {
-            gdb --batch -ex run -ex 'thread apply all bt' --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            gdb --batch -ex 'set breakpoint pending on' -ex 'break abort' -ex run -ex bt --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
             llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe
           }
           exit $probeExit
