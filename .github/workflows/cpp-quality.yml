@@ -126,7 +126,10 @@ jobs:
           ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
           $probeExit = $LASTEXITCODE
           Write-Host "Clang runtime probe exit code: $probeExit"
-          if ($probeExit -ne 0) { llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe }
+          if ($probeExit -ne 0) {
+            gdb --batch -ex run -ex 'thread apply all bt' --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe
+          }
           exit $probeExit
       - name: Preserve the existing MinGW runtime build path
         shell: pwsh
@@ -138,7 +141,10 @@ jobs:
           ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
           $probeExit = $LASTEXITCODE
           Write-Host "MinGW runtime probe exit code: $probeExit"
-          if ($probeExit -ne 0) { llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe }
+          if ($probeExit -ne 0) {
+            gdb --batch -ex run -ex 'thread apply all bt' --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe
+          }
           exit $probeExit
 
   wasm-probes:
