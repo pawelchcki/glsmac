@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "scope": "Retained incomplete candidate base-close observations; actual native hide not captured",
+  "source_head": "a7511eb9cb7eb055faad20f3b566c1d7e4021f93",
+  "source_raw_sha256": "90d80dba97089ebd1e722226fd32452bf974e6a98328b62cf9d736a33990f3b1",
+  "source_event_count": 176168,
+  "last_logged_native_sequence": 176168,
+  "dialog_id": "n208",
+  "escape": {
+    "shortcut": "Escape",
+    "ingress": {
+      "seq": 156684,
+      "kind": "input.ingress",
+      "target": "input",
+      "data": {
+        "ingress": 96,
+        "sdl_type": 768,
+        "action": 1,
+        "type": "keydown",
+        "keycode": 27,
+        "scancode": 41,
+        "modifiers": 0,
+        "repeat": 0
+      }
+    },
+    "begin": {
+      "seq": 156685,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "begin",
+        "ingress": 96,
+        "type": "keydown",
+        "action": 1,
+        "code": "ESCAPE",
+        "key": 0,
+        "modifiers": 0,
+        "printable": false
+      }
+    },
+    "end": {
+      "seq": 156695,
+      "kind": "input.dispatch",
+      "target": "input",
+      "data": {
+        "phase": "end",
+        "ingress": 96,
+        "handled": true
+      }
+    }
+  },
+  "closed_state": {
+    "serial": 20,
+    "base_open": false,
+    "popup_sliding": false,
+    "popup_hiding": false
+  },
+  "events": [
+    {
+      "seq": 2,
+      "kind": "node.create",
+      "target": "n1",
+      "data": {
+        "parent": null,
+        "tag": "$root"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "semantic.role",
+      "target": "n1",
+      "data": {
+        "role": "container",
+        "source": "",
+        "constructor": true
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "node.show",
+      "target": "n1",
+      "data": {}
+    },
+    {
+      "seq": 4946,
+      "kind": "node.create",
+      "target": "n208",
+      "data": {
+        "parent": "n1",
+        "tag": "$window"
+      }
+    },
+    {
+      "seq": 4947,
+      "kind": "semantic.role",
+      "target": "n208",
+      "data": {
+        "role": "dialog",
+        "source": "game.popup.base_screen",
+        "constructor": false
+      }
+    },
+    {
+      "seq": 63028,
+      "kind": "node.show",
+      "target": "n208",
+      "data": {}
+    }
+  ],
+  "native_hide_after_escape_observed": false
+}

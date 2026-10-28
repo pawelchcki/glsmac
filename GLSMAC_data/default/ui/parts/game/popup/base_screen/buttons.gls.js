@@ -56,6 +56,10 @@ return {
 			text: 'CANCEL',
 			is_cancel: true,
 		});
+		const btn_workshop = this.frame.button({
+			class: 'base-screen-popup-bottom-button', align: 'left', left: 109, width: 104, text: 'WORKSHOP',
+		});
+		btn_workshop.on('click', (e) => { this.p.utils.show_workshop(); return true; });
 
 		this.buttons = [
 			this.frame.button({
@@ -65,13 +69,7 @@ return {
 				width: 104,
 				text: 'HELP',
 			}),
-			this.frame.button({
-				class: 'base-screen-popup-bottom-button',
-				align: 'left',
-				left: 109,
-				width: 104,
-				text: 'WORKSHOP',
-			}),
+			btn_workshop,
 			btn_ok,
 			btn_cancel,
 		];

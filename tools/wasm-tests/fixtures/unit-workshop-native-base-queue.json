@@ -1,0 +1,303 @@
+{
+  "version": 1,
+  "scope": "Retained candidate native presentation subset; no Workshop or original agreement",
+  "source_head": "d5e6ec841d3cdb8ccf790534e119f05299366284",
+  "runtime_native_source_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+  "raw_source_sha256": "e31fce66241468e843ce7a35b588ca8eae75014127bf7da6e9150bfa2b33fd91",
+  "source_event_count": 84449,
+  "selection": "Exact node lifecycle, role, final effective geometry, mounted CHANGE text for observed root/dialog/basebar/queue/button/text ancestry",
+  "viewport": {
+    "width": 1024,
+    "height": 768
+  },
+  "base_window": "n208",
+  "base_bar": "n466",
+  "change_button": "n484",
+  "events": [
+    {
+      "seq": 2,
+      "kind": "node.create",
+      "target": "n1",
+      "data": {
+        "parent": null,
+        "tag": "$root"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "semantic.role",
+      "target": "n1",
+      "data": {
+        "role": "container",
+        "source": "",
+        "constructor": true
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "node.show",
+      "target": "n1",
+      "data": {}
+    },
+    {
+      "seq": 34,
+      "kind": "semantic.geometry",
+      "target": "n1",
+      "data": {
+        "area": "effective",
+        "left": 0.0,
+        "top": 0.0,
+        "right": 1023.0,
+        "bottom": 767.0,
+        "zindex": 0.5
+      }
+    },
+    {
+      "seq": 4946,
+      "kind": "node.create",
+      "target": "n208",
+      "data": {
+        "parent": "n1",
+        "tag": "$window"
+      }
+    },
+    {
+      "seq": 4947,
+      "kind": "semantic.role",
+      "target": "n208",
+      "data": {
+        "role": "dialog",
+        "source": "game.popup.base_screen",
+        "constructor": false
+      }
+    },
+    {
+      "seq": 11630,
+      "kind": "node.attach",
+      "target": "n208",
+      "data": {
+        "parent": "n1"
+      }
+    },
+    {
+      "seq": 11631,
+      "kind": "node.create",
+      "target": "n466",
+      "data": {
+        "parent": "n1",
+        "tag": "$group"
+      }
+    },
+    {
+      "seq": 11632,
+      "kind": "semantic.role",
+      "target": "n466",
+      "data": {
+        "role": "container",
+        "source": "",
+        "constructor": true
+      }
+    },
+    {
+      "seq": 11665,
+      "kind": "semantic.geometry",
+      "target": "n466",
+      "data": {
+        "area": "effective",
+        "left": 0.0,
+        "top": 512.0,
+        "right": 1023.0,
+        "bottom": 767.0,
+        "zindex": 0.850000024
+      }
+    },
+    {
+      "seq": 12008,
+      "kind": "node.create",
+      "target": "n480",
+      "data": {
+        "parent": "n466",
+        "tag": "$panel"
+      }
+    },
+    {
+      "seq": 12009,
+      "kind": "semantic.role",
+      "target": "n480",
+      "data": {
+        "role": "container",
+        "source": "",
+        "constructor": true
+      }
+    },
+    {
+      "seq": 12043,
+      "kind": "node.show",
+      "target": "n480",
+      "data": {}
+    },
+    {
+      "seq": 12045,
+      "kind": "semantic.geometry",
+      "target": "n480",
+      "data": {
+        "area": "effective",
+        "left": 137.0,
+        "top": 571.0,
+        "right": 243.0,
+        "bottom": 761.0,
+        "zindex": 0.5
+      }
+    },
+    {
+      "seq": 12111,
+      "kind": "node.create",
+      "target": "n484",
+      "data": {
+        "parent": "n480",
+        "tag": "$button"
+      }
+    },
+    {
+      "seq": 12112,
+      "kind": "semantic.role",
+      "target": "n484",
+      "data": {
+        "role": "button",
+        "source": "",
+        "constructor": true
+      }
+    },
+    {
+      "seq": 12141,
+      "kind": "node.property",
+      "target": "n484",
+      "data": {
+        "key": "text",
+        "value": "CHANGE"
+      }
+    },
+    {
+      "seq": 12146,
+      "kind": "node.show",
+      "target": "n484",
+      "data": {}
+    },
+    {
+      "seq": 12148,
+      "kind": "semantic.geometry",
+      "target": "n484",
+      "data": {
+        "area": "effective",
+        "left": 139.0,
+        "top": 717.0,
+        "right": 241.0,
+        "bottom": 738.0,
+        "zindex": 0.5
+      }
+    },
+    {
+      "seq": 12190,
+      "kind": "node.create",
+      "target": "n487",
+      "data": {
+        "parent": "n484",
+        "tag": "$text"
+      }
+    },
+    {
+      "seq": 12204,
+      "kind": "node.property",
+      "target": "n487",
+      "data": {
+        "key": "text",
+        "value": "CHANGE"
+      }
+    },
+    {
+      "seq": 12207,
+      "kind": "node.show",
+      "target": "n487",
+      "data": {}
+    },
+    {
+      "seq": 12209,
+      "kind": "semantic.geometry",
+      "target": "n487",
+      "data": {
+        "area": "effective",
+        "left": 160.0,
+        "top": 721.5,
+        "right": 220.0,
+        "bottom": 733.5,
+        "zindex": 0.5
+      }
+    },
+    {
+      "seq": 12211,
+      "kind": "node.property",
+      "target": "n487",
+      "data": {
+        "key": "rendered_text",
+        "value": "CHANGE"
+      }
+    },
+    {
+      "seq": 12212,
+      "kind": "node.attach",
+      "target": "n487",
+      "data": {
+        "parent": "n484"
+      }
+    },
+    {
+      "seq": 12240,
+      "kind": "node.attach",
+      "target": "n484",
+      "data": {
+        "parent": "n480"
+      }
+    },
+    {
+      "seq": 12242,
+      "kind": "node.attach",
+      "target": "n480",
+      "data": {
+        "parent": "n466"
+      }
+    },
+    {
+      "seq": 13313,
+      "kind": "node.attach",
+      "target": "n466",
+      "data": {
+        "parent": "n1"
+      }
+    },
+    {
+      "seq": 60510,
+      "kind": "node.show",
+      "target": "n466",
+      "data": {}
+    },
+    {
+      "seq": 63026,
+      "kind": "node.show",
+      "target": "n208",
+      "data": {}
+    },
+    {
+      "seq": 82478,
+      "kind": "semantic.geometry",
+      "target": "n208",
+      "data": {
+        "area": "effective",
+        "left": 0.0,
+        "top": 0.0,
+        "right": 1023.0,
+        "bottom": 767.0,
+        "zindex": 0.5
+      }
+    }
+  ]
+}
