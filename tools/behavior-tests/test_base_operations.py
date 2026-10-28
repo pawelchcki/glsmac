@@ -107,12 +107,20 @@ class FailureAccountingTests(unittest.TestCase):
             process = MagicMock(); process.__enter__.return_value = process
             process.communicate.side_effect = [subprocess.TimeoutExpired('node', 180), ('partial', '')]
             executions = []
-            with patch.object(report.subprocess, 'Popen', return_value=process), self.assertRaises(subprocess.TimeoutExpired): report.replay(runtime, executions)
+            with (
+                patch.object(report, 'create_snapshot', return_value=report.create_snapshot(report.ROOT)),
+                patch.object(report.subprocess, 'Popen', return_value=process),
+                self.assertRaises(subprocess.TimeoutExpired),
+            ): report.replay(runtime, executions)
             self.assertTrue(executions[0]['candidate_executed'])
             self.assertEqual(executions[0]['status'], 'timeout')
             process.kill.assert_called_once(); self.assertEqual(process.communicate.call_count, 2)
             executions = []
-            with patch.object(report.subprocess, 'Popen', side_effect=FileNotFoundError('missing node')), self.assertRaises(FileNotFoundError): report.replay(runtime, executions)
+            with (
+                patch.object(report, 'create_snapshot', return_value=report.create_snapshot(report.ROOT)),
+                patch.object(report.subprocess, 'Popen', side_effect=FileNotFoundError('missing node')),
+                self.assertRaises(FileNotFoundError),
+            ): report.replay(runtime, executions)
             self.assertFalse(executions[0]['candidate_executed'])
 
     def test_invalid_reference_replaces_stale_success_without_execution(self):

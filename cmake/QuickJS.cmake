@@ -44,6 +44,9 @@ TARGET_COMPILE_DEFINITIONS( glsmac_quickjs PRIVATE _GNU_SOURCE CONFIG_VERSION="2
 TARGET_INCLUDE_DIRECTORIES( glsmac_quickjs SYSTEM PUBLIC "${quickjs_SOURCE_DIR}" )
 IF ( WIN32 AND NOT MINGW )
 	TARGET_INCLUDE_DIRECTORIES( glsmac_quickjs PRIVATE "${CMAKE_CURRENT_LIST_DIR}/quickjs-windows" )
+	# QuickJS BigInt division emits __udivti3; the MSVC CRT does not supply it.
+	# Let the Clang driver select its matching architecture's builtins library.
+	TARGET_LINK_OPTIONS( glsmac_quickjs INTERFACE --rtlib=compiler-rt )
 ENDIF ()
 IF ( NOT WIN32 )
 	TARGET_COMPILE_OPTIONS( glsmac_quickjs PRIVATE -pthread )

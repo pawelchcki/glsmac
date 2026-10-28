@@ -45,7 +45,10 @@ class MinimumGenerationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             runtime = Path(temporary) / 'GLSMAC.js'; runtime.write_text('test'); runtime.with_suffix('.wasm').write_bytes(b'test')
             execution = dict(candidate_executed=False)
-            with patch.object(minimum.subprocess, 'Popen', side_effect=OSError('spawn failed')):
+            with (
+                patch.object(minimum, 'create_snapshot', return_value=minimum.create_snapshot(minimum.ROOT)),
+                patch.object(minimum.subprocess, 'Popen', side_effect=OSError('spawn failed')),
+            ):
                 with self.assertRaises(OSError): minimum.replay(cases, runtime, execution)
             self.assertFalse(execution['candidate_executed'])
 
@@ -56,7 +59,11 @@ class MinimumGenerationTests(unittest.TestCase):
             execution = dict(candidate_executed=False); worker = MagicMock()
             worker.communicate.side_effect = [subprocess.TimeoutExpired('node', 180), ('', '')]
             worker.__enter__.return_value = worker
-            with patch.object(minimum.subprocess, 'Popen', return_value=worker), self.assertRaises(subprocess.TimeoutExpired):
+            with (
+                patch.object(minimum, 'create_snapshot', return_value=minimum.create_snapshot(minimum.ROOT)),
+                patch.object(minimum.subprocess, 'Popen', return_value=worker),
+                self.assertRaises(subprocess.TimeoutExpired),
+            ):
                 minimum.replay(cases, runtime, execution)
             self.assertTrue(execution['candidate_executed']); worker.kill.assert_called_once()
             self.assertEqual(worker.communicate.call_count, 2)

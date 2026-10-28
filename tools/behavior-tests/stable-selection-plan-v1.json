@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "inventory_sha256": "0af7fd51108f32be37c89cf3d588a8f5e05caabf336b89067aef901e1bbd86b8",
+  "inventory_sha256": "174471d4011b987d4fd717150a01933e1a882949825df5acf1ae52c9288f39c6",
   "hot_regression": [
     "aquifer-plan-reuse",
     "aquifer-routing",
@@ -38,6 +38,7 @@
     "terrain-geometry",
     "texture-filter",
     "trace-float-transport",
+    "typescript-boundary",
     "unit-automation-state",
     "unit-disband-native",
     "unit-menu-context-orders",
