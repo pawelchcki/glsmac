@@ -1,0 +1,90 @@
+{
+  "kind": "terraform-height-final-three-readonly-reaudit.v1",
+  "source_base": "a80ed0045c8f38c1fd4b7c1a340d081416d17eac",
+  "review_head": "a77ed190fdf9754248d8c0e6094cb62860d13f9f",
+  "source_fix": "4ebb2ab3",
+  "source_auditor_sha256": "3db84054183cd79f64f38bb29e476c37ca624943bbafae29acd89e483564e60d",
+  "source_tests_sha256": "2f8debbdf09135ee54e12eccd00069428d37ce517763292a06d621834f5d5437",
+  "result_file": "terraform-height-browser-v6-reaudit-final-three.json",
+  "result_sha256": "318dea6e3f6ab9ad2bf789cf170444d814bd6f1c9d3b71189febcdc215c7998b",
+  "capture": {
+    "artifact_directory": "/tmp/terraform-land-height-v6-second",
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+    "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+    "runtime_source_scope": "historical Native115/Default25/v6; source audit revision does not relabel capture"
+  },
+  "findings": [
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8oYX",
+      "verdict": "VALID",
+      "old_counterexample": "modern public full stream rebinds callback messages, cursor offsets, lengths and hashes around noise:TH_EXIT_REQUEST; old finalizer accepts",
+      "fix": "complete record matcher shared by parser/finalizer, literal marker optionally framed by exact pinned mounted GSE source filename/location"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8oYY",
+      "verdict": "VALID",
+      "old_counterexample": "all raw/reported snapshots coherently give a nonpayer Boolean energy credits; old typed audit accepts",
+      "fix": "exact Int credits, Bool initialized and Int income turn for each of all seven native player details in every checkpoint"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8oYb",
+      "verdict": "VALID",
+      "old_counterexample": "transient node.hide before actual click edge followed by node.show after mouseup begins, sequence references coherently shifted; old route accepts",
+      "fix": "replay actual native lifecycle/properties through immediately before hover/down/up; preserve normal handler teardown between mouseup BEGIN and END"
+    }
+  ],
+  "public_checks": {
+    "count": 89,
+    "skipped": 0,
+    "seconds": 17.379,
+    "selectors": [
+      "ProtocolAuditTests",
+      "ProtocolFinalizationTests",
+      "ProtocolKeyboardRouteTests",
+      "ExternalOutcomeTests",
+      "ProtocolPointerRouteTests",
+      "PreflightSchemaTests",
+      "FrameFileTests",
+      "InterpreterModeTests"
+    ],
+    "old_three_regressions": "each expected rejection test failed on old code, preserved /tmp/height-final-three-old-red-v2.log"
+  },
+  "actual_readonly_cli": {
+    "argv": [
+      "python3",
+      "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "--artifacts",
+      "/tmp/terraform-land-height-v6-second",
+      "--output",
+      "/tmp/terraform-land-height-v6-second/reaudit-final-three-4ebb2ab3.json"
+    ],
+    "os_exit": 0,
+    "tool_session": 92234,
+    "tool_completion_chunk": "d0fedd"
+  },
+  "focused_retained_checks": {
+    "count": 2,
+    "skipped": 0,
+    "seconds": 0.783,
+    "os_exit": 0,
+    "tool_session": 3404,
+    "tool_completion_chunk": "840ceb",
+    "reproducer_sha256": "5eddb75dcfd99bf6c6cdaeb245d12bc1b2f522470ddca9cdbe8c38bb314ef1c4",
+    "reproducer_source": "import copy,json,sys,unittest\nfrom pathlib import Path\nsys.path.insert(0,'tools/behavior-tests')\nimport test_terraform_height_browser_audit as t\nD=Path('/tmp/terraform-land-height-v6-second')\nrecords=t.audit.parse_records((D/'application.log').read_bytes()); report=json.loads((D/'report.json').read_bytes())\nclass ChangedRetainedCases(unittest.TestCase):\n def test_nonpayer_native_energy_bool_rejected(self):\n  r,q=copy.deepcopy((records,report))\n  packets=[v for k,v,_ in r if k=='TH_NATIVE']\n  for packet in packets:\n   state=packet['world']; player=next(p for p in state['players'] if p['raw_id']==1)\n   state['terrain_trace']['player_details'][player['id']]['energy']['credits']=True\n  for item,packet in zip(q['native_snapshots'],packets):item['observation']=t.audit.node_projection(packet)\n  with self.assertRaisesRegex(AssertionError,'Native player energy'):t.audit.audit_records(r,q)\n def test_transient_hidden_row_before_mouseup_rejected(self):\n  x=t.ProtocolPointerRouteTests();x.original_route=(records,report);x.setUp()\n  x.insert_target_event(2,'up','node.hide',{})\n  x.insert_target_event(2,'end','node.show',{})\n  with self.assertRaisesRegex(AssertionError,'became hidden'):t.audit.validate_pointer_route(x.records,x.report)\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(ChangedRetainedCases));assert not r.skipped\nraise SystemExit(not r.wasSuccessful())\n"
+  },
+  "credit": {
+    "complete_browser_cases_audited": 0,
+    "browser_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 1,
+    "new_game_or_browser_executions": 0
+  },
+  "limits": [
+    "Missing legacy exact callback-message identity remains explicitly unsupported; no historical messages/digests were invented.",
+    "No raw/report/preflight, producer, shared hooks, GSE, Native or world answers changed.",
+    "The complete exit-record source filename is specific to the reviewed height harness, not a generic proof of arbitrary console markers.",
+    "Widget availability is checked before the retained input edges; normal mouseup handler hide/destroy before END is explicitly allowed.",
+    "Public models are not native/browser passes; no duplicate whole retained mutation batch was run.",
+    "Historical result/proof versions remain unchanged; this is a new source/result version."
+  ]
+}

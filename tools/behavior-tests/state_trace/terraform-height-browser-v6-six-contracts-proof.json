@@ -1,0 +1,100 @@
+{
+  "kind": "terraform-height-six-contracts-readonly-reaudit.v1",
+  "source_base": "c8e5a023d29303431c23e25ff0496e0cec257b08",
+  "source_fix": "9b3dcc53",
+  "auditor_sha256": "d0ee126802b8ff1428b61e292769d806602962ad785e44fa1cf22ae1582d38a3",
+  "preflight_producer_sha256": "24657c3970a962a5e0ebcfd887687680f1ea618f585400dfe54436b4d865699b",
+  "result_file": "terraform-height-browser-v6-reaudit-six-contracts.json",
+  "result_sha256": "59a57e33a01d6a6cda0d8259b77f146ae539d49a79c28eda6d1cbf812dae7200",
+  "capture": "historical /tmp/terraform-land-height-v6-second; no game rerun",
+  "historical_raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+  "historical_report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+  "historical_preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+  "audit_cli": {
+    "argv": [
+      "python3",
+      "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "--artifacts",
+      "/tmp/terraform-land-height-v6-second",
+      "--output",
+      "/tmp/terraform-land-height-v6-second/reaudit-six-contracts-9b3dcc53.json"
+    ],
+    "os_exit": 0,
+    "tool_session": 75925,
+    "tool_completion_chunk": "a2fe11",
+    "new_browser_or_native_executions": 0
+  },
+  "checks": {
+    "public_python": {
+      "count": 84,
+      "skipped": 0,
+      "seconds": 24.453,
+      "selectors": [
+        "ProtocolAuditTests",
+        "ProtocolFinalizationTests",
+        "ProtocolKeyboardRouteTests",
+        "ExternalOutcomeTests",
+        "ProtocolPointerRouteTests",
+        "PreflightSchemaTests",
+        "FrameFileTests",
+        "InterpreterModeTests"
+      ]
+    },
+    "public_node": {
+      "count": 7,
+      "skipped": 0,
+      "seconds": 5.106466499,
+      "argv": [
+        "node",
+        "--test",
+        "tools/wasm-tests/terraform-height-preflight.test.mjs"
+      ]
+    },
+    "private_mutation_batch": "not rerun; one actual retained read-only CLI above"
+  },
+  "findings": [
+    {
+      "thread": "PRRT_kwDOVR1Hac6w70uJ",
+      "verdict": "VALID",
+      "old_counterexample": "append a second untyped mouseup END for an existing actual pointer ingress",
+      "new_gate": "exhaust all pointer-associated ingress/begin/end records; exactly one triple per Int ingress"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w70uR",
+      "verdict": "VALID",
+      "old_counterexample": "actual old function accepts dirty tracked preflight module and server in temporary Git",
+      "new_gate": "both files included in relevant tracked/untracked/ignored gate and source hashes; exact executed module/server copy binding"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w70uY",
+      "verdict": "VALID",
+      "old_counterexample": "all six worlds omit research consistently",
+      "new_gate": "seven unique player-linked research rows with native Int science/tech IDs"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8Hlq",
+      "verdict": "VALID",
+      "old_counterexample": "all worlds consistently remove or change schema/unit declarations",
+      "new_gate": "exact v4 schema, elevation unit, and native terrain unit map"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8Hlz",
+      "verdict": "VALID",
+      "old_counterexample": "swap opponents player_details in every world while preserving logical key coverage",
+      "new_gate": "each detail raw_id exact Int equals its keyed native player row"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w8Hl3",
+      "verdict": "VALID",
+      "old_counterexample": "move sole TH_INPUTS after final checkpoint without changing its contents",
+      "new_gate": "input carrier strictly before first native checkpoint and native input ingress carriers"
+    }
+  ],
+  "evidence_limits": [
+    "Legacy callback exact per-message identity remains UNSUPPORTED: complete/browser case count0; bounded state/receipt case count1.",
+    "Historical clean-source evidence is not supplemented with a fabricated receipt; stricter preflight gates apply only to future preparations.",
+    "Public models and temporary-Git tests are not actual browser/native passes.",
+    "No original-game fidelity, fixed-camera, mesh/animation/audio or Sea coverage is added.",
+    "Initial in-sandbox Node test attempt could not spawn Git (EPERM); actual seven tests passed outside sandbox, no test waiver."
+  ]
+}

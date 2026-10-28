@@ -1,0 +1,3652 @@
+{
+  "version": 1,
+  "status": "strict-passed",
+  "scope": "One candidate land Raise flow through actual SDL and mounted payment controls; functional approximation, no original agreement",
+  "browser_cases": 1,
+  "original_passing_cases": 0,
+  "artifact_root": "/tmp/terraform-land-height-v6-second",
+  "execution": {
+    "version": 1,
+    "status": "exited",
+    "raw_process_exit": 0,
+    "source": "Actual tools.write_stdin completion result, not inferred from TAP or application status",
+    "tool_session_id": 40314,
+    "tool_completion_chunk_id": "0ae251",
+    "tool_completion_result": {
+      "chunk_id": "0ae251",
+      "wall_time_seconds": 7.985e-06,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "command": "FONTCONFIG_FILE=/tmp/glsmac-fonts.conf PLAYWRIGHT_BROWSERS_PATH=/var/home/pawel/.cache/ms-playwright SMAC_ASSETS_DIR=/var/home/pawel/reimplementation/smac-wasm/smac-assets WASM_APP_DIR=/tmp/wasmsmac-terraform-pr2-web-v6 WASM_SCRIPTS_ROOT=/tmp/wasmsmac-terraform-land-height-browser TERRAFORM_HEIGHT_ARTIFACTS_DIR=/tmp/terraform-land-height-v6-second TERRAFORM_ROOT_DIAGNOSTIC=0 node --test --test-concurrency=1 tools/wasm-tests/terraform-height-browser.test.mjs",
+    "native_exit": {
+      "body_state": "exited",
+      "status_text": "GLSMAC exited (0).",
+      "raw_code": 0
+    },
+    "application_case_elapsed_ms": 84769.242806,
+    "node_test_runner_elapsed_ms": 85148.119623,
+    "browser_server_driver_reaped": true
+  },
+  "source": {
+    "executed_host": "bc8a3e4a113456cce2ada80e7a56d0872911d8a0",
+    "base_pr35": "7ee4e80b1c1723f60c3349d2d0456aee70f54873",
+    "native_tree": "115032ffc7f53ff7f0c3a9f997da12674e25e643",
+    "default_tree": "25ef18d3222f553507291d412330262169b2e418",
+    "driver_sha256": "c9b85e3236c92e65044b13ff12daea81f2274e18b9d788a426ca1f5730674e16",
+    "fixture_sha256": "57b76aa2fc5b77952aff4c4c0e945a1e5e7314d1e32a063fbed9bc0c3cef690f",
+    "world_input_sha256": "760a054e2cdc6eaaceaf07835fd31fc658ef75709fa975d90e93a9889d45fd4e",
+    "observer_helpers_sha256": "96690ef1a7fd40a4285103923e4de03bedfbaf9495cd87ba94ed4088acf5834e",
+    "height_observation_sha256": "e16ce39511c5589d82f543077a85d4775296b6f80634fa8b781dee76bf6c2cee",
+    "shared_helpers_sha256": {
+      "browser-log-cursor.mjs": "959cd36fec3d798f889a9de6d8889d23808195a2a2cfc37830497c061cc1eed3",
+      "browser-native-log-hook.mjs": "4c2db225508623cdbfa9a5e9b03b7e16100dabeb598899b6e4f14978af2b24b1",
+      "runtime-fetch-barrier.mjs": "b4344d20102ae78bda621cea22f4cbae23fc9606962403507e91f505b5bb8e74",
+      "terraform-browser-geometry.mjs": "a8c2aeafba1bc14c785c5993b1a201931b08bec69b805defa2d2744b2c3b0eea",
+      "terraform-browser-pointer.mjs": "b20d3ec18c0f75b49820056149853747fe47da64667caa2a7fa531da9fa0e8d1"
+    },
+    "production_changed": false
+  },
+  "runtime": {
+    "js_sha256": "e71036c9365a3ac87bf818e7eb49fb2344077a15aa6836371a436572cedf7f82",
+    "wasm_sha256": "b2c7fa273042f2407335169eb4fca51f131f1f30656301d7b7573a201b28f5b7",
+    "web_sha256": {
+      "index.html": "870bfb68437e88bb026f1097cb9395a5ec7c351da0c0f301af3229897113072d",
+      "bootstrap.js": "69b3c8edebabc4c5b2168ce0ef6d920bb43b4e9d9df5325e12c310b138b90724",
+      "asset-store.js": "e30df03c908bcc55fef12ecf5057c14187bd5cc3867f5abf890828d8127bc9bc"
+    },
+    "identity": "immutable local v6; distinct from later graphics v7"
+  },
+  "input": {
+    "requested_initial_seed": "1651011033:1377505029:3019448108:3247278135",
+    "seed_live_rng_getter": "unsupported",
+    "declared_input": {
+      "players": 7,
+      "bases": 7,
+      "units": 8,
+      "map": "candidate16x16-arid",
+      "normal_source_funding": true
+    },
+    "rate_override": {
+      "scope": "test input only; twenty shared TERRAIN turns fields (index4) set to1 for both land/sea metadata; names and prerequisites unchanged",
+      "original_sha256": "bb01e3ac23793da0a46713f4851d65e63b599c24aef8300ffe45e7e57b332c42",
+      "rate_one_sha256": "7abf62aa4f4f562aaa86c785b67b7af2320e122cbda7901287ee3ed0ab4c5bd0",
+      "bytes": 62698,
+      "reads": 1,
+      "original_manifest_id": "12743b42e275842a7ae3862572ec769c6d86f647394f0edb1ff9db6d104888e3",
+      "manifest_id": "740c1c9f418ec24f7f6343087645cdef44fd7b85127cb297f0a453f28ea3ae10"
+    },
+    "override_table": [
+      {
+        "source_row": 0,
+        "id": "farm",
+        "name": "Farm",
+        "source_line": 111,
+        "sea_name": "Kelp Farm",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "4",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 1,
+        "id": "soil_enricher",
+        "name": "Soil Enricher",
+        "source_line": 112,
+        "sea_name": "Soil Enricher",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "8",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng2"
+      },
+      {
+        "source_row": 2,
+        "id": "mine",
+        "name": "Mine",
+        "source_line": 113,
+        "sea_name": "Mining Platform",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "8",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 3,
+        "id": "solar",
+        "name": "Solar Collector",
+        "source_line": 114,
+        "sea_name": "Tidal Harness",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "4",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 4,
+        "id": "forest",
+        "name": "Forest",
+        "source_line": 115,
+        "sea_name": "...",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "4",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 5,
+        "id": "road",
+        "name": "Road",
+        "source_line": 116,
+        "sea_name": "Road",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "1",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 6,
+        "id": "mag_tube",
+        "name": "Mag Tube",
+        "source_line": 117,
+        "sea_name": "Mag Tube",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "3",
+        "new": "1",
+        "prerequisite_unchanged": "Magnets"
+      },
+      {
+        "source_row": 7,
+        "id": "bunker",
+        "name": "Bunker",
+        "source_line": 118,
+        "sea_name": "Bunker",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "5",
+        "new": "1",
+        "prerequisite_unchanged": "MilAlg"
+      },
+      {
+        "source_row": 8,
+        "id": "airbase",
+        "name": "Airbase",
+        "source_line": 119,
+        "sea_name": "Airbase",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "10",
+        "new": "1",
+        "prerequisite_unchanged": "DocAir"
+      },
+      {
+        "source_row": 9,
+        "id": "sensor",
+        "name": "Sensor Array",
+        "source_line": 120,
+        "sea_name": "Sensor Array",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "4",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 10,
+        "id": "remove_fungus",
+        "name": "Fungus",
+        "source_line": 121,
+        "sea_name": "Sea Fungus",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "6",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 11,
+        "id": "plant_fungus",
+        "name": "Fungus",
+        "source_line": 122,
+        "sea_name": "Sea Fungus",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "6",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng"
+      },
+      {
+        "source_row": 12,
+        "id": "condenser",
+        "name": "Condenser",
+        "source_line": 123,
+        "sea_name": "Condenser",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "12",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng"
+      },
+      {
+        "source_row": 13,
+        "id": "mirror",
+        "name": "Echelon Mirror",
+        "source_line": 124,
+        "sea_name": "Echelon Mirror",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "12",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng"
+      },
+      {
+        "source_row": 14,
+        "id": "borehole",
+        "name": "Thermal Borehole",
+        "source_line": 125,
+        "sea_name": "Thermal Borehole",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "24",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng"
+      },
+      {
+        "source_row": 15,
+        "id": "aquifer",
+        "name": "Aquifer",
+        "source_line": 126,
+        "sea_name": "Aquifer",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "18",
+        "new": "1",
+        "prerequisite_unchanged": "EcoEng"
+      },
+      {
+        "source_row": 16,
+        "id": "raise",
+        "name": "Raise Land",
+        "source_line": 127,
+        "sea_name": "Raise Sea Floor",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "12",
+        "new": "1",
+        "prerequisite_unchanged": "EnvEcon"
+      },
+      {
+        "source_row": 17,
+        "id": "lower",
+        "name": "Lower Land",
+        "source_line": 128,
+        "sea_name": "Lower Sea Floor",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "12",
+        "new": "1",
+        "prerequisite_unchanged": "EnvEcon"
+      },
+      {
+        "source_row": 18,
+        "id": "level",
+        "name": "Level Terrain",
+        "source_line": 129,
+        "sea_name": "Level Terrain",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "8",
+        "new": "1",
+        "prerequisite_unchanged": "None"
+      },
+      {
+        "source_row": 19,
+        "id": "monolith",
+        "name": "Monolith",
+        "source_line": 130,
+        "sea_name": "Monolith",
+        "field": "shared_turns",
+        "applies_to": [
+          "land",
+          "sea"
+        ],
+        "field_index": 4,
+        "old": "8",
+        "new": "1",
+        "prerequisite_unchanged": "Disable"
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "query": 1,
+      "payload_sha256": "bc77be2b8c4de00eff0779557a7701f05a1a12c76661a4d7fba0ee00f148681f",
+      "bytes": 273474,
+      "checkpoint": "before-height",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 51908
+    },
+    {
+      "query": 2,
+      "payload_sha256": "9baf8b2aa086818c9b0c13930b01e4484c0c3cb06d04de2b397e0683825d8e05",
+      "bytes": 582272,
+      "checkpoint": "raise-quote",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 64754
+    },
+    {
+      "query": 3,
+      "payload_sha256": "908687bf4ab5cb2afa140a29db14ee2b974a0502c7306da145df53090fa5dffb",
+      "bytes": 581486,
+      "checkpoint": "raise-cancel",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 66684
+    },
+    {
+      "query": 4,
+      "payload_sha256": "fbcdfa02daefb8aff5c9a6523227844457beb672843272eda62e7072fe1abbc8",
+      "bytes": 582272,
+      "checkpoint": "raise-reopened",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 69584
+    },
+    {
+      "query": 5,
+      "payload_sha256": "38c26d9250d92119ff270ed3e21a7efc34f9b9cfb7c02f5bd057f44af5e83c5e",
+      "bytes": 582272,
+      "checkpoint": "raise-payment-draft",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 69650
+    },
+    {
+      "query": 6,
+      "payload_sha256": "11cd21096b4b23bdf0329b017594d69ca06192902ff45f144509705f01f7c912",
+      "bytes": 581487,
+      "checkpoint": "raise-paid-completion",
+      "counts": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "query_after_native_key": 82623
+    }
+  ],
+  "actual_quote": {
+    "fee": 4,
+    "credits": 10,
+    "source_elevation": 240,
+    "destination_elevation": 1500,
+    "source_water": false,
+    "destination_water": false,
+    "policy": "application.band-slope-height.v1",
+    "fee_policy": "application.band-fee.v1",
+    "mode": "functional_approximation",
+    "patches": 9
+  },
+  "payment_receipt": {
+    "caller": 0,
+    "data": {
+      "action": "raise",
+      "confirmed_height": true,
+      "unit_id": 8
+    },
+    "event_id": "0_68",
+    "name": "unit_terraform",
+    "success": true
+  },
+  "payment_quote_echo": "unsupported: Event.cpp exposes scalar-only event_result data",
+  "native_allowed_diff": {
+    "quoted_tiles": [
+      "8,8",
+      "6,8",
+      "7,7",
+      "8,6",
+      "9,7",
+      "10,8",
+      "9,9",
+      "8,10",
+      "7,9"
+    ],
+    "adjacent_geometry_tiles": [
+      "8,8",
+      "6,8",
+      "7,7",
+      "8,6",
+      "9,7",
+      "10,8",
+      "9,9",
+      "8,10",
+      "7,9",
+      "6,6",
+      "5,7",
+      "6,10",
+      "5,9",
+      "4,8",
+      "7,5",
+      "10,6",
+      "8,4",
+      "9,5",
+      "11,7",
+      "12,8",
+      "10,10",
+      "11,9",
+      "9,11",
+      "8,12",
+      "7,11"
+    ],
+    "payer": "player:1",
+    "actor": "unit:player:1:formers:8:8:0",
+    "scope": "exact full-world noninterference; shared corner values observed, no mesh-fidelity claim"
+  },
+  "typed_raw_audit": {
+    "status": "passed-readonly-audit",
+    "native_cases_added": 0,
+    "browser_cases_audited": 1,
+    "typed_pure_checkpoints": 5,
+    "complete_worlds": 6,
+    "per_world": {
+      "players": 7,
+      "units": 8,
+      "bases": 7,
+      "tiles": 128
+    },
+    "parsed_native_world_changed_fields": 229,
+    "allowed_diff_categories": {
+      "payer fee/revision": 2,
+      "native canonical write/pin": 75,
+      "adjacent shared geometry (observed only)": 64,
+      "affected tile epoch": 25,
+      "quoted gameplay elevation": 9,
+      "edited imported source retirement": 36,
+      "actor moved flag": 1,
+      "actor exhausted movement preflight": 16,
+      "actor actual MP": 1
+    },
+    "native_float_unit_fields_checked": 96,
+    "unit_float_bits": [
+      {
+        "query": 1,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 1,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 2,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 3,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 4,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 5,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 1,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 1,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 2,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 2,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 3,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 3,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 4,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 4,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 5,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 5,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 6,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 6,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 7,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 7,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 8,
+        "field": "movement",
+        "type": "native Float token",
+        "f32_bits": "00000000",
+        "f64_bits": "0000000000000000"
+      },
+      {
+        "query": 6,
+        "unit": 8,
+        "field": "health",
+        "type": "native Float token",
+        "f32_bits": "3f800000",
+        "f64_bits": "3ff0000000000000"
+      }
+    ],
+    "actor_movement_bits": [
+      1065353216,
+      1065353216,
+      1065353216,
+      1065353216,
+      1065353216,
+      0
+    ],
+    "quote": {
+      "fee": 4,
+      "credits": 10,
+      "source_elevation": 240,
+      "destination_elevation": 1500,
+      "source_water": false,
+      "destination_water": false,
+      "policy": "application.band-slope-height.v1",
+      "fee_policy": "application.band-fee.v1",
+      "mode": "functional_approximation",
+      "patches": 9
+    },
+    "payer_before": {
+      "credits": 10,
+      "initialized": true,
+      "last_income_turn": 0
+    },
+    "payer_after": {
+      "credits": 6,
+      "initialized": true,
+      "last_income_turn": 0
+    },
+    "payer_revision_before": 1,
+    "payer_revision_after": 2,
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "raw_bytes": 14465994,
+    "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+    "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+    "source_audit_script_sha256": "385d7e3f403f02a96070b8bf994716a765ea7003207e8803a0838a826862d8b9"
+  },
+  "typed_raw_audit_report_sha256": "90a297b6e332db1ea081f571191560292901e53af949bea0401263f10371b606",
+  "independent_delivery_audit": {
+    "path": "/tmp/terraform-land-height-v6-second/independent-delivery-audit.json",
+    "sha256": "50e9d39471346034c7755ecd38d570a384005421273e63e431c2aed9c9ae2608"
+  },
+  "frames": [
+    {
+      "name": "before-height",
+      "sha256": "d22e5cbda6c57616c5f81ce6670176ad6302b19912b19251daf3f4e7ba444713",
+      "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+    },
+    {
+      "name": "raise-quote",
+      "sha256": "35ffc1d243f391112bb14ceed35d3b0ef6c45ca454c64f250929c72b1c284b13",
+      "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+    },
+    {
+      "name": "raise-cancel",
+      "sha256": "8599652907bb92da106c1d8323717d5b789879baa577640f25928a3408e8705d",
+      "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+    },
+    {
+      "name": "raise-payment-draft",
+      "sha256": "2f20e2233a86cf1d70a69b0491829f34c28afaa263505cf398672d10ae64958b",
+      "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+    },
+    {
+      "name": "raise-paid-completion",
+      "sha256": "2d29f4183ce4cfca28a9b7c01aef1e626a55cee4d11471d40cffc74749268a63",
+      "scope": "candidate frame at fixed viewport; no original pixel or typed mesh comparison"
+    }
+  ],
+  "visual_scope": {
+    "viewport_fixed": true,
+    "camera_pose_fixed": "not established; completion selects a Scout and the retained frame shows changed focus/position",
+    "native_selected_before": 8,
+    "native_selected_after": 1,
+    "claims": "retained candidate frames only; no typed resident render-Z/facing/mesh or original pixels"
+  },
+  "transport": {
+    "sealed": true,
+    "partial": false,
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "joined_chunk_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "retained_utf16": 14465994,
+    "retained_utf8": 14465994,
+    "reads": [
+      {
+        "start_utf16": 0,
+        "end_utf16": 40910,
+        "transferred_utf16": 40910,
+        "transferred_utf8": 40910,
+        "browser_read_ms": 0.034999996423721313,
+        "round_trip_ms": 3.1454020000001037
+      },
+      {
+        "start_utf16": 40910,
+        "end_utf16": 40910,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 0.04499998688697815,
+        "round_trip_ms": 1.108736999998655
+      },
+      {
+        "start_utf16": 40910,
+        "end_utf16": 40910,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 0.030000001192092896,
+        "round_trip_ms": 0.7720460000000458
+      },
+      {
+        "start_utf16": 40910,
+        "end_utf16": 41019,
+        "transferred_utf16": 109,
+        "transferred_utf8": 109,
+        "browser_read_ms": 0.034999996423721313,
+        "round_trip_ms": 1.291069000000789
+      },
+      {
+        "start_utf16": 41019,
+        "end_utf16": 41656,
+        "transferred_utf16": 637,
+        "transferred_utf8": 637,
+        "browser_read_ms": 0.04000002145767212,
+        "round_trip_ms": 1.1897290000015346
+      },
+      {
+        "start_utf16": 41656,
+        "end_utf16": 2565640,
+        "transferred_utf16": 2523984,
+        "transferred_utf8": 2523984,
+        "browser_read_ms": 0.03999999165534973,
+        "round_trip_ms": 92.34651699999813
+      },
+      {
+        "start_utf16": 2565640,
+        "end_utf16": 2565640,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 1.6349999904632568,
+        "round_trip_ms": 5.1107929999998305
+      },
+      {
+        "start_utf16": 2565640,
+        "end_utf16": 2565964,
+        "transferred_utf16": 324,
+        "transferred_utf8": 324,
+        "browser_read_ms": 1.1349999904632568,
+        "round_trip_ms": 3.0804800000005343
+      },
+      {
+        "start_utf16": 2565964,
+        "end_utf16": 2566036,
+        "transferred_utf16": 72,
+        "transferred_utf8": 72,
+        "browser_read_ms": 1.2000000178813934,
+        "round_trip_ms": 2.152642000000924
+      },
+      {
+        "start_utf16": 2566036,
+        "end_utf16": 2566938,
+        "transferred_utf16": 902,
+        "transferred_utf8": 902,
+        "browser_read_ms": 1.1649999916553497,
+        "round_trip_ms": 2.206131999999343
+      },
+      {
+        "start_utf16": 2566938,
+        "end_utf16": 2567244,
+        "transferred_utf16": 306,
+        "transferred_utf8": 306,
+        "browser_read_ms": 1.1099999845027924,
+        "round_trip_ms": 2.2463470000002417
+      },
+      {
+        "start_utf16": 2567244,
+        "end_utf16": 2567652,
+        "transferred_utf16": 408,
+        "transferred_utf8": 408,
+        "browser_read_ms": 1.1150000095367432,
+        "round_trip_ms": 2.349751000001561
+      },
+      {
+        "start_utf16": 2567652,
+        "end_utf16": 2567754,
+        "transferred_utf16": 102,
+        "transferred_utf8": 102,
+        "browser_read_ms": 1.1400000154972076,
+        "round_trip_ms": 1.8536820000008447
+      },
+      {
+        "start_utf16": 2567754,
+        "end_utf16": 2568154,
+        "transferred_utf16": 400,
+        "transferred_utf8": 400,
+        "browser_read_ms": 1.125,
+        "round_trip_ms": 2.32072700000208
+      },
+      {
+        "start_utf16": 2568154,
+        "end_utf16": 2568554,
+        "transferred_utf16": 400,
+        "transferred_utf8": 400,
+        "browser_read_ms": 1.1699999868869781,
+        "round_trip_ms": 2.370549999999639
+      },
+      {
+        "start_utf16": 2568554,
+        "end_utf16": 2568694,
+        "transferred_utf16": 140,
+        "transferred_utf8": 140,
+        "browser_read_ms": 1.2399999797344208,
+        "round_trip_ms": 2.405296000000817
+      },
+      {
+        "start_utf16": 2568694,
+        "end_utf16": 2568884,
+        "transferred_utf16": 190,
+        "transferred_utf8": 190,
+        "browser_read_ms": 1.1150000095367432,
+        "round_trip_ms": 2.3529379999999946
+      },
+      {
+        "start_utf16": 2568884,
+        "end_utf16": 2569139,
+        "transferred_utf16": 255,
+        "transferred_utf8": 255,
+        "browser_read_ms": 1.2599999904632568,
+        "round_trip_ms": 2.7250850000018545
+      },
+      {
+        "start_utf16": 2569139,
+        "end_utf16": 2569214,
+        "transferred_utf16": 75,
+        "transferred_utf8": 75,
+        "browser_read_ms": 1.6700000166893005,
+        "round_trip_ms": 2.6127639999976964
+      },
+      {
+        "start_utf16": 2569214,
+        "end_utf16": 2569286,
+        "transferred_utf16": 72,
+        "transferred_utf8": 72,
+        "browser_read_ms": 1.300000011920929,
+        "round_trip_ms": 2.4479950000022654
+      },
+      {
+        "start_utf16": 2569286,
+        "end_utf16": 2569355,
+        "transferred_utf16": 69,
+        "transferred_utf8": 69,
+        "browser_read_ms": 1.5600000023841858,
+        "round_trip_ms": 2.604529000000184
+      },
+      {
+        "start_utf16": 2569355,
+        "end_utf16": 2569541,
+        "transferred_utf16": 186,
+        "transferred_utf8": 186,
+        "browser_read_ms": 1.5699999928474426,
+        "round_trip_ms": 2.278979000002437
+      },
+      {
+        "start_utf16": 2569541,
+        "end_utf16": 2569641,
+        "transferred_utf16": 100,
+        "transferred_utf8": 100,
+        "browser_read_ms": 1.125,
+        "round_trip_ms": 10.45630600000004
+      },
+      {
+        "start_utf16": 2569641,
+        "end_utf16": 2569707,
+        "transferred_utf16": 66,
+        "transferred_utf8": 66,
+        "browser_read_ms": 1.1500000059604645,
+        "round_trip_ms": 2.0200039999981527
+      },
+      {
+        "start_utf16": 2569707,
+        "end_utf16": 2569799,
+        "transferred_utf16": 92,
+        "transferred_utf8": 92,
+        "browser_read_ms": 1.1200000047683716,
+        "round_trip_ms": 2.0946140000014566
+      },
+      {
+        "start_utf16": 2569799,
+        "end_utf16": 2569871,
+        "transferred_utf16": 72,
+        "transferred_utf8": 72,
+        "browser_read_ms": 1.1500000059604645,
+        "round_trip_ms": 2.006969999998546
+      },
+      {
+        "start_utf16": 2569871,
+        "end_utf16": 2570253,
+        "transferred_utf16": 382,
+        "transferred_utf8": 382,
+        "browser_read_ms": 1.1449999809265137,
+        "round_trip_ms": 2.2003809999987425
+      },
+      {
+        "start_utf16": 2570253,
+        "end_utf16": 2570348,
+        "transferred_utf16": 95,
+        "transferred_utf8": 95,
+        "browser_read_ms": 1.2249999940395355,
+        "round_trip_ms": 1.8899700000001758
+      },
+      {
+        "start_utf16": 2570348,
+        "end_utf16": 2570443,
+        "transferred_utf16": 95,
+        "transferred_utf8": 95,
+        "browser_read_ms": 1.1050000190734863,
+        "round_trip_ms": 1.7172859999991488
+      },
+      {
+        "start_utf16": 2570443,
+        "end_utf16": 2570538,
+        "transferred_utf16": 95,
+        "transferred_utf8": 95,
+        "browser_read_ms": 1.395000010728836,
+        "round_trip_ms": 1.9702299999989918
+      },
+      {
+        "start_utf16": 2570538,
+        "end_utf16": 2570633,
+        "transferred_utf16": 95,
+        "transferred_utf8": 95,
+        "browser_read_ms": 1.395000010728836,
+        "round_trip_ms": 2.0535369999997783
+      },
+      {
+        "start_utf16": 2570633,
+        "end_utf16": 2570801,
+        "transferred_utf16": 168,
+        "transferred_utf8": 168,
+        "browser_read_ms": 1.425000011920929,
+        "round_trip_ms": 2.06608899999992
+      },
+      {
+        "start_utf16": 2570801,
+        "end_utf16": 2571901,
+        "transferred_utf16": 1100,
+        "transferred_utf8": 1100,
+        "browser_read_ms": 1.1349999904632568,
+        "round_trip_ms": 2.59824700000172
+      },
+      {
+        "start_utf16": 2571901,
+        "end_utf16": 2572457,
+        "transferred_utf16": 556,
+        "transferred_utf8": 556,
+        "browser_read_ms": 1.7300000190734863,
+        "round_trip_ms": 3.08797400000185
+      },
+      {
+        "start_utf16": 2572457,
+        "end_utf16": 2572707,
+        "transferred_utf16": 250,
+        "transferred_utf8": 250,
+        "browser_read_ms": 1.100000023841858,
+        "round_trip_ms": 1.7557690000030561
+      },
+      {
+        "start_utf16": 2572707,
+        "end_utf16": 2573071,
+        "transferred_utf16": 364,
+        "transferred_utf8": 364,
+        "browser_read_ms": 1.4600000083446503,
+        "round_trip_ms": 3.060884000002261
+      },
+      {
+        "start_utf16": 2573071,
+        "end_utf16": 2574313,
+        "transferred_utf16": 1242,
+        "transferred_utf8": 1242,
+        "browser_read_ms": 1.1199999749660492,
+        "round_trip_ms": 5.276343999998062
+      },
+      {
+        "start_utf16": 2574313,
+        "end_utf16": 2574591,
+        "transferred_utf16": 278,
+        "transferred_utf8": 278,
+        "browser_read_ms": 1.2350000143051147,
+        "round_trip_ms": 2.1608180000002903
+      },
+      {
+        "start_utf16": 2574591,
+        "end_utf16": 2575064,
+        "transferred_utf16": 473,
+        "transferred_utf8": 473,
+        "browser_read_ms": 1.1200000047683716,
+        "round_trip_ms": 2.4489470000007714
+      },
+      {
+        "start_utf16": 2575064,
+        "end_utf16": 2576027,
+        "transferred_utf16": 963,
+        "transferred_utf8": 963,
+        "browser_read_ms": 1.1200000047683716,
+        "round_trip_ms": 2.1103430000002845
+      },
+      {
+        "start_utf16": 2576027,
+        "end_utf16": 2576583,
+        "transferred_utf16": 556,
+        "transferred_utf8": 556,
+        "browser_read_ms": 1.125,
+        "round_trip_ms": 2.379736999999295
+      },
+      {
+        "start_utf16": 2576583,
+        "end_utf16": 2577058,
+        "transferred_utf16": 475,
+        "transferred_utf8": 475,
+        "browser_read_ms": 1.2349999845027924,
+        "round_trip_ms": 2.1490059999996447
+      },
+      {
+        "start_utf16": 2577058,
+        "end_utf16": 2577335,
+        "transferred_utf16": 277,
+        "transferred_utf8": 277,
+        "browser_read_ms": 1.1299999952316284,
+        "round_trip_ms": 2.579051000000618
+      },
+      {
+        "start_utf16": 2577335,
+        "end_utf16": 2577890,
+        "transferred_utf16": 555,
+        "transferred_utf8": 555,
+        "browser_read_ms": 1.1150000095367432,
+        "round_trip_ms": 2.3794070000003558
+      },
+      {
+        "start_utf16": 2577890,
+        "end_utf16": 2578439,
+        "transferred_utf16": 549,
+        "transferred_utf8": 549,
+        "browser_read_ms": 1.1449999809265137,
+        "round_trip_ms": 2.6357269999971322
+      },
+      {
+        "start_utf16": 2578439,
+        "end_utf16": 2578995,
+        "transferred_utf16": 556,
+        "transferred_utf8": 556,
+        "browser_read_ms": 1.145000010728836,
+        "round_trip_ms": 2.9967630000028294
+      },
+      {
+        "start_utf16": 2578995,
+        "end_utf16": 2579470,
+        "transferred_utf16": 475,
+        "transferred_utf8": 475,
+        "browser_read_ms": 1.1500000059604645,
+        "round_trip_ms": 2.185363000000507
+      },
+      {
+        "start_utf16": 2579470,
+        "end_utf16": 2580164,
+        "transferred_utf16": 694,
+        "transferred_utf8": 694,
+        "browser_read_ms": 1.145000010728836,
+        "round_trip_ms": 2.2975339999975404
+      },
+      {
+        "start_utf16": 2580164,
+        "end_utf16": 2580720,
+        "transferred_utf16": 556,
+        "transferred_utf8": 556,
+        "browser_read_ms": 1.1650000214576721,
+        "round_trip_ms": 2.3319980000014766
+      },
+      {
+        "start_utf16": 2580720,
+        "end_utf16": 2581128,
+        "transferred_utf16": 408,
+        "transferred_utf8": 408,
+        "browser_read_ms": 1.1800000071525574,
+        "round_trip_ms": 3.069739999999001
+      },
+      {
+        "start_utf16": 2581128,
+        "end_utf16": 2581596,
+        "transferred_utf16": 468,
+        "transferred_utf8": 468,
+        "browser_read_ms": 1.280000001192093,
+        "round_trip_ms": 2.223825000000943
+      },
+      {
+        "start_utf16": 2581596,
+        "end_utf16": 2582145,
+        "transferred_utf16": 549,
+        "transferred_utf8": 549,
+        "browser_read_ms": 1.1349999904632568,
+        "round_trip_ms": 2.217202999996516
+      },
+      {
+        "start_utf16": 2582145,
+        "end_utf16": 2582561,
+        "transferred_utf16": 416,
+        "transferred_utf8": 416,
+        "browser_read_ms": 1.1349999904632568,
+        "round_trip_ms": 1.909417000002577
+      },
+      {
+        "start_utf16": 2582561,
+        "end_utf16": 2583029,
+        "transferred_utf16": 468,
+        "transferred_utf8": 468,
+        "browser_read_ms": 1.7899999916553497,
+        "round_trip_ms": 3.18505599999844
+      },
+      {
+        "start_utf16": 2583029,
+        "end_utf16": 2583720,
+        "transferred_utf16": 691,
+        "transferred_utf8": 691,
+        "browser_read_ms": 1.145000010728836,
+        "round_trip_ms": 2.4792229999984556
+      },
+      {
+        "start_utf16": 2583720,
+        "end_utf16": 2584269,
+        "transferred_utf16": 549,
+        "transferred_utf8": 549,
+        "browser_read_ms": 1.1200000047683716,
+        "round_trip_ms": 2.272186000001966
+      },
+      {
+        "start_utf16": 2584269,
+        "end_utf16": 2584408,
+        "transferred_utf16": 139,
+        "transferred_utf8": 139,
+        "browser_read_ms": 1.104999989271164,
+        "round_trip_ms": 1.7285870000014256
+      },
+      {
+        "start_utf16": 2584408,
+        "end_utf16": 2584713,
+        "transferred_utf16": 305,
+        "transferred_utf8": 305,
+        "browser_read_ms": 1.1200000047683716,
+        "round_trip_ms": 2.2656840000017837
+      },
+      {
+        "start_utf16": 2584713,
+        "end_utf16": 2584753,
+        "transferred_utf16": 40,
+        "transferred_utf8": 40,
+        "browser_read_ms": 1.5800000131130219,
+        "round_trip_ms": 2.196004000001267
+      },
+      {
+        "start_utf16": 2584753,
+        "end_utf16": 2584792,
+        "transferred_utf16": 39,
+        "transferred_utf8": 39,
+        "browser_read_ms": 1.145000010728836,
+        "round_trip_ms": 1.6316459999979998
+      },
+      {
+        "start_utf16": 2584792,
+        "end_utf16": 2584830,
+        "transferred_utf16": 38,
+        "transferred_utf8": 38,
+        "browser_read_ms": 1.445000022649765,
+        "round_trip_ms": 2.5145100000008824
+      },
+      {
+        "start_utf16": 2584830,
+        "end_utf16": 2585464,
+        "transferred_utf16": 634,
+        "transferred_utf8": 634,
+        "browser_read_ms": 1.100000023841858,
+        "round_trip_ms": 2.1406300000016927
+      },
+      {
+        "start_utf16": 2585464,
+        "end_utf16": 5611684,
+        "transferred_utf16": 3026220,
+        "transferred_utf8": 3026220,
+        "browser_read_ms": 1.1850000023841858,
+        "round_trip_ms": 114.28742599999896
+      },
+      {
+        "start_utf16": 5611684,
+        "end_utf16": 5611723,
+        "transferred_utf16": 39,
+        "transferred_utf8": 39,
+        "browser_read_ms": 2.469999998807907,
+        "round_trip_ms": 3.7071239999968384
+      },
+      {
+        "start_utf16": 5611723,
+        "end_utf16": 5611761,
+        "transferred_utf16": 38,
+        "transferred_utf8": 38,
+        "browser_read_ms": 2.4000000059604645,
+        "round_trip_ms": 3.4097860000001674
+      },
+      {
+        "start_utf16": 5611761,
+        "end_utf16": 5612395,
+        "transferred_utf16": 634,
+        "transferred_utf8": 634,
+        "browser_read_ms": 4.060000002384186,
+        "round_trip_ms": 7.635010999998485
+      },
+      {
+        "start_utf16": 5612395,
+        "end_utf16": 5612395,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.6800000071525574,
+        "round_trip_ms": 5.743688000002294
+      },
+      {
+        "start_utf16": 5612395,
+        "end_utf16": 5612395,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.5850000083446503,
+        "round_trip_ms": 4.672963000000891
+      },
+      {
+        "start_utf16": 5612395,
+        "end_utf16": 6781929,
+        "transferred_utf16": 1169534,
+        "transferred_utf8": 1169534,
+        "browser_read_ms": 3.175000011920929,
+        "round_trip_ms": 50.48199999999997
+      },
+      {
+        "start_utf16": 6781929,
+        "end_utf16": 7055490,
+        "transferred_utf16": 273561,
+        "transferred_utf8": 273561,
+        "browser_read_ms": 3.445000022649765,
+        "round_trip_ms": 13.271649999998772
+      },
+      {
+        "start_utf16": 7055490,
+        "end_utf16": 7059785,
+        "transferred_utf16": 4295,
+        "transferred_utf8": 4295,
+        "browser_read_ms": 5.75,
+        "round_trip_ms": 6.935341000000335
+      },
+      {
+        "start_utf16": 7059785,
+        "end_utf16": 7059785,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.569999992847443,
+        "round_trip_ms": 7.069321999999374
+      },
+      {
+        "start_utf16": 7059785,
+        "end_utf16": 7059785,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.340000003576279,
+        "round_trip_ms": 6.668872000002011
+      },
+      {
+        "start_utf16": 7059785,
+        "end_utf16": 7059785,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.655000001192093,
+        "round_trip_ms": 6.692224999998871
+      },
+      {
+        "start_utf16": 7059785,
+        "end_utf16": 7061999,
+        "transferred_utf16": 2214,
+        "transferred_utf8": 2214,
+        "browser_read_ms": 4.4549999833106995,
+        "round_trip_ms": 9.995943999998417
+      },
+      {
+        "start_utf16": 7061999,
+        "end_utf16": 7061999,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.050000011920929,
+        "round_trip_ms": 3.8587179999994987
+      },
+      {
+        "start_utf16": 7061999,
+        "end_utf16": 7063100,
+        "transferred_utf16": 1101,
+        "transferred_utf8": 1101,
+        "browser_read_ms": 6.0450000166893005,
+        "round_trip_ms": 10.590406999999686
+      },
+      {
+        "start_utf16": 7063100,
+        "end_utf16": 7096199,
+        "transferred_utf16": 33099,
+        "transferred_utf8": 33099,
+        "browser_read_ms": 3.0499999821186066,
+        "round_trip_ms": 4.830939000003127
+      },
+      {
+        "start_utf16": 7096199,
+        "end_utf16": 7096199,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.2750000059604645,
+        "round_trip_ms": 4.70245900000009
+      },
+      {
+        "start_utf16": 7096199,
+        "end_utf16": 7096199,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.0750000178813934,
+        "round_trip_ms": 4.034607999998116
+      },
+      {
+        "start_utf16": 7096199,
+        "end_utf16": 7096199,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.084999978542328,
+        "round_trip_ms": 3.9291400000001886
+      },
+      {
+        "start_utf16": 7096199,
+        "end_utf16": 7389500,
+        "transferred_utf16": 293301,
+        "transferred_utf8": 293301,
+        "browser_read_ms": 3.350000023841858,
+        "round_trip_ms": 13.464801999998599
+      },
+      {
+        "start_utf16": 7389500,
+        "end_utf16": 7389500,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.8850000202655792,
+        "round_trip_ms": 4.752973000002385
+      },
+      {
+        "start_utf16": 7389500,
+        "end_utf16": 7391381,
+        "transferred_utf16": 1881,
+        "transferred_utf8": 1881,
+        "browser_read_ms": 3.3600000143051147,
+        "round_trip_ms": 4.739326999999321
+      },
+      {
+        "start_utf16": 7391381,
+        "end_utf16": 8466838,
+        "transferred_utf16": 1075457,
+        "transferred_utf8": 1075457,
+        "browser_read_ms": 3.2849999964237213,
+        "round_trip_ms": 54.826666999993904
+      },
+      {
+        "start_utf16": 8466838,
+        "end_utf16": 8466838,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.554999977350235,
+        "round_trip_ms": 7.100650000000314
+      },
+      {
+        "start_utf16": 8466838,
+        "end_utf16": 8466838,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.469999998807907,
+        "round_trip_ms": 6.768749000002572
+      },
+      {
+        "start_utf16": 8466838,
+        "end_utf16": 8466838,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.3499999940395355,
+        "round_trip_ms": 7.160882999996829
+      },
+      {
+        "start_utf16": 8466838,
+        "end_utf16": 8468719,
+        "transferred_utf16": 1881,
+        "transferred_utf8": 1881,
+        "browser_read_ms": 5.979999989271164,
+        "round_trip_ms": 10.120788000000175
+      },
+      {
+        "start_utf16": 8468719,
+        "end_utf16": 8472282,
+        "transferred_utf16": 3563,
+        "transferred_utf8": 3563,
+        "browser_read_ms": 3.615000009536743,
+        "round_trip_ms": 4.420760999993945
+      },
+      {
+        "start_utf16": 8472282,
+        "end_utf16": 8472282,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.6350000202655792,
+        "round_trip_ms": 4.2819000000017695
+      },
+      {
+        "start_utf16": 8472282,
+        "end_utf16": 8472358,
+        "transferred_utf16": 76,
+        "transferred_utf8": 76,
+        "browser_read_ms": 5.114999979734421,
+        "round_trip_ms": 6.639016000000993
+      },
+      {
+        "start_utf16": 8472358,
+        "end_utf16": 8473178,
+        "transferred_utf16": 820,
+        "transferred_utf8": 820,
+        "browser_read_ms": 3.969999998807907,
+        "round_trip_ms": 5.127493999993021
+      },
+      {
+        "start_utf16": 8473178,
+        "end_utf16": 8632425,
+        "transferred_utf16": 159247,
+        "transferred_utf8": 159247,
+        "browser_read_ms": 3.770000010728836,
+        "round_trip_ms": 11.094340999996348
+      },
+      {
+        "start_utf16": 8632425,
+        "end_utf16": 8632425,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.7300000190734863,
+        "round_trip_ms": 6.156683000001067
+      },
+      {
+        "start_utf16": 8632425,
+        "end_utf16": 8684284,
+        "transferred_utf16": 51859,
+        "transferred_utf8": 51859,
+        "browser_read_ms": 3.744999974966049,
+        "round_trip_ms": 7.578687000001082
+      },
+      {
+        "start_utf16": 8684284,
+        "end_utf16": 8760341,
+        "transferred_utf16": 76057,
+        "transferred_utf8": 76057,
+        "browser_read_ms": 3.725000023841858,
+        "round_trip_ms": 8.4050139999963
+      },
+      {
+        "start_utf16": 8760341,
+        "end_utf16": 8811178,
+        "transferred_utf16": 50837,
+        "transferred_utf8": 50837,
+        "browser_read_ms": 5.189999997615814,
+        "round_trip_ms": 10.473739000000933
+      },
+      {
+        "start_utf16": 8811178,
+        "end_utf16": 8862015,
+        "transferred_utf16": 50837,
+        "transferred_utf8": 50837,
+        "browser_read_ms": 3.7950000166893005,
+        "round_trip_ms": 17.581732999999076
+      },
+      {
+        "start_utf16": 8862015,
+        "end_utf16": 8862677,
+        "transferred_utf16": 662,
+        "transferred_utf8": 662,
+        "browser_read_ms": 4.125,
+        "round_trip_ms": 5.160225999999966
+      },
+      {
+        "start_utf16": 8862677,
+        "end_utf16": 8862677,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 3.834999978542328,
+        "round_trip_ms": 4.704632000000856
+      },
+      {
+        "start_utf16": 8862677,
+        "end_utf16": 8911690,
+        "transferred_utf16": 49013,
+        "transferred_utf8": 49013,
+        "browser_read_ms": 3.9249999821186066,
+        "round_trip_ms": 7.088878000002296
+      },
+      {
+        "start_utf16": 8911690,
+        "end_utf16": 9498483,
+        "transferred_utf16": 586793,
+        "transferred_utf8": 586793,
+        "browser_read_ms": 4.444999992847443,
+        "round_trip_ms": 27.396758000002592
+      },
+      {
+        "start_utf16": 9498483,
+        "end_utf16": 9498483,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.199999988079071,
+        "round_trip_ms": 5.523677000004682
+      },
+      {
+        "start_utf16": 9498483,
+        "end_utf16": 9498483,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.205000013113022,
+        "round_trip_ms": 4.955493000001297
+      },
+      {
+        "start_utf16": 9498483,
+        "end_utf16": 9498483,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.909999996423721,
+        "round_trip_ms": 5.860407000000123
+      },
+      {
+        "start_utf16": 9498483,
+        "end_utf16": 9500978,
+        "transferred_utf16": 2495,
+        "transferred_utf8": 2495,
+        "browser_read_ms": 6.03999999165535,
+        "round_trip_ms": 11.306297999995877
+      },
+      {
+        "start_utf16": 9500978,
+        "end_utf16": 9500978,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.109999984502792,
+        "round_trip_ms": 5.592926000004809
+      },
+      {
+        "start_utf16": 9500978,
+        "end_utf16": 9501638,
+        "transferred_utf16": 660,
+        "transferred_utf8": 660,
+        "browser_read_ms": 4.485000014305115,
+        "round_trip_ms": 5.625237000000197
+      },
+      {
+        "start_utf16": 9501638,
+        "end_utf16": 9529981,
+        "transferred_utf16": 28343,
+        "transferred_utf8": 28343,
+        "browser_read_ms": 4.2049999833106995,
+        "round_trip_ms": 7.200568000000203
+      },
+      {
+        "start_utf16": 9529981,
+        "end_utf16": 9529981,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.489999979734421,
+        "round_trip_ms": 18.4907050000038
+      },
+      {
+        "start_utf16": 9529981,
+        "end_utf16": 9580686,
+        "transferred_utf16": 50705,
+        "transferred_utf8": 50705,
+        "browser_read_ms": 4.319999992847443,
+        "round_trip_ms": 7.746118999995815
+      },
+      {
+        "start_utf16": 9580686,
+        "end_utf16": 9631620,
+        "transferred_utf16": 50934,
+        "transferred_utf8": 50934,
+        "browser_read_ms": 4.280000001192093,
+        "round_trip_ms": 8.797740000001795
+      },
+      {
+        "start_utf16": 9631620,
+        "end_utf16": 9682457,
+        "transferred_utf16": 50837,
+        "transferred_utf8": 50837,
+        "browser_read_ms": 6.189999997615814,
+        "round_trip_ms": 9.541231999995944
+      },
+      {
+        "start_utf16": 9682457,
+        "end_utf16": 9733275,
+        "transferred_utf16": 50818,
+        "transferred_utf8": 50818,
+        "browser_read_ms": 4.354999989271164,
+        "round_trip_ms": 9.74358100000245
+      },
+      {
+        "start_utf16": 9733275,
+        "end_utf16": 9733915,
+        "transferred_utf16": 640,
+        "transferred_utf8": 640,
+        "browser_read_ms": 7.074999988079071,
+        "round_trip_ms": 8.280469999997877
+      },
+      {
+        "start_utf16": 9733915,
+        "end_utf16": 9733915,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.380000025033951,
+        "round_trip_ms": 5.493779999997059
+      },
+      {
+        "start_utf16": 9733915,
+        "end_utf16": 9815561,
+        "transferred_utf16": 81646,
+        "transferred_utf8": 81646,
+        "browser_read_ms": 4.2750000059604645,
+        "round_trip_ms": 19.37006300000212
+      },
+      {
+        "start_utf16": 9815561,
+        "end_utf16": 9815561,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.655000001192093,
+        "round_trip_ms": 5.969671999999264
+      },
+      {
+        "start_utf16": 9815561,
+        "end_utf16": 9815561,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.325000017881393,
+        "round_trip_ms": 5.125721000003978
+      },
+      {
+        "start_utf16": 9815561,
+        "end_utf16": 10401438,
+        "transferred_utf16": 585877,
+        "transferred_utf8": 585877,
+        "browser_read_ms": 4.344999998807907,
+        "round_trip_ms": 37.73975100000098
+      },
+      {
+        "start_utf16": 10401438,
+        "end_utf16": 10401438,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.604999989271164,
+        "round_trip_ms": 5.972376999998232
+      },
+      {
+        "start_utf16": 10401438,
+        "end_utf16": 10401438,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.060000002384186,
+        "round_trip_ms": 7.505830000001879
+      },
+      {
+        "start_utf16": 10401438,
+        "end_utf16": 10401438,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.08500000834465,
+        "round_trip_ms": 13.358432000000903
+      },
+      {
+        "start_utf16": 10401438,
+        "end_utf16": 10401438,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.259999990463257,
+        "round_trip_ms": 6.250047000001359
+      },
+      {
+        "start_utf16": 10401438,
+        "end_utf16": 10403430,
+        "transferred_utf16": 1992,
+        "transferred_utf8": 1992,
+        "browser_read_ms": 7.319999992847443,
+        "round_trip_ms": 11.189409999999043
+      },
+      {
+        "start_utf16": 10403430,
+        "end_utf16": 10403430,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.859999984502792,
+        "round_trip_ms": 6.689730999998574
+      },
+      {
+        "start_utf16": 10403430,
+        "end_utf16": 10405311,
+        "transferred_utf16": 1881,
+        "transferred_utf8": 1881,
+        "browser_read_ms": 4.594999998807907,
+        "round_trip_ms": 17.827163000001747
+      },
+      {
+        "start_utf16": 10405311,
+        "end_utf16": 10408214,
+        "transferred_utf16": 2903,
+        "transferred_utf8": 2903,
+        "browser_read_ms": 4.639999985694885,
+        "round_trip_ms": 5.67033100000117
+      },
+      {
+        "start_utf16": 10408214,
+        "end_utf16": 10408214,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 7.314999997615814,
+        "round_trip_ms": 21.141971999997622
+      },
+      {
+        "start_utf16": 10408214,
+        "end_utf16": 10408214,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 7.534999996423721,
+        "round_trip_ms": 9.05801700000302
+      },
+      {
+        "start_utf16": 10408214,
+        "end_utf16": 10408214,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.555000007152557,
+        "round_trip_ms": 20.291156999999657
+      },
+      {
+        "start_utf16": 10408214,
+        "end_utf16": 10410095,
+        "transferred_utf16": 1881,
+        "transferred_utf8": 1881,
+        "browser_read_ms": 6.8499999940395355,
+        "round_trip_ms": 11.473501000000397
+      },
+      {
+        "start_utf16": 10410095,
+        "end_utf16": 10412969,
+        "transferred_utf16": 2874,
+        "transferred_utf8": 2874,
+        "browser_read_ms": 4.735000014305115,
+        "round_trip_ms": 5.9282250000032946
+      },
+      {
+        "start_utf16": 10412969,
+        "end_utf16": 10412969,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.590000003576279,
+        "round_trip_ms": 6.830094000004465
+      },
+      {
+        "start_utf16": 10412969,
+        "end_utf16": 10413630,
+        "transferred_utf16": 661,
+        "transferred_utf8": 661,
+        "browser_read_ms": 4.504999995231628,
+        "round_trip_ms": 18.07410600000003
+      },
+      {
+        "start_utf16": 10413630,
+        "end_utf16": 10575933,
+        "transferred_utf16": 162303,
+        "transferred_utf8": 162303,
+        "browser_read_ms": 4.729999989271164,
+        "round_trip_ms": 22.891358000000764
+      },
+      {
+        "start_utf16": 10575933,
+        "end_utf16": 10575933,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.629999995231628,
+        "round_trip_ms": 5.796136999997543
+      },
+      {
+        "start_utf16": 10575933,
+        "end_utf16": 10627568,
+        "transferred_utf16": 51635,
+        "transferred_utf8": 51635,
+        "browser_read_ms": 4.640000015497208,
+        "round_trip_ms": 7.920446000003722
+      },
+      {
+        "start_utf16": 10627568,
+        "end_utf16": 10678405,
+        "transferred_utf16": 50837,
+        "transferred_utf8": 50837,
+        "browser_read_ms": 4.83500000834465,
+        "round_trip_ms": 8.19970900000044
+      },
+      {
+        "start_utf16": 10678405,
+        "end_utf16": 10729242,
+        "transferred_utf16": 50837,
+        "transferred_utf8": 50837,
+        "browser_read_ms": 4.594999998807907,
+        "round_trip_ms": 21.32004500000039
+      },
+      {
+        "start_utf16": 10729242,
+        "end_utf16": 10779947,
+        "transferred_utf16": 50705,
+        "transferred_utf8": 50705,
+        "browser_read_ms": 4.590000003576279,
+        "round_trip_ms": 7.08146499999566
+      },
+      {
+        "start_utf16": 10779947,
+        "end_utf16": 10829938,
+        "transferred_utf16": 49991,
+        "transferred_utf8": 49991,
+        "browser_read_ms": 4.575000017881393,
+        "round_trip_ms": 19.141404000001785
+      },
+      {
+        "start_utf16": 10829938,
+        "end_utf16": 10830601,
+        "transferred_utf16": 663,
+        "transferred_utf8": 663,
+        "browser_read_ms": 5.430000007152557,
+        "round_trip_ms": 32.30387000000337
+      },
+      {
+        "start_utf16": 10830601,
+        "end_utf16": 10855372,
+        "transferred_utf16": 24771,
+        "transferred_utf8": 24771,
+        "browser_read_ms": 4.584999978542328,
+        "round_trip_ms": 15.47063899999921
+      },
+      {
+        "start_utf16": 10855372,
+        "end_utf16": 10855372,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 12.745000004768372,
+        "round_trip_ms": 15.183670999998867
+      },
+      {
+        "start_utf16": 10855372,
+        "end_utf16": 11442561,
+        "transferred_utf16": 587189,
+        "transferred_utf8": 587189,
+        "browser_read_ms": 5.745000004768372,
+        "round_trip_ms": 53.893690000004426
+      },
+      {
+        "start_utf16": 11442561,
+        "end_utf16": 11442561,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 7.995000004768372,
+        "round_trip_ms": 10.615904999998747
+      },
+      {
+        "start_utf16": 11442561,
+        "end_utf16": 11442561,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 7.004999995231628,
+        "round_trip_ms": 11.936819000002288
+      },
+      {
+        "start_utf16": 11442561,
+        "end_utf16": 11442561,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.919999986886978,
+        "round_trip_ms": 8.594277999996848
+      },
+      {
+        "start_utf16": 11442561,
+        "end_utf16": 11444736,
+        "transferred_utf16": 2175,
+        "transferred_utf8": 2175,
+        "browser_read_ms": 4.969999998807907,
+        "round_trip_ms": 6.083203999995021
+      },
+      {
+        "start_utf16": 11444736,
+        "end_utf16": 11444736,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 4.965000003576279,
+        "round_trip_ms": 5.78042799999821
+      },
+      {
+        "start_utf16": 11444736,
+        "end_utf16": 11448349,
+        "transferred_utf16": 3613,
+        "transferred_utf8": 3613,
+        "browser_read_ms": 5.319999992847443,
+        "round_trip_ms": 18.402891000005184
+      },
+      {
+        "start_utf16": 11448349,
+        "end_utf16": 11448349,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 10.609999984502792,
+        "round_trip_ms": 25.212055999996664
+      },
+      {
+        "start_utf16": 11448349,
+        "end_utf16": 11448349,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 7.865000009536743,
+        "round_trip_ms": 18.737999000004493
+      },
+      {
+        "start_utf16": 11448349,
+        "end_utf16": 11448349,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 12.909999996423721,
+        "round_trip_ms": 14.993325000003097
+      },
+      {
+        "start_utf16": 11448349,
+        "end_utf16": 11449142,
+        "transferred_utf16": 793,
+        "transferred_utf8": 793,
+        "browser_read_ms": 6.069999992847443,
+        "round_trip_ms": 8.377652000002854
+      },
+      {
+        "start_utf16": 11449142,
+        "end_utf16": 12031501,
+        "transferred_utf16": 582359,
+        "transferred_utf8": 582359,
+        "browser_read_ms": 4.9000000059604645,
+        "round_trip_ms": 35.578723999999056
+      },
+      {
+        "start_utf16": 12031501,
+        "end_utf16": 12036463,
+        "transferred_utf16": 4962,
+        "transferred_utf8": 4962,
+        "browser_read_ms": 5.375,
+        "round_trip_ms": 6.6976250000006985
+      },
+      {
+        "start_utf16": 12036463,
+        "end_utf16": 12036463,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.515000015497208,
+        "round_trip_ms": 6.6702839999998105
+      },
+      {
+        "start_utf16": 12036463,
+        "end_utf16": 12036463,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.314999997615814,
+        "round_trip_ms": 6.2094210000068415
+      },
+      {
+        "start_utf16": 12036463,
+        "end_utf16": 12036463,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.254999995231628,
+        "round_trip_ms": 5.856078999997408
+      },
+      {
+        "start_utf16": 12036463,
+        "end_utf16": 12039098,
+        "transferred_utf16": 2635,
+        "transferred_utf8": 2635,
+        "browser_read_ms": 11.655000001192093,
+        "round_trip_ms": 14.148130999994464
+      },
+      {
+        "start_utf16": 12039098,
+        "end_utf16": 12039098,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 16.234999984502792,
+        "round_trip_ms": 29.826940000013565
+      },
+      {
+        "start_utf16": 12039098,
+        "end_utf16": 12040637,
+        "transferred_utf16": 1539,
+        "transferred_utf8": 1539,
+        "browser_read_ms": 8.215000003576279,
+        "round_trip_ms": 10.305823999995482
+      },
+      {
+        "start_utf16": 12040637,
+        "end_utf16": 12041298,
+        "transferred_utf16": 661,
+        "transferred_utf8": 661,
+        "browser_read_ms": 11.235000014305115,
+        "round_trip_ms": 13.28496499999892
+      },
+      {
+        "start_utf16": 12041298,
+        "end_utf16": 12068631,
+        "transferred_utf16": 27333,
+        "transferred_utf8": 27333,
+        "browser_read_ms": 5.165000021457672,
+        "round_trip_ms": 7.529202999998233
+      },
+      {
+        "start_utf16": 12068631,
+        "end_utf16": 12068631,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.924999982118607,
+        "round_trip_ms": 24.27571099999477
+      },
+      {
+        "start_utf16": 12068631,
+        "end_utf16": 12119336,
+        "transferred_utf16": 50705,
+        "transferred_utf8": 50705,
+        "browser_read_ms": 5.219999998807907,
+        "round_trip_ms": 9.05585199999041
+      },
+      {
+        "start_utf16": 12119336,
+        "end_utf16": 12170270,
+        "transferred_utf16": 50934,
+        "transferred_utf8": 50934,
+        "browser_read_ms": 6.030000001192093,
+        "round_trip_ms": 8.712318999998388
+      },
+      {
+        "start_utf16": 12170270,
+        "end_utf16": 12246432,
+        "transferred_utf16": 76162,
+        "transferred_utf8": 76162,
+        "browser_read_ms": 5.25,
+        "round_trip_ms": 9.41074700000172
+      },
+      {
+        "start_utf16": 12246432,
+        "end_utf16": 12297285,
+        "transferred_utf16": 50853,
+        "transferred_utf8": 50853,
+        "browser_read_ms": 5.504999995231628,
+        "round_trip_ms": 8.12587099999655
+      },
+      {
+        "start_utf16": 12297285,
+        "end_utf16": 12297976,
+        "transferred_utf16": 691,
+        "transferred_utf8": 691,
+        "browser_read_ms": 5.2950000166893005,
+        "round_trip_ms": 6.488673999992898
+      },
+      {
+        "start_utf16": 12297976,
+        "end_utf16": 12351471,
+        "transferred_utf16": 53495,
+        "transferred_utf8": 53495,
+        "browser_read_ms": 5.2950000166893005,
+        "round_trip_ms": 8.14908399998967
+      },
+      {
+        "start_utf16": 12351471,
+        "end_utf16": 12351689,
+        "transferred_utf16": 218,
+        "transferred_utf8": 218,
+        "browser_read_ms": 5.435000002384186,
+        "round_trip_ms": 17.210487999996985
+      },
+      {
+        "start_utf16": 12351689,
+        "end_utf16": 12351689,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.174999982118607,
+        "round_trip_ms": 7.443563000007998
+      },
+      {
+        "start_utf16": 12351689,
+        "end_utf16": 12352384,
+        "transferred_utf16": 695,
+        "transferred_utf8": 695,
+        "browser_read_ms": 6.009999990463257,
+        "round_trip_ms": 13.656119000006584
+      },
+      {
+        "start_utf16": 12352384,
+        "end_utf16": 12352384,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 5.320000022649765,
+        "round_trip_ms": 14.420421000002534
+      },
+      {
+        "start_utf16": 12352384,
+        "end_utf16": 12352469,
+        "transferred_utf16": 85,
+        "transferred_utf8": 85,
+        "browser_read_ms": 7.08500000834465,
+        "round_trip_ms": 8.262406000008923
+      },
+      {
+        "start_utf16": 12352469,
+        "end_utf16": 12644414,
+        "transferred_utf16": 291945,
+        "transferred_utf8": 291945,
+        "browser_read_ms": 5.435000002384186,
+        "round_trip_ms": 29.272039999996196
+      },
+      {
+        "start_utf16": 12644414,
+        "end_utf16": 12644509,
+        "transferred_utf16": 95,
+        "transferred_utf8": 95,
+        "browser_read_ms": 5.389999985694885,
+        "round_trip_ms": 6.773257000008016
+      },
+      {
+        "start_utf16": 12644509,
+        "end_utf16": 12644548,
+        "transferred_utf16": 39,
+        "transferred_utf8": 39,
+        "browser_read_ms": 5.515000015497208,
+        "round_trip_ms": 6.290282999994815
+      },
+      {
+        "start_utf16": 12644548,
+        "end_utf16": 12644586,
+        "transferred_utf16": 38,
+        "transferred_utf8": 38,
+        "browser_read_ms": 6.370000004768372,
+        "round_trip_ms": 7.661701000004541
+      },
+      {
+        "start_utf16": 12644586,
+        "end_utf16": 12644662,
+        "transferred_utf16": 76,
+        "transferred_utf8": 76,
+        "browser_read_ms": 5.485000014305115,
+        "round_trip_ms": 11.301869999995688
+      },
+      {
+        "start_utf16": 12644662,
+        "end_utf16": 12644815,
+        "transferred_utf16": 153,
+        "transferred_utf8": 153,
+        "browser_read_ms": 5.5,
+        "round_trip_ms": 11.448503999999957
+      },
+      {
+        "start_utf16": 12644815,
+        "end_utf16": 12644968,
+        "transferred_utf16": 153,
+        "transferred_utf8": 153,
+        "browser_read_ms": 5.430000007152557,
+        "round_trip_ms": 11.323079999987385
+      },
+      {
+        "start_utf16": 12644968,
+        "end_utf16": 12645121,
+        "transferred_utf16": 153,
+        "transferred_utf8": 153,
+        "browser_read_ms": 5.440000027418137,
+        "round_trip_ms": 11.291149999990012
+      },
+      {
+        "start_utf16": 12645121,
+        "end_utf16": 12645274,
+        "transferred_utf16": 153,
+        "transferred_utf8": 153,
+        "browser_read_ms": 5.53999999165535,
+        "round_trip_ms": 23.451748999999836
+      },
+      {
+        "start_utf16": 12645274,
+        "end_utf16": 12645390,
+        "transferred_utf16": 116,
+        "transferred_utf8": 116,
+        "browser_read_ms": 5.965000003576279,
+        "round_trip_ms": 11.81697400000121
+      },
+      {
+        "start_utf16": 12645390,
+        "end_utf16": 12645542,
+        "transferred_utf16": 152,
+        "transferred_utf8": 152,
+        "browser_read_ms": 5.594999998807907,
+        "round_trip_ms": 11.236919000002672
+      },
+      {
+        "start_utf16": 12645542,
+        "end_utf16": 12645697,
+        "transferred_utf16": 155,
+        "transferred_utf8": 155,
+        "browser_read_ms": 5.555000007152557,
+        "round_trip_ms": 11.569662000008975
+      },
+      {
+        "start_utf16": 12645697,
+        "end_utf16": 12645849,
+        "transferred_utf16": 152,
+        "transferred_utf8": 152,
+        "browser_read_ms": 5.840000003576279,
+        "round_trip_ms": 11.903127000012319
+      },
+      {
+        "start_utf16": 12645849,
+        "end_utf16": 12646042,
+        "transferred_utf16": 193,
+        "transferred_utf8": 193,
+        "browser_read_ms": 5.625,
+        "round_trip_ms": 11.897465999994893
+      },
+      {
+        "start_utf16": 12646042,
+        "end_utf16": 12646156,
+        "transferred_utf16": 114,
+        "transferred_utf8": 114,
+        "browser_read_ms": 5.540000021457672,
+        "round_trip_ms": 11.790766000005533
+      },
+      {
+        "start_utf16": 12646156,
+        "end_utf16": 12646273,
+        "transferred_utf16": 117,
+        "transferred_utf8": 117,
+        "browser_read_ms": 5.965000003576279,
+        "round_trip_ms": 13.883155000003171
+      },
+      {
+        "start_utf16": 12646273,
+        "end_utf16": 12646425,
+        "transferred_utf16": 152,
+        "transferred_utf8": 152,
+        "browser_read_ms": 5.935000002384186,
+        "round_trip_ms": 11.277665000001434
+      },
+      {
+        "start_utf16": 12646425,
+        "end_utf16": 12646580,
+        "transferred_utf16": 155,
+        "transferred_utf8": 155,
+        "browser_read_ms": 5.639999985694885,
+        "round_trip_ms": 11.49334899999667
+      },
+      {
+        "start_utf16": 12646580,
+        "end_utf16": 12646736,
+        "transferred_utf16": 156,
+        "transferred_utf8": 156,
+        "browser_read_ms": 5.534999996423721,
+        "round_trip_ms": 11.744638999996823
+      },
+      {
+        "start_utf16": 12646736,
+        "end_utf16": 12646856,
+        "transferred_utf16": 120,
+        "transferred_utf8": 120,
+        "browser_read_ms": 5.519999980926514,
+        "round_trip_ms": 11.395375000007334
+      },
+      {
+        "start_utf16": 12646856,
+        "end_utf16": 12647012,
+        "transferred_utf16": 156,
+        "transferred_utf8": 156,
+        "browser_read_ms": 5.449999988079071,
+        "round_trip_ms": 26.367949999999837
+      },
+      {
+        "start_utf16": 12647012,
+        "end_utf16": 12647170,
+        "transferred_utf16": 158,
+        "transferred_utf8": 158,
+        "browser_read_ms": 5.384999990463257,
+        "round_trip_ms": 12.291433000005782
+      },
+      {
+        "start_utf16": 12647170,
+        "end_utf16": 12647328,
+        "transferred_utf16": 158,
+        "transferred_utf8": 158,
+        "browser_read_ms": 5.405000001192093,
+        "round_trip_ms": 11.228883000003407
+      },
+      {
+        "start_utf16": 12647328,
+        "end_utf16": 12647485,
+        "transferred_utf16": 157,
+        "transferred_utf8": 157,
+        "browser_read_ms": 5.625,
+        "round_trip_ms": 11.321436000012909
+      },
+      {
+        "start_utf16": 12647485,
+        "end_utf16": 12647642,
+        "transferred_utf16": 157,
+        "transferred_utf8": 157,
+        "browser_read_ms": 5.504999995231628,
+        "round_trip_ms": 25.055431999993743
+      },
+      {
+        "start_utf16": 12647642,
+        "end_utf16": 12648274,
+        "transferred_utf16": 632,
+        "transferred_utf8": 632,
+        "browser_read_ms": 5.580000013113022,
+        "round_trip_ms": 6.641741999992519
+      },
+      {
+        "start_utf16": 12648274,
+        "end_utf16": 13229848,
+        "transferred_utf16": 581574,
+        "transferred_utf8": 581574,
+        "browser_read_ms": 5.475000023841858,
+        "round_trip_ms": 37.274380000002566
+      },
+      {
+        "start_utf16": 13229848,
+        "end_utf16": 14454260,
+        "transferred_utf16": 1224412,
+        "transferred_utf8": 1224412,
+        "browser_read_ms": 5.694999992847443,
+        "round_trip_ms": 67.85289799999737
+      },
+      {
+        "start_utf16": 14454260,
+        "end_utf16": 14454260,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.2049999833106995,
+        "round_trip_ms": 15.518908999991254
+      },
+      {
+        "start_utf16": 14454260,
+        "end_utf16": 14454260,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.805000007152557,
+        "round_trip_ms": 7.951694999996107
+      },
+      {
+        "start_utf16": 14454260,
+        "end_utf16": 14454260,
+        "transferred_utf16": 0,
+        "transferred_utf8": 0,
+        "browser_read_ms": 6.640000015497208,
+        "round_trip_ms": 7.242356000002474
+      },
+      {
+        "start_utf16": 14454260,
+        "end_utf16": 14458657,
+        "transferred_utf16": 4397,
+        "transferred_utf8": 4397,
+        "browser_read_ms": 18.24500000476837,
+        "round_trip_ms": 27.89575299998978
+      },
+      {
+        "start_utf16": 14458657,
+        "end_utf16": 14465994,
+        "transferred_utf16": 7337,
+        "transferred_utf8": 7337,
+        "browser_read_ms": 6.174999982118607,
+        "round_trip_ms": 7.604535000005853
+      }
+    ],
+    "settled_failure": null,
+    "unread_tail": false
+  },
+  "runtime_barrier": {
+    "main_ack": true,
+    "worker_requests": 8,
+    "all_worker_acks": true,
+    "first_actual_callback": {
+      "sequence": 1,
+      "channel": "stdout",
+      "before_utf16": 0,
+      "after_utf16": 36,
+      "message_utf16": 35,
+      "observed_ms": 968.4350000023842,
+      "runtime_callMain_present": true,
+      "runtime_out_bound": true,
+      "runtime_err_bound": true,
+      "message": "<Thread::(GAME)#30> Starting thread"
+    },
+    "late_errors": []
+  },
+  "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+  "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+  "raw_outcome_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d",
+  "preserved_failure": {
+    "root": "/tmp/terraform-land-height-v6-first",
+    "outcome_sha256": "0e9f67b3edafd39ccde8e7f564bf9b13188092c3855f79374c754c8a4dbc9fff",
+    "status": "Node1; test-only Null clone before first complete capture; zero height actions/passes",
+    "incorrect_override_label": "original preflight land_turns remains unchanged with adjacent correction sidecar; executed field4 is shared by both domains"
+  },
+  "unsupported": [
+    "original-game-height/fee/contour/climate/dome/victim agreement",
+    "coast/sea transitions and SeaFormer production",
+    "typed frontend mesh vertices/resident z/facing/tool frames",
+    "original animation timing/audio/music",
+    "live browser RNG-state getter",
+    "external debug-log autoscroll"
+  ],
+  "typed_raw_audit_history_note": "typed_raw_audit and its report SHA preserve the initial historical audit at the original browser proof. They are not the source hash of later strengthened auditors.",
+  "typed_raw_reaudits": [
+    {
+      "id": "raw-policy-and-provenance-v2",
+      "kind": "read-only accepted capture re-audit; zero new game/browser cases",
+      "auditor_source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "auditor_source_sha256": "90464cd16bc106dd18084ddd659deaad8eef8a856b364db6296ab8621851f466",
+      "code_freeze": "238c5f5d2e990fe162511e7b5e729f5a87219d0e",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit.json",
+      "result_sha256": "cb354d5b6676b86772e898fdecb2947355931c5d5cfb8405a4b6b38744ef3755",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "complete_worlds": 6,
+      "per_world": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "changed_fields": 229,
+      "float_unit_fields": 96,
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit.json"
+    },
+    {
+      "id": "explicit-schema-and-full-finalization-v3",
+      "kind": "read-only unchanged capture re-audit; zero new engine/browser cases",
+      "auditor_source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "auditor_source_sha256": "ded7433a2e435ab42763dc2425b7e5945c34d226dd015c05af16b3b57182d1d8",
+      "code_freeze": "f7ec363e2568939e7982b0b5a8b77a5f7e2164fd",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-finalization.json",
+      "result_sha256": "bbaf5e2c9a11e53deb7833cd9456698df45ed8d755aa41d40098de336c27a57d",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "preflight_schema": "historical-prelaunch-input-binding:791b078a",
+      "complete_worlds": 6,
+      "per_world": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "finalization": {
+        "sealed_complete": true,
+        "native_exit_verified": true,
+        "actual_main_ack": true,
+        "actual_worker_acks": 8,
+        "actual_exit_key_and_request": true,
+        "full_raw_fatal_scan": "clean"
+      },
+      "external_node_exit": {
+        "supported": true,
+        "external_raw_exit_code": 0,
+        "tool_session_id": 40314,
+        "completion_chunk_id": "0ae251",
+        "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+      },
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --outer-outcome /tmp/terraform-land-height-v6-second/raw-outcome.json --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-finalization.json"
+    },
+    {
+      "id": "continuous-log-native-input-route-v4",
+      "kind": "read-only unchanged accepted capture re-audit; zero new game/browser cases",
+      "auditor_source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "auditor_source_sha256": "86a300bb4b56b9d9ad0ff726182768ef10f0973f3d08402e715b40e533f27416",
+      "code_freeze": "ae5c2eb252bafbdbc6d97025e0cbfde20eadc7c8",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-route.json",
+      "result_sha256": "ad7a22d658efc8e2ec5b67ba5073f867f8d5bc36b4b7c32ab54f58c0d7db9d4c",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "preflight_schema": "historical-prelaunch-input-binding:791b078a",
+      "complete_worlds": 6,
+      "per_world": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "finalization": {
+        "sealed_complete": true,
+        "native_exit_verified": true,
+        "actual_main_ack": true,
+        "actual_worker_acks": 8,
+        "actual_exit_key_and_request": true,
+        "full_raw_fatal_scan": "clean",
+        "continuous_native_callbacks": 936,
+        "callback_utf16_covered": 14465994,
+        "lossless_trace_packets": 50,
+        "unique_contiguous_trace_events": 82661,
+        "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+      },
+      "pointer_route": {
+        "physical_clicks_verified": 8,
+        "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+      },
+      "external_node_exit": {
+        "supported": true,
+        "external_raw_exit_code": 0,
+        "tool_session_id": 40314,
+        "completion_chunk_id": "0ae251",
+        "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+      },
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --outer-outcome /tmp/terraform-land-height-v6-second/raw-outcome.json --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-route.json",
+      "validation": {
+        "total_python_checks": 112,
+        "public_protocol_checks": 56,
+        "retained_actual_checks": 56,
+        "skipped": 0,
+        "seconds": 54.835,
+        "new_engine_or_browser_executions": 0
+      }
+    },
+    {
+      "id": "exact-native-pointer-int-types-v5",
+      "kind": "read-only unchanged accepted capture re-audit; zero new game/browser cases",
+      "auditor_source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "auditor_source_sha256": "c49b0c008ea88759419078e273faac5994eb71614914cc56f45ca073477f10dc",
+      "code_freeze": "c611234e48e7e0f16c2d25db89123ff34be0ee81",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-pointer-types.json",
+      "result_sha256": "bf00c2e60d6716f98f3394fa593020f6e8758a054948a7496c4114556e3e4031",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "preflight_schema": "historical-prelaunch-input-binding:791b078a",
+      "complete_worlds": 6,
+      "per_world": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "finalization": {
+        "sealed_complete": true,
+        "native_exit_verified": true,
+        "actual_main_ack": true,
+        "actual_worker_acks": 8,
+        "actual_exit_key_and_request": true,
+        "full_raw_fatal_scan": "clean",
+        "continuous_native_callbacks": 936,
+        "callback_utf16_covered": 14465994,
+        "lossless_trace_packets": 50,
+        "unique_contiguous_trace_events": 82661,
+        "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+      },
+      "pointer_route": {
+        "physical_clicks_verified": 8,
+        "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+      },
+      "external_node_exit": {
+        "supported": true,
+        "external_raw_exit_code": 0,
+        "tool_session_id": 40314,
+        "completion_chunk_id": "0ae251",
+        "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+      },
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --outer-outcome /tmp/terraform-land-height-v6-second/raw-outcome.json --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-pointer-types.json",
+      "validation": {
+        "total_python_checks": 114,
+        "public_protocol_checks": 57,
+        "retained_actual_checks": 57,
+        "skipped": 0,
+        "seconds": 55.649,
+        "new_engine_or_browser_executions": 0
+      }
+    },
+    {
+      "id": "complete-input-source-and-artifact-binding-v6",
+      "kind": "read-only unchanged capture re-audit; zero new game/browser cases",
+      "auditor_source": "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+      "auditor_source_sha256": "4756fdf5a8dba262eb2d301654cea6e429a2b2b39e94f274a71590e7407f1e2b",
+      "code_freeze": "21888784885c192e4102b5219e9c3fe8555b2cb6",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-inputs.json",
+      "result_sha256": "cf8cd801bb5dd08601e908ad7fbbec8814656f778e1878133148c7c0484e9845",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "preflight_schema": "historical-prelaunch-input-binding:791b078a",
+      "complete_worlds": 6,
+      "per_world": {
+        "players": 7,
+        "units": 8,
+        "bases": 7,
+        "tiles": 128
+      },
+      "finalization": {
+        "sealed_complete": true,
+        "native_exit_verified": true,
+        "actual_main_ack": true,
+        "actual_worker_acks": 8,
+        "actual_exit_key_and_request": true,
+        "full_raw_fatal_scan": "clean",
+        "continuous_native_callbacks": 936,
+        "callback_utf16_covered": 14465994,
+        "lossless_trace_packets": 50,
+        "unique_contiguous_trace_events": 82661,
+        "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+      },
+      "pointer_route": {
+        "physical_clicks_verified": 8,
+        "raw_button_actions_exhausted": true,
+        "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+      },
+      "frames": {
+        "retained_frame_digests_verified": 5,
+        "scope": "actual file bytes; no original pixels/pose/mesh agreement"
+      },
+      "external_node_exit": {
+        "supported": true,
+        "external_raw_exit_code": 0,
+        "tool_session_id": 40314,
+        "completion_chunk_id": "0ae251",
+        "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+      },
+      "historical_cleanliness_scope": "legacy tracked_diff/source bindings only; no retrospective untracked-source cleanliness receipt",
+      "validation": {
+        "all_python_checks": 124,
+        "public_protocol_checks": 63,
+        "retained_actual_checks": 61,
+        "skipped": 0,
+        "seconds": 72.849,
+        "node_metadata_checks": 6,
+        "node_skipped": 0,
+        "new_engine_browser_executions": 0
+      },
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --outer-outcome /tmp/terraform-land-height-v6-second/raw-outcome.json --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-inputs.json"
+    },
+    {
+      "id": "wrapup-physical-input-and-partial-callback-scope-v7",
+      "source_commits": [
+        "6ff439ae",
+        "80c1579c"
+      ],
+      "source_audit_script_sha256": "0a93139b0496884bceff9bc2f964fba0e63d570a6ef6c14287365da83cb23e08",
+      "result_path": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-wrapup.json",
+      "result_sha256": "eb9e79ba85302387794739c830c1b3ac7fe6acbdd57d6508fb3678d7efe2b7f0",
+      "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+      "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+      "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+      "status": "partial-readonly-bounded-state-receipt-audit",
+      "browser_cases_audited": 0,
+      "complete_browser_cases_audited": 0,
+      "bounded_state_receipt_cases_audited": 1,
+      "scope": "Supersedes historical full-browser and exact continuous-callback claims; preserves bounded full-world/receipt/source/exit/sealed-byte evidence. No new capture or rewritten historical result.",
+      "unsupported_capabilities": [
+        "exact per-callback message identity; legacy offset-only metadata cannot earn complete-browser case credit"
+      ],
+      "finalization": {
+        "sealed_complete": true,
+        "native_exit_verified": true,
+        "actual_main_ack": true,
+        "actual_worker_acks": 8,
+        "actual_exit_key_and_request": true,
+        "full_raw_fatal_scan": "clean",
+        "callback_metadata_intervals": 936,
+        "callback_utf16_covered": 14465994,
+        "exact_callback_message_identity": {
+          "supported": false,
+          "verified_messages": 0,
+          "scope": "UNSUPPORTED: legacy offset-only metadata cannot prove exact callback message identities/count; sealed-byte journal remains bounded evidence"
+        },
+        "lossless_trace_packets": 50,
+        "unique_contiguous_trace_events": 82661,
+        "exit_order_scope": "this fixture drains Q ingress/begin/end before its owned-timer TH_EXIT_REQUEST"
+      },
+      "keyboard_route": {
+        "shortcuts_verified": 8,
+        "raw_key_edges_exhausted": 48,
+        "scope": "exact K/six P/Q Ctrl+Alt command and modifier/down/up sequence; no additional key actions"
+      },
+      "pointer_route": {
+        "physical_clicks_verified": 8,
+        "raw_button_actions_exhausted": true,
+        "scope": "MENU/terraform/raise/Cancel/reopen/Expend/confirm; actual native geometry and input receipts"
+      },
+      "frames": {
+        "retained_frame_digests_verified": 5,
+        "decoded_frames": [
+          {
+            "width": 1024,
+            "height": 769,
+            "decoded_pixel_bytes": 2362368,
+            "decoded_pixels_sha256": "015aa0dd0e736553ffceb5cd03cbeded4472d57bb28f665e2217f4b7aabb10d4"
+          },
+          {
+            "width": 1024,
+            "height": 769,
+            "decoded_pixel_bytes": 2362368,
+            "decoded_pixels_sha256": "45afefd47617078632e818932b29225a2f9ed701a1e8f0298646b435d5a9cd68"
+          },
+          {
+            "width": 1024,
+            "height": 769,
+            "decoded_pixel_bytes": 2362368,
+            "decoded_pixels_sha256": "81d1be50cba105f95e28034c56b3f4506bfff3a7113185b52e2b598448a188d5"
+          },
+          {
+            "width": 1024,
+            "height": 769,
+            "decoded_pixel_bytes": 2362368,
+            "decoded_pixels_sha256": "4ce6323640861eb44af5d0c065668b4d857b5f85965db476de7a87b156dc9f69"
+          },
+          {
+            "width": 1024,
+            "height": 769,
+            "decoded_pixel_bytes": 2362368,
+            "decoded_pixels_sha256": "ee962425fa979fde1e1336a0d932a1cf4517e421c4768dea692755dbaa002596"
+          }
+        ],
+        "scope": "actual decoded RGB/RGBA file bytes and retained canvas clip; no original pixels/pose/mesh agreement"
+      },
+      "external_node_exit": {
+        "supported": true,
+        "external_raw_exit_code": 0,
+        "tool_session_id": 40314,
+        "completion_chunk_id": "0ae251",
+        "artifact_sha256": "6ab902e12ee6a6d0f3a4a4f52868a0bf5232a00ea408475ddbba1afd2850673d"
+      },
+      "validation": {
+        "all_python_checks": 134,
+        "public_protocol_checks": 72,
+        "retained_actual_checks": 62,
+        "skipped": 0,
+        "seconds": 70.694,
+        "public_only_seconds": 3.134,
+        "actual_cli_seconds": 3.825284655,
+        "actual_test_process": 53628,
+        "actual_test_exit_code": 0,
+        "actual_test_completion_chunk": "ee934a",
+        "new_engine_browser_executions": 0
+      },
+      "source_contract": "Modern message/digest bindings are public protocol models only. Legacy report lacks per-call contents; no missing metadata was invented.",
+      "command": "python3 tools/behavior-tests/state_trace/terraform_height_browser_audit.py --artifacts /tmp/terraform-land-height-v6-second --outer-outcome /tmp/terraform-land-height-v6-second/raw-outcome.json --output tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-wrapup.json"
+    }
+  ],
+  "historical_preflight_creation": {
+    "kind": "separate source-only preflight command retained with original artifacts; not emitted by the original browser driver",
+    "source_path": "/tmp/terraform-land-height-v6-second/preflight.mjs",
+    "source_sha256": "b16106ef4a875993bc6bdc6bb89a1dd98d7fb8e92d42c70cd421ce6ee6313880",
+    "artifact_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+    "new_producer_scope": "committed terraform-height-preflight.mjs emits future fresh preflight files; it did not generate or replace this historical artifact"
+  },
+  "current_acceptance": {
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "source_commit": "6b27d931fa55b95645cd7f450c21e1768166327a",
+    "auditor_sha256": "f6cca166ba823d7ede2e98469fe79292e3747ca75487604874091555e9103479",
+    "result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-footprint.json",
+    "result_sha256": "086238325076882c755548a5ebd354d2ed9ba4668cf670f1779ab4c6ff4f0087",
+    "browser_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 1,
+    "native_cases_added": 0,
+    "source_derived_canonical_patches": 9,
+    "source_derived_affected_tiles": 25,
+    "source_derived_native_corner_fields_changed": 64,
+    "parsed_world_field_changes": 229,
+    "native_float_checks": 96,
+    "candidate_execution_required": "report.candidate_executed must be Boolean true before any field/case credit",
+    "plan_oracle": "BEFORE native centers/topology +pinned GSE band/slope policy; quote must equalderived plan",
+    "corner_oracle": "BEFORE native centers +derived patches; C++ four-incident-center mean with signed truncation; no AFTER oracle or render-mesh claim",
+    "tests": {
+      "public": 75,
+      "retained": 65,
+      "total_passed": 140,
+      "skipped": 0,
+      "elapsed_seconds": 126.009
+    },
+    "counterexamples": "one-patch/remote/missing/wrong-slope/coherently altered effects, wrong shared corner, false/Int execution flags oldaccepted/newrejected",
+    "historical_raw_report_preflight_external_unchanged": true,
+    "unsupported": [
+      "exact callback message identity; complete-browser credit remains0",
+      "Original-game height/fee parity",
+      "numeric rendered mesh/facing/animation/fixedcamera"
+    ],
+    "guarded_reaudit_receipt": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-guard.json",
+    "guarded_reaudit_receipt_sha256": "07d1b17a6cc25c192405a73cc6e62508dc31e343391677745a3d2041b569f267",
+    "optimized_python_supported": false
+  },
+  "source_plan_reaudit_v8": {
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "source_commit": "3e0148fde82785eb4e728f5113f0b821efc12de0",
+    "auditor_sha256": "baa7912eb4cd7287c05a3a8583db1567f71f2335a2c70529693de8f0307a50f3",
+    "result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-footprint.json",
+    "result_sha256": "086238325076882c755548a5ebd354d2ed9ba4668cf670f1779ab4c6ff4f0087",
+    "browser_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 1,
+    "native_cases_added": 0,
+    "source_derived_canonical_patches": 9,
+    "source_derived_affected_tiles": 25,
+    "source_derived_native_corner_fields_changed": 64,
+    "parsed_world_field_changes": 229,
+    "native_float_checks": 96,
+    "candidate_execution_required": "report.candidate_executed must be Boolean true before any field/case credit",
+    "plan_oracle": "BEFORE native centers/topology +pinned GSE band/slope policy; quote must equalderived plan",
+    "corner_oracle": "BEFORE native centers +derived patches; C++ four-incident-center mean with signed truncation; no AFTER oracle or render-mesh claim",
+    "tests": {
+      "public": 75,
+      "retained": 65,
+      "total_passed": 140,
+      "skipped": 0,
+      "elapsed_seconds": 126.009
+    },
+    "counterexamples": "one-patch/remote/missing/wrong-slope/coherently altered effects, wrong shared corner, false/Int execution flags oldaccepted/newrejected",
+    "historical_raw_report_preflight_external_unchanged": true,
+    "unsupported": [
+      "exact callback message identity; complete-browser credit remains0",
+      "Original-game height/fee parity",
+      "numeric rendered mesh/facing/animation/fixedcamera"
+    ]
+  },
+  "previous_current_acceptance_v7": {
+    "version": "v7",
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "complete_browser_passing_cases": 0,
+    "bounded_state_receipt_cases": 1,
+    "exact_per_callback_message_identity": "unsupported for this historical offset-only metadata",
+    "latest_result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-wrapup.json",
+    "latest_result_sha256": "eb9e79ba85302387794739c830c1b3ac7fe6acbdd57d6508fb3678d7efe2b7f0",
+    "historical_proof_before_append_sha256": "a6deef11f8774f93e5115bf2ad7fc974d421eb009f654365895ba156c7822175",
+    "historical_claims": "Earlier fields/results remain historical, not current full-browser passing credit; see latest typed_raw_reaudits entry and wrapup scope document."
+  },
+  "previous_current_acceptance_v8": {
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "source_commit": "3e0148fde82785eb4e728f5113f0b821efc12de0",
+    "auditor_sha256": "baa7912eb4cd7287c05a3a8583db1567f71f2335a2c70529693de8f0307a50f3",
+    "result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-footprint.json",
+    "result_sha256": "086238325076882c755548a5ebd354d2ed9ba4668cf670f1779ab4c6ff4f0087",
+    "browser_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 1,
+    "native_cases_added": 0,
+    "source_derived_canonical_patches": 9,
+    "source_derived_affected_tiles": 25,
+    "source_derived_native_corner_fields_changed": 64,
+    "parsed_world_field_changes": 229,
+    "native_float_checks": 96,
+    "candidate_execution_required": "report.candidate_executed must be Boolean true before any field/case credit",
+    "plan_oracle": "BEFORE native centers/topology +pinned GSE band/slope policy; quote must equalderived plan",
+    "corner_oracle": "BEFORE native centers +derived patches; C++ four-incident-center mean with signed truncation; no AFTER oracle or render-mesh claim",
+    "tests": {
+      "public": 75,
+      "retained": 65,
+      "total_passed": 140,
+      "skipped": 0,
+      "elapsed_seconds": 126.009
+    },
+    "counterexamples": "one-patch/remote/missing/wrong-slope/coherently altered effects, wrong shared corner, false/Int execution flags oldaccepted/newrejected",
+    "historical_raw_report_preflight_external_unchanged": true,
+    "unsupported": [
+      "exact callback message identity; complete-browser credit remains0",
+      "Original-game height/fee parity",
+      "numeric rendered mesh/facing/animation/fixedcamera"
+    ]
+  },
+  "guarded_reaudit_v9": {
+    "version": 1,
+    "kind": "actual-readonly-guarded-height-reaudit.v1",
+    "status": "partial-readonly-bounded-state-receipt-audit",
+    "source_commit": "6b27d931fa55b95645cd7f450c21e1768166327a",
+    "auditor_sha256": "f6cca166ba823d7ede2e98469fe79292e3747ca75487604874091555e9103479",
+    "actual_process_exit": 0,
+    "actual_tool_session": 59412,
+    "python": "3.14.3 (main, Mar 26 2026, 00:00:00) [GCC 15.2.1 20260123 (Red Hat 15.2.1-7)]",
+    "reconstruction": {
+      "base_result": "tools/behavior-tests/state_trace/terraform-height-browser-v6-reaudit-footprint.json",
+      "base_result_sha256": "086238325076882c755548a5ebd354d2ed9ba4668cf670f1779ab4c6ff4f0087",
+      "replace_top_level_fields": {
+        "source_audit_script_sha256": "f6cca166ba823d7ede2e98469fe79292e3747ca75487604874091555e9103479"
+      },
+      "serialization": "json.dumps(value, indent=2) + newline; retain original object key order",
+      "actual_result_sha256": "b2fc4ddcc9eb7341f7d8a4bd62c0551b8d7d60deae2267ce5798f2ba7dea37e7",
+      "exact_actual_bytes_reconstructed": true
+    },
+    "complete_browser_cases_audited": 0,
+    "bounded_state_receipt_cases_audited": 1,
+    "new_native_or_browser_runs": 0,
+    "new_guard_tests": {
+      "passed": 3,
+      "skipped": 0,
+      "scope": "real -O/-OO/PYTHONOPTIMIZE/file CLI/-m/import fail closed; normal --help preserved"
+    },
+    "prior_algorithm_tests": {
+      "public": 75,
+      "retained": 65,
+      "total": 140,
+      "skipped": 0,
+      "source": "3e0148fd; no algorithm changes in guarded successor"
+    }
+  }
+}

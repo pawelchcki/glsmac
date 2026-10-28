@@ -1,0 +1,123 @@
+{
+  "kind": "terraform-height-framed-schema-readonly-reaudit.v1",
+  "source_base": "356ebbc216f8c70ea7bf0c06d2833b3a4e1581ae",
+  "source_fix": "375982e2bbeb08218b914aab59df77df4357aafb",
+  "auditor_sha256": "32abb0d68b72533921946216db56287fe507ab33aa5ea5d7c670cd2b20aa6106",
+  "tests_sha256": "ca45fc03d6ca0357a9db580d5da1b113e8325e3bdbc8fd4c3ca253389aa5fb24",
+  "result_file": "terraform-height-browser-v6-reaudit-framed-schema.json",
+  "result_sha256": "c36d2ffc42956a2c5856f75852eab5e3cd367b842e9dc0289b3d8a1be81f9db8",
+  "capture": {
+    "artifact_directory": "/tmp/terraform-land-height-v6-second",
+    "raw_sha256": "7877baed15b88c2700f3042fe5c31f64c6ee66517dcef04541c1ced832bad473",
+    "report_sha256": "7f196c8f5de67e76355f3f49cff0ac20a4a4f3ef35fc7021c90d993f73f76f3c",
+    "preflight_sha256": "791b078abf2949ddb1fb2efcd322b05dc41198e6114f31aa1ad2816375264622",
+    "source_runtime_scope": "historical Native115/Default25/runtimev6, not relabeled by this auditor revision"
+  },
+  "findings": [
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9AO0",
+      "verdict": "VALID",
+      "old_counterexample": "coherently swapped unit/base details accepted as six complete worlds",
+      "fix": "validate available prototype/quote-origin/base resource/project/nutrient/citizen mirrors; v4 raw unit/base identity echoes absent, so observed worlds remain6 but complete worlds0"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9AO3",
+      "verdict": "VALID",
+      "old_counterexample": "noiseTH_NATIVE|JSON still parsed as six native packets",
+      "fix": "full-record GSE source prefix or bare protocol framing; strict existing JSON decoder, no substring extraction"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9AO6",
+      "verdict": "VALID",
+      "old_counterexample": "public v1 JSON with invented session/chunk/source fields was accepted as an external OS witness",
+      "fix": "valid modern self-reported metadata remains unsupported without an independently recognized retained receipt; zero execution/full-browser credit; genuine fixed legacy digest unchanged"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9AO8",
+      "verdict": "VALID",
+      "old_counterexample": "all six trace.ui selected999 accepted despite contradictory top-level UI",
+      "fix": "exact native duplicate projection equality before any removal from world purity comparison"
+    },
+    {
+      "thread": "PRRT_kwDOVR1Hac6w9AO-",
+      "verdict": "VALID",
+      "old_counterexample": "remote tile elevation.center Bool true accepted as complete typed map",
+      "fix": "reuse unchanged reviewed terrain_observation.validate_snapshot over every complete native v4 packet; no filtered/substitute snapshot"
+    }
+  ],
+  "producer_abi_only": {
+    "runtime_build_binding": "structural v1 auditor branch matches Delivery native-source-runtime.v1 ABI; historical kind-less preflight unchanged",
+    "other_two_review_files": "Delivery-owned preflight/driver, not edited here"
+  },
+  "checks": {
+    "public_python_suite": {
+      "count": 96,
+      "skipped": 0,
+      "seconds": 69.997,
+      "selectors": [
+        "ProtocolAuditTests",
+        "ProtocolFinalizationTests",
+        "ProtocolKeyboardRouteTests",
+        "ExternalOutcomeTests",
+        "ProtocolPointerRouteTests",
+        "PreflightSchemaTests",
+        "FrameFileTests",
+        "InterpreterModeTests"
+      ],
+      "scope": "synthetic complete native-schema model, not new game observations"
+    },
+    "later_affected_public_checks": {
+      "count": 2,
+      "skipped": 0,
+      "seconds": [
+        0.334,
+        0.002
+      ],
+      "scope": "base mirror indistinguishability and modern external-envelope credit bookkeeping"
+    },
+    "actual_cli": {
+      "argv": [
+        "python3",
+        "tools/behavior-tests/state_trace/terraform_height_browser_audit.py",
+        "--artifacts",
+        "/tmp/terraform-land-height-v6-second",
+        "--output",
+        "/tmp/terraform-land-height-v6-second/reaudit-framed-schema-375982e2.json"
+      ],
+      "os_exit": 0,
+      "tool_session": 32322,
+      "tool_completion_chunk": "70194e"
+    },
+    "targeted_retained": {
+      "count": 3,
+      "skipped": 0,
+      "seconds": 2.301,
+      "os_exit": 0,
+      "tool_session": 79552,
+      "tool_completion_chunk": "d006e3",
+      "reproducer_sha256": "5cbc611106de6759ebe53fbf78a449c0cde6d8b92724f9b32e3a2fcc39fd43b0",
+      "reproducer_source": "import copy,json,sys,unittest\nfrom pathlib import Path\nsys.path.insert(0,'tools/behavior-tests')\nimport test_terraform_height_browser_audit as t\nD=Path('/tmp/terraform-land-height-v6-second')\nraw=(D/'application.log').read_bytes(); records=t.audit.parse_records(raw); report=json.loads((D/'report.json').read_bytes())\nclass ChangedRetainedCases(unittest.TestCase):\n def test_remote_boolean_height_cannot_be_typed_map_evidence(self):\n  r,q=copy.deepcopy((records,report))\n  packets=[v for k,v,_ in r if k=='TH_NATIVE']\n  for p in packets:p['world']['terrain_trace']['tiles']['0,0']['elevation']['center']=True\n  for item,p in zip(q['native_snapshots'],packets):item['observation']=t.audit.node_projection(p)\n  with self.assertRaises(AssertionError):t.audit.audit_records(r,q)\n def test_contradictory_native_ui_projection_cannot_be_dropped(self):\n  r,q=copy.deepcopy((records,report));packets=[v for k,v,_ in r if k=='TH_NATIVE']\n  for p in packets:p['world']['terrain_trace']['ui']['selected']=999\n  for item,p in zip(q['native_snapshots'],packets):item['observation']=t.audit.node_projection(p)\n  with self.assertRaisesRegex(AssertionError,'duplicated native UI'):t.audit.audit_records(r,q)\n def test_available_mirrors_and_unobservable_base_identity(self):\n  x=t.ActualCaptureAuditTests();x.original=(records,report);x.setUp();x.test_reject_swapped_native_unit_and_base_detail_mirrors()\nr=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(ChangedRetainedCases));assert not r.skipped\nraise SystemExit(not r.wasSuccessful())\n",
+      "initial_setup_error": "ActualCaptureAuditTests override lacked newly optional sync_ui argument; fixed two test lines only, auditor bytes and actual CLI result unchanged"
+    }
+  },
+  "current_credit": {
+    "observed_worlds": 6,
+    "complete_worlds": 0,
+    "native_capture_field_cases_audited": 1,
+    "bounded_state_receipt_cases_audited": 1,
+    "execution_cases_audited": 1,
+    "browser_cases_audited": 0,
+    "complete_browser_cases_audited": 0,
+    "new_game_or_browser_executions": 0
+  },
+  "limits": [
+    "Per-message callback identity remains unsupported for immutable legacy capture.",
+    "v4 unit/base detail native raw identity echoes are missing; available mirrors cannot authenticate otherwise indistinguishable rows. No handle fields were fabricated.",
+    "Modern caller-authored process JSON cannot create independent OS completion proof; it remains unsupported and outside execution/native-case passing totals.",
+    "Historical real external outcome is accepted only through its known immutable digest and capture bindings.",
+    "No Native/default/GSE/observer/producer hook/raw/report/rules/game changes.",
+    "Existing validator dependencies are byte-hashed in the new result; no copying or weakening of terrain rules.",
+    "All previous source/result/proof versions remain historical; no complete-world claims are retroactively rewritten.",
+    "No whole private mutation batch repeated; all new public checks and three affected retained checks are separate counts."
+  ]
+}
