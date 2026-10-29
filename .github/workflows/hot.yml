@@ -46,6 +46,10 @@ jobs:
       - name: Test all asset-free presentation invariants
         working-directory: tools/behavior-tests
         run: python3 -m unittest discover -p 'test_presentation*.py' -v
+      - name: Test observation runner process ownership
+        if: matrix.kind == 'regression'
+        working-directory: tools/behavior-tests
+        run: python3 -m unittest test_terraform_sea_height_runner -v
       - name: Validate production observation and projection contracts
         working-directory: tools/behavior-tests
         run: python3 -m unittest test_production_controls test_production_controls_native -v

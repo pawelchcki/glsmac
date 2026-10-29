@@ -118,6 +118,13 @@ def members(group, ownership):
     children |= {pid for pid, row in table.items() if row['parent'] == ownership['owner']}
     for pid in children:
         row = table.get(pid)
+        # Adoption can happen after the process-table scan. Refresh a newly
+        # listed child before declaring its identity unavailable; the fresh
+        # parent must still prove that it belongs to this outer process.
+        if row is None and pid not in known:
+            state, observed = probe_identity(pid)
+            if state == 'present' and observed['parent'] == ownership['owner']:
+                row = observed; table[pid] = row
         if pid in known:
             if row is None:
                 # A positive child-list entry contradicts absence, and an
