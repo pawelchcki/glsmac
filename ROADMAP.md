@@ -1,6 +1,6 @@
 # Architecture and development roadmap
 
-Status: C++ quality foundation merged; first TypeScript terrain-rule cutover implemented, delivery verification in progress. Updated 2026-10-29.
+Status: C++ quality and TypeScript runtime foundations delivered; terrain/order policy and unit-order UI decisions implemented. Full action and UI migration remains open. Updated 2026-10-29.
 
 ## Decisions
 
@@ -87,6 +87,9 @@ Ordinary unit-command eligibility and Hold/Sentry/Activate cancellation planning
 now have a typed TS policy, shared generated C++/TS domain contracts, and existing
 native/WASM lifecycle coverage. Native identity/write/receipt checks and GSE UI
 orchestration remain; this does not complete the full-action milestone below.
+Pending-result matching, completion selection, menu closure and activation-dialog
+context policy now also run in TS. Native callback lifetime, entity identity,
+rendering and effect delivery remain with the current host adapters.
 
 - [ ] Migrate one terrain rule and one full action lifecycle through production
   UI/command handling first, then port cohesive domains. Keep temporary GSE

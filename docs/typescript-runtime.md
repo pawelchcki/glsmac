@@ -15,10 +15,18 @@ native cancellation, complete rollback receipts, stale-entity checks and state
 restoration. Validation and planning require the same package generation before
 any mutation. Skip and other commands reuse the migrated eligibility policy.
 
-A complete TypeScript action lifecycle, production UI orchestration, timers, and
-the remaining GSE application are still pending.
+Pending-result matching, completion selection and menu-close decisions, and
+activation-dialog context checks now use `scripts/ui/unit-orders.ts`. The shared
+`unit_order_controller.gls.js` adapter copies scalar observations. Native callback
+tokens, live entity lookups, rendering and effect delivery retain their current
+host ownership. The generated UI contract preserves signed int64 identities and
+normalizes malformed raw event fields to explicit null observations.
+
+A complete TypeScript action lifecycle, the remaining production UI
+orchestration, timers, and the rest of the GSE application are still pending.
 See [foundation measurements and retained failures](typescript-validation.md) and
-[unit-order validation](typescript-unit-orders-validation.md).
+[unit-order validation](typescript-unit-orders-validation.md) and
+[UI controller validation](typescript-unit-order-ui-validation.md).
 
 ## Development
 
