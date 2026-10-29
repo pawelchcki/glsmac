@@ -181,6 +181,14 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
     source = source.replace('Farm,None,Kelp Farm,None,4,Cultivate $STR0', 'Synthetic crop,None,Kelp Farm,None,2,Sow $STR0')
       .replace('Road,None,Road,Disable,1,Build $STR0', 'Road,None,Road,Disable,3,Build $STR0');
   }
+  // Current startup imports technologies before resource policy. Retain that
+  // unrelated installed block while keeping the declared synthetic yield rows.
+  const installed = readFileSync(`${assets}/alphax.txt`, 'latin1').split(/(?<=\n)/);
+  const technology = installed.findIndex(line => line.split(';')[0].trim() === '#TECHNOLOGY');
+  assert.ok(technology >= 0, 'Installed technology declarations are required');
+  let end = technology + 1;
+  while (end < installed.length && !/^\s*#/.test(installed[end])) ++end;
+  source += installed.slice(technology, end).join('') + '\n#END\n';
   const override = await overrideRulesAsset(page, source);
   const fatal = /LR_REJECT|LR_ERROR|LR_UNEXPECTED_LOADER|Unhandled exception|Assertion failed|Aborted\(|RuntimeError:|worker sent an error!|\[Error\]/i;
   const wait = async (marker, count = 1) => {
@@ -234,7 +242,8 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
     const labels = [...rendered.matchAll(new RegExp(`LR_LABEL\\|${name}\\|([^|\\r\\n]+)\\|([^\\r\\n]+)`, 'g'))].at(-1);
     const loss = [4, 0, 0][i], pad = (value) => String(value).padStart(3, '0');
     assert.ok(labels); assert.equal(labels[1], `${pad(intake[i])} - ${pad(loss)}`);
-    assert.equal(labels[2], `+${pad(intake[i] - loss)}`, 'Actual base-screen labels show improved resource income');
+    // Frozen base-resource-hud observations retain the visible '= ' prefix.
+    assert.equal(labels[2], `= +${pad(intake[i] - loss)}`, 'Actual base-screen labels show improved resource income');
   }
   await page.waitForTimeout(600);
   await page.locator('#canvas').screenshot({path: fileURLToPath(new URL(`land-resources-${profile}-base.png`, artifacts))});
@@ -255,7 +264,19 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
   const selected = (await page.locator('#log').textContent()).split('LR_TARGET_PREVIEW').length - 1;
   await page.keyboard.press('k'); await wait('LR_TARGET_PREVIEW', selected + 1);
   const saved = state.base.slice(5);
-  const images = [];
+  const captureTerrain = async () => {
+    const screenshot = await page.locator('#canvas').screenshot();
+    const rendered = PNG.sync.read(screenshot);
+    assert.equal(rendered.width, 1024); assert.ok(rendered.height >= 768 && rendered.height <= 769);
+    const crop = (left, top, width, height) => {
+      const pixels = Buffer.alloc(width * height * 4);
+      for (let row = 0; row < height; ++row) rendered.data.copy(pixels, row * width * 4,
+        ((top + row) * rendered.width + left) * 4, ((top + row) * rendered.width + left + width) * 4);
+      return pixels;
+    };
+    return {screenshot, preview: crop(140, 576, 100, 60), world: crop(440, 180, 110, 60)};
+  };
+  let previous = await captureTerrain();
   for (const improvement of ['bare', 'forest', 'mine-road', 'farm']) {
     const previews = (await page.locator('#log').textContent()).split('LR_TARGET_PREVIEW').length - 1;
     await page.keyboard.press('j'); await wait('LR_TARGET_PREVIEW', previews + 1);
@@ -265,22 +286,19 @@ for (const profile of ['default', 'altered']) test(`native improved land reaches
     assert.deepEqual(changed.base.slice(2, 5), edited.map((value, i) => value + forest[i] + [2, 1, 2][i]));
     assert.deepEqual(changed.base.slice(5), saved, 'Terrain queries do not advance production food storage or turns');
     assert.deepEqual(changed.worked, before.worked);
-    await page.waitForTimeout(100);
-    const screenshot = await page.locator('#canvas').screenshot();
-    writeFileSync(new URL(`terrain-edit-${profile}-${improvement}.png`, artifacts), screenshot);
-    const rendered = PNG.sync.read(screenshot);
-    assert.equal(rendered.width, 1024); assert.ok(rendered.height >= 768 && rendered.height <= 769);
-    const crop = (left, top, width, height) => {
-      const pixels = Buffer.alloc(width * height * 4);
-      for (let row = 0; row < height; ++row) rendered.data.copy(pixels, row * width * 4,
-        ((top + row) * rendered.width + left) * 4, ((top + row) * rendered.width + left + width) * 4);
-      return pixels;
-    };
-    images.push({preview: crop(140, 576, 100, 60), world: crop(440, 180, 110, 60)});
-  }
-  for (let i = 1; i < images.length; ++i) {
-    assert.ok(!images[i].preview.equals(images[i - 1].preview), 'The real tile preview redraws its image beyond changing labels');
-    assert.ok(!images[i].world.equals(images[i - 1].world), 'The edited square redraws in the actual world');
+    // The preview event precedes GPU presentation; wait for the observed images
+    // instead of assuming both renderers finish within a fixed 100 ms sleep.
+    const redrawDeadline = Date.now() + 10000;
+    let image;
+    do {
+      image = await captureTerrain();
+      if (!image.preview.equals(previous.preview) && !image.world.equals(previous.world)) break;
+      await page.waitForTimeout(50);
+    } while (Date.now() < redrawDeadline);
+    writeFileSync(new URL(`terrain-edit-${profile}-${improvement}.png`, artifacts), image.screenshot);
+    assert.ok(!image.preview.equals(previous.preview), `The real tile preview redraws its image for ${improvement} beyond changing labels`);
+    assert.ok(!image.world.equals(previous.world), `The edited square redraws ${improvement} in the actual world`);
+    previous = image;
   }
   await page.keyboard.press('k');
   await wait('LR_EXITING');

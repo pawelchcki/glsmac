@@ -27,6 +27,9 @@ _deps
 /.idea
 /.cmake
 /cmake-build-debug
+/node_modules
+/GLSMAC_data/standard-js
+/scripts/generated
 /GLSMAC.cbp
 /GLSMAC_data/mods
 *.core

@@ -1,0 +1,46 @@
+{
+  "version": "1",
+  "mutable": [],
+  "types": {
+    "OrderValidationInput": {
+      "schema": "version",
+      "live": "bool",
+      "caller": "nullable:int64",
+      "owner": "int64",
+      "started": "bool",
+      "turn": "int64",
+      "completed": "bool",
+      "health": "float32",
+      "immovable": "bool",
+      "locked": "bool",
+      "needs_orders": "bool",
+      "movement_required": "bool"
+    },
+    "OrderValidationResult": {
+      "error": "nullable:string"
+    },
+    "OrderPlanInput": {
+      "schema": "version",
+      "validation": "OrderValidationInput",
+      "target": "string",
+      "original_order": "string",
+      "has_automation": "bool",
+      "cancel_work": "bool"
+    },
+    "OrderPlan": {
+      "order": "string",
+      "cancel_automation": "bool",
+      "cancel_terraforming": "bool"
+    }
+  },
+  "entrypoints": {
+    "game/unit-orders:validate": {
+      "input": "OrderValidationInput",
+      "output": "OrderValidationResult"
+    },
+    "game/unit-orders:plan": {
+      "input": "OrderPlanInput",
+      "output": "OrderPlan"
+    }
+  }
+}

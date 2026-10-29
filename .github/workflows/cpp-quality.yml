@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - run: nix develop --command npm ci --ignore-scripts
       - name: Check gate regressions and changed-line formatting
         env:
           QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
@@ -30,7 +31,7 @@ jobs:
       - name: Configure actual native compile commands and generate resources
         run: |
           nix develop --command cmake --preset native
-          nix develop --command cmake --build --preset native --target embed glsmac_version -j2
+          nix develop --command cmake --build --preset native --target embed glsmac_version glsmac_script -j2
       - name: Reject new tidy and analyzer findings
         env:
           QUALITY_BASE: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD^' }}
@@ -57,10 +58,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31.11.3
+      - run: nix develop --command npm ci --ignore-scripts
       - name: Configure instrumentation
         run: nix develop --command cmake --preset '${{ matrix.preset }}'
       - name: Build production-code buffer and concurrency probes
-        run: nix develop --command cmake --build --preset '${{ matrix.preset }}' --target buffer-copy thread-runtime cpp-standard -j2
+        run: nix develop --command cmake --build --preset '${{ matrix.preset }}' --target buffer-copy thread-runtime cpp-standard script-runtime-probe -j2
       - name: Test allocation, module affinity and coordinated shutdown
         env:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
@@ -75,6 +77,7 @@ jobs:
         run: |
           nix develop --command cmake --build --preset native-asan -j2
           nix develop --command python3 tools/cpp-quality/run-native.py --binary build/native-asan/bin/GLSMAC
+          nix develop --command node tools/scripts/lifetime.mjs --native build/native-asan/bin/GLSMAC
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -82,12 +85,18 @@ jobs:
           path: |
             build/${{ matrix.preset }}/Testing/Temporary
             build/cpp-quality/native-tests
+            build/scripts/lifetime-native.json
 
   windows-standard:
-    name: Windows Clang 23 C++23 library floor
+    name: Windows Clang 23 C++23 and QuickJS runtime
     runs-on: windows-2025
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
+      - run: npm run scripts:build
       - name: Install the pinned official Windows LLVM archive
         shell: pwsh
         run: |
@@ -107,6 +116,48 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           ./cpp-standard.exe
           exit $LASTEXITCODE
+      - name: Build and execute the actual Windows runtime boundary
+        shell: pwsh
+        run: |
+          cmake -S tools/script-runtime -B build/script-windows -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release '-DCMAKE_C_FLAGS_RELEASE=-O3 -g -gcodeview -DNDEBUG' '-DCMAKE_CXX_FLAGS_RELEASE=-O3 -g -gcodeview -DNDEBUG' '-DCMAKE_EXE_LINKER_FLAGS=-Xlinker /DEBUG'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmake --build build/script-windows -j2
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+          $probeExit = $LASTEXITCODE
+          Write-Host "Clang runtime probe exit code: $probeExit"
+          if ($probeExit -ne 0) {
+            $debugCommands = Join-Path $env:RUNNER_TEMP 'script-clang.gdb'
+            Set-Content -Path $debugCommands -Value @('set breakpoint pending on', 'break ucrtbase!abort', 'run', 'bt', 'info registers')
+            gdb --batch --command=$debugCommands --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe
+          }
+          exit $probeExit
+      - name: Preserve the existing MinGW runtime build path
+        if: always()
+        shell: pwsh
+        run: |
+          cmake -S tools/script-runtime -B build/script-mingw -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmake --build build/script-mingw -j2
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+          $probeExit = $LASTEXITCODE
+          Write-Host "MinGW runtime probe exit code: $probeExit"
+          if ($probeExit -ne 0) {
+            $debugCommands = Join-Path $env:RUNNER_TEMP 'script-mingw.gdb'
+            Set-Content -Path $debugCommands -Value @('set breakpoint pending on', 'break abort', 'run', 'bt', 'info registers')
+            gdb --batch --command=$debugCommands --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe
+          }
+          exit $probeExit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpp-windows-runtime
+          path: |
+            build/script-windows/bin
+            build/script-mingw/bin
 
   wasm-probes:
     name: C++23 WASM graphics and platform probes

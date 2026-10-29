@@ -1,0 +1,63 @@
+name: TypeScript
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scripts:
+    name: TypeScript types, lint, format and transform
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run scripts:build
+      - run: npm run scripts:types
+      - run: npm run scripts:lint
+      - run: npm run scripts:format
+      - run: npm run scripts:test
+      - name: Record compiler and type-check measurements without machine-specific thresholds
+        run: npm run scripts:benchmark
+      - uses: actions/upload-artifact@v4
+        with:
+          name: typescript-transform-benchmark
+          path: build/scripts/transform-benchmark.json
+  wasm-runtime:
+    name: QuickJS native API in Node WASM and Chromium
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
+      - run: npm run scripts:build
+      - name: Install the pinned browser compiler
+        run: |
+          git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install 4.0.22
+          "$RUNNER_TEMP/emsdk/emsdk" activate 4.0.22
+      - name: Compile and execute the real runtime boundary
+        run: |
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          emcmake cmake -S tools/script-runtime -B build/script-wasm -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/script-wasm -j2
+          node tools/script-runtime/run.mjs
+          node tools/scripts/release-loader.mjs
+          npm --prefix tools/wasm-tests ci
+          npx --prefix tools/wasm-tests playwright install --with-deps chromium
+          node tools/script-runtime/run.mjs --browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: typescript-runtime
+          path: |
+            build/scripts/runtime-*.json
+            build/scripts/release-loader.json

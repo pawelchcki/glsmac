@@ -79,13 +79,21 @@ class PrecisionTests(unittest.TestCase):
             process = MagicMock(); process.__enter__.return_value = process
             process.returncode = -9
             process.communicate.side_effect = [subprocess.TimeoutExpired('node', 1), ('BEHAVIOR_BEGIN native\n', '')]
-            with patch.object(native_capture.subprocess, 'Popen', return_value=process), self.assertRaises(native_capture.NativeCaptureError) as caught:
+            with (
+                patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                patch.object(native_capture.subprocess, 'Popen', return_value=process),
+                self.assertRaises(native_capture.NativeCaptureError) as caught,
+            ):
                 native_capture.capture_script(runtime, codec.SCRIPT, timeout=1)
             self.assertTrue(caught.exception.execution['candidate_executed'])
             self.assertTrue(caught.exception.execution['native_execution_confirmed'])
             self.assertEqual(caught.exception.execution['process_returncode'], -9)
             process.kill.assert_called_once(); self.assertEqual(process.communicate.call_count, 2)
-            with patch.object(native_capture.subprocess, 'Popen', side_effect=FileNotFoundError('node')), self.assertRaises(native_capture.NativeCaptureError) as caught:
+            with (
+                patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                patch.object(native_capture.subprocess, 'Popen', side_effect=FileNotFoundError('node')),
+                self.assertRaises(native_capture.NativeCaptureError) as caught,
+            ):
                 native_capture.capture_script(runtime, codec.SCRIPT)
             self.assertFalse(caught.exception.execution['candidate_executed'])
             self.assertFalse(caught.exception.execution['native_execution_confirmed'])
@@ -99,14 +107,21 @@ class PrecisionTests(unittest.TestCase):
             process = MagicMock(); process.__enter__.return_value = process
             process.returncode = 0
             process.communicate.return_value = ('BEHAVIOR_BEGIN native\nBEHAVIOR_PASS native\nBEHAVIOR_SUMMARY 1 1\nAll tests passed.\n', '')
-            with patch.object(native_capture.subprocess, 'Popen', return_value=process):
+            with (
+                patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                patch.object(native_capture.subprocess, 'Popen', return_value=process),
+            ):
                 _, execution = native_capture.capture_script(runtime, codec.SCRIPT, initial_seed=initial_seed)
             request = json.loads(process.communicate.call_args.args[0])
             self.assertEqual(request['initial_seed'], initial_seed)
             self.assertEqual(execution['initial_seed'], initial_seed)
             self.assertEqual(execution['seed_launch_flags'], ['--quickstart', '--quickstart-seed', initial_seed])
             for bad in (True, '', '1:2:3', '1:2:3:4294967296', '1:2:3:-1', '1:2:3:01', '1:2:3:４'):
-                with self.subTest(seed=bad), patch.object(native_capture.subprocess, 'Popen') as launch, self.assertRaises(native_capture.NativeCaptureError):
+                with (
+                    self.subTest(seed=bad),
+                    patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                    patch.object(native_capture.subprocess, 'Popen') as launch, self.assertRaises(native_capture.NativeCaptureError),
+                ):
                     native_capture.capture_script(runtime, codec.SCRIPT, initial_seed=bad)
                 launch.assert_not_called()
 
@@ -123,7 +138,11 @@ class PrecisionTests(unittest.TestCase):
                 probe.write_text("#print('changed');\n")
                 return ('BEHAVIOR_SUMMARY 1 1\nAll tests passed.\n', '')
             process.communicate.side_effect = communicate
-            with patch.object(native_capture.subprocess, 'Popen', return_value=process), self.assertRaises(native_capture.NativeCaptureError) as caught:
+            with (
+                patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                patch.object(native_capture.subprocess, 'Popen', return_value=process),
+                self.assertRaises(native_capture.NativeCaptureError) as caught,
+            ):
                 native_capture.capture_script(runtime, probe)
             self.assertEqual(caught.exception.execution['probe_sha256'], hashlib.sha256(original.encode()).hexdigest())
             self.assertIn('changed during execution', str(caught.exception))
@@ -136,7 +155,11 @@ class PrecisionTests(unittest.TestCase):
             for returncode in (0, 1):
                 process = MagicMock(); process.__enter__.return_value = process
                 process.returncode = returncode; process.communicate.return_value = (complete, '')
-                with self.subTest(returncode=returncode), patch.object(native_capture.subprocess, 'Popen', return_value=process):
+                with (
+                    self.subTest(returncode=returncode),
+                    patch.object(native_capture, 'create_snapshot', return_value=native_capture.create_snapshot(native_capture.ROOT)),
+                    patch.object(native_capture.subprocess, 'Popen', return_value=process),
+                ):
                     if returncode:
                         with self.assertRaises(native_capture.NativeCaptureError) as caught:
                             native_capture.capture_script(runtime, codec.SCRIPT)

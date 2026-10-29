@@ -10,10 +10,11 @@ import tarfile
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE_DIRS = {'src', 'cmake', 'dependencies', 'resource', 'tools', 'web', 'docs'}
+SOURCE_DIRS = {'src', 'cmake', 'dependencies', 'resource', 'tools', 'web', 'docs', 'scripts'}
 SOURCE_FILES = {'CMakeLists.txt', 'CMakePresets.json', 'LICENSE', 'README.md',
                 'CHANGELOG.md', '.gitignore', '.clang-format', '.clang-tidy',
-                'flake.nix', 'flake.lock'}
+                'flake.nix', 'flake.lock', 'package.json', 'package-lock.json',
+                'tsconfig.json', 'eslint.config.mjs', '.prettierignore'}
 
 
 def source_paths():

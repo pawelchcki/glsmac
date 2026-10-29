@@ -29,6 +29,10 @@ jobs:
       bugs_found: ${{ steps.pack.outputs.bugs_found }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
       - name: install_dependencies
         run: |
           sudo apt-get update -qq
@@ -60,6 +64,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
       - name: install_dependencies
         run: |
           sudo apt-get update -qq
@@ -81,7 +89,7 @@ jobs:
           ARCHIVE_NAME: glsmac-ubuntu64-${{ needs.prepare.outputs.ver }}-${{ needs.prepare.outputs.sha }}.tar.gz
         run: |
           mkdir glsmac
-          cp -r build/bin/GLSMAC build/bin/GLSMAC_data glsmac
+          cp -r build/bin/GLSMAC build/bin/GLSMAC_data build/bin/scripts build/bin/quickjs-LICENSE glsmac
           tar -zcvf $ARCHIVE_NAME glsmac
       - name: upload
         uses: actions/upload-artifact@v4
@@ -94,6 +102,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: npm ci --ignore-scripts
       - name: install_dependencies
         run: |
           choco install ninja
@@ -119,6 +131,8 @@ jobs:
           mkdir glsmac
           Copy-Item -Path build/bin/GLSMAC.exe -Destination glsmac
           Copy-Item -Path build/bin/GLSMAC_data -Destination glsmac -Recurse
+          Copy-Item -Path build/bin/scripts -Destination glsmac -Recurse
+          Copy-Item -Path build/bin/quickjs-LICENSE -Destination glsmac
           Compress-Archive -Path glsmac -Destination $Env:ARCHIVE_NAME
       - name: upload
         uses: actions/upload-artifact@v4

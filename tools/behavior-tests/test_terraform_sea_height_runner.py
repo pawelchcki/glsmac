@@ -331,7 +331,8 @@ else:
         child = int(raw.decode().strip().split('|')[1])
         self.assertTrue(result['actual_wait_returned']); self.assertTrue(result['forced_cleanup'])
         self.assertTrue(result['owned_group_absent']); self.assertTrue(result['observed_owned_session_absent'])
-        self.assertTrue(result['known_owned_identities_absent']); self.assertTrue(result['ownership_supported'])
+        self.assertTrue(result['known_owned_identities_absent'], result)
+        self.assertTrue(result['ownership_supported'], result)
         self.assertEqual(result['remaining_owned_identities'], []); self.assertEqual(result['unresolved_adopted_children'], [])
         actual = next(row for row in result['adopted_children_actual_waits'] if row['pid'] == child)
         self.assertIsInstance(actual['start_ticks'], int); self.assertTrue(os.WIFSIGNALED(actual['wait_status']))
@@ -343,6 +344,46 @@ else:
         result, raw = self.run_child(self.escape_code())
         self.assertEqual(result['actual_os_process_exit_code'], 0)
         self.assert_escape_waited(result, raw)
+
+    def test_new_adoptee_after_process_scan_uses_fresh_owned_identity(self):
+        root = dict(pid=100, start_ticks=1, parent=999, session=100, group=100)
+        child = dict(pid=300, start_ticks=3, parent=999, session=300, group=300)
+        scope = dict(owner=999, known={100:1}, foreign={}, provenance={100:'actual-Popen-leader'},
+                     sessions={}, adoption_allowed=True, unsupported=set(), unresolved=[],
+                     waited_adopted=[], root_start=1)
+        # The orphan becomes a direct child after the earlier /proc inventory.
+        with patch.object(runner, 'process_table', return_value={100:root}), \
+                patch.object(runner, 'direct_children', return_value={100,300}), \
+                patch.object(runner, 'task_count', return_value=1), \
+                patch.object(runner, 'probe_identity', return_value=('present', child)) as probe:
+            self.assertEqual(runner.members(100, scope),
+                             [dict(pid=100, start_ticks=1), dict(pid=300, start_ticks=3)])
+        probe.assert_called_once_with(300)
+        self.assertFalse(scope['unsupported']); self.assertEqual(scope['unresolved'], [])
+        self.assertEqual(scope['known'][300], 3)
+        self.assertEqual(scope['provenance'][300], 'new-subreaper-adoptee')
+        self.assertEqual(scope['sessions'][300], {300})
+
+    def test_new_listed_child_still_needs_readable_current_ownership(self):
+        root = dict(pid=100, start_ticks=1, parent=999, session=100, group=100)
+        other = dict(pid=300, start_ticks=3, parent=888, session=300, group=300)
+        for state, row in [('absent', None), ('unknown', None), ('present', other)]:
+            scope = dict(owner=999, known={100:1}, foreign={}, provenance={100:'actual-Popen-leader'},
+                         sessions={}, adoption_allowed=True, unsupported=set(), unresolved=[],
+                         waited_adopted=[], root_start=1)
+            with self.subTest(state=state), \
+                    patch.object(runner, 'process_table', return_value={100:root}), \
+                    patch.object(runner, 'direct_children', return_value={100,300}), \
+                    patch.object(runner, 'task_count', return_value=1), \
+                    patch.object(runner, 'probe_identity', return_value=(state, row)), \
+                    patch.object(runner.os, 'kill') as kill, \
+                    patch.object(runner.os, 'waitpid', return_value=(0,0)) as wait:
+                self.assertEqual(runner.members(100, scope), [dict(pid=100, start_ticks=1)])
+                runner.signal_members(100, 15, scope); runner.reap(100, scope)
+                self.assertNotIn(300, scope['known']); self.assertTrue(scope['unsupported'])
+                self.assertEqual(scope['unresolved'], [dict(pid=300, start_ticks=None)])
+                self.assertTrue(all(call.args[0] == 100 for call in kill.call_args_list))
+                self.assertTrue(all(call.args[0] == 100 for call in wait.call_args_list))
 
     def test_timeout_setsid_tree_keeps_true_leader_wait_separate_from_native(self):
         result, raw = self.run_child(self.escape_code(10), timeout=1)

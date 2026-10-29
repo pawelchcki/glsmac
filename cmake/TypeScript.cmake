@@ -1,0 +1,17 @@
+FIND_PROGRAM( GLSMAC_NODE NAMES node REQUIRED )
+ADD_CUSTOM_TARGET( glsmac_scripts ALL
+	COMMAND "${GLSMAC_NODE}" "${PROJECT_SOURCE_DIR}/tools/scripts/build.mjs" --stage "${CMAKE_BINARY_DIR}/bin/scripts"
+	WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+	COMMENT "Compile current TypeScript modules without rebuilding native code"
+	VERBATIM
+)
+ADD_DEPENDENCIES( ${PROJECT_NAME} glsmac_scripts )
+IF ( EMSCRIPTEN )
+	TARGET_LINK_OPTIONS( ${PROJECT_NAME} PRIVATE "SHELL:--pre-js ${PROJECT_SOURCE_DIR}/tools/scripts/wasm-loader.js" )
+	SET_PROPERTY( TARGET ${PROJECT_NAME} APPEND PROPERTY LINK_DEPENDS "${PROJECT_SOURCE_DIR}/tools/scripts/wasm-loader.js" )
+	ADD_CUSTOM_COMMAND( TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND "${GLSMAC_NODE}" "${PROJECT_SOURCE_DIR}/tools/scripts/build.mjs" --runtime-js "$<TARGET_FILE:${PROJECT_NAME}>"
+		WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+		VERBATIM
+	)
+ENDIF ()

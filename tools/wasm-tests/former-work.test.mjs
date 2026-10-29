@@ -9,6 +9,7 @@ import {chromium} from 'playwright';
 import {overrideRulesAsset} from './rules-asset-fixture.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
+const scriptsRoot = process.env.WASM_SCRIPTS_ROOT || root;
 const build = process.env.WASM_APP_DIR || `${root}build/wasm-release/bin`;
 const assets = process.env.SMAC_ASSETS_DIR;
 const artifacts = new URL('build/artifacts/', import.meta.url);
@@ -131,8 +132,8 @@ for (const input of cases) test(`real Former controls reproduce frozen work trac
   const progress = new URL(`former-work-${input.id}-progress.log`, artifacts);
   writeFileSync(progress, '');
   const step = message => appendFileSync(progress, `${Date.now()} ${message}\n`);
-  const scripts = Object.fromEntries(readdirSync(`${root}GLSMAC_data/default`, {recursive: true}).filter(n => n.endsWith('.gls.js')).sort()
-    .map(n => [`GLSMAC_data/default/${n}`, readFileSync(`${root}GLSMAC_data/default/${n}`, 'utf8')]));
+  const scripts = Object.fromEntries(readdirSync(`${scriptsRoot}/GLSMAC_data/default`, {recursive: true}).filter(n => n.endsWith('.gls.js')).sort()
+    .map(n => [`GLSMAC_data/default/${n}`, readFileSync(`${scriptsRoot}/GLSMAC_data/default/${n}`, 'utf8')]));
   t.diagnostic(`Production scripts SHA-256: ${createHash('sha256').update(JSON.stringify(scripts)).digest('hex')}`);
   t.diagnostic(`Runtime WASM SHA-256: ${createHash('sha256').update(readFileSync(`${build}/GLSMAC.wasm`)).digest('hex')}`);
   const address = await serve(t);

@@ -219,7 +219,8 @@
     {"id":"startup-production-profiles","script":"GLSMAC_data/tests/startup_production_profiles.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"startup-production-source-profiles","script":"GLSMAC_data/tests/startup_production_source_profiles.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
     {"id":"startup-production-epoch","script":"GLSMAC_data/tests/startup_production_epoch.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
-    {"id":"startup-production-zero-credit","script":"GLSMAC_data/tests/startup_production_zero_credit.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
+    {"id":"startup-production-zero-credit","script":"GLSMAC_data/tests/startup_production_zero_credit.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"},
+    {"id":"typescript-boundary","script":"GLSMAC_data/tests/typescript_boundary.gls.js","domains":["gameplay","economy"],"evidence":"glsmac-regression"}
   ],
   "references": [
     {"id":"human-research-cost-blind-validation","cases":"cases/human-research-cost-blind-validation.json","observations":"observations/human-research-cost-blind-validation.json"},

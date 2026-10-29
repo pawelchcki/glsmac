@@ -10,7 +10,7 @@ import json
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
-SCRIPTS = ["gc", "combat_rollback_regression", "unit_menu_order_lifecycle", "starvation_notice_controls"]
+SCRIPTS = ["gc", "combat_rollback_regression", "unit_menu_order_lifecycle", "starvation_notice_controls", "typescript_boundary", "land_resource_sources"]
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--binary", type=Path, default=ROOT / "build/native/bin/GLSMAC")

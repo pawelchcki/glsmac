@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16'
+      - run: npm ci --ignore-scripts
       # Headless workers mount current host scripts and block embedded fallback.
       # Only engine/toolchain changes invalidate these reusable binaries.
       - name: Restore compatible test engine
@@ -25,7 +26,7 @@ jobs:
           path: |
             build/wasm/bin/GLSMAC.js
             build/wasm/bin/GLSMAC.wasm
-          key: behavior-engine-${{ runner.os }}-emscripten-4.0.22-v1-${{ hashFiles('src/**', 'cmake/**', 'CMakeLists.txt', 'tools/embedder.cpp', 'tools/CMakeLists.txt', 'tools/innoextract/**', 'tools/build-innoextract.py', 'resource/font/terminus/**') }}
+          key: behavior-engine-${{ runner.os }}-emscripten-4.0.22-v2-${{ hashFiles('src/**', 'cmake/**', 'CMakeLists.txt', 'tools/embedder.cpp', 'tools/CMakeLists.txt', 'tools/innoextract/**', 'tools/build-innoextract.py', 'resource/font/terminus/**', 'scripts/contracts/**', 'tools/scripts/contracts.mjs', 'tools/scripts/wasm-loader.js') }}
       - name: Build test engine on cache miss
         if: steps.engine.outputs.cache-hit != 'true'
         run: |
@@ -35,11 +36,20 @@ jobs:
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
           emcmake cmake -S . -B build/wasm -DCMAKE_BUILD_TYPE=FastDebug
           cmake --build build/wasm -j4
+      - name: Package current TypeScript even when the engine cache hits
+        run: node tools/scripts/build.mjs --runtime-js build/wasm/bin/GLSMAC.js --stage build/wasm/bin/scripts
+      - name: Execute a script-only edit with identical WASM bytes
+        run: node tools/scripts/lifetime.mjs --wasm build/wasm/bin/GLSMAC.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: script-package-lifetime
+          path: build/scripts/lifetime-wasm.json
       - uses: actions/upload-artifact@v4
         with:
           name: behavior-engine
           path: |
             build/wasm/bin/GLSMAC.js
             build/wasm/bin/GLSMAC.wasm
+            build/wasm/bin/scripts
           if-no-files-found: error
           retention-days: 7
