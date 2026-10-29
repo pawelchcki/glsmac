@@ -52,6 +52,7 @@ int main( const int argc, const char** argv ) {
 		stage = "unit order policy";
 		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		assert( std::get< int64_t >( runtime.Call( "tests/unit-orders", "run", {} ).data ) == 73 );
+		assert( std::get< int64_t >( runtime.Call( "tests/unit-order-ui", "run", {} ).data ) == 138 );
 		const auto order_snapshot = runtime.Call( "tests/unit-orders", "snapshot", {} );
 		const auto order_valid = runtime.Call( "game/unit-orders", "validate", order_snapshot );
 		assert( std::holds_alternative< std::nullptr_t >( std::get< script::Value::Object >( order_valid.data ).at( "error" ).data ) );

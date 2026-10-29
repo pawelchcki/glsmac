@@ -1,3 +1,4 @@
+const order_ui = #include('../unit_order_controller');
 const colony = #include('../../../../game/colony');
 const work = #include('../../../../game/terraforming');
 const work_controls = #include('../../../../game/terraforming_control_policy');
@@ -54,9 +55,7 @@ return {
 		this.p.modules.popup.show('unit_activation', (id) => {
 			if (token != this.activation_token) { return; }
 			this.activation_token = this.activation_token + 1;
-			if (#typeof(id) == 'Int' && this.is_turn_active && this.order_pending == null && this.founding_pending_id == null &&
-				!this.p.modules.popup.is_shown() && this.p.game.get_turn() == request.turn && this.p.game.get_player().id == request.owner &&
-				this.selected_unit_id == request.selected && this.order_focus_id == request.focus && this.um.has_unit(id)) {
+			if (order_ui.activation(id,this,request) && this.um.has_unit(id)) {
 				const unit = this.um.get_unit(id); const position = unit.get_tile();
 				if (unit.owner == request.owner && !unit.is_immovable && unit.health > 0.0 && !position.is_locked() && position.x == request.x && position.y == request.y) {
 					for (choice of choices) {
@@ -218,24 +217,21 @@ return {
 
 	finish_unit_order: (e) => {
 		if (this.order_pending != null && (this.order_pending.name == 'unit_disband' || this.order_pending.name == 'unit_disband_draft')) { return false; }
-		if (this.order_pending == null || e.name != this.order_pending.name || e.caller != this.p.game.get_player().id) { return false; }
-		if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id) || e.data.unit_id != this.order_pending.unit_id) { return false; }
-		if (this.order_pending.name == 'unit_terraform' &&
-			(!#is_defined(e.data.action) || #typeof(e.data.action) != 'String' || e.data.action != this.order_pending.action)) { return false; }
-		if (this.order_pending.name == 'unit_terraform_plan' &&
-			(!#is_defined(e.data.command) || #typeof(e.data.command) != 'String' || e.data.command != this.order_pending.command)) { return false; }
-		if (!#is_defined(e.success) || #typeof(e.success) != 'Bool') { return false; }
+		if (this.order_pending == null) { return false; }
+		const completion = order_ui.match(this.order_pending,e,this.p.game.get_player().id);
+		if (!completion.matched) { return false; }
+		const package_id = #js_package();
 		const pending = this.order_pending; this.order_pending = null;
-		if (e.success && this.um.has_unit(pending.unit_id)) {
+		if (completion.succeeded && this.um.has_unit(pending.unit_id)) {
 			const unit = this.um.get_unit(pending.unit_id);
 			if (this.rendered_unit_id == unit.id) { this.set_lines(unit); }
-			if (pending.name == 'unit_activate') {
-				if (this.selected_unit_id == unit.id || (this.selected_unit_id == null && this.order_focus_id == unit.id)) { this.p.game.select_unit(unit); }
-			} else if (this.selected_unit_id == unit.id) {
+			const operation = order_ui.selection(pending.name,unit.id,this.selected_unit_id,this.order_focus_id,package_id);
+			if (operation.select_unit) { this.p.game.select_unit(unit); }
+			else if (operation.clear_selection) {
 				this.selected_unit_id = null;
 				// Retain the real frontend's next-unit selection when other units
 				// need orders. With none left, explicitly select this actual tile.
-				if (!this.um.has_ready_unit(this.p.game.get_player().id)) { this.p.game.select_tile(unit.get_tile()); }
+				if (operation.select_idle_tile && !this.um.has_ready_unit(this.p.game.get_player().id)) { this.p.game.select_tile(unit.get_tile()); }
 			}
 		}
 		this.update_order_buttons(); this.update_skip_button(); this.update_found_button();

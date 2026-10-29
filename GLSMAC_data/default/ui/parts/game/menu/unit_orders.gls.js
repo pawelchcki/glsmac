@@ -1,3 +1,4 @@
+const order_ui = #include('../unit_order_controller');
 // Observed Action source identities. Wording and shortcut hints remain data;
 // native order handlers and the existing order controller own all effects.
 const commands = [[26, 'unit_sentry'], [29, 'unit_hold'], [30, 'unit_skip_turn']];
@@ -13,11 +14,11 @@ return (menu, p) => {
 		root.el.listen(p.game, 'event_result', (e) => {
 			const pending = state.pending;
 			if (!state.alive || pending == null) { return; }
-			if (!#is_defined(e.data) || #typeof(e.data) != 'Object' || !#is_defined(e.data.unit_id)) { return; }
-			if (!#is_defined(e.success) || #typeof(e.success) != 'Bool') { return; }
-			if (e.name != pending.name || e.caller != pending.caller || e.data.unit_id != pending.unit_id) { return; }
+			const completion = order_ui.match(pending,e,pending.caller);
+			if (!completion.matched) { return; }
+			const package_id = #js_package();
 			state.pending = null;
-			if (e.success && root.is_open && pending.child.is_open && !p.modules.popup.is_shown()) {
+			if (completion.succeeded && order_ui.close_menu(true,root.is_open,pending.child.is_open,p.modules.popup.is_shown(),package_id)) {
 				root.clear_active();
 			}
 		});

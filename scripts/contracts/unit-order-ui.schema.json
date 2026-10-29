@@ -1,0 +1,86 @@
+{
+  "version": "1",
+  "mutable": [],
+  "types": {
+    "PendingUnitOrder": {
+      "name": "string",
+      "unit_id": "int64",
+      "action": "nullable:string",
+      "command": "nullable:string"
+    },
+    "UnitOrderResult": {
+      "name": "nullable:string",
+      "caller": "nullable:int64",
+      "unit_id": "nullable:int64",
+      "action": "nullable:string",
+      "command": "nullable:string",
+      "success": "nullable:bool"
+    },
+    "UnitOrderMatchInput": {
+      "schema": "version",
+      "pending": "nullable:PendingUnitOrder",
+      "owner": "int64",
+      "event": "UnitOrderResult"
+    },
+    "UnitOrderMatch": {
+      "matched": "bool",
+      "succeeded": "bool"
+    },
+    "UnitOrderSelectionInput": {
+      "schema": "version",
+      "name": "string",
+      "unit_id": "int64",
+      "selected": "nullable:int64",
+      "focus": "nullable:int64"
+    },
+    "UnitOrderSelection": {
+      "select_unit": "bool",
+      "clear_selection": "bool",
+      "select_idle_tile": "bool"
+    },
+    "UnitActivationGateInput": {
+      "schema": "version",
+      "choice": "nullable:int64",
+      "turn_active": "bool",
+      "pending": "bool",
+      "founding_pending": "bool",
+      "popup": "bool",
+      "turn": "int64",
+      "owner": "int64",
+      "selected": "nullable:int64",
+      "focus": "nullable:int64",
+      "request_turn": "int64",
+      "request_owner": "int64",
+      "request_selected": "nullable:int64",
+      "request_focus": "int64"
+    },
+    "UnitOrderMenuInput": {
+      "schema": "version",
+      "success": "bool",
+      "root_open": "bool",
+      "child_open": "bool",
+      "popup": "bool"
+    },
+    "UnitOrderUiDecision": {
+      "accepted": "bool"
+    }
+  },
+  "entrypoints": {
+    "ui/unit-orders:match": {
+      "input": "UnitOrderMatchInput",
+      "output": "UnitOrderMatch"
+    },
+    "ui/unit-orders:selection": {
+      "input": "UnitOrderSelectionInput",
+      "output": "UnitOrderSelection"
+    },
+    "ui/unit-orders:activationGate": {
+      "input": "UnitActivationGateInput",
+      "output": "UnitOrderUiDecision"
+    },
+    "ui/unit-orders:closeMenu": {
+      "input": "UnitOrderMenuInput",
+      "output": "UnitOrderUiDecision"
+    }
+  }
+}
