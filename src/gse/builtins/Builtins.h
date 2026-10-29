@@ -3,14 +3,15 @@
 #include "gse/Bindings.h"
 
 // TODO: refactor
+#include "Async.h"
 #include "Common.h"
 #include "Console.h"
-#include "Include.h"
 #include "Conversions.h"
+#include "Include.h"
+#include "JavaScript.h"
 #include "Math.h"
-#include "String.h"
 #include "Object.h"
-#include "Async.h"
+#include "String.h"
 
 namespace gse {
 namespace builtins {
@@ -36,7 +37,7 @@ private:
 	String m_string = {};
 	Object m_object = {};
 	Async m_async = {};
-
+	JavaScript m_javascript = {};
 };
 
 }

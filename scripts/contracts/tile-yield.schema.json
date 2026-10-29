@@ -1,0 +1,82 @@
+{
+  "version": "1",
+  "mutable": ["Yields"],
+  "types": {
+    "Yields": {
+      "NUTRIENTS": "int64",
+      "MINERALS": "int64",
+      "ENERGY": "int64"
+    },
+    "Bonuses": {
+      "nutrient": "bool",
+      "minerals": "bool",
+      "energy": "bool"
+    },
+    "Improvements": {
+      "farm": "bool",
+      "mine": "bool",
+      "forest": "bool",
+      "solar": "bool",
+      "soil_enricher": "bool",
+      "condenser": "bool",
+      "borehole": "bool",
+      "road": "bool"
+    },
+    "TileSnapshot": {
+      "is_land": "bool",
+      "rockiness": "int64",
+      "elevation": "int64",
+      "jungle": "bool",
+      "river": "bool",
+      "bonuses": "Bonuses",
+      "improvements": "Improvements"
+    },
+    "LandRules": {
+      "forest": "Yields",
+      "ocean": "nullable:Yields",
+      "improved_sea": "nullable:Yields",
+      "borehole": "nullable:Yields",
+      "farm_nutrients": "int64",
+      "mine_nutrients": "int64",
+      "mine_without_road_limit": "int64"
+    },
+    "Caps": {
+      "NUTRIENTS": "bool",
+      "MINERALS": "bool",
+      "ENERGY": "bool"
+    },
+    "TileYieldInput": {
+      "schema": "version",
+      "tile": "TileSnapshot",
+      "rules": "LandRules",
+      "existing": "Yields",
+      "caps": "Caps",
+      "sea_mine_bonus": "bool",
+      "mirrors": "int64"
+    },
+    "YieldPlan": {
+      "uncapped": "Yields",
+      "extra": "Yields",
+      "needs_caps": "Caps"
+    },
+    "YieldResolutionInput": {
+      "schema": "version",
+      "plan": "YieldPlan",
+      "caps": "Caps"
+    }
+  },
+  "entrypoints": {
+    "game/land-resource-yields:apply": {
+      "input": "TileYieldInput",
+      "output": "Yields"
+    },
+    "game/land-resource-yields:plan": {
+      "input": "TileYieldInput",
+      "output": "YieldPlan"
+    },
+    "game/land-resource-yields:resolve": {
+      "input": "YieldResolutionInput",
+      "output": "Yields"
+    }
+  }
+}

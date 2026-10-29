@@ -1,3 +1,4 @@
+import {currentPackage} from '../scripts/build.mjs';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {accessSync,constants,lstatSync,readFileSync,readdirSync,realpathSync,mkdirSync,writeFileSync} from 'node:fs';
@@ -130,6 +131,7 @@ export function snapshotAt(root) {
       .filter(name=>name.endsWith('.gls.js')).sort()
       .map(name=>[`GLSMAC_data/${kind}/${name}`,readFileSync(`${root}/GLSMAC_data/${kind}/${name}`,'utf8')])));
   snapshot[nativeFontPath]=trackedFont(root);
+  Object.assign(snapshot,currentPackage(root));
   return snapshot;
 }
 

@@ -1,6 +1,6 @@
 # Architecture and development roadmap
 
-Status: agreed direction; initial C++ quality foundation implemented, delivery verification in progress. Updated 2026-10-28.
+Status: C++ quality foundation merged; first TypeScript terrain-rule cutover implemented, delivery verification in progress. Updated 2026-10-29.
 
 ## Decisions
 
@@ -21,7 +21,13 @@ Status: agreed direction; initial C++ quality foundation implemented, delivery v
 
 ## 1. Fast TypeScript pipeline
 
-- [ ] Benchmark Oxc and SWC on representative rules, UI modules and tests. Measure
+Initial implementation: pinned Oxc build/watch pipeline, per-module caching,
+atomic verified packages, independent type/lint/format checks, and copied-value
+QuickJS execution on native, WASM and Chromium. Tile-improvement yield policy now
+lives in TypeScript. See [development and remaining migration inventory](docs/typescript-runtime.md).
+The compiler C ABI experiment and complete action lifecycle remain open.
+
+- [x] Benchmark Oxc and SWC on representative rules, UI modules and tests. Measure
   cold startup, warm single-module edits, full script builds, memory, output size
   and source-map accuracy. Pin the selected compiler and configuration.
 - [ ] Prototype a small compiler service/library boundary. Compare a persistent
@@ -29,23 +35,23 @@ Status: agreed direction; initial C++ quality foundation implemented, delivery v
   native builds and an appropriate WASM module/interface for the browser.
   Verify actual cross-compilation and integration support; do not assume a Rust
   crate can simply link into the Emscripten executable.
-- [ ] Compile as late as practical: immediately before script embedding or
+- [x] Compile as late as practical: immediately before script embedding or
   packaging for releases, and on changed-module load for development if the
   engine integration wins the benchmark. Release builds consume generated JS
   without paying for compilation at every startup. Decide whether development
   builds/mod loading should also accept TS directly.
-- [ ] Keep one transform implementation and configuration across development,
+- [x] Keep one transform implementation and configuration across development,
   tests and packaging. Cache by TS bytes, logical module path, compiler version,
   options and relevant dependency/configuration inputs. Write outputs atomically;
   reject stale or failed transforms instead of executing earlier output.
-- [ ] Script-only edits must need neither a C++ rebuild nor a WASM relink. Keep a
+- [x] Script-only edits must need neither a C++ rebuild nor a WASM relink. Keep a
   warm compiler/watch process where useful, reuse unchanged modules and retain
   original TS paths/locations in runtime errors and stack traces.
-- [ ] Use ES modules and explicit type-only imports. Enable `isolatedModules`
+- [x] Use ES modules and explicit type-only imports. Enable `isolatedModules`
   and `verbatimModuleSyntax`; define a supported TS subset without namespaces,
   ambient const enums or decorator metadata that needs cross-file type inference.
   Declare module resolution and the JavaScript target supported by the runtime.
-- [ ] Run incremental `tsc --noEmit` separately, with `strict`,
+- [x] Run incremental `tsc --noEmit` separately, with `strict`,
   `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`. Add type-aware
   linting for unsafe values, unhandled promises and incorrect API use, plus a
   pinned formatter. Fast transformation is not proof of type correctness.
@@ -59,7 +65,7 @@ separate transform, type-check, runtime startup and test execution times.
 
 ## 2. JavaScript runtime and typed engine boundary
 
-- [ ] Evaluate a maintained embedded JavaScript runtime, starting with QuickJS,
+- [x] Evaluate a maintained embedded JavaScript runtime, starting with QuickJS,
   in both native and WASM builds. Pin runtime/version, supported language
   features, module loading, memory limits and interruption behavior.
 - [ ] Define one versioned command/snapshot/event schema; generate C++ and TS

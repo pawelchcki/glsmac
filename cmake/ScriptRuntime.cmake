@@ -1,0 +1,24 @@
+INCLUDE( "${CMAKE_CURRENT_LIST_DIR}/QuickJS.cmake" )
+SET( GLSMAC_SCRIPT_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/../src" )
+FIND_PROGRAM( GLSMAC_NODE NAMES node REQUIRED )
+SET( GLSMAC_CONTRACT_HEADER "${CMAKE_BINARY_DIR}/generated/script-contracts.h" )
+ADD_CUSTOM_COMMAND( OUTPUT "${GLSMAC_CONTRACT_HEADER}"
+	COMMAND "${GLSMAC_NODE}" "${CMAKE_CURRENT_LIST_DIR}/../tools/scripts/contracts.mjs" --cpp "${GLSMAC_CONTRACT_HEADER}"
+	DEPENDS "${CMAKE_CURRENT_LIST_DIR}/../tools/scripts/contracts.mjs"
+		"${CMAKE_CURRENT_LIST_DIR}/../scripts/contracts/tile-yield.schema.json"
+	VERBATIM
+)
+ADD_LIBRARY( glsmac_script STATIC
+	"${GLSMAC_SCRIPT_SOURCE_DIR}/script/Runtime.cpp"
+	"${GLSMAC_SCRIPT_SOURCE_DIR}/script/SourceMap.cpp"
+	"${GLSMAC_CONTRACT_HEADER}"
+)
+GLSMAC_CONFIGURE_TARGET( glsmac_script )
+TARGET_INCLUDE_DIRECTORIES( glsmac_script PUBLIC "${GLSMAC_SCRIPT_SOURCE_DIR}" )
+TARGET_INCLUDE_DIRECTORIES( glsmac_script PRIVATE "${CMAKE_BINARY_DIR}/generated" )
+TARGET_LINK_LIBRARIES( glsmac_script PRIVATE glsmac_quickjs )
+IF ( EMSCRIPTEN )
+	TARGET_COMPILE_OPTIONS( glsmac_script PRIVATE -fexceptions -pthread )
+ENDIF ()
+
+CONFIGURE_FILE( "${quickjs_SOURCE_DIR}/LICENSE" "${CMAKE_BINARY_DIR}/bin/quickjs-LICENSE" COPYONLY )

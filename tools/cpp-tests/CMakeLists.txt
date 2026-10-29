@@ -23,6 +23,14 @@ ADD_EXECUTABLE( cpp-standard standard.cpp )
 GLSMAC_CONFIGURE_TARGET( cpp-standard )
 ADD_TEST( NAME cpp-standard COMMAND cpp-standard )
 
+ADD_EXECUTABLE( script-runtime-probe "${PROJECT_SOURCE_DIR}/tools/script-runtime/main.cpp" )
+GLSMAC_CONFIGURE_TARGET( script-runtime-probe )
+TARGET_LINK_LIBRARIES( script-runtime-probe PRIVATE glsmac_script )
+TARGET_COMPILE_OPTIONS( script-runtime-probe PRIVATE -UNDEBUG )
+ADD_DEPENDENCIES( script-runtime-probe glsmac_scripts )
+ADD_TEST( NAME script-runtime-probe COMMAND script-runtime-probe "${CMAKE_BINARY_DIR}/bin/scripts" )
+SET_TESTS_PROPERTIES( script-runtime-probe PROPERTIES TIMEOUT 30 )
+
 # Standalone native tools also need real compile commands for changed-file
 # analysis, even when a normal application build does not build their binaries.
 FUNCTION( GLSMAC_ADD_ANALYSIS_TOOL TARGET )

@@ -16,7 +16,7 @@
         in {
           default = assert llvm.clang.version == expectedLLVM; (pkgs.mkShell.override { stdenv = llvm.stdenv; }) {
             packages = with pkgs; [
-              cmake ninja pkg-config git
+              cmake ninja pkg-config git nodejs_22
               llvm.clang-tools llvm.lld llvm.llvm
               (python3.withPackages (ps: [ ps.pyyaml ]))
             ];

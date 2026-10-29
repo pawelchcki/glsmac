@@ -83,10 +83,17 @@ def load_catalog(path):
 
 
 def create_snapshot(root=ROOT):
+    root = Path(root)
     snapshot = {}
     for directory in (root / "GLSMAC_data/default", root / "GLSMAC_data/tests"):
         for script in sorted(directory.rglob("*.gls.js")):
             snapshot[script.relative_to(root).as_posix()] = script.read_text(encoding="utf-8")
+    if (root / "scripts").is_dir():
+        package = subprocess.run(
+            [os.environ.get("NODE", "node"), str(ROOT / "tools/scripts/snapshot.mjs"), str(root)],
+            check=True, capture_output=True, text=True, timeout=30,
+        )
+        snapshot.update(decode_json(package.stdout))
     return snapshot
 
 

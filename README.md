@@ -127,6 +127,11 @@ Requirements may go up slightly as more features are added to game. But I'll try
 
 ### Build instructions
 
+Install Node 22.16 or newer and run `npm ci --ignore-scripts` before configuring
+CMake. Migrated scripts are authored in TypeScript and packaged separately from
+the engine; see [TypeScript development and runtime](docs/typescript-runtime.md).
+The [locked Nix shell](docs/cpp-quality.md) supplies Node and the native tools.
+
 For the browser port's local WASM/WebGL2 test setup, see
 [Browser-free WASM canvas tests](tools/wasm-tests/README.md).
 For the full Emscripten build and browser launcher, see
