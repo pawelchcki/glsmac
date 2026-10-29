@@ -7,9 +7,18 @@ native faction technologies and adjacent mirrors. TypeScript computes the yield
 plan, requests only the technology checks needed for caps, and resolves the plan.
 Existing resource and Former action scenarios remain the acceptance tests.
 
-This is the terrain-rule foundation. A complete action lifecycle, production UI
-orchestration, timers, and the remaining GSE application are still pending.
-See [measurements, coverage and retained failures](typescript-validation.md).
+Ordinary unit-command eligibility and Hold/Sentry/Activate cancellation planning
+also run in `scripts/game/unit-orders.ts`. The temporary `unit_orders.gls.js`
+adapter resolves the exact live native entity, copies its observations, and
+executes the plan under the existing native write authorization. It preserves
+native cancellation, complete rollback receipts, stale-entity checks and state
+restoration. Validation and planning require the same package generation before
+any mutation. Skip and other commands reuse the migrated eligibility policy.
+
+A complete TypeScript action lifecycle, production UI orchestration, timers, and
+the remaining GSE application are still pending.
+See [foundation measurements and retained failures](typescript-validation.md) and
+[unit-order validation](typescript-unit-orders-validation.md).
 
 ## Development
 
@@ -105,9 +114,14 @@ limited to depth 64 and each collection to 65,536 entries. Arithmetic overflow
 rejects the result rather than silently narrowing. This slice introduces no
 event ordering, RNG or serialization protocol.
 
-`scripts/contracts/tile-yield.schema.json` generates both TS interfaces/runtime
-validators and C++ structs/validators. The yield plan and resolution messages are
-versioned. Error classes and reasons survive the adapter; stack locations map
+Each `scripts/contracts/*.schema.json` generates its own TS interfaces/runtime
+validators and contributes C++ structs/validators to one generated header. The
+native/package signature covers the sorted set of schema paths and content
+hashes. Adding, editing or removing a domain contract requires a native rebuild;
+ordinary policy edits still reuse engine bytes. Removed contracts retire their
+generated TS modules. Duplicate type names and entrypoints across domains fail
+generation. The yield and unit-order messages are versioned; string, nullable
+string and finite float32 fields use the same declared types on both sides. Error classes and reasons survive the adapter; stack locations map
 back to original TypeScript. A failed runtime is discarded before another call.
 The adapter captures `#js_package()` after planning and supplies it as the fourth
 `#js_call` argument during resolution. Publication between these phases rejects

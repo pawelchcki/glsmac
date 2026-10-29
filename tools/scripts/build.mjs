@@ -12,7 +12,7 @@ import {
 import { dirname, join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { compiler, options, versions } from "./compiler.mjs";
-import { generateContracts } from "./contracts.mjs";
+import { contractSignature, generateContracts } from "./contracts.mjs";
 
 export const root = resolve(import.meta.dirname, "../..");
 export const defaultOutput = join(root, "GLSMAC_data/standard-js");
@@ -78,10 +78,7 @@ export function verifiedManifest(output = defaultOutput, sourceRoot = root) {
     throw new Error("Invalid script package manifest");
   if (JSON.stringify(manifest.inputs) !== JSON.stringify(inputsAt(sourceRoot)))
     throw new Error("Stale script package; run npm run scripts:build");
-  if (
-    manifest.contract_sha256 !==
-    manifest.inputs["scripts/contracts/tile-yield.schema.json"]
-  )
+  if (manifest.contract_sha256 !== contractSignature(manifest.inputs))
     throw new Error("Invalid script contract signature");
   if (
     JSON.stringify(manifest.compiler) !==
@@ -296,7 +293,7 @@ export async function build({
       manifest = {
         schema: "glsmac.standard-js.v1",
         root: `packages/${identity}`,
-        contract_sha256: inputs["scripts/contracts/tile-yield.schema.json"],
+        contract_sha256: contractSignature(inputs),
         compiler: { name: "oxc-transform", version: versions.oxc, options },
         inputs,
         modules,
