@@ -50,6 +50,7 @@ jobs:
           emcmake cmake -S tools/script-runtime -B build/script-wasm -DCMAKE_BUILD_TYPE=Release
           cmake --build build/script-wasm -j2
           node tools/script-runtime/run.mjs
+          node tools/scripts/release-loader.mjs
           npm --prefix tools/wasm-tests ci
           npx --prefix tools/wasm-tests playwright install --with-deps chromium
           node tools/script-runtime/run.mjs --browser
@@ -57,4 +58,6 @@ jobs:
         if: always()
         with:
           name: typescript-runtime
-          path: build/scripts/runtime-*.json
+          path: |
+            build/scripts/runtime-*.json
+            build/scripts/release-loader.json

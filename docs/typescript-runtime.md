@@ -61,11 +61,21 @@ Failed builds remove that manifest and invalidate attached browser packages.
 Native builds atomically select the active package in `bin/scripts` and retain
 older roots for readers that already selected them. Clean a staged directory only
 when no process uses it; fresh packaging workspaces contain one generation.
-WASM builds mount the active package through generated JSON in `GLSMAC.js`. Subsequent script builds
-replace that JSON; they leave `.wasm` and native executable bytes untouched.
+WASM builds mount the active package through encoded JSON data in `GLSMAC.js`. Subsequent script builds
+replace that data; they leave `.wasm` and native executable bytes untouched.
 Use `node tools/scripts/build.mjs --runtime-js PATH/GLSMAC.js --stage PATH/scripts`
 for custom output directories. The default searches `build/*/bin/GLSMAC.js`.
 Production release builds consume JavaScript without running a compiler at startup.
+The loader carries a quoted base64 JSON envelope; unlike comments and local
+identifier names, its marker survives release minification. Non-ASCII UTF-16
+code units are escaped before encoding, so `atob` preserves exact source/map
+text. Old unminified development outputs can still be refreshed through their
+legacy comment boundary until their next relink. Remove that compatibility path
+once those older development runtimes are retired.
+
+`node tools/scripts/release-loader.mjs` links a real Emscripten `-O3` loader,
+mounts every package file (plus a Unicode witness), and checks repeat publication
+and unchanged WASM bytes. PR CI runs this probe before the browser boundary.
 
 CI always regenerates the current package after restoring an engine cache.
 The compiled cache includes the schema, generator and static loader, and excludes

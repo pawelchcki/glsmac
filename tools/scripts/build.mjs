@@ -163,15 +163,49 @@ export function stagePackage(
   // Retire generations only by cleaning this directory with all readers stopped.
 }
 
-// The stable markers are part of the compiled loader, not transformed policy.
-// Replacing this JSON updates JS assets without touching any native/WASM bytes.
+// Quoted package data survives release minification; identifier names/comments do not.
+const packageKey = "GLSMAC_STANDARD_JS_PACKAGE_V1";
+const packagePrefix = Buffer.from(`{"${packageKey}":`).toString("base64");
 export function attachPackage(filename, snapshot) {
+  const source = readFileSync(filename, "utf8");
+  const pattern = new RegExp(
+    `(["'])(${packagePrefix}[A-Za-z0-9+/]*={0,2})\\1`,
+    "g",
+  );
+  const matches = [...source.matchAll(pattern)];
+  if (matches.length === 1) {
+    const match = matches[0];
+    const previous = JSON.parse(
+      Buffer.from(match[2], "base64").toString("ascii"),
+    );
+    if (
+      Object.keys(previous).length !== 1 ||
+      !Object.hasOwn(previous, packageKey)
+    )
+      throw new Error(`Invalid standard-JS package data: ${filename}`);
+    // atob returns Latin-1. Escaping every non-ASCII UTF-16 code unit preserves
+    // exact Unicode source text without depending on TextDecoder in the loader.
+    const json = JSON.stringify({ [packageKey]: snapshot }).replace(
+      /[\u007f-\uffff]/g,
+      (character) =>
+        `\\u${character.charCodeAt(0).toString(16).padStart(4, "0")}`,
+    );
+    const token = JSON.stringify(Buffer.from(json, "ascii").toString("base64"));
+    const next =
+      source.slice(0, match.index) +
+      token +
+      source.slice(match.index + match[0].length);
+    if (next !== source) atomicFile(filename, next);
+    return;
+  }
+  // Existing unminified development runtimes can be refreshed before their next
+  // relink. Newly linked runtimes always use the durable data marker above.
   const start = "/* GLSMAC_STANDARD_JS_BEGIN */";
   const end = "/* GLSMAC_STANDARD_JS_END */";
-  const source = readFileSync(filename, "utf8");
   const begin = source.indexOf(start),
     finish = source.indexOf(end);
   if (
+    matches.length !== 0 ||
     begin < 0 ||
     finish < begin ||
     source.indexOf(start, begin + start.length) >= 0
@@ -328,7 +362,9 @@ function defaultRuntimes() {
     .map((name) => join(directory, name, "bin/GLSMAC.js"))
     .filter(existsSync)
     .filter((filename) =>
-      readFileSync(filename, "utf8").includes("/* GLSMAC_STANDARD_JS_BEGIN */"),
+      [packagePrefix, "/* GLSMAC_STANDARD_JS_BEGIN */"].some((marker) =>
+        readFileSync(filename, "utf8").includes(marker),
+      ),
     );
 }
 

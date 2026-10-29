@@ -11,7 +11,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { Script } from "node:vm";
+import { Script, runInNewContext } from "node:vm";
 import {
   build,
   root,
@@ -253,4 +253,39 @@ test("contract generation rejects ambiguous types and entrypoints across domains
   };
   writeFileSync(filename, JSON.stringify(schema));
   await assert.rejects(build(f), /duplicate contract entrypoint/);
+});
+
+// Release optimizers remove comments and rename locals; quoted data survives.
+test("optimized browser packages retain a replaceable data boundary and exact Unicode", async (t) => {
+  const f = fixture(t);
+  const prefix = "eyJHTFNNQUNfU1RBTkRBUkRfSlNfUEFDS0FHRV9WMSI6e319";
+  writeFileSync(
+    f.runtime,
+    `var a=JSON.parse(atob('${prefix}'))["GLSMAC_STANDARD_JS_PACKAGE_V1"];globalThis.observed=a;`,
+  );
+  writeFileSync(
+    join(f.sourceRoot, "scripts/fixtures/ui.ts"),
+    'export const label = "Zażółć 😀 \\u2028";\n',
+  );
+  await build(f);
+  const context = { atob };
+  runInNewContext(readFileSync(f.runtime, "utf8"), context);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(context.observed)),
+    packageSnapshot(f.output, f.sourceRoot),
+  );
+  assert.ok(
+    Object.values(context.observed).some((source) => source.includes("Zażółć")),
+  );
+  const unchanged = readFileSync(f.runtime, "utf8");
+  await build(f);
+  assert.equal(readFileSync(f.runtime, "utf8"), unchanged);
+  writeFileSync(
+    join(f.sourceRoot, "scripts/fixtures/ui.ts"),
+    "export const broken: = ;",
+  );
+  await assert.rejects(build(f));
+  const failed = { atob };
+  runInNewContext(readFileSync(f.runtime, "utf8"), failed);
+  assert.match(failed.observed.error, /TypeScript transformation failed/);
 });

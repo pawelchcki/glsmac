@@ -21,7 +21,7 @@ The locked toolchains are Clang 23.1.3, Emscripten 4.0.22, QuickJS 2026-06-04,
 TypeScript 6.0.3 and Oxc 0.156.0. Reports retain exact package and runtime hashes
 under `build/scripts`; generated artifacts are ignored.
 
-- Strict type checking, type-aware lint, formatting and all nine pipeline tests
+- Strict type checking, type-aware lint, formatting and all ten pipeline tests
   pass. No source JavaScript duplicate is maintained for the new policy/tests.
 - All four native CTest probes pass in normal, ASan/UBSan/LeakSanitizer and
   TSan builds. The runtime probe executes 73 TS policy
@@ -69,3 +69,19 @@ suite. Full GSE removal, TS UI/host scheduling, entity-generation command APIs,
 all-player/presentation/timing fidelity and native/WASM stack-limit parity remain
 open. The pre-existing Former mine browser mismatch documented in
 [foundation validation](typescript-validation.md) remains outside passing totals.
+
+## Optimized release packaging repair
+
+After the foundation merged, its first automatic Main CI failed while packaging
+`build/wasm-release/bin/GLSMAC.js`: the release optimizer removed the comment
+markers used by the post-link package writer. The corresponding debug/test
+engine kept those comments, so earlier bounded checks did not expose the defect.
+The failing Main run is `40852249960`, job `123374358677`; its log and a red
+pipeline regression are retained in the task artifacts.
+
+The repaired loader uses a quoted base64 JSON envelope that survives minification.
+An actual Emscripten `-O3` probe passes package mounting, exact Unicode and repeat
+publication checks with identical WASM bytes. The new regression fails against
+the previous writer and passes with the repair. Both the unit regression and the
+real optimized loader probe run in PR CI. Existing debug output refresh remains
+supported until its next relink; native/package identity validation is unchanged.
