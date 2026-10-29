@@ -83,6 +83,11 @@ separate transform, type-check, runtime startup and test execution times.
   scheduling. Preserve observed cancellation, parent/child lifetimes and action
   ordering; uncontrolled wall clocks, randomness or promise scheduling must not
   alter authoritative simulation results.
+Ordinary unit-command eligibility and Hold/Sentry/Activate cancellation planning
+now have a typed TS policy, shared generated C++/TS domain contracts, and existing
+native/WASM lifecycle coverage. Native identity/write/receipt checks and GSE UI
+orchestration remain; this does not complete the full-action milestone below.
+
 - [ ] Migrate one terrain rule and one full action lifecycle through production
   UI/command handling first, then port cohesive domains. Keep temporary GSE
   compatibility only for unmigrated modules, with a tracked removal inventory.

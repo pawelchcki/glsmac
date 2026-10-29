@@ -11,7 +11,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { Script } from "node:vm";
+import { Script, runInNewContext } from "node:vm";
 import {
   build,
   root,
@@ -186,3 +186,106 @@ for (const name of ["oxc", "swc", "swc-wasm"])
       transform("scripts/broken.ts", "export const broken: = ;"),
     );
   });
+
+test("every domain schema participates in native package identity and removed schemas retire their generated modules", async (t) => {
+  const f = fixture(t);
+  const first = await build(f);
+  const filename = join(f.sourceRoot, "scripts/contracts/probe.schema.json");
+  const schema = {
+    version: "1",
+    mutable: [],
+    types: {
+      ProbeInput: { schema: "version", text: "string", amount: "float32" },
+    },
+    entrypoints: {
+      "fixtures/probe:check": { input: "ProbeInput", output: "ProbeInput" },
+    },
+  };
+  writeFileSync(filename, JSON.stringify(schema));
+  assert.throws(() => verifiedManifest(f.output, f.sourceRoot), /Stale/);
+  const second = await build(f);
+  assert.notEqual(
+    second.manifest.contract_sha256,
+    first.manifest.contract_sha256,
+  );
+  assert.ok(second.manifest.modules["generated/probe.js"]);
+  schema.version = "2";
+  writeFileSync(filename, JSON.stringify(schema));
+  const third = await build(f);
+  assert.notEqual(
+    third.manifest.contract_sha256,
+    second.manifest.contract_sha256,
+  );
+  rmSync(filename);
+  const removed = await build(f);
+  assert.equal(
+    removed.manifest.contract_sha256,
+    first.manifest.contract_sha256,
+  );
+  assert.equal(removed.manifest.root, first.manifest.root);
+  assert.equal(
+    existsSync(join(f.sourceRoot, "scripts/generated/probe.ts")),
+    false,
+  );
+});
+
+test("contract generation rejects ambiguous types and entrypoints across domains", async (t) => {
+  const f = fixture(t);
+  const schema = JSON.parse(
+    readFileSync(
+      join(f.sourceRoot, "scripts/contracts/unit-orders.schema.json"),
+      "utf8",
+    ),
+  );
+  const filename = join(
+    f.sourceRoot,
+    "scripts/contracts/duplicate.schema.json",
+  );
+  writeFileSync(filename, JSON.stringify(schema));
+  await assert.rejects(build(f), /Duplicate contract type/);
+  assert.equal(existsSync(join(f.output, "manifest.json")), false);
+  schema.types = { DuplicateInput: { schema: "version" } };
+  schema.entrypoints = {
+    "game/unit-orders:validate": {
+      input: "DuplicateInput",
+      output: "DuplicateInput",
+    },
+  };
+  writeFileSync(filename, JSON.stringify(schema));
+  await assert.rejects(build(f), /duplicate contract entrypoint/);
+});
+
+// Release optimizers remove comments and rename locals; quoted data survives.
+test("optimized browser packages retain a replaceable data boundary and exact Unicode", async (t) => {
+  const f = fixture(t);
+  const prefix = "eyJHTFNNQUNfU1RBTkRBUkRfSlNfUEFDS0FHRV9WMSI6e319";
+  writeFileSync(
+    f.runtime,
+    `var a=JSON.parse(atob('${prefix}'))["GLSMAC_STANDARD_JS_PACKAGE_V1"];globalThis.observed=a;`,
+  );
+  writeFileSync(
+    join(f.sourceRoot, "scripts/fixtures/ui.ts"),
+    'export const label = "Zażółć 😀 \\u2028";\n',
+  );
+  await build(f);
+  const context = { atob };
+  runInNewContext(readFileSync(f.runtime, "utf8"), context);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(context.observed)),
+    packageSnapshot(f.output, f.sourceRoot),
+  );
+  assert.ok(
+    Object.values(context.observed).some((source) => source.includes("Zażółć")),
+  );
+  const unchanged = readFileSync(f.runtime, "utf8");
+  await build(f);
+  assert.equal(readFileSync(f.runtime, "utf8"), unchanged);
+  writeFileSync(
+    join(f.sourceRoot, "scripts/fixtures/ui.ts"),
+    "export const broken: = ;",
+  );
+  await assert.rejects(build(f));
+  const failed = { atob };
+  runInNewContext(readFileSync(f.runtime, "utf8"), failed);
+  assert.match(failed.observed.error, /TypeScript transformation failed/);
+});

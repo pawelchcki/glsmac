@@ -13,14 +13,30 @@ const resolve = (game, data) => {
 	return unit;
 };
 
+// Observe native state by value. No wrapper or callback crosses into policy.
+const validation_snapshot = (e, movement_required) => {
+	const unit = resolve(e.game, e.data);
+	const snapshot = {schema:1,live:unit != null,caller:null,owner:0,started:false,turn:0,completed:false,
+		health:0.0,immovable:false,locked:false,needs_orders:false,movement_required:movement_required};
+	if (unit == null) { return snapshot; }
+	if (#typeof(e.caller) == 'Int') { snapshot.caller = e.caller + 0; }
+	snapshot.owner = unit.owner + 0;
+	snapshot.started = e.game.is_started(); snapshot.turn = e.game.get_turn() + 0;
+	if (snapshot.caller != null && snapshot.caller == snapshot.owner && snapshot.started && snapshot.turn > 0) {
+		snapshot.completed = e.game.is_turn_complete(snapshot.caller);
+	}
+	snapshot.health = unit.health + 0.0; snapshot.immovable = unit.is_immovable;
+	snapshot.locked = unit.get_tile().is_locked(); snapshot.needs_orders = unit.needs_orders();
+	return snapshot;
+};
 const validate = (e, movement_required) => {
-		const unit = resolve(e.game, e.data);
-		if (unit == null) { return 'Unit identity is not live'; }
-		if (#typeof(e.caller) != 'Int' || unit.owner != e.caller) { return 'Unit command requires its owner'; }
-		if (!e.game.is_started() || e.game.get_turn() <= 0 || e.game.is_turn_complete(e.caller)) { return 'Unit command requires an unfinished turn'; }
-		if (unit.health <= 0.0 || unit.is_immovable) { return 'Unit cannot receive movement orders'; }
-		if (unit.get_tile().is_locked()) { return 'Unit tile is locked'; }
-		if (movement_required && !unit.needs_orders()) { return 'Unit has no pending moves'; }
+	// Identity and ownership stay authoritative at the host boundary. Reject
+	// malformed/foreign requests before allocating a copied policy snapshot.
+	const unit = resolve(e.game,e.data);
+	if (unit == null) { return 'Unit identity is not live'; }
+	if (#typeof(e.caller) != 'Int' || unit.owner != e.caller) { return 'Unit command requires its owner'; }
+	const result = #js_call('game/unit-orders','validate',validation_snapshot(e,movement_required));
+	if (result.error != null) { return result.error; }
 };
 
 const rollback_unit = (e) => {
@@ -47,15 +63,17 @@ const automation_cancel_error = (e,unit) => {
 };
 const ordinary_apply = (e,target,cancel_work) => {
 	const error = validate(e,false); if (#is_defined(error)) { throw Error(error); }
-	if (target != 'NO_ORDERS' && target != 'HOLD' && target != 'SENTRY') { throw Error('Unsupported ordinary unit order'); }
+	const package_id = #js_package();
 	const unit = resolve(e.game,e.data); const original = order_state(e.game,unit);
+	const operation = #js_call('game/unit-orders','plan',{schema:1,validation:validation_snapshot(e,false),target:target,
+		original_order:original.order,has_automation:original.plan.command != '',cancel_work:cancel_work},package_id);
 	const receipt = {owner:unit.owner + 0,turn:e.game.get_turn() + 0,original_order:unit.get_order(),original_state:original}; receipt.unit = unit;
 	if (original.order == 'TERRAFORM') { receipt.original_work = original.work; receipt.movement = original.movement; receipt.moved = original.moved; }
 	const rejected = automation_cancel_error(e,unit); if (#is_defined(rejected)) { throw Error(rejected); }
 	try {
-		if (original.plan.command != '') { #include('./terraforming_automation').cancel(e.game,unit); }
-		else if (cancel_work && original.order == 'TERRAFORM') { #include('./terraforming').cancel(e.game,unit); }
-		unit.set_order(target);
+		if (operation.cancel_automation) { #include('./terraforming_automation').cancel(e.game,unit); }
+		else if (operation.cancel_terraforming) { #include('./terraforming').cancel(e.game,unit); }
+		unit.set_order(operation.order);
 	} catch { : (failure) => {
 		restore_order_state(unit,original); throw Error('Unit order failed: ' + failure.reason);
 	} }

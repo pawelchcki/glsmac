@@ -49,6 +49,27 @@ int main( const int argc, const char** argv ) {
 			}
 			assert( rejected );
 		}
+		stage = "unit order policy";
+		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
+		assert( std::get< int64_t >( runtime.Call( "tests/unit-orders", "run", {} ).data ) == 73 );
+		const auto order_snapshot = runtime.Call( "tests/unit-orders", "snapshot", {} );
+		const auto order_valid = runtime.Call( "game/unit-orders", "validate", order_snapshot );
+		assert( std::holds_alternative< std::nullptr_t >( std::get< script::Value::Object >( order_valid.data ).at( "error" ).data ) );
+		for ( const auto& field : { "schema", "caller", "health", "extra" } ) {
+			auto invalid = order_snapshot;
+			std::get< script::Value::Object >( invalid.data )[ field ] = script::Value( int64_t{ 2 } );
+			script::Runtime strict( manifest, reader );
+			bool rejected = false;
+			try {
+				const auto denied = strict.Call( "game/unit-orders", "validate", invalid );
+				assert( std::get< std::string >( std::get< script::Value::Object >( denied.data ).at( "error" ).data ) == "Unit command requires its owner" );
+			}
+			catch ( const script::Error& ) {
+				rejected = true;
+			}
+			// caller=2 is a valid int64 snapshot, but belongs to another owner.
+			assert( rejected == ( field != std::string( "caller" ) ) );
+		}
 		stage = "numeric and owned values";
 		std::cout << "SCRIPT_RUNTIME_STAGE|" << stage << '\n';
 		for ( const int64_t input : { std::numeric_limits< int64_t >::min(), int64_t{ -9007199254740993 }, int64_t{ 0 }, int64_t{ 9007199254740993 }, std::numeric_limits< int64_t >::max() } ) {

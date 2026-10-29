@@ -221,11 +221,32 @@ behavior.scenario('one package per yield operation', () => {
       { cwd: directory },
     );
   }
-  if (wasm)
+  if (wasm) {
+    // The failure payload may be encoded by the release loader. Check its
+    // observable startup behavior instead of searching its serialized bytes.
+    const failed = spawnSync(
+      process.execPath,
+      [
+        runtimeFiles[0],
+        "--gse-tests",
+        "--quiet",
+        "--prefix",
+        join(directory, "failed-wasm-prefix"),
+      ],
+      {
+        cwd: directory,
+        encoding: "utf8",
+        timeout: 30000,
+      },
+    );
+    assert.ifError(failed.error);
+    assert.notEqual(failed.status, 0, failed.stdout + failed.stderr);
     assert.match(
-      readFileSync(runtimeFiles[0], "utf8"),
+      failed.stdout + failed.stderr,
       /TypeScript transformation failed; rebuild required/,
     );
+    assert.doesNotMatch(failed.stdout + failed.stderr, /^All tests passed\.$/m);
+  }
   report.phases.push({ name: "failed transform invalidates selection" });
   for (const [path, hash] of Object.entries(identities))
     assert.equal(

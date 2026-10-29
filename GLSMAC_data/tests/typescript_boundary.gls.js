@@ -80,3 +80,7 @@ behavior.scenario('oversized native collections fail before copying their childr
 	object['0'] = () => { return 1; };
 	reject_large(object);
 });
+
+behavior.scenario('TypeScript unit-order policy preserves guard precedence cancellation and numeric contracts', () => {
+	test.assert(#js_call('tests/unit-orders','run',null) == 73);
+});
