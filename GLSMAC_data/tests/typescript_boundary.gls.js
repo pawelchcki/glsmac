@@ -84,3 +84,26 @@ behavior.scenario('oversized native collections fail before copying their childr
 behavior.scenario('TypeScript unit-order policy preserves guard precedence cancellation and numeric contracts', () => {
 	test.assert(#js_call('tests/unit-orders','run',null) == 73);
 });
+
+behavior.scenario('TypeScript unit-order UI policy preserves completion selection and stale dialog contracts', () => {
+ test.assert(#js_call('tests/unit-order-ui','run',null) == 138);
+});
+
+behavior.scenario('unit-order UI adapter ignores malformed and unrelated native event results', () => {
+ const ui = #include('../default/ui/parts/game/unit_order_controller');
+ const pending = {name:'unit_hold',unit_id:9007199254740993};
+ const event = {name:'unit_hold',caller:9223372036854775807,data:{unit_id:9007199254740993},success:true};
+ test.assert(ui.match(pending,event,9223372036854775807) == {matched:true,succeeded:true});
+ for (data of [undefined,null,[],false,'invalid',{unit_id:9007199254740993.0},{unit_id:null}]) {
+  const changed = #clone(event); changed.data = data;
+  test.assert(!ui.match(pending,changed,9223372036854775807).matched);
+ }
+ for (success of [undefined,null,0,'true',[]]) {
+  const changed = #clone(event); changed.success = success;
+  test.assert(!ui.match(pending,changed,9223372036854775807).matched);
+ }
+ const failed = #clone(event); failed.success = false;
+ test.assert(ui.match(pending,failed,9223372036854775807) == {matched:true,succeeded:false});
+ const foreign = #clone(event); foreign.caller = 9007199254740993;
+ test.assert(!ui.match(pending,foreign,9223372036854775807).matched);
+});
