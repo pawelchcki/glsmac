@@ -85,3 +85,11 @@ publication checks with identical WASM bytes. The new regression fails against
 the previous writer and passes with the repair. Both the unit regression and the
 real optimized loader probe run in PR CI. Existing debug output refresh remains
 supported until its next relink; native/package identity validation is unchanged.
+
+The script-only lifetime check executes the invalidated WASM bundle and requires
+nonzero startup plus the same failure message. It no longer searches the raw
+bundle for a string that is now encoded. Healthy 7-to-8 edits, cross-generation
+rejection and unchanged compiled-WASM identity remain required. The production
+Release build and Chromium setup/input/audio/shader checks pass; a real Release
+Sentry case matches the unchanged original trace on WASM SHA256
+`f1f6442b8cf613d6fbc683b0d4922dda4d5a1b80d4291f08d30fb742a6f7efc0`.
