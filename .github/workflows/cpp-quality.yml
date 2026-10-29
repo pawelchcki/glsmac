@@ -127,7 +127,9 @@ jobs:
           $probeExit = $LASTEXITCODE
           Write-Host "Clang runtime probe exit code: $probeExit"
           if ($probeExit -ne 0) {
-            gdb --batch -ex 'set breakpoint pending on' -ex 'break ucrtbase!abort' -ex run -ex bt -ex 'info registers' --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            $debugCommands = Join-Path $env:RUNNER_TEMP 'script-clang.gdb'
+            Set-Content -Path $debugCommands -Value @('set breakpoint pending on', 'break ucrtbase!abort', 'run', 'bt', 'info registers')
+            gdb --batch --command=$debugCommands --args ./build/script-windows/bin/script-runtime-probe.exe GLSMAC_data/standard-js
             llvm-readobj --coff-imports build/script-windows/bin/script-runtime-probe.exe
           }
           exit $probeExit
@@ -143,7 +145,9 @@ jobs:
           $probeExit = $LASTEXITCODE
           Write-Host "MinGW runtime probe exit code: $probeExit"
           if ($probeExit -ne 0) {
-            gdb --batch -ex 'set breakpoint pending on' -ex 'break abort' -ex run -ex bt --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
+            $debugCommands = Join-Path $env:RUNNER_TEMP 'script-mingw.gdb'
+            Set-Content -Path $debugCommands -Value @('set breakpoint pending on', 'break abort', 'run', 'bt', 'info registers')
+            gdb --batch --command=$debugCommands --args ./build/script-mingw/bin/script-runtime-probe.exe GLSMAC_data/standard-js
             llvm-readobj --coff-imports build/script-mingw/bin/script-runtime-probe.exe
           }
           exit $probeExit

@@ -15,13 +15,16 @@ IF ( WIN32 AND NOT MINGW )
 	# Upstream's MinGW-oriented Windows build assumes POSIX time/pthreads.
 	# Our Clang/MSVC ABI uses C11 time and the same no-Atomics policy as WASM.
 	FILE( READ "${GLSMAC_QUICKJS_SOURCE}" GLSMAC_QUICKJS_WINDOWS )
-	FOREACH( REQUIRED_TEXT "#define CONFIG_ATOMICS" )
+	FOREACH( REQUIRED_TEXT "#define CONFIG_ATOMICS" "JSClosureTypeEnum closure_type : 3;" )
 		STRING( FIND "${GLSMAC_QUICKJS_WINDOWS}" "${REQUIRED_TEXT}" POSITION )
 		IF ( POSITION EQUAL -1 )
 			MESSAGE( FATAL_ERROR "Pinned QuickJS Windows compatibility patch no longer applies: ${REQUIRED_TEXT}" )
 		ENDIF ()
 	ENDFOREACH()
 	STRING( REPLACE "#define CONFIG_ATOMICS" "/* Atomics are unavailable to GLSMAC policy. */" GLSMAC_QUICKJS_WINDOWS "${GLSMAC_QUICKJS_WINDOWS}" )
+	# MSVC's signed enum bitfield truncates closure kinds 4..7 to -4..-1,
+	# sending valid global/module closures into js_closure2's abort branch.
+	STRING( REPLACE "JSClosureTypeEnum closure_type : 3;" "uint8_t closure_type : 3;" GLSMAC_QUICKJS_WINDOWS "${GLSMAC_QUICKJS_WINDOWS}" )
 	FILE( MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/quickjs-windows" )
 	SET( GLSMAC_QUICKJS_SOURCE "${CMAKE_BINARY_DIR}/quickjs-windows/quickjs.c" )
 	SET( PREVIOUS_QUICKJS_WINDOWS "" )

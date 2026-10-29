@@ -70,7 +70,9 @@ QuickJS 2026-06-04 is fetched by SHA256 and compiled as C for both native and
 Emscripten. Its libc/OS helper module is absent. Each runtime belongs to its
 constructing thread. Windows Clang uses a narrow C11-time compatibility header
 and disables upstream's pthread-based Atomics, which policy cannot access on any
-platform. Its final link explicitly includes the compiler-selected compiler-rt
+platform. Its private closure-kind bitfield uses unsigned storage: the MSVC ABI
+otherwise makes the three-bit enum signed and truncates valid kinds 4–7.
+Its final link explicitly includes the compiler-selected compiler-rt
 archive for BigInt's 128-bit division helper, since CMake suppresses default
 runtime libraries on this target. CI compiles and executes both the Clang/MSVC-ABI and existing MinGW
 runtime boundaries.

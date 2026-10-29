@@ -65,6 +65,14 @@ The standalone C++ boundary probe executes on native, Node WASM and Chromium.
 Its original exception location is `scripts/tests/runtime.ts:28:13`. Reports
 record runtime/package hashes and the actual Node/Chromium versions.
 
+Windows Clang required a private unsigned closure-kind field in the pinned C
+source. A retained optimized Windows crash stack resolves to `js_closure2`'s
+invalid-kind abort, reached while evaluating host policy. A minimal Clang 23.1.3
+MSVC-target compilation confirms that the original three-bit enum stores kind 5
+as -3; unsigned storage retains 5. The existing MinGW runtime probe passes without
+this platform patch. CI independently executes both compiler/ABI paths and
+retains Windows binaries and symbols for failures.
+
 Verified checks include:
 
 - Four native CTest probes under normal, ASan/UBSan/LeakSanitizer and TSan builds.
