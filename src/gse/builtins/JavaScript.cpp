@@ -37,15 +37,19 @@ script::Value Snapshot( Value* input, std::set< Value* >& ancestors, const size_
 		case VT_STRING:
 			return script::Value( static_cast< value::String* >( input )->value );
 		case VT_ARRAY: {
+			const auto& elements = static_cast< value::Array* >( input )->value;
+			if ( elements.size() > 65536 ) { throw script::Error( "Native snapshot collection limit exceeded" ); }
 			if ( !ancestors.insert( input ).second ) { throw script::Error( "Cyclic native snapshot" ); }
 			script::Value::Array result = {};
-			for ( auto* child : static_cast< value::Array* >( input )->value ) { result.push_back( Snapshot( child, ancestors, depth + 1 ) ); }
+			result.reserve( elements.size() );
+			for ( auto* child : elements ) { result.push_back( Snapshot( child, ancestors, depth + 1 ) ); }
 			ancestors.erase( input );
 			return script::Value( std::move( result ) );
 		}
 		case VT_OBJECT: {
 			const auto* object = static_cast< value::Object* >( input );
 			if ( object->wrapobj || object->wrapsetter ) { throw script::Error( "Native objects cannot cross the JavaScript value boundary" ); }
+			if ( object->value.size() > 65536 ) { throw script::Error( "Native snapshot collection limit exceeded" ); }
 			if ( !ancestors.insert( input ).second ) { throw script::Error( "Cyclic native snapshot" ); }
 			script::Value::Object result = {};
 			for ( const auto& [ key, child ] : object->value ) { result.emplace( key, Snapshot( child, ancestors, depth + 1 ) ); }

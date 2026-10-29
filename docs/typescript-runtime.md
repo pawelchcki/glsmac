@@ -49,8 +49,10 @@ and every output hash. Per-module transforms live in `build/scripts/transform-ca
 Publication verifies unchanged inputs and replaces the manifest atomically.
 Failed builds remove that manifest and invalidate attached browser packages.
 
-Native builds stage only the active package in `bin/scripts`. WASM builds mount
-the same package through generated JSON in `GLSMAC.js`. Subsequent script builds
+Native builds atomically select the active package in `bin/scripts` and retain
+older roots for readers that already selected them. Clean a staged directory only
+when no process uses it; fresh packaging workspaces contain one generation.
+WASM builds mount the active package through generated JSON in `GLSMAC.js`. Subsequent script builds
 replace that JSON; they leave `.wasm` and native executable bytes untouched.
 Use `node tools/scripts/build.mjs --runtime-js PATH/GLSMAC.js --stage PATH/scripts`
 for custom output directories. The default searches `build/*/bin/GLSMAC.js`.

@@ -58,3 +58,25 @@ behavior.scenario('split policy calls require the package that produced their in
 	} }
 	test.assert(caught && identity(7) == 7);
 });
+
+behavior.scenario('oversized native collections fail before copying their children', () => {
+	const reject_large = (input) => {
+		let caught = false;
+		try { identity(input); }
+		catch { GSEOperationFailed: (error) => {
+			test.assert(error.reason == 'TypeScript policy failed: Native snapshot collection limit exceeded');
+			caught = true;
+		} }
+		test.assert(caught);
+	};
+	const array = #split(#pad('', 'right', 65537, ','), ',');
+	test.assert(#sizeof(array) == 65537);
+	// Traversing the first child would fail with a different callback error.
+	array[0] = () => { return 1; };
+	reject_large(array);
+	const object = {};
+	for (let i = 0; i < 65537; i++) { const key = #to_string(i); object[key] = 0; }
+	test.assert(object['0'] == 0 && object['65536'] == 0);
+	object['0'] = () => { return 1; };
+	reject_large(object);
+});

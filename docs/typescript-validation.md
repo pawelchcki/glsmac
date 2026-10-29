@@ -82,12 +82,13 @@ Verified checks include:
   evaluation timer; infinite initialization and function loops still require
   interruption. Compilation uses its own two-second stage limit.
 - Seven pipeline tests covering incremental reuse, deterministic publication,
-  staging, compiler-worker changes, failed transforms, tampering and all three
+  staging with retained concurrent-reader generations, compiler-worker changes,
+  failed transforms, tampering and all three
   source-map implementations; independent strict types, type-aware lint and format.
 - Twenty-one frozen-snapshot tests and 35 fast-runner/real-loader tests.
 - The complete Hot harness unit command: 389 tests, with seven optional
   installed-source tests skipped; package validation runs before worker mocks.
-- Five GSE/TypeScript boundary scenarios with 18 assertions; unchanged resource
+- Six GSE/TypeScript boundary scenarios with 24 assertions; unchanged resource
   integration (17 scenarios/48 assertions) and Former integration (30/60) in WASM.
 - All 576 unchanged recorded land-worker resource observations: matched, zero
   mismatches, unsupported cases or errors within that bounded contract.
@@ -103,6 +104,22 @@ Verified checks include:
   production `plan` and `resolve` calls. The old plan is rejected before the new
   resolver runs, and a fresh call observes the new package. The same package-token
   check is exercised through the native GSE adapter.
+
+The complete all-player terrain/traversal capture now passes ten checkpoints,
+all seven players, 128 tiles per checkpoint, every native unit/base and 217
+assertions, followed by successful cleanup under the unchanged 2 GiB WASM limit.
+The initial TypeScript adapter exhausted that limit during capture; legacy GSE
+rules on identical WASM bytes reached the final checkpoint but exhausted memory
+during cleanup. Avoiding bare-land temporary improvement records and reusing the
+larger GC registration bucket table resolves both pressures. The passing runtime
+SHA256 is `1d941b2e01fa0baa87ece761bea771d7d0e22639ea7f9c73bc9b6f7b7a34d52f`;
+raw failing controls remain in `build/scripts/failures/terrain-oom`. This is native
+observer/traversal coverage with zero original-game matches, as its audit states.
+
+Oversized GSE arrays and objects are rejected before copying any children. The
+boundary regression places a callback in their first child and requires the
+collection-size error, proving traversal did not reach that callback. Staging
+also retains a selected old module across a subsequent manifest publication.
 
 The resource browser fixture needed the unrelated installed TECHNOLOGY block to
 reach current startup. Its synthetic resource rows and numerical expectations are

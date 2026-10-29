@@ -162,12 +162,8 @@ export function stagePackage(
   for (const name of readdirSync(directory))
     if (name !== "manifest.json" && name !== "packages")
       rmSync(join(directory, name), { recursive: true, force: true });
-  for (const name of readdirSync(join(directory, "packages")))
-    if (`packages/${name}` !== manifest.root)
-      rmSync(join(directory, "packages", name), {
-        recursive: true,
-        force: true,
-      });
+  // A reader may already hold an older manifest while lazily loading imports.
+  // Retire generations only by cleaning this directory with all readers stopped.
 }
 
 // The stable markers are part of the compiled loader, not transformed policy.

@@ -45,12 +45,19 @@ function fixture(t) {
   return { sourceRoot: directory, output, runtimeFiles: [runtime], runtime };
 }
 
-test("staging publishes only the verified active package and rejects changed compiler workers", async (t) => {
+test("staging selects verified packages, retains concurrent-reader generations and rejects changed compiler workers", async (t) => {
   const f = fixture(t);
   const first = await build(f);
   assert.doesNotThrow(() => new Script(readFileSync(f.runtime, "utf8")));
   const destination = join(f.sourceRoot, "staged");
   stagePackage(destination, f.output, f.sourceRoot);
+  const selected = JSON.parse(
+    readFileSync(join(destination, "manifest.json"), "utf8"),
+  );
+  const selectedModule = readFileSync(
+    join(destination, selected.root, "fixtures/ui.js"),
+    "utf8",
+  );
   assert.deepEqual(
     packageSnapshot(destination, f.sourceRoot),
     packageSnapshot(f.output, f.sourceRoot),
@@ -61,7 +68,15 @@ test("staging publishes only the verified active package and rejects changed com
   );
   await build(f);
   stagePackage(destination, f.output, f.sourceRoot);
-  assert.equal(existsSync(join(destination, first.manifest.root)), false);
+  assert.notEqual(
+    verifiedManifest(destination, f.sourceRoot).root,
+    first.manifest.root,
+  );
+  assert.equal(
+    readFileSync(join(destination, selected.root, "fixtures/ui.js"), "utf8"),
+    selectedModule,
+    "A reader that selected the previous manifest can still load its module after publication",
+  );
   assert.equal(existsSync(join(destination, "cache")), false);
   const implementation = join(f.sourceRoot, "tools/scripts/compiler.mjs");
   writeFileSync(

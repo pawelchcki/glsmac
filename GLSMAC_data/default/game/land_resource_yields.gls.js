@@ -17,9 +17,12 @@ const has_technology = (player, name, game) => {
 return {
 	apply: (tile, player, rules, existing, game) => {
 		if (tile.features.xenofungus || !#is_defined(tile.terraforming)) { return existing; }
-		const source = tile.terraforming; const improvements = {};
+		const source = tile.terraforming;
+		// Most all-player observations visit bare land. Avoid allocating the
+		// copied improvement record and its loop contexts before this return.
+		if (tile.is_land && !has(source,'farm') && !has(source,'mine') && !has(source,'forest') && !has(source,'solar') && !has(source,'soil_enricher') && !has(source,'condenser') && !has(source,'borehole')) { return existing; }
+		const improvements = {};
 		for (name of ['farm','mine','forest','solar','soil_enricher','condenser','borehole','road']) { improvements[name] = has(source,name); }
-		if (tile.is_land && !improvements.farm && !improvements.mine && !improvements.forest && !improvements.solar && !improvements.soil_enricher && !improvements.condenser && !improvements.borehole) { return existing; }
 		let mirrors = 0;
 		if (tile.is_land && improvements.solar && !improvements.forest && !improvements.borehole && #is_defined(game) && #is_defined(game.get_tm)) {
 			const tm = game.get_tm();

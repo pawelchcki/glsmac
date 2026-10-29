@@ -147,7 +147,7 @@ void Space::AccumulateImpl( const f_accum_t& f ) {
 	}
 	else { // top accumulate, need to do full logic
 		std::lock_guard guard2( m_accumulation_mutex );
-		std::lock_guard guard( m_collect_mutex ); // do not accumulate during collect or vice versa // TODO: optimize to reduce lock times
+		std::lock_guard guard( m_collect_mutex );// do not accumulate during collect or vice versa // TODO: optimize to reduce lock times
 		const auto& commit = [ this, &tid ]() {
 			{
 				std::lock_guard guard( m_accumulations_mutex );
@@ -157,11 +157,16 @@ void Space::AccumulateImpl( const f_accum_t& f ) {
 			if ( !m_accumulated_objects.empty() ) {
 				std::lock_guard guard( m_objects_mutex );
 				GC_LOG( "Accumulated " + std::to_string( m_accumulated_objects.size() ) + " objects" );
-					// Both sets own pointer metadata, not the objects themselves.
-					// Transfer nodes rather than duplicating every registration at
-					// the end of a large accumulation. Any duplicate keys remain in
-					// the source and are discarded by the same clear as before.
-					m_objects.merge( m_accumulated_objects );
+				// Reuse the larger bucket table when a long synchronous script
+				// leaves little address space for a second registration table.
+				if ( m_accumulated_objects.size() > m_objects.size() ) {
+					m_objects.swap( m_accumulated_objects );
+				}
+				// Both sets own pointer metadata, not the objects themselves.
+				// Transfer nodes rather than duplicating every registration at
+				// the end of a large accumulation. Any duplicate keys remain in
+				// the source and are discarded by the same clear as before.
+				m_objects.merge( m_accumulated_objects );
 				m_accumulated_objects.clear();
 			}
 		};
