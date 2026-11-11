@@ -210,3 +210,118 @@ test('a browser persistence failure is reported and failed map files are rolled 
   assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original] }, 'Failed files did not survive in IDBFS');
   assert.match(await importMaps(page, [['Retry.mp', mpFixture()]]), /Saved 1 map/);
 });
+
+test('a mid-batch filesystem write failure removes earlier files and leaves imports usable after reload', { timeout: 90000 }, async (t) => {
+  const page = await setup(t);
+  const original = gsmFixture();
+  assert.match(await importMaps(page, [['Existing.gsm', original]]), /Saved 1 map/);
+  await page.evaluate(() => {
+    const writeFile = Module.FS.writeFile;
+    let fail = true;
+    window.mapWriteAttempts = [];
+    Module.FS.writeFile = function (path, ...arguments_) {
+      if (path.startsWith('/persist/glsmac/maps/')) window.mapWriteAttempts.push(path);
+      if (path === '/persist/glsmac/maps/Second.mp' && fail) {
+        fail = false;
+        throw new Error('Synthetic second map write failure');
+      }
+      return Reflect.apply(writeFile, this, [path, ...arguments_]);
+    };
+  });
+  assert.match(await importMaps(page, [['First.mp', mpFixture()], ['Second.mp', mpFixture()]]),
+    /Could not import maps: Synthetic second map write failure/);
+  assert.deepEqual(await page.evaluate(() => window.mapWriteAttempts),
+    ['/persist/glsmac/maps/First.mp', '/persist/glsmac/maps/Second.mp']);
+  assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original] },
+    'The earlier successful write is removed along with the failed write');
+  assert.deepEqual(await page.locator('#custom-map-list li').allTextContents(), ['Existing.gsm']);
+  assert.equal(await page.locator('#start').isDisabled(), false);
+  assert.equal(await page.locator('#custom-maps').isDisabled(), false);
+  assert.equal(await page.locator('#asset-source').inputValue(), 'installer');
+  await page.reload();
+  await ready(page);
+  assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original] }, 'Neither failed-batch file reached IDBFS');
+  const first = mpFixture();
+  const second = mpFixture();
+  assert.match(await importMaps(page, [['First.mp', first], ['Second.mp', second]]), /Saved 2 maps/);
+  await page.reload();
+  await ready(page);
+  assert.deepEqual(await savedMaps(page), {
+    'Existing.gsm': [...original], 'First.mp': [...first], 'Second.mp': [...second],
+  });
+});
+
+test('a delayed map validation keeps launcher controls disabled and refuses a concurrent import', { timeout: 90000 }, async (t) => {
+  const page = await setup(t);
+  const original = gsmFixture();
+  assert.match(await importMaps(page, [['Existing.gsm', original]]), /Saved 1 map/);
+  await page.evaluate(() => {
+    const slice = File.prototype.slice;
+    File.prototype.slice = function (...arguments_) {
+      const part = Reflect.apply(slice, this, arguments_);
+      if (this.name === 'Slow.MP') {
+        const read = part.arrayBuffer.bind(part);
+        part.arrayBuffer = () => new Promise((resolve, reject) => {
+          window.releaseMapHeader = () => {
+            File.prototype.slice = slice;
+            return read().then(resolve, reject);
+          };
+        });
+      }
+      return part;
+    };
+  });
+  const slow = mpFixture();
+  await page.locator('#custom-maps').setInputFiles({
+    name: 'Slow.MP', buffer: slow, mimeType: 'application/octet-stream',
+  });
+  await page.locator('#import-maps').click();
+  await page.waitForFunction(() => typeof window.releaseMapHeader === 'function');
+  assert.equal(await page.evaluate(() => Module.customMaps.busy), true);
+  assert.equal(await page.locator('#import-maps').isDisabled(), true);
+  assert.equal(await page.locator('#custom-maps').isDisabled(), true);
+  assert.equal(await page.locator('#start').isDisabled(), true);
+  assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original] }, 'Validation has not written any map');
+  const error = await page.evaluate(async (bytes) => {
+    try {
+      await Module.customMaps.importFiles([new File([new Uint8Array(bytes)], 'Concurrent.mp')]);
+    } catch (error) { return error.message; }
+  }, [...mpFixture()]);
+  assert.match(error, /Wait for the current map import/);
+  assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original] });
+  await page.evaluate(() => window.releaseMapHeader());
+  await page.waitForFunction(() => !document.querySelector('#import-maps').disabled);
+  assert.match(await page.locator('#custom-map-status').textContent(), /Saved 1 map/);
+  assert.equal(await page.evaluate(() => Module.customMaps.busy), false);
+  assert.equal(await page.locator('#start').isDisabled(), false);
+  assert.equal(await page.locator('#custom-maps').inputValue(), '');
+  await page.reload();
+  await ready(page);
+  assert.deepEqual(await savedMaps(page), { 'Existing.gsm': [...original], 'Slow.MP': [...slow] });
+});
+
+test('unsupported MP headers and corrupt GSM dimensions reject the whole batch and permit corrected retry', { timeout: 90000 }, async (t) => {
+  const page = await setup(t);
+  const original = mpFixture();
+  assert.match(await importMaps(page, [['Existing.MP', original]]), /Saved 1 map/);
+  const flat = mpFixture();
+  flat.writeUInt32LE(1, 43);
+  const excessLandmarks = mpFixture();
+  excessLandmarks.writeUInt32LE(65, 47);
+  const abstractGrid = mpFixture();
+  abstractGrid.writeUInt32LE(2, 15 + 0xa24);
+  const checksum = gsmFixture();
+  checksum[13] ^= 1;
+  for (const [name, bytes] of [['Flat.mp', flat], ['Landmarks.mp', excessLandmarks],
+    ['Abstract.mp', abstractGrid], ['Checksum.gsm', checksum], ['Truncated.mp', mpFixture().subarray(0, -1)]]) {
+    assert.match(await importMaps(page, [['WouldBeValid.gsm', gsmFixture()], [name, bytes]]), /Could not import maps:/);
+    assert.deepEqual(await savedMaps(page), { 'Existing.MP': [...original] }, 'The leading valid map is not partially saved');
+    assert.equal(await page.evaluate(() => Module.customMaps.busy), false);
+    assert.equal(await page.locator('#start').isDisabled(), false);
+  }
+  const corrected = gsmFixture();
+  assert.match(await importMaps(page, [['Checksum.gsm', corrected]]), /Saved 1 map/);
+  await page.reload();
+  await ready(page);
+  assert.deepEqual(await savedMaps(page), { 'Checksum.gsm': [...corrected], 'Existing.MP': [...original] });
+});
