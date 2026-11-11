@@ -220,6 +220,8 @@ jobs:
           git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
           "$RUNNER_TEMP/emsdk/emsdk" install 4.0.22
           "$RUNNER_TEMP/emsdk/emsdk" activate 4.0.22
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          python3 tools/prepare-emscripten.py
       - name: Build full application
         run: |
           npm ci --ignore-scripts
