@@ -6,8 +6,9 @@
     "node": ">=22.16"
   },
   "scripts": {
-    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node asset-bridge-build.mjs && node texture-upload-build.mjs && node smac-map-build.mjs && node buffer-copy-build.mjs",
-    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs texture-upload.test.mjs platform.test.mjs thread-runtime.test.mjs smac-map.test.mjs buffer-copy.test.mjs",
+    "build": "node build.mjs && node platform-build.mjs && node thread-runtime-build.mjs && node proxy-context-build.mjs && node asset-bridge-build.mjs && node texture-upload-build.mjs && node smac-map-build.mjs && node buffer-copy-build.mjs",
+    "test": "npm run build && node --test --experimental-test-isolation=none --test-timeout=15000 canvas.test.mjs texture-upload.test.mjs platform.test.mjs thread-runtime.test.mjs proxy-context.test.mjs smac-map.test.mjs buffer-copy.test.mjs",
+    "test:proxy-context": "node proxy-context-build.mjs && node --test proxy-context.test.mjs",
     "test:buffers": "node buffer-copy-build.mjs && node --test buffer-copy.test.mjs",
     "test:app": "node --test app.test.mjs",
     "test:gse": "node gse.test.mjs",
