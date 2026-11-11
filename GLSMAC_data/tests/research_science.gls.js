@@ -1,6 +1,7 @@
 // Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 const behavior = #include('./_behavior');
 const research = #include('../default/game/research');
+const observe_players = #include('./_economy_research_observation');
 const rejects = (callback) => {
 	let rejected = false; try { callback(); } catch { : (error) => { rejected = true; } }
 	test.assert(rejected);
@@ -132,4 +133,65 @@ behavior.scenario('resetting the same native Game clears positive science and tu
 	}
 	start(f); test.assert(f.game.get_research_science(0) == {accumulated: 0, income_turn: 0});
 	f.next(); test.assert(f.game.get_research_science(0) == {accumulated: 0, income_turn: 2});
+});
+
+behavior.scenario('same-turn science credits and rollback remain independent for both native players', () => {
+	const f = #include('./_research_fixture')(false);
+	f.command('set_research_target', {target_id: 2}, 0); f.command('set_research_target', {target_id: 1}); f.set_turn(5);
+	const before = observe_players(f.game); const world = f.snapshot(); const audit = f.base_snapshot();
+	const first = f.command('credit_research_income', {player_id: 0, turn_id: 5, income: 3}, 0);
+	const second = f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 7}, 0);
+	const expected = #clone(before); expected.players[0].science = {accumulated: 3, income_turn: 5}; expected.players[1].science = {accumulated: 7, income_turn: 5};
+	test.assert(observe_players(f.game) == expected && f.snapshot() == world);
+	test.assert(first.applied.player_id == 0 && second.applied.player_id == 1 && first.applied.token != second.applied.token);
+	for (player of [0, 1]) {
+		rejects(() => { f.command('credit_research_income', {player_id: player, turn_id: 5, income: 1}, 0); });
+		test.assert(observe_players(f.game) == expected && f.snapshot() == world);
+	}
+	f.with_write(() => { f.game.rollback_research(first.applied); });
+	expected.players[0] = #clone(before.players[0]);
+	test.assert(observe_players(f.game) == expected, 'The owner\'s later credit must not stale the host\'s receipt');
+	f.with_write(() => { f.game.rollback_research(second.applied); });
+	test.assert(observe_players(f.game) == before && f.base_snapshot() == audit);
+});
+
+behavior.scenario('zero science consumes only its player turn stamp and rollback permits a positive retry', () => {
+	const f = #include('./_research_fixture')(false);
+	f.command('set_research_target', {target_id: 2}, 0); f.command('set_research_target', {target_id: 1}); f.set_turn(5);
+	const before = observe_players(f.game); const world = f.snapshot(); const audit = f.base_snapshot();
+	const zero = f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 0}, 0);
+	const expected = #clone(before); expected.players[1].science.income_turn = 5;
+	test.assert(observe_players(f.game) == expected && f.snapshot() == world);
+	rejects(() => { f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 7}, 0); });
+	test.assert(observe_players(f.game) == expected);
+	const host = f.command('credit_research_income', {player_id: 0, turn_id: 5, income: 3}, 0);
+	expected.players[0].science = {accumulated: 3, income_turn: 5};
+	test.assert(observe_players(f.game) == expected, 'A zero credit for one player cannot consume another player\'s income');
+	f.with_write(() => { f.game.rollback_research(zero.applied); });
+	expected.players[1] = #clone(before.players[1]); test.assert(observe_players(f.game) == expected);
+	const retry = f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 7}, 0);
+	expected.players[1].science = {accumulated: 7, income_turn: 5}; test.assert(observe_players(f.game) == expected);
+	rejects(() => { f.with_write(() => { f.game.rollback_research(zero.applied); }); });
+	test.assert(observe_players(f.game) == expected);
+	f.with_write(() => { f.game.rollback_research(retry.applied); f.game.rollback_research(host.applied); });
+	test.assert(observe_players(f.game) == before && f.base_snapshot() == audit);
+});
+
+behavior.scenario('changing a target retains earned science and cannot credit the same player twice that turn', () => {
+	const f = #include('./_research_fixture')(false); f.command('set_research_target', {target_id: 1}); f.set_turn(5);
+	const credit = f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 7}, 0);
+	const before = observe_players(f.game); const world = f.snapshot(); const audit = f.base_snapshot();
+	const changed = f.command('set_research_target', {target_id: 2});
+	const expected = #clone(before); expected.players[1].selection.target_id = 2;
+	test.assert(observe_players(f.game) == expected && f.snapshot() == world);
+	rejects(() => { f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 1}, 0); });
+	rejects(() => { f.with_write(() => { f.game.rollback_research(credit.applied); }); });
+	test.assert(observe_players(f.game) == expected);
+	f.with_write(() => { f.game.rollback_research(changed.applied); });
+	test.assert(observe_players(f.game) == before && f.base_snapshot() == audit);
+	rejects(() => { f.command('credit_research_income', {player_id: f.owner.id, turn_id: 5, income: 1}, 0); });
+	test.assert(observe_players(f.game) == before && f.base_snapshot() == audit);
+	f.set_turn(6); f.command('credit_research_income', {player_id: f.owner.id, turn_id: 6, income: 1}, 0);
+	expected.players[1].selection.target_id = 1; expected.players[1].science = {accumulated: 8, income_turn: 6};
+	test.assert(observe_players(f.game) == expected && !f.game.technologies.has_tech(1, f.owner.id + 1));
 });
