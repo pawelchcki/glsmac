@@ -11,7 +11,8 @@ const event = (f, data, caller) => {
 	return e;
 };
 const apply = (f, handler, e) => {
-	test.assert(!#is_defined(handler.validate(e)));
+	const reason = handler.validate(e);
+	test.assert(!#is_defined(reason), #is_defined(reason) ? reason : 'Accepted native command');
 	f.with_write(() => { e.applied = handler.apply(e); });
 };
 const rejected = (f, handler, e) => {
@@ -101,4 +102,136 @@ behavior.scenario('rollback cannot apply an old receipt to a despawned and repla
 	const before = f.snapshot(); const inspect = f.inspect(); let failed = false;
 	try { f.with_write(() => { hold.rollback(h); }); } catch { : (error) => { failed = true; } }
 	test.assert(failed && f.snapshot() == before && f.inspect() == inspect);
+});
+
+// Capture every actual unit, including the other participant's Scout. This is
+// detached observation through public native properties and methods, not a
+// display mock predicting command effects.
+const unit_state = (f, id) => {
+	const unit = f.game.um.get_unit(id); const tile = unit.get_tile();
+	return {id: unit.id + 0, owner: unit.owner + 0, definition: unit.def,
+		x: tile.x + 0, y: tile.y + 0, movement: unit.movement + 0.0,
+		health: unit.health + 0.0, morale: unit.morale + 0, moved: unit.moved_this_turn == true,
+		order: unit.get_order(), home: unit.get_terraform_home(), work: unit.get_terraforming(),
+		plan: unit.get_automation(), recovery: unit.get_terraforming_recovery()};
+};
+const all_unit_states = (f) => {
+	const result = [];
+	for (id of f.inspect().unit_ids) { result :+ unit_state(f, id); }
+	return result;
+};
+const world_state = (f) => {
+	const result = {bytes: f.snapshot(), turn: f.game.get_turn() + 0, players: []};
+	for (player of f.game.get_players()) {
+		const row = {id: player.id + 0, completed: f.game.is_turn_complete(player.id)};
+		row.energy = player.get_energy_state(); row.research = f.game.get_research_state(player.id); row.science = f.game.get_research_science(player.id);
+		result.players :+ row;
+	}
+	return result;
+};
+
+for (command of [
+	{ name: 'Hold', handler: hold, order: 'HOLD' },
+	{ name: 'Sentry', handler: sentry, order: 'SENTRY' },
+	{ name: 'Activate', handler: activate, order: 'NO_ORDERS' },
+	{ name: 'Skip', handler: skip, order: 'NO_ORDERS' },
+]) {
+	for (owner of [0, 1]) {
+		behavior.scenario(command.name + ' isolates the command and undo to native owner ' + #to_string(owner), () => {
+			const f = test.founding_fixture(); f.enable_economy();
+			const first = f.add_scout(0); const second = f.add_scout(1);
+			const id = owner == 0 ? first : second; const unit = f.game.um.get_unit(id);
+			if (command.name == 'Activate') { f.with_write(() => { unit.set_order('HOLD'); }); }
+			const before = world_state(f); const state = all_unit_states(f); const inspect = f.inspect();
+			const e = event(f, {unit_id: id}, owner); apply(f, command.handler, e);
+			const after = all_unit_states(f);
+			test.assert(#sizeof(before.players) == 2 && #sizeof(state) == 3 && #sizeof(after) == 3, 'Observe both actual players and the initial Colony Pod');
+			for (let index = 0; index < #sizeof(state); index++) {
+				const was = state[index]; const now = after[index];
+				if (was.id == id) {
+					test.assert(now.order == command.order && now.owner == owner);
+					test.assert(now.movement == (command.name == 'Skip' ? 0.0 : was.movement));
+					test.assert(now.health == was.health && now.morale == was.morale && now.moved == was.moved);
+				} else { test.assert(now == was, 'Commands preserve each companion and foreign unit in full'); }
+			}
+			test.assert(f.inspect().rng == inspect.rng && f.inspect().next_unit_id == inspect.next_unit_id);
+			f.with_write(() => { command.handler.rollback(e); });
+			test.assert(world_state(f) == before, 'Undo restores unit and base bytes and every active player\'s observed state');
+		});
+	}
+}
+
+for (kind of ['dead', 'locked', 'completed', 'inactive']) {
+	behavior.scenario('apply rechecks a native ' + kind + ' change after successful validation', () => {
+		for (handler of [hold, sentry, activate, skip]) {
+			const f = test.founding_fixture();
+			const e = event(f, {unit_id: f.unit_id}, 1);
+			test.assert(!#is_defined(handler.validate(e)), 'The request was valid before delivery was delayed');
+			f.configure(kind);
+			const before = world_state(f);
+			const inspect = f.inspect(); let failed = false;
+			try { f.with_write(() => { handler.apply(e); }); } catch { : (error) => { failed = true; } }
+			test.assert(failed, 'An earlier successful validation does not authorize a changed world');
+			const after = world_state(f);
+			test.assert(after == before && f.inspect() == inspect);
+		}
+	});
+}
+
+behavior.scenario('interleaved owners can undo independently without undoing the other accepted command', () => {
+	const f = test.founding_fixture(); f.enable_economy(); const first = f.add_scout(0); const second = f.add_scout(1);
+	const before = world_state(f);
+	const h = event(f, {unit_id: first}, 0); apply(f, hold, h);
+	const s = event(f, {unit_id: second}, 1); apply(f, sentry, s);
+	const foreign = unit_state(f, second);
+	f.with_write(() => { hold.rollback(h); });
+	test.assert(f.game.um.get_unit(first).get_order() == 'NO_ORDERS');
+	test.assert(unit_state(f, second) == foreign);
+	test.assert(world_state(f) != before, 'The other player\'s accepted Sentry is still present');
+	f.with_write(() => { sentry.rollback(s); });
+	test.assert(world_state(f) == before, 'Both independent undos restore both owners\' observed native state');
+});
+
+behavior.scenario('ordinary order receipts unwind in state order and reject an older overlapping receipt', () => {
+	const f = test.founding_fixture(); const before = world_state(f);
+	const h = event(f, {unit_id: f.unit_id}, 1); apply(f, hold, h);
+	const s = event(f, {unit_id: f.unit_id}, 1); apply(f, sentry, s);
+	const pending = world_state(f); const inspect = f.inspect(); let failed = false;
+	try { f.with_write(() => { hold.rollback(h); }); } catch { : (error) => { failed = true; } }
+	test.assert(failed && world_state(f) == pending && f.inspect() == inspect);
+	f.with_write(() => { sentry.rollback(s); });
+	test.assert(f.game.um.get_unit(f.unit_id).get_order() == 'HOLD');
+	f.with_write(() => { hold.rollback(h); });
+	test.assert(world_state(f) == before);
+});
+
+for (kind of ['movement', 'health', 'morale', 'moved', 'turn', 'order']) {
+	behavior.scenario('ordinary undo refuses a later ' + kind + ' state without overwriting it', () => {
+		for (handler of [hold, sentry, activate]) {
+			const f = test.founding_fixture(); const unit = f.game.um.get_unit(f.unit_id);
+			f.with_write(() => { unit.set_order('SENTRY'); });
+			const e = event(f, {unit_id: f.unit_id}, 1); apply(f, handler, e);
+			f.with_write(() => {
+				if (kind == 'movement') { unit.movement = 0.25; }
+				if (kind == 'health') { unit.health = 0.5; }
+				if (kind == 'morale') { unit.morale = 1.0; }
+				if (kind == 'moved') { unit.moved_this_turn = false; }
+				if (kind == 'order') { unit.set_order(unit.get_order() == 'HOLD' ? 'SENTRY' : 'HOLD'); }
+			});
+			if (kind == 'turn') { f.set_turn(2); }
+			const before = world_state(f); const inspect = f.inspect(); let failed = false;
+			try { f.with_write(() => { handler.rollback(e); }); } catch { : (error) => { failed = true; } }
+			test.assert(failed && world_state(f) == before && f.inspect() == inspect);
+		}
+	});
+}
+
+behavior.scenario('receipts from a retired world cannot change the replacement world', () => {
+	for (handler of [hold, sentry, activate, skip]) {
+		const f = test.founding_fixture(); const e = event(f, {unit_id: f.unit_id}, 1); apply(f, handler, e);
+		f.reset();
+		const before = world_state(f); const inspect = f.inspect(); let failed = false;
+		try { f.with_write(() => { handler.rollback(e); }); } catch { : (error) => { failed = true; } }
+		test.assert(failed && world_state(f) == before && f.inspect() == inspect);
+	}
 });
