@@ -11,6 +11,8 @@ on:
       - 'GLSMAC_data/tests/turn_playability.gls.js'
       - 'GLSMAC_data/default/game/unit_orders.gls.js'
       - 'GLSMAC_data/default/game/event/unit_*.gls.js'
+      - 'GLSMAC_data/default/game/event/attack_unit.gls.js'
+      - 'GLSMAC_data/default/game/event/spawn_unit.gls.js'
       - 'GLSMAC_data/default/ui/parts/game/auto_end_turn.gls.js'
       - 'GLSMAC_data/default/units/turns.gls.js'
       - 'src/game/backend/unit/**'
