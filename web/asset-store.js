@@ -100,6 +100,7 @@
 
     async save(record) {
       if (!this.database) await this.open();
+      if (this.pending.size) throw new Error('Wait for asset downloads to finish before changing the source.');
       const transaction = this.database.transaction(['datasets', 'settings'], 'readwrite');
       const done = transactionDone(transaction);
       try {
@@ -189,6 +190,7 @@
       // Commit the files and source together. A failed import must not leave
       // orphaned blobs or overwrite files in a previously saved installation.
       if (!this.database) await this.open();
+      if (this.pending.size) throw new Error('Wait for asset downloads to finish before changing the source.');
       const transaction = this.database.transaction(['assets', 'datasets', 'settings'], 'readwrite');
       const done = transactionDone(transaction);
       try {
