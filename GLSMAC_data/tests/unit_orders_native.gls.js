@@ -203,3 +203,39 @@ behavior.scenario('actual native advance dispatches shipped unit turns and reado
 	test.assert(observed_year == 2102 && f.game.get_year() == 2102 && f.game.get_turn() == 2);
 	test.assert(f.unit().movement == 1.0 && f.unit().get_order() == 'HOLD' && !f.unit().needs_orders());
 });
+
+behavior.scenario('native turns restore movement for both owners while retaining their distinct orders and healing history', () => {
+	const f = fixture(); f.enable_economy(); const own = f.unit(); const foreign_id = f.add_scout(0);
+	const foreign = f.game.um.get_unit(foreign_id); const colony = f.game.um.get_unit(f.unit_id);
+	turns.configure(f.game);
+	f.with_write(() => {
+		own.set_order('HOLD'); own.movement = 0.0; own.health = 0.5;
+		foreign.set_order('SENTRY'); foreign.movement = 0.0; foreign.health = 0.5; foreign.moved_this_turn = true;
+		colony.set_order('HOLD'); colony.movement = 0.0;
+	});
+	const own_next_health = own.health + own.get_def().health_per_turn;
+	const foreign_next_health = foreign.health + foreign.get_def().health_per_turn;
+	const seen = [];
+	f.game.um.on('unit_turn_ready', (e) => {
+		const unit = e.unit;
+		seen :+ [f.game.get_turn() + 0, unit.id + 0, unit.owner + 0, unit.movement + 0.0, unit.get_order(), unit.moved_this_turn == true];
+	});
+	f.with_write(() => { f.game.advance_turn(2); });
+	// Native setters may cache their input in one wrapper; reacquire actual
+	// manager observations after the native turn callbacks have run.
+	const own_after = f.unit(); const foreign_after = f.game.um.get_unit(foreign_id); const colony_after = f.game.um.get_unit(f.unit_id);
+	test.assert(own_after.health == own_next_health && foreign_after.health == 0.5, 'Only the unit that rested heals on the first advance');
+	test.assert(own_after.movement == 1.0 && foreign_after.movement == 1.0 && colony_after.movement == 1.0);
+	test.assert(own_after.get_order() == 'HOLD' && foreign_after.get_order() == 'SENTRY' && colony_after.get_order() == 'HOLD');
+	test.assert(!f.game.um.has_ready_unit(0) && !f.game.um.has_ready_unit(1));
+	test.assert(#sizeof(seen) == 3);
+	for (record of seen) { test.assert(record[0] == 2 && record[3] == 1.0 && record[5] == false); }
+	f.with_write(() => { f.game.advance_turn(3); });
+	const foreign_later = f.game.um.get_unit(foreign_id);
+	test.assert(foreign_later.health == foreign_next_health, 'The previous moved flag is cleared before the following turn');
+	test.assert(#sizeof(seen) == 6 && !f.unit().moved_this_turn && !foreign_later.moved_this_turn && !f.game.um.get_unit(f.unit_id).moved_this_turn);
+	f.with_write(() => { foreign.set_order('NO_ORDERS'); });
+	const before = capture(f);
+	test.assert(f.game.um.has_ready_unit(0) && !f.game.um.has_ready_unit(1));
+	unchanged(f, before);
+});

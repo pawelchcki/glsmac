@@ -65,3 +65,37 @@ behavior.scenario('Explicit pause is rechecked before completing, and removing U
 	test.assert(removed.game.get_turn() == 1, 'Removing the actual owner cancels its pending completion');
 	removed.f.retire(); removed.tick(); test.assert(removed.game.get_turn() == 0);
 });
+
+behavior.scenario('a newly ready native unit invalidates pending completion until its own accepted order', () => {
+	const f = make(); f.skip();
+	test.assert(#sizeof(f.view.timers) == 1 && f.game.get_turn() == 1);
+	let other = null;
+	f.f.with_write(() => {
+		const units = f.base.get_tile().get_units(); const initial = units[0];
+		const data = {def: initial.def, health: 1.0, morale: 2}; data.owner = f.game.get_player(); data.tile = f.base.get_tile();
+		other = f.game.um.spawn_unit(data);
+	});
+	f.tick(); f.f.process_events();
+	test.assert(f.game.get_turn() == 1 && f.game.get_um().has_ready_unit(0));
+	test.assert(f.view.running_timers() == 0, 'Readiness recheck retires the old callback without polling');
+	f.game.event('unit_skip_turn', {unit_id: other.id}); f.f.process_events();
+	test.assert(f.view.running_timers() == 1 && !f.game.get_um().has_ready_unit(0));
+	f.tick(); f.f.process_events();
+	test.assert(f.game.get_turn() == 2 && f.game.get_um().has_ready_unit(0));
+	f.tick(); f.f.process_events(); test.assert(f.game.get_turn() == 2);
+	f.view.root.remove();
+});
+
+behavior.scenario('manual completion before the pending callback cannot automatically complete the next turn', () => {
+	const f = make(); const counts = {complete: 0};
+	f.game.on('event_result', (e) => { if (e.name == 'complete_turn' && e.success) { counts.complete = counts.complete + 1; } });
+	f.skip(); test.assert(f.view.running_timers() == 1);
+	f.game.event('complete_turn', {}); f.f.process_events();
+	test.assert(f.game.get_turn() == 2 && counts.complete == 1 && f.game.get_um().has_ready_unit(0));
+	f.tick(); f.f.process_events();
+	test.assert(f.game.get_turn() == 2 && counts.complete == 1 && !f.game.is_turn_complete(0));
+	test.assert(f.view.running_timers() == 0);
+	f.skip(); f.tick(); f.f.process_events();
+	test.assert(f.game.get_turn() == 3 && counts.complete == 2, 'A fresh accepted order can arm the following turn normally');
+	f.view.root.remove();
+});
