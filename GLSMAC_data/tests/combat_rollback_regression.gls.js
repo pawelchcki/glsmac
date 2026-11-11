@@ -101,3 +101,81 @@ behavior.scenario('rollback between casualty callbacks restores only the complet
 	test.assert(f.state.spawned[0].id == 41 && f.state.spawned[0].health == 0.2, 'Completed casualty must restore its original state');
 	test.assert(f.event.data.defender.health == 0.1, 'Pending casualty must recover without respawning');
 });
+
+const native = #include('./_combat_native_fixture');
+const missing_unit = (f, id) => {
+	let missing = false;
+	try { f.game.um.get_unit(id); } catch { : (error) => { missing = true; } }
+	test.assert(missing, 'Completed native casualty must leave the actual unit manager');
+};
+const native_rollback = (attacker_dead, defender_dead, completed, orders) => {
+	const fixture = native.create(); const f = fixture.f;
+	const controller = native.event(fixture, []); const e = controller.event;
+	if (#is_defined(orders)) {
+		f.with_write(() => { e.data.attacker.set_order(orders[0]); e.data.defender.set_order(orders[1]); });
+	}
+	const context = native.context(f); const spectators = native.bystanders(f, fixture.attacker_id, fixture.defender_id);
+	const before = f.snapshot(); const tiles = native.tile_membership(f);
+	const attacker_before = native.unit_state(f, fixture.attacker_id); const defender_before = native.unit_state(f, fixture.defender_id);
+	test.assert(#sizeof(context.players) == 2 && #sizeof(spectators) == 3, 'Observe both actual owners, both Scouts and the original Colony Pod');
+	e.resolved = {sequence: [], attacker_dead: attacker_dead, defender_dead: defender_dead};
+	if (attacker_dead) { e.resolved.sequence :+ [false, 0.5]; }
+	if (defender_dead) { e.resolved.sequence :+ [true, 0.25]; }
+	if (!attacker_dead && !defender_dead) { e.resolved.sequence = [[true, 0.125], [false, 0.25]]; }
+	test.assert(!#is_defined(combat.validate(e)), 'The actual native combatants satisfy production validation before applying the supplied result');
+	f.with_write(() => { e.applied = combat.apply(e); });
+	test.assert(f.game.um.get_unit(fixture.attacker_id).movement == 0.0 && controller.state.events == []);
+	const count = completed == 'all' ? #sizeof(controller.state.animations) : #to_int(completed);
+	for (let index = 0; index < count; index++) {
+		const animation = controller.state.animations[index];
+		test.assert(animation.id == (index < #sizeof(e.resolved.sequence) ? 'ATTACK_PSI' : 'DEATH_PSI'));
+		f.with_write(() => { animation.oncomplete(); });
+		test.assert(native.context(f) == context, 'Every callback preserves both players, map, native random stream and allocation counters');
+		test.assert(native.bystanders(f, fixture.attacker_id, fixture.defender_id) == spectators);
+		test.assert(f.inspect().dangling_unit_updates == 0, 'Casualty delivery must not leave dangling native update pointers');
+	}
+	if (completed == 'all') {
+		if (attacker_dead) { missing_unit(f, fixture.attacker_id); }
+		if (defender_dead) { missing_unit(f, fixture.defender_id); }
+		test.assert(#sizeof(f.inspect().unit_ids) == 5 - (attacker_dead ? 1 : 0) - (defender_dead ? 1 : 0));
+	}
+	f.with_write(() => { combat.rollback(e); });
+	test.assert(controller.state.stopped == [71]);
+	test.assert(native.unit_state(f, fixture.attacker_id) == attacker_before && native.unit_state(f, fixture.defender_id) == defender_before,
+		'Undo restores both native combatants\' living health, morale, movement, moved flag and supported ordinary order');
+	test.assert(f.snapshot() == before && native.tile_membership(f) == tiles, 'Undo restores the exact native units, IDs and each map tile membership');
+	test.assert(native.context(f) == context && native.bystanders(f, fixture.attacker_id, fixture.defender_id) == spectators);
+	test.assert(f.inspect().dangling_unit_updates == 0);
+	test.assert(e.game.random.state.index == 0, 'Application of a resolved result and undo do not consume any random input');
+};
+for (deaths of [[true, false], [false, true], [true, true], [false, false]]) {
+	behavior.scenario('native casualty delivery and resurrection preserve both owners ' + #to_string(deaths), () => {
+		native_rollback(deaths[0], deaths[1], 'all');
+	});
+}
+for (orders of [['HOLD', 'SENTRY'], ['NO_ORDERS', 'HOLD'], ['SENTRY', 'NO_ORDERS']]) {
+	behavior.scenario('native casualty rollback restores accepted ordinary orders ' + #to_string(orders), () => {
+		native_rollback(true, true, 'all', orders);
+	});
+}
+for (completed of ['0', '1', '2', '3']) {
+	behavior.scenario('native mutual casualty rollback after callback ' + completed, () => {
+		native_rollback(true, true, completed);
+	});
+}
+let invalid_order_index = 0;
+for (order of [null, true, 0, 'TERRAFORM', 'AUTOMATE', 'UNRECOGNIZED']) {
+	behavior.scenario('invalid optional spawn order leaves the native world unchanged ' + #to_string(invalid_order_index), () => {
+		const fixture = native.create(); const f = fixture.f;
+		const e = {caller: 0}; e.game = f.game;
+		e.data = {type: 'Scout', tile: f.tile_at(0, 2), morale: 2, health: 1.0};
+		e.data.owner = f.owner; e.data.order = order;
+		const before = f.snapshot(); const context = native.context(f); const tiles = native.tile_membership(f); const inspect = f.inspect();
+		let rejected = false;
+		try { f.with_write(() => { spawn.apply(e); }); } catch { : (error) => { rejected = true; } }
+		test.assert(rejected, 'An unsupported optional ordinary order is rejected before native creation');
+		test.assert(f.snapshot() == before && native.context(f) == context && native.tile_membership(f) == tiles && f.inspect() == inspect,
+			'Refusal preserves native units, map memberships, both owners, RNG, allocation and pending updates');
+	});
+	invalid_order_index++;
+}
