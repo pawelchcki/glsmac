@@ -1,0 +1,67 @@
+name: Setup and configuration coverage
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/coverage-setup-configuration.yml'
+      - '.github/workflows/test-engine.yml'
+      - 'GLSMAC_data/tests/mainmenu_factions.gls.js'
+      - 'GLSMAC_data/tests/dimension_controls.gls.js'
+      - 'GLSMAC_data/tests/dimension_data.gls.js'
+      - 'GLSMAC_data/tests/world_size_menus.gls.js'
+      - 'GLSMAC_data/tests/map_size_keyboard.gls.js'
+      - 'GLSMAC_data/tests/_faction_controls_fixture.gls.js'
+      - 'GLSMAC_data/tests/_faction_text_fixture.gls.js'
+      - 'GLSMAC_data/tests/_dimension_text_fixture.gls.js'
+      - 'GLSMAC_data/tests/_ui_mocks.gls.js'
+      - 'GLSMAC_data/default/ui/parts/mainmenu/**'
+      - 'GLSMAC_data/default/smac_data.gls.js'
+      - 'GLSMAC_data/default/game/faction_setup.gls.js'
+      - 'GLSMAC_data/default/game/faction_identity.gls.js'
+      - 'GLSMAC_data/default/game/world_sizes.gls.js'
+      - 'GLSMAC_data/default/factions.gls.js'
+      - 'src/game/backend/State.cpp'
+      - 'src/game/backend/Player.cpp'
+      - 'src/game/backend/settings/**'
+      - 'src/game/backend/faction/**'
+      - 'src/gse/tests/mocks/ProductionFixture.cpp'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac'
+    uses: ./.github/workflows/test-engine.yml
+  coverage:
+    name: Faction launch and dimension setup transitions
+    needs: [engine]
+    if: github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Exercise participant launch, changed routes and source recovery
+        run: >-
+          python3 tools/behavior-tests/fast.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --suite menu-factions
+          --suite dimension-controls
+          --suite dimension-data
+          --suite world-size-menus
+          --suite map-size-keyboard
+          --jobs 2
+          --report build/setup-configuration-coverage/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: setup-configuration-coverage
+          path: build/setup-configuration-coverage

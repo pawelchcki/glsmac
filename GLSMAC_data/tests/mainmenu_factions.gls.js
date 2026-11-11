@@ -104,3 +104,65 @@ behavior.scenario('An impossible native map reports a recoverable setup error an
 	f.view.find('button', 'text', 'OK').emit('click', {});
 	const restored = f.view.live('input'); test.assert(#sizeof(restored) == 1 && restored[0].value == 'Retained Pilot');
 });
+
+const catalog_identities = (world) => {
+	const result = [];
+	for (faction of world.fm.list()) {
+		const row = {id: faction.id + '', identity: #clone(faction.identity)};
+		result :+ row;
+	}
+	return result;
+};
+for (profile of [
+	{preset: 'base', selected: 6, opponent: 2, replacement: 'DRONES', faction: 'PEACEKEEPERS', expected: ['PEACEKEEPERS', 'GAIANS', 'HIVE', 'DRONES', 'MORGANITES', 'SPARTANS', 'BELIEVERS']},
+	{preset: 'expansion', selected: 3, opponent: 1, replacement: 'MORGANITES', faction: 'ANGELS', expected: ['ANGELS', 'CONSCIOUSNESS', 'MORGANITES', 'DRONES', 'PLANETCULT', 'CARETAKERS', 'USURPERS']},
+]) {
+	behavior.scenario('actual ' + profile.preset + ' faction controls initialize every displayed native participant and retain catalog identities', () => {
+		const f = fixture.create(); const world = test.world_startup_fixture(40, 80);
+		// Supply the same synthetic installed header inputs through the backend's
+		// separate production identity consumer, before observing native copies.
+		const sources = #include('./_faction_text_fixture')('default');
+		const catalog_source = #include('../default/factions').source_catalog();
+		const identities = #include('../default/game/faction_identity').load(sources.glsmac, catalog_source);
+		#include('../default/factions').configure({
+			add: (id, data) => { data.identity = identities[id]; world.fm.add(id, data); }, import_colors: (name) => { return world.colors; },
+			import_base_names: (name) => { return {land: ['Synthetic City'], water: ['Synthetic Port']}; },
+		});
+		const catalog = catalog_identities(world); const before = f.native.snapshot(); const rules = f.native.rules_settings_snapshot('current');
+		const starts = {count: 0};
+		f.m.glsmac.start_game = (id, identity, participants) => {
+			starts.count = starts.count + 1;
+			world.game.get_settings().local.player_name = f.m.settings.local.player_name;
+			world.initialize_roster(id, participants, identity);
+		};
+		fixture.show(f.m); fixture.click(f, 'faction-preset-' + profile.preset, 0);
+		fixture.click(f, 'faction-dropdown', profile.opponent);
+		const choices = f.view.live('choicelist'); choices[0].emit('select', {value: profile.replacement});
+		fixture.click(f, 'faction-row', profile.selected);
+		f.view.find('button', 'text', 'OK').emit('click', {});
+		const field = fixture.name(f, 'Setup Commander'); field.emit('input', {});
+		const players = world.game.get_players();
+		test.assert(starts.count == 1 && #sizeof(players) == 7 && world.game.get_player().id == 0);
+		for (let index = 0; index < #sizeof(players); index++) {
+			const player = players[index]; const faction = player.get_faction();
+			test.assert(player.id == index && faction.id == profile.expected[index], 'The entire displayed roster reaches native initialization in its declared order');
+			test.assert(player.type == (index == 0 ? 'human' : 'computer') && player.is_ready());
+			test.assert(player.is_master == (index == 0));
+			let matched = false;
+			for (template of catalog) {
+				if (template.id == faction.id) {
+					matched = true;
+					const identity = #clone(template.identity);
+					if (index == 0) { identity[0] = 'Setup Commander'; }
+					test.assert(faction.identity == identity, 'Only the chosen human leader name changes; every opponent retains its template identity');
+				}
+			}
+			test.assert(matched, 'Every actual participant is observed against an independently copied catalog entry');
+		}
+		test.assert(players[0].name == 'Setup Commander' && players[0].get_faction().id == profile.faction);
+		test.assert(catalog_identities(world) == catalog && world.participant_codec_invariant());
+		test.assert(#sizeof(world.game.bm.get_bases()) == 0 && f.native.snapshot() == before && f.native.rules_settings_snapshot('current') == rules);
+		field.emit('input', {}); f.view.find('button', 'text', 'OK').emit('click', {});
+		test.assert(starts.count == 1 && #sizeof(world.game.get_players()) == 7, 'Already accepted setup controls cannot initialize a second participant roster');
+	});
+}
