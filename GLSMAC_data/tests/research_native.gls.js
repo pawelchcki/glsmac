@@ -1,6 +1,7 @@
 // Explicit isolated-human fixture: this suite covers bounded mechanics, not the production opponent roster.
 const behavior = #include('./_behavior');
 const fixture = #include('./_research_fixture');
+const observe_players = #include('./_economy_research_observation');
 const rejects = (callback) => {
 	let rejected = false; try { callback(); } catch { : (e) => { rejected = true; } }
 	test.assert(rejected);
@@ -132,4 +133,39 @@ behavior.scenario('same Game reset clears research and old receipts cannot roll 
 	f.with_write(() => { f.game.rollback_research(current_receipt); });
 	const rolled_back = f.game.get_research_state(0);
 	test.assert(rolled_back.target_id == 1 && rolled_back.priorities == [true, false, false, false]);
+});
+
+behavior.scenario('interleaved directed choices retain independent player receipts and complete roster state', () => {
+	const f = fixture(false); const before = observe_players(f.game); const world = f.snapshot(); const audit = f.base_snapshot();
+	test.assert(f.game.get_player().id == 0 && f.owner.id == 1 && #sizeof(f.game.get_players()) == 2);
+	const host = f.command('set_research_target', {target_id: 2}, 0);
+	const owner = f.command('set_research_target', {target_id: 1});
+	const expected = #clone(before); expected.players[0].selection.target_id = 2; expected.players[1].selection.target_id = 1;
+	test.assert(observe_players(f.game) == expected && f.snapshot() == world);
+	test.assert(host.applied.player_id == 0 && owner.applied.player_id == 1 && host.applied.token != owner.applied.token);
+	const wrong_player = #clone(host.applied); wrong_player.player_id = 1;
+	rejects(() => { f.with_write(() => { f.game.rollback_research(wrong_player); }); });
+	test.assert(observe_players(f.game) == expected);
+	f.with_write(() => { f.game.rollback_research(host.applied); });
+	expected.players[0] = #clone(before.players[0]);
+	test.assert(observe_players(f.game) == expected && f.snapshot() == world, 'Another player\'s newer request must not invalidate this player\'s receipt');
+	f.with_write(() => { f.game.rollback_research(owner.applied); });
+	test.assert(observe_players(f.game) == before && f.base_snapshot() == audit);
+});
+
+behavior.scenario('completing one player turn blocks only its research commands and preserves the other player receipt', () => {
+	const f = fixture(false);
+	const owner = f.command('set_research_target', {target_id: 1});
+	f.with_write(() => { f.game.complete_turn(f.owner.id); });
+	const completed = observe_players(f.game); const audit = f.base_snapshot();
+	rejects(() => { f.command('set_research_target', {target_id: 2}); });
+	test.assert(observe_players(f.game) == completed && f.base_snapshot() == audit);
+	const host = f.command('set_research_target', {target_id: 2}, 0);
+	const expected = #clone(completed); expected.players[0].selection.target_id = 2;
+	test.assert(observe_players(f.game) == expected, 'The unfinished host still selects its own target');
+	f.with_write(() => { f.game.rollback_research(host.applied); });
+	test.assert(observe_players(f.game) == completed && f.base_snapshot() == audit);
+	f.with_write(() => { f.game.rollback_research(owner.applied); });
+	const restored = #clone(completed); restored.players[1].selection.target_id = (0 - 1);
+	test.assert(observe_players(f.game) == restored);
 });
