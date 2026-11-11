@@ -164,8 +164,11 @@ alone does not establish correctness or game fidelity.
 - [ ] Generate scheduling from one catalog; use bounded, memory-aware sharding.
   Validate dependency-based selection against complete coverage before narrowing
   checks. The existing preparatory Stable selector is not an activated speedup.
-- [ ] Generate a small handoff record for current delivered main, task ownership,
+- [x] Generate a small handoff record for current delivered main, task ownership,
   dirty paths, runtime identity, last checks and remaining gaps.
+  [Session handoff](docs/session-handoff.md) records locally observed refs and
+  fingerprints; remote freshness, build provenance and current-head check
+  validity still require reconciliation before delivery.
 
 Acceptance: preserve the full coverage union, original-reference isolation,
 strict mismatches, failure artifacts and unsupported accounting. Target affected
