@@ -1,0 +1,65 @@
+name: Terrain and movement coverage
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/coverage-terrain-movement.yml'
+      - '.github/workflows/test-engine.yml'
+      - 'GLSMAC_data/tests/terraforming_primitives.gls.js'
+      - 'GLSMAC_data/tests/former_movement.gls.js'
+      - 'GLSMAC_data/tests/former_first_tick.gls.js'
+      - 'GLSMAC_data/tests/road_network.gls.js'
+      - 'GLSMAC_data/tests/_terrain_movement_observation.gls.js'
+      - 'GLSMAC_data/tests/_terraform_primitives_fixture.gls.js'
+      - 'GLSMAC_data/tests/_former*_fixture.gls.js'
+      - 'GLSMAC_data/tests/_road_network_fixture.gls.js'
+      - 'GLSMAC_data/default/game/terraforming*.gls.js'
+      - 'GLSMAC_data/default/game/movement*.gls.js'
+      - 'GLSMAC_data/default/game/event/unit_terraform.gls.js'
+      - 'GLSMAC_data/default/game/event/move_unit.gls.js'
+      - 'GLSMAC_data/default/units/turns.gls.js'
+      - 'src/game/backend/unit/**'
+      - 'src/game/backend/map/**'
+      - 'tools/behavior-tests/fast.py'
+      - 'tools/behavior-tests/catalog.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac'
+    uses: ./.github/workflows/test-engine.yml
+  focused:
+    name: Focused terrain work and movement
+    needs: [engine]
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require a successful engine producer
+        env:
+          TEST_ENGINE_RESULT: ${{ needs.engine.result }}
+          TEST_ENGINE_ARTIFACT: ''
+        run: python3 tools/behavior-tests/engine_gate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Exercise completed terrain work and movement lifecycle
+        run: >-
+          python3 tools/behavior-tests/fast.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --suite terraforming-primitives --suite former-movement
+          --suite former-first-tick --suite road-network --jobs 1
+          --report build/terrain-movement-artifacts/focused.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: terrain-movement-coverage
+          path: build/terrain-movement-artifacts

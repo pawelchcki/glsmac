@@ -93,3 +93,36 @@ behavior.scenario('a failed optional dimension definition leaves existing static
 	f.bundle.apply_dialog('TOPMENU', menu);
 	test.assert(menu.entries[0][0] == 'Start Game' && menu.entries[6][0] == 'Exit Game');
 });
+
+behavior.scenario('a repaired label source can complete a failed optional definition without reloading unrelated documents', () => {
+	const f = make('both'); const valid_labels = f.sources['labels.txt'];
+	f.sources['labels.txt'] = '#LABELS\n1\nIncomplete\n';
+	rejects(() => { f.bundle.dimension_dialog(); });
+	test.assert(#sizeof(f.loads) == 5);
+	f.sources['labels.txt'] = valid_labels;
+	const repaired = f.bundle.dimension_dialog();
+	test.assert(repaired == {caption: 'Core Dimensions', horizontal: 'Meridian', vertical: 'Parallel'});
+	test.assert(#sizeof(f.loads) == 6 && f.loads[5] == ['labels.txt', 'dialogs'], 'Retry reloads only the document whose optional definition did not complete');
+	f.sources['labels.txt'] = 'Changed after successful retry';
+	test.assert(f.bundle.dimension_dialog() == repaired && #sizeof(f.loads) == 6);
+	const menu = {entries: [['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g']]};
+	f.bundle.apply_dialog('TOPMENU', menu);
+	test.assert(menu.entries[0][0] == 'Start Game' && menu.entries[6][0] == 'Exit Game');
+});
+
+behavior.scenario('recreating the source bundle recovers an invalid cached common document without changing the prior menus', () => {
+	const f = make('default'); const valid_common = f.sources['script.txt'];
+	f.sources['script.txt'] = '#CUSTOMMAP\n#caption\n';
+	rejects(() => { f.bundle.dimension_dialog(); });
+	f.sources['script.txt'] = valid_common;
+	rejects(() => { f.bundle.dimension_dialog(); });
+	test.assert(#sizeof(f.loads) == 4, 'A controller keeps its parsed common document until the bundle is recreated');
+	const old_bundle = f.bundle;
+	f.reload();
+	test.assert(f.bundle.dimension_dialog() == {caption: 'Custom Map Size', horizontal: 'Horizontal', vertical: 'Vertical'});
+	test.assert(#sizeof(f.loads) == 9);
+	const old_menu = {entries: [['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g']]};
+	const new_menu = {entries: [['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g']]};
+	old_bundle.apply_dialog('TOPMENU', old_menu); f.bundle.apply_dialog('TOPMENU', new_menu);
+	test.assert(old_menu == new_menu && old_menu.entries[0][0] == 'Start Game');
+});

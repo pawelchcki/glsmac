@@ -1,0 +1,62 @@
+name: Base and research coverage
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/coverage-base-research.yml'
+      - '.github/workflows/test-engine.yml'
+      - 'GLSMAC_data/tests/_economy_research_observation.gls.js'
+      - 'GLSMAC_data/tests/_research_fixture.gls.js'
+      - 'GLSMAC_data/tests/_technology_rules_fixture.gls.js'
+      - 'GLSMAC_data/tests/research_native.gls.js'
+      - 'GLSMAC_data/tests/research_science.gls.js'
+      - 'GLSMAC_data/tests/production_switch_native.gls.js'
+      - 'GLSMAC_data/default/game/event/set_research_*.gls.js'
+      - 'GLSMAC_data/default/game/event/credit_research_income.gls.js'
+      - 'GLSMAC_data/default/game/event/set_base_production.gls.js'
+      - 'GLSMAC_data/default/game/event/process_base_production.gls.js'
+      - 'src/game/backend/Game.cpp'
+      - 'src/game/backend/GameResearch.cpp'
+      - 'src/game/backend/Player.cpp'
+      - 'src/game/backend/base/**'
+      - 'src/game/backend/technology/**'
+      - 'src/gse/tests/mocks/ProductionFixture.cpp'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac'
+    uses: ./.github/workflows/test-engine.yml
+  coverage:
+    name: Same-world base and research transitions
+    needs: [engine]
+    if: github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Exercise native ownership, income stamps and production undo
+        run: >-
+          python3 tools/behavior-tests/fast.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --suite research-native
+          --suite research-science
+          --suite production-switch-native
+          --jobs 2
+          --default-timeout 120
+          --report build/base-research-coverage/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: base-research-coverage
+          path: build/base-research-coverage
