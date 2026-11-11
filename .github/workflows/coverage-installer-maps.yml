@@ -1,0 +1,74 @@
+name: Installer and custom-map coverage
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/coverage-installer-maps.yml'
+      - '.github/workflows/test-engine.yml'
+      - 'tools/wasm-tests/installer-protocol.test.mjs'
+      - 'tools/wasm-tests/custom-maps.test.mjs'
+      - 'web/**'
+
+permissions:
+  contents: read
+
+jobs:
+  protocol:
+    name: Installer JavaScript protocol and cleanup
+    if: github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - run: mkdir -p tools/wasm-tests/build/artifacts
+      - run: >-
+          node --test
+          --test-reporter=spec --test-reporter-destination=stdout
+          --test-reporter=tap --test-reporter-destination=tools/wasm-tests/build/artifacts/installer-protocol.tap
+          tools/wasm-tests/installer-protocol.test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installer-protocol-coverage
+          path: tools/wasm-tests/build/artifacts/installer-protocol.tap
+          if-no-files-found: error
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac'
+    uses: ./.github/workflows/test-engine.yml
+  maps:
+    name: Custom-map browser persistence and recovery
+    needs: [engine]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+          cache: npm
+          cache-dependency-path: tools/wasm-tests/package-lock.json
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Stage current launcher files around the compiled engine
+        run: cp web/*.js web/index.html build/wasm/bin/
+      - run: npm --prefix tools/wasm-tests ci
+      - run: npx --prefix tools/wasm-tests playwright install --with-deps chromium
+      - run: mkdir -p tools/wasm-tests/build/artifacts
+      - name: Run synthetic maps through actual MEMFS, IDBFS and the launcher
+        env:
+          WASM_APP_DIR: ${{ github.workspace }}/build/wasm/bin
+        run: >-
+          node --test
+          --test-reporter=spec --test-reporter-destination=stdout
+          --test-reporter=tap --test-reporter-destination=tools/wasm-tests/build/artifacts/custom-maps.tap
+          tools/wasm-tests/custom-maps.test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installer-map-coverage
+          path: tools/wasm-tests/build/artifacts
+          if-no-files-found: error
