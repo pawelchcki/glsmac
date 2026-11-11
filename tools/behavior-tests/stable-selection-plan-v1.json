@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "inventory_sha256": "8d26131134066327df5b7b038dc5c9493031fccdf12e0fcb4445c3c47eb5b7f2",
+  "inventory_sha256": "15a1e79b194d8f7171048de69d094a2df17aa725c57c604d6766abbecf05197c",
   "hot_regression": [
     "aquifer-plan-reuse",
     "aquifer-routing",

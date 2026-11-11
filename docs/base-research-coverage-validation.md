@@ -86,3 +86,45 @@ uploads the report. This includes `production-switch-native`, which otherwise
 belongs to Stable. Existing Hot/Stable membership and original observations
 remain unchanged. No rendering, audio, AI research choice, network transport,
 or whole-game fidelity result is established by these scenarios.
+
+## Focused workflow configuration repair
+
+The first PR run (`43023516765`, job `130535090697`) used a newly built engine
+with loader SHA-256
+`0b655ba6e925eefb1e73a934c8ef568ae795c584a36980f151e750375b26d161`
+and WASM SHA-256
+`0392db9b42ee84ae3769493c620a85cb7cdd01e74b1d358a9b78b1223f9a9409`.
+It passed `research-native` and `production-switch-native`, but stopped
+`research-science` after 30 seconds. The raw job log and report artifact
+`13857275068` remain retained in `build/base-research-coverage`.
+
+The new focused workflow invoked `fast.py` directly without the CI fallback.
+The established lane dispatcher (`tools/behavior-tests/lanes.py:155`) always
+passes `--default-timeout 120` for regression CI; the standalone CLI falls back
+to 30 seconds (`tools/behavior-tests/fast.py:322`). The focused workflow now
+passes the same 120-second fallback. It does not pass `--timeout`, so any
+declared suite deadline retains precedence. No global or catalog deadline,
+worker count, test input, scenario name or assertion was changed.
+
+With the exact failing engine, Node 22.16 and two workers, the unchanged source
+reproduced the 30-second failure locally after all fifteen science bodies and
+96 assertions reached their summary, before required teardown completed.
+Temporary fixture-retirement and staged-collection experiments did not establish
+a reliable 30-second margin and were reverted; their reports are preserved
+separately. These unsuccessful attempts remain excluded from passing totals.
+
+The preparatory Stable selection plan's source fingerprint was refreshed for
+the added test files. Only `inventory_sha256` changes; `dependencies_reviewed`
+remains false, and coverage selections and original observations are unchanged.
+The selector and lane unit checks pass (39 tests).
+
+The final same-input replay, with the established fallback, passes all three
+suites: 54 scenarios and 295 assertions in 31.58 seconds; `research-science`
+takes 31.54 seconds. It uses the exact failing CI engine, Node 22.16, two workers
+and no explicit timeout override. The loader, WASM and frozen script hashes
+match the 30-second reproduction. The frozen script SHA-256 is
+`5c7379335b3f2d854c46d0daba6ec879ecde217b11a37094fc1a18a8097b559e`.
+Ordered scenario names and per-suite assertion counts also match the earlier
+passing local reports. No GSE bytes changed from coverage commit `db60da5a`.
+The final report is
+`build/base-research-coverage/node22-ci-engine-matching-policy.json`.

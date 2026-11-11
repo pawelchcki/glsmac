@@ -53,6 +53,7 @@ jobs:
           --suite research-science
           --suite production-switch-native
           --jobs 2
+          --default-timeout 120
           --report build/base-research-coverage/report.json
       - uses: actions/upload-artifact@v4
         if: always()
