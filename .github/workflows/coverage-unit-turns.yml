@@ -1,0 +1,61 @@
+name: Unit command and turn coverage
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/coverage-unit-turns.yml'
+      - '.github/workflows/test-engine.yml'
+      - 'GLSMAC_data/tests/unit_orders_*.gls.js'
+      - 'GLSMAC_data/tests/automatic_end_turn.gls.js'
+      - 'GLSMAC_data/tests/turn_playability.gls.js'
+      - 'GLSMAC_data/default/game/unit_orders.gls.js'
+      - 'GLSMAC_data/default/game/event/unit_*.gls.js'
+      - 'GLSMAC_data/default/ui/parts/game/auto_end_turn.gls.js'
+      - 'GLSMAC_data/default/units/turns.gls.js'
+      - 'src/game/backend/unit/**'
+      - 'src/game/backend/Game.cpp'
+      - 'scripts/game/unit-orders.ts'
+      - 'tools/behavior-tests/fast.py'
+      - 'tools/behavior-tests/catalog.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    if: github.repository == 'pawelchcki/wasmsmac'
+    uses: ./.github/workflows/test-engine.yml
+  focused:
+    name: Focused unit commands and turns
+    needs: [engine]
+    if: always() && github.repository == 'pawelchcki/wasmsmac'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require a successful engine producer
+        env:
+          TEST_ENGINE_RESULT: ${{ needs.engine.result }}
+          TEST_ENGINE_ARTIFACT: ''
+        run: python3 tools/behavior-tests/engine_gate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16'
+      - uses: actions/download-artifact@v4
+        with:
+          name: behavior-engine
+          path: build/wasm/bin
+      - name: Exercise authoritative commands and owned turn callbacks
+        run: >-
+          python3 tools/behavior-tests/fast.py
+          --runtime build/wasm/bin/GLSMAC.js
+          --suite unit-orders-events --suite unit-orders-native
+          --suite unit-orders-controls --suite turn-playability
+          --suite automatic-end-turn --jobs 1
+          --report build/unit-turn-artifacts/focused.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-command-turn-coverage
+          path: build/unit-turn-artifacts
