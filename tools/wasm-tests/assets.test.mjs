@@ -545,3 +545,214 @@ test('direct file imports work and clearing stored assets survives reload', { ti
   assert.deepEqual(await page.evaluate(() => store.list()), []);
   assert.equal(await page.evaluate(() => wasm.FS.analyzePath('/smac/direct.bin').exists), false);
 });
+
+test('source changes and clearing during a download preserve both the active and saved selection', { timeout: 30000 }, async (t) => {
+  const page = await fixturePage(t);
+  const current = remote('pending-current', { 'shared.bin': 'current download' });
+  const saved = remote('pending-saved', { 'shared.bin': 'saved alternative' });
+  const fresh = remote('pending-fresh', { 'shared.bin': 'new alternative' });
+  await page.evaluate(async ({ current, saved }) => {
+    await store.useRemote(saved);
+    await store.useRemote(current);
+  }, { current: current.url, saved: saved.url });
+
+  let release;
+  let received;
+  const held = new Promise((resolve) => { release = resolve; });
+  const started = new Promise((resolve) => { received = resolve; });
+  await page.route('**/pending-current/shared.bin', async (route) => {
+    received();
+    await held;
+    await route.continue();
+  });
+  try {
+    await page.evaluate(() => {
+      window.downloading = store.ensureFile('/smac/shared.bin');
+    });
+    await started;
+    const attempts = await page.evaluate(async ({ savedID, freshURL }) => {
+      const results = [];
+      for (const change of [
+        () => store.restore(savedID),
+        () => store.useRemote(freshURL),
+        () => store.importFiles([new File(['local alternative'], 'shared.bin')]),
+        () => store.clear(savedID),
+        () => store.clear(),
+      ]) {
+        let failure;
+        try { await change(); } catch (error) { failure = error.message; }
+        results.push({
+          failure,
+          current: store.current.id,
+          selected: await store.operation('settings', 'readonly', (files) => files.get('selected')),
+          datasets: (await store.list()).map((record) => record.id).sort(),
+          pending: store.pending.size,
+        });
+      }
+      return results;
+    }, { savedID: saved.manifest.id, freshURL: fresh.url });
+    for (const attempt of attempts) {
+      assert.match(attempt.failure, /Wait for asset downloads to finish/);
+      assert.equal(attempt.current, current.manifest.id);
+      assert.equal(attempt.selected, current.manifest.id, 'Rejected source changes cannot change the next startup');
+      assert.deepEqual(attempt.datasets, [current.manifest.id, saved.manifest.id].sort(),
+        'Rejected source changes cannot publish an unused installation');
+      assert.equal(attempt.pending, 1);
+    }
+  } finally {
+    release();
+    await page.evaluate(() => window.downloading);
+  }
+  assert.deepEqual(await readAsset(page, 'shared.bin'), [...Buffer.from('current download')]);
+  await page.reload();
+  await boot(page);
+  await page.evaluate(async () => {
+    await store.restore();
+    await store.ensureFile('/smac/shared.bin');
+  });
+  assert.equal(await page.evaluate(() => store.current.id), current.manifest.id);
+  assert.equal(requestCount('/pending-current/shared.bin'), 1);
+  assert.deepEqual(await readAsset(page, 'shared.bin'), [...Buffer.from('current download')]);
+});
+
+test('clearing an inactive dataset preserves the active mount and its offline restart', { timeout: 30000 }, async (t) => {
+  const page = await fixturePage(t);
+  const inactive = remote('delete-inactive', { 'fx/shared.bin': 'inactive contents' });
+  const active = remote('delete-active', { 'fx/shared.bin': 'active contents' });
+  await page.evaluate(async ({ inactive, active }) => {
+    for (const url of [inactive, active]) {
+      await store.useRemote(url);
+      await store.ensureFile('/smac/fx/shared.bin');
+    }
+  }, { inactive: inactive.url, active: active.url });
+  const result = await page.evaluate(async (id) => {
+    await store.clear(id);
+    return {
+      current: store.current.id,
+      selected: await store.operation('settings', 'readonly', (files) => files.get('selected')),
+      datasets: (await store.list()).map((record) => record.id),
+      cached: (await store.operation('assets', 'readonly', (files) => files.getAll()))
+        .map((record) => ({ key: record.key, dataset: record.dataset })),
+      loaded: [...store.loaded],
+    };
+  }, inactive.manifest.id);
+  assert.equal(result.current, active.manifest.id);
+  assert.equal(result.selected, active.manifest.id);
+  assert.deepEqual(result.datasets, [active.manifest.id]);
+  assert.deepEqual(result.cached, [{ key: `${active.manifest.id}\0fx/shared.bin`, dataset: active.manifest.id }]);
+  assert.deepEqual(result.loaded, ['fx/shared.bin']);
+  assert.deepEqual(await readAsset(page, 'fx/shared.bin'), [...Buffer.from('active contents')]);
+
+  await page.reload();
+  await boot(page);
+  await page.context().setOffline(true);
+  await page.evaluate(async () => {
+    await store.restore();
+    await store.ensureFile('/smac/fx/shared.bin');
+  });
+  assert.deepEqual(await readAsset(page, 'fx/shared.bin'), [...Buffer.from('active contents')]);
+  assert.equal(requestCount('/delete-active/fx/shared.bin'), 1);
+  assert.equal(await page.evaluate((id) => store.restore(id), inactive.manifest.id), false);
+  assert.equal(await page.evaluate(() => store.current.id), active.manifest.id);
+});
+
+test('clearing the selected dataset removes its mount while another saved source remains restorable', { timeout: 30000 }, async (t) => {
+  const page = await fixturePage(t);
+  const retained = remote('delete-retained', { 'nested/retained.bin': 'keep these bytes' });
+  const selected = remote('delete-selected', { 'nested/removed.bin': 'remove these bytes' });
+  await page.evaluate(async ({ retained, selected }) => {
+    await store.useRemote(retained);
+    await store.ensureFile('/smac/nested/retained.bin');
+    await store.useRemote(selected);
+    await store.ensureFile('/smac/nested/removed.bin');
+  }, { retained: retained.url, selected: selected.url });
+  const result = await page.evaluate(async (id) => {
+    await store.clear(id);
+    return {
+      current: store.current,
+      selected: await store.operation('settings', 'readonly', (files) => files.get('selected')),
+      datasets: (await store.list()).map((record) => record.id),
+      mount: wasm.FS.readdir('/smac'),
+      entries: store.entries.size,
+      loaded: store.loaded.size,
+    };
+  }, selected.manifest.id);
+  assert.equal(result.current, null);
+  assert.equal(result.selected, undefined);
+  assert.deepEqual(result.datasets, [retained.manifest.id]);
+  assert.deepEqual(result.mount, ['.', '..']);
+  assert.equal(result.entries, 0);
+  assert.equal(result.loaded, 0);
+
+  await page.reload();
+  await boot(page);
+  assert.equal(await page.evaluate(() => store.restore()), false, 'Deleted selection does not return after reload');
+  await page.context().setOffline(true);
+  await page.evaluate(async (id) => {
+    await store.restore(id);
+    await store.ensureFile('/smac/nested/retained.bin');
+  }, retained.manifest.id);
+  assert.deepEqual(await readAsset(page, 'nested/retained.bin'), [...Buffer.from('keep these bytes')]);
+  assert.equal(requestCount('/delete-retained/nested/retained.bin'), 1);
+});
+
+test('a damaged remote cache entry is replaced with verified hosted bytes after reload', { timeout: 30000 }, async (t) => {
+  const page = await fixturePage(t);
+  const source = remote('damaged-cache', { 'checked.bin': 'original verified bytes' });
+  await page.evaluate(async (url) => {
+    await store.useRemote(url);
+    await store.ensureFile('/smac/checked.bin');
+    const id = store.current.id;
+    await store.operation('assets', 'readwrite', (files) => files.put({
+      // Same length as the original: recovery must check the cached hash.
+      key: `${id}\0checked.bin`, dataset: id, blob: new Blob(['original verified bytez']),
+    }));
+  }, source.url);
+  await page.reload();
+  await boot(page);
+  const cached = await page.evaluate(async () => {
+    await store.restore();
+    await store.ensureFile('/smac/checked.bin');
+    const key = `${store.current.id}\0checked.bin`;
+    const record = await store.operation('assets', 'readonly', (files) => files.get(key));
+    return { text: await record.blob.text(), pending: store.pending.size };
+  });
+  assert.deepEqual(cached, { text: 'original verified bytes', pending: 0 });
+  assert.deepEqual(await readAsset(page, 'checked.bin'), [...Buffer.from('original verified bytes')]);
+  assert.equal(requestCount('/damaged-cache/checked.bin'), 2, 'Invalid persistent bytes must be fetched again');
+});
+
+test('a missing local blob reports reselection and recovers without losing the saved source', { timeout: 30000 }, async (t) => {
+  const page = await fixturePage(t);
+  const id = await page.evaluate(async () => {
+    await store.importFiles([new File(['local contents'], 'local.bin', { lastModified: 1000 })]);
+    const id = store.current.id;
+    await store.operation('assets', 'readwrite', (files) => files.delete(`${id}\0local.bin`));
+    return id;
+  });
+  await page.reload();
+  await boot(page);
+  const failed = await page.evaluate(async () => {
+    await store.restore();
+    let error;
+    try { await store.ensureFile('/smac/local.bin'); } catch (failure) { error = failure.message; }
+    return {
+      error, current: store.current.id, pending: store.pending.size, loaded: store.loaded.size,
+      datasets: (await store.list()).map((record) => record.id),
+      bodyLength: wasm.FS.lookupPath('/smac/local.bin').node.contents?.byteLength || 0,
+    };
+  });
+  assert.match(failed.error, /Saved asset is unavailable; reselect your game folder: local.bin/);
+  assert.equal(failed.current, id);
+  assert.equal(failed.pending, 0);
+  assert.equal(failed.loaded, 0);
+  assert.equal(failed.bodyLength, 0);
+  assert.deepEqual(failed.datasets, [id]);
+  await page.evaluate(async () => {
+    await store.importFiles([new File(['local contents'], 'local.bin', { lastModified: 1000 })]);
+    await store.ensureFile('/smac/local.bin');
+  });
+  assert.equal(await page.evaluate(() => store.current.id), id);
+  assert.deepEqual(await readAsset(page, 'local.bin'), [...Buffer.from('local contents')]);
+  assert.deepEqual(await page.evaluate(() => store.list().then((records) => records.map((record) => record.id))), [id]);
+});
