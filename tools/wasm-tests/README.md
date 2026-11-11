@@ -36,11 +36,27 @@ git clone --depth 1 --branch 4.0.22 https://github.com/emscripten-core/emsdk.git
 /tmp/glsmac-emsdk/emsdk install 4.0.22
 /tmp/glsmac-emsdk/emsdk activate 4.0.22
 source /tmp/glsmac-emsdk/emsdk_env.sh
+python3 tools/prepare-emscripten.py
 ```
 
 Choose a persistent SDK directory instead of `/tmp/glsmac-emsdk` if desired.
 Activate its `emsdk_env.sh` in each new shell. Alternatively, set `EMXX` to the
 absolute path of its `upstream/emscripten/em++` executable.
+
+Run the preparation command from the repository root before compiling. It applies
+the two notification-order changes from upstream Emscripten commit
+[`f3fef05b`](https://github.com/emscripten-core/emscripten/commit/f3fef05bf5d63df33ed21eb067b86d827c546bfa)
+to 4.0.22 and clears that SDK's configured cache under its build lock. Stop other
+builds using the SDK first. Existing applications must be relinked; preparation
+does not change already linked WASM. A repeated preparation preserves the cache.
+Other SDK versions and locally modified source are rejected for reassessment.
+The CI engine cache includes the preparation script in its key.
+
+`npm --prefix tools/wasm-tests run test:proxy-context` checks the real SDK's
+synchronous completion path with a controlled two-thread handoff. It fails on
+unmodified 4.0.22 and passes after preparation. This is also included in `npm
+--prefix tools/wasm-tests test`. Set `EMCC` alongside `EMXX` when the compiler is
+not on `PATH`. See [validation and limitations](../../docs/emscripten-completion-validation.md).
 
 Linux needs the EGL/GLES runtime libraries and Mesa software drivers. For example:
 
