@@ -123,7 +123,10 @@ def capture(root, base_ref, owner, task, next_action, runtimes=(), reports=(), g
 
 def write_record(output, record):
     output = Path(output).absolute()
-    root = Path(record["worktree"])
+    # Resolve the parent so aliases and '..' cannot hide an in-checkout target.
+    # Preserve the final component: os.replace replaces a symlink, not its target.
+    output = output.parent.resolve() / output.name
+    root = Path(record["worktree"]).resolve()
     if output.is_relative_to(root):
         # Never replace product sources or create a self-dirtying record.
         relative = output.relative_to(root).as_posix()

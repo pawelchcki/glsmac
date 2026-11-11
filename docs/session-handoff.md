@@ -13,7 +13,8 @@ python3 tools/handoff.py --owner codex --task 'unit-order migration' \
 
 The default output is ignored `build/handoff.json`. Supply `--output` to retain
 several sessions outside the checkout or in an ignored directory. The tool
-refuses tracked and nonignored in-checkout outputs and selected input files.
+refuses tracked and nonignored in-checkout outputs (including parent-directory
+symlink and `..` aliases) and selected input files.
 Ownership, task, next action and additional gaps are supplied by the caller.
 `--runtime`, `--check-report` and `--gap` can be repeated; omit them when no local
 runtime or check evidence exists. An explicitly supplied missing file fails the

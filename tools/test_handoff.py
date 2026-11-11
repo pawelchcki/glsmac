@@ -156,6 +156,22 @@ class HandoffTests(unittest.TestCase):
             handoff.write_record(runtime, record)
         self.assertEqual(runtime.read_text(), "engine")
 
+    def test_output_aliases_cannot_replace_sources(self):
+        record = self.capture()
+        original = (self.root / "ROADMAP.md").read_bytes()
+        with tempfile.TemporaryDirectory() as directory:
+            alias = Path(directory) / "checkout"
+            alias.symlink_to(self.root, target_is_directory=True)
+            paths = [
+                alias / "ROADMAP.md",
+                Path(directory) / ".." / self.root.name / "ROADMAP.md",
+            ]
+            for output in paths:
+                with self.subTest(output=output):
+                    with self.assertRaises(subprocess.CalledProcessError):
+                        handoff.write_record(output, record)
+                    self.assertEqual((self.root / "ROADMAP.md").read_bytes(), original)
+
 
 if __name__ == "__main__":
     unittest.main()
