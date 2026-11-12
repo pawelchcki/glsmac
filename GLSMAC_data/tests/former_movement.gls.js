@@ -110,3 +110,31 @@ behavior.scenario('work cannot start before the pending native move unlocks its 
 	f.finish_unit_move(f.former.id);
 	test.assert(!#is_defined(work.validate(e)) && f.current_unit().get_tile().x == 0);
 });
+
+const observe_world = #include('./_terrain_movement_observation');
+behavior.scenario('moving cancelled location-bound work discards its credit and movement undo restores the retained job', () => {
+	const f = fixture(); f.command('farm'); f.command('cancel_work'); f.advance();
+	const before = observe_world(f); const work_before = f.current_unit().get_terraforming();
+	test.assert(work_before.work_units == 2 && !work_before.active && work_before.tile_x == 2 && f.current_unit().movement == 1.0);
+	const moved = f.move(0); const after = observe_world(f); const current = f.current_unit();
+	test.assert(current.get_tile().x == 0 && current.get_terraforming().work_units == 0 && current.get_terraforming().action == '');
+	test.assert(current.get_order() == 'NO_ORDERS' && after.terrain == before.terrain && after.players == before.players, 'Relocation abandons only the location-bound work, without changing terrain or either player');
+	f.with_write(() => { move.rollback(moved); }); f.finish_unit_move(f.former.id);
+	test.assert(observe_world(f) == before, 'Movement undo restores the complete original cancelled job and movement budget');
+	const resumed = f.command('farm');
+	test.assert(f.current_unit().get_terraforming().work_units == 4 && f.current_unit().get_terraforming().tile_x == 2);
+	f.with_write(() => { work.rollback(resumed); }); test.assert(observe_world(f) == before);
+});
+
+behavior.scenario('movement undo preserves a later independent road edit and restores the quoted original budget', () => {
+	const f = fixture(); const before = observe_world(f); const tm = f.game.tm;
+	const moved = f.move(0); const flags = tm.get_terraforming(2,2); flags.road = false;
+	let terrain_receipt = 0; f.with_write(() => { terrain_receipt = tm.apply_terrain([{x:2,y:2,terraforming:flags}],[]); });
+	const changed_terrain = f.terrain_snapshot();
+	f.with_write(() => { move.rollback(moved); }); f.finish_unit_move(f.former.id);
+	const restored = observe_world(f);
+	test.assert(restored.native == before.native && restored.units == before.units && restored.players == before.players);
+	test.assert(restored.terrain == changed_terrain && !tm.get_terraforming(2,2).road && f.current_unit().movement == 1.0, 'Undo does not charge the new unconnected-road cost or erase the independent terrain change');
+	f.with_write(() => { tm.rollback_terrain(terrain_receipt); });
+	test.assert(observe_world(f) == before);
+});

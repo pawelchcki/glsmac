@@ -2,16 +2,23 @@ const MIN_DAMAGE_VALUE = 0.1;
 const MAX_DAMAGE_VALUE = 0.3;
 
 const get_spawn_descriptor = (unit) => {
-	return {
+	const descriptor = {
 		id: unit.id,
 		type: unit.get_def().id,
 		owner: unit.owner,
 		tile: unit.get_tile(),
-		morale: unit.morale,
-		health: unit.health,
-		movement: unit.movement,
-		moved_this_turn: unit.moved_this_turn,
+		// Mutable native properties are pointer-backed. Detach living values
+		// before damage or despawning changes their targets.
+		morale: unit.morale + 0,
+		health: unit.health + 0.0,
+		movement: unit.movement + 0.0,
+		moved_this_turn: unit.moved_this_turn == true,
 	};
+	const order = unit.get_order();
+	// Ordinary orders need no additional work/automation payload. Those
+	// separate lifecycles are not reconstructed by this casualty descriptor.
+	if (order == 'NO_ORDERS' || order == 'HOLD' || order == 'SENTRY') { descriptor.order = order; }
+	return descriptor;
 };
 
 const is_psi = (unit) => {
@@ -149,9 +156,9 @@ return {
 
 		let applied = {
 			backup: {
-				attacker_health: attacker.health,
-				defender_health: defender.health,
-				attacker_movement: attacker.movement,
+				attacker_health: attacker.health + 0.0,
+				defender_health: defender.health + 0.0,
+				attacker_movement: attacker.movement + 0.0,
 			},
 		};
 

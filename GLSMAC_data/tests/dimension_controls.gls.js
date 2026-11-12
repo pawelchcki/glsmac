@@ -119,3 +119,35 @@ behavior.scenario('bad optional source data rejects before creating a partial po
 	test.assert(failed && #sizeof(f.view.live('window')) == 1 && #sizeof(f.view.live('input')) == 0);
 	test.assert(f.native.map_settings_snapshot('current') == before && #sizeof(f.state.routes) == 0);
 });
+
+for (opening_route of ['random', 'custom']) {
+	behavior.scenario('dimension submission follows the current generated route after opening on ' + opening_route, () => {
+		const f = fixture(opening_route, 'default'); f.open();
+		const map = f.m.settings.global.map; const alias = f.native.game.get_settings().global.map;
+		const route = opening_route == 'random' ? 'custom' : 'random';
+		const rules = f.native.rules_settings_snapshot('current'); const world = f.native.snapshot(); const updates = f.native.update_count();
+		map.type = route; map.filename = 'Retained Setup.GSM'; map.ocean_coverage = 0.4; map.cloud_cover = 0.75;
+		const old_field = f.fields[0];
+		f.fields[0].value = '31'; f.fields[1].value = '25'; old_field.emit('input', {});
+		test.assert(alias.type == route && alias.size_x == 62 && alias.size_y == 25 && alias.preset_level == 99);
+		test.assert(alias.filename == 'Retained Setup.GSM' && alias.ocean_coverage == 0.4 && alias.cloud_cover == 0.75);
+		test.assert(f.state.routes == [route == 'random' ? 'difficulty' : 'ocean'], 'A live route change determines the next setup question');
+		test.assert(f.native.rules_settings_snapshot('current') == rules && f.native.snapshot() == world && f.native.update_count() == updates);
+		const committed = f.native.map_settings_snapshot('current');
+		test.assert(!old_field.emit('input', {}));
+		test.assert(f.native.map_settings_snapshot('current') == committed && #sizeof(f.state.routes) == 1);
+	});
+}
+
+behavior.scenario('an imported map arriving during the large-size warning is preserved when its response is delivered', () => {
+	const f = fixture('random', 'default'); f.open();
+	f.fields[0].value = '129'; f.fields[1].value = '80'; f.fields[0].emit('input', {});
+	test.assert(f.state.routes == [] && #sizeof(f.view.live('input')) == 0);
+	test.assert(f.view.find('window', 'title', 'Warning!').title == 'Warning!');
+	const map = f.native.game.get_settings().global.map; map.type = 'mapfile'; map.filename = 'Later Import.GSM';
+	const before = f.native.map_settings_snapshot('current'); const rules = f.native.rules_settings_snapshot('current'); const world = f.native.snapshot();
+	f.view.find('button', 'text', 'OK').emit('click', {});
+	test.assert(f.native.map_settings_snapshot('current') == before && f.state.routes == [], 'The warning cannot replace or advance a newer imported-map selection');
+	test.assert(f.native.rules_settings_snapshot('current') == rules && f.native.snapshot() == world);
+	test.assert(#sizeof(f.view.live('input')) == 0 && #sizeof(f.view.live('window')) == 1);
+});

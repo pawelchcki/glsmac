@@ -147,3 +147,71 @@ behavior.scenario('installed Skunkworks explicitly rejects active switching', ()
 	rejected(() => { f.with_write(() => { base.select_production('RECYCLING_TANKS'); }); });
 	test.assert(f.snapshot() == before);
 });
+
+const same_world = () => {
+	const f = fixture(); f.enable_economy();
+	const host = f.game.get_player();
+	f.with_write(() => {
+		host.add_production_choice('RECYCLING_TANKS', {type: 'facility', id: 'RECYCLING_TANKS'});
+		f.neighbor = f.game.bm.spawn_base(f.owner, f.tile_at(0, 2), {name: 'Owner Second City', facilities: []});
+		f.foreign = f.game.bm.spawn_base(host, f.tile_at(2, 0), {name: 'Host City', facilities: []});
+		f.base.select_production('RECYCLING_TANKS');
+		f.neighbor.select_production('RECYCLING_TANKS');
+		f.foreign.select_production('RECYCLING_TANKS');
+	});
+	f.set_turn(2);
+	f.with_write(() => {
+		f.base.process_production(2, 21); f.neighbor.process_production(2, 13); f.foreign.process_production(2, 9);
+	});
+	f.set_turn(3);
+	return f;
+};
+const observe_cities = (f) => {
+	const cities = [];
+	for (base of f.game.bm.get_bases()) {
+		const row = {id: base.id, owner: base.get_owner().id, production: base.get_production(), facilities: base.get_facilities(), size: base.get_size()};
+		cities :+ row;
+	}
+	const players = [];
+	for (player of f.game.get_players()) {
+		const row = {id: player.id, energy: player.get_energy_state(), choices: player.get_production_choices()};
+		players :+ row;
+	}
+	return {cities: cities, players: players, units: f.inspect().unit_ids, next_ids: f.next_ids()};
+};
+
+behavior.scenario('same-world active switching and rollback isolate another owned city and a foreign city', () => {
+	const f = same_world(); const before = observe_cities(f); const audit = f.snapshot();
+	test.assert(#sizeof(before.cities) == 3 && #sizeof(before.players) == 2 && f.foreign.get_owner().id == 0 && f.neighbor.get_owner().id == f.owner.id);
+	const e = {caller: f.owner.id, data: {choice_id: 'COLONY_POD'}}; e.game = f.game; e.data.base = f.base;
+	test.assert(!#is_defined(select_event.validate(e)));
+	f.with_write(() => { e.applied = select_event.apply(e); });
+	const expected = #clone(before);
+	for (city of expected.cities) {
+		if (city.id == f.base.id) { city.production = {choice_id: 'COLONY_POD', minerals: 15, last_processed_turn: 3}; }
+	}
+	test.assert(observe_cities(f) == expected, 'Switching one native base must preserve every other city, player registry, unit and allocation counter');
+	f.with_write(() => { select_event.rollback(e); });
+	test.assert(observe_cities(f) == before && f.snapshot() == audit);
+	const foreign = {caller: f.owner.id, data: {choice_id: 'RECYCLING_TANKS'}}; foreign.game = f.game; foreign.data.base = f.foreign;
+	test.assert(select_event.validate(foreign) == 'Only base owner can select production');
+	test.assert(observe_cities(f) == before && f.snapshot() == audit);
+});
+
+behavior.scenario('same-world facility completion and undo retain other cities progress and ownership', () => {
+	const f = same_world(); const before = observe_cities(f); const audit = f.snapshot();
+	let applied = null;
+	f.with_write(() => { applied = f.foreign.process_production(3, 24); });
+	const expected = #clone(before);
+	for (city of expected.cities) {
+		if (city.id == f.foreign.id) {
+			city.production = {choice_id: '', minerals: 1, last_processed_turn: 3};
+			city.facilities = {RECYCLING_TANKS: {name: 'Recycling Tanks', description: 'Synthetic facility', cost: 32}};
+		}
+	}
+	test.assert(applied.added_facility == 'RECYCLING_TANKS' && f.foreign.get_owner().id == 0);
+	const completed = observe_cities(f);
+	test.assert(completed == expected, 'A host-owned completion must leave both other owner cities at their separate mineral stores; actual=' + #to_string(completed) + '; expected=' + #to_string(expected));
+	f.with_write(() => { f.foreign.restore_production(applied.previous, applied.added_facility); });
+	test.assert(observe_cities(f) == before && f.snapshot() == audit);
+});
